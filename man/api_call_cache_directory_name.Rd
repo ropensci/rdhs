@@ -2,10 +2,10 @@
 % Please edit documentation in R/cache.R
 \name{api_call_cache_directory_name}
 \alias{api_call_cache_directory_name}
-\title{directory name for where api calls are cached between sessions}
+\title{directory name for where calls are cached between sessions}
 \usage{
 api_call_cache_directory_name()
 }
 \description{
-directory name for where api calls are cached between sessions
+directory name for where calls are cached between sessions
 }

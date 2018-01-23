@@ -2,10 +2,10 @@
 % Please edit documentation in R/cache.R
 \name{get_cached_dhs_client}
 \alias{get_cached_dhs_client}
-\title{Get DHS api client from cache}
+\title{DHS client from cache}
 \usage{
 get_cached_dhs_client()
 }
 \description{
-Get DHS api client from cache
+DHS client from cache
 }

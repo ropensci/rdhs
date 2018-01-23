@@ -7,6 +7,8 @@
 dhs_api_client(api_key = NULL, ...)
 }
 \arguments{
+\item{api_key}{Character for DHS API KEY}
+
 \item{...}{Passed to \code{dhs_client}}
 }
 \description{

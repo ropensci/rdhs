@@ -22,4 +22,9 @@ response_is_json <- function(x) {
   dat$type == "application" && dat$subtype == "json"
 }
 
-
+#' unzips files without throwing warnings
+unzip_warn_fails <- function (...){
+  tryCatch({
+    unzip(...)
+  }, warning = function(w) stop(conditionMessage(w)))
+}

@@ -2,6 +2,8 @@
 ##' Make a DHS API client
 ##'
 ##' @title Make a dhs client
+##'
+##' @param api_key Character for DHS API KEY
 ##' @param ... Passed to \code{dhs_client}
 ##' @export
 dhs_api_client <- function(api_key=NULL,...) {
@@ -9,7 +11,7 @@ dhs_api_client <- function(api_key=NULL,...) {
   # check rdhs against api last update time
   if(dhs_last_update() > dhs_cache_date()){
 
-    return(R6_dhs_api_client$new(api_key,...))
+    return(R6_dhs_client$new(api_key,...))
 
     # if no api updates have occurred then get the cached api client
   } else {
@@ -19,7 +21,7 @@ dhs_api_client <- function(api_key=NULL,...) {
   }
 }
 
-R6_dhs_api_client <- R6::R6Class(
+R6_dhs_client <- R6::R6Class(
 
   classname = "dhs_client",
   cloneable = FALSE,
@@ -27,22 +29,23 @@ R6_dhs_api_client <- R6::R6Class(
   # public methods
   public = list(
 
+
     initialize = function(api_key = NULL){
       private$api_key <- api_key
-      saveRDS(self,cached_dhs_client_path())
+      saveRDS(self,dhs_client_path())
     },
 
     #' will either return your request as a parsed json (having cached the result), or will return an error
     dhs_api_request = function(indicators,
                                api_key = private$api_key,
-                               to_json = private$defaults$response_format){
+                               to_json = (private$defaults$response_format=="json")){
 
       # create RESTful url request
-      url <- paste0(private$url, paste(indicators,collapse = ","))
+      url <- paste0(BASE_URL, paste(indicators,collapse = ","))
 
       # first check against cache
-      R.cache::setCacheRootPath(rdhs:::dhs_api_call_cache_dir_path())
-      out <- suppressWarnings(R.cache::loadCache(key=list(url)))
+      out <- tryCatch(private$storr$get(url,"api_calls"),
+                      KeyError = function(e) NULL)
 
       # check out agianst cache, if fine then return just that
       if(!is.null(out)){ return(out) } else {
@@ -51,14 +54,15 @@ R6_dhs_api_client <- R6::R6Class(
         resp <- httr::GET(url,httr::accept_json(),encode = "json")
 
         ## pass to response parse
-        parsed_resp <- dhs_client_response(resp,to_json=="json")
+        parsed_resp <- dhs_client_response(resp,to_json)
         if(resp$status_code >= 400 && resp$status_code < 600){
           return(parsed_resp)
         }
 
-        ## then cache the resp if we haven't stopped already and return the resp
-        cacheFilePath <- R.cache::saveCache(parsed_resp,key=list(url))
+        # put some message or return to let the user know if the data returned is empty
 
+        ## then cache the resp if we haven't stopped already and return the parsed resp
+        private$storr$set(url,parsed_resp,"api_calls")
         return(parsed_resp)
 
       }
@@ -77,7 +81,8 @@ R6_dhs_api_client <- R6::R6Class(
                  cache_date = Sys.time(),
                  url = "https://api.dhsprogram.com/rest/dhs/data/",
                  defaults = list(cache_results = TRUE,
-                                 response_format = "json")
+                                 response_format = "json"),
+                 storr = storr::storr_rds(rdhs:::cache_dir_path())
   )
 
   ## not explicityl needed as only pulling so no need for all these
