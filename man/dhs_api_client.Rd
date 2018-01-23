@@ -4,12 +4,16 @@
 \alias{dhs_api_client}
 \title{Make a dhs client}
 \usage{
-dhs_api_client(api_key = NULL, ...)
+dhs_api_client(api_key = NULL, root = rappdirs::user_cache_dir("rdhs",
+  Sys.info()["user"]), ...)
 }
 \arguments{
 \item{api_key}{Character for DHS API KEY}
 
-\item{...}{Passed to \code{dhs_client}}
+\item{root}{Character for root directory to where client, caches, surveys etc. will be stored.
+Default = \code{rappdirs::user_cache_dir("rdhs",Sys.info()["user"])}}
+
+\item{...}{Passed to \code{R6_dhs_client}}
 }
 \description{
 Make a DHS API client

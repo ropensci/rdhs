@@ -4,19 +4,26 @@
 ##' @title Make a dhs client
 ##'
 ##' @param api_key Character for DHS API KEY
-##' @param ... Passed to \code{dhs_client}
+##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
+##' Default = \code{rappdirs::user_cache_dir("rdhs",Sys.info()["user"])}
+##' @param ... Passed to \code{R6_dhs_client}
+##'
+##'
 ##' @export
-dhs_api_client <- function(api_key=NULL,...) {
+##'
+dhs_api_client <- function(api_key=NULL,
+                           root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
+                           ...) {
 
   # check rdhs against api last update time
-  if(dhs_last_update() > dhs_cache_date()){
+  if(dhs_last_update() > dhs_cache_date(root=root)){
 
-    return(R6_dhs_client$new(api_key,...))
+    return(R6_dhs_client$new(api_key,root,...))
 
     # if no api updates have occurred then get the cached api client
   } else {
 
-    return(get_cached_dhs_client())
+    return(readRDS(file.path(root,client_file_name())))
 
   }
 }
@@ -26,15 +33,19 @@ R6_dhs_client <- R6::R6Class(
   classname = "dhs_client",
   cloneable = FALSE,
 
-  # public methods
+  # PUBLIC METHODS
+  # -------------------------------------------------------------------------------------------------------
   public = list(
 
-
-    initialize = function(api_key = NULL){
+    # INITIALISATION
+    initialize = function(api_key = NULL, root = NULL){
       private$api_key <- api_key
+      private$root <- root
+      private$storr <- storr::storr_rds(path)
       saveRDS(self,dhs_client_path())
     },
 
+    # API REQUESTS
     #' will either return your request as a parsed json (having cached the result), or will return an error
     dhs_api_request = function(indicators,
                                api_key = private$api_key,
@@ -69,6 +80,46 @@ R6_dhs_client <- R6::R6Class(
 
     },
 
+    # DOWNLOADABLE SURVEYS
+    #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
+    available_surveys = function(output_dir = file.path(private$root,"avaialable_surveys"),
+                                 your_email,
+                                 your_password,
+                                 your_project,
+                                 max_urls=NULL){
+
+      # create call for survey function call
+      survey_function_call <- match.call(available_surveys,
+                                         call("available_surveys",
+                                              your_email,your_password,your_project,output_dir,max_urls))
+
+
+      # create key from this:
+      key <- paste0(stringr::str_trim((deparse(survey_function_call))),collapse="")
+
+
+      # first check against cache
+      out <- tryCatch(private$storr$get(paste0(stringr::str_trim((deparse(key))),collapse=""),
+                                        "available_survey_calls"),
+                      KeyError = function(e) NULL)
+
+      # check out agianst cache, if fine then return just that
+      if(!is.null(out)){ return(out) } else {
+
+        # Get downloadable surveys
+        resp <- eval(survey_function_call)
+
+        ## pass to response parse
+        # TODO:
+        parsed_resp <- resp
+
+        ## then cache the resp if we haven't stopped already and return the parsed resp
+        private$storr$set(key,parsed_resp,"available_survey_calls")
+        return(parsed_resp)
+
+      }
+
+    },
 
     # GETTERS
     get_cache_date = function() private$cache_date
@@ -78,12 +129,13 @@ R6_dhs_client <- R6::R6Class(
   ),
 
   private = list(api_key = NULL,
+                 root = NULL,
                  cache_date = Sys.time(),
                  url = "https://api.dhsprogram.com/rest/dhs/data/",
                  defaults = list(cache_results = TRUE,
                                  response_format = "json"),
-                 storr = storr::storr_rds(rdhs:::cache_dir_path())
-  )
+                 storr = NULL)
+
 
   ## not explicityl needed as only pulling so no need for all these
 

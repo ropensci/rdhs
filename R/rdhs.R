@@ -10,3 +10,5 @@
 #'
 #'
 "_PACKAGE"
+
+globalVariables(c("x"))

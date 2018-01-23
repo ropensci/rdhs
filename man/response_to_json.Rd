@@ -4,7 +4,10 @@
 \alias{response_to_json}
 \title{converts response to json by first converting the response to text}
 \usage{
-response_to_json(res)
+response_to_json(x)
+}
+\arguments{
+\item{x}{A response}
 }
 \description{
 converts response to json by first converting the response to text

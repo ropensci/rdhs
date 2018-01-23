@@ -6,6 +6,9 @@
 \usage{
 unzip_warn_fails(...)
 }
+\arguments{
+\item{...}{arguments to pass to \code{unzip}}
+}
 \description{
 unzips files without throwing warnings
 }

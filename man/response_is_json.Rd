@@ -6,6 +6,9 @@
 \usage{
 response_is_json(x)
 }
+\arguments{
+\item{x}{A response}
+}
 \description{
 checks if the response is json or not by looking at the responses headers
 }

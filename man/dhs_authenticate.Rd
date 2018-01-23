@@ -17,9 +17,9 @@ project that gives you access to the DHS database}
 \value{
 Returns list of length 3:
 \itemize{
-      \item{"user_name"}{your email usually}
-      \item{"user_pass"}{your pasword you provided}
-      \item{"proj_id"}{your project number that will enable your project to be accessed downstream}
+      \item{"user_name"}{ your email usually}
+      \item{"user_pass"}{ your pasword you provided}
+      \item{"proj_id"}{ your project number that will enable your project to be accessed downstream}
       }
 }
 \description{
@@ -30,7 +30,7 @@ Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs
 }
 \examples{
 
-dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",your_project="Testing Malaria Investigations")
+rdhs:::dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",your_project="Testing Malaria Investigations")
 
 
 

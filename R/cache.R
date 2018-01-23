@@ -10,36 +10,37 @@ dhs_last_update <- function(){
 
 #' Pull last cache date
 #'
+#' @param root Character for root path to where client, caches, surveys etc. will be stored.
 #'
-dhs_cache_date <- function(){
+dhs_cache_date <- function(root){
 
   # Grab cache directory for user
-  cache_dir <- cache_dir_path()
+  cache_dir <- root
 
   # Does cache directory exist, as if not then return -1
   if(!dir.exists(cache_dir)){
 
     # create the cache directory as will be needed
     dir.create(cache_dir,recursive = TRUE)
-    dir.create(dhs_api_call_cache_dir_path(),recursive = TRUE)
+    dir.create(file.path(cache_dir,api_call_cache_directory_name()),recursive = TRUE)
 
     return(-1)
 
   } else {
 
     # If somehow the cache object has been removed but the directory existed
-    if(!file.exists(file.path(cache_dir_path(),client_file_name()))){
+    if(!file.exists(file.path(cache_dir,client_file_name()))){
 
       # If we are doing error checking here then check the call cache directory is there
-      if(!dir.exists(api_call_cache_dir_path())){
-        dir.create(api_call_cache_dir_path(),recursive = TRUE)
+      if(!dir.exists(file.path(cache_dir,api_call_cache_directory_name()))){
+        dir.create(file.path(cache_dir,api_call_cache_directory_name()),recursive = TRUE)
       }
 
       return(-1)
     }
 
     # Read the client cache and return the chace date
-    dhs_client <- get_cached_dhs_client()
+    dhs_client <- readRDS(file.path(cache_dir,client_file_name()))
 
     # return client cache date
     return(dhs_client$get_cache_date())
@@ -56,18 +57,5 @@ client_file_name <- function() "dhs_client.rds"
 
 #' directory name for where calls are cached between sessions
 api_call_cache_directory_name <- function() "dhs_api_call_storr"
-
-#' DHS cache directory path
-cache_dir_path <- function() rappdirs::user_cache_dir("rdhs",Sys.info()["user"])
-
-#' DHS api call cache directory path
-api_call_cache_dir_path <- function() file.path(cache_dir_path(),api_call_cache_directory_name())
-
-#' Client path
-dhs_client_path <- function() file.path(cache_dir_path(),client_file_name())
-
-#' DHS client from cache
-get_cached_dhs_client <- function() readRDS(file.exists(dhs_client_path()))
-
 
 

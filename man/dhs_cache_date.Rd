@@ -4,7 +4,10 @@
 \alias{dhs_cache_date}
 \title{Pull last cache date}
 \usage{
-dhs_cache_date()
+dhs_cache_date(root)
+}
+\arguments{
+\item{root}{Character for root path to where client, caches, surveys etc. will be stored.}
 }
 \description{
 Pull last cache date

@@ -19,6 +19,10 @@ Imports:
     stringr,
     readr,
     rappdirs,
-    storr
+    storr,
+    pander,
+    haven,
+    xml2,
+    XML
 License: GPL (>= 2)
 RoxygenNote: 6.0.1
