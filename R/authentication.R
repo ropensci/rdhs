@@ -319,7 +319,8 @@ download_datasets <- function(   your_email , your_password , your_project ,
 ##'
 ##' @examples
 ##'
-##' rdhs:::dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",your_project="Testing Malaria Investigations")
+##' rdhs:::dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",
+##' your_project="Testing Malaria Investigations")
 ##'
 ##'
 ##'
