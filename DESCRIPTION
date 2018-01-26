@@ -24,5 +24,7 @@ Imports:
     haven,
     xml2,
     XML
+Suggests: 
+    testthat
 License: GPL (>= 2)
 RoxygenNote: 6.0.1
