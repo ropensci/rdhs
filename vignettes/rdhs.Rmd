@@ -1,0 +1,336 @@
+---
+title: "rdhs overview"
+author: "OJ Watson"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+  code_folding: show
+css: knitr.css
+fig_caption: yes
+theme: readable
+toc: yes
+toc_float: yes
+---
+
+## Overview
+
+The rdhs
+
+## rdhs client
+
+rdhs was built around an api client that would handle making and parsing api requests
+to the DHS api. From that, a more nuanced general client tool was created that both made
+api requests, ensuring that results are cached so they are not looked up again, but also
+handled the downstream functionality of rdhs. As a result the best way to demnstrate rdhs
+is to consider the current pipeline through which you might first use rdhs. Each of the following
+steps are all carried out using the rdhs client, which is an R6 class (similar to R's built in
+reference classes and make caching survey and api queries more reproducible):
+
+1. Create the rdhs client
+2. Making api requests
+3. Using api requests to identify surveys you want to download
+4. Cataloguing which surveys you can download for your log in credentials
+5. Downloading the desired surveys from step 3 from the available surveys from step 4
+6. Creating the list of survey questions required for your investigation
+7. Using the list from step 6 to create your data frame of survey responses
+8. Storing your pipeline from step 1 - 7 to increase reproducibility
+
+Before demonstrating each section, it is worth highlighting why all the above steps are
+carried out using the highly object-orientated client. The client itself caches the results
+from each of the above step locally in one way or another. For example, the client when first
+created is saved in a new local directory that you have specified. Once created it stores the 
+time at which it was last updated, so that everytime you use rdhs afterwards, the client will
+check to see if any of the surveys you have downloaded, or api calls you have made are now out
+of date. If this happens, the client will let you know, before giving you options over whether
+to a) compleletely delete the client's cache, or b) update any cached surveys or information
+in bulk now or c) as and when you itneract with out of date information. In this way, 
+rdhs hopes to allow studies and analayis of DHS data to both be easier, and reproducible allowing
+researchers to save their analysis pipeline so that others can replicate it easily.
+
+---
+
+## 0. Installing the package
+
+```{r Installing the package, include=TRUE, message = FALSE, warning = FALSE}
+
+# First make sure the package is installed
+devtools::install_github("OJWatson/rdhs")
+
+# Load package - Warning messages will be thrown however these are not a problem
+library(rdhs)
+```
+
+## 1. Create the rdhs client
+
+The client is the bulk of the package's functionality, and at the moment there are
+2 named arguments, *api_key* and *root*. You can apply for an API key from the DHS
+website that will allow you to leverage more api call returns, and will be stroed within
+the client if declared here. The root argument is the directory path where the client
+and associated caches will be stored. If left bank, a suitable directory will be created
+within your user cahce directory for your operating system. E.g:
+
+* Mac OS X: ‘~/Library/Caches/<AppName>’
+* Unix: ‘~/.cache/<AppName>’, $XDG_CACHE_HOME if defined
+
+```{r Client creation, include=TRUE, message = FALSE, warning = FALSE}
+
+# Create a client withi our api kiey and in this root directory
+root <- "C:/Users/Oliver/Desktop/DHS_Demo_Root"
+client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root)
+
+# Have a look at what the client object is
+client
+
+```
+
+The root directory you chose will now also have in it an .rds file that is your dhs client, 
+and a series of subfolders that are used to cache data. In order to use this cached data when 
+you start your next R session you would use the same code as above, but this time it will 
+know you have already created a client and will load it instead. 
+
+## 2. Making api requests
+
+The client can then be used to conduct api requests. To find more information about the
+possible api requests head to their [website](https://api.dhsprogram.com/#/index.html).
+In brief the api allows for a number of different endpoints to be accessed that constitute one of
+12 different databases. These are stored within the client by default, and are the following:
+
+* [data](https://api.dhsprogram.com/#/api-data.cfm)
+* [indicators](https://api.dhsprogram.com/#/api-indicators.cfm)
+* [countries](https://api.dhsprogram.com/#/api-countries.cfm)
+* [surveys](https://api.dhsprogram.com/#/api-surveys.cfm)
+* [surveycharacteristics](https://api.dhsprogram.com/#/api-surveycharacteristics.cfm)
+* [publications](https://api.dhsprogram.com/#/api-publications.cfm)
+* [datasets](https://api.dhsprogram.com/#/api-datasets.cfm)
+* [geometry](https://api.dhsprogram.com/#/api-geometry.cfm)
+* [tags](https://api.dhsprogram.com/#/api-tags.cfm)
+* [dataupdates](https://api.dhsprogram.com/#/api-dataupdates.cfm)
+* [uiupdates](https://api.dhsprogram.com/#/api-uiupdates.cfm)
+* [info](https://api.dhsprogram.com/#/api-info.cfm)
+
+These endpoints can then be further filtered, with a different set of filters possible for 
+each endpoint. At current, these are not built in so it is possible to make human errors when
+submitting filter queries. To find info about all the possible filter queries head to the associated
+webpage from above.
+
+For example we can now query to find out the trends in antimalarial use in Africa, and see if 
+perhaps antimalarial perscription has decreased after RDTs were introduced (assumed 2010). So we can query 
+for that by specifying the "data" endpoint, and using suitable filter queries provided as a list as follows:
+
+
+```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+
+# Make an api request
+resp <- client$dhs_api_request(api_endpoint = "data",
+                       query = list("indicatorIds"="ML_FEVT_C_AML",
+                                    "surveyYearStart"=2006,
+                                    "breakdown"="subnational"))
+
+
+time <- lapply(resp$Data, function(x) x$SurveyYear) %>% unlist
+values <- lapply(resp$Data, function(x) x$Value) %>% unlist
+country <- lapply(resp$Data, function(x) x$CountryName) %>% unlist
+region <- lapply(resp$Data, function(x) x$CharacteristicLabel) %>% unlist
+df <- data.frame("Year"=time,"Data"=values,"Country"=country,"Region"=region)
+str(df)
+
+library(ggplot2)
+ggplot(df, aes(x=Year,y=Data,colour=Country)) + 
+  geom_point() + geom_smooth() + ylab(resp$Data[[1]]$Indicator)
+
+```
+
+If we miss entered a filter query (very possible) rdhs will give you an error that is
+somewhat nicely presented on the pagee for you to see way:
+
+```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+
+# Make an api request
+resp <- client$dhs_api_request(api_endpoint = "data",
+                       query = list("indicatorIds"="ML_FEVT_C_AMasfafasfL",
+                                    "surveyYearStart"=202231231306,
+                                    "breakdownAndCry"="subParTyping"))
+
+```
+
+
+rdhs parses the response for you and returns a useful list where you can check that the
+api call has been handled as expected. We can also then look at the raw data within this list.
+If we do this we will see that only the first 100 results have been returned as this is the 
+default page size return. If, however, you want all the results (most likely) then use the 
+**all_results** argument within dhs_api_rquest. This will work by making an initial request,
+assessing the number of pages it would require, and then either making the request again for 
+all the results if less than your api_key will allow (5000), or by looping with page sizes
+of 5000 through each page. (Still To be written)
+
+Importantly the api request you have made has now been cached by the package. This means that
+the next time you run this request, the result both returns quicker and you can access your data
+even if not connected to the internet.
+
+What if the DHS api is updated? Will my cached api calls now be wrong? Potentially. It is unclear
+from the api how much information changes over time. The [dataupdates](https://api.dhsprogram.com/rest/dhs/dataupdates?f=html) 
+endpoint shows updates to specific surveys. However, when looking at the [datasets](https://api.dhsprogram.com/rest/dhs/datasets?f=html) endpoint we can see that there are many survey files that have been presumably modified after their release. 
+This may be just reuploading, or it could have changed the data and thus subsequent date we may get from api calls. 
+As such, at this moment in time, if the date at which any of the DHS api was last updated as found
+within the dataupdates endpoint is more recent than the cache_date within our client we will automatically
+clear our api call cache. The api calls are relatively lightweight, so will not be a major hindrance
+in the future. This can be seen below:
+
+```{r API call dating, include=TRUE, message = FALSE, warning = FALSE}
+
+# Get the current cache date that the client was last created at
+client$get_cache_date()
+
+# Now let's set it back in time a year
+client$set_cache_date(client$get_cache_date()-(365*24*60*60))
+client$get_cache_date()
+
+# And save this client 
+client$save_client()
+
+# Now let's imagine we were restarting our R session another time and wanted to load our client we were using before
+client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = "C:/Users/Oliver/Desktop/DHS_Demo_Root")
+client$get_cache_date()
+
+```
+
+## 3. Using api requests to identify surveys you want to download
+
+Working with the api can allow you to get good access to course level data, however you may want access
+to the raw datasets to compile individual level data. To do this you will need to decide what surveys you 
+want for your survey and then download them. This used to be laborious... and is somewhat nice now.
+
+First we will have a look using the api what surveys record data about children under age five with fever 
+in the two weeks preceding the survey that received any anti-malarial drugs who took Quinine. 
+
+```{r API for surveys, include=TRUE, message = FALSE, warning = FALSE}
+
+# Make an api request
+resp <- client$dhs_api_request(api_endpoint = "surveys",
+                       query = list("indicatorIds"="ML_AMLD_C_QNN"))
+
+
+year <- lapply(resp$Data, function(x) x$SurveyYear) %>% unlist
+countrycode <- lapply(resp$Data, function(x) x$DHS_CountryCode) %>% unlist
+country <- lapply(resp$Data, function(x) x$CountryName) %>% unlist
+region <- lapply(resp$Data, function(x) x$RegionName) %>% unlist
+unique <- paste0(country,year)
+desired_data <- data.frame("Year"=year,"Country"=country,"CountryCode"=countrycode,
+                           "Region"=region,"unique"=unique,stringsAsFactors = FALSE)
+str(desired_data)
+
+```
+
+No we have a data frame for the surveys we want we then go about actually downloading
+the surveys.
+
+## 4. Cataloguing which surveys you can download for your log in credentials
+
+To do this we again use the client, and pass in our login in credentials, and where we will
+eventually want to download our surveys too. The client will then log into your DHS account
+for you and scrape what surveys you have access to. It will then turn these into downloadable
+urls to be used in the next step.
+
+This does take a fair amount of time (~5 mins depedning on how many surveys you have access too),
+so again this is cached by the client for future use. Thus if you change what surveys/datasets 
+you have access to by requesting new datasets within the DHS website, you will need to clear 
+this cache (TODO) and re run it. 
+
+```{r Avaialable surveys, include=TRUE, message = FALSE, warning = FALSE}
+
+# client will fetch this (it will take a looooooooong(ish) time)
+available_surveys <- client$available_surveys(output_dir = file.path(root,"surveys"),
+                         your_email = "rdhs.tester@gmail.com",
+                         your_password = "rdhstesting",
+                         your_project = "Testing Malaria Investigations")
+
+str(available_surveys)
+```
+
+
+## 5. Downloading the desired surveys from step 3 from the available surveys from step 4
+
+Now that we have the list of surveys, and we now what ones we want to actually download, we simply
+subset those from step 4 using our dataframe in step 3.
+
+```{r Subset surveys, include=TRUE, message = FALSE, warning = FALSE}
+
+# make a country year paste for comparisons
+available_surveys$unique <- paste0(available_surveys$country,available_surveys$year)
+
+# subset our available data frames
+subsetted_surveys <- dplyr::filter(available_surveys, unique %in% desired_data$unique)
+
+```
+
+And we can now download those surveys:
+
+```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE}
+
+# download datasets
+rdhs::download_datasets(your_email="rdhs.tester@gmail.com",
+   your_password="rdhstesting",
+   your_project="Testing Malaria Investigations",
+   desired_surveys=subsetted_surveys[c(1,10,100,1000),])
+```
+
+At the moment this will indisciriminately download the zip file and unpack it to a directory within
+the directory path we specified as the output_dir argument for `available_surveys`. So this looks something like this:
+
+```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE}
+
+library(data.tree)
+x <- lapply(strsplit(list.files(file.path(root,"surveys"),recursive = T), "/"), function(z) as.data.frame(t(z)))
+x <- dplyr::rbind_all(x)
+x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(x)), collapse="/"))
+mytree <- data.tree::as.Node(x)
+mytree
+
+```
+
+Where you can see that both the household survey files for Angola's Standard DHS 2015-2016
+and the bith recode files are in the same directory. At the moment this seems sensible to me, but
+might change. 
+
+The other thing that might be sensible is to decide what file format you want to work with in terms
+of what surveys you download. You can quickly get that information from the the url:
+
+```{r Explore filenames, include=TRUE, message = FALSE, warning = FALSE}
+sapply(available_surveys$full_url[1:5],httr::parse_url) %>% 
+  apply(MARGIN = 2,function(x) x[5]$query$Filename) %>% 
+  as.character()
+```
+
+Going forward (as slightly running out of time) what I want to do is also have a default download
+option, which is the most sensible. For example, importing and formatting the stata dataset files
+is probably the most easy, and these files include substantially great metadata in their attributes.
+
+In my head going forward the following seems sensible:
+
+You put the desired sruveys you want to download in (probably stata dta), this gets read in one, the 
+variables correctly labelled using the attributes, and saved as an equivalent rds. The file path for that
+rds is then cached so that when you have carried out something that will be the following you have all the 
+file paths that you then interact with to load them when needed.
+
+```{r Download surveys with client, include=TRUE, message = FALSE, warning = FALSE}
+
+surveys <- apply(subset.data.frame, MARGIN = 1, function(x) client$download_survey(x)) %>% unlist
+
+```
+
+
+## 6. Creating the list of survey questions required for your investigation
+
+## 7. Using the list from step 6 to create your data frame of survey responses
+
+## 8. Storing your pipeline from step 1 - 7 to increase reproducibility
+
+
+## Summary and further thoughts
+
+Hopefully the above tutorial has shown how the *outbreakteachR* outbreak practical can be extended
+using R to extend the analysis and aid in visualising the outbreak process.
+
+---
+
+

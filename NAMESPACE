@@ -2,7 +2,7 @@
 
 export("%>%")
 export(available_surveys)
-export(dhs_api_client)
+export(dhs_client)
 export(download_datasets)
 importFrom(magrittr,"%>%")
 importFrom(utils,unzip)

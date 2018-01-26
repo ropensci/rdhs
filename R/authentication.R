@@ -177,6 +177,11 @@ available_surveys <- function(  your_email , your_password , your_project ,
 download_datasets <- function(   your_email , your_password , your_project ,
                                  desired_surveys ){
 
+
+  ## TODO::
+
+  ## Add client as an argument, and then check against key from the desired_survey call
+
   # log in
   values <- dhs_authenticate( your_email , your_password , your_project )
 
