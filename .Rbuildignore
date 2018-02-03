@@ -4,3 +4,7 @@
 tutorials
 img
 TODO.txt
+^\.credentials$
+^autodoc\.R$
+^man-roxygen$
+^vignettes/rdhs_bignette_client_root

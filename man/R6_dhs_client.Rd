@@ -4,7 +4,7 @@
 \name{R6_dhs_client}
 \alias{R6_dhs_client}
 \title{will either return your request as a parsed json (having cached the result), or will return an error
-Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
+Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
 Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)}
 \format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
@@ -12,7 +12,7 @@ R6_dhs_client
 }
 \description{
 will either return your request as a parsed json (having cached the result), or will return an error
-Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
+Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
 Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
 }
 \keyword{datasets}

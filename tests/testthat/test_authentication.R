@@ -1,32 +1,41 @@
 context("Authentication")
 
 test_that("dhs_authenticate works", {
-  expect_equal(rdhs:::dhs_authenticate(your_email = "rdhs.tester@gmail.com",
-                                your_password = "rdhstesting",
-                                your_project = "Testing Malaria Investigations")$proj_id, "111616")
+
+  skip_if_no_auth()
+
+  expect_equal(rdhs:::dhs_authenticate(your_email=Sys.getenv("rdhs.USER_EMAIL"),
+                                       your_password=Sys.getenv("rdhs.USER_PASS"),
+                                       your_project=Sys.getenv("rdhs.USER_PROJECT"))$proj_id, "111616")
 })
 
 test_that("available_surveys works", {
 
-  # test max_urls for 1
-  dhs_cat <- rdhs::available_surveys(output_dir = tempdir(),
-                                  your_email = "rdhs.tester@gmail.com",
-                                  your_password = "rdhstesting",
-                                  your_project = "Testing Malaria Investigations",
-                                  max_urls=1)
+  skip_if_no_auth()
 
-  # test max_urls works
-  expect_equal(dim(dhs_cat),c(1,6))
+  # Create new directory
+  td <- file.path(tempdir())
 
-  # test max_urls for 5
-  dhs_cat <- rdhs::available_surveys(output_dir = tempdir(),
-                                     your_email = "rdhs.tester@gmail.com",
-                                     your_password = "rdhstesting",
-                                     your_project = "Testing Malaria Investigations",
-                                     max_urls=5)
+  # create auth through whichever route is valid for the environment
+  if(file.exists(".credentials")){
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td,force_initialise = TRUE)
+  } else {
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td,force_initialise = TRUE)
+  }
 
-  # test max_urls works
-  expect_equal(dim(dhs_cat),c(5,6))
+  # create availbale surveys
+  survs <- cli$available_surveys()
+
+  # check the names
+  expect_identical(names(survs),c("FileFormat","FileSize","DatasetType","SurveyNum","SurveyId",
+                                  "FileType","FileDateLastModified","SurveyYearLabel","SurveyType",
+                                  "SurveyYear","DHS_CountryCode","FileName","CountryName","URLS"))
+
+  # there should definitely be more than this many urls
+  expect_true(dim(survs)[1]>5000)
+
+  unlink(td)
+
 
 
 })

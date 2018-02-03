@@ -4,7 +4,8 @@
 \alias{download_datasets}
 \title{Download surveys specified using output of \code{available_surveys}}
 \usage{
-download_datasets(your_email, your_password, your_project, desired_surveys)
+download_datasets(your_email, your_password, your_project, desired_survey,
+  output_dir_root = NULL, download_option = "both", reformat = TRUE)
 }
 \arguments{
 \item{your_email}{Character for email address for DHS website}
@@ -13,27 +14,20 @@ download_datasets(your_email, your_password, your_project, desired_surveys)
 
 \item{your_project}{Character string for the name of your project that gives you access to the DHS database}
 
-\item{desired_surveys}{output or rows from \code{available_surveys}}
+\item{desired_survey}{Row from \code{available_surveys}}
+
+\item{output_dir_root}{Directory where files are to be downloaded to}
+
+\item{download_option}{Chracter dictating how the durvey is stored when downloaded. Must be one of:
+\itemize{
+      \item{"zip"} - Just the zip. "z" or anything like will match
+      \item{"ex"} - Just the extracted zip. "e" or anything like will match
+      \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
+      \item{"both"} - Both the rds and extract. "b" or anything like will match
+}}
+
+\item{reformat}{Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE}
 }
 \description{
 Create a data frame of surveys that your log in can download
-}
-\note{
-Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
-}
-\examples{
-
-dhs_surveys <- rdhs:::available_surveys(your_email="rdhs.tester@gmail.com",
-your_password="rdhstesting",
-your_project="Testing Malaria Investigations",
-output_dir=tempdir(),
-max_urls=2)
-
-download_datasets(your_email="rdhs.tester@gmail.com",
-your_password="rdhstesting",
-your_project="Testing Malaria Investigations",
-desired_surveys=dhs_surveys[1,])
-
-
-
 }

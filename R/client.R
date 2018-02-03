@@ -6,29 +6,85 @@
 ##' @param api_key Character for DHS API KEY
 ##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
 ##' Default = \code{rappdirs::user_cache_dir("rdhs",Sys.info()["user"])}
+##' @param credentials File path to where log in credentials are stored (preferred as no
+##' secrets are typed into an R session). File format should be (each bullet is a new line):
+##' \itemize{
+##'       \item email=dummy@gmail.com
+##'       \item password=dummypass
+##'       \item project=Dummy Project
+##'       }
+##' Could also be a list (less preffered), e.g. list("email"=dummy@gmail.com,"password"=dummy,"project"=Dummy Project)
+##' @param force_initialise Boolean whether to force the initialisation of the client in the root directory, overwriting
+##' any old clients. Default = FALSE, and is best to stay as FASLE as ths is mainly for testing.
 ##' @param ... Passed to \code{R6_dhs_client}
 ##'
-##'
+##' @template dhs_client_methods
 ##' @export
 ##'
 dhs_client <- function(api_key=NULL,
-                           root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
-                           ...) {
+                       root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
+                       credentials=NULL,
+                       force_initialise=FALSE,
+                       ...) {
+
+  # handle credentials first
+  if(is.null(credentials)){
+    if (identical(Sys.getenv("rdhs.USER_PASS"), "") | identical(Sys.getenv("rdhs.USER_EMAIL"), "") | identical(Sys.getenv("rdhs.USER_PROJECT"), "")){
+      stop("Credentials are not present in your system environment. Please provide credentials argument")
+    }
+  } else {
+    set_environment_credentials(read_credentials(credentials))
+  }
+
+
+  # force the initialisation
+  if(force_initialise){
+    unlink(root,recursive = TRUE,force=TRUE)
+    client <- R6_dhs_client$new(api_key,root,...)
+    return(client)
+  }
 
   # check rdhs against api last update time
-  if(dhs_last_update() > dhs_cache_date(root=root)){
+  cache_date <- dhs_cache_date(root=root)
+  if(dhs_last_update() > cache_date){
 
     # create new client if DHS database has been updated
     client <- R6_dhs_client$new(api_key,root,...)
 
     # If there was already a client in your root (i.e. there was a DHS update)
-    # the empty the api_call cache namespace
-    # MAYBE change this - api calls are cheap so not an issue just clearing this
-    # and then more manually checking dates for the actual surveys
-    client$.__enclos_env__$private$storr$clear(namespace = "api_calls")
-    client$.__enclos_env__$private$storr$gc()
-    client$set_cache_date(Sys.time())
+    # then empty the api_call cache namespace
+    if(cache_date!=-1){
 
+      message("DHS API has been updated since you last created a DHS client in this root directory.")
+      message("Previous API / survey requests will subsequently be rerun in order to sure your results are up to date. :)")
+      client$clear_namespace(namespace = "api_calls")
+      client$clear_namespace(namespace = "available_survey_calls")
+
+      ## clear any now old survey calls
+      ## ----------------------------------------------------
+
+      # fetch the dataupdates api endpoint
+      updates <- client$dhs_api_request(api_endpoint = "dataupdates")
+
+      # are any of the listed updates more recent than the cache date
+      if(max(lubridate::mdy_hms(updates$UpdateDate))>client$get_cache_date()){
+
+        # check which surveys have been downloaded in the past
+        downloaded_survey_keys <-  client$.__enclos_env__$private$storr$list("downloaded_surveys")
+        downloaded_surveyIds <- strsplit(downloaded_survey_keys,"_") %>% lapply(function(x) x[1]) %>% unlist
+        surveys_to_clear <- which(downloaded_surveyIds %in% updates$SurveyId[lubridate::mdy_hms(updates$UpdateDate)>client$get_cache_date()])
+        # do any of them match those that have been updated since the last cache_date
+        if(length(surveys_to_clear) > 0){
+
+          for(key in downloaded_survey_keys[surveys_to_clear]) {
+
+            client$.__enclos_env__$private$storr$del(key,"downloaded_surveys")
+            client$.__enclos_env__$private$storr$del(key,"downloaded_survey_code_descriptions")
+          }
+
+        }
+      }
+    }
     return(client)
 
     # if no api updates have occurred then get the cached api client
@@ -52,15 +108,18 @@ R6_dhs_client <- R6::R6Class(
     initialize = function(api_key = NULL, root = NULL){
       private$api_key <- api_key
       private$root <- root
-      private$storr <- storr::storr_rds(root)
+      private$storr <- storr::storr_rds(file.path(root,"db"))
+      private$cache_date <- Sys.time()
       saveRDS(self,file.path(root,client_file_name()))
     },
 
     # API REQUESTS
     #' will either return your request as a parsed json (having cached the result), or will return an error
     dhs_api_request = function(api_endpoint,
-                               query,
-                               api_key = private$api_key){
+                               query = list(),
+                               api_key = private$api_key,
+                               num_results = 100,
+                               just_results = TRUE){
 
 
       # Check api_endpoints first
@@ -81,9 +140,20 @@ R6_dhs_client <- R6::R6Class(
       # add the api key if it exists
       query$apiKey <- private$api_key
 
+      # then build in pages. If they have asked for all results catch this and standardise
+      if(is.element(num_results,c("ALL","all","a","al","A","AL","ALl","All","AlL"))){
+        query$perPage <- 100
+        num_results <- "ALL"
+      } else {
+        query$perPage <- num_results
+      }
+
       # Build url query and associated key
       url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
-      key <- paste0(api_endpoint,"_",paste0(names(query),unlist(query),collapse=","))
+
+      # SLight hacking to deal eith page numbers etc now
+      pp <- which(names(query)=="perPage")
+      key <- paste0(api_endpoint,"_",paste0(names(query)[-pp],unlist(query)[-pp],collapse=","),",num_results",num_results,",just_results",just_results)
 
       # first check against cache
       out <- tryCatch(private$storr$get(key,"api_calls"),
@@ -102,8 +172,44 @@ R6_dhs_client <- R6::R6Class(
         }
 
         # put some message or return to let the user know if the data returned is empty
-        # TODO: Loop for pages
+        if(parsed_resp$RecordsReturned==0) message("Records returned equal to 0. Most likely your query terms are too specific or there is a typo that does not trigger a 404 or 500 error")
 
+        # Now let's address the num_results argument
+
+        # if the first call has caught all the results then great
+        if(parsed_resp$RecordsReturned == parsed_resp$RecordCount){
+          if(just_results) parsed_resp <- data.table::rbindlist(parsed_resp$Data)
+        } else {
+
+          # if not then query with either max possible or their requested amount
+          if(num_results=="ALL") query$perPage <- 5000 else query$perPage <- num_results
+
+          # Create new request and parse this
+          url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
+          resp <- httr::GET(url,httr::accept_json(),encode = "json")
+          parsed_resp <- dhs_client_response(resp,TRUE)
+
+          # if this larger page query has returned all the results then return this else we will loop through
+          if(parsed_resp$TotalPages == 1){
+            if(just_results) parsed_resp <- data.table::rbindlist(parsed_resp$Data)
+          } else {
+
+            # save the resp as a temp and then make parsed_resp the list we will loop requests into
+            temp_parsed_resp <- parsed_resp
+            parsed_resp <- list(); length(parsed_resp) <- temp_parsed_resp$TotalPages
+            parsed_resp[[1]] <- temp_parsed_resp
+            for(i in 2:length(parsed_resp)){
+              query$page <- i
+              url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
+              resp <- httr::GET(url,httr::accept_json(),encode = "json")
+              temp_parsed_resp <- dhs_client_response(resp,TRUE)
+              parsed_resp[[i]] <- temp_parsed_resp
+            }
+
+            # and now concatenate the results
+            if(just_results) parsed_resp <- data.table::rbindlist(do.call(c,lapply(parsed_resp,function(x) x$Data)))
+          }
+        }
         ## then cache the resp if we haven't stopped already and return the parsed resp
         private$storr$set(key,parsed_resp,"api_calls")
         return(parsed_resp)
@@ -113,15 +219,15 @@ R6_dhs_client <- R6::R6Class(
     },
 
     # AVAILABLE SURVEYS
-    #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
-    available_surveys = function(output_dir = file.path(private$root,"avaialable_surveys"),
-                                 your_email,
-                                 your_password,
-                                 your_project,
-                                 max_urls=NULL){
+    #' Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
+    available_surveys = function(your_email=Sys.getenv("rdhs.USER_EMAIL"),
+                                 your_password=Sys.getenv("rdhs.USER_PASS"),
+                                 your_project=Sys.getenv("rdhs.USER_PROJECT"),
+                                 datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
+                                 surveys_api_results = self$dhs_api_request("surveys",num_results = "ALL")){
 
       # create key for this
-      key <- paste0(your_project,",",max_urls)
+      key <- paste0(your_project,",")
 
       # first check against cache
       out <- tryCatch(private$storr$get(key,"available_survey_calls"),
@@ -134,12 +240,12 @@ R6_dhs_client <- R6::R6Class(
         resp <- available_surveys(your_email = your_email,
                                   your_password = your_password ,
                                   your_project = your_project,
-                                  output_dir = output_dir,
-                                  max_urls = NULL)
+                                  datasets_api_results = datasets_api_results,
+                                  surveys_api_results = surveys_api_results)
 
         ## then cache the resp if we haven't stopped already and return the parsed resp
         private$storr$set(key,resp,"available_survey_calls")
-        return(parsed_resp)
+        return(resp)
 
       }
 
@@ -147,40 +253,88 @@ R6_dhs_client <- R6::R6Class(
 
     # DONWLOAD SURVEYS
     #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
-    download_survey = function(your_email,
-                                 your_password,
-                                 your_project,
-                                desired_survey){
+    download_survey = function(your_email=Sys.getenv("rdhs.USER_EMAIL"),
+                               your_password=Sys.getenv("rdhs.USER_PASS"),
+                               your_project=Sys.getenv("rdhs.USER_PROJECT"),
+                               output_dir_root=file.path(private$root,"surveys"),
+                               desired_survey,
+                               download_option="rds",
+                               reformat=TRUE){
 
 
-      # create key for this
-      key <- paste0(httr::parse_url(desired_survey$full_url)$query$Filename)
+      # results storage
+      res <- list()
+      surveys <- desired_survey
 
-      # first check against cache
-      out <- tryCatch(private$storr$get(key,"downloaded_surveys"),
-                      KeyError = function(e) NULL)
+      # possible download options:
+      download_possibilities <- c("zip","ex","rds","both")
+      download_option <- download_possibilities[grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)]
+      if(!is.element(download_option,download_possibilities)) stop ("Download option provided is not valid")
 
-      # check out agianst cache, if fine then return just that
-      if(!is.null(out)){ return(out) } else {
+      # handle for more than one survey specified
+      download_iteration <- length(res) <- dim(surveys)[1]
+      names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
 
-        # Download survey
-        download_datasets(your_email=your_email,
-                          your_password=your_password,
-                          your_project=your_project,
-                          desired_surveys=desired_survey)
+      # grab the api declared datasets list
+      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
 
+      for(i in 1:download_iteration){
 
-        # read the dataset in
-        #foreign::read.dta(desired_survey$output_folder)
+        # key from file name
+        filename <- strsplit(surveys[i,]$FileName,".",fixed=TRUE)[[1]][1]
 
-        ## then cache the resp if we haven't stopped already and return the parsed resp
-        private$storr$set(key,resp,"downloaded_surveys")
-        return(parsed_resp)
+        # create key for this
+        key <- paste0(surveys[i,]$SurveyId,"_",filename,"_",download_option,"_",reformat)
 
+        # check the api date for this survey
+        date_modified <- datasets_api_results$FileDateLastModified[match(surveys$FileName[i],datasets_api_results$FileName)]
+
+        # # is the client tool aware that the DHS api has recently been updated as if this is the ase then we should check that our previosu
+        # if(private$newer_api){
+        #
+        # # if is na for date modified (filename change or shifty API then download) or date is more recent than cache then remove key
+        # if(is.na(date_modified) | date_modified > private$cache_date){
+        #   private$storr$del(key = key, namespace = downloaded_surveys)
+        # }
+        #
+        # }
+
+        # first check against cache
+        out <- tryCatch(private$storr$get(key,"downloaded_surveys"),
+                        KeyError = function(e) NULL)
+
+        # check out agianst cache, if fine then return just that
+        if(!is.null(out)){
+
+          res[[i]] <- out
+
+        } else {
+
+          # Download survey
+          resp <- download_datasets(your_email=your_email,
+                                    your_password=your_password,
+                                    your_project=your_project,
+                                    desired_survey=surveys[i,],
+                                    output_dir_root=output_dir_root,
+                                    download_option=download_option,
+                                    reformat=reformat)
+
+          # if there were 2 results returned with these names
+          if(identical(names(resp),c("Survey","Survey_Code_Descriptions"))){
+            private$storr$set(key,resp$Survey,"downloaded_surveys")
+            private$storr$set(key,resp$Survey_Code_Descriptions,"downloaded_survey_code_descriptions")
+          } else {
+            ## then cache the resp and store it in the results list
+            private$storr$set(key,resp,"downloaded_surveys")
+          }
+
+          res[[i]] <- resp
+
+        }
       }
 
+      return(res)
     },
-
 
     # GETTERS
     get_cache_date = function() private$cache_date,
@@ -189,7 +343,13 @@ R6_dhs_client <- R6::R6Class(
     set_cache_date = function(date) private$cache_date = date,
 
     # SAVE CLIENT
-    save_client = function() saveRDS(self,file.path(private$root,client_file_name()))
+    save_client = function() saveRDS(self,file.path(private$root,client_file_name())),
+
+    # CLEAR NAMESPACE
+    clear_namespace = function(namespace){
+      private$storr$clear(namespace = namespace)
+      private$storr$gc()
+    }
 
   ),
 

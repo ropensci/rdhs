@@ -21,10 +21,17 @@ Imports:
     rappdirs,
     storr,
     pander,
-    haven,
+    haven (< 1.1.1),
     xml2,
-    XML
-Suggests: 
-    testthat
+    XML,
+    dplyr,
+    data.table,
+    qdapRegex,
+    lubridate
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
 License: GPL (>= 2)
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

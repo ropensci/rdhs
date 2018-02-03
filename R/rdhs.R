@@ -9,6 +9,8 @@
 #' @name rdhs
 #'
 #'
+#' @importFrom stats setNames
+#' @importFrom utils tail
 "_PACKAGE"
 
 globalVariables(c("x"))

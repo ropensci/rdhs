@@ -1,15 +1,16 @@
 TODO:
 
-1. bring all of authenticate within the client tool
-2. once inside then downloads can be checked against the online datasets for file size?
-3. api_request needs to handle pages better, i.e. if there are more than one loop through the pages and combine the output
-4. requests should have an end point argument, and then a query argument that is the list. People can then look up lists of the end points (i.e. the indicators) and then possible potential queries using some additional functions that show query options. and then link people to the website
-5. download functionality by default just unpacks all the surveys, with an option to make a nice import that gets cached (drop factors just text etc)
-6. cache downloads in terms of, if the survey hasn't changed since then load the nice save. thus when downloading a file, cache against the key (file path) what time it was downloaded
-7. fetch_surveys will then run download for requried surveys, and then return a list of counties, surveys$get_survey() that then reads the rds in
-8. give people the option to do a session cache, i.e. if they have a workspace or some collated and filtered objects that they can save against storr in a new context. suggest they save their script etc in a clean file ans ssave that as methods and the key attached to it
-9. one function, that for a given country/year returns all valiid survey questions.
-10. one functions that allows this to be easily searched
-11. These search terms then form the basis of an extraction (like MJ)
+
+1. api query by tags (add as example to tutorial as well as querying by keyword, e.g. "fever")
+
+6. query all tables with a grep
+
+7. once happy with questions, take the vector of questions from the user and turn those back into codes to query for each survey
+
+8. session cache
+
+9. MJ extraction ()
+
+10. vignette and test to 100% cov
 
 ...

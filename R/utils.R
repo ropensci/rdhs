@@ -34,9 +34,129 @@ unzip_warn_fails <- function (...){
   }, warning = function(w) stop(conditionMessage(w)))
 }
 
+#' raed in dhs standard file types
+#' @param file path to file to be read
+#' @param reformat boolean detailing if datasets should be nicely reformatted. Default = TRUE
+#'
+dhs_read_dataset <- function(file, reformat = TRUE){
+
+  filetype <- strsplit(file,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
+  file_types <- c("dta","sav","dat","sas7bdat")
+
+  # 1. .dta file
+  if(match(toupper(filetype),toupper(file_types))==1){
+
+    res <- foreign::read.dta(file,convert.dates = FALSE,
+                             convert.factors = FALSE,
+                             warn.missing.labels = FALSE)
+
+    # are we reformatting
+    if(reformat){
+      res <- dta_factor_format(res)
+    }
+
+    # 2. .sav file
+  } else if(match(toupper(filetype),toupper(file_types))==2){
+
+    # haven 1.1.1 has some issues, so have changed the description
+    res <-  haven::read_sav( file )
+
+    # are we reformatting
+    if(reformat){
+      res <- haven_factor_format(res)
+    }
+
+    # 3. .dat file
+  } else if(match(toupper(filetype),toupper(file_types))==3){
+
+    message("No support for reading in .dat files as of yet. Perhaps read/download .dta datasets instead?")
+    res <- "No support for importing .dat"
+
+    # 4. .sas7bdat file
+  } else if(match(toupper(filetype),toupper(file_types))==4){
+
+    message("No support for reading in .sas7bdat files as of yet. Perhaps read/download .dta datasets instead?")
+    res <- "No support for importing .dat"
+
+  }
+
+  return(res)
+}
+
+
+#' reformat dta to be more useful
+#' @param dta read in dta dataset using  foreign::read.dta(file,convert.dates = FALSE,
+#' convert.factors = FALSE,warn.missing.labels = FALSE)
+#'
+#' @return list with the eformatted dataset and the code descriptions
+dta_factor_format <- function(dta){
+
+  # grab the attributes and the label table
+  atts <- attributes(dta)
+  lab <- atts$label.table
+
+  # make all upper for match purposes
+  names(lab) <- toupper(names(lab))
+  names(dta) <- toupper(names(dta))
+
+  # create the description table
+  description_table <- data.frame("Code"=names(dta),"Description"=atts$var.labels)
+
+  # reformat the dta so the values are the actual value rather than their code
+  for(i in 1:length(lab)){
+    pos <- match(names(lab[i]),names(dta))
+    lab_matches <- which(!is.na(match(dta[[pos]],lab[[i]])))
+    if(length(lab_matches)>0){
+    dta[[pos]][lab_matches] <- names(lab[[i]])[match(dta[[pos]][lab_matches],lab[[i]])]
+    }
+  }
+
+  dta <- lapply(dta,as.character)
+
+  return(list("Survey"=dta,"Survey_Code_Descrptions"=description_table))
+}
+
+#' reformat haven read ins to be more useful
+#' @param res read in dta dataset using  haven::read_dta(file)
+#'
+#' @return list with the formatted dataset and the code descriptions
+haven_factor_format <- function(res){
+
+  # grab the labels from attributes
+  lab <- lapply(res,function(x) attr(x,"labels"))
+  lab <- lab[!lapply(lab,is.null) %>% unlist]
+
+  # make all upper for match purposes
+  names(lab) <- toupper(names(lab))
+  names(res) <- toupper(names(res))
+
+  # create the description table
+  description <- lapply(res,attr,"label")
+  description_table <- data.frame("Code"=names(res),"Description"=as.character(description),
+                                  stringsAsFactors = FALSE)
+
+  # reformat the res so the values are the actual value rather than their code
+  for(i in 1:length(lab)){
+    pos <- match(names(lab[i]),names(res))
+    lab_matches <- which(!is.na(match(res[[pos]],lab[[i]])))
+    if(length(lab_matches)>0){
+      res[[pos]][lab_matches] <- names(lab[[i]])[match(res[[pos]][lab_matches],lab[[i]])]
+    }
+  }
+
+  res <- lapply(res,as.character)
+
+  return(list("Survey"=res,"Survey_Code_Descrptions"=description_table))
+}
 
 #' open file outside
 #' @param txt_path txt file path
 #'
 #'
 sopen <- function(txt_path) system(paste0("open ","\"",txt_path,"\""))
+
+#' open file outside
+#' @param what turns vector into easy form to copy and paste to recreate
+#'
+#'
+rechar_vec <- function(what) cat(paste0("c(\"",paste0(what,collapse="\",\""),"\")"))

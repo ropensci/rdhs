@@ -2,15 +2,23 @@
 title: "rdhs overview"
 author: "OJ Watson"
 date: '`r Sys.Date()`'
-output:
-  html_document:
-  code_folding: show
-css: knitr.css
+output: rmarkdown::html_vignette
 fig_caption: yes
 theme: readable
 toc: yes
-toc_float: yes
+vignette: >
+  %\VignetteIndexEntry{Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 ## Overview
 
@@ -63,7 +71,7 @@ library(rdhs)
 ## 1. Create the rdhs client
 
 The client is the bulk of the package's functionality, and at the moment there are
-2 named arguments, *api_key* and *root*. You can apply for an API key from the DHS
+3 named arguments, *api_key*, *root* and *credentials*. You can apply for an API key from the DHS
 website that will allow you to leverage more api call returns, and will be stroed within
 the client if declared here. The root argument is the directory path where the client
 and associated caches will be stored. If left bank, a suitable directory will be created
@@ -72,11 +80,21 @@ within your user cahce directory for your operating system. E.g:
 * Mac OS X: ‘~/Library/Caches/<AppName>’
 * Unix: ‘~/.cache/<AppName>’, $XDG_CACHE_HOME if defined
 
-```{r Client creation, include=TRUE, message = FALSE, warning = FALSE}
+The credential argument is your login information for the DHS website. THis should take the form
+of a file path that contains 3 lines, something like this:
 
-# Create a client withi our api kiey and in this root directory
-root <- "C:/Users/Oliver/Desktop/DHS_Demo_Root"
-client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root)
+email="dummy@gmail.com"
+password="dummypass"
+project="Dummy Project"
+
+These will then be read in and used to create system environment variables so you won't have to 
+re-enter them within the same session. 
+
+```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN}
+
+# Create a client withi our api key and in this root directory
+root <- file.path(getwd(),"rt")
+client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root,credentials=".credentials")
 
 # Have a look at what the client object is
 client
@@ -118,7 +136,7 @@ perhaps antimalarial perscription has decreased after RDTs were introduced (assu
 for that by specifying the "data" endpoint, and using suitable filter queries provided as a list as follows:
 
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+```{r API call, include=TRUE, message = FALSE, warning = FALSE, fig.width=10, fig.height=8}
 
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
@@ -127,23 +145,21 @@ resp <- client$dhs_api_request(api_endpoint = "data",
                                     "breakdown"="subnational"))
 
 
-time <- lapply(resp$Data, function(x) x$SurveyYear) %>% unlist
-values <- lapply(resp$Data, function(x) x$Value) %>% unlist
-country <- lapply(resp$Data, function(x) x$CountryName) %>% unlist
-region <- lapply(resp$Data, function(x) x$CharacteristicLabel) %>% unlist
-df <- data.frame("Year"=time,"Data"=values,"Country"=country,"Region"=region)
-str(df)
+# and let's filter it by some countries
+countries  <- c("Angola","Ghana","Kenya","Liberia",
+                "Madagascar","Mali","Malawi","Nigeria",
+                "Rwanda","Sierra Leone","Senegal","Tanzania","Uganda")
 
 library(ggplot2)
-ggplot(df, aes(x=Year,y=Data,colour=Country)) + 
-  geom_point() + geom_smooth() + ylab(resp$Data[[1]]$Indicator)
+ggplot(resp[resp$CountryName %in% countries,], aes(x=SurveyYear,y=Value,colour=CountryName)) +
+  geom_point() + geom_smooth(method = "glm") + ylab(resp$Indicator[1]) + facet_wrap(~CountryName)
 
 ```
 
 If we miss entered a filter query (very possible) rdhs will give you an error that is
 somewhat nicely presented on the pagee for you to see way:
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE}
 
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
@@ -176,7 +192,7 @@ within the dataupdates endpoint is more recent than the cache_date within our cl
 clear our api call cache. The api calls are relatively lightweight, so will not be a major hindrance
 in the future. This can be seen below:
 
-```{r API call dating, include=TRUE, message = FALSE, warning = FALSE}
+```{r API dating, include=TRUE, message = FALSE, warning = FALSE}
 
 # Get the current cache date that the client was last created at
 client$get_cache_date()
@@ -189,7 +205,9 @@ client$get_cache_date()
 client$save_client()
 
 # Now let's imagine we were restarting our R session another time and wanted to load our client we were using before
-client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = "C:/Users/Oliver/Desktop/DHS_Demo_Root")
+client <- rdhs::dhs_client(api_key = "ICLSPH-527168",
+                           root = root, 
+                           credentials = ".credentials")
 client$get_cache_date()
 
 ```
@@ -206,22 +224,14 @@ in the two weeks preceding the survey that received any anti-malarial drugs who 
 ```{r API for surveys, include=TRUE, message = FALSE, warning = FALSE}
 
 # Make an api request
-resp <- client$dhs_api_request(api_endpoint = "surveys",
+desired_data <- client$dhs_api_request(api_endpoint = "surveys",
                        query = list("indicatorIds"="ML_AMLD_C_QNN"))
 
-
-year <- lapply(resp$Data, function(x) x$SurveyYear) %>% unlist
-countrycode <- lapply(resp$Data, function(x) x$DHS_CountryCode) %>% unlist
-country <- lapply(resp$Data, function(x) x$CountryName) %>% unlist
-region <- lapply(resp$Data, function(x) x$RegionName) %>% unlist
-unique <- paste0(country,year)
-desired_data <- data.frame("Year"=year,"Country"=country,"CountryCode"=countrycode,
-                           "Region"=region,"unique"=unique,stringsAsFactors = FALSE)
 str(desired_data)
 
 ```
 
-No we have a data frame for the surveys we want we then go about actually downloading
+Now we have a data frame for the surveys we want we then go about actually downloading
 the surveys.
 
 ## 4. Cataloguing which surveys you can download for your log in credentials
@@ -229,20 +239,14 @@ the surveys.
 To do this we again use the client, and pass in our login in credentials, and where we will
 eventually want to download our surveys too. The client will then log into your DHS account
 for you and scrape what surveys you have access to. It will then turn these into downloadable
-urls to be used in the next step.
+urls to be used in the next step. (Takes ~30s)
 
-This does take a fair amount of time (~5 mins depedning on how many surveys you have access too),
-so again this is cached by the client for future use. Thus if you change what surveys/datasets 
-you have access to by requesting new datasets within the DHS website, you will need to clear 
-this cache (TODO) and re run it. 
 
 ```{r Avaialable surveys, include=TRUE, message = FALSE, warning = FALSE}
 
-# client will fetch this (it will take a looooooooong(ish) time)
-available_surveys <- client$available_surveys(output_dir = file.path(root,"surveys"),
-                         your_email = "rdhs.tester@gmail.com",
-                         your_password = "rdhstesting",
-                         your_project = "Testing Malaria Investigations")
+# client will fetch all the surveys that you can download from the DHS 
+# website (i.e. the ones they have gien you permission for)
+available_surveys <- client$available_surveys()
 
 str(available_surveys)
 ```
@@ -255,71 +259,101 @@ subset those from step 4 using our dataframe in step 3.
 
 ```{r Subset surveys, include=TRUE, message = FALSE, warning = FALSE}
 
-# make a country year paste for comparisons
-available_surveys$unique <- paste0(available_surveys$country,available_surveys$year)
-
 # subset our available data frames
-subsetted_surveys <- dplyr::filter(available_surveys, unique %in% desired_data$unique)
+subsetted_surveys <- dplyr::filter(available_surveys, SurveyId %in% desired_data$SurveyId)
 
 ```
 
-And we can now download those surveys:
+And we can now download those surveys using our client.
 
-```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE}
+N.B It is recommended (and there is only support for) to download the Stata datasets and the SPSS datasets,
+and preferentially the Stata datasets as these are a little quicker to import. This obviously stands for just the 
+survey datasets, whereas the GPS coordinates (which are logged as .dat files) are supported as they are 
+read in using \code{rgdal::readOGR}.
+
+The default download will also 
+
+```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>"}
+
+# let's then grab the stata datasets
+stata_surveys <- subsetted_surveys[subsetted_surveys$FileFormat=="Stata dataset (.dta)",]
 
 # download datasets
-rdhs::download_datasets(your_email="rdhs.tester@gmail.com",
-   your_password="rdhstesting",
-   your_project="Testing Malaria Investigations",
-   desired_surveys=subsetted_surveys[c(1,10,100,1000),])
+downloads <- client$download_survey(desired_survey=stata_surveys[c(1,25,50,75,100),], reformat = TRUE)
+
 ```
 
 At the moment this will indisciriminately download the zip file and unpack it to a directory within
 the directory path we specified as the output_dir argument for `available_surveys`. So this looks something like this:
 
-```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE}
+```{r Download tree, include=TRUE, message = FALSE, warning = FALSE}
 
 library(data.tree)
-x <- lapply(strsplit(list.files(file.path(root,"surveys"),recursive = T), "/"), function(z) as.data.frame(t(z)))
+x <- lapply(strsplit(list.files(file.path(root,"surveys"),recursive = T,full.names = TRUE), "/"),
+            function(z) as.data.frame(t(z)))
 x <- dplyr::rbind_all(x)
-x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(x)), collapse="/"))
+x$pathString <- apply(x, 1, function(x) paste(trimws(na.omit(tail(x,4))), collapse="/"))
 mytree <- data.tree::as.Node(x)
 mytree
 
 ```
 
-Where you can see that both the household survey files for Angola's Standard DHS 2015-2016
-and the bith recode files are in the same directory. At the moment this seems sensible to me, but
-might change. 
+Where you can see that a new directory is made for each survey, with any datasets collected from that
+survey, e.g. birth recode, individual recode, sotred within that same directory. 
 
-The other thing that might be sensible is to decide what file format you want to work with in terms
-of what surveys you download. You can quickly get that information from the the url:
+Now to have a quick look at what was actually downloaded using the download_survey function.
 
 ```{r Explore filenames, include=TRUE, message = FALSE, warning = FALSE}
-sapply(available_surveys$full_url[1:5],httr::parse_url) %>% 
-  apply(MARGIN = 2,function(x) x[5]$query$Filename) %>% 
-  as.character()
+str(downloads)
 ```
 
-Going forward (as slightly running out of time) what I want to do is also have a default download
-option, which is the most sensible. For example, importing and formatting the stata dataset files
-is probably the most easy, and these files include substantially great metadata in their attributes.
+What we have is the file paths to where the files were saved to. Depending on the download option
+this will either be the zip file, the extracted files from the zip, or the rds object created by unzipping
+the zip file and rading in the approporiate dataset. 
 
-In my head going forward the following seems sensible:
+A note on the rds object. These will be automatically reformatted to remove factors and simply return the raw character representations
+of the data. This is carried out using \code{rdhs:::dta_factor_format} and \code{rdhs:::haven_factor_format}, that will read the stata and
+spss dataset attributes and subsequently correct factors. This will also return a table detailing what the dataset codes were for that survey and
+what their description is. This will be very helpful in the next section when we aim to find all the possible questions we may want to query
+our surveys by. The rationale behind this was simply that the factor levels will often not be consistent between surveys, and by carrying this 
+out in the backend when these datasets are read in then it saves the user from having to look up factor levels later on. If you do not wish to have
+this information then change the `reformat` argument to `FALSE`.
 
-You put the desired sruveys you want to download in (probably stata dta), this gets read in one, the 
-variables correctly labelled using the attributes, and saved as an equivalent rds. The file path for that
-rds is then cached so that when you have carried out something that will be the following you have all the 
-file paths that you then interact with to load them when needed.
+A quick look at a demonstration of the reformat:
 
-```{r Download surveys with client, include=TRUE, message = FALSE, warning = FALSE}
+```{r Explore downloads, include=TRUE, message = FALSE, warning = FALSE}
 
-surveys <- apply(subset.data.frame, MARGIN = 1, function(x) client$download_survey(x)) %>% unlist
+# let's read one result in and look at that
+downloaded_dataset <- readRDS(downloads[[1]][1])
+str(downloaded_dataset,list.len = 10)
+
+# have a look at the survey code descriptions
+head(downloaded_dataset$Survey_Code_Descrptions)
+
+# and let's have a look at how the factor reformat has been helpful
+downloaded_dataset$Survey_Code_Descrptions[downloaded_dataset$Survey_Code_Descrptions$Code=="ML101",]
+head(downloaded_dataset$Survey$ML101,20)
+
+```
+```{r Explore downloads 2, include=TRUE, message = FALSE, warning = FALSE}
+
+# have a look at the survey code descriptions
+head(downloaded_dataset$Survey_Code_Descrptions)
 
 ```
 
+```{r Explore downloads3, include=TRUE, message = FALSE, warning = FALSE}
+
+# and let's have a look at how the factor reformat has been helpful
+downloaded_dataset$Survey_Code_Descrptions[downloaded_dataset$Survey_Code_Descrptions$Code=="ML101",]
+head(downloaded_dataset$Survey$ML101,20)
+
+```
 
 ## 6. Creating the list of survey questions required for your investigation
+
+
+
 
 ## 7. Using the list from step 6 to create your data frame of survey responses
 
@@ -328,8 +362,10 @@ surveys <- apply(subset.data.frame, MARGIN = 1, function(x) client$download_surv
 
 ## Summary and further thoughts
 
-Hopefully the above tutorial has shown how the *outbreakteachR* outbreak practical can be extended
-using R to extend the analysis and aid in visualising the outbreak process.
+Hopefully the above tutorial has shown how the *rdhs* package can facilitate both querying the DHS
+api and hopefully life some of the difficulty of interacting with the raw datasets. Any suggestions or 
+comments/corrections/errors/ideas please let me know either in the issues or send me an email at 
+"o.watson15@imperial.ac.uk".
 
 ---
 
