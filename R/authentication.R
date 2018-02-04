@@ -61,104 +61,104 @@ available_surveys <- function(your_email, your_password, your_project,
   values <- list(Proj_ID = project_number,
                  action = "downloadmanager")
 
-    # Head to download page
-    z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
+  # Head to download page
+  z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
 
-    # Grab the content from that and start creation for last post request
-    writeBin( z$content , tf )
-    # load the text
-    y <- readLines( tf , warn = FALSE )
+  # Grab the content from that and start creation for last post request
+  writeBin( z$content , tf )
+  # load the text
+  y <- readLines( tf , warn = FALSE )
 
 
-    # Donqwload manager post creation
-    ctrycodelist_lines <- grep("name=\"ctrycodelist\" value=",y,value = TRUE)
-    ctrycodelist <- qdapRegex::rm_between(ctrycodelist_lines, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
-    names(ctrycodelist) <- rep("ctrycodelist",length(ctrycodelist))
+  # Donqwload manager post creation
+  ctrycodelist_lines <- grep("name=\"ctrycodelist\" value=",y,value = TRUE)
+  ctrycodelist <- qdapRegex::rm_between(ctrycodelist_lines, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
+  names(ctrycodelist) <- rep("ctrycodelist",length(ctrycodelist))
 
-    filedatatypelist_DHS_lines <- grep("name=\"filedatatypelist_",y,value = TRUE)
-    filedatatypelist_DHS <- qdapRegex::rm_between(filedatatypelist_DHS_lines, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
-    names(filedatatypelist_DHS) <- paste0("filedatatypelist_",qdapRegex::rm_between(filedatatypelist_DHS_lines,"filedatatypelist_","\" value",extract=TRUE))
+  filedatatypelist_DHS_lines <- grep("name=\"filedatatypelist_",y,value = TRUE)
+  filedatatypelist_DHS <- qdapRegex::rm_between(filedatatypelist_DHS_lines, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
+  names(filedatatypelist_DHS) <- paste0("filedatatypelist_",qdapRegex::rm_between(filedatatypelist_DHS_lines,"filedatatypelist_","\" value",extract=TRUE))
 
-    fformatlist <- grep("fformatlist",y,value = TRUE)
-    fformatlist <- qdapRegex::rm_between(fformatlist, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
-    names(fformatlist) <- rep("fformatlist",length(fformatlist))
+  fformatlist <- grep("fformatlist",y,value = TRUE)
+  fformatlist <- qdapRegex::rm_between(fformatlist, '"', '"', extract=TRUE) %>% lapply(function(x) x[3])
+  names(fformatlist) <- rep("fformatlist",length(fformatlist))
 
-    values <- list(surveymode = "all",
-                   Proj_ID = project_number,
-                   action = "downloadmanager",
-                   subaction = "Build URL File List",
-                   sub = "submit",
-                   submit = "Build URL File List",
-                   FileDataTypeCode = "",
-                   ctrycode = "")
+  values <- list(surveymode = "all",
+                 Proj_ID = project_number,
+                 action = "downloadmanager",
+                 subaction = "Build URL File List",
+                 sub = "submit",
+                 submit = "Build URL File List",
+                 FileDataTypeCode = "",
+                 ctrycode = "")
 
-    values <- append(values,values = c(ctrycodelist,filedatatypelist_DHS,fformatlist))
+  values <- append(values,values = c(ctrycodelist,filedatatypelist_DHS,fformatlist))
 
-    # submit request for all the possible surveys
-    message("Creating Download url list from DHS website...")
-    z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
-    link.urls <- XML::xpathSApply( XML::htmlParse( httr::content( z ) ) , "//a" , XML::xmlGetAttr , "href" ) %>% unlist()
+  # submit request for all the possible surveys
+  message("Creating Download url list from DHS website...")
+  z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
+  link.urls <- XML::xpathSApply( XML::htmlParse( httr::content( z ) ) , "//a" , XML::xmlGetAttr , "href" ) %>% unlist()
 
-    # pull all links download and read in
-    url_link <- paste0("https://dhsprogram.com",grep(pattern = "/data/download/urlslist",link.urls,value = TRUE))
-    httr::GET(url_link , destfile = tf, httr::write_disk( tf , overwrite = TRUE ))
-    urls <- readLines(tf)
-    urls <- urls[-which(!nzchar(urls))]
+  # pull all links download and read in
+  url_link <- paste0("https://dhsprogram.com",grep(pattern = "/data/download/urlslist",link.urls,value = TRUE))
+  httr::GET(url_link , destfile = tf, httr::write_disk( tf , overwrite = TRUE ))
+  urls <- readLines(tf)
+  urls <- urls[-which(!nzchar(urls))]
 
-    # start filling in the end result data frame of all available surveys
-    res <- matrix(data = "",nrow = length(urls),ncol = dim(datasets_api_results)[2]+1)
-    colnames(res) <- c(names(datasets_api_results),"URLS")
-    res <- as.data.frame(res,stringsAsFactors = FALSE)
-    res$URLS <- urls
-    res$FileName <- qdapRegex::rm_between(urls,"Filename=","&Tp",extract = TRUE) %>% unlist
+  # start filling in the end result data frame of all available surveys
+  res <- matrix(data = "",nrow = length(urls),ncol = dim(datasets_api_results)[2]+1)
+  colnames(res) <- c(names(datasets_api_results),"URLS")
+  res <- as.data.frame(res,stringsAsFactors = FALSE)
+  res$URLS <- urls
+  res$FileName <- qdapRegex::rm_between(urls,"Filename=","&Tp",extract = TRUE) %>% unlist
 
-    # match meta using filenames
-    fileName_matches <- match(toupper(res$FileName),toupper(datasets_api_results$FileName))
-    res_matches <- which(!is.na(fileName_matches))
-    if(sum(is.na(fileName_matches))>0) fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
-    res[res_matches,1:length(datasets_api_results)] <- datasets_api_results[fileName_matches,]
+  # match meta using filenames
+  fileName_matches <- match(toupper(res$FileName),toupper(datasets_api_results$FileName))
+  res_matches <- which(!is.na(fileName_matches))
+  if(sum(is.na(fileName_matches))>0) fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
+  res[res_matches,1:length(datasets_api_results)] <- datasets_api_results[fileName_matches,]
 
-    # if this is greater than 0, then their API is liekly out of date (which is an issue...)
-    # TODO: Ask about how they would like to be contacated about this
-    missings <- which(res$FileFormat=="")
-    if(length(missings)>0){
+  # if this is greater than 0, then their API is liekly out of date (which is an issue...)
+  # TODO: Ask about how they would like to be contacated about this
+  missings <- which(res$FileFormat=="")
+  if(length(missings)>0){
 
-      missing_country_codes <- unique(res$FileName[missings] %>% substr(start = 1, stop = 2))
-      call <- surveys_api_results
-      res$SurveyNum[missings] <- (qdapRegex::rm_between(res$URLS[missings],"surv_id=","&dm",extract = TRUE) %>% unlist)
-      missing_survey_nums <- unique(res$SurveyNum[missings])
+    missing_country_codes <- unique(res$FileName[missings] %>% substr(start = 1, stop = 2))
+    call <- surveys_api_results
+    res$SurveyNum[missings] <- (qdapRegex::rm_between(res$URLS[missings],"surv_id=","&dm",extract = TRUE) %>% unlist)
+    missing_survey_nums <- unique(res$SurveyNum[missings])
 
-      ## TODO: MAKE THIS NOT TERRIBLE - will most likely break, and there is no telling that the surveys api is any better
-      needed_cols <- c("SurveyId","SurveyYearLabel","SurveyType","SurveyYear","DHS_CountryCode","CountryName")
+    ## TODO: MAKE THIS NOT TERRIBLE - will most likely break, and there is no telling that the surveys api is any better
+    needed_cols <- c("SurveyId","SurveyYearLabel","SurveyType","SurveyYear","DHS_CountryCode","CountryName")
 
-      # grab file types and format types for matching from the filenames
-      file_types <- unique(res$FileType)
-      file_types <- file_types[-which(file_types=="")]
-      filetype_stems <- lapply(file_types,function(x) unique(toupper(substr(res$FileName[res$FileType==x],3,4)))) %>% unlist
+    # grab file types and format types for matching from the filenames
+    file_types <- unique(res$FileType)
+    file_types <- file_types[-which(file_types=="")]
+    filetype_stems <- lapply(file_types,function(x) unique(toupper(substr(res$FileName[res$FileType==x],3,4)))) %>% unlist
 
-      file_formats <- unique(res$FileFormat)
-      file_formats <- file_formats[-which(file_formats=="")]
-      fileformat_endings <- lapply(file_formats,function(x) unique(toupper(substr(res$FileName[res$FileFormat==x],7,8)))) %>% unlist
+    file_formats <- unique(res$FileFormat)
+    file_formats <- file_formats[-which(file_formats=="")]
+    fileformat_endings <- lapply(file_formats,function(x) unique(toupper(substr(res$FileName[res$FileFormat==x],7,8)))) %>% unlist
 
-      # loop through all the missing survery numbers that we need to fill in for
-      for(i in missing_survey_nums){
+    # loop through all the missing survery numbers that we need to fill in for
+    for(i in missing_survey_nums){
 
-        # where are these missing surveys
-        missing_pos <- missings[which(res$SurveyNum[missings]==i)]
+      # where are these missing surveys
+      missing_pos <- missings[which(res$SurveyNum[missings]==i)]
 
-        # is there any info about them from the surveys api
-        if(length(which(call$SurveyNum==i))>0){
-          res[missing_pos,needed_cols] <- call[which(call$SurveyNum==i),needed_cols]
-        }
-
-        # fill in file type and format from filename
-        res$FileType[missing_pos] <- file_types[match(toupper(substr(res$FileName[missing_pos],3,4)),filetype_stems)]
-        res$FileFormat[missing_pos] <- file_formats[match(toupper(substr(res$FileName[missing_pos],3,4)),fileformat_endings)]
+      # is there any info about them from the surveys api
+      if(length(which(call$SurveyNum==i))>0){
+        res[missing_pos,needed_cols] <- call[which(call$SurveyNum==i),needed_cols]
       }
 
+      # fill in file type and format from filename
+      res$FileType[missing_pos] <- file_types[match(toupper(substr(res$FileName[missing_pos],3,4)),filetype_stems)]
+      res$FileFormat[missing_pos] <- file_formats[match(toupper(substr(res$FileName[missing_pos],3,4)),fileformat_endings)]
     }
 
-    return(res)
+  }
+
+  return(res)
 
 }
 
@@ -206,47 +206,49 @@ download_datasets <- function(   your_email , your_password , your_project ,
   z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm" , body = list( proj_id = project_number ) )
 
   # download our zip
-    message("Downloading: \n", paste(desired_survey$CountryName,desired_survey$SurveyYear,
-                                     desired_survey$SurveyType,desired_survey$FileType,
-                                     desired_survey$FileFormat, collapse=", "))
-    httr::GET(desired_survey$URLS[1], destfile = tf, httr::write_disk( tf , overwrite = TRUE ) , httr::progress() )
+  message("Downloading: \n", paste(desired_survey$CountryName,desired_survey$SurveyYear,
+                                   desired_survey$SurveyType,desired_survey$FileType,
+                                   desired_survey$FileFormat, collapse=", "))
+  httr::GET(desired_survey$URLS[1], destfile = tf, httr::write_disk( tf , overwrite = TRUE ) , httr::progress() )
 
-    # make sure the file-specific folder exists
-    dir.create( survey_dir , showWarnings = FALSE, recursive = T )
+  # make sure the file-specific folder exists
+  dir.create( survey_dir , showWarnings = FALSE, recursive = T )
 
-    ## DOWNLOAD OPTIONS HANDLING:
-    # 1. Just the zip
-    if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==1){
+  ## DOWNLOAD OPTIONS HANDLING:
+  # 1. Just the zip
+  if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==1){
 
-      res <- file.copy(tf,to = file.path(survey_dir,desired_survey$FileName))
-      res <- if(res) file.path(survey_dir,desired_survey$FileName) else stop("Failed to donwload zip to where client root is - check write access?")
+    res <- file.copy(tf,to = file.path(survey_dir,desired_survey$FileName))
+    res <- if(res) file.path(survey_dir,desired_survey$FileName) else stop("Failed to donwload zip to where client root is - check write access?")
 
+  }
+
+  # 2. Just the extract
+  if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)>=2){
+
+    # unzip the download
+    unzipped_files <- unzip_warn_fails(tf , exdir = survey_dir)
+
+    # sometimes they have extra zips that are different surveys, e.g. Senegal 2014 GE
+    still_zips <- grep(".zip|.ZIP",unzipped_files)
+    if(length(still_zips)>0){
+    zip_to_remove <- which(toupper(basename(unzipped_files[still_zips])) != toupper(desired_survey$FileName))
+    file.remove(unzipped_files[zip_to_remove])
+    unzipped_files <- unzipped_files[-zip_to_remove]
     }
 
-    # 2. Just the extract
-    if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==2){
-
-      unzipped_files <- unzip_warn_fails(tf , exdir = survey_dir)
-      # some zipped files contained zipped subfiles
-      for( this_zip in grep( "\\.zip$" , unzipped_files , ignore.case = TRUE , value = TRUE ) ){
-        unzipped_files <- unzipped_files[ unzipped_files != this_zip ]
-        unzipped_files <- c( unzipped_files , unzip_warn_fails( this_zip , exdir = survey_dir ) )
-      }
-      res <- unzipped_files
+    # some zipped files contained zipped subfiles
+    for( this_zip in grep( "\\.zip$" , unzipped_files , ignore.case = TRUE , value = TRUE ) ){
+      unzipped_files <- c( unzipped_files , unzip_warn_fails( this_zip , exdir = survey_dir ) )
     }
+
+    res <- unzipped_files
 
     # 3. Just the rds
-    if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)>=3){
-
-      unzipped_files <- unzip_warn_fails(tf , exdir = survey_dir)
-      # some zipped files contained zipped subfiles
-      for( this_zip in grep( "\\.zip$" , unzipped_files , ignore.case = TRUE , value = TRUE ) ){
-        unzipped_files <- unzipped_files[ unzipped_files != this_zip ]
-        unzipped_files <- c( unzipped_files , unzip_warn_fails( this_zip , exdir = survey_dir ) )
-      }
+    if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==3){
 
       # match to the actual dataset file rather than the others
-      file_types <- c("dta","sav","dat","sas7bdat")
+      file_types <- c("dta","sav","dat","sas7bdat","dbf")
       file_endings <- strsplit(unzipped_files,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
       file <- unzipped_files[which(!is.na(match(toupper(file_endings),toupper(file_types))))]
       res <- dhs_read_dataset(file,reformat)
@@ -254,25 +256,30 @@ download_datasets <- function(   your_email , your_password , your_project ,
       if(!is.character(res)){
         rds_path <- file.path(survey_dir,paste0(strsplit(desired_survey$FileName,".",fixed=TRUE)[[1]][1],".rds"))
         saveRDS(res,rds_path)
-        res <- rds_path
+        res$Survey <- rds_path
       }
 
       # remove unzipped files if not matching for "ex"
       # 4. Both extract and rds
       if(!grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==4){
-      file.remove(unzipped_files)
+        file.remove(unzipped_files)
       }
 
 
     }
 
-    # delete the temporary file
-    suppressWarnings( file.remove( tf ) )
-    message( "survey donwload finished" )
 
-    return(res)
+
 
   }
+
+  # delete the temporary file
+  suppressWarnings( file.remove( tf ) )
+  message( "survey donwload finished" )
+
+  return(res)
+
+}
 
 
 
@@ -359,7 +366,7 @@ dhs_authenticate <- function( your_email , your_password , your_project ){
   # remove the tf
   suppressWarnings( file.remove( tf ) )
 
-    # log in again, but specifically with the project number
+  # log in again, but specifically with the project number
   res <- list(
     user_name = your_email ,
     user_pass = your_password ,

@@ -55,12 +55,6 @@ download_survey:
     Using the output from \code{avaialable_surveys} the client will download the
     surveys you have requested. The
   params:
-    your_email: >-
-      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    your_password: >-
-      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    your_project: >-
-      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
     output_dir_root: >-
       Root directory where the surveys will be stored within. The default will download
       surveys to a subfolder of the client root called "surveys"
@@ -74,6 +68,41 @@ download_survey:
       you can just specify any letter from these options.
     reformat: >-
       Boolean concerning whether to reformat read in datasets. Default = TRUE.
+    your_email: >-
+      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
+    your_password: >-
+      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
+    your_project: >-
+      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
+  value: >-
+      Depends on the download_option requested, but ultimately it is a file path to where the survey
+      was downloaded to, so that you can interact with it accordingly.
+
+survey_questions:
+  short: >-
+    Use this function after download_survey to query downloaded surveys for what questions they asked.
+    This function will look for the downloaded and imported survey datasets from the cache, and will
+    download them if not previously downloaded.
+  params:
+    desired_survey: >-
+      The desired surveys to be queried. This represents a row(s) from \code{avaialable_surveys}.
+      If multiple rows are requested the function will handle that and give you back the results
+      in a list, with elements named accordingly for the survey downloaded.
+    search_terms: >-
+      Character vector of search terms. If any of these terms are found within the surveys question
+      descriptions, the corresponding code and description will be returned.
+    regex: >-
+      Regex character pattern for matching. If you want to specify your regex search pattern, then specify
+      this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.
+    output_dir_root: >-
+      Root directory where the surveys will be stored within. The default will download
+      surveys to a subfolder of the client root called "surveys"
+    your_email: >-
+      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
+    your_password: >-
+      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
+    your_project: >-
+      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
   value: >-
       Depends on the download_option requested, but ultimately it is a file path to where the survey
       was downloaded to, so that you can interact with it accordingly.

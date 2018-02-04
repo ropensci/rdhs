@@ -90,7 +90,7 @@ project="Dummy Project"
 These will then be read in and used to create system environment variables so you won't have to 
 re-enter them within the same session. 
 
-```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN}
+```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN}
 
 # Create a client withi our api key and in this root directory
 root <- file.path(getwd(),"rt")
@@ -267,9 +267,11 @@ subsetted_surveys <- dplyr::filter(available_surveys, SurveyId %in% desired_data
 And we can now download those surveys using our client.
 
 N.B It is recommended (and there is only support for) to download the Stata datasets and the SPSS datasets,
-and preferentially the Stata datasets as these are a little quicker to import. This obviously stands for just the 
+and preferentially the Stata datasets as these are a little quicker to import. This is just the 
 survey datasets, whereas the GPS coordinates (which are logged as .dat files) are supported as they are 
 read in using \code{rgdal::readOGR}.
+
+T
 
 The default download will also 
 
@@ -352,7 +354,27 @@ head(downloaded_dataset$Survey$ML101,20)
 
 ## 6. Creating the list of survey questions required for your investigation
 
+Now that we have all the surveys downloaded that we want, (which we worked out using the DHS API indicators),
+we no want to know which survey codes/questions are contained in each survey that we want in our final extracted
+data frame. To do this we continue using the client, which can iterate though our survey code descriptions.
 
+The reason this is useful, is that some surveys have different codes for the same questions. Therefore it can be difficult
+to filter by just choosing the codes you want from one survey. Similarly, the questions for the same code may be subtley
+different, e.g. some report on say fever in the last 2 weeks and some report on fever in the last 4 weeks. So by querying
+for terms, we can then use the survey specific codes that interest us, and we can use the descriptions to save information
+about the questions easily. 
+
+So let's now have a look at the surveys we donwloaded, and query for survey questions that included anything about fevers,
+malaria, or tests. 
+
+(At the moment the search terms are just combined to produce and OR regex query. )
+
+```{r Survey questions, include=TRUE, message = FALSE, warning = FALSE}
+
+# extract the questions, an fitler by search terms.
+questions <- client$survey_questions(stata_surveys[c(1,25,50,75,100),],search_terms = c("fever","malaria","test"))
+
+```
 
 
 ## 7. Using the list from step 6 to create your data frame of survey responses

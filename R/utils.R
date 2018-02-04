@@ -41,7 +41,7 @@ unzip_warn_fails <- function (...){
 dhs_read_dataset <- function(file, reformat = TRUE){
 
   filetype <- strsplit(file,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
-  file_types <- c("dta","sav","dat","sas7bdat")
+  file_types <- c("dta","sav","dat","sas7bdat","dbf")
 
   # 1. .dta file
   if(match(toupper(filetype),toupper(file_types))==1){
@@ -78,6 +78,11 @@ dhs_read_dataset <- function(file, reformat = TRUE){
     message("No support for reading in .sas7bdat files as of yet. Perhaps read/download .dta datasets instead?")
     res <- "No support for importing .dat"
 
+    # 5. .dbf (geographic datasets)
+  } else if(match(toupper(filetype),toupper(file_types))==5){
+
+    res <- rgdal::readOGR(dsn = dirname(file),layer = strsplit(basename(file),".",fixed=TRUE)[[1]][1])
+
   }
 
   return(res)
@@ -100,7 +105,8 @@ dta_factor_format <- function(dta){
   names(dta) <- toupper(names(dta))
 
   # create the description table
-  description_table <- data.frame("Code"=names(dta),"Description"=atts$var.labels)
+  description_table <- data.frame("Code"=names(dta),"Description"=atts$var.labels,
+                                  stringsAsFactors = FALSE)
 
   # reformat the dta so the values are the actual value rather than their code
   for(i in 1:length(lab)){
@@ -112,8 +118,9 @@ dta_factor_format <- function(dta){
   }
 
   dta <- lapply(dta,as.character)
+  dta <- as.data.frame.list(dta,stringsAsFactors = FALSE)
 
-  return(list("Survey"=dta,"Survey_Code_Descrptions"=description_table))
+  return(list("Survey"=dta,"Survey_Code_Descriptions"=description_table))
 }
 
 #' reformat haven read ins to be more useful
@@ -145,8 +152,9 @@ haven_factor_format <- function(res){
   }
 
   res <- lapply(res,as.character)
+  res <- as.data.frame.list(res, stringsAsFactors = FALSE)
 
-  return(list("Survey"=res,"Survey_Code_Descrptions"=description_table))
+  return(list("Survey"=res,"Survey_Code_Descriptions"=description_table))
 }
 
 #' open file outside
@@ -154,6 +162,13 @@ haven_factor_format <- function(res){
 #'
 #'
 sopen <- function(txt_path) system(paste0("open ","\"",txt_path,"\""))
+
+#' open folder outside
+#' @param  txt folder path
+#'
+#'
+sdir <- function(x)  shell(paste0("explorer ",x))
+
 
 #' open file outside
 #' @param what turns vector into easy form to copy and paste to recreate

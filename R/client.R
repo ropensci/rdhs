@@ -14,8 +14,6 @@
 ##'       \item project=Dummy Project
 ##'       }
 ##' Could also be a list (less preffered), e.g. list("email"=dummy@gmail.com,"password"=dummy,"project"=Dummy Project)
-##' @param force_initialise Boolean whether to force the initialisation of the client in the root directory, overwriting
-##' any old clients. Default = FALSE, and is best to stay as FASLE as ths is mainly for testing.
 ##' @param ... Passed to \code{R6_dhs_client}
 ##'
 ##' @template dhs_client_methods
@@ -24,7 +22,6 @@
 dhs_client <- function(api_key=NULL,
                        root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
                        credentials=NULL,
-                       force_initialise=FALSE,
                        ...) {
 
   # handle credentials first
@@ -34,14 +31,6 @@ dhs_client <- function(api_key=NULL,
     }
   } else {
     set_environment_credentials(read_credentials(credentials))
-  }
-
-
-  # force the initialisation
-  if(force_initialise){
-    unlink(root,recursive = TRUE,force=TRUE)
-    client <- R6_dhs_client$new(api_key,root,...)
-    return(client)
   }
 
   # check rdhs against api last update time
@@ -253,13 +242,13 @@ R6_dhs_client <- R6::R6Class(
 
     # DONWLOAD SURVEYS
     #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
-    download_survey = function(your_email=Sys.getenv("rdhs.USER_EMAIL"),
-                               your_password=Sys.getenv("rdhs.USER_PASS"),
-                               your_project=Sys.getenv("rdhs.USER_PROJECT"),
-                               output_dir_root=file.path(private$root,"surveys"),
+    download_survey = function(output_dir_root=file.path(private$root,"surveys"),
                                desired_survey,
                                download_option="rds",
-                               reformat=TRUE){
+                               reformat=TRUE,
+                               your_email=Sys.getenv("rdhs.USER_EMAIL"),
+                               your_password=Sys.getenv("rdhs.USER_PASS"),
+                               your_project=Sys.getenv("rdhs.USER_PROJECT")){
 
 
       # results storage
@@ -285,19 +274,6 @@ R6_dhs_client <- R6::R6Class(
 
         # create key for this
         key <- paste0(surveys[i,]$SurveyId,"_",filename,"_",download_option,"_",reformat)
-
-        # check the api date for this survey
-        date_modified <- datasets_api_results$FileDateLastModified[match(surveys$FileName[i],datasets_api_results$FileName)]
-
-        # # is the client tool aware that the DHS api has recently been updated as if this is the ase then we should check that our previosu
-        # if(private$newer_api){
-        #
-        # # if is na for date modified (filename change or shifty API then download) or date is more recent than cache then remove key
-        # if(is.na(date_modified) | date_modified > private$cache_date){
-        #   private$storr$del(key = key, namespace = downloaded_surveys)
-        # }
-        #
-        # }
 
         # first check against cache
         out <- tryCatch(private$storr$get(key,"downloaded_surveys"),
@@ -328,7 +304,7 @@ R6_dhs_client <- R6::R6Class(
             private$storr$set(key,resp,"downloaded_surveys")
           }
 
-          res[[i]] <- resp
+          res[[i]] <- resp$Survey
 
         }
       }
@@ -336,8 +312,117 @@ R6_dhs_client <- R6::R6Class(
       return(res)
     },
 
+
+    # SURVEY_QUESTIONS
+    #' Creates data.frame of all survey codes and descriptions, with an option to filter by search terms
+    survey_questions = function(desired_survey,
+                                search_terms = NULL,
+                                regex = NULL,
+                                output_dir_root=file.path(private$root,"surveys"),
+                                your_email=Sys.getenv("rdhs.USER_EMAIL"),
+                                your_password=Sys.getenv("rdhs.USER_PASS"),
+                                your_project=Sys.getenv("rdhs.USER_PROJECT")){
+
+
+      # results storage
+      df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0))
+      res <- list()
+
+      # shorter than desired_survey
+      surveys <- desired_survey
+
+      # handle the search terms
+      if(is.null(regex) & is.null(search_terms)) stop ("One of search terms or regex must not be NULL")
+      if(is.null(search_terms)){
+        pattern <- regex
+      } else {
+        pattern <- paste0(search_terms,collapse="|")
+        if(!is.null(regex)) message(paste0("Both regex and search_terms were provided.",
+                                           "search_terms will be used.",
+                                           "To use regex for searching, do not specify a search_terms argment"))
+      }
+
+
+      # possible download options:
+      download_possibilities <- c("zip","ex","rds","both")
+      download_option <- download_possibilities[grep(paste0(strsplit("rds","") %>% unlist,collapse="|"),download_possibilities)]
+      if(!is.element(download_option,download_possibilities)) stop ("Download option provided is not valid")
+
+      # handle for more than one survey specified
+      download_iteration <- length(res) <- dim(surveys)[1]
+      names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+
+      # grab the api declared datasets list
+      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
+
+      for(i in 1:download_iteration){
+
+        # key from file name
+        filename <- strsplit(surveys[i,]$FileName,".",fixed=TRUE)[[1]][1]
+
+        # create key for this
+        key <- paste0(surveys[i,]$SurveyId,"_",filename,"_",download_option,"_","TRUE")
+
+        # first check against cache
+        out <- tryCatch(private$storr$get(key,"downloaded_surveys"),
+                        KeyError = function(e) NULL)
+
+        out_descr <- tryCatch(private$storr$get(key,"downloaded_survey_code_descriptions"),
+                        KeyError = function(e) NULL)
+
+        # check out agianst cache, if not fine then download
+        if(is.null(out) & is.null(out_descr)){
+
+          # Download survey
+          resp <- download_datasets(your_email=your_email,
+                                    your_password=your_password,
+                                    your_project=your_project,
+                                    desired_survey=surveys[i,],
+                                    output_dir_root=output_dir_root,
+                                    download_option="rds",
+                                    reformat="TRUE")
+
+          # cache survey results and store them to the res list
+          private$storr$set(key,resp$Survey,"downloaded_surveys")
+          private$storr$set(key,resp$Survey_Code_Descriptions,"downloaded_survey_code_descriptions")
+
+          out <- resp$Survey
+          out_descr <- resp$Survey_Code_Descriptions
+
+        }
+
+          # add the survey file path to the res list
+          res[[i]] <- out
+
+          # match on search terms and remove questions that have na's
+          matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description)
+          matched_rows <- matched_rows[-grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)]
+
+          # only add if we have found any questions that match
+          if(length(matched_rows)>0){
+
+          # add the descriptions to the df object
+          df <- rbind(df,data.frame("Code"=out_descr$Code[matched_rows],
+                                    "Description"=out_descr$Description[matched_rows],
+                                    "Survey"=rep(names(res[i]),length(matched_rows)),
+                                    stringsAsFactors = FALSE
+                                    )
+                      )
+
+          }
+
+
+      }
+
+      # combine this process and then return it (maybe cache the greps)
+      results <- list("Surveys"=res,"Survey_Questions"=df)
+      return(results)
+
+    },
+
     # GETTERS
     get_cache_date = function() private$cache_date,
+    get_root = function() private$root,
 
     # SETTERS
     set_cache_date = function(date) private$cache_date = date,

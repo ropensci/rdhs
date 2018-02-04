@@ -9,9 +9,9 @@ test_that("avaialble surveys and download work", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td,force_initialise = TRUE)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td,force_initialise = TRUE)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale surveys
@@ -43,20 +43,21 @@ test_that("Geo dataset test", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td,force_initialise = TRUE)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td,force_initialise = TRUE)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale surveys
   survs <- cli$available_surveys()
 
-  # grab some geo datasets
-  geo_surveys <- subsetted_surveys[subsetted_surveys$FileType =="Geographic Data",]
+  # grab just the geographic data
+  hhs_geo <- which(survs$FileType %in% c("Geographic Data"))
 
-  # check geo
-  #downloads <- sapply(sample(dim(geo_surveys)[1],size = 4),function(x) cli$download_survey(desired_survey = survs[x,],download_option = "z"))
+  # check rds only
+  downloads <- sapply(hhs_geo[sample(length(hhs_geo),4,replace=FALSE)],function(x) cli$download_survey(desired_survey = survs[x,],download_option = "r"))
 
   unlink(td)
+
 
 })
