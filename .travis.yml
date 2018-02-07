@@ -10,4 +10,4 @@ env:
     - CODECOV_TOKEN="b290cc0e-4a34-4871-8884-1d5cb9382599"
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'covr::codecov()'

@@ -25,7 +25,7 @@ check_credentials <- function(credentials) {
 }
 
 set_environment_credentials <- function(credentials){
-  Sys.setenv("rdhs.USER_EMAIL"=credentials$email)
-  Sys.setenv("rdhs.USER_PASS"=credentials$password)
-  Sys.setenv("rdhs.USER_PROJECT"=credentials$project)
+  Sys.setenv("rdhs_USER_EMAIL"=credentials$email)
+  Sys.setenv("rdhs_USER_PASS"=credentials$password)
+  Sys.setenv("rdhs_USER_PROJECT"=credentials$project)
 }

@@ -26,7 +26,7 @@ dhs_client <- function(api_key=NULL,
 
   # handle credentials first
   if(is.null(credentials)){
-    if (identical(Sys.getenv("rdhs.USER_PASS"), "") | identical(Sys.getenv("rdhs.USER_EMAIL"), "") | identical(Sys.getenv("rdhs.USER_PROJECT"), "")){
+    if (identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), "")){
       stop("Credentials are not present in your system environment. Please provide credentials argument")
     }
   } else {
@@ -209,9 +209,9 @@ R6_dhs_client <- R6::R6Class(
 
     # AVAILABLE SURVEYS
     #' Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
-    available_surveys = function(your_email=Sys.getenv("rdhs.USER_EMAIL"),
-                                 your_password=Sys.getenv("rdhs.USER_PASS"),
-                                 your_project=Sys.getenv("rdhs.USER_PROJECT"),
+    available_surveys = function(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                 your_password=Sys.getenv("rdhs_USER_PASS"),
+                                 your_project=Sys.getenv("rdhs_USER_PROJECT"),
                                  datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
                                  surveys_api_results = self$dhs_api_request("surveys",num_results = "ALL")){
 
@@ -242,13 +242,13 @@ R6_dhs_client <- R6::R6Class(
 
     # DONWLOAD SURVEYS
     #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
-    download_survey = function(output_dir_root=file.path(private$root,"surveys"),
-                               desired_survey,
+    download_survey = function(desired_survey,
                                download_option="rds",
                                reformat=TRUE,
-                               your_email=Sys.getenv("rdhs.USER_EMAIL"),
-                               your_password=Sys.getenv("rdhs.USER_PASS"),
-                               your_project=Sys.getenv("rdhs.USER_PROJECT")){
+                               output_dir_root=file.path(private$root,"surveys"),
+                               your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                               your_password=Sys.getenv("rdhs_USER_PASS"),
+                               your_project=Sys.getenv("rdhs_USER_PROJECT")){
 
 
       # results storage
@@ -319,9 +319,9 @@ R6_dhs_client <- R6::R6Class(
                                 search_terms = NULL,
                                 regex = NULL,
                                 output_dir_root=file.path(private$root,"surveys"),
-                                your_email=Sys.getenv("rdhs.USER_EMAIL"),
-                                your_password=Sys.getenv("rdhs.USER_PASS"),
-                                your_project=Sys.getenv("rdhs.USER_PROJECT")){
+                                your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                your_password=Sys.getenv("rdhs_USER_PASS"),
+                                your_project=Sys.getenv("rdhs_USER_PROJECT")){
 
 
       # results storage
@@ -396,7 +396,10 @@ R6_dhs_client <- R6::R6Class(
 
           # match on search terms and remove questions that have na's
           matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description)
+          na_from_match <- grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)
+          if(length(na_from_match)>0){
           matched_rows <- matched_rows[-grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)]
+          }
 
           # only add if we have found any questions that match
           if(length(matched_rows)>0){

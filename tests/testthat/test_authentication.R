@@ -4,9 +4,9 @@ test_that("dhs_authenticate works", {
 
   skip_if_no_auth()
 
-  expect_equal(rdhs:::dhs_authenticate(your_email=Sys.getenv("rdhs.USER_EMAIL"),
-                                       your_password=Sys.getenv("rdhs.USER_PASS"),
-                                       your_project=Sys.getenv("rdhs.USER_PROJECT"))$proj_id, "111616")
+  expect_equal(rdhs:::dhs_authenticate(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                       your_password=Sys.getenv("rdhs_USER_PASS"),
+                                       your_project=Sys.getenv("rdhs_USER_PROJECT"))$proj_id, "111616")
 })
 
 test_that("available_surveys works", {
