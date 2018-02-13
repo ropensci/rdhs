@@ -64,7 +64,7 @@ researchers to save their analysis pipeline so that others can replicate it easi
 # First make sure the package is installed
 devtools::install_github("OJWatson/rdhs")
 
-# Load package - Warning messages will be thrown however these are not a problem
+# Load package
 library(rdhs)
 ```
 
@@ -93,8 +93,8 @@ re-enter them within the same session.
 ```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN}
 
 # Create a client withi our api key and in this root directory
-root <- file.path(getwd(),"rt")
-client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root,credentials=".credentials")
+root <- file.path(getwd(),"rdhs_vignette_client_root")
+client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root,credentials="credentials")
 
 # Have a look at what the client object is
 client
@@ -271,11 +271,15 @@ and preferentially the Stata datasets as these are a little quicker to import. T
 survey datasets, whereas the GPS coordinates (which are logged as .dat files) are supported as they are 
 read in using \code{rgdal::readOGR}.
 
-T
+The .sav datasets are read in using \code{haven::read_sav()}, which is very good at bringing out all the factor
+attributes. At the moment, .dta datasets are read in using \code{foreign::read_dta}. There is a small reason for not using
+the `haven` pacakges .dta read in function, which is that it is marginally slower because it extracts all the attributes.
+I left this thus as an option to compare the two packages, and give people a quicker download option. What will happen
+in the future though is for both options to be specified for both datasets, as the extra attributes extracted using `haven` 
+is really excellent for leaving no extracted data later on open to missinterpretation, i.e. 
 
-The default download will also 
 
-```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>"}
+```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>",cache=TRUE}
 
 # let's then grab the stata datasets
 stata_surveys <- subsetted_surveys[subsetted_surveys$FileFormat=="Stata dataset (.dta)",]
@@ -290,7 +294,6 @@ the directory path we specified as the output_dir argument for `available_survey
 
 ```{r Download tree, include=TRUE, message = FALSE, warning = FALSE}
 
-library(data.tree)
 x <- lapply(strsplit(list.files(file.path(root,"surveys"),recursive = T,full.names = TRUE), "/"),
             function(z) as.data.frame(t(z)))
 x <- dplyr::rbind_all(x)
@@ -376,6 +379,7 @@ questions <- client$survey_questions(stata_surveys[c(1,25,50,75,100),],search_te
 
 ```
 
+This resultant data frame can then be used to check which codes you may want to include 
 
 ## 7. Using the list from step 6 to create your data frame of survey responses
 

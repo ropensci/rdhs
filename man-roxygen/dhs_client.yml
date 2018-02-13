@@ -104,8 +104,26 @@ survey_questions:
     your_project: >-
       DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
   value: >-
-      Depends on the download_option requested, but ultimately it is a file path to where the survey
-      was downloaded to, so that you can interact with it accordingly.
+      Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+
+survey_codes:
+  short: >-
+    Use this function after download_survey to look up all the surveys that have the provided codes.
+  params:
+    desired_survey: >-
+      The desired surveys to be queried. This represents a row(s) from \code{avaialable_surveys}.
+      If multiple rows are requested the function will handle that and give you back the results
+      in a list, with elements named accordingly for the survey downloaded.
+    codes: >-
+      Character vector of codes to be looked up
+    your_email: >-
+      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
+    your_password: >-
+      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
+    your_project: >-
+      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
+  value: >-
+      Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 
 get_cache_date:
   short: >-

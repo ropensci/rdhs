@@ -157,21 +157,29 @@ haven_factor_format <- function(res){
   return(list("Survey"=res,"Survey_Code_Descriptions"=description_table))
 }
 
-#' open file outside
-#' @param txt_path txt file path
-#'
-#'
+# refresh client
+client_refresh <- function(cli){
+
+  cli$set_cache_date(cli$get_cache_date()-20000000)
+  cli$save_client()
+  if(file.exists(".credentials")){
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
+  } else {
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
+  }
+
+  return(cli)
+
+}
+
+
+## helper functions - not package related
+
+# open file outside'
 sopen <- function(txt_path) system(paste0("open ","\"",txt_path,"\""))
 
-#' open folder outside
-#' @param  txt folder path
-#'
-#'
+# open folder outside
 sdir <- function(x)  shell(paste0("explorer ",x))
 
-
-#' open file outside
-#' @param what turns vector into easy form to copy and paste to recreate
-#'
-#'
+# chracterise vector
 rechar_vec <- function(what) cat(paste0("c(\"",paste0(what,collapse="\",\""),"\")"))

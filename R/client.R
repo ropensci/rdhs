@@ -323,9 +323,8 @@ R6_dhs_client <- R6::R6Class(
                                 your_password=Sys.getenv("rdhs_USER_PASS"),
                                 your_project=Sys.getenv("rdhs_USER_PROJECT")){
 
-
       # results storage
-      df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0))
+      df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0), "SurveyPath" = character(0))
       res <- list()
 
       # shorter than desired_survey
@@ -395,7 +394,7 @@ R6_dhs_client <- R6::R6Class(
           res[[i]] <- out
 
           # match on search terms and remove questions that have na's
-          matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description)
+          matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description,ignore.case = TRUE)
           na_from_match <- grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)
           if(length(na_from_match)>0){
           matched_rows <- matched_rows[-grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)]
@@ -408,6 +407,7 @@ R6_dhs_client <- R6::R6Class(
           df <- rbind(df,data.frame("Code"=out_descr$Code[matched_rows],
                                     "Description"=out_descr$Description[matched_rows],
                                     "Survey"=rep(names(res[i]),length(matched_rows)),
+                                    "SurveyPath" = rep(res[[i]],length(matched_rows)),
                                     stringsAsFactors = FALSE
                                     )
                       )
@@ -417,9 +417,75 @@ R6_dhs_client <- R6::R6Class(
 
       }
 
-      # combine this process and then return it (maybe cache the greps)
-      results <- list("Surveys"=res,"Survey_Questions"=df)
-      return(results)
+      # Return the questions, codes and surveys data.frame
+      return(df)
+
+    },
+
+
+    # SURVEY_CODES
+    # TODO: Put in an essential argument, so that surveys have to have these
+    #' Creates data.frame of wanted survey codes and descriptions
+    survey_codes = function(desired_survey,
+                                codes,
+                                your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                your_password=Sys.getenv("rdhs_USER_PASS"),
+                                your_project=Sys.getenv("rdhs_USER_PROJECT")){
+
+
+      # first download any surveys needed
+      # survey questions reliable way to do this quicker for our purposes
+      message("Checking all needed surveys are available...")
+      downs <- self$survey_questions(desired_survey,search_terms="testing")
+
+      # results storage
+      df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0), "SurveyPath" = character(0))
+      res <- list()
+
+      # shorter than desired_survey
+      surveys <- desired_survey
+
+      # handle for more than one survey specified
+      download_iteration <- length(res) <- dim(surveys)[1]
+      names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+
+      # grab the api declared datasets list
+      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
+
+      for(i in 1:download_iteration){
+
+        # key from file name
+        filename <- strsplit(surveys[i,]$FileName,".",fixed=TRUE)[[1]][1]
+
+        # create key for this
+        key <- paste0(surveys[i,]$SurveyId,"_",filename,"_","rds","_","TRUE")
+
+        # Get description and survey path and find the matches
+        out_descr <- private$storr$get(key,"downloaded_survey_code_descriptions")
+        res[[i]] <- private$storr$get(key,"downloaded_surveys")
+
+        matches <- na.omit(match(codes,out_descr$Code))
+
+        na_from_match <- grep("na -|na-",out_descr$Description[matches],ignore.case = TRUE)
+        if(length(na_from_match)>0){
+          matches <- matches[-grep("na -|na-",out_descr$Description[matches],ignore.case = TRUE)]
+        }
+
+
+        # only add if we have found any questions that match
+        if(length(matches)>0){
+
+          # add the descriptions to the df object
+          df <- rbind(df,data.frame("Code"=out_descr$Code[matches],
+                                    "Description"=out_descr$Description[matches],
+                                    "Survey"=rep(names(res[i]),length(matches)),
+                                    "SurveyPath" = rep(res[[i]],length(matches)),
+                                    stringsAsFactors = FALSE))
+        }
+      }
+
+      # return the finished df
+      return(df)
 
     },
 

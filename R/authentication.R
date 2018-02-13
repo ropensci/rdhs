@@ -342,7 +342,7 @@ dhs_authenticate <- function( your_email , your_password , your_project ){
   # log in.
   message("Logging into DHS website...")
   #httr::GET( terms , query = values )
-  z <- httr::POST( terms , body = values )
+  z <- httr::POST( terms , body = values)
 
   # extract the available countries from the projects page
   #z <- httr::GET( downloads )

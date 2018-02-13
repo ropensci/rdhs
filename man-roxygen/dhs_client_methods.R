@@ -33,8 +33,8 @@
 ##'   Searches the DHS website for all the surveys that you can donwloa. If the client has been created you will not have to pass in any parameters as these will be taken from your environment. The results of this function are cached.
 ##'
 ##'   \emph{Usage:}
-##'   \code{available_surveys(your_email = Sys.getenv("rdhs.USER_EMAIL"), your_password = Sys.getenv("rdhs.USER_PASS"),
-##'       your_project = Sys.getenv("rdhs.USER_PROJECT"), datasets_api_results = self$dhs_api_request("datasets",
+##'   \code{available_surveys(your_email = Sys.getenv("rdhs_USER_EMAIL"), your_password = Sys.getenv("rdhs_USER_PASS"),
+##'       your_project = Sys.getenv("rdhs_USER_PROJECT"), datasets_api_results = self$dhs_api_request("datasets",
 ##'           num_results = "ALL"), surveys_api_results = self$dhs_api_request("surveys",
 ##'           num_results = "ALL"))}
 ##'
@@ -63,16 +63,12 @@
 ##'   Using the output from \code{avaialable_surveys} the client will download the surveys you have requested. The
 ##'
 ##'   \emph{Usage:}
-##'   \code{download_survey(output_dir_root = file.path(private$root, "surveys"),
-##'       desired_survey, download_option = "rds", reformat = TRUE,
-##'       your_email = Sys.getenv("rdhs.USER_EMAIL"), your_password = Sys.getenv("rdhs.USER_PASS"),
-##'       your_project = Sys.getenv("rdhs.USER_PROJECT"))}
+##'   \code{download_survey(desired_survey, download_option = "rds", reformat = TRUE,
+##'       output_dir_root = file.path(private$root, "surveys"), your_email = Sys.getenv("rdhs_USER_EMAIL"),
+##'       your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
 ##'
 ##'   \emph{Arguments:}
 ##'   \itemize{
-##'     \item{\code{output_dir_root}:   Root directory where the surveys will be stored within. The default will download surveys to a subfolder of the client root called "surveys"
-##'     }
-##'
 ##'     \item{\code{desired_survey}:   The desired survey to be downloaded. This represents a row(s) from \code{avaialable_surveys}. If multiple rows are requested the function will handle that and give you back the results in a list, with elements named accordingly for the survey downloaded.
 ##'     }
 ##'
@@ -80,6 +76,9 @@
 ##'     }
 ##'
 ##'     \item{\code{reformat}:   Boolean concerning whether to reformat read in datasets. Default = TRUE.
+##'     }
+##'
+##'     \item{\code{output_dir_root}:   Root directory where the surveys will be stored within. The default will download surveys to a subfolder of the client root called "surveys"
 ##'     }
 ##'
 ##'     \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
@@ -100,8 +99,8 @@
 ##'
 ##'   \emph{Usage:}
 ##'   \code{survey_questions(desired_survey, search_terms = NULL, regex = NULL,
-##'       output_dir_root = file.path(private$root, "surveys"), your_email = Sys.getenv("rdhs.USER_EMAIL"),
-##'       your_password = Sys.getenv("rdhs.USER_PASS"), your_project = Sys.getenv("rdhs.USER_PROJECT"))}
+##'       output_dir_root = file.path(private$root, "surveys"), your_email = Sys.getenv("rdhs_USER_EMAIL"),
+##'       your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
 ##'
 ##'   \emph{Arguments:}
 ##'   \itemize{
@@ -128,7 +127,35 @@
 ##'   }
 ##'
 ##'   \emph{Value}:
-##'   Depends on the download_option requested, but ultimately it is a file path to where the survey was downloaded to, so that you can interact with it accordingly.
+##'   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+##' }
+##' \item{\code{survey_codes}}{
+##'   Use this function after download_survey to look up all the surveys that have the provided codes.
+##'
+##'   \emph{Usage:}
+##'   \code{survey_codes(desired_survey, codes, your_email = Sys.getenv("rdhs_USER_EMAIL"),
+##'       your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{desired_survey}:   The desired surveys to be queried. This represents a row(s) from \code{avaialable_surveys}. If multiple rows are requested the function will handle that and give you back the results in a list, with elements named accordingly for the survey downloaded.
+##'     }
+##'
+##'     \item{\code{codes}:   Character vector of codes to be looked up
+##'     }
+##'
+##'     \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
+##'     }
+##'
+##'     \item{\code{your_password}:   DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
+##'     }
+##'
+##'     \item{\code{your_project}:   DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 ##' }
 ##' \item{\code{get_cache_date}}{
 ##'   Returns the private member variable cache-date, which is the date the client was last created/valiated against the DHS API.
