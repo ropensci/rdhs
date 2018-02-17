@@ -117,7 +117,7 @@ dta_factor_format <- function(dta){
     }
   }
 
-  dta <- lapply(dta,as.character)
+  dta <- lapply(dta,as.character) %>% lapply(type.convert,as.is=TRUE)
   dta <- as.data.frame.list(dta,stringsAsFactors = FALSE)
 
   return(list("Survey"=dta,"Survey_Code_Descriptions"=description_table))
@@ -151,8 +151,9 @@ haven_factor_format <- function(res){
     }
   }
 
-  res <- lapply(res,as.character)
+  res <- lapply(res,as.character) %>% lapply(type.convert,as.is=TRUE)
   res <- as.data.frame.list(res, stringsAsFactors = FALSE)
+
 
   return(list("Survey"=res,"Survey_Code_Descriptions"=description_table))
 }

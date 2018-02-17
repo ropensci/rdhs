@@ -264,9 +264,7 @@ R6_dhs_client <- R6::R6Class(
       download_iteration <- length(res) <- dim(surveys)[1]
       names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
 
-      # grab the api declared datasets list
-      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
-
+      # iterate through download requests
       for(i in 1:download_iteration){
 
         # key from file name
@@ -351,9 +349,7 @@ R6_dhs_client <- R6::R6Class(
       download_iteration <- length(res) <- dim(surveys)[1]
       names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
 
-      # grab the api declared datasets list
-      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
-
+      # iterate through downloaded surveys
       for(i in 1:download_iteration){
 
         # key from file name
@@ -408,6 +404,8 @@ R6_dhs_client <- R6::R6Class(
                                     "Description"=out_descr$Description[matched_rows],
                                     "Survey"=rep(names(res[i]),length(matched_rows)),
                                     "SurveyPath" = rep(res[[i]],length(matched_rows)),
+                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matched_rows)),
+                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matched_rows)),
                                     stringsAsFactors = FALSE
                                     )
                       )
@@ -449,9 +447,7 @@ R6_dhs_client <- R6::R6Class(
       download_iteration <- length(res) <- dim(surveys)[1]
       names(res) <- strsplit(surveys$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
 
-      # grab the api declared datasets list
-      datasets_api_results <- self$dhs_api_request("datasets",num_results = "ALL")
-
+      # iterate through surveys
       for(i in 1:download_iteration){
 
         # key from file name
@@ -480,6 +476,8 @@ R6_dhs_client <- R6::R6Class(
                                     "Description"=out_descr$Description[matches],
                                     "Survey"=rep(names(res[i]),length(matches)),
                                     "SurveyPath" = rep(res[[i]],length(matches)),
+                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matched_rows)),
+                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matched_rows)),
                                     stringsAsFactors = FALSE))
         }
       }
