@@ -11,9 +11,5 @@ addons:
       - libgdal-dev
       - libproj-dev  - gdal-bin
 
-env:
-  global:
-    - CODECOV_TOKEN="b290cc0e-4a34-4871-8884-1d5cb9382599"
-
 after_success:
   - Rscript -e 'covr::codecov()'
