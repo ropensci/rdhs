@@ -116,6 +116,9 @@ survey_codes:
       in a list, with elements named accordingly for the survey downloaded.
     codes: >-
       Character vector of codes to be looked up
+    essential_codes: >-
+      Character vector of codes that need to present. If any of the codes are not present n that survey,
+      the survey will not be returned by this functon. Default = NULL.
     your_email: >-
       DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
     your_password: >-

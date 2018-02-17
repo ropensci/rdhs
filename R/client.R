@@ -426,6 +426,7 @@ R6_dhs_client <- R6::R6Class(
     #' Creates data.frame of wanted survey codes and descriptions
     survey_codes = function(desired_survey,
                                 codes,
+                            essential_codes = NULL,
                                 your_email=Sys.getenv("rdhs_USER_EMAIL"),
                                 your_password=Sys.getenv("rdhs_USER_PASS"),
                                 your_project=Sys.getenv("rdhs_USER_PROJECT")){
@@ -481,6 +482,13 @@ R6_dhs_client <- R6::R6Class(
                                     stringsAsFactors = FALSE))
         }
       }
+
+
+      # now remove surveys that do not have essential codes:
+      for(i in unique(df$Survey)){
+        if(length(na.omit(match(essential_codes,df$Code[df$Survey==i])))<2) df <- df[-which(df$Survey==i),]
+      }
+
 
       # return the finished df
       return(df)

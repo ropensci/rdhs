@@ -3,9 +3,6 @@ title: "rdhs overview"
 author: "OJ Watson"
 date: '`r Sys.Date()`'
 output: rmarkdown::html_vignette
-fig_caption: yes
-theme: readable
-toc: yes
 vignette: >
   %\VignetteIndexEntry{Overview}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,16 +10,16 @@ vignette: >
 ---
 
 ```{r, echo = FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+library(httr)
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 ```
 
 ## Overview
 
-The rdhs
+The rdhs package helps users interact with the DHS API, as well as facilitate downloading 
+DHS survey datasets and extract individual level data from those surveys. This process
+is described below and should cover most functionality that will be needed for working
+with these datasets. 
 
 ## rdhs client
 
@@ -88,13 +85,21 @@ password="dummypass"
 project="Dummy Project"
 
 These will then be read in and used to create system environment variables so you won't have to 
-re-enter them within the same session. 
+re-enter them within the same session. These will be set to rdhs_USER_PASS/EMAIL/PROJECT, and will be
+first looked for when trying to create a client. If a credentials argument is provided, this will be used
+first though.
 
-```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN}
+```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN, cache=TRUE}
 
 # Create a client withi our api key and in this root directory
 root <- file.path(getwd(),"rdhs_vignette_client_root")
-client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root,credentials="credentials")
+
+# This if shows that you can make a client if  
+if(file.exists("credentials")){
+  client <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = root)
+} else {
+  client <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root)
+}
 
 # Have a look at what the client object is
 client
@@ -151,15 +156,19 @@ countries  <- c("Angola","Ghana","Kenya","Liberia",
                 "Rwanda","Sierra Leone","Senegal","Tanzania","Uganda")
 
 library(ggplot2)
-ggplot(resp[resp$CountryName %in% countries,], aes(x=SurveyYear,y=Value,colour=CountryName)) +
-  geom_point() + geom_smooth(method = "glm") + ylab(resp$Indicator[1]) + facet_wrap(~CountryName)
+ggplot(resp[resp$CountryName %in% countries,],
+       aes(x=SurveyYear,y=Value,colour=CountryName)) +
+  geom_point() +
+  geom_smooth(method = "glm") + 
+  ylab(resp$Indicator[1]) + 
+  facet_wrap(~CountryName)
 
 ```
 
 If we miss entered a filter query (very possible) rdhs will give you an error that is
 somewhat nicely presented on the pagee for you to see way:
 
-```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE}
+```{r API fail, include=TRUE, message = FALSE, error=FALSE, purl= FALSE, warning = FALSE}
 
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
@@ -170,14 +179,9 @@ resp <- client$dhs_api_request(api_endpoint = "data",
 ```
 
 
-rdhs parses the response for you and returns a useful list where you can check that the
-api call has been handled as expected. We can also then look at the raw data within this list.
-If we do this we will see that only the first 100 results have been returned as this is the 
-default page size return. If, however, you want all the results (most likely) then use the 
-**all_results** argument within dhs_api_rquest. This will work by making an initial request,
-assessing the number of pages it would require, and then either making the request again for 
-all the results if less than your api_key will allow (5000), or by looping with page sizes
-of 5000 through each page. (Still To be written)
+rdhs by default converts the response to a data.frame and will ensure that all the api results
+are returned. If you want to return fewer than all the results, or lok at the actual api response
+then these can be controlled using the **num_results** and **just_results** arguments. 
 
 Importantly the api request you have made has now been cached by the package. This means that
 the next time you run this request, the result both returns quicker and you can access your data
@@ -207,7 +211,7 @@ client$save_client()
 # Now let's imagine we were restarting our R session another time and wanted to load our client we were using before
 client <- rdhs::dhs_client(api_key = "ICLSPH-527168",
                            root = root, 
-                           credentials = ".credentials")
+                           credentials = "credentials")
 client$get_cache_date()
 
 ```
@@ -276,10 +280,10 @@ attributes. At the moment, .dta datasets are read in using \code{foreign::read_d
 the `haven` pacakges .dta read in function, which is that it is marginally slower because it extracts all the attributes.
 I left this thus as an option to compare the two packages, and give people a quicker download option. What will happen
 in the future though is for both options to be specified for both datasets, as the extra attributes extracted using `haven` 
-is really excellent for leaving no extracted data later on open to missinterpretation, i.e. 
+is really excellent for leaving no extracted data later to be open to missinterpretation.
 
 
-```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE, comment = "#>",cache=TRUE}
+```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE}
 
 # let's then grab the stata datasets
 stata_surveys <- subsetted_surveys[subsetted_surveys$FileFormat=="Stata dataset (.dta)",]
@@ -340,20 +344,8 @@ downloaded_dataset$Survey_Code_Descrptions[downloaded_dataset$Survey_Code_Descrp
 head(downloaded_dataset$Survey$ML101,20)
 
 ```
-```{r Explore downloads 2, include=TRUE, message = FALSE, warning = FALSE}
 
-# have a look at the survey code descriptions
-head(downloaded_dataset$Survey_Code_Descrptions)
 
-```
-
-```{r Explore downloads3, include=TRUE, message = FALSE, warning = FALSE}
-
-# and let's have a look at how the factor reformat has been helpful
-downloaded_dataset$Survey_Code_Descrptions[downloaded_dataset$Survey_Code_Descrptions$Code=="ML101",]
-head(downloaded_dataset$Survey$ML101,20)
-
-```
 
 ## 6. Creating the list of survey questions required for your investigation
 
@@ -374,14 +366,19 @@ malaria, or tests.
 
 ```{r Survey questions, include=TRUE, message = FALSE, warning = FALSE}
 
-# extract the questions, an fitler by search terms.
+# extract the questions, and filter by search terms.
 questions <- client$survey_questions(stata_surveys[c(1,25,50,75,100),],search_terms = c("fever","malaria","test"))
 
+# which will return something that shows all the valid survey questons
+head(questions)
 ```
 
-This resultant data frame can then be used to check which codes you may want to include 
+This resultant data frame can then be used to check which codes you may want to include to extract your raw data. 
 
 ## 7. Using the list from step 6 to create your data frame of survey responses
+
+We can now quickly view and make a note of the codes that may be of interest to us, and either subset the
+questions data.frame as needed or directly pass this on to extract the releve
 
 ## 8. Storing your pipeline from step 1 - 7 to increase reproducibility
 
