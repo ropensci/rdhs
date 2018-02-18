@@ -366,7 +366,7 @@ R6_dhs_client <- R6::R6Class(
                         KeyError = function(e) NULL)
 
         # check out agianst cache, if not fine then download
-        if(is.null(out) & is.null(out_descr)){
+        if(is.null(out) | is.null(out_descr)){
 
           # Download survey
           resp <- download_datasets(your_email=your_email,
