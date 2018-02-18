@@ -163,7 +163,7 @@ Make a DHS API client
   Use this function after download_survey to look up all the surveys that have the provided codes.
 
   \emph{Usage:}
-  \code{survey_codes(desired_survey, codes, your_email = Sys.getenv("rdhs_USER_EMAIL"),
+  \code{survey_codes(desired_survey, codes, essential_codes = NULL, your_email = Sys.getenv("rdhs_USER_EMAIL"),
       your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
 
   \emph{Arguments:}
@@ -172,6 +172,9 @@ Make a DHS API client
     }
 
     \item{\code{codes}:   Character vector of codes to be looked up
+    }
+
+    \item{\code{essential_codes}:   Character vector of codes that need to present. If any of the codes are not present n that survey, the survey will not be returned by this functon. Default = NULL.
     }
 
     \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")

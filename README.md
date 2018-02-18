@@ -24,8 +24,8 @@ To install the development version from github the package [*devtools*](https://
 install.packages("devtools")
 library(devtools)
 ```
-Once devtools is installed it is best to restart our R session. To do this either close RStudio or restart R (ctrl + shift + F10). Once your R session
-has been restarted the package can be installed and loaded using:
+
+Now we can install the pacakge from the github repository:
 
 ```r
 devtools::install_github("OJWatson/rdhs")

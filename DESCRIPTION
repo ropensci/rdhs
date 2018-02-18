@@ -28,7 +28,6 @@ Imports:
     data.table,
     qdapRegex,
     lubridate,
-    uuid,
     rgdal
 Suggests:
     testthat,

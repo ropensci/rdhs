@@ -159,14 +159,14 @@ haven_factor_format <- function(res){
 }
 
 # refresh client
-client_refresh <- function(cli){
+client_refresh <- function(cli,root){
 
   cli$set_cache_date(cli$get_cache_date()-20000000)
   cli$save_client()
   if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = root)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = root)
   }
 
   return(cli)

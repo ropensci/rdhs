@@ -2,7 +2,10 @@
 title: "rdhs overview"
 author: "OJ Watson"
 date: '`r Sys.Date()`'
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    keep_md: true
 vignette: >
   %\VignetteIndexEntry{Overview}
   %\VignetteEngine{knitr::rmarkdown}
@@ -10,8 +13,14 @@ vignette: >
 ---
 
 ```{r, echo = FALSE}
-library(httr)
-knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN,
+  error = TRUE
+)
 ```
 
 ## Overview
@@ -89,7 +98,7 @@ re-enter them within the same session. These will be set to rdhs_USER_PASS/EMAIL
 first looked for when trying to create a client. If a credentials argument is provided, this will be used
 first though.
 
-```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN, cache=TRUE}
+```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN}
 
 # Create a client withi our api key and in this root directory
 root <- file.path(getwd(),"rdhs_vignette_client_root")
@@ -168,7 +177,7 @@ ggplot(resp[resp$CountryName %in% countries,],
 If we miss entered a filter query (very possible) rdhs will give you an error that is
 somewhat nicely presented on the pagee for you to see way:
 
-```{r API fail, include=TRUE, message = FALSE, error=FALSE, purl= FALSE, warning = FALSE}
+```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE,cache=TRUE}
 
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",

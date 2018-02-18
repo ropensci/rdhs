@@ -1,4 +1,4 @@
-skip_if_no_auth <- function(credentials_path = ".credentials") {
+skip_if_no_auth <- function(credentials_path = "credentials") {
 
   have_cred_path <- file.exists(credentials_path)
 
