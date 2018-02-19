@@ -2,3 +2,4 @@
 *.R
 credentials
 rdhs_cache
+rdhs_vignette_client_root
