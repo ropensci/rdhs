@@ -297,12 +297,12 @@ R6_dhs_client <- R6::R6Class(
           if(identical(names(resp),c("Survey","Survey_Code_Descriptions"))){
             private$storr$set(key,resp$Survey,"downloaded_surveys")
             private$storr$set(key,resp$Survey_Code_Descriptions,"downloaded_survey_code_descriptions")
+            res[[i]] <- resp$Survey
           } else {
             ## then cache the resp and store it in the results list
             private$storr$set(key,resp,"downloaded_surveys")
+            res[[i]] <- resp
           }
-
-          res[[i]] <- resp$Survey
 
         }
       }
@@ -457,28 +457,28 @@ R6_dhs_client <- R6::R6Class(
         # create key for this
         key <- paste0(surveys[i,]$SurveyId,"_",filename,"_","rds","_","TRUE")
 
-        # Get description and survey path and find the matches
+        # Get description and survey path and find the matched_rows
         out_descr <- private$storr$get(key,"downloaded_survey_code_descriptions")
         res[[i]] <- private$storr$get(key,"downloaded_surveys")
 
-        matches <- na.omit(match(codes,out_descr$Code))
+        matched_rows <- na.omit(match(codes,out_descr$Code))
 
-        na_from_match <- grep("na -|na-",out_descr$Description[matches],ignore.case = TRUE)
+        na_from_match <- grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)
         if(length(na_from_match)>0){
-          matches <- matches[-grep("na -|na-",out_descr$Description[matches],ignore.case = TRUE)]
+          matched_rows <- matched_rows[-grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)]
         }
 
 
         # only add if we have found any questions that match
-        if(length(matches)>0){
+        if(length(matched_rows)>0){
 
           # add the descriptions to the df object
-          df <- rbind(df,data.frame("Code"=out_descr$Code[matches],
-                                    "Description"=out_descr$Description[matches],
-                                    "Survey"=rep(names(res[i]),length(matches)),
-                                    "SurveyPath" = rep(res[[i]],length(matches)),
-                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matches)),
-                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matches)),
+          df <- rbind(df,data.frame("Code"=out_descr$Code[matched_rows],
+                                    "Description"=out_descr$Description[matched_rows],
+                                    "Survey"=rep(names(res[i]),length(matched_rows)),
+                                    "SurveyPath" = rep(res[[i]],length(matched_rows)),
+                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matched_rows)),
+                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matched_rows)),
                                     stringsAsFactors = FALSE))
         }
       }
