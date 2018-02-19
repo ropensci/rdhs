@@ -12,7 +12,7 @@ API client for the DHS API that allows DHS survey indicators to be queried. This
 found and passed onto subsequent functionality within rdhs for downloading datasets and conducting basic data munging tasks.
 
 ***
-> To view the tutorial please click [here](https://cdn.rawgit.com/OJWatson/rdhs/tutorials/package_tutorial/rdhs-package-tutorial.html)
+> To view the tutorial please click [here](https://cdn.rawgit.com/OJWatson/rdhs/vignettes/rdhs.html)
 
 ***
 
