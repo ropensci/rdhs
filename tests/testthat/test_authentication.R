@@ -17,10 +17,10 @@ test_that("available_surveys works", {
   td <- file.path(tempdir())
 
   # create auth through whichever route is valid for the environment
-  if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td,force_initialise = TRUE)
+  if(file.exists("credentials")){
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td,force_initialise = TRUE)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale surveys
