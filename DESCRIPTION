@@ -17,10 +17,8 @@ Imports:
     foreign,
     magrittr,
     stringr,
-    readr,
     rappdirs,
     storr,
-    pander,
     haven (< 1.1.1),
     xml2,
     XML,
@@ -32,7 +30,10 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    ggplot2,
+    data.tree,
+    devtools
 License: GPL (>= 2)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

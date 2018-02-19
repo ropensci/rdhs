@@ -28,11 +28,3 @@ Autheticate Users for DHS website
 \note{
 Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
 }
-\examples{
-
-rdhs:::dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",
-your_project="Testing Malaria Investigations")
-
-
-
-}

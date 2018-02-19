@@ -10,7 +10,7 @@
 #'
 #'
 #' @importFrom stats setNames
-#' @importFrom utils tail
+#' @importFrom utils tail type.convert
 "_PACKAGE"
 
 globalVariables(c("x"))

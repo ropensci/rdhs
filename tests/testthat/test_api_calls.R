@@ -5,7 +5,7 @@ test_that("can request api", {
   skip_if_no_auth()
 
   # Create new directory
-  td <- file.path(tempdir(),uuid::UUIDgenerate())
+  td <- file.path(tempdir(),as.numeric(Sys.time()))
 
   # create auth through whichever route is valid for the environment
   if(file.exists(".credentials")){

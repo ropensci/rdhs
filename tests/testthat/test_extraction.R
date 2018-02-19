@@ -5,14 +5,11 @@ test_that("query codes having downloaded surveys", {
   skip_if_no_auth()
 
   # Create new directory
-  td <- "D:/DHS"
-
-  cli$set_cache_date(cli$get_cache_date()-20000000)
-  cli$save_client()
+  td <- file.path(tempdir(),as.numeric(Sys.time()))
 
   # create auth through whichever route is valid for the environment
   if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
     cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
   }
@@ -34,6 +31,7 @@ test_that("query codes having downloaded surveys", {
 
   # create questions
   quest <- cli$survey_questions(survs[sample_survs,],search_terms = c("fever","malaria","test"))
+   testthat::expect_identical(quest)
 
 })
 
