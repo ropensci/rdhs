@@ -363,7 +363,7 @@ R6_dhs_client <- R6::R6Class(
                         KeyError = function(e) NULL)
 
         out_descr <- tryCatch(private$storr$get(key,"downloaded_survey_code_descriptions"),
-                        KeyError = function(e) NULL)
+                              KeyError = function(e) NULL)
 
         # check out agianst cache, if not fine then download
         if(is.null(out) | is.null(out_descr)){
@@ -386,18 +386,18 @@ R6_dhs_client <- R6::R6Class(
 
         }
 
-          # add the survey file path to the res list
-          res[[i]] <- out
+        # add the survey file path to the res list
+        res[[i]] <- out
 
-          # match on search terms and remove questions that have na's
-          matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description,ignore.case = TRUE)
-          na_from_match <- grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)
-          if(length(na_from_match)>0){
+        # match on search terms and remove questions that have na's
+        matched_rows <- grep(pattern = paste0(search_terms,collapse="|"),out_descr$Description,ignore.case = TRUE)
+        na_from_match <- grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)
+        if(length(na_from_match)>0){
           matched_rows <- matched_rows[-grep("na -|na-",out_descr$Description[matched_rows],ignore.case = TRUE)]
-          }
+        }
 
-          # only add if we have found any questions that match
-          if(length(matched_rows)>0){
+        # only add if we have found any questions that match
+        if(length(matched_rows)>0){
 
           # add the descriptions to the df object
           df <- rbind(df,data.frame("Code"=out_descr$Code[matched_rows],
@@ -407,10 +407,10 @@ R6_dhs_client <- R6::R6Class(
                                     "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matched_rows)),
                                     "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matched_rows)),
                                     stringsAsFactors = FALSE
-                                    )
-                      )
+          )
+          )
 
-          }
+        }
 
 
       }
@@ -425,11 +425,11 @@ R6_dhs_client <- R6::R6Class(
     # TODO: Put in an essential argument, so that surveys have to have these
     #' Creates data.frame of wanted survey codes and descriptions
     survey_codes = function(desired_survey,
-                                codes,
+                            codes,
                             essential_codes = NULL,
-                                your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                                your_password=Sys.getenv("rdhs_USER_PASS"),
-                                your_project=Sys.getenv("rdhs_USER_PROJECT")){
+                            your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                            your_password=Sys.getenv("rdhs_USER_PASS"),
+                            your_project=Sys.getenv("rdhs_USER_PROJECT")){
 
 
       # first download any surveys needed
@@ -477,18 +477,19 @@ R6_dhs_client <- R6::R6Class(
                                     "Description"=out_descr$Description[matches],
                                     "Survey"=rep(names(res[i]),length(matches)),
                                     "SurveyPath" = rep(res[[i]],length(matches)),
-                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matched_rows)),
-                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matched_rows)),
+                                    "CountryCode" = rep(surveys[i,]$DHS_CountryCode,length(matches)),
+                                    "SurveyYear" = rep(surveys[i,]$SurveyYear,length(matches)),
                                     stringsAsFactors = FALSE))
         }
       }
 
 
       # now remove surveys that do not have essential codes:
-      for(i in unique(df$Survey)){
-        if(length(na.omit(match(essential_codes,df$Code[df$Survey==i])))<2) df <- df[-which(df$Survey==i),]
+      if(!is.null(essential_codes)){
+        for(i in unique(df$Survey)){
+          if(sum(is.na(match(essential_codes,df$Code[df$Survey==i])))>0) df <- df[-which(df$Survey==i),]
+        }
       }
-
 
       # return the finished df
       return(df)
