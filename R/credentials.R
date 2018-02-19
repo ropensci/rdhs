@@ -4,7 +4,7 @@
 # project=Dummy Project
 read_credentials <- function(filename) {
   if(is.list(filename)){
-    check_credentials(filname)
+    check_credentials(filename)
   } else {
   dat <- strsplit(readLines(filename), "=")
   dat <- setNames(as.list(trimws(vapply(dat, "[[", character(1), 2L))),

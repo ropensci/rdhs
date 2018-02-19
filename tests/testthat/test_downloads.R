@@ -4,12 +4,14 @@ test_that("avaialble surveys and download work", {
 
   skip_if_no_auth()
 
+
   # Create new directory
-  td <- file.path(tempdir())
+  td <- file.path(tempdir(),as.numeric(Sys.time()))
+
 
   # create auth through whichever route is valid for the environment
   if(file.exists(".credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
+    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
     cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
   }

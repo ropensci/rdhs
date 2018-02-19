@@ -32,18 +32,18 @@ with these datasets.
 
 ## rdhs client
 
-rdhs was built around an api client that would handle making and parsing api requests
-to the DHS api. From that, a more nuanced general client tool was created that both made
-api requests, ensuring that results are cached so they are not looked up again, but also
-handled the downstream functionality of rdhs. As a result the best way to demnstrate rdhs
+rdhs was built around an API client that would handle making and parsing API requests
+to the DHS API. From that, a more nuanced general client tool was created that both made
+API requests, ensuring that results are cached so they are not looked up again, but also
+handled the downstream functionality of rdhs. As a result the best way to demonstrate rdhs
 is to consider the current pipeline through which you might first use rdhs. Each of the following
 steps are all carried out using the rdhs client, which is an R6 class (similar to R's built in
-reference classes and make caching survey and api queries more reproducible):
+reference classes and make caching survey and API queries more reproducible):
 
 1. Create the rdhs client
-2. Making api requests
-3. Using api requests to identify surveys you want to download
-4. Cataloguing which surveys you can download for your log in credentials
+2. Making API requests
+3. Using API requests to identify surveys you want to download
+4. Cataloging which surveys you can download for your log in credentials
 5. Downloading the desired surveys from step 3 from the available surveys from step 4
 6. Creating the list of survey questions required for your investigation
 7. Using the list from step 6 to create your data frame of survey responses
@@ -53,12 +53,12 @@ Before demonstrating each section, it is worth highlighting why all the above st
 carried out using the highly object-orientated client. The client itself caches the results
 from each of the above step locally in one way or another. For example, the client when first
 created is saved in a new local directory that you have specified. Once created it stores the 
-time at which it was last updated, so that everytime you use rdhs afterwards, the client will
-check to see if any of the surveys you have downloaded, or api calls you have made are now out
+time at which it was last updated, so that every time you use rdhs afterwards, the client will
+check to see if any of the surveys you have downloaded, or API calls you have made are now out
 of date. If this happens, the client will let you know, before giving you options over whether
-to a) compleletely delete the client's cache, or b) update any cached surveys or information
-in bulk now or c) as and when you itneract with out of date information. In this way, 
-rdhs hopes to allow studies and analayis of DHS data to both be easier, and reproducible allowing
+to a) completely delete the client's cache, or b) update any cached surveys or information
+in bulk now or c) as and when you interact with out of date information. In this way, 
+rdhs hopes to allow studies and analysis of DHS data to both be easier, and reproducible allowing
 researchers to save their analysis pipeline so that others can replicate it easily.
 
 ---
@@ -78,15 +78,15 @@ library(rdhs)
 
 The client is the bulk of the package's functionality, and at the moment there are
 3 named arguments, *api_key*, *root* and *credentials*. You can apply for an API key from the DHS
-website that will allow you to leverage more api call returns, and will be stroed within
+website that will allow you to leverage more API call returns, and will be stored within
 the client if declared here. The root argument is the directory path where the client
 and associated caches will be stored. If left bank, a suitable directory will be created
-within your user cahce directory for your operating system. E.g:
+within your user cache directory for your operating system. E.g:
 
 * Mac OS X: ‘~/Library/Caches/<AppName>’
 * Unix: ‘~/.cache/<AppName>’, $XDG_CACHE_HOME if defined
 
-The credential argument is your login information for the DHS website. THis should take the form
+The credential argument is your login information for the DHS website. This should take the form
 of a file path that contains 3 lines, something like this:
 
 email="dummy@gmail.com"
@@ -122,9 +122,9 @@ know you have already created a client and will load it instead.
 
 ## 2. Making api requests
 
-The client can then be used to conduct api requests. To find more information about the
-possible api requests head to their [website](https://api.dhsprogram.com/#/index.html).
-In brief the api allows for a number of different endpoints to be accessed that constitute one of
+The client can then be used to conduct API requests. To find more information about the
+possible API requests head to their [website](https://api.dhsprogram.com/#/index.html).
+In brief the API allows for a number of different endpoints to be accessed that constitute one of
 12 different databases. These are stored within the client by default, and are the following:
 
 * [data](https://api.dhsprogram.com/#/api-data.cfm)
@@ -146,7 +146,7 @@ submitting filter queries. To find info about all the possible filter queries he
 webpage from above.
 
 For example we can now query to find out the trends in antimalarial use in Africa, and see if 
-perhaps antimalarial perscription has decreased after RDTs were introduced (assumed 2010). So we can query 
+perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). So we can query 
 for that by specifying the "data" endpoint, and using suitable filter queries provided as a list as follows:
 
 
@@ -175,7 +175,7 @@ ggplot(resp[resp$CountryName %in% countries,],
 ```
 
 If we miss entered a filter query (very possible) rdhs will give you an error that is
-somewhat nicely presented on the pagee for you to see way:
+somewhat nicely presented on the page for you to see way:
 
 ```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE,cache=TRUE}
 
@@ -188,21 +188,21 @@ resp <- client$dhs_api_request(api_endpoint = "data",
 ```
 
 
-rdhs by default converts the response to a data.frame and will ensure that all the api results
-are returned. If you want to return fewer than all the results, or lok at the actual api response
+rdhs by default converts the response to a data.frame and will ensure that all the API results
+are returned. If you want to return fewer than all the results, or look at the actual API response
 then these can be controlled using the **num_results** and **just_results** arguments. 
 
-Importantly the api request you have made has now been cached by the package. This means that
+Importantly the API request you have made has now been cached by the package. This means that
 the next time you run this request, the result both returns quicker and you can access your data
 even if not connected to the internet.
 
-What if the DHS api is updated? Will my cached api calls now be wrong? Potentially. It is unclear
-from the api how much information changes over time. The [dataupdates](https://api.dhsprogram.com/rest/dhs/dataupdates?f=html) 
+What if the DHS API is updated? Will my cached API calls now be wrong? Potentially. It is unclear
+from the API how much information changes over time. The [dataupdates](https://api.dhsprogram.com/rest/dhs/dataupdates?f=html) 
 endpoint shows updates to specific surveys. However, when looking at the [datasets](https://api.dhsprogram.com/rest/dhs/datasets?f=html) endpoint we can see that there are many survey files that have been presumably modified after their release. 
-This may be just reuploading, or it could have changed the data and thus subsequent date we may get from api calls. 
-As such, at this moment in time, if the date at which any of the DHS api was last updated as found
+This may be just reuploading, or it could have changed the data and thus subsequent date we may get from API calls. 
+As such, at this moment in time, if the date at which any of the DHS API was last updated as found
 within the dataupdates endpoint is more recent than the cache_date within our client we will automatically
-clear our api call cache. The api calls are relatively lightweight, so will not be a major hindrance
+clear our API call cache. The API calls are relatively lightweight, so will not be a major hindrance
 in the future. This can be seen below:
 
 ```{r API dating, include=TRUE, message = FALSE, warning = FALSE}
@@ -227,11 +227,11 @@ client$get_cache_date()
 
 ## 3. Using api requests to identify surveys you want to download
 
-Working with the api can allow you to get good access to course level data, however you may want access
+Working with the API can allow you to get good access to course level data, however you may want access
 to the raw datasets to compile individual level data. To do this you will need to decide what surveys you 
 want for your survey and then download them. This used to be laborious... and is somewhat nice now.
 
-First we will have a look using the api what surveys record data about children under age five with fever 
+First we will have a look using the API what surveys record data about children under age five with fever 
 in the two weeks preceding the survey that received any anti-malarial drugs who took Quinine. 
 
 ```{r API for surveys, include=TRUE, message = FALSE, warning = FALSE}
@@ -286,10 +286,10 @@ read in using \code{rgdal::readOGR}.
 
 The .sav datasets are read in using \code{haven::read_sav()}, which is very good at bringing out all the factor
 attributes. At the moment, .dta datasets are read in using \code{foreign::read_dta}. There is a small reason for not using
-the `haven` pacakges .dta read in function, which is that it is marginally slower because it extracts all the attributes.
+the `haven` packages .dta read in function, which is that it is marginally slower because it extracts all the attributes.
 I left this thus as an option to compare the two packages, and give people a quicker download option. What will happen
 in the future though is for both options to be specified for both datasets, as the extra attributes extracted using `haven` 
-is really excellent for leaving no extracted data later to be open to missinterpretation.
+is really excellent for leaving no extracted data later to be open to misinterpretation.
 
 
 ```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE}
@@ -302,7 +302,7 @@ downloads <- client$download_survey(desired_survey=stata_surveys[c(1,25,50,75,10
 
 ```
 
-At the moment this will indisciriminately download the zip file and unpack it to a directory within
+At the moment this will indiscriminately download the zip file and unpack it to a directory within
 the directory path we specified as the output_dir argument for `available_surveys`. So this looks something like this:
 
 ```{r Download tree, include=TRUE, message = FALSE, warning = FALSE}
@@ -317,7 +317,7 @@ mytree
 ```
 
 Where you can see that a new directory is made for each survey, with any datasets collected from that
-survey, e.g. birth recode, individual recode, sotred within that same directory. 
+survey, e.g. birth recode, individual recode, stored within that same directory. 
 
 Now to have a quick look at what was actually downloaded using the download_survey function.
 
@@ -327,7 +327,7 @@ str(downloads)
 
 What we have is the file paths to where the files were saved to. Depending on the download option
 this will either be the zip file, the extracted files from the zip, or the rds object created by unzipping
-the zip file and rading in the approporiate dataset. 
+the zip file and reading in the approporiate dataset. 
 
 A note on the rds object. These will be automatically reformatted to remove factors and simply return the raw character representations
 of the data. This is carried out using \code{rdhs:::dta_factor_format} and \code{rdhs:::haven_factor_format}, that will read the stata and
@@ -359,16 +359,16 @@ head(downloaded_dataset$Survey$ML101,20)
 ## 6. Creating the list of survey questions required for your investigation
 
 Now that we have all the surveys downloaded that we want, (which we worked out using the DHS API indicators),
-we no want to know which survey codes/questions are contained in each survey that we want in our final extracted
+we now want to know which survey codes/questions are contained in each survey that we want in our final extracted
 data frame. To do this we continue using the client, which can iterate though our survey code descriptions.
 
 The reason this is useful, is that some surveys have different codes for the same questions. Therefore it can be difficult
-to filter by just choosing the codes you want from one survey. Similarly, the questions for the same code may be subtley
+to filter by just choosing the codes you want from one survey. Similarly, the questions for the same code may be subtly
 different, e.g. some report on say fever in the last 2 weeks and some report on fever in the last 4 weeks. So by querying
 for terms, we can then use the survey specific codes that interest us, and we can use the descriptions to save information
 about the questions easily. 
 
-So let's now have a look at the surveys we donwloaded, and query for survey questions that included anything about fevers,
+So let's now have a look at the surveys we downloaded, and query for survey questions that included anything about fevers,
 malaria, or tests. 
 
 (At the moment the search terms are just combined to produce and OR regex query. )
@@ -387,7 +387,7 @@ This resultant data frame can then be used to check which codes you may want to 
 ## 7. Using the list from step 6 to create your data frame of survey responses
 
 We can now quickly view and make a note of the codes that may be of interest to us, and either subset the
-questions data.frame as needed or directly pass this on to extract the releve
+questions data.frame as needed or directly pass this on to extract the relevant data.
 
 ## 8. Storing your pipeline from step 1 - 7 to increase reproducibility
 
@@ -395,7 +395,7 @@ questions data.frame as needed or directly pass this on to extract the releve
 ## Summary and further thoughts
 
 Hopefully the above tutorial has shown how the *rdhs* package can facilitate both querying the DHS
-api and hopefully life some of the difficulty of interacting with the raw datasets. Any suggestions or 
+API and hopefully life some of the difficulty of interacting with the raw datasets. Any suggestions or 
 comments/corrections/errors/ideas please let me know either in the issues or send me an email at 
 "o.watson15@imperial.ac.uk".
 

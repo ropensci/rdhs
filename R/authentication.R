@@ -36,7 +36,7 @@ available_surveys <- function(your_email, your_password, your_project,
 
   # fetch all the surveys meta from the api if to already passed
   if(is.null(datasets_api_results) | is.null(surveys_api_results)){
-    cli <- rdhs::dhs_client(root = file.path(tempdir(),uuid::UUIDgenerate()))
+    cli <- rdhs::dhs_client(root = file.path(tempdir(),as.numeric(Sys.time())))
     datasets_api_results <- cli$dhs_api_request("datasets",num_results = "all")
     surveys_api_results = cli$dhs_api_request("surveys",num_results = "ALL")
   }
@@ -304,11 +304,6 @@ download_datasets <- function(   your_email , your_password , your_project ,
 ##'       \item{"user_pass"}{ your pasword you provided}
 ##'       \item{"proj_id"}{ your project number that will enable your project to be accessed downstream}
 ##'       }
-##'
-##' @examples
-##'
-##' rdhs:::dhs_authenticate(your_email="rdhs.tester@gmail.com",your_password="rdhstesting",
-##' your_project="Testing Malaria Investigations")
 ##'
 ##'
 ##'

@@ -31,14 +31,6 @@ dhs_error <- function(code, text, errors) {
                  "503" = "dhs_down",
                  "dhs_unknown_error")
 
-  # make pretty output for error if html
-  if(grep("<!DOCTYPE html",text)){
-
-    pander::pandoc.table(unlist(xml2::as_list(xml2::read_xml(text))),
-                         split.table=Inf,
-                         caption="Error Message:")
-  }
-
   err <- list(code = code,
               errors = errors,
               message = text)

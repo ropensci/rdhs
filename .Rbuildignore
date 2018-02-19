@@ -9,3 +9,6 @@ TODO.txt
 ^man-roxygen$
 ^vignettes/rdhs_vignette_client_root
 ^vignettes/rdhs_files
+^vignettes/rdhs_cache
+^scripts
+^credentials$
