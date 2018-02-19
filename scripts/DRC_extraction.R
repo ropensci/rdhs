@@ -4,8 +4,8 @@
 td <- "D:/DHS"
 
 # create auth through whichever route is valid for the environment
-if(file.exists(".credentials")){
-  cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = ".credentials",root = td)
+if(file.exists("credentials")){
+  cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
 } else {
   cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
 }
