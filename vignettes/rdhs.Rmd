@@ -6,6 +6,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
     keep_md: true
+    keep_html: true
 vignette: >
   %\VignetteIndexEntry{Overview}
   %\VignetteEngine{knitr::rmarkdown}
@@ -66,7 +67,6 @@ researchers to save their analysis pipeline so that others can replicate it easi
 ## 0. Installing the package
 
 ```{r Installing the package, include=TRUE, message = FALSE, warning = FALSE}
-
 # First make sure the package is installed
 devtools::install_github("OJWatson/rdhs")
 
@@ -99,7 +99,6 @@ first looked for when trying to create a client. If a credentials argument is pr
 first though.
 
 ```{r Client creation, include=TRUE, message = FALSE, warning = FALSE, purl = NOT_CRAN, eval = NOT_CRAN}
-
 # Create a client withi our api key and in this root directory
 root <- file.path(getwd(),"rdhs_vignette_client_root")
 
@@ -151,7 +150,6 @@ for that by specifying the "data" endpoint, and using suitable filter queries pr
 
 
 ```{r API call, include=TRUE, message = FALSE, warning = FALSE, fig.width=10, fig.height=8}
-
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
                        query = list("indicatorIds"="ML_FEVT_C_AML",
@@ -178,7 +176,6 @@ If we miss entered a filter query (very possible) rdhs will give you an error th
 somewhat nicely presented on the page for you to see way:
 
 ```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE,cache=TRUE}
-
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
                        query = list("indicatorIds"="ML_FEVT_C_AMasfafasfL",
@@ -206,7 +203,6 @@ clear our API call cache. The API calls are relatively lightweight, so will not 
 in the future. This can be seen below:
 
 ```{r API dating, include=TRUE, message = FALSE, warning = FALSE}
-
 # Get the current cache date that the client was last created at
 client$get_cache_date()
 
@@ -235,7 +231,6 @@ First we will have a look using the API what surveys record data about children 
 in the two weeks preceding the survey that received any anti-malarial drugs who took Quinine. 
 
 ```{r API for surveys, include=TRUE, message = FALSE, warning = FALSE}
-
 # Make an api request
 desired_data <- client$dhs_api_request(api_endpoint = "surveys",
                        query = list("indicatorIds"="ML_AMLD_C_QNN"))
@@ -256,7 +251,6 @@ urls to be used in the next step. (Takes ~30s)
 
 
 ```{r Avaialable surveys, include=TRUE, message = FALSE, warning = FALSE}
-
 # client will fetch all the surveys that you can download from the DHS 
 # website (i.e. the ones they have gien you permission for)
 available_surveys <- client$available_surveys()
@@ -271,7 +265,6 @@ Now that we have the list of surveys, and we now what ones we want to actually d
 subset those from step 4 using our dataframe in step 3.
 
 ```{r Subset surveys, include=TRUE, message = FALSE, warning = FALSE}
-
 # subset our available data frames
 subsetted_surveys <- dplyr::filter(available_surveys, SurveyId %in% desired_data$SurveyId)
 
@@ -291,9 +284,7 @@ I left this thus as an option to compare the two packages, and give people a qui
 in the future though is for both options to be specified for both datasets, as the extra attributes extracted using `haven` 
 is really excellent for leaving no extracted data later to be open to misinterpretation.
 
-
 ```{r Download surveys, include=TRUE, message = FALSE, warning = FALSE, collapse = TRUE}
-
 # let's then grab the stata datasets
 stata_surveys <- subsetted_surveys[subsetted_surveys$FileFormat=="Stata dataset (.dta)",]
 
@@ -306,7 +297,6 @@ At the moment this will indiscriminately download the zip file and unpack it to 
 the directory path we specified as the output_dir argument for `available_surveys`. So this looks something like this:
 
 ```{r Download tree, include=TRUE, message = FALSE, warning = FALSE}
-
 x <- lapply(strsplit(list.files(file.path(root,"surveys"),recursive = T,full.names = TRUE), "/"),
             function(z) as.data.frame(t(z)))
 x <- dplyr::rbind_all(x)
@@ -317,30 +307,19 @@ mytree
 ```
 
 Where you can see that a new directory is made for each survey, with any datasets collected from that
-survey, e.g. birth recode, individual recode, stored within that same directory. 
-
-Now to have a quick look at what was actually downloaded using the download_survey function.
-
-```{r Explore filenames, include=TRUE, message = FALSE, warning = FALSE}
-str(downloads)
-```
-
-What we have is the file paths to where the files were saved to. Depending on the download option
+survey, e.g. birth recode, individual recode, stored within that same directory. The downloads object
+will now be a list of file paths to where the files were saved to. Depending on the download option
 this will either be the zip file, the extracted files from the zip, or the rds object created by unzipping
 the zip file and reading in the approporiate dataset. 
 
 A note on the rds object. These will be automatically reformatted to remove factors and simply return the raw character representations
 of the data. This is carried out using \code{rdhs:::dta_factor_format} and \code{rdhs:::haven_factor_format}, that will read the stata and
 spss dataset attributes and subsequently correct factors. This will also return a table detailing what the dataset codes were for that survey and
-what their description is. This will be very helpful in the next section when we aim to find all the possible questions we may want to query
-our surveys by. The rationale behind this was simply that the factor levels will often not be consistent between surveys, and by carrying this 
-out in the backend when these datasets are read in then it saves the user from having to look up factor levels later on. If you do not wish to have
-this information then change the `reformat` argument to `FALSE`.
+what their description is. If you do not wish to have this information then change the `reformat` argument to `FALSE`.
 
 A quick look at a demonstration of the reformat:
 
 ```{r Explore downloads, include=TRUE, message = FALSE, warning = FALSE}
-
 # let's read one result in and look at that
 downloaded_dataset <- readRDS(downloads[[1]][1])
 str(downloaded_dataset,list.len = 10)
@@ -371,15 +350,12 @@ about the questions easily.
 So let's now have a look at the surveys we downloaded, and query for survey questions that included anything about fevers,
 malaria, or tests. 
 
-(At the moment the search terms are just combined to produce and OR regex query. )
+(At the moment the search terms are just combined to produce an OR regex query. )
 
 ```{r Survey questions, include=TRUE, message = FALSE, warning = FALSE}
-
 # extract the questions, and filter by search terms.
 questions <- client$survey_questions(stata_surveys[c(1,25,50,75,100),],search_terms = c("fever","malaria","test"))
 
-# which will return something that shows all the valid survey questons
-head(questions)
 ```
 
 This resultant data frame can then be used to check which codes you may want to include to extract your raw data. 
@@ -391,6 +367,7 @@ questions data.frame as needed or directly pass this on to extract the relevant 
 
 ## 8. Storing your pipeline from step 1 - 7 to increase reproducibility
 
+Still TO DO
 
 ## Summary and further thoughts
 

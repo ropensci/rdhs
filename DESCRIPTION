@@ -19,14 +19,14 @@ Imports:
     stringr,
     rappdirs,
     storr,
-    haven (< 1.1.1),
     xml2,
     XML,
     dplyr,
     data.table,
     qdapRegex,
     lubridate,
-    rgdal
+    rgdal, 
+    haven
 Suggests:
     testthat,
     knitr,
@@ -34,6 +34,8 @@ Suggests:
     ggplot2,
     data.tree,
     devtools
+Remotes:
+    tidyverse/haven
 License: GPL (>= 2)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
