@@ -10,5 +10,6 @@ TODO.txt
 ^vignettes/rdhs_vignette_client_root
 ^vignettes/rdhs_files
 ^vignettes/rdhs_cache
+^vignettes/*.html$
 ^scripts
 ^credentials$

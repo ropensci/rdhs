@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="OJ Watson">
+
+<meta name="date" content="2018-02-20">
+
+<title>rdhs overview</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="./rdhs_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+
+
+<h1 class="title toc-ignore">rdhs overview</h1>
+<h4 class="author"><em>OJ Watson</em></h4>
+<h4 class="date"><em>2018-02-20</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#overview">Overview</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#rdhs-client">rdhs client</a><ul>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#installing-the-package">0. Installing the package</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#create-the-rdhs-client">1. Create the rdhs client</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#making-api-requests">2. Making api requests</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#using-api-requests-to-identify-surveys-you-want-to-download">3. Using api requests to identify surveys you want to download</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#cataloguing-which-surveys-you-can-download-for-your-log-in-credentials">4. Cataloguing which surveys you can download for your log in credentials</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#downloading-the-desired-surveys-from-step-3-from-the-available-surveys-from-step-4">5. Downloading the desired surveys from step 3 from the available surveys from step 4</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#creating-the-list-of-survey-questions-required-for-your-investigation">6. Creating the list of survey questions required for your investigation</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#using-the-list-from-step-6-to-create-your-data-frame-of-survey-responses">7. Using the list from step 6 to create your data frame of survey responses</a></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#storing-your-pipeline-from-step-1---7-to-increase-reproducibility">8. Storing your pipeline from step 1 - 7 to increase reproducibility</a></li>
+</ul></li>
+<li><a href="file:///C:/Users/Oliver/AppData/Local/Temp/RtmpEd6Rzk/preview-22f85c107a5b.dir/rdhs.html#summary-and-further-thoughts">Summary and further thoughts</a></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>The rdhs package helps users interact with the DHS API, as well as facilitate downloading DHS survey datasets and extract individual level data from those surveys. This process is described below and should cover most functionality that will be needed for working with these datasets.</p>
+</div>
+<div id="rdhs-client" class="section level2">
+<h2>rdhs client</h2>
+<p>rdhs was built around an API client that would handle making and parsing API requests to the DHS API. From that, a more nuanced general client tool was created that both made API requests, ensuring that results are cached so they are not looked up again, but also handled the downstream functionality of rdhs. As a result the best way to demonstrate rdhs is to consider the current pipeline through which you might first use rdhs. Each of the following steps are all carried out using the rdhs client, which is an R6 class (similar to R’s built in reference classes and make caching survey and API queries more reproducible):</p>
+<ol style="list-style-type: decimal">
+<li>Create the rdhs client</li>
+<li>Making API requests</li>
+<li>Using API requests to identify surveys you want to download</li>
+<li>Cataloging which surveys you can download for your log in credentials</li>
+<li>Downloading the desired surveys from step 3 from the available surveys from step 4</li>
+<li>Creating the list of survey questions required for your investigation</li>
+<li>Using the list from step 6 to create your data frame of survey responses</li>
+<li>Storing your pipeline from step 1 - 7 to increase reproducibility</li>
+</ol>
+<p>Before demonstrating each section, it is worth highlighting why all the above steps are carried out using the highly object-orientated client. The client itself caches the results from each of the above step locally in one way or another. For example, the client when first created is saved in a new local directory that you have specified. Once created it stores the time at which it was last updated, so that every time you use rdhs afterwards, the client will check to see if any of the surveys you have downloaded, or API calls you have made are now out of date. If this happens, the client will let you know, before giving you options over whether to a) completely delete the client’s cache, or b) update any cached surveys or information in bulk now or c) as and when you interact with out of date information. In this way, rdhs hopes to allow studies and analysis of DHS data to both be easier, and reproducible allowing researchers to save their analysis pipeline so that others can replicate it easily.</p>
+<hr>
+<div id="installing-the-package" class="section level3">
+<h3>0. Installing the package</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># First make sure the package is installed</span>
+devtools::<span class="kw">install_github</span>(<span class="st">"OJWatson/rdhs"</span>)
+
+<span class="co"># Load package</span>
+<span class="kw">library</span>(rdhs)</code></pre></div>
+</div>
+<div id="create-the-rdhs-client" class="section level3">
+<h3>1. Create the rdhs client</h3>
+<p>The client is the bulk of the package’s functionality, and at the moment there are 3 named arguments, <em>api_key</em>, <em>root</em> and <em>credentials</em>. You can apply for an API key from the DHS website that will allow you to leverage more API call returns, and will be stored within the client if declared here. The root argument is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system. E.g:</p>
+<ul>
+<li>Mac OS X: ‘~/Library/Caches/<appname>’</appname></li>
+<li>Unix: ‘~/.cache/<appname>’, $XDG_CACHE_HOME if defined</appname></li>
+</ul>
+<p>The credential argument is your login information for the DHS website. This should take the form of a file path that contains 3 lines, something like this:</p>
+<p><a href="mailto:email=%22dummy@gmail.com">email="dummy@gmail.com</a>" password=“dummypass” project=“Dummy Project”</p>
+<p>These will then be read in and used to create system environment variables so you won’t have to re-enter them within the same session. These will be set to rdhs_USER_PASS/EMAIL/PROJECT, and will be first looked for when trying to create a client. If a credentials argument is provided, this will be used first though.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a client withi our api key and in this root directory</span>
+root &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">getwd</span>(),<span class="st">"rdhs_vignette_client_root"</span>)
+
+<span class="co"># This if shows that you can make a client if  </span>
+if(<span class="kw">file.exists</span>(<span class="st">"credentials"</span>)){
+  client &lt;-<span class="st"> </span>rdhs::<span class="kw">dhs_client</span>(<span class="dt">api_key =</span> <span class="st">"ICLSPH-527168"</span>,<span class="dt">credentials =</span> <span class="st">"credentials"</span>,<span class="dt">root =</span> root)
+} else {
+  client &lt;-<span class="st"> </span>rdhs::<span class="kw">dhs_client</span>(<span class="dt">api_key =</span> <span class="st">"ICLSPH-527168"</span>,<span class="dt">root =</span> root)
+}
+
+<span class="co"># Have a look at what the client object is</span>
+client
+<span class="co">#&gt; &lt;dhs_client&gt;</span>
+<span class="co">#&gt;   Public:</span>
+<span class="co">#&gt;     available_surveys: function (your_email = Sys.getenv("rdhs_USER_EMAIL"), your_password = Sys.getenv("rdhs_USER_PASS"), </span>
+<span class="co">#&gt;     clear_namespace: function (namespace) </span>
+<span class="co">#&gt;     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key, </span>
+<span class="co">#&gt;     download_survey: function (desired_survey, download_option = "rds", reformat = TRUE, </span>
+<span class="co">#&gt;     extract: function (questions, available_surveys = self$available_surveys(), </span>
+<span class="co">#&gt;     get_cache_date: function () </span>
+<span class="co">#&gt;     get_root: function () </span>
+<span class="co">#&gt;     initialize: function (api_key = NULL, root = NULL) </span>
+<span class="co">#&gt;     save_client: function () </span>
+<span class="co">#&gt;     set_cache_date: function (date) </span>
+<span class="co">#&gt;     survey_codes: function (desired_survey, codes, essential_codes = NULL, your_email = Sys.getenv("rdhs_USER_EMAIL"), </span>
+<span class="co">#&gt;     survey_questions: function (desired_survey, search_terms = NULL, regex = NULL, </span>
+<span class="co">#&gt;   Private:</span>
+<span class="co">#&gt;     api_endpoints: data indicators countries surveys surveycharacteristics  ...</span>
+<span class="co">#&gt;     api_key: ICLSPH-527168</span>
+<span class="co">#&gt;     cache_date: 2018-02-20 10:08:13</span>
+<span class="co">#&gt;     root: C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rd ...</span>
+<span class="co">#&gt;     storr: storr, R6</span>
+<span class="co">#&gt;     url: https://api.dhsprogram.com/rest/dhs/</span></code></pre></div>
+<p>The root directory you chose will now also have in it an .rds file that is your dhs client, and a series of subfolders that are used to cache data. In order to use this cached data when you start your next R session you would use the same code as above, but this time it will know you have already created a client and will load it instead.</p>
+</div>
+<div id="making-api-requests" class="section level3">
+<h3>2. Making api requests</h3>
+<p>The client can then be used to conduct API requests. To find more information about the possible API requests head to their <a href="https://api.dhsprogram.com/#/index.html">website</a>. In brief the API allows for a number of different endpoints to be accessed that constitute one of 12 different databases. These are stored within the client by default, and are the following:</p>
+<ul>
+<li><a href="https://api.dhsprogram.com/#/api-data.cfm">data</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-indicators.cfm">indicators</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-countries.cfm">countries</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-surveys.cfm">surveys</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-surveycharacteristics.cfm">surveycharacteristics</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-publications.cfm">publications</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-datasets.cfm">datasets</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-geometry.cfm">geometry</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-tags.cfm">tags</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-dataupdates.cfm">dataupdates</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-uiupdates.cfm">uiupdates</a></li>
+<li><a href="https://api.dhsprogram.com/#/api-info.cfm">info</a></li>
+</ul>
+<p>These endpoints can then be further filtered, with a different set of filters possible for each endpoint. At current, these are not built in so it is possible to make human errors when submitting filter queries. To find info about all the possible filter queries head to the associated webpage from above.</p>
+<p>For example we can now query to find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). So we can query for that by specifying the “data” endpoint, and using suitable filter queries provided as a list as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
+resp &lt;-<span class="st"> </span>client$<span class="kw">dhs_api_request</span>(<span class="dt">api_endpoint =</span> <span class="st">"data"</span>,
+                       <span class="dt">query =</span> <span class="kw">list</span>(<span class="st">"indicatorIds"</span>=<span class="st">"ML_FEVT_C_AML"</span>,
+                                    <span class="st">"surveyYearStart"</span>=<span class="dv">2006</span>,
+                                    <span class="st">"breakdown"</span>=<span class="st">"subnational"</span>))
+
+
+<span class="co"># and let's filter it by some countries</span>
+countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Angola"</span>,<span class="st">"Ghana"</span>,<span class="st">"Kenya"</span>,<span class="st">"Liberia"</span>,
+                <span class="st">"Madagascar"</span>,<span class="st">"Mali"</span>,<span class="st">"Malawi"</span>,<span class="st">"Nigeria"</span>,
+                <span class="st">"Rwanda"</span>,<span class="st">"Sierra Leone"</span>,<span class="st">"Senegal"</span>,<span class="st">"Tanzania"</span>,<span class="st">"Uganda"</span>)
+
+<span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(resp[resp$CountryName %in%<span class="st"> </span>countries,],
+       <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"glm"</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_grid</span>(~CountryName,<span class="dt">ncol=</span><span class="dv">2</span>)
+<span class="co">#&gt; Error in facet_grid(~CountryName, ncol = 2): unused argument (ncol = 2)</span></code></pre></div>
+<p>If we miss entered a filter query (very possible) rdhs will give you an error that is somewhat nicely presented on the page for you to see way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
+resp &lt;-<span class="st"> </span>client$<span class="kw">dhs_api_request</span>(<span class="dt">api_endpoint =</span> <span class="st">"data"</span>,
+                       <span class="dt">query =</span> <span class="kw">list</span>(<span class="st">"indicatorIds"</span>=<span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
+                                    <span class="st">"surveyYearStart"</span>=<span class="dv">202231231306</span>,
+                                    <span class="st">"breakdownAndCry"</span>=<span class="st">"subParTyping"</span>))
+<span class="co">#&gt; Error: &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</span>
+<span class="co">#&gt; &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;</span>
+<span class="co">#&gt; &lt;head&gt;</span>
+<span class="co">#&gt; &lt;meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/&gt;</span>
+<span class="co">#&gt; &lt;title&gt;500 - Internal server error.&lt;/title&gt;</span>
+<span class="co">#&gt; &lt;style type="text/css"&gt;</span>
+<span class="co">#&gt; &lt;!--</span>
+<span class="co">#&gt; body{margin:0;font-size:.7em;font-family:Verdana, Arial, Helvetica, sans-serif;background:#EEEEEE;}</span>
+<span class="co">#&gt; fieldset{padding:0 15px 10px 15px;} </span>
+<span class="co">#&gt; h1{font-size:2.4em;margin:0;color:#FFF;}</span>
+<span class="co">#&gt; h2{font-size:1.7em;margin:0;color:#CC0000;} </span>
+<span class="co">#&gt; h3{font-size:1.2em;margin:10px 0 0 0;color:#000000;} </span>
+<span class="co">#&gt; #header{width:96%;margin:0 0 0 0;padding:6px 2% 6px 2%;font-family:"trebuchet MS", Verdana, sans-serif;color:#FFF;</span>
+<span class="co">#&gt; background-color:#555555;}</span>
+<span class="co">#&gt; #content{margin:0 0 0 2%;position:relative;}</span>
+<span class="co">#&gt; .content-container{background:#FFF;width:96%;margin-top:8px;padding:10px;position:relative;}</span>
+<span class="co">#&gt; --&gt;</span>
+<span class="co">#&gt; &lt;/style&gt;</span>
+<span class="co">#&gt; &lt;/head&gt;</span>
+<span class="co">#&gt; &lt;body&gt;</span>
+<span class="co">#&gt; &lt;div id="header"&gt;&lt;h1&gt;Server Error&lt;/h1&gt;&lt;/div&gt;</span>
+<span class="co">#&gt; &lt;div id="content"&gt;</span>
+<span class="co">#&gt;  &lt;div class="content-container"&gt;&lt;fieldset&gt;</span>
+<span class="co">#&gt;   &lt;h2&gt;500 - Internal server error.&lt;/h2&gt;</span>
+<span class="co">#&gt;   &lt;h3&gt;There is a problem with the resource you are looking for, and it cannot be displayed.&lt;/h3&gt;</span>
+<span class="co">#&gt;  &lt;/fieldset&gt;&lt;/div&gt;</span>
+<span class="co">#&gt; &lt;/div&gt;</span>
+<span class="co">#&gt; &lt;/body&gt;</span>
+<span class="co">#&gt; &lt;/html&gt;</span></code></pre></div>
+<p>rdhs by default converts the response to a data.frame and will ensure that all the API results are returned. If you want to return fewer than all the results, or look at the actual API response then these can be controlled using the <strong>num_results</strong> and <strong>just_results</strong> arguments.</p>
+<p>Importantly the API request you have made has now been cached by the package. This means that the next time you run this request, the result both returns quicker and you can access your data even if not connected to the internet.</p>
+<p>What if the DHS API is updated? Will my cached API calls now be wrong? Potentially. It is unclear from the API how much information changes over time. The <a href="https://api.dhsprogram.com/rest/dhs/dataupdates?f=html">dataupdates</a> endpoint shows updates to specific surveys. However, when looking at the <a href="https://api.dhsprogram.com/rest/dhs/datasets?f=html">datasets</a> endpoint we can see that there are many survey files that have been presumably modified after their release. This may be just reuploading, or it could have changed the data and thus subsequent date we may get from API calls. As such, at this moment in time, if the date at which any of the DHS API was last updated as found within the dataupdates endpoint is more recent than the cache_date within our client we will automatically clear our API call cache. The API calls are relatively lightweight, so will not be a major hindrance in the future. This can be seen below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the current cache date that the client was last created at</span>
+client$<span class="kw">get_cache_date</span>()
+<span class="co">#&gt; [1] "2018-02-20 10:08:13 GMT"</span>
+
+<span class="co"># Now let's set it back in time a year</span>
+client$<span class="kw">set_cache_date</span>(client$<span class="kw">get_cache_date</span>()-(<span class="dv">365</span>*<span class="dv">24</span>*<span class="dv">60</span>*<span class="dv">60</span>))
+client$<span class="kw">get_cache_date</span>()
+<span class="co">#&gt; [1] "2017-02-20 10:08:13 GMT"</span>
+
+<span class="co"># And save this client </span>
+client$<span class="kw">save_client</span>()
+
+<span class="co"># Now let's imagine we were restarting our R session another time and wanted to load our client we were using before</span>
+client &lt;-<span class="st"> </span>rdhs::<span class="kw">dhs_client</span>(<span class="dt">api_key =</span> <span class="st">"ICLSPH-527168"</span>,
+                           <span class="dt">root =</span> root, 
+                           <span class="dt">credentials =</span> <span class="st">"credentials"</span>)
+client$<span class="kw">get_cache_date</span>()
+<span class="co">#&gt; [1] "2018-02-20 10:19:43 GMT"</span></code></pre></div>
+</div>
+<div id="using-api-requests-to-identify-surveys-you-want-to-download" class="section level3">
+<h3>3. Using api requests to identify surveys you want to download</h3>
+<p>Working with the API can allow you to get good access to course level data, however you may want access to the raw datasets to compile individual level data. To do this you will need to decide what surveys you want for your survey and then download them. This used to be laborious… and is somewhat nice now.</p>
+<p>First we will have a look using the API what surveys record data about children under age five with fever in the two weeks preceding the survey that received any anti-malarial drugs who took Quinine.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
+desired_data &lt;-<span class="st"> </span>client$<span class="kw">dhs_api_request</span>(<span class="dt">api_endpoint =</span> <span class="st">"surveys"</span>,
+                       <span class="dt">query =</span> <span class="kw">list</span>(<span class="st">"indicatorIds"</span>=<span class="st">"ML_AMLD_C_QNN"</span>))
+
+<span class="kw">str</span>(desired_data,<span class="dt">vec.len=</span><span class="dv">2</span>)
+<span class="co">#&gt; Classes 'data.table' and 'data.frame':   92 obs. of  29 variables:</span>
+<span class="co">#&gt;  $ ReleaseDate            : chr  "2017-02-15" "2008-02-27" ...</span>
+<span class="co">#&gt;  $ SurveyId               : chr  "AF2015DHS" "AO2006MIS" ...</span>
+<span class="co">#&gt;  $ MaxAgeWomen            : int  49 49 49 49 49 ...</span>
+<span class="co">#&gt;  $ FieldworkStart         : chr  "2015-06-01" "2006-11-01" ...</span>
+<span class="co">#&gt;  $ MinAgeMen              : chr  "15" "" ...</span>
+<span class="co">#&gt;  $ ImplementingOrg        : chr  "Central Statistics Organization (CSO) and Ministry of Public Health (MoPH)" "COSEP, CONSAÚDE" ...</span>
+<span class="co">#&gt;  $ SurveyCharacteristicIds: chr  "92, 39, 6, 1, 79, 31, 14, 57, 8, 34, 17, 22, 20, 24, 21, 13, 36, 59, 3, 11, 26" "8, 41, 57, 36, 68, 63, 61, 26, 79, 89" ...</span>
+<span class="co">#&gt;  $ SurveyType             : chr  "DHS" "MIS" ...</span>
+<span class="co">#&gt;  $ SurveyYearLabel        : chr  "2015" "2006-07" ...</span>
+<span class="co">#&gt;  $ IndicatorData          : int  1 1 1 1 1 ...</span>
+<span class="co">#&gt;  $ MinAgeWomen            : int  15 15 15 15 15 ...</span>
+<span class="co">#&gt;  $ SurveyYear             : int  2015 2006 2011 2015 2006 ...</span>
+<span class="co">#&gt;  $ FieldworkEnd           : chr  "2016-02-01" "2007-04-01" ...</span>
+<span class="co">#&gt;  $ DHS_CountryCode        : chr  "AF" "AO" ...</span>
+<span class="co">#&gt;  $ NumberOfSamplePoints   : int  950 120 320 627 750 ...</span>
+<span class="co">#&gt;  $ CountryName            : chr  "Afghanistan" "Angola" ...</span>
+<span class="co">#&gt;  $ NumberOfWomen          : int  29461 2973 8589 14379 17794 ...</span>
+<span class="co">#&gt;  $ SubregionName          : chr  "South Asia" "Middle Africa" ...</span>
+<span class="co">#&gt;  $ MaxAgeMen              : chr  "49" "" ...</span>
+<span class="co">#&gt;  $ SurveyNum              : int  471 282 395 477 289 ...</span>
+<span class="co">#&gt;  $ SurveyStatus           : chr  "Completed" "Completed" ...</span>
+<span class="co">#&gt;  $ NumberOfFacilities     : chr  "" "" ...</span>
+<span class="co">#&gt;  $ UniverseOfMen          : chr  "Ever Married Men" "" ...</span>
+<span class="co">#&gt;  $ RegionName             : chr  "South &amp; Southeast Asia" "Sub-Saharan Africa" ...</span>
+<span class="co">#&gt;  $ UniverseOfWomen        : chr  "Ever Married Women" "All Women" ...</span>
+<span class="co">#&gt;  $ Footnotes              : chr  "" "" ...</span>
+<span class="co">#&gt;  $ PublicationDate        : chr  "2017-01-01" "2007-11-01" ...</span>
+<span class="co">#&gt;  $ NumberofHouseholds     : int  24395 2599 8030 16109 17511 ...</span>
+<span class="co">#&gt;  $ NumberOfMen            : chr  "10760" "" ...</span>
+<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
+<p>Now we have a data frame for the surveys we want we then go about actually downloading the surveys.</p>
+</div>
+<div id="cataloguing-which-surveys-you-can-download-for-your-log-in-credentials" class="section level3">
+<h3>4. Cataloguing which surveys you can download for your log in credentials</h3>
+<p>To do this we again use the client, and pass in our login in credentials, and where we will eventually want to download our surveys too. The client will then log into your DHS account for you and scrape what surveys you have access to. It will then turn these into downloadable urls to be used in the next step. (Takes ~30s)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># client will fetch all the surveys that you can download from the DHS </span>
+<span class="co"># website (i.e. the ones they have gien you permission for)</span>
+available_surveys &lt;-<span class="st"> </span>client$<span class="kw">available_surveys</span>()
+
+<span class="kw">str</span>(available_surveys,<span class="dt">vec.len=</span><span class="dv">2</span>)
+<span class="co">#&gt; 'data.frame':    5500 obs. of  14 variables:</span>
+<span class="co">#&gt;  $ FileFormat          : chr  "Stata dataset (.dta)" "Flat ASCII data (.dat)" ...</span>
+<span class="co">#&gt;  $ FileSize            : chr  "1126527" "1260002" ...</span>
+<span class="co">#&gt;  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets" ...</span>
+<span class="co">#&gt;  $ SurveyNum           : chr  "395" "395" ...</span>
+<span class="co">#&gt;  $ SurveyId            : chr  "AO2011MIS" "AO2011MIS" ...</span>
+<span class="co">#&gt;  $ FileType            : chr  "Births Recode" "Births Recode" ...</span>
+<span class="co">#&gt;  $ FileDateLastModified: chr  "May, 08 2017 14:01:32" "May, 08 2017 14:01:49" ...</span>
+<span class="co">#&gt;  $ SurveyYearLabel     : chr  "2011" "2011" ...</span>
+<span class="co">#&gt;  $ SurveyType          : chr  "MIS" "MIS" ...</span>
+<span class="co">#&gt;  $ SurveyYear          : chr  "2011" "2011" ...</span>
+<span class="co">#&gt;  $ DHS_CountryCode     : chr  "AO" "AO" ...</span>
+<span class="co">#&gt;  $ FileName            : chr  "AOBR62DT.ZIP" "AOBR62FL.ZIP" ...</span>
+<span class="co">#&gt;  $ CountryName         : chr  "Angola" "Angola" ...</span>
+<span class="co">#&gt;  $ URLS                : chr  "https://dhsprogram.com/customcf/legacy/data/download_dataset.cfm?Filename=AOBR62DT.zip&amp;Tp=1&amp;Ctry_Code=AO&amp;surv_i"| __truncated__ "https://dhsprogram.com/customcf/legacy/data/download_dataset.cfm?Filename=AOBR62FL.zip&amp;Tp=1&amp;Ctry_Code=AO&amp;surv_i"| __truncated__ ...</span></code></pre></div>
+</div>
+<div id="downloading-the-desired-surveys-from-step-3-from-the-available-surveys-from-step-4" class="section level3">
+<h3>5. Downloading the desired surveys from step 3 from the available surveys from step 4</h3>
+<p>Now that we have the list of surveys, and we now what ones we want to actually download, we simply subset those from step 4 using our dataframe in step 3.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset our available data frames</span>
+subsetted_surveys &lt;-<span class="st"> </span>dplyr::<span class="kw">filter</span>(available_surveys, SurveyId %in%<span class="st"> </span>desired_data$SurveyId)</code></pre></div>
+<p>And we can now download those surveys using our client.</p>
+<p>N.B It is recommended (and there is only support for) to download the Stata datasets and the SPSS datasets, and preferentially the Stata datasets as these are a little quicker to import. This is just the survey datasets, whereas the GPS coordinates (which are logged as .dat files) are supported as they are read in using .</p>
+<p>The .sav datasets are read in using , which is very good at bringing out all the factor attributes. At the moment, .dta datasets are read in using . This will change at a later date to allow users to specif which fun</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's then grab the stata datasets</span>
+stata_surveys &lt;-<span class="st"> </span>subsetted_surveys[subsetted_surveys$FileFormat==<span class="st">"Stata dataset (.dta)"</span>,]
+
+<span class="co"># download datasets</span>
+downloads &lt;-<span class="st"> </span>client$<span class="kw">download_survey</span>(<span class="dt">desired_survey=</span>stata_surveys[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">75</span>,<span class="dv">100</span>),], <span class="dt">reformat =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>At the moment this will indiscriminately download the zip file and unpack it to a directory within the directory path we specified as the output_dir argument for <code>available_surveys</code>. So this looks something like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">strsplit</span>(<span class="kw">list.files</span>(<span class="kw">file.path</span>(root,<span class="st">"surveys"</span>),<span class="dt">recursive =</span> T,<span class="dt">full.names =</span> <span class="ot">TRUE</span>), <span class="st">"/"</span>),
+            function(z) <span class="kw">as.data.frame</span>(<span class="kw">t</span>(z)))
+x &lt;-<span class="st"> </span>dplyr::<span class="kw">rbind_all</span>(x)
+x$pathString &lt;-<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, function(x) <span class="kw">paste</span>(<span class="kw">trimws</span>(<span class="kw">na.omit</span>(<span class="kw">tail</span>(x,<span class="dv">4</span>))), <span class="dt">collapse=</span><span class="st">"/"</span>))
+mytree &lt;-<span class="st"> </span>data.tree::<span class="kw">as.Node</span>(x)
+mytree
+<span class="co">#&gt;                        levelName</span>
+<span class="co">#&gt; 1  rdhs_vignette_client_root    </span>
+<span class="co">#&gt; 2   °--surveys                  </span>
+<span class="co">#&gt; 3       ¦--Angola_2006_MIS      </span>
+<span class="co">#&gt; 4       ¦   °--AOGE52FL.rds     </span>
+<span class="co">#&gt; 5       ¦--Angola_2011_MIS      </span>
+<span class="co">#&gt; 6       ¦   ¦--AOBR62DT.rds     </span>
+<span class="co">#&gt; 7       ¦   °--AOGE61FL.rds     </span>
+<span class="co">#&gt; 8       ¦--Angola_2015_DHS      </span>
+<span class="co">#&gt; 9       ¦   °--AOGE71FL.rds     </span>
+<span class="co">#&gt; 10      ¦--Benin_1996_DHS       </span>
+<span class="co">#&gt; 11      ¦   °--BJGE33FL.rds     </span>
+<span class="co">#&gt; 12      ¦--Benin_2001_DHS       </span>
+<span class="co">#&gt; 13      ¦   °--BJGE42FL.rds     </span>
+<span class="co">#&gt; 14      ¦--Benin_2012_DHS       </span>
+<span class="co">#&gt; 15      ¦   ¦--BJGE61FL.rds     </span>
+<span class="co">#&gt; 16      ¦   °--BJIR61DT.rds     </span>
+<span class="co">#&gt; 17      ¦--Burkina Faso_1993_DHS</span>
+<span class="co">#&gt; 18      ¦   °--BFGE23FL.rds     </span>
+<span class="co">#&gt; 19      ¦--Burkina Faso_1999_DHS</span>
+<span class="co">#&gt; 20      ¦   °--BFGE32FL.rds     </span>
+<span class="co">#&gt; 21      ¦--Burkina Faso_2003_DHS</span>
+<span class="co">#&gt; 22      ¦   °--BFGE43FL.rds     </span>
+<span class="co">#&gt; 23      ¦--Burkina Faso_2010_DHS</span>
+<span class="co">#&gt; 24      ¦   ¦--BFGE61FL.cpg     </span>
+<span class="co">#&gt; 25      ¦   ¦--BFGE61FL.dbf     </span>
+<span class="co">#&gt; 26      ¦   ¦--BFGE61FL.prj     </span>
+<span class="co">#&gt; 27      ¦   ¦--BFGE61FL.rds     </span>
+<span class="co">#&gt; 28      ¦   ¦--BFGE61FL.sbn     </span>
+<span class="co">#&gt; 29      ¦   ¦--BFGE61FL.sbx     </span>
+<span class="co">#&gt; 30      ¦   ¦--BFGE61FL.shp     </span>
+<span class="co">#&gt; 31      ¦   ¦--BFGE61FL.shp.xml </span>
+<span class="co">#&gt; 32      ¦   ¦--BFGE61FL.shx     </span>
+<span class="co">#&gt; 33      ¦   ¦--BFPR62DT.rds     </span>
+<span class="co">#&gt; 34      ¦   °--DHS_README.txt   </span>
+<span class="co">#&gt; 35      ¦--Burkina Faso_2014_MIS</span>
+<span class="co">#&gt; 36      ¦   °--BFGE71FL.rds     </span>
+<span class="co">#&gt; 37      ¦--Burundi_2010_DHS     </span>
+<span class="co">#&gt; 38      ¦   ¦--BUGE61FL.cpg     </span>
+<span class="co">#&gt; 39      ¦   ¦--BUGE61FL.dbf     </span>
+<span class="co">#&gt; 40      ¦   ¦--BUGE61FL.prj     </span>
+<span class="co">#&gt; 41      ¦   ¦--BUGE61FL.sbn     </span>
+<span class="co">#&gt; 42      ¦   ¦--BUGE61FL.sbx     </span>
+<span class="co">#&gt; 43      ¦   ¦--BUGE61FL.shp     </span>
+<span class="co">#&gt; 44      ¦   ¦--BUGE61FL.shp.xml </span>
+<span class="co">#&gt; 45      ¦   ¦--BUGE61FL.shx     </span>
+<span class="co">#&gt; 46      ¦   °--DHS_README.txt   </span>
+<span class="co">#&gt; 47      ¦--Cameroon_2004_DHS    </span>
+<span class="co">#&gt; 48      ¦   ¦--CMGE42FL.rds     </span>
+<span class="co">#&gt; 49      ¦   °--CMKR44dt.rds     </span>
+<span class="co">#&gt; 50      °--Congo_2005_DHS       </span>
+<span class="co">#&gt; 51          °--CGCR51DT.rds</span></code></pre></div>
+<p>Where you can see that a new directory is made for each survey, with any datasets collected from that survey, e.g.&nbsp;birth recode, individual recode, stored within that same directory. The downloads object will now be a list of file paths to where the files were saved to. Depending on the download option this will either be the zip file, the extracted files from the zip, or the rds object created by unzipping the zip file and reading in the approporiate dataset.</p>
+<p>A note on the rds object. These will be automatically reformatted to remove factors and simply return the raw character representations of the data. This is carried out using  and , that will read the stata and spss dataset attributes and subsequently correct factors. This will also return a table detailing what the dataset codes were for that survey and what their description is. If you do not wish to have this information then change the <code>reformat</code> argument to <code>FALSE</code>.</p>
+<p>A quick look at a demonstration of the reformat:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's read one result in and look at that</span>
+downloaded_dataset &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads[[<span class="dv">1</span>]][<span class="dv">1</span>])
+<span class="kw">str</span>(downloaded_dataset,<span class="dt">list.len =</span> <span class="dv">10</span>)
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ Survey                  :'data.frame':    22925 obs. of  316 variables:</span>
+<span class="co">#&gt;   ..$ CASEID : chr [1:22925] "        1  1  6" "        1  1  6" "        1  1  6" "        1  3  2" ...</span>
+<span class="co">#&gt;   ..$ BIDX   : int [1:22925] 1 2 3 1 2 3 4 5 6 1 ...</span>
+<span class="co">#&gt;   ..$ V000   : chr [1:22925] "AO5" "AO5" "AO5" "AO5" ...</span>
+<span class="co">#&gt;   ..$ V001   : int [1:22925] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ V002   : int [1:22925] 1 1 1 3 3 3 3 3 3 5 ...</span>
+<span class="co">#&gt;   ..$ V003   : int [1:22925] 6 6 6 2 2 2 2 2 2 2 ...</span>
+<span class="co">#&gt;   ..$ V004   : int [1:22925] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..$ V005   : int [1:22925] 1893232 1893232 1893232 1893232 1893232 1893232 1893232 1893232 1893232 1893232 ...</span>
+<span class="co">#&gt;   ..$ V006   : int [1:22925] 3 3 3 3 3 3 3 3 3 3 ...</span>
+<span class="co">#&gt;   ..$ V007   : int [1:22925] 2011 2011 2011 2011 2011 2011 2011 2011 2011 2011 ...</span>
+<span class="co">#&gt;   .. [list output truncated]</span>
+<span class="co">#&gt;  $ Survey_Code_Descriptions:'data.frame':    316 obs. of  2 variables:</span>
+<span class="co">#&gt;   ..$ Code       : chr [1:316] "CASEID" "BIDX" "V000" "V001" ...</span>
+<span class="co">#&gt;   ..$ Description: chr [1:316] "case identification" "birth column number" "country code and phase" "cluster number" ...</span>
+
+<span class="co"># have a look at the survey code descriptions</span>
+<span class="kw">head</span>(downloaded_dataset$Survey_Code_Descriptions)
+<span class="co">#&gt;     Code              Description</span>
+<span class="co">#&gt; 1 CASEID      case identification</span>
+<span class="co">#&gt; 2   BIDX      birth column number</span>
+<span class="co">#&gt; 3   V000   country code and phase</span>
+<span class="co">#&gt; 4   V001           cluster number</span>
+<span class="co">#&gt; 5   V002         household number</span>
+<span class="co">#&gt; 6   V003 respondent's line number</span>
+
+<span class="co"># and let's have a look at how the factor reformat has been helpful</span>
+downloaded_dataset$Survey_Code_Descriptions[downloaded_dataset$Survey_Code_Descriptions$Code==<span class="st">"ML101"</span>,]
+<span class="co">#&gt;     Code                              Description</span>
+<span class="co">#&gt; 96 ML101 type of bednet(s) slept under last night</span>
+<span class="kw">head</span>(downloaded_dataset$Survey$ML101,<span class="dv">20</span>)
+<span class="co">#&gt;  [1] "no bednet"            "no bednet"            "no bednet"           </span>
+<span class="co">#&gt;  [4] "no bednet"            "no bednet"            "no bednet"           </span>
+<span class="co">#&gt;  [7] "no bednet"            "no bednet"            "no bednet"           </span>
+<span class="co">#&gt; [10] "only treated bednets" "no bednet"            "only treated bednets"</span>
+<span class="co">#&gt; [13] "no bednet"            "no bednet"            "no bednet"           </span>
+<span class="co">#&gt; [16] "no bednet"            "no bednet"            "only treated bednets"</span>
+<span class="co">#&gt; [19] "only treated bednets" "only treated bednets"</span></code></pre></div>
+</div>
+<div id="creating-the-list-of-survey-questions-required-for-your-investigation" class="section level3">
+<h3>6. Creating the list of survey questions required for your investigation</h3>
+<p>Now that we have all the surveys downloaded that we want, (which we worked out using the DHS API indicators), we now want to know which survey codes/questions are contained in each survey that we want in our final extracted data frame. To do this we continue using the client, which can iterate though our survey code descriptions.</p>
+<p>The reason this is useful, is that some surveys have different codes for the same questions. Therefore it can be difficult to filter by just choosing the codes you want from one survey. Similarly, the questions for the same code may be subtly different, e.g.&nbsp;some report on say fever in the last 2 weeks and some report on fever in the last 4 weeks. So by querying for terms, we can then use the survey specific codes that interest us, and we can use the descriptions to save information about the questions easily.</p>
+<p>So let’s now have a look at the surveys we downloaded, and query for survey questions that included anything about fevers, malaria, or tests.</p>
+<p>(At the moment the search terms are just combined to produce an OR regex query. )</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the questions, and filter by search terms.</span>
+questions &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(stata_surveys[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">75</span>,<span class="dv">100</span>),],<span class="dt">search_terms =</span> <span class="kw">c</span>(<span class="st">"fever"</span>,<span class="st">"malaria"</span>,<span class="st">"test"</span>))
+
+<span class="kw">names</span>(questions)
+<span class="co">#&gt; [1] "Code"        "Description" "Survey"      "SurveyPath"  "CountryCode"</span>
+<span class="co">#&gt; [6] "SurveyYear"</span></code></pre></div>
+<p>This resultant data frame can then be used to check which codes you may want to include to extract your raw data.</p>
+</div>
+<div id="using-the-list-from-step-6-to-create-your-data-frame-of-survey-responses" class="section level3">
+<h3>7. Using the list from step 6 to create your data frame of survey responses</h3>
+<p>We can now quickly view and make a note of the codes that may be of interest to us, and either subset the questions data.frame as needed or directly pass this on to extract the relevant data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grab a subset of the questions to save time</span>
+subset_quest &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">dim</span>(questions)[<span class="dv">1</span>],<span class="dv">3</span>,<span class="dt">replace=</span><span class="ot">FALSE</span>)
+
+<span class="co"># extract the questions, and filter by search terms.</span>
+extracted_data &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions[subset_quest,])
+
+<span class="co"># and the structure of the results. </span>
+<span class="kw">str</span>(extracted_data)
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ BJ2012:List of 1</span>
+<span class="co">#&gt;   ..$ BJIR61DT:List of 8</span>
+<span class="co">#&gt;   .. ..$ H32T_3  : int [1:16599] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   .. ..$ H32C_1  : int [1:16599] NA NA NA NA NA NA NA NA NA NA ...</span>
+<span class="co">#&gt;   .. ..$ CLUSTER : int [1:16599] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   .. ..$ ALT_DEM : chr [1:16599] "303" "303" "303" "303" ...</span>
+<span class="co">#&gt;   .. ..$ LATNUM  : chr [1:16599] "11.3792809373" "11.3792809373" "11.3792809373" "11.3792809373" ...</span>
+<span class="co">#&gt;   .. ..$ LONGNUM : chr [1:16599] "2.43987528786" "2.43987528786" "2.43987528786" "2.43987528786" ...</span>
+<span class="co">#&gt;   .. ..$ ADM1NAME: chr [1:16599] "Alibori" "Alibori" "Alibori" "Alibori" ...</span>
+<span class="co">#&gt;   .. ..$ DHSREGNA: chr [1:16599] "Alibori" "Alibori" "Alibori" "Alibori" ...</span>
+<span class="co">#&gt;  $ AO2011:List of 1</span>
+<span class="co">#&gt;   ..$ AOBR62DT:List of 7</span>
+<span class="co">#&gt;   .. ..$ H32K    : chr [1:22925] NA NA NA NA ...</span>
+<span class="co">#&gt;   .. ..$ CLUSTER : int [1:22925] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   .. ..$ ALT_DEM : chr [1:22925] "7" "7" "7" "7" ...</span>
+<span class="co">#&gt;   .. ..$ LATNUM  : chr [1:22925] "-12.350257" "-12.350257" "-12.350257" "-12.350257" ...</span>
+<span class="co">#&gt;   .. ..$ LONGNUM : chr [1:22925] "13.534922" "13.534922" "13.534922" "13.534922" ...</span>
+<span class="co">#&gt;   .. ..$ ADM1NAME: chr [1:22925] "Benguela" "Benguela" "Benguela" "Benguela" ...</span>
+<span class="co">#&gt;   .. ..$ DHSREGNA: chr [1:22925] "Mesoendemica Estavel" "Mesoendemica Estavel" "Mesoendemica Estavel" "Mesoendemica Estavel" ...</span></code></pre></div>
+</div>
+<div id="storing-your-pipeline-from-step-1---7-to-increase-reproducibility" class="section level3">
+<h3>8. Storing your pipeline from step 1 - 7 to increase reproducibility</h3>
+<p>The last section is an open ended question still, so any ideas are appreciated. It would be nice to be able to chain the following 7 steps somehow so that the pipeline could then itself be cached so that others could recreate the analysis and so on.</p>
+</div>
+</div>
+<div id="summary-and-further-thoughts" class="section level2">
+<h2>Summary and further thoughts</h2>
+<p>Hopefully the above tutorial has shown how the <em>rdhs</em> package can facilitate both querying the DHS API and hopefully life some of the difficulty of interacting with the raw datasets. Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at <a href="mailto:%22o.watson15@imperial.ac.uk%22">"o.watson15@imperial.ac.uk"</a>.</p>
+<hr>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
