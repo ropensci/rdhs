@@ -1,16 +1,5 @@
 TODO:
 
-
-1. api query by tags (add as example to tutorial as well as querying by keyword, e.g. "fever")
-
-6. query all tables with a grep
-
-7. once happy with questions, take the vector of questions from the user and turn those back into codes to query for each survey
-
-8. session cache
-
-9. MJ extraction ()
-
-10. vignette and test to 100% cov
+See email to Jeff
 
 ...
