@@ -14,7 +14,7 @@ test_that("available_surveys works", {
   skip_if_no_auth()
 
   # Create new directory
-  td <- file.path(tempdir())
+  td <- file.path(tempdir(),as.integer(Sys.time()))
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
