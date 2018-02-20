@@ -1,6 +1,7 @@
 # rdhs
 
-[![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=mrc-branch)](https://travis-ci.org/OJWatson/rdhs)
+[![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs)
+[![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
 
 
 ![]()<img src="img/logo.svg" width="50%">

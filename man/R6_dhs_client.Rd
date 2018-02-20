@@ -7,7 +7,8 @@
 Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
 Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
 Creates data.frame of all survey codes and descriptions, with an option to filter by search terms
-Creates data.frame of wanted survey codes and descriptions}
+Creates data.frame of wanted survey codes and descriptions
+Creates list of survey responses extracted using the survey questions}
 \format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
 R6_dhs_client
@@ -18,5 +19,6 @@ Creates data.frame of avaialble surveys using \code{available_durveys} and cache
 Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
 Creates data.frame of all survey codes and descriptions, with an option to filter by search terms
 Creates data.frame of wanted survey codes and descriptions
+Creates list of survey responses extracted using the survey questions
 }
 \keyword{datasets}

@@ -256,7 +256,11 @@ download_datasets <- function(   your_email , your_password , your_project ,
       if(!is.character(res)){
         rds_path <- file.path(survey_dir,paste0(strsplit(desired_survey$FileName,".",fixed=TRUE)[[1]][1],".rds"))
         saveRDS(res,rds_path)
+        if(class(res)[1]=="SpatialPointsDataFrame"){
+          res <- rds_path
+        } else {
         res$Survey <- rds_path
+        }
       }
 
       # remove unzipped files if not matching for "ex"
