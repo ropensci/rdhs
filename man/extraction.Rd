@@ -11,6 +11,8 @@ extraction(questions, available_surveys, geo_surveys, add_geo = TRUE)
 
 \item{available_surveys}{Surveys that could be available. Output of \code{R6_dhs_client$public_methods$available_surveys}}
 
+\item{geo_surveys}{Geographic Data Survey file paths.}
+
 \item{add_geo}{Boolean detailing if geographic datasets should be added.}
 }
 \value{

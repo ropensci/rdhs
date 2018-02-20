@@ -3,8 +3,7 @@
 ##' @title DHS survey questions extracted from surveys
 ##' @param questions Output of \code{R6_dhs_client$public_methods$survey_questions}
 ##' @param available_surveys Surveys that could be available. Output of \code{R6_dhs_client$public_methods$available_surveys}
-##' @param geo_surveys Geographic Data Survey file paths. Output
-##' of \code{R6_dhs_client$download_survey(desired_survey = available_surveys[available_surveys$FileType=="Geographic Data",],download_option = "r")
+##' @param geo_surveys Geographic Data Survey file paths.
 ##' @param add_geo Boolean detailing if geographic datasets should be added.
 ##'
 ##'
