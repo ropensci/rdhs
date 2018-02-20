@@ -149,7 +149,7 @@ perhaps antimalarial prescription has decreased after RDTs were introduced (assu
 for that by specifying the "data" endpoint, and using suitable filter queries provided as a list as follows:
 
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+```{r API call, include=TRUE, message = FALSE, warning = FALSE,fig.height=7,fig.width=7}
 # Make an api request
 resp <- client$dhs_api_request(api_endpoint = "data",
                        query = list("indicatorIds"="ML_FEVT_C_AML",
@@ -160,7 +160,7 @@ resp <- client$dhs_api_request(api_endpoint = "data",
 # and let's filter it by some countries
 countries  <- c("Angola","Ghana","Kenya","Liberia",
                 "Madagascar","Mali","Malawi","Nigeria",
-                "Rwanda","Sierra Leone","Senegal","Tanzania","Uganda")
+                "Rwanda","Sierra Leone","Senegal","Tanzania")
 
 library(ggplot2)
 ggplot(resp[resp$CountryName %in% countries,],
@@ -168,7 +168,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   geom_point() +
   geom_smooth(method = "glm") + 
   ylab(resp$Indicator[1]) + 
-  facet_grid(~CountryName,ncol=2)
+  facet_wrap(~CountryName,ncol = 2) 
 
 ```
 
