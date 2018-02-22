@@ -3,3 +3,4 @@ credentials
 rdhs_cache
 rdhs_vignette_client_root
 rdhs_files
+.*_html.Rmd
