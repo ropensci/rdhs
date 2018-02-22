@@ -499,13 +499,11 @@ R6_dhs_client <- R6::R6Class(
     # EXTRACTION
     #' Creates list of survey responses extracted using the survey questions
     extract = function(questions,
-                       available_surveys = self$available_surveys(),
-                       geo_surveys = NULL,
                        add_geo=TRUE){
 
 
       # help with survey handling
-      survs <- available_surveys
+      survs <- self$available_surveys()
       survs$Survey <- strsplit(survs$FileName,".",fixed=T) %>% lapply(function(x) x[1]) %>% unlist
 
       ## get geo_surveys if needed
@@ -515,14 +513,14 @@ R6_dhs_client <- R6::R6Class(
                           survs$FileType=="Geographic Data")
 
         if(sum(!is.na(ge_match))>0){
-        geo_surveys <- self$download_survey(desired_survey = available_surveys[na.omit(ge_match),],download_option = "r")
+        geo_surveys <- self$download_survey(desired_survey = survs[na.omit(ge_match),],download_option = "r")
         }
       }
 
       ## fetch the results
       ## for the time being this will be left to the user to save but will figure out a way possible of
       ## saving chained functions as a key
-      res <- extraction(questions,available_surveys,geo_surveys,add_geo)
+      res <- extraction(questions,survs,geo_surveys,add_geo)
       return(res)
 
       },
