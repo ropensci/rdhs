@@ -190,6 +190,21 @@ Make a DHS API client
   \emph{Value}:
   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 }
+\item{\code{extract}}{
+  Function to extract datasets using a set of survey questions as taken from the output from \code{survey_questions}
+
+  \emph{Usage:}
+  \code{extract(questions, add_geo = TRUE)}
+
+  \emph{Arguments:}
+  \itemize{
+    \item{\code{questions}:   Questions to be queried, in the format from \code{survey_questions}
+    }
+
+    \item{\code{add_geo}:   Add geograpic information to the extract. Defaut = TRUE
+    }
+  }
+}
 \item{\code{get_cache_date}}{
   Returns the private member variable cache-date, which is the date the client was last created/valiated against the DHS API.
 

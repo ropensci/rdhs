@@ -14,7 +14,6 @@
 extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
 
   survs <- available_surveys
-  survs$Survey <- strsplit(survs$FileName,".",fixed=T) %>% lapply(function(x) x[1]) %>% unlist
 
   # set up results and go
   list_res <- list() ; length(list_res) <- length(unique(paste0(questions$CountryCode,questions$SurveyYear)))
@@ -77,11 +76,11 @@ extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
                          "ADM1NAME"=rep(NA,l),"DHSREGNA"=rep(NA,l))
         }
 
-        results <- append(results,gedata)
+        results_full <- append(results,gedata)
 
       }
 
-      list_res[[i]][[j]] <- results
+      list_res[[i]][[j]] <- as.data.frame.list(lapply(results_full,type.convert,as.is=TRUE),stringsAsFactors = FALSE)
 
     }
 
