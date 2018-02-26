@@ -91,32 +91,6 @@ extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
 
 }
 
-
-cluster_merge <- function(extraction){
-
-  for(i in 1:length(extraction)){
-
-
-    for (j in 1:lenth(extraction[[i]])){
-
-
-      dplyr::group
-
-
-
-    }
-
-
-
-
-
-
-  }
-
-
-}
-
-
 extract_codes_to_descriptions <- function(extraction,questions){
 
 
@@ -131,7 +105,7 @@ extract_codes_to_descriptions <- function(extraction,questions){
 
         if(length(valid)>1){
 
-          names(extraction[[i]][[j]])[valid] <- quest$Description[surv_pos][valid]
+          names(extraction[[i]][[j]])[valid] <- questions$Description[surv_pos][valid]
 
         }
       }
