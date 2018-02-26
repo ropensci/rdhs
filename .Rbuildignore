@@ -13,3 +13,4 @@ TODO.txt
 ^vignettes/*.html$
 ^scripts
 ^credentials$
+^\.httr-oauth$

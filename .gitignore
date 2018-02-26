@@ -4,5 +4,6 @@
 .Ruserdata
 inst/doc
 credentials
-scripts
+^scripts
 TODO.txt
+.httr-oauth
