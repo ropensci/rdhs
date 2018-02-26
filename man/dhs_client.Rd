@@ -19,8 +19,7 @@ secrets are typed into an R session). File format should be (each bullet is a ne
       \item email=dummy@gmail.com
       \item password=dummypass
       \item project=Dummy Project
-      }
-Could also be a list (less preffered), e.g. list("email"=dummy@gmail.com,"password"=dummy,"project"=Dummy Project)}
+      }}
 
 \item{...}{Passed to \code{R6_dhs_client}}
 }
@@ -63,22 +62,12 @@ Make a DHS API client
   Searches the DHS website for all the surveys that you can donwloa. If the client has been created you will not have to pass in any parameters as these will be taken from your environment. The results of this function are cached.
 
   \emph{Usage:}
-  \code{available_surveys(your_email = Sys.getenv("rdhs_USER_EMAIL"), your_password = Sys.getenv("rdhs_USER_PASS"),
-      your_project = Sys.getenv("rdhs_USER_PROJECT"), datasets_api_results = self$dhs_api_request("datasets",
-          num_results = "ALL"), surveys_api_results = self$dhs_api_request("surveys",
-          num_results = "ALL"))}
+  \code{available_surveys(datasets_api_results = self$dhs_api_request("datasets",
+      num_results = "ALL"), surveys_api_results = self$dhs_api_request("surveys",
+      num_results = "ALL"))}
 
   \emph{Arguments:}
   \itemize{
-    \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    }
-
-    \item{\code{your_password}:   DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    }
-
-    \item{\code{your_project}:   DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
-    }
-
     \item{\code{datasets_api_results}:   The list of potential datasets as declared from their api. The default argument fetches these so don't worry too much about this. Default = self$dhs_api_request("datasets",num_results = "ALL")
     }
 
@@ -94,8 +83,7 @@ Make a DHS API client
 
   \emph{Usage:}
   \code{download_survey(desired_survey, download_option = "rds", reformat = TRUE,
-      output_dir_root = file.path(private$root, "surveys"), your_email = Sys.getenv("rdhs_USER_EMAIL"),
-      your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
+      output_dir_root = file.path(private$root, "surveys"))}
 
   \emph{Arguments:}
   \itemize{
@@ -110,15 +98,6 @@ Make a DHS API client
 
     \item{\code{output_dir_root}:   Root directory where the surveys will be stored within. The default will download surveys to a subfolder of the client root called "surveys"
     }
-
-    \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    }
-
-    \item{\code{your_password}:   DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    }
-
-    \item{\code{your_project}:   DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
-    }
   }
 
   \emph{Value}:
@@ -129,8 +108,7 @@ Make a DHS API client
 
   \emph{Usage:}
   \code{survey_questions(desired_survey, search_terms = NULL, regex = NULL,
-      output_dir_root = file.path(private$root, "surveys"), your_email = Sys.getenv("rdhs_USER_EMAIL"),
-      your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
+      output_dir_root = file.path(private$root, "surveys"))}
 
   \emph{Arguments:}
   \itemize{
@@ -145,15 +123,6 @@ Make a DHS API client
 
     \item{\code{output_dir_root}:   Root directory where the surveys will be stored within. The default will download surveys to a subfolder of the client root called "surveys"
     }
-
-    \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    }
-
-    \item{\code{your_password}:   DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    }
-
-    \item{\code{your_project}:   DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
-    }
   }
 
   \emph{Value}:
@@ -163,8 +132,7 @@ Make a DHS API client
   Use this function after download_survey to look up all the surveys that have the provided codes.
 
   \emph{Usage:}
-  \code{survey_codes(desired_survey, codes, essential_codes = NULL, your_email = Sys.getenv("rdhs_USER_EMAIL"),
-      your_password = Sys.getenv("rdhs_USER_PASS"), your_project = Sys.getenv("rdhs_USER_PROJECT"))}
+  \code{survey_codes(desired_survey, codes, essential_codes = NULL)}
 
   \emph{Arguments:}
   \itemize{
@@ -175,15 +143,6 @@ Make a DHS API client
     }
 
     \item{\code{essential_codes}:   Character vector of codes that need to present. If any of the codes are not present n that survey, the survey will not be returned by this functon. Default = NULL.
-    }
-
-    \item{\code{your_email}:   DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    }
-
-    \item{\code{your_password}:   DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    }
-
-    \item{\code{your_project}:   DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
     }
   }
 

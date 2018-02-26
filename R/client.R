@@ -13,7 +13,6 @@
 ##'       \item password=dummypass
 ##'       \item project=Dummy Project
 ##'       }
-##' Could also be a list (less preffered), e.g. list("email"=dummy@gmail.com,"password"=dummy,"project"=Dummy Project)
 ##' @param ... Passed to \code{R6_dhs_client}
 ##'
 ##' @template dhs_client_methods
@@ -25,20 +24,14 @@ dhs_client <- function(api_key=NULL,
                        ...) {
 
   # handle credentials first
-  if(is.null(credentials)){
-    if (identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), "")){
-      stop("Credentials are not present in your system environment. Please provide credentials argument")
-    }
-  } else {
-    set_environment_credentials(read_credentials(credentials))
-  }
+  handle_credentials(credentials)
 
   # check rdhs against api last update time
   cache_date <- dhs_cache_date(root=root)
   if(dhs_last_update() > cache_date){
 
     # create new client if DHS database has been updated
-    client <- R6_dhs_client$new(api_key,root,...)
+    client <- R6_dhs_client$new(api_key,root,credentials,...)
 
     # If there was already a client in your root (i.e. there was a DHS update)
     # then empty the api_call cache namespace
@@ -94,9 +87,10 @@ R6_dhs_client <- R6::R6Class(
   public = list(
 
     # INITIALISATION
-    initialize = function(api_key = NULL, root = NULL){
+    initialize = function(api_key = NULL, root = NULL, credentials=NULL){
       private$api_key <- api_key
       private$root <- root
+      if(!is.null(credentials)) private$credentials_path <- normalizePath("credentials")
       private$storr <- storr::storr_rds(file.path(root,"db"))
       private$cache_date <- Sys.time()
       saveRDS(self,file.path(root,client_file_name()))
@@ -143,6 +137,7 @@ R6_dhs_client <- R6::R6Class(
       # SLight hacking to deal eith page numbers etc now
       pp <- which(names(query)=="perPage")
       key <- paste0(api_endpoint,"_",paste0(names(query)[-pp],unlist(query)[-pp],collapse=","),",num_results",num_results,",just_results",just_results)
+      key <- digest::digest(key)
 
       # first check against cache
       out <- tryCatch(private$storr$get(key,"api_calls"),
@@ -209,11 +204,12 @@ R6_dhs_client <- R6::R6Class(
 
     # AVAILABLE SURVEYS
     #' Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
-    available_surveys = function(your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                                 your_password=Sys.getenv("rdhs_USER_PASS"),
-                                 your_project=Sys.getenv("rdhs_USER_PROJECT"),
-                                 datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
+    available_surveys = function(datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
                                  surveys_api_results = self$dhs_api_request("surveys",num_results = "ALL")){
+
+
+      # check credentials are good
+      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
 
       # create key for this
       key <- paste0(your_project,",")
@@ -226,9 +222,9 @@ R6_dhs_client <- R6::R6Class(
       if(!is.null(out)){ return(out) } else {
 
         # Get downloadable surveys
-        resp <- available_surveys(your_email = your_email,
-                                  your_password = your_password ,
-                                  your_project = your_project,
+        resp <- available_surveys(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                  your_password=Sys.getenv("rdhs_USER_PASS"),
+                                  your_project=Sys.getenv("rdhs_USER_PROJECT"),
                                   datasets_api_results = datasets_api_results,
                                   surveys_api_results = surveys_api_results)
 
@@ -245,11 +241,12 @@ R6_dhs_client <- R6::R6Class(
     download_survey = function(desired_survey,
                                download_option="rds",
                                reformat=TRUE,
-                               output_dir_root=file.path(private$root,"surveys"),
-                               your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                               your_password=Sys.getenv("rdhs_USER_PASS"),
-                               your_project=Sys.getenv("rdhs_USER_PROJECT")){
+                               output_dir_root=file.path(private$root,"surveys")){
 
+
+
+      # check credentials are good
+      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
 
       # results storage
       res <- list()
@@ -285,9 +282,9 @@ R6_dhs_client <- R6::R6Class(
         } else {
 
           # Download survey
-          resp <- download_datasets(your_email=your_email,
-                                    your_password=your_password,
-                                    your_project=your_project,
+          resp <- download_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                    your_password=Sys.getenv("rdhs_USER_PASS"),
+                                    your_project=Sys.getenv("rdhs_USER_PROJECT"),
                                     desired_survey=surveys[i,],
                                     output_dir_root=output_dir_root,
                                     download_option=download_option,
@@ -316,10 +313,10 @@ R6_dhs_client <- R6::R6Class(
     survey_questions = function(desired_survey,
                                 search_terms = NULL,
                                 regex = NULL,
-                                output_dir_root=file.path(private$root,"surveys"),
-                                your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                                your_password=Sys.getenv("rdhs_USER_PASS"),
-                                your_project=Sys.getenv("rdhs_USER_PROJECT")){
+                                output_dir_root=file.path(private$root,"surveys")){
+
+      # check credentials are good
+      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
 
       # results storage
       df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0), "SurveyPath" = character(0))
@@ -369,9 +366,9 @@ R6_dhs_client <- R6::R6Class(
         if(is.null(out) | is.null(out_descr)){
 
           # Download survey
-          resp <- download_datasets(your_email=your_email,
-                                    your_password=your_password,
-                                    your_project=your_project,
+          resp <- download_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                    your_password=Sys.getenv("rdhs_USER_PASS"),
+                                    your_project=Sys.getenv("rdhs_USER_PROJECT"),
                                     desired_survey=surveys[i,],
                                     output_dir_root=output_dir_root,
                                     download_option="rds",
@@ -426,11 +423,11 @@ R6_dhs_client <- R6::R6Class(
     #' Creates data.frame of wanted survey codes and descriptions
     survey_codes = function(desired_survey,
                             codes,
-                            essential_codes = NULL,
-                            your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                            your_password=Sys.getenv("rdhs_USER_PASS"),
-                            your_project=Sys.getenv("rdhs_USER_PROJECT")){
+                            essential_codes = NULL){
 
+
+      # check credentials are good
+      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
 
       # first download any surveys needed
       # survey questions reliable way to do this quicker for our purposes
@@ -545,6 +542,7 @@ R6_dhs_client <- R6::R6Class(
 
   private = list(api_key = NULL,
                  root = NULL,
+                 credentials_path = NULL,
                  cache_date = Sys.time(),
                  url = "https://api.dhsprogram.com/rest/dhs/",
                  api_endpoints = c("data","indicators","countries","surveys",
