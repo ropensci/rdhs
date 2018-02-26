@@ -34,15 +34,22 @@ credentials_not_present <- function(){
   return(identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), ""))
 }
 
+
 handle_credentials <- function(credentials) {
 
-  have_cred_path <- file.exists(credentials)
-  if(file.exists(credentials)){
+  if(!is.null(credentials)){
+    have_cred_path <- file.exists(credentials)
+    if(have_cred_path){
+      if (identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), "")){
+        stop("Credentials are not present in your system environment. Please provide credentials argument")
+      }
+    } else {
+      set_environment_credentials(read_credentials(credentials))
+    }
+  } else {
     if (identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), "")){
       stop("Credentials are not present in your system environment. Please provide credentials argument")
     }
-  } else {
-    set_environment_credentials(read_credentials(credentials))
   }
 
 }

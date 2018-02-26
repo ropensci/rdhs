@@ -209,10 +209,10 @@ R6_dhs_client <- R6::R6Class(
 
 
       # check credentials are good
-      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
+      if(credentials_not_present()) handle_credentials(private$credentials_path)
 
       # create key for this
-      key <- paste0(your_project,",")
+      key <- paste0(Sys.getenv("rdhs_USER_PROJECT"),",")
 
       # first check against cache
       out <- tryCatch(private$storr$get(key,"available_survey_calls"),
@@ -246,7 +246,7 @@ R6_dhs_client <- R6::R6Class(
 
 
       # check credentials are good
-      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
+      if(credentials_not_present()) handle_credentials(private$credentials_path)
 
       # results storage
       res <- list()
@@ -316,7 +316,7 @@ R6_dhs_client <- R6::R6Class(
                                 output_dir_root=file.path(private$root,"surveys")){
 
       # check credentials are good
-      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
+      if(credentials_not_present()) handle_credentials(private$credentials_path)
 
       # results storage
       df <- data.frame("Code"= character(0),"Description"= character(0),"Survey"= character(0), "SurveyPath" = character(0))
@@ -427,7 +427,7 @@ R6_dhs_client <- R6::R6Class(
 
 
       # check credentials are good
-      if(credentials_not_present(private$credentials_path)) handle_credentials(private$credentials_path)
+      if(credentials_not_present()) handle_credentials(private$credentials_path)
 
       # first download any surveys needed
       # survey questions reliable way to do this quicker for our purposes
