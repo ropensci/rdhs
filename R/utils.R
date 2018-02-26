@@ -193,7 +193,6 @@ type_convert_df <- function(df){
 
 # remove punctuation, space and non ascii for string matching purposes
 rm_punct_non_ascii <- function(string){
-
   string <- stringi::stri_trans_general(string, "latin-ascii")
   return(gsub('[[:punct:] ]+','',string))
 }

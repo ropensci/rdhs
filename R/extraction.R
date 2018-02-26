@@ -80,7 +80,7 @@ extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
 
       }
 
-      list_res[[i]][[j]] <- as.data.frame.list(type_convert_list_to_df(list_res),stringsAsFactors = FALSE)
+      list_res[[i]][[j]] <- as.data.frame.list(type_convert_list_to_df(results_full),stringsAsFactors = FALSE)
 
     }
 

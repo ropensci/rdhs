@@ -27,6 +27,7 @@ Imports:
     qdapRegex,
     lubridate,
     rgdal, 
+    stringi,
     haven
 Suggests:
     testthat,
