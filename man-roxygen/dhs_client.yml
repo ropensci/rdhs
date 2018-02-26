@@ -32,12 +32,6 @@ available_surveys:
     parameters as these will be taken from your environment. The results
     of this function are cached.
   params:
-    your_email: >-
-      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    your_password: >-
-      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    your_project: >-
-      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
     datasets_api_results: >-
       The list of potential datasets as declared from
       their api. The default argument fetches these so don't worry too much about
@@ -68,12 +62,6 @@ download_survey:
       you can just specify any letter from these options.
     reformat: >-
       Boolean concerning whether to reformat read in datasets. Default = TRUE.
-    your_email: >-
-      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    your_password: >-
-      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    your_project: >-
-      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
   value: >-
       Depends on the download_option requested, but ultimately it is a file path to where the survey
       was downloaded to, so that you can interact with it accordingly.
@@ -97,12 +85,6 @@ survey_questions:
     output_dir_root: >-
       Root directory where the surveys will be stored within. The default will download
       surveys to a subfolder of the client root called "surveys"
-    your_email: >-
-      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    your_password: >-
-      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    your_project: >-
-      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 
@@ -119,12 +101,6 @@ survey_codes:
     essential_codes: >-
       Character vector of codes that need to present. If any of the codes are not present n that survey,
       the survey will not be returned by this functon. Default = NULL.
-    your_email: >-
-      DHS login email. Default = Sys.getenv("rdhs.USER_EMAIL")
-    your_password: >-
-      DHS login password. Default = Sys.getenv("rdhs.USER_PASS")
-    your_project: >-
-      DHS project. Default = Sys.getenv("rdhs.USER_PROJECT")
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 

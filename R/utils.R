@@ -173,6 +173,28 @@ client_refresh <- function(cli,root){
 
 }
 
+## convert list
+type_convert_list_to_df <- function(l){
+
+  l[lapply(l,is.character) %>% unlist] <- lapply(l[lapply(l,is.character) %>% unlist],type.convert,as.is=TRUE)
+
+  return(l)
+}
+
+# type convert factor df to normal df
+type_convert_df <- function(df){
+
+  l <- lapply(df,as.character)
+  df <- as.data.frame.list(type_convert_list_to_df(l),stringsAsFactors = FALSE)
+
+}
+
+# remove punctuation, space and non ascii for string matching purposes
+rm_punct_non_ascii <- function(string){
+
+  string <- stringi::stri_trans_general(string, "latin-ascii")
+  return(gsub('[[:punct:] ]+','',string))
+}
 
 ## helper functions - not package related
 

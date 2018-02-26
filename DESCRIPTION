@@ -18,6 +18,7 @@ Imports:
     magrittr,
     stringr,
     rappdirs,
+    digest,
     storr,
     xml2,
     XML,

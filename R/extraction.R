@@ -80,7 +80,7 @@ extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
 
       }
 
-      list_res[[i]][[j]] <- as.data.frame.list(lapply(results_full,type.convert,as.is=TRUE),stringsAsFactors = FALSE)
+      list_res[[i]][[j]] <- as.data.frame.list(type_convert_list_to_df(list_res),stringsAsFactors = FALSE)
 
     }
 
@@ -88,6 +88,56 @@ extraction <- function(questions,available_surveys,geo_surveys,add_geo=TRUE){
   }
 
   return(list_res)
+
+}
+
+
+cluster_merge <- function(extraction){
+
+  for(i in 1:length(extraction)){
+
+
+    for (j in 1:lenth(extraction[[i]])){
+
+
+      dplyr::group
+
+
+
+    }
+
+
+
+
+
+
+  }
+
+
+}
+
+
+extract_codes_to_descriptions <- function(extraction,questions){
+
+
+    for(i in 1:length(extraction)){
+
+      for (j in 1:length(extraction[[i]])){
+
+        survey <- names(extraction[[i]])[j]
+        surv_pos <- which(questions$Survey==survey)
+        code_match <- match(names(extraction[[i]][[j]]),questions$Code[surv_pos])
+        valid <- which(!is.na(code_match))
+
+        if(length(valid)>1){
+
+          names(extraction[[i]][[j]])[valid] <- quest$Description[surv_pos][valid]
+
+        }
+      }
+    }
+
+  return(extraction)
 
 }
 
