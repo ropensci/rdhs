@@ -4,7 +4,7 @@ Title: API Client and Data Munging for the Demographic and Health Survey Data
 Version: 0.1.0
 Author: OJ Watson
 Maintainer: OJ Watson <o.watson15@imperial.ac.uk>
-Description: Provides a API client for the DHS API that allows DHS survey indicators
+Description: Provides an API client for the DHS API that allows DHS survey indicators
   to be queried. This allows desired indicators to be easily found and passed onto 
   subsequent functionality within rdhs for downloading datasets and conducting basic
   data munging tasks. 

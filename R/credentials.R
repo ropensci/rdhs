@@ -39,7 +39,7 @@ handle_credentials <- function(credentials) {
 
   if(!is.null(credentials)){
     have_cred_path <- file.exists(credentials)
-    if(have_cred_path){
+    if(!have_cred_path){
       if (identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), "")){
         stop("Credentials are not present in your system environment. Please provide credentials argument")
       }
