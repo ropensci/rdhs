@@ -147,7 +147,7 @@ R6_dhs_client <- R6::R6Class(
       if(!is.null(out)){ return(out) } else {
 
         # Get request
-        resp <- httr::GET(url,httr::accept_json(),encode = "json")
+        resp <- httr::GET(url,httr::accept_json(),httr::user_agent("https://github.com/OJWatson/rdhs"),encode = "json")
 
         ## pass to response parse
         parsed_resp <- dhs_client_response(resp,TRUE)
