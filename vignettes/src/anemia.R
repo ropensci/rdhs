@@ -20,7 +20,7 @@
 #' # Setup
 #' Load the `rdhs` package and establish a `dhs_client`. *Note: hopefully in future it will not be required to establish `dhs_client` to query the API.*
 ## devtools::install_github("OJWatson/rdhs")
-library(rdhs)
+## library(rdhs)
 devtools::load_all()
 library(data.table)
 library(ggplot2)
@@ -94,7 +94,7 @@ surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, Fieldwor
 datasets <- client$dhs_api_request(api_endpoint = "datasets",
                                    query = list(SurveyIds = surveys$SurveyId,
                                                 fileType = "IR", 
-                                                fileFormat="stata"))
+                                                fileFormat="flat"))
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 
 
@@ -105,7 +105,7 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 #'
 #' Confirm that all identified datasets are in the local archive.
 
-all(tolower(datasets$FileName) %in% tolower(list.files("~/Documents/Data/DHS/all")))
+all(tolower(datasets$FileName) %in% tolower(list.files("~/Documents/Data/DHS/flat")))
 
 #' ## Identify survey variables
 #'
@@ -118,8 +118,8 @@ all(tolower(datasets$FileName) %in% tolower(list.files("~/Documents/Data/DHS/all
 #' individual recode dataset and searching the metadata for the variable
 #' names corresponding to the hemoglobin measurement and pregnancy status.
 
-ir <- read_dhs_dta(file.path("~/Documents/Data/DHS/all", datasets$FileName[1]))
-head(grep("hemoglobin", sapply(ir, attr, "label"), value=TRUE))
+ir <- read_dhs_flat(file.path("~/Documents/Data/DHS/flat", datasets$FileName[1]))
+head(grep("hemoglobin", sapply(ir, attr, "label"), value=TRUE, ignore.case=TRUE))
 
 #' Variable `v042` records the household selection for hemoglobin testing.
 #' Variable `v455` reports the outcome of hemoglobin measurement and `v456`
@@ -130,7 +130,7 @@ summary(ir$v456)
 
 #' Variable `v454` reports the current pregnancy status used for determining the
 #' anemia threshold.
-grep("currently.*pregnant", sapply(ir, attr, "label"), value=TRUE)
+grep("currently.*pregnant", sapply(ir, attr, "label"), value=TRUE, ignore.case=TRUE)
 table(as_factor(ir$v454))
 
 #' We also keep a number of other variables related to the survey design and potentially
@@ -148,7 +148,7 @@ datlst <- list()
 for(i in 1:nrow(datasets)){
 
   print(paste(i, datasets$SurveyId[i]))
-  ir <- read_dhs_dta(file.path("~/Documents/Data/DHS/all/", datasets$FileName[i]))
+  ir <- read_dhs_flat(file.path("~/Documents/Data/DHS/flat/", datasets$FileName[i]))
   
   ir$SurveyId <- datasets$SurveyId[i]
   ir$CountryName <- datasets$CountryName[i]
@@ -213,8 +213,8 @@ res$anemia_denom0 <- round(res$anemia_denom)
 knitr::kable(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], digits=1)
 
 ##+ fig.height=2.5, fig.width=4, fig.align="center"
-ggplot(anemia_prev, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
-                        col=CountryName, fill=CountryName)) +
+ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
+                col=CountryName, fill=CountryName)) +
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 
   
