@@ -8,6 +8,13 @@
 #' @details Currently hardcoded for 111 char width .MAP files, which covers the vast majority
 #' of DHS Phase V, VI, and VIII. To be extended in the future and perhaps add other useful options.
 #'
+#' @examples
+#' mrdt_zip <- tempfile()
+#' download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", mrdt_zip)
+#'
+#' map <- read_zipdata(mrdt_zip, "\\.MAP", readLines)
+#' dct <- parse_map(map)
+#'
 #' @export
 parse_map <- function(map, all_lower=TRUE){
 
@@ -150,14 +157,14 @@ parse_map <- function(map, all_lower=TRUE){
 #' @examples
 #' mrdt_zip <- tempfile()
 #' download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", mrdt_zip)
-
+#'
 #' mr <- read_dhs_dta(mrdt_zip)
 #' attr(mr$mv213, "label")
 #' class(mr$mv213)
 #' head(mr$mv213)
 #' table(mr$mv213)
 #' table(haven::as_factor(mr$mv213))
-
+#' 
 #' ## If Stata file codebook is complete, `mode="map"` and `"haven"` should be the same.
 #' mr_hav <- read_dhs_dta(mrdt_zip, mode="haven")
 #' attr(mr_hav$mv213, "label")
@@ -165,21 +172,20 @@ parse_map <- function(map, all_lower=TRUE){
 #' head(mr_hav$mv213)  # "9=missing" omitted from .dta codebook
 #' table(mr_hav$mv213)
 #' table(haven::as_factor(mr_hav$mv213))
-
+#'
 #' ## Parsing codebook when using foreign::read.dta()
 #' mr_for <- read_dhs_dta(mrdt_zip, mode="foreign")
 #' attr(mr_for, "var.labels")[names(mr_for) == "mv213"]
 #' attr(mr_for, "val.labels")[names(mr_for) == "mv213"]
 #' attr(mr_for, "label.table")["MV213"]
 #' table(mr_for$mv213)
-
+#'
 #' ## Don't convert factors
 #' mr_raw <- read_dhs_dta(mrdt_zip, mode="raw")
 #' table(mr_raw$mv213)
-
+#'
 #' @importFrom hhsurveydata read_zipdata
 #' @export
-
 read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
 
   if(!mode %in% c("map", "haven", "foreign", "raw", "foreignNA"))
