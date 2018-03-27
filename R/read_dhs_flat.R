@@ -1,8 +1,8 @@
 #' Parse .DCF file
 #'
 #' @title Parse .DCF dictionary file
-#' @param dcf .DCF file path to parse
-#' @param alllower logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.
+#' @param dcf .DCF file (e.g. from readLines)
+#' @param all_lower logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.
 #' @return data.frame with metadata and labels as attributes
 #'
 #' @examples
@@ -56,24 +56,23 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   values <- lapply(values, function(x) x[!is.na(x) & nchar(names(x)) > 0])
 
   dcf$labels[hasvs] <- values
-  
-  .expand_occ <- function(name, label, start, len, datatype, occurences, labels){
-    v <- data.frame(name       = paste0(name, "_", formatC(seq_len(occurences), width=nchar(occurences), flag="0")),
-                    label      = label,
-                    len        = len,
-                    start      = start - len + seq_len(occurences)*len,
-                    occurences = 1,
-                    datatype   = datatype,
-                    stringsAsFactors = FALSE)
-    v$labels <- list(labels)
-    return(v)
-  }
-  
-  dct <- c(f=.expand_occ, dcf[dcf$occurences > 1,])
-  dct <- do.call(Map, dct)
-  dct <- do.call(rbind, dct)
-  dct <- rbind(dcf[dcf$occurences == 1,], dct)
-  dct <- dct[order(dct$start),]
+
+  ## Expand dictionary for multiple occurences
+  occ_dct <- rep(dcf$occurences, dcf$occurences)
+  occ_i <- unlist(lapply(dcf$occurences, seq_len))
+  sfx <- lapply(dcf$occurences, function(x) formatC(seq_len(x), width=nchar(x), flag="0"))
+  name_dct <- paste0(rep(dcf$name, dcf$occurences),
+                     ifelse(occ_dct > 1, paste0("_", unlist(sfx)), ""))
+  len_dct <- rep(dcf$len, dcf$occurences)
+
+  dct <- data.frame(name  = name_dct,
+                    label = rep(dcf$label, dcf$occurences),
+                    len   = len_dct,
+                    start = rep(dcf$start, dcf$occurences) + len_dct * (occ_i - 1L),
+                    occurences = occ_dct,
+                    datatype   = rep(dcf$datatype, dcf$occurences),
+                    stringsAsFactors=FALSE)
+  dct$labels <- rep(dcf$labels, dcf$occurences)
 
   return(dct)
 }
