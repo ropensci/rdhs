@@ -90,7 +90,7 @@ R6_dhs_client <- R6::R6Class(
     initialize = function(api_key = NULL, root = NULL, credentials=NULL){
       private$api_key <- api_key
       private$root <- root
-      if(!is.null(credentials)) private$credentials_path <- normalizePath("credentials")
+      if(!is.null(credentials)) private$credentials_path <- normalizePath(credentials)
       private$storr <- storr::storr_rds(file.path(root,"db"))
       private$cache_date <- Sys.time()
       saveRDS(self,file.path(root,client_file_name()))
@@ -147,7 +147,7 @@ R6_dhs_client <- R6::R6Class(
       if(!is.null(out)){ return(out) } else {
 
         # Get request
-        resp <- httr::GET(url,httr::accept_json(),encode = "json")
+        resp <- httr::GET(url,httr::accept_json(),httr::user_agent("https://github.com/OJWatson/rdhs"),encode = "json")
 
         ## pass to response parse
         parsed_resp <- dhs_client_response(resp,TRUE)
