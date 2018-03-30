@@ -1,0 +1,102 @@
+download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZIR63FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", "~/Downloads/")
+
+
+#' Parse .DO file
+#'
+#' @title Parse .DO dictionary file
+#' @param do .DO file (e.g. from readLines)
+#' @param all_lower logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.
+#' @return data.frame with metadata and labels as attributes
+#'
+#' @examples
+#' mrfl_zip <- tempfile()
+#' download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", mrfl_zip)
+#'
+#' do <- read_zipdata(mrfl_zip, "\\.DO", readLines)
+#' dct <- parse_do(dcf)
+#'
+#' @export
+parse_do <- function(do, dct, all_lower=TRUE){
+
+  Sys.setlocale('LC_ALL','C')   ## !!! TODO
+
+  ## reset delim
+  do <- paste(do, collapse="\n")
+
+  x <- strsplit(paste("#delimit cr\n", do), "#delimit")[[1]]
+  delimidx <- sub(" +?([^ \n]+).*", "\\1", x) == ";"
+  x[delimidx] <- gsub("\n", " ", x[delimidx])
+  x[delimidx] <- gsub(";", "\n", x[delimidx])
+  x <- paste(x, collapse="\n")
+  x
+
+  labels <- grep("^label variable", do, value=TRUE)
+  labels <- strsplit(sub(".*(\nlabel variable.*)", "\\1", x), "label variable")[[1]]
+
+  dcf <- data.frame(name  = sub("^label variable ([^ ]+) +?([^ ].*)", "\\1", labels),
+                    label = sub("^label variable ([^ ]+) +?([^ ].*)", "\\2", labels),
+                    stringsAsFactors=FALSE)
+  dcf$label <- gsub("\"", "", dcf$label)
+
+  do <- paste(do, collapse="\n")
+  dlabels <- grep("^label define"
+  
+  item.start <- which(dcf == "[Item]")
+  item.len <- diff(c(item.start, length(dcf)))
+  item.idx <- Map("+", item.start-1L, lapply(item.len, seq_len))
+  
+  items <- lapply(item.idx, function(idx) paste(dcf[idx], collapse="\n"))
+
+  dcf <- data.frame(name       = tolower(sub(".*?\nName=([^\n]*)\n.*", "\\1", items)),
+                    label      = sub(".*?\nLabel=([^\n]*)\n.*", "\\1", items),
+                    start      = as.integer(sub(".*?\nStart=([^\n]*)\n.*", "\\1", items)),
+                    len        = as.integer(sub(".*?\nLen=([^\n]*)\n.*", "\\1", items)),
+                    datatype   = "Numeric",
+                    occurences = 1,
+                    stringsAsFactors = FALSE)
+  
+  has_datatype <- grep(".*?\nDataType", items)
+  dcf$datatype[has_datatype] <- sub(".*?\nDataType=([^\n]*)\n.*", "\\1", items[has_datatype])
+  
+  has_occ <- grep(".*?\nOccurrences", items)
+  dcf$occurences[has_occ] <- as.integer(sub(".*?\nOccurrences=([^\n]*)\n.*", "\\1", items[has_occ]))
+
+  ## add labels
+  hasvs <- grepl("\\[ValueSet\\]", items)
+  vs <- gsub(".*?(\\[ValueSet\\].*)", "\\1", items[hasvs])
+  vs <- strsplit(vs, "\n")
+  vs <- lapply(vs, grep, pattern="^Value=", value=TRUE)
+  values <- lapply(vs, gsub, pattern="^Value=([^;]*);?(.*)", replacement="\\1")
+
+  numericvar <- dcf$datatype[hasvs] == "Numeric"
+  values[numericvar] <- suppressWarnings(lapply(values[numericvar], as.integer))
+  values[!numericvar] <- lapply(values[!numericvar], gsub, pattern = "'\\s+'", replacement=NA)
+
+  labels <- lapply(vs, gsub, pattern="^Value=([^;]*);?(.*)", replacement="\\2")
+  if(all_lower)
+    labels <- lapply(labels, tolower)
+
+  values <- Map("names<-", values, labels)
+  values <- lapply(values, function(x) x[!is.na(x) & nchar(names(x)) > 0])
+
+  dcf$labels[hasvs] <- values
+
+  ## Expand dictionary for multiple occurences
+  occ_dct <- rep(dcf$occurences, dcf$occurences)
+  occ_i <- unlist(lapply(dcf$occurences, seq_len))
+  sfx <- lapply(dcf$occurences, function(x) formatC(seq_len(x), width=nchar(x), flag="0"))
+  name_dct <- paste0(rep(dcf$name, dcf$occurences),
+                     ifelse(occ_dct > 1, paste0("_", unlist(sfx)), ""))
+  len_dct <- rep(dcf$len, dcf$occurences)
+
+  dct <- data.frame(name  = name_dct,
+                    label = rep(dcf$label, dcf$occurences),
+                    len   = len_dct,
+                    start = rep(dcf$start, dcf$occurences) + len_dct * (occ_i - 1L),
+                    occurences = occ_dct,
+                    datatype   = rep(dcf$datatype, dcf$occurences),
+                    stringsAsFactors=FALSE)
+  dct$labels <- rep(dcf$labels, dcf$occurences)
+
+  return(dct)
+}
