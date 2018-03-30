@@ -38,7 +38,8 @@ parse_map <- function(map, all_lower=TRUE){
   hspaces <- setdiff(hspaces+1, hspaces)-1
 
   Sys.setlocale('LC_ALL','C')   ## !!! TODO
-  vspaces <- sapply(strsplit(var, NULL), "==", " ")
+  vspaces <- lapply(strsplit(var, NULL), "==", " ")
+  vspaces <- sapply(vspaces, "[", seq_along(vspaces[[1]]))
   vspaces <- which(apply(vspaces, 1, mean) > 0.7)
 
   idx1 <- c(intersect(hspaces, vspaces), max(nchar(c(header, var))))
@@ -93,24 +94,26 @@ parse_map <- function(map, all_lower=TRUE){
   var$labels <- list(NULL)
   var$labels[hasval] <- Map(.parse_labels, x=val, is_alpha=var[["data type"]][hasval] == "AN", all_lower=all_lower)
 
+  var$datatype <- c("Numeric", "Alpha")[match(var[["data type"]], c("N", "AN"))]
+
   ## Expand dictionary for repeated occurrence variables
+  occ_dct <- rep(var$occ, var$occ)
+  occ_i <- unlist(lapply(var$occ, seq_len))
+  sfx <- lapply(var$occ, function(x) formatC(seq_len(x), width=nchar(x), flag="0"))
+  name_dct <- paste0(rep(var$name, var$occ),
+                     ifelse(occ_dct > 1, paste0("_", unlist(sfx)), ""))
+  len_dct <- rep(var$len, var$occ)
 
-  .expand_occ <- function(name, label, start, len, labels, occ){
-    v <- data.frame(name   = paste0(name, "_", formatC(seq_len(occ), width=nchar(occ), flag="0")),
-                    label  = label,
-                    start  = start - len + seq_len(occ)*len,
-                    stringsAsFactors = FALSE)
-    v$labels <- list(labels)
-    return(v)
-  }
-
-  dct <- c(f=.expand_occ, var[var$occ > 1, c("name", "label", "start", "len", "labels", "occ")])
-  dct <- do.call(Map, dct)
-  dct <- do.call(rbind, dct)
-  dct <- rbind(var[var$occ == 1, names(dct)], dct)
-  dct <- dct[order(dct$start),]
+  dct <- data.frame(name  = name_dct,
+                    label = rep(var$label, var$occ),
+                    len   = len_dct,
+                    start = rep(var$start, var$occ) + len_dct * (occ_i - 1L),
+                    occurences = occ_dct,
+                    datatype   = rep(var$datatype, var$occ),
+                    stringsAsFactors=FALSE)
+  dct$labels <- rep(var$labels, var$occ)
   rownames(dct) <- dct$name
-
+  
   return(dct)
 }
 
