@@ -8,30 +8,35 @@
 
 ### What is this?
 
-rdhs is a package designed to assist in handling the [DHS database](www.dhsprogram.com). This inlcudes providing an
-API client for the DHS API that allows DHS survey indicators to be queried. This allows desired indicators to be easily
-found and passed onto subsequent functionality within rdhs for downloading datasets and conducting basic data munging tasks.
+`rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
-***
-> To view the tutorial please click [here](https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html)
+1. Accessing standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
+1. Identifying surveys and datasets relevant to a particular analysis.
+1. Downloading survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
+1. Loading datasets and associated metadata into R.
+1. Extracting variables and combining datasets for pooled multi-survey analyses.
 
-***
+*** 
 
-### Installing *rdhs*
+### Getting started
 
-To install the development version from github the package [*devtools*](https://github.com/hadley/devtools) is required.
+Download and install development version of `rdhs` from github using [*devtools*](https://github.com/hadley/devtools).
 
 ```r
 install.packages("devtools")
-library(devtools)
-```
-
-Now we can install the pacakge from the github repository:
-
-```r
 devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 ```
+
+An example workflow using `rdhs` to calculate trends in anemia prevalence is avaiable [here](INSERT LINK).
+
+Full functionality is described in the tutorial [here](https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html).
+
+***
+
+### Basic functionality
+
+* TODO: Illustrate very basic functionalities using DHS model datasetes *
 
 ***
 
