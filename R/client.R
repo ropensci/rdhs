@@ -18,7 +18,7 @@
 ##' @template dhs_client_methods
 ##' @export
 ##'
-dhs_client <- function(api_key=NULL,
+dhs_client <- function(api_key="ICLSPH-527168",
                        root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
                        credentials=NULL,
                        ...) {
@@ -97,7 +97,7 @@ R6_dhs_client <- R6::R6Class(
     },
 
     # API REQUESTS
-    #' will either return your request as a parsed json (having cached the result), or will return an error
+    # will either return your request as a parsed json (having cached the result), or will return an error
     dhs_api_request = function(api_endpoint,
                                query = list(),
                                api_key = private$api_key,
@@ -203,8 +203,8 @@ R6_dhs_client <- R6::R6Class(
     },
 
     # AVAILABLE SURVEYS
-    #' Creates data.frame of avaialble surveys using \code{available_durveys} and caches it
-    available_surveys = function(datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
+    # Creates data.frame of avaialble datasets using \code{available_datasets} and caches it
+    available_datasets = function(datasets_api_results = self$dhs_api_request("datasets",num_results = "ALL"),
                                  surveys_api_results = self$dhs_api_request("surveys",num_results = "ALL")){
 
 
@@ -237,7 +237,7 @@ R6_dhs_client <- R6::R6Class(
     },
 
     # DONWLOAD SURVEYS
-    #' Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
+    # Creates data.frame of avaialble surveys using \code{downloadable_surveys} and caches it (as takes ages)
     download_survey = function(desired_survey,
                                download_option="rds",
                                reformat=TRUE,
@@ -309,7 +309,7 @@ R6_dhs_client <- R6::R6Class(
 
 
     # SURVEY_QUESTIONS
-    #' Creates data.frame of all survey codes and descriptions, with an option to filter by search terms
+    # Creates data.frame of all survey codes and descriptions, with an option to filter by search terms
     survey_questions = function(desired_survey,
                                 search_terms = NULL,
                                 regex = NULL,
@@ -420,7 +420,7 @@ R6_dhs_client <- R6::R6Class(
 
     # SURVEY_CODES
     # TODO: Put in an essential argument, so that surveys have to have these
-    #' Creates data.frame of wanted survey codes and descriptions
+    # Creates data.frame of wanted survey codes and descriptions
     survey_codes = function(desired_survey,
                             codes,
                             essential_codes = NULL){
@@ -494,7 +494,7 @@ R6_dhs_client <- R6::R6Class(
     },
 
     # EXTRACTION
-    #' Creates list of survey responses extracted using the survey questions
+    # Creates list of survey responses extracted using the survey questions
     extract = function(questions,
                        add_geo=TRUE){
 

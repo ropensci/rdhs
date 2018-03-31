@@ -10,12 +10,12 @@
 #'
 #' @examples
 #' mrdt_zip <- tempfile()
-#' download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", mrdt_zip)
+#' download.file(paste0("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm",
+#' "?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"), mrdt_zip, mode="wb")
 #'
-#' map <- read_zipdata(mrdt_zip, "\\.MAP", readLines)
-#' dct <- parse_map(map)
+#' map <- rdhs:::read_zipdata(mrdt_zip, "\\.MAP", readLines)
+#' dct <- rdhs:::parse_map(map)
 #'
-#' @export
 parse_map <- function(map, all_lower=TRUE){
 
   ## Parse code book table between horizontal rules
@@ -149,24 +149,25 @@ parse_map <- function(map, all_lower=TRUE){
 #' * `mode="raw"`: use `foreign::read.dta(..., convert.factors=FALSE)`, which simply loads underlying
 #' value coding. Variable labels and value lables are still available through dataset attributes (see examples).
 #'
-#' @seealso \code{\link{foreign::read.dta}}, \code{\link{haven::labelled}}, \code{\link{haven::read_dta}}.
+#' @seealso \code{\link[foreign]{read.dta}}, \code{\link[haven]{labelled}}, \code{\link[haven]{read_dta}}.
 #'
 #' For more information on the DHS filetypes and contents of distributed dataset .ZIP files,
 #' see \url{https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334}.
 #'
 #' @examples
 #' mrdt_zip <- tempfile()
-#' download.file("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs", mrdt_zip)
+#' download.file(paste0("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
+#' "Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"), mrdt_zip, mode="wb")
 #'
-#' mr <- read_dhs_dta(mrdt_zip)
+#' mr <- rdhs:::read_dhs_dta(mrdt_zip)
 #' attr(mr$mv213, "label")
 #' class(mr$mv213)
 #' head(mr$mv213)
 #' table(mr$mv213)
 #' table(haven::as_factor(mr$mv213))
-#' 
+#'
 #' ## If Stata file codebook is complete, `mode="map"` and `"haven"` should be the same.
-#' mr_hav <- read_dhs_dta(mrdt_zip, mode="haven")
+#' mr_hav <- rdhs:::read_dhs_dta(mrdt_zip, mode="haven")
 #' attr(mr_hav$mv213, "label")
 #' class(mr_hav$mv213)
 #' head(mr_hav$mv213)  # "9=missing" omitted from .dta codebook
@@ -174,18 +175,17 @@ parse_map <- function(map, all_lower=TRUE){
 #' table(haven::as_factor(mr_hav$mv213))
 #'
 #' ## Parsing codebook when using foreign::read.dta()
-#' mr_for <- read_dhs_dta(mrdt_zip, mode="foreign")
-#' attr(mr_for, "var.labels")[names(mr_for) == "mv213"]
-#' attr(mr_for, "val.labels")[names(mr_for) == "mv213"]
-#' attr(mr_for, "label.table")["MV213"]
-#' table(mr_for$mv213)
-#'
+#' # foreign issues with duplicated factors
+#' # Specifying foreignNA can help but often will not as below.
+#' # Thus we would recommend either using mode = "haven" or mode = "raw"
+#' \dontrun{
+#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode="foreign")
+#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode = "foreignNA")
+#' }
 #' ## Don't convert factors
-#' mr_raw <- read_dhs_dta(mrdt_zip, mode="raw")
+#' mr_raw <- rdhs:::read_dhs_dta(mrdt_zip, mode="raw")
 #' table(mr_raw$mv213)
 #'
-#' @importFrom hhsurveydata read_zipdata
-#' @export
 read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
 
   if(!mode %in% c("map", "haven", "foreign", "raw", "foreignNA"))
@@ -196,9 +196,11 @@ read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
   if(mode == "foreign")
     dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta)
   if(mode == "foreignNA")
-    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, convert.factors = NA)
+    dat <- read_zipdata(zfile = zfile, pattern = "\\.dta$",
+                        readfn = foreign::read.dta, convert.factors = NA)
   if(mode == "raw")
-    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, convert.factors = FALSE)
+    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta,
+                        convert.factors = FALSE)
 
   if(mode == "map"){
     dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, convert.factors = FALSE)
@@ -211,7 +213,7 @@ read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
   return(dat)
 }
 
-#' Combine data frames with columes of class `labelled`
+#' Combine data frames with columns of class `labelled`
 #'
 #' @param ... data frames to bind together, potentially with columns of
 #' class "labelled". The first argument can be a list of data frames, similar
@@ -240,15 +242,15 @@ read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
 #' See examples.
 #'
 #' @examples
-#' df1 <- data.frame(area    = labelled(c(1L, 2L, 3L), c("reg 1" = 1, "reg 2" = 2, "reg 3" = 3)),
-##'                   climate = labelled(c(0L, 1L, 1L), c("cold" = 0, "hot" = 1)))
-#' df2 <- data.frame(area    = labelled(c(1L, 2L), c("reg A" = 1, "reg B" = 2)),
-#'                   climate = labelled(c(1L, 0L), c("cold" = 0, "warm" = 1)))
-#' 
+#' df1 <- data.frame(area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+#'                   climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1)))
+#' df2 <- data.frame(area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
+#'                   climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1)))
+#'
 #' # Default: all data frames inherit labels from first df. Incorrect if
 #' # "reg 1" and "reg A" are from different countries, for example.
 #' dfA <- rbind_labelled(df1, df2)
-#' as_factor(dfA)
+#' haven::as_factor(dfA)
 #'
 #' # Concatenate value labels for "area". Regions are coded separately,
 #' # and original integer values are lost (by necessity of more levels now).
@@ -256,17 +258,21 @@ read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
 #' # outcome, inheriting "1 = hot" from df1 by default.
 #' dfB <- rbind_labelled(df1, df2, labels=list(area = "concatenate"))
 #' dfB
-#' as_factor(dfB)
+#' haven::as_factor(dfB)
 #'
 #' # We can specify to code as "1=warm/hot" rather than inheriting "hot".
-#' dfC <- rbind_labelled(df1, df2, labels=list(area = "concatenate", climate = c("cold"=0, "warm/hot"=1)))
+#' dfC <- rbind_labelled(df1, df2,
+#' labels=list(area = "concatenate", climate = c("cold"=0, "warm/hot"=1)))
+#'
 #' dfC$climate
-#' as_factor(dfC)
+#' haven::as_factor(dfC)
 #'
 #' # Or use `climate="concatenate"` to code "warm" and "hot" as different outcomes.
-#' dfD <- rbind_labelled(df1, df2, labels=list(area = "concatenate", climate="concatenate"))
+#' dfD <- rbind_labelled(df1, df2,
+#' labels=list(area = "concatenate", climate="concatenate"))
+#'
 #' dfD
-#' as_factor(dfD)
+#' haven::as_factor(dfD)
 #'
 #' @export
 rbind_labelled <- function(..., labels=NULL, warn=TRUE){
@@ -279,15 +285,15 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   ## Ensure same column ordering for all dfs
   dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
-  islab <- sapply(dfs, sapply, is.labelled)
+  islab <- sapply(dfs, sapply, labelled::is.labelled)
   anylab <- names(which(apply(islab, 1, any)))
 
   ## Convert "concatenated" variables to characters (will be converted back later).
   catvar <- intersect(anylab, names(which(labels == "concatenate")))
-  dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(as_factor(x[[v]]))); x})
+  dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(haven::as_factor(x[[v]]))); x})
   labels <- labels[!names(labels) %in% catvar]
 
-  islab <- sapply(dfs, sapply, is.labelled)
+  islab <- sapply(dfs, sapply, labelled::is.labelled)
   anylab <- names(which(apply(islab, 1, any)))
   needslab <- setdiff(anylab, names(labels))
 

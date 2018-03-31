@@ -3,7 +3,7 @@
 #' author: "OJ Watson, Jeff Eaton"
 #' date: "`r Sys.Date()`"
 #' output: pdf_document
-#' #  html_document: 
+#' #  html_document:
 #' #    smart: false
 #' vignette: >
 #'   %\VignetteIndexEntry{Vignette Title}
@@ -24,7 +24,6 @@
 devtools::load_all()
 library(data.table)
 library(ggplot2)
-library(hhsurveydata)
 library(survey)
 library(haven)
 
@@ -36,7 +35,7 @@ client <- rdhs::dhs_client(api_key = "ICLSPH-527168",
 #'
 #' Anemia prevalence among women is reported as a core indicator through the DHS STATcompiler (https://www.statcompiler.com/).
 #' These indicators can be accessed directly from R via the DHS API with the function `dhs_data()`.
-#' 
+#'
 #' Query the API for a list of all StatCompiler indicators, and then search the indicators for those
 #' that have `"anemia"` in the indicator name. API calls return `data.table` objects. If package `data.table`
 #' is not loaded, they will be printed as `data.frame`s instead.
@@ -93,7 +92,7 @@ surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, Fieldwor
 
 datasets <- client$dhs_api_request(api_endpoint = "datasets",
                                    query = list(SurveyIds = surveys$SurveyId,
-                                                fileType = "IR", 
+                                                fileType = "IR",
                                                 fileFormat="flat"))
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 
@@ -149,7 +148,7 @@ for(i in 1:nrow(datasets)){
 
   print(paste(i, datasets$SurveyId[i]))
   ir <- read_dhs_flat(file.path("~/Documents/Data/DHS/flat/", datasets$FileName[i]))
-  
+
   ir$SurveyId <- datasets$SurveyId[i]
   ir$CountryName <- datasets$CountryName[i]
   ir$SurveyYear <- datasets$SurveyYear[i]
@@ -161,12 +160,12 @@ for(i in 1:nrow(datasets)){
 #' `labels` describes to combine variable levels for all datasets for `v024` (region)
 #' while providing a consistent set of value labels to be used for `v454` (currently
 #' pregnant) for all datasets.
-#' 
+#'
 dat <- rbind_labelled(datlst,
                       labels = list(v024 = "concatenate",
                                     v454 = c("no/don't know" = 0L,
                                              "yes" = 1L, "missing" = 9L)))
-                                                     
+
 sapply(dat, is.labelled)
 dat$v456 <- zap_labels(dat$v456)
 dat <- as_factor(dat)
@@ -217,7 +216,7 @@ ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
                 col=CountryName, fill=CountryName)) +
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 
-  
+
 
 #'
 #' # Regression analysis: relationship between education and anemia

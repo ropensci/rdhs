@@ -28,7 +28,9 @@ Imports:
     lubridate,
     rgdal, 
     stringi,
-    haven
+    haven,
+    iotools,
+    labelled
 Suggests:
     testthat,
     knitr,
