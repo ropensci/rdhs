@@ -8,3 +8,4 @@ scripts/
 TODO.txt
 .httr-oauth
 *.csv
+*~
