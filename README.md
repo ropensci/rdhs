@@ -10,11 +10,11 @@
 
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
-1. Accessing standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
-1. Identifying surveys and datasets relevant to a particular analysis.
-1. Downloading survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
-1. Loading datasets and associated metadata into R.
-1. Extracting variables and combining datasets for pooled multi-survey analyses.
+1. Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
+1. Identify surveys and datasets relevant to a particular analysis.
+1. Download survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
+1. Load datasets and associated metadata into R.
+1. Extract variables and combining datasets for pooled multi-survey analyses.
 
 *** 
 
