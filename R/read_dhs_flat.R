@@ -1,9 +1,9 @@
-#' Parse .DCF file
+#' Parse dataset metadata
 #'
-#' @title Parse .DCF dictionary file
-#' @param dcf .DCF file (e.g. from readLines)
-#' @param all_lower logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.
-#' @return data.frame with metadata and labels as attributes
+#' Parse fixed-width file metadata 
+#' 
+#' @inheritParams all_lower
+#' @return data.frame with metadata for parsing fixed-width flat file
 #'
 #' @examples
 #' mrfl_zip <- tempfile()
@@ -12,6 +12,14 @@
 #' dcf <- read_zipdata(mrfl_zip, "\\.DCF", readLines)
 #' dct <- parse_dcf(dcf)
 #'
+#' sps <- read_zipdata(mrfl_zip, "\\.SPS", readLines)
+#' dct <- parse_sps(sps)
+#'
+#' @name parse_meta
+NULL
+
+#' @rdname parse_meta
+#' @param dcf .DCF file as character vector (e.g. from readLines)
 #' @export
 parse_dcf <- function(dcf, all_lower=TRUE){
 
@@ -77,6 +85,70 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   return(dct)
 }
 
+#' @rdname parse_meta
+#' @param sps .SPS file as character vector (e.g. from readLines)
+#' @export
+parse_sps <- function(sps, all_lower=TRUE){
+
+  endblock <- grep("^ *\\.", sps)
+
+  ## Parse variable list
+  varlst_idx <- grep("^DATA LIST.*", sps)
+  varlst <- sps[(varlst_idx+1):(min(endblock[endblock > varlst_idx ])-1)]
+  varlst <- grep("[a-zA-Z]", varlst, value=TRUE) # remove rows without alpha
+
+  name <- tolower(sub("^ *([^ ]+) +([^ ]+) *([^ ]*)", "\\1", varlst))
+  name <- sub("\\$", "_", name)
+  start <- as.integer(sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\2", varlst))
+  end <- as.integer(sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\3", varlst))
+  datatype <- sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\4", varlst)
+
+  dct <- data.frame(name = name,
+                    start = start,
+                    len   = end - start + 1L,
+                    datatype = c("Numeric", "Alpha")[match(datatype, c("", "(A)"))],
+                    stringsAsFactors=FALSE)
+
+  ## Parse variable labels
+  varlbl_idx <- grep("^VARIABLE LABELS.*", sps)
+  varlbl <- sps[(varlbl_idx+1):(min(endblock[endblock > varlbl_idx ])-1)]
+  varlbl <- grep("[a-zA-Z]", varlbl, value=TRUE) # remove rows without alpha
+
+  varlabels <- sub("^[^a-zA-Z]*([a-zA-Z][^ ]+) +\\\"([^\\\"]+)\\\".*", "\\2", varlbl)
+  names(varlabels) <- tolower(sub("^[^a-zA-Z]*([a-zA-Z][^ ]+) +\\\"([^\\\"]+)\\\".*", "\\1", varlbl))
+  names(varlabels) <- sub("\\$", "_", names(varlabels))
+
+  dct$label <- varlabels[dct$name]
+
+  ## Parse value labels
+
+  vallbl_idx <- grep("^VALUE LABELS.*", sps)
+  vallbl <- sps[(vallbl_idx+1):(min(endblock[endblock > vallbl_idx ])-1)]
+
+  validx <- c(1, grep("^ +/.+", vallbl))
+  itidx <- Map(":", validx+1, c(validx[-1]-1, length(vallbl)))
+  items <- lapply(itidx, function(idx) vallbl[idx])
+
+  values <- lapply(items, sub,
+                   pattern=" *([0-9]+) +\\\"([^\\\"]+)\\\".*",
+                   replacement="\\1")
+  values <- lapply(values, as.integer)
+
+  labels <- lapply(items, sub,
+                   pattern=" *([0-9]+) +\\\"([^\\\"]+)\\\".*",
+                   replacement="\\2")
+  if(all_lower)
+    labels <- lapply(labels, tolower)
+  values <- Map("names<-", values, labels)
+
+  names(values) <- tolower(sub(".*?([a-zA-Z][^ ]*).*", "\\1", vallbl[validx]))
+  names(values) <- sub("\\$", "_", names(values))
+
+  dct$labels <- values[dct$name]
+
+  return(dct)
+}
+
 
 #' Read DHS flat file data set
 #'
@@ -106,8 +178,15 @@ parse_dcf <- function(dcf, all_lower=TRUE){
 #' @export
 read_dhs_flat <- function(zfile, all_lower=TRUE) {
 
-  dcf <- read_zipdata(zfile, "\\.DCF", readLines)
-  dct <- parse_dcf(dcf)
+  if(any(grepl("\\.DCF", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
+    dcf <- read_zipdata(zfile, "\\.DCF", readLines)
+    dct <- parse_dcf(dcf)
+  }
+  else if(any(grepl("\\.SPS", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
+    sps <- read_zipdata(zfile, "\\.SPS", readLines)
+    dct <- parse_sps(sps)
+  }
+
   dct$col_types <- c("integer", "character")[match(dct$datatype, c("Numeric", "Alpha"))]
   dat <- read_zipdata(zfile, "\\.DAT$", iotools::input.file,
                       formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len)
