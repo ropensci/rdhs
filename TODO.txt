@@ -1,11 +1,33 @@
 TODO:
 
-1.	More examples on querying API by tags etc
+X 1.	More examples on querying API by tags etc
+1. replace download.file with httrGET
 2.	Vignette and function to take extracted survey results and calculate design effect adjusted estimates for numeric variables, and proportions for categorical variables at the cluster, sub-admin1, admin 1 level.
 3.	Functionality to chain together pipeline in tutorial into something that can be cached and then repeated without fail by someone else.
 4.	Slightly tidy up the data structures in some return objects (i.e. list to data.table conversions)
 5.	Tidy up data read in, and watch for newer version of tidyerse/haven on CRAN
 6.	More testing and annotation
+X 7.  Default API key.
+8. Something to merge across survey types (this shouldn't actually be hard I'm just buzy/bit bored/should do phd work to get round to this soon)
+9. Something that does some validated fuzzy matching when survey codes and descriptions are not the same across surveys. Should combine columns that have the same code and description, and then match based on valid descriptions with some fizzy text match and then highlight all matches made this way for you to review and check. There are issues however when questions are "in the last x weeks" so although it's the same question it carries fundamentally different data.
+10.Function to take multiple datasets and group_by cluster number and summarise all numeric data to produce clustered data - need to figure out what to do when it comes to categorical data as will become long if every character variable is simply table(x)/sum(table(x)) etc.
+11. grab project string for you from DHS
+12. make sure the credentials read doesn't care about speech marks
+X 13. cli$indicators() and for all matches
+13b.
+14. filter survey file types as argument
+X 15. windows vs mac normalisePath repalcement
+16. provide a name, proivde an id or ask user for it, use project if in credentials
+X 17. dhs_countries
+X 18. available_datasets() rather than avaialable_surveys()
+X 19. vignette for data.table data.frame option, default data.table and option for data.frame
+20. wrapped grep on request
+21. zip test break
+22. api_request wanted surveys directly pass to the download_datasets function
+23. (low priority) - read unique haven/foregin combine
+24. Merging with HIV pacakge
+25. recreate hrp2 discordance
+26. 500 server errors catch in client load
 
 
 ...
