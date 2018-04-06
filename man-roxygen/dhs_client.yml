@@ -25,9 +25,9 @@ dhs_api_request:
       Data.frame with search results if just_results=TRUE, otherwsie a nested
       list with all the API responses for each page required.
 
-available_surveys:
+available_datasets:
   short: >-
-    Searches the DHS website for all the surveys that you can donwloa.
+    Searches the DHS website for all the datasets that you can donwload.
     If the client has been created you will not have to pass in any
     parameters as these will be taken from your environment. The results
     of this function are cached.
