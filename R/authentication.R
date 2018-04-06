@@ -287,10 +287,6 @@ download_datasets <- function(   your_email , your_password , your_project ,
 
 
 
-
-
-
-
 ##' Autheticate Users for DHS website
 ##'
 ##' @title DHS Wesbite Authentication

@@ -4,8 +4,9 @@
 \alias{dhs_client}
 \title{Make a dhs client}
 \usage{
-dhs_client(api_key = NULL, root = rappdirs::user_cache_dir("rdhs",
-  Sys.info()["user"]), credentials = NULL, ...)
+dhs_client(api_key = "ICLSPH-527168",
+  root = rappdirs::user_cache_dir("rdhs", Sys.info()["user"]),
+  credentials = NULL, ...)
 }
 \arguments{
 \item{api_key}{Character for DHS API KEY}
