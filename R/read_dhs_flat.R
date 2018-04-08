@@ -34,7 +34,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   Sys.setlocale('LC_ALL','C')   ## !!! TODO
 
   item.start <- which(dcf == "[Item]")
-  item.len <- diff(c(item.start, length(dcf)))
+  item.len <- diff(c(item.start, length(dcf)+1L))
   item.idx <- Map("+", item.start-1L, lapply(item.len, seq_len))
 
   items <- lapply(item.idx, function(idx) paste(dcf[idx], collapse="\n"))
@@ -42,7 +42,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   dcf <- data.frame(name       = tolower(sub(".*?\nName=([^\n]*)\n.*", "\\1", items)),
                     label      = sub(".*?\nLabel=([^\n]*)\n.*", "\\1", items),
                     start      = as.integer(sub(".*?\nStart=([^\n]*)\n.*", "\\1", items)),
-                    len        = as.integer(sub(".*?\nLen=([^\n]*)\n.*", "\\1", items)),
+                    len        = as.integer(sub(".*?\nLen=([^\n]*)\n?.*", "\\1", items)),
                     datatype   = "Numeric",
                     occurences = 1,
                     stringsAsFactors = FALSE)

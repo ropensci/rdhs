@@ -34,3 +34,21 @@ test_that("datasets parse", {
 
 })
           
+test_that("data dictionaries FWF lengths match file width", {
+
+  arfl_zip <- tempfile()
+  on.exit(unlink(arfl_zip))
+  download.file(paste0("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
+                       "Filename=ZZAR61FL.ZIP&Tp=4&Ctry_Code=zz&survey_id=0&doctype=hiv"), arfl_zip, mode="wb")
+
+  dcf <- rdhs:::read_zipdata(arfl_zip, "\\.DCF", readLines)
+  sps <- rdhs:::read_zipdata(arfl_zip, "\\.SPS", readLines)
+  do <- rdhs:::read_zipdata(arfl_zip, "\\.DO", readLines)
+  dct <- rdhs:::read_zipdata(arfl_zip, "\\.DCT", readLines)
+
+  dat <- rdhs:::read_zipdata(arfl_zip, "\\.DAT$", iotools::input.file)
+
+  expect_equal(sum(parse_dcf(dcf)$len), nchar(dat[1]))
+  expect_equal(sum(parse_sps(sps)$len), nchar(dat[1]))
+  expect_equal(sum(parse_do(do, dct)$len), nchar(dat[1]))
+})  
