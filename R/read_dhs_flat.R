@@ -34,7 +34,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   Sys.setlocale('LC_ALL','C')   ## !!! TODO
 
   item.start <- which(dcf == "[Item]")
-  item.len <- diff(c(item.start, length(dcf)))
+  item.len <- diff(c(item.start, length(dcf)+1L))
   item.idx <- Map("+", item.start-1L, lapply(item.len, seq_len))
 
   items <- lapply(item.idx, function(idx) paste(dcf[idx], collapse="\n"))
@@ -42,7 +42,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   dcf <- data.frame(name       = tolower(sub(".*?\nName=([^\n]*)\n.*", "\\1", items)),
                     label      = sub(".*?\nLabel=([^\n]*)\n.*", "\\1", items),
                     start      = as.integer(sub(".*?\nStart=([^\n]*)\n.*", "\\1", items)),
-                    len        = as.integer(sub(".*?\nLen=([^\n]*)\n.*", "\\1", items)),
+                    len        = as.integer(sub(".*?\nLen=([^\n]*)\n?.*", "\\1", items)),
                     datatype   = "Numeric",
                     occurences = 1,
                     stringsAsFactors = FALSE)
@@ -258,17 +258,17 @@ parse_do <- function(do, dct, all_lower=TRUE){
 #' @export
 read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
-  if((is.null(meta_source) | tolower(meta_source) == "dcf") &&
+  if((is.null(meta_source) || tolower(meta_source) == "dcf") &&
      any(grepl("\\.DCF", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {    
     dcf <- read_zipdata(zfile, "\\.DCF", readLines)
     dct <- parse_dcf(dcf, all_lower)
   }
-  else if((is.null(meta_source) | tolower(meta_source) == "sps") &&
+  else if((is.null(meta_source) || tolower(meta_source) == "sps") &&
           any(grepl("\\.SPS", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
     sps <- read_zipdata(zfile, "\\.SPS", readLines)
     dct <- parse_sps(sps, all_lower)
   }
-  else if((is.null(meta_source) | tolower(meta_source) %in% c("do", "dct")) &&
+  else if((is.null(meta_source) || tolower(meta_source) %in% c("do", "dct")) &&
           any(grepl("\\.DO", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE) &&
           any(grepl("\\.DCT", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
     do <- read_zipdata(zfile, "\\.DO", readLines)
