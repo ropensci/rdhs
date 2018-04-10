@@ -13,7 +13,7 @@ dhs_indicators(allResults = TRUE, client = NULL, countryIds = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
@@ -48,14 +48,14 @@ Returns a `data.table` of 18 (or less if `returnFields` is provided) indicators 
 API request of DHS Indicators
 }
 \examples{
-dhs_indicators(countryIds="EG",allResults=FALSE)
-dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
-dhs_indicators(surveyYear="2010",allResults=FALSE)
-dhs_indicators(surveyYearStart="2006",allResults=FALSE)
-dhs_indicators(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dhs_indicators(surveyType="DHS",allResults=FALSE)
-dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
-dhs_indicators(tagIds="1",allResults=FALSE)
-dhs_indicators(f="html",allResults=FALSE)
+dat <- dhs_indicators(countryIds="EG",allResults=FALSE)
+dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
+dat <- dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
+dat <- dhs_indicators(surveyYear="2010",allResults=FALSE)
+dat <- dhs_indicators(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_indicators(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_indicators(surveyType="DHS",allResults=FALSE)
+dat <- dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
+dat <- dhs_indicators(tagIds="1",allResults=FALSE)
+dat <- dhs_indicators(f="html",allResults=FALSE)
 }

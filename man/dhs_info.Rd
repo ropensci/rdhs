@@ -10,7 +10,7 @@ dhs_info(allResults = TRUE, client = NULL, infoType = NULL, f = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{infoType}{Specify a type of info to obtain the information requested. Default is version. infoType=version (default) Provides the version of the API. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version infoType=citation Provides the citation for the API to include with your application or data. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation}
 
@@ -29,7 +29,7 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided)A fields desc
 API request of DHS Info
 }
 \examples{
-dhs_info(infoType="version",allResults=FALSE)
-dhs_info(infoType="citation",allResults=FALSE)
-dhs_info(f="html",allResults=FALSE)
+dat <- dhs_info(infoType="version",allResults=FALSE)
+dat <- dhs_info(infoType="citation",allResults=FALSE)
+dat <- dhs_info(f="html",allResults=FALSE)
 }

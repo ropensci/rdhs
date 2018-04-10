@@ -18,13 +18,13 @@ test_that("available_surveys works", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
   }
 
-  # create availbale surveys
-  survs <- cli$available_surveys()
+  # create availbale datasets
+  survs <- cli$available_datasets()
 
   # check the names
   expect_identical(names(survs),c("FileFormat","FileSize","DatasetType","SurveyNum","SurveyId",

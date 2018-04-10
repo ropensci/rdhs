@@ -4,12 +4,14 @@
 \alias{read_dhs_flat}
 \title{Read DHS flat file data set}
 \usage{
-read_dhs_flat(zfile, all_lower = TRUE)
+read_dhs_flat(zfile, all_lower = TRUE, meta_source = NULL)
 }
 \arguments{
 \item{zfile}{Path to `.zip` file containing flat file dataset, usually ending in filename `XXXXXXFL.zip`}
 
 \item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
+
+\item{meta_source}{character string indicating metadata source file for data dictionary. Default \code{NULL} first trieds to use \code{.DCF} and then {.SPS} if not found.}
 }
 \value{
 A data frame. Value labels for each variable are stored as the `labelled` class from `haven`.

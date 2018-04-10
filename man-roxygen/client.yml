@@ -1,10 +1,15 @@
 dhs_api_request:
   short: >-
-    Makes a call to the DHS websites API. You canmake requests to any of their
+    Makes a call to the DHS websites API. You can make requests to any of their
     declared api endpoints (see \code{vignette(rdhs)} for more on these). API
     queries can be filtered by providing query terms, and you can control how
     many search results you want returned. The default paramters will return
     all of the results, and will format it nicely into a data.frame for you.
+
+    N.B. This is easier to now do by using the bespoke functions that are included
+    within the package. These take the form dhs_<endpoint>, e.g. \code{\link{dhs_data}}.
+    These functions can also take your client as an argument that will cache the
+    response for you
   params:
     api_endpoint: >-
       API endpoint. Must be one of the 12 possible endpoints.
@@ -27,43 +32,50 @@ dhs_api_request:
 
 available_datasets:
   short: >-
-    Searches the DHS website for all the datasets that you can donwload.
-    If the client has been created you will not have to pass in any
-    parameters as these will be taken from your environment. The results
-    of this function are cached.
+    Searches the DHS website for all the datasets that you can donwload. The results
+    of this function are cached in the client. If you have recently reqeusted new datasets
+    from the DHS website then you can specify to clear the cache first so that you get the new
+    set of datasets avaialble to you.
   params:
-    datasets_api_results: >-
-      The list of potential datasets as declared from
-      their api. The default argument fetches these so don't worry too much about
-      this. Default = self$dhs_api_request("datasets",num_results = "ALL")
-    surveys_api_results: >-
-      The list of potential surveys as declared from
-      their api. The default argument fetches these so don't worry too much about
-      this. Default = self$dhs_api_request("surveys",num_results = "ALL")
+    clear_cache_first: >-
+      Boolean detailing if you would like to clear the cached available datasets first.
+      The default is set to FALSE. This option is available so that you can make sure your
+      client fetches any new datasets that you have recently been given access to.
   value: >-
       Data.frame object with 14 variables that detail the surveys you can download,
       their url download links and the country, survey, year etc info for that link.
 
-download_survey:
+download_datasets:
   short: >-
-    Using the output from \code{avaialable_surveys} the client will download the
-    surveys you have requested. The
+    Download datasets from the DHS website. By providing the filenames, as specified in one of the
+    returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all
+    the files you hae requested. If any of the requested files are unavailable for your log in, these
+    will be flagged up first as a message so you can make a note and request them through the DHS website.
+    You also have the option to control whether the downloaded zip file is then extracted and converted
+    into a more convenient R \code{data.frame}. This coverted object will then be subsequently saved as
+    a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded
+    when neaded with \code{readRDS}. You also have the option to reformat the dataset, which will ensure
+    that a suitable parser is used to preserve the meta information in your dataset, such as what different
+    survey response codes mean.
   params:
-    output_dir_root: >-
-      Root directory where the surveys will be stored within. The default will download
-      surveys to a subfolder of the client root called "surveys"
-    desired_survey: >-
-      The desired survey to be downloaded. This represents a row(s) from \code{avaialable_surveys}.
-      If multiple rows are requested the function will handle that and give you back the results
-      in a list, with elements named accordingly for the survey downloaded.
+    dataset_filenames: >-
+      The desired filenames to be downloaded. These can be found as one of the
+      returned fields from \code{\link{dhs_datasets}}.
     download_option: >-
-      Character specifying whether the survey should be just downloaded ("zip"), extracted ("ex"),
-      imported and saved as an .rds object ("rds"), or both extract and rds ("both"). Conveniently
-      you can just specify any letter from these options.
+      Character specifying whether the dataset should be just downloaded ("zip"),
+      imported and saved as an .rds object ("rds"), or both extract and rds ("both").
+      Conveniently you can just specify any letter from these options.
     reformat: >-
       Boolean concerning whether to reformat read in datasets. Default = TRUE.
+    all_lower: >-
+       Logical indicating whether all value labels should be lower case. Default to `TRUE`.
+    output_dir_root: >-
+      Root directory where the datasets will be stored within. The default will download
+      datasets to a subfolder of the client root called "datasets"
+    ...: >-
+      Any other arguments to be passed to \code{\link{dhs_read_dataset}}
   value: >-
-      Depends on the download_option requested, but ultimately it is a file path to where the survey
+      Depends on the download_option requested, but ultimately it is a file path to where the dataset
       was downloaded to, so that you can interact with it accordingly.
 
 survey_questions:
@@ -72,34 +84,33 @@ survey_questions:
     This function will look for the downloaded and imported survey datasets from the cache, and will
     download them if not previously downloaded.
   params:
-    desired_survey: >-
-      The desired surveys to be queried. This represents a row(s) from \code{avaialable_surveys}.
-      If multiple rows are requested the function will handle that and give you back the results
-      in a list, with elements named accordingly for the survey downloaded.
+    dataset_filenames: >-
+      The desired filenames to be downloaded. These can be found as one of the
+      returned fields from \code{\link{dhs_datasets}}.
     search_terms: >-
       Character vector of search terms. If any of these terms are found within the surveys question
       descriptions, the corresponding code and description will be returned.
     regex: >-
       Regex character pattern for matching. If you want to specify your regex search pattern, then specify
       this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.
-    output_dir_root: >-
-      Root directory where the surveys will be stored within. The default will download
-      surveys to a subfolder of the client root called "surveys"
+    essential_terms: >-
+      Character pattern that has to be in the description of survey questions. I.e. the function will first find
+      all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions
+      that did not contain your essential_terms. Default = NULL.
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 
-survey_codes:
+survey_variables:
   short: >-
     Use this function after download_survey to look up all the surveys that have the provided codes.
   params:
-    desired_survey: >-
-      The desired surveys to be queried. This represents a row(s) from \code{avaialable_surveys}.
-      If multiple rows are requested the function will handle that and give you back the results
-      in a list, with elements named accordingly for the survey downloaded.
-    codes: >-
-      Character vector of codes to be looked up
-    essential_codes: >-
-      Character vector of codes that need to present. If any of the codes are not present n that survey,
+    dataset_filenames: >-
+      The desired filenames to be downloaded. These can be found as one of the
+      returned fields from \code{\link{dhs_datasets}}.
+    variables: >-
+      Character vector of survey variables to be looked up
+    essential_variables: >-
+      Character vector of variables that need to present. If any of the codes are not present in that survey,
       the survey will not be returned by this functon. Default = NULL.
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.

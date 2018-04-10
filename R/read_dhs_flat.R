@@ -1,7 +1,7 @@
 #' Parse dataset metadata
 #'
 #' @title Parse fixed-width file metadata
-#' 
+#'
 #' @param dcf .DCF file path to parse
 #' @param all_lower logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.
 #'
@@ -15,18 +15,17 @@
 #' dcf <- rdhs:::read_zipdata(mrfl_zip, "\\.DCF", readLines)
 #' dct <- rdhs:::parse_dcf(dcf)
 #'
-#' sps <- read_zipdata(mrfl_zip, "\\.SPS", readLines)
+#' sps <- rdhs:::read_zipdata(mrfl_zip, "\\.SPS", readLines)
 #' dct <- parse_sps(sps)
 #'
-#' do <- read_zipdata(mrfl_zip, "\\.DO", readLines)
-#' dctin <- read_zipdata(mrfl_zip, "\\.DCT", readLines)
+#' do <- rdhs:::read_zipdata(mrfl_zip, "\\.DO", readLines)
+#' dctin <- rdhs:::read_zipdata(mrfl_zip, "\\.DCT", readLines)
 #' dct <- parse_do(do, dctin)
 #'
 #' @name parse_meta
 NULL
 
 #' @rdname parse_meta
-#' @param dcf .DCF file as character vector (e.g. from readLines)
 #' @export
 
 parse_dcf <- function(dcf, all_lower=TRUE){
@@ -179,7 +178,7 @@ parse_do <- function(do, dct, all_lower=TRUE){
                     start    = start_dct,
                     datatype = datatype_dct,
                     stringsAsFactors=FALSE)
-  
+
   ## reset delim
   x <- paste(do, collapse="\n")
 
@@ -196,7 +195,7 @@ parse_do <- function(do, dct, all_lower=TRUE){
   varlabels <- gsub("\"", "", varlabels)
   names(varlabels) <- tolower(sub("^label variable ([^ ]+) +?([^ ].*)", "\\1", varlbl))
 
-  
+
   ## parse value labels
   lbldef <- grep("^label define", x, value=TRUE)
 
@@ -225,7 +224,7 @@ parse_do <- function(do, dct, all_lower=TRUE){
   ## add labels to dct
   dct$label <- varlabels[dct$name]
   dct$labels <- levels[lblname[dct$name]]
-  
+
   return(dct)
 }
 
@@ -259,18 +258,18 @@ parse_do <- function(do, dct, all_lower=TRUE){
 read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   if((is.null(meta_source) || tolower(meta_source) == "dcf") &&
-     any(grepl("\\.DCF", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {    
+     any(grepl("\\.DCF", unzip(zfile, list=TRUE)$Name, ignore.case=TRUE))) {
     dcf <- read_zipdata(zfile, "\\.DCF", readLines)
     dct <- parse_dcf(dcf, all_lower)
   }
   else if((is.null(meta_source) || tolower(meta_source) == "sps") &&
-          any(grepl("\\.SPS", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
+          any(grepl("\\.SPS", unzip(zfile, list=TRUE)$Name, ignore.case=TRUE))) {
     sps <- read_zipdata(zfile, "\\.SPS", readLines)
     dct <- parse_sps(sps, all_lower)
   }
   else if((is.null(meta_source) || tolower(meta_source) %in% c("do", "dct")) &&
-          any(grepl("\\.DO", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE) &&
-          any(grepl("\\.DCT", unzip(zfile, list=TRUE)$Name), ignore.case=TRUE)) {
+          any(grepl("\\.DO", unzip(zfile, list=TRUE)$Name, ignore.case=TRUE)) &&
+          any(grepl("\\.DCT", unzip(zfile, list=TRUE)$Name, ignore.case=TRUE))) {
     do <- read_zipdata(zfile, "\\.DO", readLines)
     dct <- read_zipdata(zfile, "\\.DCT", readLines)
     dct <- parse_do(do, dct, all_lower)
@@ -288,35 +287,4 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
   dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]], dct$labels[haslbl])
 
   return(dat)
-}
-
-
-#' Read filetype from a zipped folder based on the file ending
-#'
-#'
-#' @param zfile Path to `.zip` file containing flat file dataset, usually ending in filename `XXXXXXFL.zip`
-#' @param pattern String detailing which filetype is to be read from within the zip by means of a grep. Default = ".dta$"
-#' @param readfn Function object to be used for reading in the identified file within the zip. Default = `foreign::read.dta`
-#' @param ...  additional arguments to readfn
-#'
-read_zipdata <- function(zfile, pattern=".dta$", readfn=foreign::read.dta, ...){
-  tmp <- tempfile()
-  on.exit(unlink(tmp))
-  file <- grep(pattern, unzip(zfile, list=TRUE)$Name, ignore.case = TRUE, value=TRUE)
-  if(!length(file)){
-    warning(paste0("File name matching pattern '", pattern, "' not found in zip file '", basename(zfile), "'."))
-    return(invisible(NULL))
-  }
-  if(length(file) > 1)
-    warning(paste0("Multiple file names match pattern '", pattern, "' in zip file '", basename(zfile), "'. Returning file '", file[1], "'."))
-  return(readfn(unzip(zfile, file[1], exdir=tmp), ...))
-}
-
-read_zipdta <- function(zfile, ...){
-  read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
-}
-
-find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
-  map <- read_zipdata(zfile, pattern, readLines, TRUE)
-  as.logical(length(grep(str, map, ignore.case)))
 }

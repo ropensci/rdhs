@@ -27,7 +27,7 @@ library(ggplot2)
 library(survey)
 library(haven)
 
-client <- rdhs::dhs_client(api_key = "ICLSPH-527168",
+client <- rdhs::client(api_key = "ICLSPH-527168",
                            credentials = "~/Documents/Data/DHS/rdhs/credentials")
 
 

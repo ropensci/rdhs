@@ -16,3 +16,5 @@ TODO.txt
 ^scripts
 ^credentials$
 ^\.httr-oauth$
+^README\.Rmd$
+^README-.*\.png$

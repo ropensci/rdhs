@@ -13,7 +13,7 @@ dhs_datasets(allResults = TRUE, client = NULL, countryIds = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
@@ -29,9 +29,9 @@ dhs_datasets(allResults = TRUE, client = NULL, countryIds = NULL,
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{fileFormat}{Specify the file format for the survey. Can use file format type name (SAS, Stata, SPSS, Flat, Hierarchical) or file format code.}
+\item{fileFormat}{Specify the file format for the survey. Can use file format type name (SAS, Stata, SPSS, Flat, Hierarchical) or file format code. View list of file format codes - \url{https://dhsprogram.com/data/File-Types-and-Names.cfm}}
 
-\item{fileType}{Specify the type of dataset generated for the survey (e.g. household, women, men, children, couples, etc.).}
+\item{fileType}{Specify the type of dataset generated for the survey (e.g. household, women, men, children, couples, etc.). View list of file type codes - \url{https://dhsprogram.com/data/File-Types-and-Names.cfm}}
 
 \item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
 
@@ -48,15 +48,15 @@ Returns a `data.table` of 13 (or less if `returnFields` is provided) datasets wi
 API request of DHS Datasets
 }
 \examples{
-dhs_datasets(countryIds="EG",allResults=FALSE)
-dhs_datasets(selectSurveys="latest",allResults=FALSE)
-dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
-dhs_datasets(surveyYear="2010",allResults=FALSE)
-dhs_datasets(surveyYearStart="2006",allResults=FALSE)
-dhs_datasets(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dhs_datasets(surveyType="DHS",allResults=FALSE)
-dhs_datasets(fileFormat="stata",allResults=FALSE)
-dhs_datasets(fileFormat="DT",allResults=FALSE)
-dhs_datasets(fileType="KR",allResults=FALSE)
-dhs_datasets(f="geojson",allResults=FALSE)
+dat <- dhs_datasets(countryIds="EG",allResults=FALSE)
+dat <- dhs_datasets(selectSurveys="latest",allResults=FALSE)
+dat <- dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
+dat <- dhs_datasets(surveyYear="2010",allResults=FALSE)
+dat <- dhs_datasets(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_datasets(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_datasets(surveyType="DHS",allResults=FALSE)
+dat <- dhs_datasets(fileFormat="stata",allResults=FALSE)
+dat <- dhs_datasets(fileFormat="DT",allResults=FALSE)
+dat <- dhs_datasets(fileType="KR",allResults=FALSE)
+dat <- dhs_datasets(f="geojson",allResults=FALSE)
 }

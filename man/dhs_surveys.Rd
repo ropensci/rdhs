@@ -14,13 +14,13 @@ dhs_surveys(allResults = TRUE, client = NULL, countryIds = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
 \item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{selectSurveys}{Specify to filter data from the latest survey by including 'selectSurveys=true' in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
+\item{selectSurveys}{Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
 
 \item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
 
@@ -32,7 +32,7 @@ dhs_surveys(allResults = TRUE, client = NULL, countryIds = NULL,
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyStatus}{Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. surveyStatus=available (default) Provides a list of all surveys for which the DHS API contains Indicator Data. Example: https://api.dhsprogram.com/rest/dhs/surveys surveyStatus=completed Provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. Example: https://api.dhsprogram.com/rest/dhs/surveys?surveyStatus=completed surveyStatus=ongoing Provides a list of all ongoing surveys. Example: https://api.dhsprogram.com/rest/dhs/surveys?surveyStatus=ongoing surveyStatus=all Provides a list of all surveys. Example: https://api.dhsprogram.com/rest/dhs/surveys?surveyStatus=all}
+\item{surveyStatus}{Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.}
 
 \item{surveyCharacteristicIds}{Specify a survey characteristic id to filter surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
 
@@ -53,19 +53,19 @@ Returns a `data.table` of 28 (or less if `returnFields` is provided) surveys wit
 API request of DHS Surveys
 }
 \examples{
-dhs_surveys(countryIds="EG",allResults=FALSE)
-dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dhs_surveys(selectSurveys="latest",allResults=FALSE)
-dhs_surveys(surveyIds="SN2010DHS",allResults=FALSE)
-dhs_surveys(surveyYear="2010",allResults=FALSE)
-dhs_surveys(surveyYearStart="2006",allResults=FALSE)
-dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dhs_surveys(surveyType="DHS",allResults=FALSE)
-dhs_surveys(surveyStatus="surveys",allResults=FALSE)
-dhs_surveys(surveyStatus="completed",allResults=FALSE)
-dhs_surveys(surveyStatus="ongoing",allResults=FALSE)
-dhs_surveys(surveyStatus="all",allResults=FALSE)
-dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
-dhs_surveys(tagIds="1",allResults=FALSE)
-dhs_surveys(f="html",allResults=FALSE)
+dat <- dhs_surveys(countryIds="EG",allResults=FALSE)
+dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
+dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
+dat <- dhs_surveys(surveyIds="SN2010DHS",allResults=FALSE)
+dat <- dhs_surveys(surveyYear="2010",allResults=FALSE)
+dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="surveys",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="completed",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="ongoing",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="all",allResults=FALSE)
+dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
+dat <- dhs_surveys(tagIds="1",allResults=FALSE)
+dat <- dhs_surveys(f="html",allResults=FALSE)
 }

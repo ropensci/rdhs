@@ -13,7 +13,7 @@ dhs_countries(allResults = TRUE, client = NULL, countryIds = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
@@ -48,14 +48,14 @@ Returns a `data.table` of 12 (or less if `returnFields` is provided) countries w
 API request of DHS Countries
 }
 \examples{
-dhs_countries(countryIds="EG",allResults=FALSE)
-dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
-dhs_countries(surveyYear="2010",allResults=FALSE)
-dhs_countries(surveyYearStart="2006",allResults=FALSE)
-dhs_countries(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dhs_countries(surveyType="DHS",allResults=FALSE)
-dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
-dhs_countries(tagIds="1",allResults=FALSE)
-dhs_countries(f="html",allResults=FALSE)
+dat <- dhs_countries(countryIds="EG",allResults=FALSE)
+dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
+dat <- dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
+dat <- dhs_countries(surveyYear="2010",allResults=FALSE)
+dat <- dhs_countries(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_countries(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_countries(surveyType="DHS",allResults=FALSE)
+dat <- dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
+dat <- dhs_countries(tagIds="1",allResults=FALSE)
+dat <- dhs_countries(f="html",allResults=FALSE)
 }

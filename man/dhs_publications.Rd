@@ -13,7 +13,7 @@ dhs_publications(allResults = TRUE, client = NULL, countryIds = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{dhs_client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
@@ -50,15 +50,15 @@ Returns a `data.table` of 10 (or less if `returnFields` is provided) publication
 API request of DHS Publications
 }
 \examples{
-dhs_publications(countryIds="EG",allResults=FALSE)
-dhs_publications(selectSurveys="latest",allResults=FALSE)
-dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dhs_publications(surveyIds="SN2010DHS",allResults=FALSE)
-dhs_publications(surveyYear="2010",allResults=FALSE)
-dhs_publications(surveyYearStart="2006",allResults=FALSE)
-dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dhs_publications(surveyType="DHS",allResults=FALSE)
-dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
-dhs_publications(tagIds=1,allResults=FALSE)
-dhs_publications(f="html",allResults=FALSE)
+dat <- dhs_publications(countryIds="EG",allResults=FALSE)
+dat <- dhs_publications(selectSurveys="latest",allResults=FALSE)
+dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
+dat <- dhs_publications(surveyIds="SN2010DHS",allResults=FALSE)
+dat <- dhs_publications(surveyYear="2010",allResults=FALSE)
+dat <- dhs_publications(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_publications(surveyType="DHS",allResults=FALSE)
+dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
+dat <- dhs_publications(tagIds=1,allResults=FALSE)
+dat <- dhs_publications(f="html",allResults=FALSE)
 }
