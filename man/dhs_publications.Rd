@@ -17,7 +17,7 @@ dhs_publications(allResults = TRUE, client = NULL, countryIds = NULL,
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{selectSurveys}{Specify to filter data from the latest survey by including 'selectSurveys=true' in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
+\item{selectSurveys}{Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
 
 \item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
