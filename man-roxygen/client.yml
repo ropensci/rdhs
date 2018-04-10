@@ -66,7 +66,8 @@ download_datasets:
       imported and saved as an .rds object ("rds"), or both extract and rds ("both").
       Conveniently you can just specify any letter from these options.
     reformat: >-
-      Boolean concerning whether to reformat read in datasets. Default = TRUE.
+      Boolean concerning whether to reformat read in datasets by removing all factors and labels.
+      Default = FALSE.
     all_lower: >-
        Logical indicating whether all value labels should be lower case. Default to `TRUE`.
     output_dir_root: >-
@@ -97,6 +98,8 @@ survey_questions:
       Character pattern that has to be in the description of survey questions. I.e. the function will first find
       all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions
       that did not contain your essential_terms. Default = NULL.
+    ...: >-
+      Any other arguments to be passed to \code{\link{download_datasets}}
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 
@@ -112,6 +115,8 @@ survey_variables:
     essential_variables: >-
       Character vector of variables that need to present. If any of the codes are not present in that survey,
       the survey will not be returned by this functon. Default = NULL.
+    ...: >-
+      Any other arguments to be passed to \code{\link{download_datasets}}
   value: >-
       Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
 

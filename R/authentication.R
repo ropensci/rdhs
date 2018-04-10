@@ -196,6 +196,9 @@ download_datasets <- function(desired_dataset,
 
   # handle output dir
   dataset_dir <- file.path(output_dir_root)
+  if(reformat){
+    dataset_dir <- paste0(dataset_dir,"_reformatted")
+  }
 
   # make sure the folder exists and create the zip path
   dir.create( dataset_dir , showWarnings = FALSE, recursive = T )

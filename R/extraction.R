@@ -60,18 +60,19 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
 
             gedata <- g@data[match(results$CLUSTER,g$DHSCLUST),matched_rows]
             gedata <- as.data.frame.list(lapply(gedata,as.character),stringsAsFactors = FALSE)
+            gedata <- type_convert_list_to_df(gedata)
           }
         } else {
           l <- dim(results)[1]
           gedata <- list("ALT_DEM"=rep(NA,l),"LATNUM"=rep(NA,l),"LONGNUM"=rep(NA,l),
-                         "ADM1NAME"=rep(NA,l),"DHSREGNA"=rep(NA,l))
+                         "ADM1NAME"=rep(NA,l),"DHSREGNA"=rep(NA,l)) %>% as.data.frame.list()
         }
 
-        results_full <- append(results,gedata)
+        results_full <- cbind.data.frame(results,gedata)
 
       }
 
-      list_res[[i]] <- as.data.frame.list(type_convert_list_to_df(results_full),stringsAsFactors = FALSE)
+      list_res[[i]] <- results_full
 
     }
 
