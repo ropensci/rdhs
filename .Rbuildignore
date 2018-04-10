@@ -18,3 +18,5 @@ TODO.txt
 ^\.httr-oauth$
 ^README\.Rmd$
 ^README-.*\.png$
+output.txt
+TODO.md
