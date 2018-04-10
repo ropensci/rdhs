@@ -95,8 +95,8 @@ api_request <- function(endpoint, query, allResults, client){
 
     # put some message or return to let the user know if the data returned is empty
     if(parsed_resp$RecordsReturned==0) {
-      message(paste0("Records returned equal to 0. Most likely your",
-                     "query terms are too specific or there is a typo",
+      message(paste0("Records returned equal to 0. Most likely your ",
+                     "query terms are too specific or there is a typo ",
                      "that does not trigger a 404 or 500 error"))
     }
 

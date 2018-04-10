@@ -113,25 +113,30 @@ parse_map <- function(map, all_lower=TRUE){
                     stringsAsFactors=FALSE)
   dct$labels <- rep(var$labels, var$occ)
   rownames(dct) <- dct$name
-  
+
   return(dct)
 }
 
 #' Read DHS Stata data set
 #'
-#' This function reads a DHS recode dataset from the zipped Stata dataset. By default (`mode = "map"`),
-#' it rebuids the variable labels and value labels from the .MAP codebook.
+#' This function reads a DHS recode dataset from the zipped Stata dataset. By default (`mode = "haven"`),
+#' it reads in the stata data set using \code{\link[haven]{read_dta}}
 #'
 #' @param zfile Path to `.zip` file containing Stata dataset, usually ending in filename `XXXXXXDT.zip`
-#' @param mode Read mode for Stata `.dta` file. Defaults to "map", see 'Details' for other options.
+#' @param mode Read mode for Stata `.dta` file. Defaults to "haven", see 'Details' for other options.
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
+#' @param ... Other arguments to be passed to \code{\link{read_zipdata}}. Here this will be arguments to
+#' pass to either \code{\link[haven]{read_dta}} or \code{\link[foreign]{read.dta}} depending on the mode provided
 #' @return A data frame. If mode = 'map', value labels for each variable are stored as the `labelled` class from `haven`.
 #'
 #' @details
-#' The default `mode="map"` uses the `.MAP` dictionary file provided with the DHS Stata datasets
-#' to reconstruct the variable labels and value labels. In this case, value labels are stored are stored
-#' using the the `labelled` class from `haven`. See `?haven::labelled` for more information. Variable labels
-#' are stored in the "label" attribute of each variable, the same as `haven::read_dta()`.
+#' The default `mode="haven"` uses  \code{\link[haven]{read_dta}} to read in the dataset. We have chosen this
+#' option as it is more consistent with respect to variable labels and descriptions than others.
+#' The other options either use use \code{\link[foreign]{read.dta}} or they use the `.MAP` dictionary file
+#' provided with the DHS Stata datasets to reconstruct the variable labels and value labels.
+#' In this case, value labels are stored are stored using the the `labelled` class from `haven`.
+#' See `?haven::labelled` for more information. Variable labels are stored in the "label" attribute
+#'  of each variable, the same as `haven::read_dta()`.
 #'
 #' Currently, `mode="map"` is only implemented for 111 character fixed-width .MAP files, which comprises
 #' the vast majority of recode data files from DHS Phases V, VI, and VII and some from Phase IV. Parsers
@@ -139,10 +144,15 @@ parse_map <- function(map, all_lower=TRUE){
 #'
 #' Other available modes read labels from the Stata dataset with various options available in R:
 #'
+#' * `mode="map"` uses the `.MAP` dictionary file provided with the DHS Stata datasets
+#' to reconstruct the variable labels and value labels. In this case, value labels are stored are stored
+#' using the the `labelled` class from `haven`. See `?haven::labelled` for more information. Variable labels
+#' are stored in the "label" attribute of each variable, the same as `haven::read_dta()`.
+#'
 #' * `mode="haven"`: use `haven::read_dta()` to read dataset. This option retains the native value codings
 #' with value labels affixed with the 'labelled' class.
 #'
-#' * `mode="foreign"`: use `foreign::read.dta()`, with default option convert.factors=TRUE to add
+#' * `mode="foreign"`: use `foreign::read.dta()`, with default options convert.factors=TRUE to add
 #' variable labels. Note that variable labels will not be added if labels are not present for all
 #' values, but variable labels are available via the "val.labels" attribute.
 #'
@@ -162,7 +172,7 @@ parse_map <- function(map, all_lower=TRUE){
 #' download.file(paste0("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
 #' "Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"), mrdt_zip, mode="wb")
 #'
-#' mr <- rdhs:::read_dhs_dta(mrdt_zip)
+#' mr <- rdhs:::read_dhs_dta(mrdt_zip,mode="map")
 #' attr(mr$mv213, "label")
 #' class(mr$mv213)
 #' head(mr$mv213)
@@ -189,30 +199,33 @@ parse_map <- function(map, all_lower=TRUE){
 #' mr_raw <- rdhs:::read_dhs_dta(mrdt_zip, mode="raw")
 #' table(mr_raw$mv213)
 #'
-read_dhs_dta <- function(zfile, mode="map", all_lower=TRUE) {
+read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
 
   if(!mode %in% c("map", "haven", "foreign", "raw", "foreignNA"))
     stop(paste0("'", mode, "' is not a recognized read 'mode'"))
 
   if(mode == "haven")
-    dat <- as.data.frame(read_zipdata(zfile, "\\.dta$", haven::read_dta))
+    dat <- as.data.frame(read_zipdata(zfile, "\\.dta$", haven::read_dta, ...))
   if(mode == "foreign")
-    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta)
+    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, ...)
   if(mode == "foreignNA")
     dat <- read_zipdata(zfile = zfile, pattern = "\\.dta$",
-                        readfn = foreign::read.dta, convert.factors = NA)
+                        readfn = foreign::read.dta, convert.factors = NA, ...)
   if(mode == "raw")
     dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta,
-                        convert.factors = FALSE)
+                        convert.factors = FALSE, ...)
 
   if(mode == "map"){
-    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, convert.factors = FALSE)
+    dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta, convert.factors = FALSE, ...)
     map <- read_zipdata(zfile, "\\.MAP$", readLines)
-    dct <- parse_map(map)
+    dct <- parse_map(map,all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
     haslbl <- sapply(dct$labels, length) > 0
     dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]], dct$labels[haslbl])
   }
+
+  # lower the names if needed
+  if(all_lower) names(dat) <- tolower(names(dat))
   return(dat)
 }
 

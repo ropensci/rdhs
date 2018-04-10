@@ -1,0 +1,166 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+[![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs)
+[![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
+
+`rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
+
+1. Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
+1. Identify surveys and datasets relevant to a particular analysis.
+1. Download survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
+1. Load datasets and associated metadata into R.
+1. Extract variables and combining datasets for pooled multi-survey analyses.
+
+## Installation
+
+You can install rdhs from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("OJWatson/rdhs")
+library(rdhs)
+```
+
+## Basic Functionality
+
+This is a basic example which shows you how to follow the 5 steps above to quickly identify, download and extract datasets you are interested in.
+
+Let's say we want to get all the survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we'll interact with the DHS API to identify our datasets.
+
+The DHS API has many *endpoints* that can be accessed using anyone of `dhs_<endpoint>()` functions. Each one interacts with a different endpoint of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.
+
+To start our extraction we'll query the surveyCharacteristics endpoint:
+
+```{r sc}
+## make a call with no arguments
+sc <- dhs_surveyCharacteristics()
+sc[grepl("Malaria",sc$SurveyCharacteristicName),]
+
+```
+There are 87 different survey characteristics, with one specific survey chracteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their countryIds, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API endpoints first:
+
+```{r surv}
+## what are the countryIds
+ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
+head(ids)
+
+# lets find all the surveys that fit our search criteria
+survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
+
+# and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV")
+str(datasets)
+```
+
+we can now use this to donwload our datasets for further analysis. The raw data can be very useful for a lot of analysis, however, the DHS does publish a set of standard health indicators that have been statistically calculated to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we need to query the `dhs_data()` endpoint. We can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
+
+```{r inddata}
+## what are the indicaators
+indicators <- dhs_indicators()
+str(indicators)
+
+# quite a lot of indicators, so let's query by tags. First let's look at what the tags are:
+tags <- dhs_tags()
+tags[grepl("Malaria",tags$TagName),]
+
+# and let's then grab this data
+data <- dhs_data(tagIds = 36,countryIds = c("CD","TZ"),breakdown="subnational",surveyYearStart = 2013)
+head(data)
+```
+
+Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. 
+
+---
+
+We can now go ahead and download our datasets. To do this we need to first create a `client`. The client is an R6 class (similar to R's built in
+reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis. 
+
+To create our client we use the `client()` function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:
+
+email="dummy@gmail.com"
+password="dummypass"
+project="Dummy Project"
+
+It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
+
+```{r client}
+
+## create a client
+client <- client(credentials = "credentials")
+client
+
+```
+
+Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions. This will then cache the results for you, so that if you are working reomtely or without a good internet connection you can still reclaim your previous API requests:
+
+```{r client_api_cache}
+
+# before it's cached we provide the client so the results is cached within our client
+microbenchmark::microbenchmark(dhs_datasets(client = client),times = 1)
+
+# with it cached it will be returned much quicker with the client argument
+microbenchmark::microbenchmark(dhs_datasets(client = client),times = 1)
+
+# without it cached again for comparison
+microbenchmark::microbenchmark(dhs_datasets(),times = 1)
+
+```
+
+
+Now back to our dataset downloads. If we have a look back at our datasets object, we'll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the [DHS Recodes](https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm), and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we'll demonstrate here as it also demonstrates more of the package's functionality:
+
+
+```{r download}
+
+# download datasets
+downloads <- client$download_datasets(datasets$FileName)
+
+str(downloads)
+
+```
+
+The client function `download_datasets` will download the datasets for you, save them in your client's root directory and then either unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client's root directory. The other main reason for reading the dataset in straight away, which is the default option, is that it creates a table of all the survey variables and their definitions and caches them as well. This then allows us to quickly query for particular search terms or survey variables:
+
+```{r questions}
+
+# rapid diagnostic test search
+questions <- client$survey_questions(datasets$FileName,search_terms = "malaria rapid test")
+
+str(questions)
+
+```
+
+What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the member recodes. To do this we pass our questions object to the client function `extract`, which will create a list with each dataset and its extracted data as a data.frame. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
+
+```{r extract}
+
+# let's just use the PR files thus
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV",fileType = "PR")
+
+# and grab the questions from this
+questions <- client$survey_questions(datasets$FileName,search_terms = "malaria rapid test")
+
+# and now extract the data
+extract <- client$extract(questions,add_geo = TRUE)
+
+```
+
+
+---
+
+## Motivation
+
+The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` hopes to extend the accesibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.

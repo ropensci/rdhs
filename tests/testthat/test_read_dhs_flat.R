@@ -5,7 +5,8 @@ test_that("datasets parse", {
   mrfl_zip <- tempfile()
   on.exit(unlink(mrfl_zip))
   download.file(paste0("https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-                       "Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"), mrfl_zip, mode="wb")
+                       "Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
+                destfile =  mrfl_zip, mode="wb")
 
   mr_def <- read_dhs_flat(mrfl_zip)
   mr_dcf <- read_dhs_flat(mrfl_zip, meta_source="dcf")
@@ -26,14 +27,14 @@ test_that("datasets parse", {
   expect_equal(attr(mr_dcfF$mv025, "labels"), c("Urban"=1, "Rural"=2))
   expect_equal(attr(mr_spsF$mv025, "labels"), c("Urban"=1, "Rural"=2))
   expect_equal(attr(mr_doF$mv025, "labels"), c("Urban"=1, "Rural"=2))
-  
+
   expect_equal(attr(mr_def$mv012, "label"), "Current age")
   expect_equal(attr(mr_dcf$mv012, "label"), "Current age")
   expect_equal(attr(mr_sps$mv012, "label"), "Current age")
   expect_equal(attr(mr_do$mv012, "label"), "Current age")
 
 })
-          
+
 test_that("data dictionaries FWF lengths match file width", {
 
   arfl_zip <- tempfile()
@@ -51,4 +52,4 @@ test_that("data dictionaries FWF lengths match file width", {
   expect_equal(sum(parse_dcf(dcf)$len), nchar(dat[1]))
   expect_equal(sum(parse_sps(sps)$len), nchar(dat[1]))
   expect_equal(sum(parse_do(do, dct)$len), nchar(dat[1]))
-})  
+})
