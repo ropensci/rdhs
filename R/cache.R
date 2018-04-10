@@ -47,7 +47,5 @@ dhs_cache_date <- function(root){
 #' file name for where client is saved between sessions
 client_file_name <- function() "dhs_client.rds"
 
-#' directory name for where calls are cached between sessions
-api_call_cache_directory_name <- function() "dhs_api_call_storr"
 
 

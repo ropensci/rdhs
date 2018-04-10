@@ -30,7 +30,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
       r <- readRDS(dataset_i)
 
       # fetch codes that relate to this dataset
-      quest_rows_i <- which(questions$dataset_path==dataset_i[i])
+      quest_rows_i <- which(questions$dataset_path==dataset_i)
       codes <- questions$variable[quest_rows_i]
       matched_rows <- match(codes,names(r$dataset))
       missing <- which(is.na(matched_rows))

@@ -26,6 +26,11 @@ test_that("available_surveys works", {
   # create availbale datasets
   survs <- cli$available_datasets()
 
+  # do it without the client check for poor formed internal api_request
+  survs <- available_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                              your_password=Sys.getenv("rdhs_USER_PASS"),
+                              your_project=Sys.getenv("rdhs_USER_PROJECT"))
+
   # check the names
   expect_identical(names(survs),c("FileFormat","FileSize","DatasetType","SurveyNum","SurveyId",
                                   "FileType","FileDateLastModified","SurveyYearLabel","SurveyType",

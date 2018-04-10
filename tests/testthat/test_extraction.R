@@ -29,6 +29,18 @@ test_that("query codes having downloaded surveys", {
   # extract the qeustions
   extract_neat <- rdhs:::extract_codes_to_descriptions(extract,quest)
 
+  ## and repeat for sruveys that have no geo
+
+  # check rds only for one survey
+  downloads <-  cli$download_datasets(dataset_filenames = "ZWHR31SV.ZIP",download_option = "r")
+
+  # create questions
+  quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",search_terms = c("Has refrigerator"))
+
+  # extract the data
+  extract <- cli$extract(quest,add_geo = T)
+  expect_identical(extract$ZWHR31SV$LATNUM[1],NA)
+
   unlink(td)
 })
 
