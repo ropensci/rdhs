@@ -31,7 +31,7 @@ You can install rdhs from github with:
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("OJWatson/rdhs")
-library(rdhs)
+
 ```
 
 ## Basic Functionality
@@ -45,6 +45,8 @@ The DHS API has many *endpoints* that can be accessed using anyone of `dhs_<endp
 To start our extraction we'll query the surveyCharacteristics endpoint:
 
 ```{r sc}
+
+library(rdhs)
 ## make a call with no arguments
 sc <- dhs_surveyCharacteristics()
 sc[grepl("Malaria",sc$SurveyCharacteristicName),]
@@ -123,7 +125,7 @@ microbenchmark::microbenchmark(dhs_datasets(),times = 1)
 Now back to our dataset downloads. If we have a look back at our datasets object, we'll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the [DHS Recodes](https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm), and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we'll demonstrate here as it also demonstrates more of the package's functionality:
 
 
-```{r download}
+```{r download, message=FALSE}
 
 # download datasets
 downloads <- client$download_datasets(datasets$FileName)
@@ -158,8 +160,13 @@ extract <- client$extract(questions,add_geo = TRUE)
 
 ```
 
-
 ---
+
+## Further vignettes
+
+TODO: An example workflow using `rdhs` to calculate trends in anemia prevalence is avaiable [here](INSERT LINK).
+
+TODO: Full functionality is described in the tutorial [here](https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html).
 
 ## Motivation
 
