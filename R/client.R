@@ -254,7 +254,7 @@ R6_dhs_client <- R6::R6Class(
     # Downloads datasets provided
     download_datasets = function(dataset_filenames,
                                  download_option="rds",
-                                 reformat=TRUE,
+                                 reformat=FALSE,
                                  all_lower=TRUE,
                                  output_dir_root=file.path(private$root,"datasets"),
                                  ...){
@@ -326,6 +326,9 @@ R6_dhs_client <- R6::R6Class(
 
         }
       }
+
+      # just add the reformat as an attribute to make life easier is survey_questions/variables
+      attr(res,which = "reformat") <- reformat
       return(res)
     },
 
@@ -334,7 +337,8 @@ R6_dhs_client <- R6::R6Class(
     survey_questions = function(dataset_filenames,
                                 search_terms = NULL,
                                 essential_terms = NULL,
-                                regex = NULL){
+                                regex = NULL,
+                                ...){
 
       # check credentials are good
       if(credentials_not_present()) handle_credentials(private$credentials_path)
@@ -343,7 +347,7 @@ R6_dhs_client <- R6::R6Class(
       datasets <- private$check_available_datasets(dataset_filenames)
 
       # download any datasets that need to be downloaded
-      download <- self$download_datasets(datasets$FileName)
+      download <- self$download_datasets(datasets$FileName,...)
 
       # handle the search terms
       if(is.null(regex) & is.null(search_terms)) stop ("One of search terms or regex must not be NULL")
@@ -371,7 +375,8 @@ R6_dhs_client <- R6::R6Class(
         filename <- strsplit(datasets[i,]$FileName,".",fixed=TRUE)[[1]][1]
 
         # create key for this
-        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds","_","TRUE")
+        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds",
+                      "_",attr(download,which = "reformat"))
 
         # first check against cache
         out <- tryCatch(private$storr$get(key,"downloaded_datasets"),
@@ -422,7 +427,8 @@ R6_dhs_client <- R6::R6Class(
     # Creates data.frame of wanted survey variables and descriptions
     survey_variables = function(dataset_filenames,
                             variables,
-                            essential_variables = NULL){
+                            essential_variables = NULL,
+                            ...){
 
 
       # check credentials are good
@@ -432,7 +438,7 @@ R6_dhs_client <- R6::R6Class(
       datasets <- private$check_available_datasets(dataset_filenames)
 
       # first download any datasets needed
-      download <- self$download_datasets(datasets$FileName)
+      download <- self$download_datasets(datasets$FileName,...)
 
       # results storage
       df <- data.frame("code"= character(0),"description"= character(0),
@@ -449,16 +455,31 @@ R6_dhs_client <- R6::R6Class(
         filename <- strsplit(datasets[i,]$FileName,".",fixed=TRUE)[[1]][1]
 
         # create key for this
-        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds","_","TRUE")
+        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds",
+                      "_",attr(download,which = "reformat"))
 
         # Get description and dataset path and find the matched_rows for the requested variables
         out_descr <- private$storr$get(key,"downloaded_dataset_variable_names")
         res[[i]] <- private$storr$get(key,"downloaded_datasets")
 
-        matched_rows <- na.omit(match(variables,out_descr$Variable))
+        # handle for case mismatches - we'll do this rather than allow people to cache agianst the case
+        # they have specified with all_lower as that is ridiculous memory wastage.
+
+        # if the description first variable is upper then they all are and we'll force the variables and
+        # essential variables to be the same for for matching. If not then all lower and do the same
+        if(is_uppercase(out_descr$variable[1])){
+          variables <- toupper(variables)
+          if(!is.null(essential_variables)) essential_variables <- toupper(essential_variables)
+        } else {
+          variables <- tolower(variables)
+          if(!is.null(essential_variables)) essential_variables <- tolower(essential_variables)
+        }
+
+        # no let's match
+        matched_rows <- na.omit(match(variables,out_descr$variable))
 
         # remove na results
-        na_from_match <- grep(private$na_s,out_descr$Description[matched_rows],ignore.case = TRUE)
+        na_from_match <- grep(private$na_s,out_descr$description[matched_rows],ignore.case = TRUE)
         if(length(na_from_match)>0){
           matched_rows <- matched_rows[-grep(private$na_s,out_descr$description[matched_rows],ignore.case = TRUE)]
         }

@@ -12,3 +12,12 @@ to be queried. This allows desired indicators to be easily found and passed onto
 subsequent functionality within rdhs for downloading datasets and conducting basic
 data munging tasks.
 }
+\author{
+\strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk}
+
+Authors:
+\itemize{
+  \item Jeff Eaton
+}
+
+}
