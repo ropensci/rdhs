@@ -218,8 +218,8 @@ download_datasets <- function(desired_dataset,
   # annoyingly we have to do this because some zips have been zipped with the same name several times
   # so they can not be unzipped to the same directory. Thus we bounce unzips between these two dirs.
   tf <- tempfile()
-  tdir1 <- dir.create(tempfile())
-  tdir2 <- dir.create(tempfile())
+  tdir1 <- tempfile()
+  tdir2 <- tempfile()
   on.exit(unlink(c(tf,tdir1,tdir2),recursive = TRUE,force=TRUE))
 
   # download zip to our tempfile
@@ -244,9 +244,9 @@ download_datasets <- function(desired_dataset,
     unzipped_files <- unzip_warn_fails(unzipped , list=TRUE)
     tf <- unzipped
     if(unzip_round==1) {
-      suppressWarnings(file.remove(list.files(tdir2,full.names = TRUE)))
-    } else {
       suppressWarnings(file.remove(list.files(tdir1,full.names = TRUE)))
+    } else {
+      suppressWarnings(file.remove(list.files(tdir2,full.names = TRUE)))
     }
   }
 

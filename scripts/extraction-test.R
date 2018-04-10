@@ -19,11 +19,12 @@
 
 
   outputFile <-file("output.txt")
-  downloads <- sapply(datasets$FileName, function(x){
+  downloads <- sapply(datasets$FileName[1613:length(datasets$FileName)], function(x){
+
     tryCatch({cli$download_datasets(dataset_filenames = x,download_option = "rds",
                                   reformat = TRUE,all_lower = TRUE)
   }, error = function(e) {
-    write(as.character(e), outputFile,append = TRUE)
+    write(paste0(x," - ", as.character(e)), "output.txt",append = TRUE)
   })})
 
 

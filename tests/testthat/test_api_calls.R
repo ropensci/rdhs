@@ -1,6 +1,6 @@
 context("API calls")
 
-test_that("can request api", {
+test_that("can request api through dhs_api_request via client", {
 
   skip_if_no_auth()
 

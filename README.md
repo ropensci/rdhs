@@ -45,19 +45,16 @@ sc[grepl("Malaria",sc$SurveyCharacteristicName),]
 #> 5:                      8 Malaria/bednet questions
 ```
 
-There are 87 different survey characteristics, with one specific survey chracteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their countryIds, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API endpoints first:
+There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their countryIds, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API endpoints first:
 
 ``` r
 ## what are the countryIds
 ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
-head(ids)
-#>    DHS_CountryCode CountryName
-#> 1:              AF Afghanistan
-#> 2:              AL     Albania
-#> 3:              AO      Angola
-#> 4:              AM     Armenia
-#> 5:              AZ  Azerbaijan
-#> 6:              BD  Bangladesh
+str(ids)
+#> Classes 'data.table' and 'data.frame':   94 obs. of  2 variables:
+#>  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...
+#>  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...
+#>  - attr(*, ".internal.selfref")=<externalptr>
 
 # lets find all the surveys that fit our search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
@@ -82,7 +79,7 @@ str(datasets)
 #>  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
-we can now use this to donwload our datasets for further analysis. The raw data can be very useful for a lot of analysis, however, the DHS does publish a set of standard health indicators that have been statistically calculated to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we need to query the `dhs_data()` endpoint. We can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
+we can now use this to download our datasets for further analysis. The raw data can be very useful for a lot of analysis, however, the DHS does publish a set of standard health indicators that have been statistically calculated to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we need to query the `dhs_data()` endpoint. We can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
 
 ``` r
 ## what are the indicaators
@@ -122,56 +119,36 @@ tags[grepl("Malaria",tags$TagName),]
 
 # and let's then grab this data
 data <- dhs_data(tagIds = 36,countryIds = c("CD","TZ"),breakdown="subnational",surveyYearStart = 2013)
-head(data)
-#>     DataId                           Indicator  SurveyId IsPreferred Value
-#> 1: 3121901 Malaria prevalence according to RDT CD2013DHS           1  17.1
-#> 2: 2733430 Malaria prevalence according to RDT CD2013DHS           1  47.1
-#> 3: 1943241 Malaria prevalence according to RDT CD2013DHS           1  20.2
-#> 4: 1587484 Malaria prevalence according to RDT CD2013DHS           1  27.4
-#> 5: 1343913 Malaria prevalence according to RDT CD2013DHS           1  49.1
-#> 6: 1878573 Malaria prevalence according to RDT CD2013DHS           1   2.9
-#>         SDRID Precision        RegionId SurveyYearLabel SurveyType
-#> 1: MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
-#> 2: MLPMALCRDT         1 CDDHS2013503020         2013-14        DHS
-#> 3: MLPMALCRDT         1 CDDHS2013503030         2013-14        DHS
-#> 4: MLPMALCRDT         1 CDDHS2013503040         2013-14        DHS
-#> 5: MLPMALCRDT         1 CDDHS2013503050         2013-14        DHS
-#> 6: MLPMALCRDT         1 CDDHS2013503061         2013-14        DHS
-#>    SurveyYear IndicatorOrder DHS_CountryCode CILow
-#> 1:       2013      125136010              CD      
-#> 2:       2013      125136010              CD      
-#> 3:       2013      125136010              CD      
-#> 4:       2013      125136010              CD      
-#> 5:       2013      125136010              CD      
-#> 6:       2013      125136010              CD      
-#>                  CountryName IndicatorType CharacteristicId
-#> 1: Congo Democratic Republic             I           503010
-#> 2: Congo Democratic Republic             I           503020
-#> 3: Congo Democratic Republic             I           503030
-#> 4: Congo Democratic Republic             I           503040
-#> 5: Congo Democratic Republic             I           503050
-#> 6: Congo Democratic Republic             I           503061
-#>    CharacteristicCategory   IndicatorId CharacteristicOrder
-#> 1:                 Region ML_PMAL_C_RDT             1503010
-#> 2:                 Region ML_PMAL_C_RDT             1503020
-#> 3:                 Region ML_PMAL_C_RDT             1503030
-#> 4:                 Region ML_PMAL_C_RDT             1503040
-#> 5:                 Region ML_PMAL_C_RDT             1503050
-#> 6:                 Region ML_PMAL_C_RDT             1503061
-#>    CharacteristicLabel ByVariableLabel DenominatorUnweighted
-#> 1:            Kinshasa                                   406
-#> 2:           Bas-Congo                                   375
-#> 3:            Bandundu                                  1081
-#> 4:            Equateur                                  1281
-#> 5:           Orientale                                   938
-#> 6:           Nord-Kivu                                   477
-#>    DenominatorWeighted CIHigh IsTotal ByVariableId
-#> 1:                 532              0            0
-#> 2:                 347              0            0
-#> 3:                1414              0            0
-#> 4:                1236              0            0
-#> 5:                 810              0            0
-#> 6:                 654              0            0
+str(data)
+#> Classes 'data.table' and 'data.frame':   300 obs. of  27 variables:
+#>  $ DataId                : int  3121901 2733430 1943241 1587484 1343913 1878573 2443671 2770492 1882836 1475239 ...
+#>  $ Indicator             : chr  "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" ...
+#>  $ SurveyId              : chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
+#>  $ IsPreferred           : int  1 1 1 1 1 1 1 1 1 1 ...
+#>  $ Value                 : num  17.1 47.1 20.2 27.4 49.1 2.9 44.1 12 38.9 49.4 ...
+#>  $ SDRID                 : chr  "MLPMALCRDT" "MLPMALCRDT" "MLPMALCRDT" "MLPMALCRDT" ...
+#>  $ Precision             : int  1 1 1 1 1 1 1 1 1 1 ...
+#>  $ RegionId              : chr  "CDDHS2013503010" "CDDHS2013503020" "CDDHS2013503030" "CDDHS2013503040" ...
+#>  $ SurveyYearLabel       : chr  "2013-14" "2013-14" "2013-14" "2013-14" ...
+#>  $ SurveyType            : chr  "DHS" "DHS" "DHS" "DHS" ...
+#>  $ SurveyYear            : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+#>  $ IndicatorOrder        : int  125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 ...
+#>  $ DHS_CountryCode       : chr  "CD" "CD" "CD" "CD" ...
+#>  $ CILow                 : chr  "" "" "" "" ...
+#>  $ CountryName           : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...
+#>  $ IndicatorType         : chr  "I" "I" "I" "I" ...
+#>  $ CharacteristicId      : int  503010 503020 503030 503040 503050 503061 503062 503063 503070 503080 ...
+#>  $ CharacteristicCategory: chr  "Region" "Region" "Region" "Region" ...
+#>  $ IndicatorId           : chr  "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" ...
+#>  $ CharacteristicOrder   : int  1503010 1503020 1503030 1503040 1503050 1503061 1503062 1503063 1503070 1503080 ...
+#>  $ CharacteristicLabel   : chr  "Kinshasa" "Bas-Congo" "Bandundu" "Equateur" ...
+#>  $ ByVariableLabel       : chr  "" "" "" "" ...
+#>  $ DenominatorUnweighted : chr  "406" "375" "1081" "1281" ...
+#>  $ DenominatorWeighted   : chr  "532" "347" "1414" "1236" ...
+#>  $ CIHigh                : chr  "" "" "" "" ...
+#>  $ IsTotal               : int  0 0 0 0 0 0 0 0 0 0 ...
+#>  $ ByVariableId          : int  0 0 0 0 0 0 0 0 0 0 ...
+#>  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction.
@@ -182,7 +159,9 @@ We can now go ahead and download our datasets. To do this we need to first creat
 
 To create our client we use the `client()` function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:
 
-<email=%22dummy@gmail.com>" password="dummypass" project="Dummy Project"
+-   email="dummy@gmail.com"
+-   password="dummypass"
+-   project="Dummy Project"
 
 It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
 
@@ -218,7 +197,7 @@ client
 #>     url: https://api.dhsprogram.com/rest/dhs/
 ```
 
-Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions. This will then cache the results for you, so that if you are working reomtely or without a good internet connection you can still reclaim your previous API requests:
+Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still reclaim your previous API requests:
 
 ``` r
 
@@ -226,23 +205,23 @@ Before we use our client to download our datasets, it is worth mentioning that t
 microbenchmark::microbenchmark(dhs_datasets(client = client),times = 1)
 #> Unit: milliseconds
 #>                           expr      min       lq     mean   median
-#>  dhs_datasets(client = client) 63.88555 63.88555 63.88555 63.88555
+#>  dhs_datasets(client = client) 60.19347 60.19347 60.19347 60.19347
 #>        uq      max neval
-#>  63.88555 63.88555     1
+#>  60.19347 60.19347     1
 
 # with it cached it will be returned much quicker with the client argument
 microbenchmark::microbenchmark(dhs_datasets(client = client),times = 1)
 #> Unit: milliseconds
 #>                           expr      min       lq     mean   median
-#>  dhs_datasets(client = client) 31.21383 31.21383 31.21383 31.21383
+#>  dhs_datasets(client = client) 33.36871 33.36871 33.36871 33.36871
 #>        uq      max neval
-#>  31.21383 31.21383     1
+#>  33.36871 33.36871     1
 
 # without it cached again for comparison
 microbenchmark::microbenchmark(dhs_datasets(),times = 1)
 #> Unit: seconds
 #>            expr      min       lq     mean   median       uq      max
-#>  dhs_datasets() 3.461212 3.461212 3.461212 3.461212 3.461212 3.461212
+#>  dhs_datasets() 4.510543 4.510543 4.510543 4.510543 4.510543 4.510543
 #>  neval
 #>      1
 ```
@@ -313,11 +292,11 @@ extract <- client$extract(questions,add_geo = TRUE)
 Further vignettes
 -----------------
 
-TODO: An example workflow using `rdhs` to calculate trends in anemia prevalence is avaiable [here](INSERT%20LINK).
+TODO: An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](INSERT%20LINK).
 
 TODO: Full functionality is described in the tutorial [here](https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html).
 
 Motivation
 ----------
 
-The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` hopes to extend the accesibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.
+The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` hopes to extend the accessibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.
