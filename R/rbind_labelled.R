@@ -67,6 +67,11 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
     dfs <- dfs[[1]]
   }
 
+  # if the data has names let's grab that and append it later
+  if(!is.null(names(dfs))){
+    df_names <- names(dfs)
+  }
+
   ## Ensure same column ordering for all dfs
   dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
@@ -109,6 +114,10 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   }
   }
 
+  # add names to each datasets
+  if(exists("df_names")){
+  for(i in 1:length(dfs)){ dfs[[i]]$DATASET <- df_names[i]}
+  }
   ## rbind data frames
   df <- do.call(rbind, dfs)
 

@@ -24,6 +24,12 @@ knitr::opts_chunk$set(
 1. Load datasets and associated metadata into R.
 1. Extract variables and combining datasets for pooled multi-survey analyses.
 
+---
+
+## Motivation
+
+The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` hopes to extend the accessibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.
+
 ## Installation
 
 You can install rdhs from github with:
@@ -34,13 +40,17 @@ devtools::install_github("OJWatson/rdhs")
 
 ```
 
+## Further vignettes
+
+TODO: An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](INSERT LINK).
+
+TODO: Full functionality is described in the tutorial [here](INSERT LINK).
+
 ## Basic Functionality
 
-This is a basic example which shows you how to follow the 5 steps above to quickly identify, download and extract datasets you are interested in.
+This is a basic example which shows you how to follow the 5 steps above to quickly identify, download and extract datasets you are interested in. The introductory vignette goes into more detail on each of these steps.
 
 Let's say we want to get all the survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we'll interact with the DHS API to identify our datasets.
-
-The DHS API has many *endpoints* that can be accessed using anyone of `dhs_<endpoint>()` functions. Each one interacts with a different endpoint of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.
 
 To start our extraction we'll query the *surveyCharacteristics* endpoint using `dhs_surveyCharacteristics()`:
 
@@ -51,56 +61,28 @@ sc <- dhs_surveyCharacteristics()
 sc[grepl("Malaria",sc$SurveyCharacteristicName),]
 
 ```
-There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their *countryIds*, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API endpoints first:
+
+We can now pass that through to `dhs_surveys()` to grab the suveys for the countries and years we are interested in.
 
 ```{r surv}
-## what are the countryIds
+## what are the countryIds - we can find that using this API request
 ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
-str(ids)
 
-# lets find all the surveys that fit our search criteria
+## lets find all the surveys that fit our search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
 
-# and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV")
+# and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.), and the household member recodes that details the children under 5s RDT status.
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV", fileType = "PR")
 str(datasets)
 ```
 
-we can now use this to download our datasets for further analysis. The raw data can be very useful for a lot of analysis, however, the DHS does publish a set of standard health indicators that have been statistically calculated to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we need to query the `dhs_data()` endpoint. We can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
+We can now download our datasets. To do this we need to first create a `client`, which will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in.
 
-```{r inddata}
-## what are the indicaators
-indicators <- dhs_indicators()
-str(indicators)
-
-# quite a lot of indicators! It might be easier to first query by tags. First let's look at what the tags are:
-tags <- dhs_tags()
-tags[grepl("Malaria",tags$TagName),]
-
-# and let's then grab this data
-data <- dhs_data(tagIds = 36,countryIds = c("CD","TZ"),breakdown="subnational",surveyYearStart = 2013)
-str(data)
-```
-
-Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. 
-
----
-
-We can now go ahead and download our datasets. To do this we need to first create a `client`. The client is an R6 class (similar to R's built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis. 
-
-To create our client we use the `client()` function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:
-
-* email="dummy\@gmail.com"
-* password="dummypass"
-* project="Dummy Project"
-
-It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
+To create our client we use the `client()` function and you need to specify your log in credentials for the DHS website as a file containing your email, password and project (see main vignette for specific line formats here).
 
 ```{r client}
 ## create a client
 client <- client(credentials = "credentials")
-client
-
 ```
 
 Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:
@@ -109,18 +91,11 @@ Before we use our client to download our datasets, it is worth mentioning that t
 # before it's cached we provide the client so the results is cached within our client
 s <- dhs_surveys(client = client)
 
-# with it cached it will be returned much quicker with the client argument
-microbenchmark::microbenchmark(dhs_surveys(client = client),times = 1)
-
-# without it cached again for comparison
-microbenchmark::microbenchmark(dhs_surveys(),times = 1)
-
+# with it cached now we will be able to instantly get our results
+s <- dhs_surveys(client = client)
 ```
 
-
-Now back to our dataset downloads. If we have a look back at our datasets object, we'll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the [DHS Recodes](https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm), and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we'll demonstrate here as it also demonstrates more of the package's functionality:
-
-So first we will download all these datasets:
+Now back to our dataset downloads:
 
 ```{r download, message=FALSE}
 # download datasets
@@ -128,62 +103,33 @@ downloads <- client$download_datasets(datasets$FileName)
 
 str(downloads)
 ```
+
 The function returns a list with a file path to where the downloaded dataset has been saved to. We can then read in one of these datasets:
 
 ```{r read a dataset}
 # read in our dataset
 cdpr <- readRDS(downloads$CDPR61SV)
-
-# what is our cdpr object?
-names(cdpr)
 ```
 
-The dataset returned here is a list that contains the *dataset* but also a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is:
+The dataset returned here is a list that contains the *dataset*, which has the survey data stored as a labelled class (see `haven::labelled` or our introduction vignette for more details). It also contains a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is, e.g. for RDT results it is *hml35*.
 
-```{r probe dataset}
-# let's look at the variable_names
-head(cdpr$variable_names)
-
-# and then the dataset
-class(cdpr$dataset)
-str(cdpr$dataset$hv024)
-```
-
-This is the default behaviour for the The client function `download_datasets` - it will download the datasets for you, and then by default save them in your client's root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client's root directory. You can control this behaviour using the `download_option` argument as such:
-
-* `client$download_datasets(download_option = "zip")` - Just the downloaded zip will be saved
-* `client$download_datasets(download_option = "rds")` - Just the read in rds will be saved
-* `client$download_datasets(download_option = "both")` - The zip is downloaded and saved as well as the read in rds
-
-The other main reason for reading the dataset in straight away as the default option is that the created table of all the survey variables and their definitions is cached then and there, which then allows us to quickly query for particular search terms or survey variables:
+The saved datasets allow us to quickly query survey questionss:
 
 ```{r questions}
 # rapid diagnostic test search
 questions <- client$survey_questions(datasets$FileName,search_terms = "malaria rapid test")
-
-table(questions$dataset_filename)
 ```
 
-What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. To do this we pass our questions object to the client function `extract`, which will create a list with each dataset and its extracted data as a data.frame. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
+We an then use the questions to extract our datasets. We also have the option to add any geographic data available:
 
 ```{r extract_questions}
-# let's just use the PR files thus
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV",fileType = "PR")
-downloads <- client$download_datasets(datasets$FileName)
-
-# and grab the questions from this again along with also questions detailing the province
-questions <- client$survey_questions(datasets$FileName,search_terms = c("malaria rapid test"))
-
 # and now extract the data
 extract <- client$extract(questions,add_geo = TRUE)
-
-# what does our extract look like
-str(extract)
 ```
 
-The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a *labelled* class from the [haven package](https://github.com/tidyverse/haven). This class preserves the original semantics and can easily be coerced to factors with `haven::as_factor()`. Special missing values are also preserved. For more info on the *labelled* class have a look at their github.
+The resultant extract is a list, with a new element for each different dataset that you have extracted. 
 
-We can also query our datasets for the survey question variables. In the example above the survey question was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `survey_variables()`:
+We can also query our datasets for the survey question variables if we already know a list of survey variables we want:
 
 ```{r extract_variables}
 # and grab the questions from this now utilising the survey variables
@@ -191,48 +137,14 @@ questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hm
 
 # and now extract the data
 extract2 <- client$extract(questions,add_geo = TRUE)
-
-# quick check
-head(extract2$CDPR61SV)
-head(extract2$TZPR7HSV)
-
 ```
 
-We can now combine our two dataframes for further analysis using the `rdhs` package function `rbind_labelled()`. This function works specifically with our lists of labelled data.frames:
+We can now combine our two dataframes for further analysis using the `rdhs` package function `rbind_labelled()`. This function works specifically with our lists of labelled data.frames. We specify the labels we want for each variable: we want to keep all the hv024 labels (concatenate) but we want to recode the hml35 labels across both datasets to be "NegativeTest" and "PositiveTest".
 
 ```{r rbind_labelled}
-# first let's bind our first extraction, without the hv024
-extract_bound <- rbind_labelled(extract)
-
-head(extract_bound)
-
 # now let's try our second extraction
-extract2_bound <- rbind_labelled(extract2)
-
-```
-
-This hasn't quite done what we might want in the second instance. The *hv024* variable stores the regions for these 2 countries, which will not be the same and thus the labels will be different between the two of them. Without specifying any additional arguments `rbind_labelled()` will simply use the first data.frames labelling as the default, which will mean that some of the Tanzanian provinces will have been encoded as DRC provinces - not good! (This is a similar problem in nature to say trying to add new character strings to a factored data.frame).
-
-There are a few work arounds. Firstly, we can specify a *labels* argument to the function which will detail how we should handle different variables. *labels* is a names list that specifies how to handle each variable. If we simply want to keep all the labels then we us the string "concatenate":
-
-```{r concatenate}
-# lets try concatenating the hv024
-better_bound <- rbind_labelled(extract2,labels = list("hv024"="concatenate"))
-
-head(better_bound$hv024)
-
-```
-
-We could also specify new labels for a variable. For example, imagine the two datasets encoded their RDT responses differently, with the first one as `c("No","Yes")` and the other as `c("Negative","Positive")`. These would be for our purposes the same response, and so we could either leave it and all our results would use the `c("No","Yes")` labelling. But we may want to use the latter as it's more informative/correct, or we may want to be crystal clear and use `c("NegativeTest","PositiveTest")`. we can do that like this:
-
-```{r concatenate and new label}
-# lets try concatenating the hv024 and providing new labels
-better_bound <- rbind_labelled(extract2,
-                               labels = list("hv024"="concatenate",
+extract2_bound <- rbind_labelled(extract2, labels = list("hv024"="concatenate",
                                              "hml35"=c("NegativeTest"=0,"PositiveTest"=1)))
-
-# and our new label
-head(better_bound$hml35)
 ```
 
 The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data:
@@ -246,23 +158,8 @@ questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hm
 extract3 <- client$extract(questions,add_geo = TRUE)
 
 # group our results
-bound_no_labels <- rbind_labelled(extract3)
+extract3_bound <- rbind_labelled(extract3)
 
-# what does our hv024 look like now
-table(bound_no_labels$hv024)
-
+# our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
+str(extract3_bound)
 ```
-
-The *hv024* column in now just characters, which is possibly the best option depending on your downstream analysis/preferences. It's for this reason that the geographic data that is added is never turned into factors or labels.  
-
----
-
-## Further vignettes
-
-TODO: An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](INSERT LINK).
-
-TODO: Full functionality is described in the tutorial [here](https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html).
-
-## Motivation
-
-The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` hopes to extend the accessibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.

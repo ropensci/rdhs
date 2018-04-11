@@ -3,6 +3,7 @@ context("API calls")
 test_that("can request api through dhs_api_request via client", {
 
   skip_if_no_auth()
+  testthat::skip_on_cran()
 
   # Create new directory
   td <- file.path(tempdir(),as.integer(Sys.time()))
