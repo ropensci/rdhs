@@ -8,6 +8,7 @@ test_that("format catches and al_results tests", {
 
 
   skip_if_no_auth()
+  testthat::skip_on_cran()
 
   # Create new directory
   td <- file.path(tempdir(),as.integer(Sys.time()))
@@ -43,6 +44,9 @@ test_that("format catches and al_results tests", {
 
 
 test_that("dhs_countries works", {
+
+  testthat::skip_on_cran()
+
   dat <- dhs_countries(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR",
                        surveyIds = "SN2010DHS", surveyYear = "2010", allResults = FALSE)
   dat <- dhs_countries(surveyYearStart = "1991", surveyYearEnd = "2006",
@@ -51,6 +55,9 @@ test_that("dhs_countries works", {
 })
 
   test_that("dhs_data works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_data(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR", allResults = FALSE)
     dat <- dhs_data(surveyIds = "SN2010DHS", allResults = FALSE)
     dat <- dhs_data(selectSurveys = "latest", allResults = FALSE)
@@ -65,11 +72,17 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_dataUpdates works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_dataUpdates(lastUpdate = "20150901", allResults = FALSE)
     dat <- dhs_dataUpdates(f = "html", allResults = FALSE)
   })
 
   test_that("dhs_datasets works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_datasets(countryIds = "EG", allResults = FALSE)
     dat <- dhs_datasets(selectSurveys = "latest", allResults = FALSE)
     dat <- dhs_datasets(surveyIds = "SN2010DHS", allResults = FALSE)
@@ -84,6 +97,9 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_indicators works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_indicators(countryIds = "EG", allResults = FALSE)
     dat <- dhs_indicators(indicatorIds = "FE_FRTR_W_TFR",
                           allResults = FALSE)
@@ -100,12 +116,18 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_info works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_info(infoType = "version", allResults = FALSE)
     dat <- dhs_info(infoType = "citation", allResults = FALSE)
     dat <- dhs_info(f = "html", allResults = FALSE)
   })
 
   test_that("dhs_publications works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_publications(countryIds = "EG", allResults = FALSE)
     dat <- dhs_publications(selectSurveys = "latest", allResults = FALSE)
     dat <- dhs_publications(indicatorIds = "FE_FRTR_W_TFR",
@@ -123,6 +145,9 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_surveyCharacteristics works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_surveyCharacteristics(countryIds = "EG",
                                      allResults = FALSE)
     dat <- dhs_surveyCharacteristics(indicatorIds = "FE_FRTR_W_TFR",
@@ -138,6 +163,9 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_surveys works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_surveys(countryIds = "EG", allResults = FALSE)
     dat <- dhs_surveys(indicatorIds = "FE_FRTR_W_TFR",
                        allResults = FALSE)
@@ -158,6 +186,9 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_tags works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_tags(countryIds = "EG", allResults = FALSE)
     dat <- dhs_tags(indicatorIds = "FE_FRTR_W_TFR", allResults = FALSE)
     dat <- dhs_tags(surveyIds = "SN2010DHS", allResults = FALSE)
@@ -169,5 +200,8 @@ test_that("dhs_countries works", {
   })
 
   test_that("dhs_uiUpdates works", {
+
+    testthat::skip_on_cran()
+
     dat <- dhs_uiUpdates(lastUpdate = "20150901", allResults = FALSE)
   })
