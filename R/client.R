@@ -3,9 +3,6 @@
 ##'
 ##' @title Make a dhs client
 ##'
-##' @param api_key Character for DHS API KEY
-##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
-##' Default = \code{rappdirs::user_cache_dir("rdhs",Sys.info()["user"])}
 ##' @param credentials File path to where log in credentials are stored (preferred as no
 ##' secrets are typed into an R session). File format should be (each bullet is a new line):
 ##' \itemize{
@@ -13,11 +10,14 @@
 ##'       \item password=dummypass
 ##'       \item project=Dummy Project
 ##'       }
+##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
+##' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
+##' @param api_key Character for DHS API KEY
 ##'
 ##' @template client_methods
 ##' @export
 ##'
-client <- function(credentials=NULL,
+dhs_client <- function(credentials=NULL,
                        root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
                        api_key="ICLSPH-527168"){
 
@@ -89,7 +89,7 @@ client <- function(credentials=NULL,
 
 R6_dhs_client <- R6::R6Class(
 
-  classname = "client",
+  classname = "dhs_client",
   cloneable = FALSE,
 
   # PUBLIC METHODS

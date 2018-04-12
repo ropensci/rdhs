@@ -80,7 +80,7 @@ To create our client we use the `client()` function and you need to specify your
 
 ```{r client}
 ## create a client
-client <- client(credentials = "credentials", root="~/Downloads/rdhs_cache")
+client <- dhs_client(credentials = "credentials", root="~/Downloads/rdhs_cache")
 ```
 
 Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:
