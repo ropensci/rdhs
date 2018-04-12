@@ -33,7 +33,7 @@ This process is described below and should cover most functionality that will be
 
 ### 0. Installation
 
-You can install rdhs from github with:
+Install rdhs from github with `devtools`:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
@@ -69,7 +69,7 @@ Since there are quite a lot of indicators, it might be easier to first query by 
 tags <- dhs_tags()
 
 # Let's say we want to view the tags that relate to malaria
-tags[grepl("Malaria",tags$TagName),]
+tags[grepl("Malaria", tags$TagName), ]
 
 # and now let's then grab this data by specifying the countryIds and the survey year starts
 data <- dhs_data(tagIds = 36,countryIds = c("CD","TZ"),breakdown="subnational",surveyYearStart = 2010)
@@ -78,11 +78,11 @@ str(data)
 
 Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. For example we can very quickly find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). 
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE,fig.height='750px',fig.width='500px'}
+```{r API call, include=TRUE, message = FALSE, warning = FALSE, fig.height='750px', fig.width='500px'}
 # Make an api request
 resp <- dhs_data(indicatorIds = "ML_FEVT_C_AML", surveyYearStart = 2010,breakdown = "subnational")
 
-# and let's filter it to 12 countries for space
+# filter it to 12 countries for space
 countries  <- c("Angola","Ghana","Kenya","Liberia",
                 "Madagascar","Mali","Malawi","Nigeria",
                 "Rwanda","Sierra Leone","Senegal","Tanzania")
@@ -99,7 +99,7 @@ ggplot(resp[resp$CountryName %in% countries,],
 
 ```
 
-If we miss entered a filter query (very possible) rdhs will give you an error that is somewhat nicely presented on the page for you to see way:
+If we incorrectly entered a filter query (very possible), `rdhs` will give a well-presented error message:
 
 ```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE,cache=TRUE}
 # Make an api request
@@ -120,7 +120,7 @@ To start our extraction we'll query the *surveyCharacteristics* endpoint using `
 ```{r sc}
 ## make a call with no arguments
 sc <- dhs_surveyCharacteristics()
-sc[grepl("Malaria",sc$SurveyCharacteristicName),]
+sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 ```
 
@@ -128,18 +128,18 @@ There are 87 different survey characteristics, with one specific survey characte
 
 ```{r surv}
 ## what are the countryIds
-ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
+ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 str(ids)
 
 # lets find all the surveys that fit our search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
 
-# and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV")
+# and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "flat")
 str(datasets)
 ```
 
-we can now use this to download our datasets for further analysis. 
+We can now use this to download our datasets for further analysis. 
 
 ### 3. Download survey datasets
 
@@ -167,7 +167,7 @@ Before we use our client to download our datasets, it is worth mentioning that t
 s <- dhs_surveys(client = client)
 
 # with it cached it will be returned much quicker with the client argument
-microbenchmark::microbenchmark(dhs_surveys(client = client),times = 1)
+microbenchmark::microbenchmark(dhs_surveys(client = client), times = 1)
 
 # without it cached again for comparison
 microbenchmark::microbenchmark(dhs_surveys(),times = 1)
@@ -180,7 +180,7 @@ So first we will download all these datasets:
 
 ```{r download, message=FALSE}
 # download datasets
-downloads <- client$download_datasets(datasets$FileName)
+downloads <- client$get_datasets(datasets$FileName)
 
 str(downloads)
 ```
@@ -231,7 +231,7 @@ To extract our data we pass our questions object to the client function `extract
 ```{r extract_questions}
 # let's just use the PR files thus
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV",fileType = "PR")
-downloads <- client$download_datasets(datasets$FileName)
+downloads <- client$get_datasets(datasets$FileName)
 
 # and grab the questions from this again along with also questions detailing the province
 questions <- client$survey_questions(datasets$FileName,search_terms = c("malaria rapid test"))

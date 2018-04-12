@@ -17,19 +17,15 @@ and Lesotho.
 
 # Setup
 
-Load the `rdhs` package and establish a `dhs_client`. *Note: hopefully in future it will not be required to establish `dhs_client` to query the API.*
+Load the `rdhs` package and other useful packages for analysing data.
 
-```{r }
-## devtools::install_github("OJWatson/rdhs")
-## library(rdhs)
-devtools::load_all()
+```{r, results=FALSE}
+devtools::install_github("OJWatson/rdhs")
+library(rdhs)
 library(data.table)
 library(ggplot2)
 library(survey)
 library(haven)
-
-client <- rdhs::client(api_key = "ICLSPH-527168",
-                           credentials = "~/Documents/Data/DHS/rdhs/credentials")
 ```
 
 # Using calculated indicators from STATcompiler
@@ -41,31 +37,26 @@ Query the API for a list of all StatCompiler indicators, and then search the ind
 that have `"anemia"` in the indicator name. API calls return `data.table` objects. If package `data.table`
 is not loaded, they will be printed as `data.frame`s instead.
 
-*To do: wrapper function `dhs_indicators()` and search function*
-
 ```{r }
-indicators <- client$dhs_api_request(api_endpoint = "indicators")
+indicators <- dhs_indicators()
 tail(indicators[grepl("anemia", Label), .(IndicatorId, ShortName, Label)])
 ```
 
-The indicator ID `"AN_ANEM_W_ANY"` provides the percentage of women with any anemia.
-The function `dhs_data()` wiill query the indicator dataset for this indicator
+The indicator ID `"AN_ANEM_W_ANY"` reports the percentage of women with any anemia.
+The function `dhs_data()` will query the indicator dataset for the value of this indicator
 for our three countries of interest. First, use `dhs_countries()` to query the
 list of DHS countries to identify the DHS country code for each country.
 
 ```{r }
-countries <- client$dhs_api_request(api_endpoint = "countries")
+countries <- dhs_countries()
 dhscc <- countries[CountryName %in% c("Armenia", "Cambodia", "Lesotho"), DHS_CountryCode]
 dhscc
 ```
 
-
 Now query the indicators dataset for the women with any anemia indicator for these three countries.
 
 ```{r }
-statcomp <- client$dhs_api_request(api_endpoint = "data",
-                                   query = list(indicatorIds = "AN_ANEM_W_ANY",
-                                                countryIds = dhscc))
+statcomp <- dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc)
 statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]
 
 ```{r fig.height=2.5, fig.width=4, fig.align="center"}
@@ -84,7 +75,7 @@ for the full liest of survey characteristics, and the second uses `grepl()` to s
 `SurveyCharacteristicName`s that include the word 'anemia'.
 
 ```{r }
-surveychar <- client$dhs_api_request(api_endpoint = "surveycharacteristics")
+surveychar <- dhs_surveyCharacteristics()
 surveychar[grepl("anemia", SurveyCharacteristicName, ignore.case=TRUE)]
 ```
 
@@ -93,32 +84,38 @@ query the API to identify the surveys that have this characteristic and were con
 in our countries of interest.
 
 ```{r }
-surveys <- client$dhs_api_request(api_endpoint = "surveys",
-                                  query = list(surveyCharacteristicIds = 41,
-                                               countryIds = dhscc))
-
+surveys <- dhs_surveys(surveyCharacteristicIds = 41, countryIds = dhscc)
 surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, FieldworkEnd)]
 ```
 
 Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys
 
 ```{r }
-datasets <- client$dhs_api_request(api_endpoint = "datasets",
-                                   query = list(SurveyIds = surveys$SurveyId,
-                                                fileType = "IR",
-                                                fileFormat="flat"))
+datasets <- dhs_datasets(surveyIds = surveys$SurveyId, fileType = "IR", fileFormat="flat")
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 ```
 
 ## Download datasets
 
-*In future, we will use the `dhs_client` to download and manage the IR datasets. For now, use
-datasets saved in a local archive.*
+To get datasets, we establish a `dhsclient` object. The DHS client creates a cache in a specified location to save downloaded datasets and metatdata. The client requires login credentials for accessing datasets from the DHS website, including the email address, password, and project name. Credentials should be stored in a text file with three lines:
 
-Confirm that all identified datasets are in the local archive.
+```
+email=dummy@gmail.com
+password=dummypass
+project=Dummy Project Name
+```
+
+The file path to to this credentials file and the desired location for the cache are passed to the `client()` function to establish the DHS client.
 
 ```{r }
-all(tolower(datasets$FileName) %in% tolower(list.files("~/Documents/Data/DHS/flat")))
+client <- dhs_client(credentials = "~/Documents/Data/DHS/rdhs/credentials",
+                     root = "~/Downloads/rdhs_cache")
+```
+
+After establishing the client, the function `client$get_datasets()` returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, the client will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository. 
+
+```{r }
+datasets$path <- client$get_datasets(datasets$FileName)
 ```
 
 ## Identify survey variables
@@ -133,8 +130,7 @@ individual recode dataset and searching the metadata for the variable
 names corresponding to the hemoglobin measurement and pregnancy status.
 
 ```{r }
-ir <- read_dhs_flat(file.path("~/Documents/Data/DHS/flat", datasets$FileName[1]))
-head(grep("hemoglobin", sapply(ir, attr, "label"), value=TRUE, ignore.case=TRUE))
+head(client$survey_questions(datasets$FileName[1], "hemoglobin")[,1:2])
 ```
 
 Variable `v042` records the household selection for hemoglobin testing.
@@ -142,6 +138,7 @@ Variable `v455` reports the outcome of hemoglobin measurement and `v456`
 the result of altitude adjusted hemoglobin levels.
 
 ```{r }
+ir <- readRDS(datasets$path[1])
 table(as_factor(ir$v042))
 table(as_factor(ir$v455))
 summary(ir$v456)
@@ -151,7 +148,7 @@ Variable `v454` reports the current pregnancy status used for determining the
 anemia threshold.
 
 ```{r }
-grep("currently.*pregnant", sapply(ir, attr, "label"), value=TRUE, ignore.case=TRUE)
+client$survey_questions(datasets$FileName[1], "currently.*pregnant")[,1:2]
 table(as_factor(ir$v454))
 ```
 
@@ -173,7 +170,7 @@ datlst <- list()
 for(i in 1:nrow(datasets)){
 
   print(paste(i, datasets$SurveyId[i]))
-  ir <- read_dhs_flat(file.path("~/Documents/Data/DHS/flat/", datasets$FileName[i]))
+  ir <- readRDS(datasets$path[i])
 
   ir$SurveyId <- datasets$SurveyId[i]
   ir$CountryName <- datasets$CountryName[i]
@@ -207,7 +204,6 @@ survey to identify and nuances Exploratory analysis of variables
 
 ```{r }
 with(dat, table(SurveyId, v025, useNA="ifany"))
-with(dat, table(SurveyId, v024, useNA="ifany"))
 with(dat, table(SurveyId, v106, useNA="ifany"))
 with(dat, table(SurveyId, v454, useNA="ifany"))
 with(dat, table(SurveyId, v455, useNA="ifany"))
@@ -271,4 +267,4 @@ des <- update(des, v106 = relevel(v106, "primary"))
 summary(svyglm(anemia ~ SurveyId + v025 + v106, des, family="binomial"))
 ```
 
-The results suggest a strong gradient in lower anemia prevalence associated with higher education among women.
+The results suggest a that anemia prevalence is lower among women with higher education.
