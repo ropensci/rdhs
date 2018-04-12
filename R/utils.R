@@ -37,7 +37,7 @@ unzip_warn_fails <- function (...){
 # refresh client
 client_refresh <- function(cli){
 
-  cli$set_cache_date(dhs_last_update()-1)
+  cli$set_cache_date(last_api_update()-1)
   cli$save_client()
   root <- cli$get_root()
   if(file.exists(cli$.__enclos_env__$private$credentials_path)){

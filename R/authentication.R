@@ -42,7 +42,7 @@ available_datasets <- function(your_email, your_password, your_project,
 
   # set up temp file for unpacking bins
   tf <- tempfile(fileext = ".txt")
-  values <- dhs_authenticate( your_email , your_password , your_project )
+  values <- authenticate_dhs( your_email , your_password , your_project )
 
   # grab project number here
   project_number <- values$proj_id
@@ -178,7 +178,7 @@ available_datasets <- function(your_email, your_password, your_project,
 ##' @param your_email Character for email address for DHS website
 ##' @param your_password Character for password for DHS website
 ##' @param your_project Character string for the name of your project that gives you access to the DHS database
-##' @param ... Any other arguments to be passed to \code{\link{dhs_read_dataset}}
+##' @param ... Any other arguments to be passed to \code{\link{read_dhs_dataset}}
 ##'
 download_datasets <- function(desired_dataset,
                               download_option = "both",
@@ -205,7 +205,7 @@ download_datasets <- function(desired_dataset,
   zip_path <- file.path(dataset_dir,desired_dataset$FileName)
 
   # login
-  values <- dhs_authenticate( your_email , your_password , your_project )
+  values <- authenticate_dhs( your_email , your_password , your_project )
   project_number <- values$proj_id
 
   # access the download-datasets page
@@ -228,7 +228,7 @@ download_datasets <- function(desired_dataset,
   # download zip to our tempfile
   resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,
                     httr::write_disk( tf , overwrite = TRUE ),
-                    httr::progress()) %>% dhs_client_response(to_json=FALSE)
+                    httr::progress()) %>% handle_api_response(to_json=FALSE)
 
 
   # check that the zip doesn't contain nested zips and if does keep extracting till the correct zip is found
@@ -266,7 +266,10 @@ download_datasets <- function(desired_dataset,
   if(download_option>=2){
 
     # now read the dataset in with the requested reformat options
-    res <- dhs_read_dataset(zip_path,reformat,all_lower,...)
+    res <- read_dhs_dataset(zip_path,reformat,all_lower,...)
+
+    # let's assign the file name attribute to the res
+    attr(res$dataset,which = "filename") <- desired_dataset$FileName
 
     # handle results. If it's character it's because we haven't yet got a parser we are happy with
     if(!is.character(res)){
@@ -274,7 +277,7 @@ download_datasets <- function(desired_dataset,
       # set up the rds_path to save the dataset
       rds_path <- file.path(dataset_dir,
                             paste0(strsplit(desired_dataset$FileName,".",fixed=TRUE)[[1]][1],".rds"))
-      saveRDS(res,rds_path)
+      saveRDS(res$dataset,rds_path)
 
       # if the class of the object is from a geo file then we will just return the rds path
       if(class(res)[1]=="SpatialPointsDataFrame"){
@@ -320,7 +323,7 @@ download_datasets <- function(desired_dataset,
 ##'
 ##'
 
-dhs_authenticate <- function( your_email , your_password , your_project ){
+authenticate_dhs <- function( your_email , your_password , your_project ){
 
 
   # Argument Checking

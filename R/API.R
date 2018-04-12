@@ -77,7 +77,7 @@ api_request <- function(endpoint, query, allResults, client){
                                     "Set 'f=\"json\"' to return all API results."))
 
       ## pass to response parse and then return
-      parsed_resp <- dhs_client_response(resp,FALSE)
+      parsed_resp <- handle_api_response(resp,FALSE)
       return(parsed_resp)
 
     }
@@ -88,7 +88,7 @@ api_request <- function(endpoint, query, allResults, client){
                       encode = "json")
 
     ## pass to response parse and if its json then grab the data
-    parsed_resp <- dhs_client_response(resp,TRUE)
+    parsed_resp <- handle_api_response(resp,TRUE)
     if(resp$status_code >= 400 && resp$status_code < 600){
       return(parsed_resp)
     }
@@ -116,7 +116,7 @@ api_request <- function(endpoint, query, allResults, client){
         # Create new request and parse this
         url <- httr::modify_url(endpoint,query = query)
         resp <- httr::GET(url,httr::accept_json(),encode = "json")
-        parsed_resp <- dhs_client_response(resp,TRUE)
+        parsed_resp <- handle_api_response(resp,TRUE)
 
         # if this larger page query has returned all the results then return this else we will loop through
         if(parsed_resp$TotalPages == 1){
@@ -131,7 +131,7 @@ api_request <- function(endpoint, query, allResults, client){
             query$page <- i
             url <- httr::modify_url(endpoint,query = query)
             resp <- httr::GET(url,httr::accept_json(),encode = "json")
-            temp_parsed_resp <- dhs_client_response(resp,TRUE)
+            temp_parsed_resp <- handle_api_response(resp,TRUE)
             parsed_resp[[i]] <- temp_parsed_resp
           }
 
