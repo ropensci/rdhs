@@ -1,6 +1,6 @@
-##' Create a data frame of surveys that your log in can download
+##' Create a data frame of datasets that your log in can download
 ##'
-##' @title DHS surveys that can be downloaded
+##' DHS datasets that can be downloaded
 ##' @param your_email Character for email address for DHS website
 ##' @param your_password Character for password for DHS website
 ##' @param your_project Character string for the name of your project that gives you access to the DHS database
@@ -29,21 +29,20 @@
 ##'       \item{"URLS"}
 ##'       }
 ##'
-available_surveys <- function(your_email, your_password, your_project,
-                              datasets_api_results = NULL,
-                              surveys_api_results = NULL){
+available_datasets <- function(your_email, your_password, your_project,
+                               datasets_api_results = NULL,
+                               surveys_api_results = NULL){
 
 
-  # fetch all the surveys meta from the api if to already passed
+  # fetch all the datasets meta from the api if to already passed
   if(is.null(datasets_api_results) | is.null(surveys_api_results)){
-    cli <- rdhs::dhs_client(root = file.path(tempdir(),as.numeric(Sys.time())))
-    datasets_api_results <- cli$dhs_api_request("datasets",num_results = "all")
-    surveys_api_results = cli$dhs_api_request("surveys",num_results = "ALL")
+    datasets_api_results <- dhs_datasets()
+    surveys_api_results <- dhs_surveys()
   }
 
   # set up temp file for unpacking bins
   tf <- tempfile(fileext = ".txt")
-  values <- dhs_authenticate( your_email , your_password , your_project )
+  values <- authenticate_dhs( your_email , your_password , your_project )
 
   # grab project number here
   project_number <- values$proj_id
@@ -94,7 +93,7 @@ available_surveys <- function(your_email, your_password, your_project,
 
   values <- append(values,values = c(ctrycodelist,filedatatypelist_DHS,fformatlist))
 
-  # submit request for all the possible surveys
+  # submit request for all the possible datasets
   message("Creating Download url list from DHS website...")
   z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
   link.urls <- XML::xpathSApply( XML::htmlParse( httr::content( z ) ) , "//a" , XML::xmlGetAttr , "href" ) %>% unlist()
@@ -105,7 +104,7 @@ available_surveys <- function(your_email, your_password, your_project,
   urls <- readLines(tf)
   urls <- urls[-which(!nzchar(urls))]
 
-  # start filling in the end result data frame of all available surveys
+  # start filling in the end result data frame of all available datasets
   res <- matrix(data = "",nrow = length(urls),ncol = dim(datasets_api_results)[2]+1)
   colnames(res) <- c(names(datasets_api_results),"URLS")
   res <- as.data.frame(res,stringsAsFactors = FALSE)
@@ -143,7 +142,7 @@ available_surveys <- function(your_email, your_password, your_project,
     # loop through all the missing survery numbers that we need to fill in for
     for(i in missing_survey_nums){
 
-      # where are these missing surveys
+      # where are these missing datasets
       missing_pos <- missings[which(res$SurveyNum[missings]==i)]
 
       # is there any info about them from the surveys api
@@ -163,131 +162,143 @@ available_surveys <- function(your_email, your_password, your_project,
 }
 
 
-
-##' Create a data frame of surveys that your log in can download
+##' Create a data frame of datasets that your log in can download
 ##'
-##' @title Download surveys specified using output of \code{available_surveys}
-##' @param your_email Character for email address for DHS website
-##' @param your_password Character for password for DHS website
-##' @param your_project Character string for the name of your project that gives you access to the DHS database
-##' @param desired_survey Row from \code{available_surveys}
-##' @param output_dir_root Directory where files are to be downloaded to
+##' Download datasets specified using output of \code{available_datasets}.
+##' @param desired_dataset Row from \code{available_datasets}
 ##' @param download_option Chracter dictating how the durvey is stored when downloaded. Must be one of:
 ##' \itemize{
-##'       \item{"zip"} - Just the zip. "z" or anything like will match
-##'       \item{"ex"} - Just the extracted zip. "e" or anything like will match
+##'       \item{"zip"} - Just the zip. "z" or   will match
 ##'       \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
 ##'       \item{"both"} - Both the rds and extract. "b" or anything like will match
 ##'}
 ##' @param reformat Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE
+##' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
+##' @param output_dir_root Directory where files are to be downloaded to
+##' @param your_email Character for email address for DHS website
+##' @param your_password Character for password for DHS website
+##' @param your_project Character string for the name of your project that gives you access to the DHS database
+##' @param ... Any other arguments to be passed to \code{\link{read_dhs_dataset}}
 ##'
-download_datasets <- function(   your_email , your_password , your_project ,
-                                 desired_survey, output_dir_root=NULL,
-                                 download_option = "both",
-                                 reformat=TRUE){
-
+download_datasets <- function(desired_dataset,
+                              download_option = "both",
+                              reformat=TRUE,
+                              all_lower=TRUE,
+                              output_dir_root=NULL,
+                              your_email , your_password , your_project,
+                              ...){
 
 
   # possible download options:
-  download_possibilities <- c("zip","ex","rds","both")
-
-  # set up temp file for unpacking bins
-  tf <- tempfile(fileext = ".txt")
+  download_possibilities <- c("zip","rds","both")
+  download_option <- grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)
+  if(!is.element(download_option,1:3)) stop("Download option specified not one of zip,rds,both")
 
   # handle output dir
-  survey_dir <- paste(desired_survey$CountryName,desired_survey$SurveyYear,desired_survey$SurveyType,sep="_")
-  survey_dir <- file.path(output_dir_root,survey_dir)
+  dataset_dir <- file.path(output_dir_root)
+  if(reformat){
+    dataset_dir <- paste0(dataset_dir,"_reformatted")
+  }
+
+  # make sure the folder exists and create the zip path
+  dir.create( dataset_dir , showWarnings = FALSE, recursive = T )
+  zip_path <- file.path(dataset_dir,desired_dataset$FileName)
 
   # login
-  values <- dhs_authenticate( your_email , your_password , your_project )
+  values <- authenticate_dhs( your_email , your_password , your_project )
   project_number <- values$proj_id
 
   # access the download-datasets page
-  z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm" , body = list( proj_id = project_number ) )
+  z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm" ,
+                   body = list( proj_id = project_number ) )
 
-  # download our zip
-  message("Downloading: \n", paste(desired_survey$CountryName,desired_survey$SurveyYear,
-                                   desired_survey$SurveyType,desired_survey$FileType,
-                                   desired_survey$FileFormat, collapse=", "))
-  httr::GET(desired_survey$URLS[1], destfile = tf, httr::write_disk( tf , overwrite = TRUE ) , httr::progress() )
+  # download our zip and parse the response for any errors
+  message("Downloading: \n", paste(desired_dataset$CountryName,desired_dataset$SurveyYear,
+                                   desired_dataset$SurveyType,desired_dataset$FileType,
+                                   desired_dataset$FileFormat, collapse=", "))
 
-  # make sure the file-specific folder exists
-  dir.create( survey_dir , showWarnings = FALSE, recursive = T )
+  # set up temp file for unpacking bins
+  # annoyingly we have to do this because some zips have been zipped with the same name several times
+  # so they can not be unzipped to the same directory. Thus we bounce unzips between these two dirs.
+  tf <- tempfile()
+  tdir1 <- tempfile()
+  tdir2 <- tempfile()
+  on.exit(unlink(c(tf,tdir1,tdir2),recursive = TRUE,force=TRUE))
+
+  # download zip to our tempfile
+  resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,
+                    httr::write_disk( tf , overwrite = TRUE ),
+                    httr::progress()) %>% handle_api_response(to_json=FALSE)
+
+
+  # check that the zip doesn't contain nested zips and if does keep extracting till the correct zip is found
+  # this is slightly ugly but works
+  unzipped_files <- unzip_warn_fails(tf , list=TRUE)
+  unzip_round <- 1
+  while(sum(!is.na(grep("\\.zip",unzipped_files$Name,ignore.case = TRUE)))>0){
+    if(unzip_round==1){
+      unzipped_files <- unzip_warn_fails(tf,exdir = tdir1,overwrite=TRUE)
+      unzip_round <- 2
+    } else {
+      unzipped_files <- unzip_warn_fails(tf,exdir = tdir2,overwrite=TRUE)
+      unzip_round <- 1
+    }
+    unzipped <- unzipped_files[grep(desired_dataset$FileName,unzipped_files,ignore.case = TRUE)]
+    unzipped_files <- unzip_warn_fails(unzipped , list=TRUE)
+    tf <- unzipped
+    if(unzip_round==1) {
+      suppressWarnings(file.remove(list.files(tdir1,full.names = TRUE)))
+    } else {
+      suppressWarnings(file.remove(list.files(tdir2,full.names = TRUE)))
+    }
+  }
 
   ## DOWNLOAD OPTIONS HANDLING:
-  # 1. Just the zip
-  if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==1){
 
-    res <- file.copy(tf,to = file.path(survey_dir,desired_survey$FileName))
-    res <- if(res) file.path(survey_dir,desired_survey$FileName) else stop("Failed to donwload zip to where client root is - check write access?")
+  # 1. Just the zip - we'll always do this and then if it's 2 remove it later
+
+  # if it's just the zip then we copy it to the directory return the file path for this
+  res <- file.copy(tf,to = zip_path,overwrite = TRUE)
+  res <- if(res) zip_path else stop("Failed to donwload zip to where client root is - check write access?")
+
+
+  # 2/3. rds or both
+  if(download_option>=2){
+
+    # now read the dataset in with the requested reformat options
+    res <- read_dhs_dataset(zip_path,reformat,all_lower,...)
+
+    # let's assign the file name attribute to the res
+    attr(res$dataset,which = "filename") <- desired_dataset$FileName
+
+    # handle results. If it's character it's because we haven't yet got a parser we are happy with
+    if(!is.character(res)){
+
+      # set up the rds_path to save the dataset
+      rds_path <- file.path(dataset_dir,
+                            paste0(strsplit(desired_dataset$FileName,".",fixed=TRUE)[[1]][1],".rds"))
+      saveRDS(res$dataset,rds_path)
+
+      # if the class of the object is from a geo file then we will just return the rds path
+      if(class(res)[1]=="SpatialPointsDataFrame"){
+        res <- rds_path
+      } else {
+        # if its a dataset then we return the path and the code_descriptions as these are useful to have cached
+        res$dataset <- rds_path
+      }
+    }
+
+    # 3. If not both then delete the zip
+    if(download_option!=3){
+      file.remove(zip_path)
+    }
 
   }
 
-  # 2. Just the extract
-  if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)>=2){
-
-    # unzip the download
-    unzipped_files <- unzip_warn_fails(tf , exdir = survey_dir)
-
-    # sometimes they have extra zips that are different surveys, e.g. Senegal 2014 GE
-    still_zips <- grep(".zip|.ZIP",unzipped_files)
-    if(length(still_zips)>0){
-    zip_to_remove <- which(toupper(basename(unzipped_files[still_zips])) != toupper(desired_survey$FileName))
-    file.remove(unzipped_files[zip_to_remove])
-    unzipped_files <- unzipped_files[-zip_to_remove]
-    }
-
-    # some zipped files contained zipped subfiles
-    for( this_zip in grep( "\\.zip$" , unzipped_files , ignore.case = TRUE , value = TRUE ) ){
-      unzipped_files <- c( unzipped_files , unzip_warn_fails( this_zip , exdir = survey_dir ) )
-    }
-
-    res <- unzipped_files
-
-    # 3. Just the rds
-    if(grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==3){
-
-      # match to the actual dataset file rather than the others
-      file_types <- c("dta","sav","dat","sas7bdat","dbf")
-      file_endings <- strsplit(unzipped_files,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
-      file <- unzipped_files[which(!is.na(match(toupper(file_endings),toupper(file_types))))]
-      res <- dhs_read_dataset(file,reformat)
-
-      if(!is.character(res)){
-        rds_path <- file.path(survey_dir,paste0(strsplit(desired_survey$FileName,".",fixed=TRUE)[[1]][1],".rds"))
-        saveRDS(res,rds_path)
-        if(class(res)[1]=="SpatialPointsDataFrame"){
-          res <- rds_path
-        } else {
-        res$Survey <- rds_path
-        }
-      }
-
-      # remove unzipped files if not matching for "ex"
-      # 4. Both extract and rds
-      if(!grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)==4){
-        file.remove(unzipped_files)
-      }
-
-
-    }
-
-
-
-
-  }
-
-  # delete the temporary file
-  suppressWarnings( file.remove( tf ) )
-  message( "survey donwload finished" )
-
+  message( "Dataset donwload finished" )
   return(res)
 
 }
-
-
-
-
 
 
 
@@ -312,7 +323,7 @@ download_datasets <- function(   your_email , your_password , your_project ,
 ##'
 ##'
 
-dhs_authenticate <- function( your_email , your_password , your_project ){
+authenticate_dhs <- function( your_email , your_password , your_project ){
 
 
   # Argument Checking

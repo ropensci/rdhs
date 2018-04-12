@@ -2,14 +2,14 @@
 % Please edit documentation in R/extraction.R
 \name{extraction}
 \alias{extraction}
-\title{DHS survey questions extracted from surveys}
+\title{DHS survey questions extracted from datasets}
 \usage{
-extraction(questions, available_surveys, geo_surveys, add_geo = TRUE)
+extraction(questions, available_datasets, geo_surveys, add_geo = TRUE)
 }
 \arguments{
 \item{questions}{Output of \code{R6_dhs_client$public_methods$survey_questions}}
 
-\item{available_surveys}{Surveys that could be available. Output of \code{R6_dhs_client$public_methods$available_surveys}}
+\item{available_datasets}{Datasets that could be available. Output of \code{R6_dhs_client$public_methods$available_datasets}}
 
 \item{geo_surveys}{Geographic Data Survey file paths.}
 

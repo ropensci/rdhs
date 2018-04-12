@@ -106,9 +106,9 @@ yaml_read <- function(filename) {
 }
 
 process_dhs <- function() {
-  dat <- add_usage(yaml_read("man-roxygen/dhs_client.yml"), dhs_client(root = file.path(tempdir(),uuid::UUIDgenerate()),credentials="credentials"))
+  dat <- add_usage(yaml_read("man-roxygen/client.yml"), client(root = file.path(tempdir(),uuid::UUIDgenerate()),credentials="credentials"))
   str <- format_class(dat)
-  writeLines(str, "man-roxygen/dhs_client_methods.R")
+  writeLines(str, "man-roxygen/client_methods.R")
 }
 
   process_dhs()

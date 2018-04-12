@@ -9,23 +9,37 @@ test_that("query codes having downloaded surveys", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale surveys
-  survs <- cli$available_surveys()
+  survs <- cli$available_datasets()
 
-  # grab survey types needed
-  hhs_dta <- which(survs$FileFormat == "Stata dataset (.dta)" & survs$FileType %in% c("Household Member Recode"))
-
-  # check rds only for 1
-  sample_survs <- sample(length(hhs_dta),1,replace=FALSE)
-  downloads <-  cli$download_survey(desired_survey = survs[hhs_dta[sample_survs],],download_option = "r")
+  # check rds only for one survey
+  downloads <-  cli$download_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r")
 
   # create questions
-  quest <- cli$survey_questions(survs[hhs_dta[sample_survs],],search_terms = c("fever","malaria","test"))
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever","malaria","test"))
+
+  # extract the data
+  extract <- cli$extract(quest,add_geo = T)
+
+  # extract the qeustions
+  extract_neat <- rdhs:::extract_codes_to_descriptions(extract,quest)
+
+  ## and repeat for sruveys that have no geo
+
+  # check rds only for one survey
+  downloads <-  cli$download_datasets(dataset_filenames = "ZWHR31SV.ZIP",download_option = "r")
+
+  # create questions
+  quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",search_terms = c("Has refrigerator"))
+
+  # extract the data
+  extract <- cli$extract(quest,add_geo = T)
+  expect_identical(extract$ZWHR31SV$LATNUM[1],NA)
 
   unlink(td)
 })

@@ -1,0 +1,180 @@
+##' @section Methods:
+##'
+##' \describe{
+##' \item{\code{dhs_api_request}}{
+##'   Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see \code{vignette(rdhs)} for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default paramters will return all of the results, and will format it nicely into a data.frame for you.
+##'   N.B. This is easier to now do by using the bespoke functions that are included within the package. These take the form dhs_<endpoint>, e.g. \code{\link{dhs_data}}. These functions can also take your client as an argument that will cache the response for you
+##'
+##'   \emph{Usage:}
+##'   \code{dhs_api_request(api_endpoint, query = list(), api_key = private$api_key,
+##'       num_results = 100, just_results = TRUE)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{api_endpoint}:   API endpoint. Must be one of the 12 possible endpoints.
+##'     }
+##'
+##'     \item{\code{query}:   List of query filters. To see possible query filter terms for each endpoint then head to the DHS api website.
+##'     }
+##'
+##'     \item{\code{api_key}:   DHS API key. Default will grab the key provided when the client was created.
+##'     }
+##'
+##'     \item{\code{num_results}:   The Number of results to return. Default = "ALL" which will loop through all the api search results pages for you if there are more results than their API will allow you to fetch in one page. If you specify a number this many results will be returned (but probably best to just leave default).
+##'     }
+##'
+##'     \item{\code{just_results}:   Boolean whetehr to return just the results or all the http API response. Default = TRUE (probably best again to leave as this.)
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Data.frame with search results if just_results=TRUE, otherwsie a nested list with all the API responses for each page required.
+##' }
+##' \item{\code{available_datasets}}{
+##'   Searches the DHS website for all the datasets that you can donwload. The results of this function are cached in the client. If you have recently reqeusted new datasets from the DHS website then you can specify to clear the cache first so that you get the new set of datasets avaialble to you.
+##'
+##'   \emph{Usage:}
+##'   \code{available_datasets(clear_cache_first = FALSE)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{clear_cache_first}:   Boolean detailing if you would like to clear the cached available datasets first. The default is set to FALSE. This option is available so that you can make sure your client fetches any new datasets that you have recently been given access to.
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Data.frame object with 14 variables that detail the surveys you can download, their url download links and the country, survey, year etc info for that link.
+##' }
+##' \item{\code{download_datasets}}{
+##'   Download datasets from the DHS website. By providing the filenames, as specified in one of the returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R \code{data.frame}. This coverted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when neaded with \code{readRDS}. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
+##'
+##'   \emph{Usage:}
+##'   \code{download_datasets(dataset_filenames, download_option = "rds", reformat = TRUE,
+##'       all_lower = TRUE, output_dir_root = file.path(private$root,
+##'           "datasets"), ...)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{dataset_filenames}:   The desired filenames to be downloaded. These can be found as one of the returned fields from \code{\link{dhs_datasets}}.
+##'     }
+##'
+##'     \item{\code{download_option}:   Character specifying whether the dataset should be just downloaded ("zip"), imported and saved as an .rds object ("rds"), or both extract and rds ("both"). Conveniently you can just specify any letter from these options.
+##'     }
+##'
+##'     \item{\code{reformat}:   Boolean concerning whether to reformat read in datasets. Default = TRUE.
+##'     }
+##'
+##'     \item{\code{all_lower}:   Logical indicating whether all value labels should be lower case. Default to `TRUE`.
+##'     }
+##'
+##'     \item{\code{output_dir_root}:   Root directory where the datasets will be stored within. The default will download datasets to a subfolder of the client root called "datasets"
+##'     }
+##'
+##'     \item{\code{...}:   Any other arguments to be passed to \code{\link{dhs_read_dataset}}
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Depends on the download_option requested, but ultimately it is a file path to where the dataset was downloaded to, so that you can interact with it accordingly.
+##' }
+##' \item{\code{survey_questions}}{
+##'   Use this function after download_survey to query downloaded surveys for what questions they asked. This function will look for the downloaded and imported survey datasets from the cache, and will download them if not previously downloaded.
+##'
+##'   \emph{Usage:}
+##'   \code{survey_questions(dataset_filenames, search_terms = NULL, essential_terms = NULL,
+##'       regex = NULL)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{dataset_filenames}:   The desired filenames to be downloaded. These can be found as one of the returned fields from \code{\link{dhs_datasets}}.
+##'     }
+##'
+##'     \item{\code{search_terms}:   Character vector of search terms. If any of these terms are found within the surveys question descriptions, the corresponding code and description will be returned.
+##'     }
+##'
+##'     \item{\code{essential_terms}:   Character pattern that has to be in the description of survey questions. I.e. the function will first find all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions that did not contain your essential_terms. Default = NULL.
+##'     }
+##'
+##'     \item{\code{regex}:   Regex character pattern for matching. If you want to specify your regex search pattern, then specify this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+##' }
+##' \item{\code{survey_variables}}{
+##'   Use this function after download_survey to look up all the surveys that have the provided codes.
+##'
+##'   \emph{Usage:}
+##'   \code{survey_variables(dataset_filenames, variables, essential_variables = NULL)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{dataset_filenames}:   The desired filenames to be downloaded. These can be found as one of the returned fields from \code{\link{dhs_datasets}}.
+##'     }
+##'
+##'     \item{\code{variables}:   Character vector of survey variables to be looked up
+##'     }
+##'
+##'     \item{\code{essential_variables}:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this functon. Default = NULL.
+##'     }
+##'   }
+##'
+##'   \emph{Value}:
+##'   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+##' }
+##' \item{\code{extract}}{
+##'   Function to extract datasets using a set of survey questions as taken from the output from \code{survey_questions}
+##'
+##'   \emph{Usage:}
+##'   \code{extract(questions, add_geo = TRUE)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{questions}:   Questions to be queried, in the format from \code{survey_questions}
+##'     }
+##'
+##'     \item{\code{add_geo}:   Add geograpic information to the extract. Defaut = TRUE
+##'     }
+##'   }
+##' }
+##' \item{\code{get_cache_date}}{
+##'   Returns the private member variable cache-date, which is the date the client was last created/valiated against the DHS API.
+##'
+##'   \emph{Usage:}
+##'   \code{get_cache_date()}
+##'
+##'   \emph{Value}:
+##'   POSIXct and POSIXt time
+##' }
+##' \item{\code{set_cache_date}}{
+##'   Sets the private member variable cache-date, which is the date the client was last created/valiated against the DHS API. This should never really be needed but is icluded to demonstrate the cache clearing properties of the client in the vignette.
+##'
+##'   \emph{Usage:}
+##'   \code{set_cache_date(date)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{date}:   POSIXct and POSIXt time to update cache time to.
+##'     }
+##'   }
+##' }
+##' \item{\code{save_client}}{
+##'   Internally save the client object as an .rds file within the root directory for the client.
+##'
+##'   \emph{Usage:}
+##'   \code{save_client()}
+##' }
+##' \item{\code{clear_namespace}}{
+##'   Clear the keys and values associated within a cache context. The dhs client caches a number of different tasks, and places these within specific contexts using the package \code{storr::storr_rds}.
+##'
+##'   \emph{Usage:}
+##'   \code{clear_namespace(namespace)}
+##'
+##'   \emph{Arguments:}
+##'   \itemize{
+##'     \item{\code{namespace}:   Character string for the namespace to be cleared.
+##'     }
+##'   }
+##' }
+##' }

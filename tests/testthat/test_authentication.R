@@ -18,13 +18,18 @@ test_that("available_surveys works", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::dhs_client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
   }
 
-  # create availbale surveys
-  survs <- cli$available_surveys()
+  # create availbale datasets
+  survs <- cli$available_datasets()
+
+  # do it without the client check for poor formed internal api_request
+  survs <- available_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                              your_password=Sys.getenv("rdhs_USER_PASS"),
+                              your_project=Sys.getenv("rdhs_USER_PROJECT"))
 
   # check the names
   expect_identical(names(survs),c("FileFormat","FileSize","DatasetType","SurveyNum","SurveyId",
