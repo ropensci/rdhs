@@ -37,7 +37,6 @@ You can install rdhs from github with:
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("OJWatson/rdhs")
-
 ```
 
 ## Further vignettes
@@ -59,7 +58,6 @@ library(rdhs)
 ## make a call with no arguments
 sc <- dhs_surveyCharacteristics()
 sc[grepl("Malaria",sc$SurveyCharacteristicName),]
-
 ```
 
 We can now pass that through to `dhs_surveys()` to grab the suveys for the countries and years we are interested in.
@@ -72,7 +70,7 @@ ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
 survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
 
 # and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.), and the household member recodes that details the children under 5s RDT status.
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV", fileType = "PR")
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 str(datasets)
 ```
 
@@ -82,7 +80,7 @@ To create our client we use the `client()` function and you need to specify your
 
 ```{r client}
 ## create a client
-client <- client(credentials = "credentials")
+client <- client(credentials = "credentials", root="~/Downloads/rdhs_cache")
 ```
 
 Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:
@@ -99,7 +97,7 @@ Now back to our dataset downloads:
 
 ```{r download, message=FALSE}
 # download datasets
-downloads <- client$download_datasets(datasets$FileName)
+downloads <- client$get_datasets(datasets$FileName)
 
 str(downloads)
 ```
@@ -108,7 +106,7 @@ The function returns a list with a file path to where the downloaded dataset has
 
 ```{r read a dataset}
 # read in our dataset
-cdpr <- readRDS(downloads$CDPR61SV)
+cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
 The dataset returned here is a list that contains the *dataset*, which has the survey data stored as a labelled class (see `haven::labelled` or our introduction vignette for more details). It also contains a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is, e.g. for RDT results it is *hml35*.
@@ -145,21 +143,4 @@ We can now combine our two dataframes for further analysis using the `rdhs` pack
 # now let's try our second extraction
 extract2_bound <- rbind_labelled(extract2, labels = list("hv024"="concatenate",
                                              "hml35"=c("NegativeTest"=0,"PositiveTest"=1)))
-```
-
-The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data:
-
-```{r reformat}
-# grab the questions but specifying the reformat argument
-questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hml35"),
-                                     reformat=TRUE)
-
-# and now extract the data
-extract3 <- client$extract(questions,add_geo = TRUE)
-
-# group our results
-extract3_bound <- rbind_labelled(extract3)
-
-# our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
-str(extract3_bound)
 ```

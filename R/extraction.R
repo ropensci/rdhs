@@ -32,19 +32,19 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
       # fetch codes that relate to this dataset
       quest_rows_i <- which(questions$dataset_path==dataset_i)
       codes <- questions$variable[quest_rows_i]
-      matched_rows <- match(codes,names(r$dataset))
+      matched_rows <- match(codes,names(r))
       missing <- which(is.na(matched_rows))
 
       # then create the space for missing data/codes - this shouldn't happen as
       # we have checked the codes before, but just in case
       matched_rows[which(is.na(matched_rows))] <- 1
-      results <- r$dataset[matched_rows]
+      results <- r[matched_rows]
       results[,missing] <- NA
 
       # add cluster qustions if add_geo
       if(add_geo){
-        cluster_quest <- grep("cluster$|cluster number$",r$variable_names$description,ignore.case=TRUE)
-        results$CLUSTER <- r$dataset[[cluster_quest]]
+        cluster_quest <- grep("cluster$|cluster number$", sapply(r, attr, "label"), ignore.case=TRUE)
+        results$CLUSTER <- r[[cluster_quest]]
         geo_survey_row <- match(dats$SurveyNum[match(questions$dataset_filename[quest_rows_i[1]],dats$Survey)],
                                 dats[dats$FileType=="Geographic Data",]$SurveyNum)
 
@@ -53,7 +53,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
           geo_surveys_match <- which(names(geo_surveys)==ge_match)
           if(length(geo_surveys_match)==1){
             g <- readRDS(geo_surveys[[geo_surveys_match]])
-            gecols <- c("ALT_DEM","LATNUM","LONGNUM","ADM1NAME","DHSREGNA")
+            gecols <- c("ALT_DEM", "LATNUM", "LONGNUM", "ADM1NAME", "DHSREGNA")
             matched_rows <- match(gecols,names(g@data))
             missing <- which(is.na(matched_rows))
             matched_rows[which(is.na(matched_rows))] <- 1
