@@ -188,7 +188,6 @@ download_datasets <- function(desired_dataset,
                               your_email , your_password , your_project,
                               ...){
 
-
   # possible download options:
   download_possibilities <- c("zip","rds","both")
   download_option <- grep(paste0(strsplit(download_option,"") %>% unlist,collapse="|"),download_possibilities)
@@ -280,7 +279,7 @@ download_datasets <- function(desired_dataset,
       saveRDS(res$dataset,rds_path)
 
       # if the class of the object is from a geo file then we will just return the rds path
-      if(class(res)[1]=="SpatialPointsDataFrame"){
+      if(class(res$dataset)[1]=="SpatialPointsDataFrame"){
         res <- rds_path
       } else {
         # if its a dataset then we return the path and the code_descriptions as these are useful to have cached
@@ -295,7 +294,7 @@ download_datasets <- function(desired_dataset,
 
   }
 
-  message( "Dataset donwload finished" )
+  message( "Dataset download finished" )
   return(res)
 
 }
