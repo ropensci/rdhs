@@ -50,7 +50,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   dcf$datatype[has_datatype] <- sub(".*?\nDataType=([^\n]*)\n.*", "\\1", items[has_datatype])
 
   has_occ <- grep(".*?\nOccurrences", items)
-  dcf$occurences[has_occ] <- as.integer(sub(".*?\nOccurrences=([^\n]*)\n.*", "\\1", items[has_occ]))
+  dcf$occurences[has_occ] <- as.integer(sub(".*?\nOccurrences=([^\n]*)\n?.*", "\\1", items[has_occ]))
 
   ## add labels
   hasvs <- grepl("\\[ValueSet\\]", items)
