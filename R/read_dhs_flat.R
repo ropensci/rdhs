@@ -280,7 +280,7 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   dct$col_types <- c("integer", "character")[match(dct$datatype, c("Numeric", "Alpha"))]
   dat <- read_zipdata(zfile, "\\.DAT$", iotools::input.file,
-                      formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len)
+                      formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len, strict=FALSE)
   names(dat) <- dct$name
   dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
   haslbl <- sapply(dct$labels, length) > 0
