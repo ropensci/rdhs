@@ -25,8 +25,8 @@ client <- function(credentials=NULL,
   handle_credentials(credentials)
 
   # check rdhs against api last update time
-  cache_date <- dhs_cache_date(root=root)
-  if(dhs_last_update() > cache_date){
+  cache_date <- client_cache_date(root=root)
+  if(last_api_update() > cache_date){
 
     # create new client if DHS database has been updated
     client <- R6_dhs_client$new(api_key,root,credentials)
@@ -36,7 +36,7 @@ client <- function(credentials=NULL,
     if(cache_date!=-1){
 
       message("DHS API has been updated since you last created a DHS client in this root directory.")
-      message("Previous API / dataset requests will subsequently be rerun in order to sure your results are up to date. :)")
+      message("Previous API / dataset requests will subsequently be rerun in order to ensure your results are up to date. :)")
       client$clear_namespace(namespace = "api_calls")
       client$clear_namespace(namespace = "available_datasets_calls")
 
@@ -160,7 +160,7 @@ R6_dhs_client <- R6::R6Class(
         resp <- httr::GET(url,httr::accept_json(),httr::user_agent("https://github.com/OJWatson/rdhs"),encode = "json")
 
         ## pass to response parse
-        parsed_resp <- dhs_client_response(resp,TRUE)
+        parsed_resp <- handle_api_response(resp,TRUE)
         if(resp$status_code >= 400 && resp$status_code < 600){
           return(parsed_resp)
         }
@@ -181,7 +181,7 @@ R6_dhs_client <- R6::R6Class(
           # Create new request and parse this
           url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
           resp <- httr::GET(url,httr::accept_json(),encode = "json")
-          parsed_resp <- dhs_client_response(resp,TRUE)
+          parsed_resp <- handle_api_response(resp,TRUE)
 
           # if this larger page query has returned all the results then return this else we will loop through
           if(parsed_resp$TotalPages == 1){
@@ -196,7 +196,7 @@ R6_dhs_client <- R6::R6Class(
               query$page <- i
               url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
               resp <- httr::GET(url,httr::accept_json(),encode = "json")
-              temp_parsed_resp <- dhs_client_response(resp,TRUE)
+              temp_parsed_resp <- handle_api_response(resp,TRUE)
               parsed_resp[[i]] <- temp_parsed_resp
             }
 
@@ -250,9 +250,9 @@ R6_dhs_client <- R6::R6Class(
 
     },
 
-    # DONWLOAD DATASETS
-    # Downloads datasets provided
-    download_datasets = function(dataset_filenames,
+    # GET DATASETS
+    # Gets datasets provided, either by downloading or retrieving from the cache
+    get_datasets = function(dataset_filenames,
                                  download_option="rds",
                                  reformat=FALSE,
                                  all_lower=TRUE,
@@ -347,7 +347,7 @@ R6_dhs_client <- R6::R6Class(
       datasets <- private$check_available_datasets(dataset_filenames)
 
       # download any datasets that need to be downloaded
-      download <- self$download_datasets(datasets$FileName,...)
+      download <- self$get_datasets(datasets$FileName,...)
 
       # handle the search terms
       if(is.null(regex) & is.null(search_terms)) stop ("One of search terms or regex must not be NULL")
@@ -438,7 +438,7 @@ R6_dhs_client <- R6::R6Class(
       datasets <- private$check_available_datasets(dataset_filenames)
 
       # first download any datasets needed
-      download <- self$download_datasets(datasets$FileName,...)
+      download <- self$get_datasets(datasets$FileName,...)
 
       # results storage
       df <- data.frame("code"= character(0),"description"= character(0),
@@ -528,7 +528,7 @@ R6_dhs_client <- R6::R6Class(
                             datasets$FileType=="Geographic Data")
 
         if(sum(!is.na(ge_match))>0){
-          geo_surveys <- self$download_datasets(dataset_filenames = datasets$FileName[ge_match],
+          geo_surveys <- self$get_datasets(dataset_filenames = datasets$FileName[ge_match],
                                                 download_option = "rds")
         }
       }

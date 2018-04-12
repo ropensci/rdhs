@@ -1,10 +1,10 @@
-#' raed in dhs standard file types
+#' read in dhs standard file types
 #' @param file path to zip file to be read
 #' @param reformat boolean detailing if datasets should be nicely reformatted. Default = TRUE
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
 #' @param ... Extra arguments to be
 #'
-dhs_read_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
+read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
 
   zip_contents <- unzip_warn_fails(file,list=TRUE)
   filetype <- strsplit(zip_contents$Name,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist

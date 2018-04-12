@@ -30,7 +30,7 @@ download_datasets(desired_dataset, download_option = "both",
 
 \item{your_project}{Character string for the name of your project that gives you access to the DHS database}
 
-\item{...}{Any other arguments to be passed to \code{\link{dhs_read_dataset}}}
+\item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
 }
 \description{
 Download datasets specified using output of \code{available_datasets}.
