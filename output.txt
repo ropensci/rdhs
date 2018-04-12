@@ -1,0 +1,1993 @@
+BJGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BJWI41FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+BJGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bohh01fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+boir01fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOIQ33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bosq33fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHH33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bohr31fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOBR3BFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOCR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOWI3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOPR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHW3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOIR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOKR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOMR3BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bomr41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bokr41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+boir41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHW41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bopr41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bocr41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+bohr41fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOBR41FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOBR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOCR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOPR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOHR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOIR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOKR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOMR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOGE53FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BOGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+brhh02fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRKR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRPR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+brir21fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+brhr21fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRBR21FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRCR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRMR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BRWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFGC21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFWI21FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+BFWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+BFGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BFPR70FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 483: input line is too short (need 5, have 1)
+
+BFHR70FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 1247: input line is too short (need 5, have 1)
+
+BUGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BUGC6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BUHR6HFL.ZIP - Error in rep(dcf$occurences, dcf$occurences): invalid 'times' argument
+
+BUFW71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHH31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+khIQ31fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHIR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHBR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHKR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHPR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGE43FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+khar51fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGE51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHPR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHW51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHMR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHKR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHBR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHCR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHIR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHMR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGE62FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHBR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHCR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHHR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHIR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHGE71FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHMR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHKR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KHPR73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CMGC21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CMWI22FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+CMWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+CMGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CMGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CFGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CFWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+TDWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+TDGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COSQ01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHH02FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COWI22FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR41FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHW41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR53FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR53FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR53FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHW51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR53FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR53FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COGE61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COOD61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COHR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COCR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COBR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COIR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COKR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COMR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+COPR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KMPR32FL.ZIP - Error in (varlst_idx + 1):(min(endblock[endblock > varlst_idx]) - 1): result would be too long a vector
+
+KMWI32FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+KMGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CDGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CDPR61FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 5853: input line is too short (need 5, have 1)
+
+CDGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CDHR61FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 3583: input line is too short (need 5, have 1)
+
+CIWI34FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+CIGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CIGC3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CIWI3AFL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+CIHR62FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 7372: input line is too short (need 5, have 1)
+
+CIGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+CIPR62FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 3735: input line is too short (need 5, have 1)
+
+DRHH01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRSQ01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DREX0BFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHW21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRSQ23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR21FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR32FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRWI32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHW32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR41FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR4AFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drcr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drpr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drmr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drkr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRWI4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRXP4EFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drir4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+drhr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHW4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHT4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRar51fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRAR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGE52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGC6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGE61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRBR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRGE6AFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRPR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRMR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRKR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRIR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRCR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRHR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRAR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DRAR6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ECBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ECHH01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ECIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ECKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ECSQ01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHH02FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGSQ02FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE22FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR21FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR33FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE32FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGWI32FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGWS39FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIQ3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHH3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGAN4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGFC4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGFP4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGSI4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIN4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPV4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGSC4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE4BFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+egpr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+egkr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGWI4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR4AFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+egir4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+eghr4afl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGSC5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPV5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIN5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGSI5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGFP5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGFC5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGAN5IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHW51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIQ5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHH5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGOB5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE5DFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGOD5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPQ5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGGE61FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGIQ73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGCH73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+EGHH73FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ESBR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ESIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ETWI41FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+ETGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ETGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ETKR51FL.zip - Error in rep(dcf$occurences, dcf$occurences): invalid 'times' argument
+
+ETBR51FL.zip - Error in rep(dcf$occurences, dcf$occurences): invalid 'times' argument
+
+ETMR61FL.ZIP - Error in download_datasets(your_email = Sys.getenv("rdhs_USER_EMAIL"), : Failed to donwload zip to where client root is - check write access?
+
+ETGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GAWI41FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+GAGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHCR31FL.ZIP - Error in (varlst_idx + 1):(min(endblock[endblock > varlst_idx]) - 1): result would be too long a vector
+
+GHWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+GHGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHWI41FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+GHSI4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHAN4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHFC4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHFP4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHPV4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHSC4IFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHGC4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHVA51FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 1: input line is too short (need 4, have 3)
+
+GHVA5AFL.ZIP - Error in (varlst_idx + 1):(min(endblock[endblock > varlst_idx]) - 1): result would be too long a vector
+
+GHGC5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GHFW7AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHH01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHW01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUSQ01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUWI33FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+gukr34fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+gupr34fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+guir34fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHW34FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+guhr34fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUBR34FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUFC3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUFP3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUPI3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUSC3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUAN3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUCO3AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUBR41FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHW41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUIR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUPR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUKR41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUWI42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUMR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUIR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUBR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUHR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUGE71FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUPR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GUKR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GNGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GNSQ41FL.ZIP - Error in (varlst_idx + 1):(min(endblock[endblock > varlst_idx]) - 1): result would be too long a vector
+
+GNWI41FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+GNGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GNGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GNPR62FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 1559: input line is too short (need 5, have 1)
+
+GYIP5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYLB5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYMS5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYOI5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYOP5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPH5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPM5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPM5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPV5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYSL5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYTB5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYTB5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYAT5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYAT5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYCL5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYCT5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYCT5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYFC5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYFC5AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYBR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYHR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYIR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYKR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYKR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYMR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYPR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYIR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYHR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYBR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYCR5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYGC5IFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GYGE5JFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTSQ30FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTCR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTMR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTMR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTKR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTCR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTBR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGE42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTWI42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTSQ41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGE52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTBR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTCR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHW51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTIR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTKR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTMR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+htar51fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTMR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTCR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGE61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTAR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTAN6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTAN6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTFC6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTFC6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTFP6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTFP6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPV6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTGE6AFLSR.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTPV6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTSC6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTSC6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HTSL6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNIR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNKR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNPR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNBR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNHR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNHR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNBR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNPR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNKR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNMR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNIR62FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HNGE61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IABR23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHR23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHW22FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAIR23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAKR23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAPR23FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IASQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAWI22FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPIQ21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBHH21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KABR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHW43FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IABR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+SKVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TNVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+TRVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+UPVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HRHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GOIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+GJHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ASHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+BHVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ARHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+DLHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+HPIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAPR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JMVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KAVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MGVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MHVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MNVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MPVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MZVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NABR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+NAVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+ORVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+PJVR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+RJHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+APBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+WBHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IABR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IACR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAKR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAMR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAIR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAPR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+iaar51fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAKR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAMR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAAR71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAIR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAGE71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IABR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IACR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAHR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IAPR72FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR01FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHH01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR21FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDSQ37FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDXP35FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR3AFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDWI3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR3AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDOD4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDMR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDCR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDGE43FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR52FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDCR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDMR51FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDOD5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDOD6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDMR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDKR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDHR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDIR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDBR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDCR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+IDPR63FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOPR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOSQ22FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOWI21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR21FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOKR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHW21FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+jopr42fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOWI41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR42FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+johr42fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+jokr42fl.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHW42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGE43FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOKR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOPR51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGE52FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOIR6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOHR6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOBR6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOPR6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOKR6CFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGC6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+JOGE6AFL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKBR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKCR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKHR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKPR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKKR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+kkmr41fl.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKIR42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKHW41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KKWI42FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEIR03FL.ZIP - Error in (varlst_idx + 1):(min(endblock[endblock > varlst_idx]) - 1): result would be too long a vector
+
+KEWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+KEBR3AFL.zip - Error in formatter(readBin(input, what = "raw", n = n), ...): line 0: input line is too short (need 8, have 1)
+
+KEWI3AFL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+KESI4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPV4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESC4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFC4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFP4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KECO4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAN4AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAN5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAN5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KECT5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KECT5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAT5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAT5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KECL5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFP5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFP5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFC5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFC5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEIP5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KELB5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEMS5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEOI5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEOP5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPH5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPM5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPM5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESC5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESC5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPV5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPV5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESL5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESI5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESI5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KETB5AFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KETB5BFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEGE6AFLSR.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESI6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESI6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESL6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESL6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPV6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEPV6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESC6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KESC6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KELD6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KELD6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFC6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFC6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFP6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFP6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KECS6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAN6AFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEAN6BFLSP.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEGC7AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KEFW7AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYBR31FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYHR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYHW31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYIR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYKR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYPR31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYWI31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYPR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYKR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYMR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYIR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYCR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+KYGE61FL.zip - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LSHR41FL.zip - Error in rep(dcf$occurences, dcf$occurences): invalid 'times' argument
+
+LSGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LSGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LSHR61FL.ZIP - Error in rep(dcf$occurences, dcf$occurences): invalid 'times' argument
+
+LSGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+LBGC01FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LBGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LBGC5AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LBHR61FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 1184: input line is too short (need 5, have 1)
+
+LBPR61FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 4902: input line is too short (need 5, have 1)
+
+LBGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LBGC6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+LBFW71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MDWI31FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+MDGC31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MDGC51FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MDGC61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MDGC6AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MDGC71FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWWI22FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+MWCH34FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWCP31FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWHW41FL.ZIP - Error in formatter(readBin(input, what = "raw", n = n), ...): line 9513: input line is too short (need 4, have 3)
+
+MWWI42FL.ZIP - Error in names(dat) <- dct$name: 'names' attribute [3] must be the same length as the vector [2]
+
+MWGC41FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWGC4AFL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWBR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Failed writing body (0 != 16384)
+
+MWHR61FL.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Failed writing body (416 != 16384)
+
+MWKR61FL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWIR61FL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWPR61FL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWMR61FL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWGE62FL.zip - Error: length(project.line) == 1 is not TRUE
+
+MWAR61FL.zip - Error: length(project.line) == 1 is not TRUE
+
+MWGC61FL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWGC6AFL.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWGE6AFL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWPR6HFL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWIR6HFL.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWKR6HFL.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWHR6HFL.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWAN6IFLSR.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWAN6KFLSP.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWFC6JFLSR.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWFC6KFLSP.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+
+MWFP6IFLSR.ZIP - Error in curl::curl_fetch_disk(url, x$path, handle = handle): Bad URL, colon is first character
+
+MWFP6KFLSP.ZIP - Error: length(project.line) == 1 is not TRUE
+
+MWLD6IFLSR.ZIP - Error in curl::curl_fetch_memory(url, handle = handle): Operation was aborted by an application callback
+

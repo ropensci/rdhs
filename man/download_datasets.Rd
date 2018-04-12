@@ -2,32 +2,36 @@
 % Please edit documentation in R/authentication.R
 \name{download_datasets}
 \alias{download_datasets}
-\title{Download surveys specified using output of \code{available_surveys}}
+\title{Create a data frame of datasets that your log in can download}
 \usage{
-download_datasets(your_email, your_password, your_project, desired_survey,
-  output_dir_root = NULL, download_option = "both", reformat = TRUE)
+download_datasets(desired_dataset, download_option = "both",
+  reformat = TRUE, all_lower = TRUE, output_dir_root = NULL, your_email,
+  your_password, your_project, ...)
 }
 \arguments{
+\item{desired_dataset}{Row from \code{available_datasets}}
+
+\item{download_option}{Chracter dictating how the durvey is stored when downloaded. Must be one of:
+\itemize{
+      \item{"zip"} - Just the zip. "z" or   will match
+      \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
+      \item{"both"} - Both the rds and extract. "b" or anything like will match
+}}
+
+\item{reformat}{Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE}
+
+\item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
+
+\item{output_dir_root}{Directory where files are to be downloaded to}
+
 \item{your_email}{Character for email address for DHS website}
 
 \item{your_password}{Character for password for DHS website}
 
 \item{your_project}{Character string for the name of your project that gives you access to the DHS database}
 
-\item{desired_survey}{Row from \code{available_surveys}}
-
-\item{output_dir_root}{Directory where files are to be downloaded to}
-
-\item{download_option}{Chracter dictating how the durvey is stored when downloaded. Must be one of:
-\itemize{
-      \item{"zip"} - Just the zip. "z" or anything like will match
-      \item{"ex"} - Just the extracted zip. "e" or anything like will match
-      \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
-      \item{"both"} - Both the rds and extract. "b" or anything like will match
-}}
-
-\item{reformat}{Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE}
+\item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
 }
 \description{
-Create a data frame of surveys that your log in can download
+Download datasets specified using output of \code{available_datasets}.
 }

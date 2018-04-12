@@ -9,6 +9,7 @@ read_credentials <- function(filename) {
     dat <- strsplit(readLines(filename), "=")
     dat <- setNames(as.list(trimws(vapply(dat, "[[", character(1), 2L))),
                     trimws(vapply(dat, "[[", character(1), 1L)))
+    dat <- lapply(dat,function(x) gsub("\"","",x))
     check_credentials(dat)
   }
 }

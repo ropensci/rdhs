@@ -1,7 +1,8 @@
-#' Pull last DHS database update time
-dhs_last_update <- function(){
+#' Pull last DHS API database update time
+last_api_update <- function(){
 
-  date <- jsonlite::fromJSON("https://api.dhsprogram.com/rest/dhs/dataupdates?format=json")$Data$UpdateDate %>%
+  updates <- rdhs::dhs_dataUpdates()
+  date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
     max
 
@@ -12,7 +13,7 @@ dhs_last_update <- function(){
 #'
 #' @param root Character for root path to where client, caches, surveys etc. will be stored.
 #'
-dhs_cache_date <- function(root){
+client_cache_date <- function(root){
 
   # Grab cache directory for user
   cache_dir <- root
@@ -47,7 +48,5 @@ dhs_cache_date <- function(root){
 #' file name for where client is saved between sessions
 client_file_name <- function() "dhs_client.rds"
 
-#' directory name for where calls are cached between sessions
-api_call_cache_directory_name <- function() "dhs_api_call_storr"
 
 
