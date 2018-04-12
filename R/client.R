@@ -327,7 +327,10 @@ R6_dhs_client <- R6::R6Class(
         }
       }
 
-      # just add the reformat as an attribute to make life easier is survey_questions/variables
+      # return vector of paths
+      res <- unlist(res)
+      
+      # add the reformat as an attribute to make life easier is survey_questions/variables
       attr(res,which = "reformat") <- reformat
       return(res)
     },
