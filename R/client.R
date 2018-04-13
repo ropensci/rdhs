@@ -3,9 +3,6 @@
 ##'
 ##' @title Make a dhs client
 ##'
-##' @param api_key Character for DHS API KEY
-##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
-##' Default = \code{rappdirs::user_cache_dir("rdhs",Sys.info()["user"])}
 ##' @param credentials File path to where log in credentials are stored (preferred as no
 ##' secrets are typed into an R session). File format should be (each bullet is a new line):
 ##' \itemize{
@@ -13,11 +10,14 @@
 ##'       \item password=dummypass
 ##'       \item project=Dummy Project
 ##'       }
+##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
+##' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
+##' @param api_key Character for DHS API KEY
 ##'
 ##' @template client_methods
 ##' @export
 ##'
-client <- function(credentials=NULL,
+client_dhs <- function(credentials=NULL,
                        root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
                        api_key="ICLSPH-527168"){
 
@@ -29,7 +29,7 @@ client <- function(credentials=NULL,
   if(last_api_update() > cache_date){
 
     # create new client if DHS database has been updated
-    client <- R6_dhs_client$new(api_key,root,credentials)
+    client <- R6_client_dhs$new(api_key,root,credentials)
 
     # If there was already a client in your root (i.e. there was a DHS update)
     # then empty the api_call cache namespace and check package version
@@ -79,7 +79,7 @@ client <- function(credentials=NULL,
     # so that the R6 functions definitely work with any future pacakge version
     if(packageVersion("rdhs")!=client$.__enclos_env__$private$package_version){
       message("New version of rdhs detected. Your saved client will be updated.")
-      client <- R6_dhs_client$new(api_key,root,credentials)
+      client <- R6_client_dhs$new(api_key,root,credentials)
     }
 
     return(client)
@@ -87,9 +87,9 @@ client <- function(credentials=NULL,
   }
 }
 
-R6_dhs_client <- R6::R6Class(
+R6_client_dhs <- R6::R6Class(
 
-  classname = "client",
+  classname = "client_dhs",
   cloneable = FALSE,
 
   # PUBLIC METHODS
@@ -327,7 +327,10 @@ R6_dhs_client <- R6::R6Class(
         }
       }
 
-      # just add the reformat as an attribute to make life easier is survey_questions/variables
+      # return vector of paths
+      res <- unlist(res)
+      
+      # add the reformat as an attribute to make life easier is survey_questions/variables
       attr(res,which = "reformat") <- reformat
       return(res)
     },

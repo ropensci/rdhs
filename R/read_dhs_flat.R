@@ -50,7 +50,7 @@ parse_dcf <- function(dcf, all_lower=TRUE){
   dcf$datatype[has_datatype] <- sub(".*?\nDataType=([^\n]*)\n.*", "\\1", items[has_datatype])
 
   has_occ <- grep(".*?\nOccurrences", items)
-  dcf$occurences[has_occ] <- as.integer(sub(".*?\nOccurrences=([^\n]*)\n.*", "\\1", items[has_occ]))
+  dcf$occurences[has_occ] <- as.integer(sub(".*?\nOccurrences=([^\n]*)\n?.*", "\\1", items[has_occ]))
 
   ## add labels
   hasvs <- grepl("\\[ValueSet\\]", items)
@@ -280,7 +280,7 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   dct$col_types <- c("integer", "character")[match(dct$datatype, c("Numeric", "Alpha"))]
   dat <- read_zipdata(zfile, "\\.DAT$", iotools::input.file,
-                      formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len)
+                      formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len, strict=FALSE)
   names(dat) <- dct$name
   dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
   haslbl <- sapply(dct$labels, length) > 0

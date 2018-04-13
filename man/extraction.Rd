@@ -7,9 +7,9 @@
 extraction(questions, available_datasets, geo_surveys, add_geo = TRUE)
 }
 \arguments{
-\item{questions}{Output of \code{R6_dhs_client$public_methods$survey_questions}}
+\item{questions}{Output of \code{R6_client_dhs$public_methods$survey_questions}}
 
-\item{available_datasets}{Datasets that could be available. Output of \code{R6_dhs_client$public_methods$available_datasets}}
+\item{available_datasets}{Datasets that could be available. Output of \code{R6_client_dhs$public_methods$available_datasets}}
 
 \item{geo_surveys}{Geographic Data Survey file paths.}
 
@@ -20,5 +20,5 @@ Returns \code{"list"} of length equal to the number of unique country year combi
 Each list will then contain further lsts of the surveys collected in that country at that time.
 }
 \description{
-Create a list of survey responses extracted using output of \code{R6_dhs_client$public_methods$survey_questions}
+Create a list of survey responses extracted using output of \code{R6_client_dhs$public_methods$survey_questions}
 }

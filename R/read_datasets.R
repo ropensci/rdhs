@@ -57,7 +57,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
     # dbf is a bit different due to the arguments of readOGR so we have to unzip here and handle
     unzipped_files <- unzip_warn_fails(file,exdir=tempfile())
     file <- unzipped_files[which(toupper(filetype) %in% toupper(file_types))]
-    res <- rgdal::readOGR(dsn = dirname(file),layer = strsplit(basename(file),".",fixed=TRUE)[[1]][1])
+    res <- list(dataset = rgdal::readOGR(dsn = dirname(file), layer = strsplit(basename(file), ".", fixed=TRUE)[[1]][1]))
 
   }
 
@@ -74,13 +74,13 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
 #'
 #' @return list with the formatted dataset and the code descriptions
-factor_format <- function(res,type="labelled",reformat=FALSE,all_lower=TRUE){
+factor_format <- function(res, type="labelled", reformat=FALSE, all_lower=TRUE){
 
   if(type=="labelled"){
 
     # grab the labels from attributes
-    lab <- lapply(res,function(x) attr(x,"labels"))
-    lab <- lab[!lapply(lab,is.null) %>% unlist]
+    lab <- lapply(res, function(x) attr(x, "labels"))
+    lab <- lab[!lapply(lab, is.null) %>% unlist]
 
     # make all one case for match purposes
     if(all_lower){
@@ -92,8 +92,8 @@ factor_format <- function(res,type="labelled",reformat=FALSE,all_lower=TRUE){
     }
 
     # create the description table
-    description <- lapply(res,attr,"label")
-    description_table <- data.frame("variable"=names(res),"description"=as.character(description),
+    description <- lapply(res, attr, "label")
+    description_table <- data.frame("variable"=names(res), "description"=as.character(description),
                                     stringsAsFactors = FALSE)
   } else if(type=="foreign"){
 
@@ -111,28 +111,53 @@ factor_format <- function(res,type="labelled",reformat=FALSE,all_lower=TRUE){
     }
 
     # create the description table
-    description_table <- data.frame("variable"=names(res),"description"=atts$var.labels,
+    description_table <- data.frame("variable"=names(res), "description"=atts$var.labels,
                                     stringsAsFactors = FALSE)
+
+    # assign variable labels to res
+    res[description_table$variable] <- Map("attr<-", res[description_table$variable], "label", description_table$description)
   }
 
-  # are we reformating
+  # are we reformatting
   if(reformat){
 
-    # reformat the res so the values are the actual value rather than their code
+    # replace value codes with value labels
     for(i in 1:length(lab)){
-      pos <- match(names(lab[i]),names(res))
-      lab_matches <- which(!is.na(match(res[[pos]],lab[[i]])))
-      if(length(lab_matches)>0){
-        res[[pos]][lab_matches] <- names(lab[[i]])[match(res[[pos]][lab_matches],lab[[i]])]
+      pos <- match(names(lab[i]), names(res))
+      lab_matches <- which(!is.na(match(res[[pos]], lab[[i]])))
+      if(length(lab_matches) > 0){
+        res[[pos]][lab_matches] <- names(lab[[i]])[match(res[[pos]][lab_matches], lab[[i]])]
       }
     }
 
-    res <- lapply(res,as.character) %>% lapply(type.convert,as.is=TRUE)
+    res <- lapply(res, as.character) %>% lapply(type.convert, as.is=TRUE)
     res <- as.data.frame.list(res, stringsAsFactors = FALSE)
 
+    # reassign variable labels
+    res[description_table$variable] <- Map("attr<-", res[description_table$variable], "label", description_table$description)
+      
   }
 
-  return(list("dataset"=res,"variable_names"=description_table))
+  return(list("dataset"=res, "variable_names"=description_table))
+}
+
+#' Return variable labels from a dataset
+#'
+#' Returns variable labels stored as \code{"label"} attribute.
+#'
+#' @param data A \code{data.frame} from which to extract variable labels.
+#' @param return_all Logical whether to return all variables (\code{TRUE}) or only those with labels.
+#' @return A \code{data.frame} consisting of the variable name and labels.
+#' @export
+get_var_labels <- function(data, return_all=TRUE) {
+  lab <- unlist(lapply(data, attr, "label"))
+  if(return_all){
+    lab[setdiff(names(data), names(lab))] <- NA
+    lab <- lab[names(data)]
+  }
+  data.frame(variable = names(lab),
+             label = lab,
+             stringsAsFactors = FALSE)
 }
 
 
