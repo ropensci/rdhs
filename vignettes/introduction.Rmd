@@ -193,18 +193,18 @@ We can now examine what it is we have actually downloadsed, by reading in one of
 
 ```{r read a dataset}
 # read in our dataset
-cdpr <- readRDS(downloads$CDPR61SV)
+cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
 The dataset returned here is a list that contains the *dataset* but also a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is:
 
 ```{r probe dataset}
 # let's look at the variable_names
-head(cdpr$variable_names)
+head(get_var_labels(cdpr))
 
 # and then the dataset
-class(cdpr$dataset)
-str(cdpr$dataset$hv024)
+class(cdpr)
+str(cdpr$hv024)
 ```
 
 This is the default behaviour for the client function `download_datasets` - it will download the datasets for you, and then by default save them in your client's root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client's root directory. You can control this behaviour using the `download_option` argument as such:
@@ -217,7 +217,7 @@ The other main reason for reading the dataset in straight away as the default op
 
 ```{r questions}
 # rapid diagnostic test search
-questions <- client$survey_questions(datasets$FileName,search_terms = "malaria rapid test")
+questions <- client$survey_questions(datasets$FileName, search_terms = "malaria rapid test")
 
 table(questions$dataset_filename)
 ```
@@ -230,14 +230,14 @@ To extract our data we pass our questions object to the client function `extract
 
 ```{r extract_questions}
 # let's just use the PR files thus
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV",fileType = "PR")
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 downloads <- client$get_datasets(datasets$FileName)
 
 # and grab the questions from this again along with also questions detailing the province
-questions <- client$survey_questions(datasets$FileName,search_terms = c("malaria rapid test"))
+questions <- client$survey_questions(datasets$FileName, search_terms = c("malaria rapid test"))
 
 # and now extract the data
-extract <- client$extract(questions,add_geo = TRUE)
+extract <- client$extract(questions, add_geo = TRUE)
 
 # what does our extract look like
 str(extract)
@@ -249,14 +249,14 @@ We can also query our datasets for the survey question variables. In the example
 
 ```{r extract_variables}
 # and grab the questions from this now utilising the survey variables
-questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hml35"))
+questions <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
-extract2 <- client$extract(questions,add_geo = TRUE)
+extract2 <- client$extract(questions, add_geo = TRUE)
 
 # quick check
-head(extract2$CDPR61SV)
-head(extract2$TZPR7HSV)
+head(extract2$CDPR61FL)
+head(extract2$TZPR7HFL)
 
 ```
 
@@ -279,7 +279,7 @@ There are a few work arounds. Firstly, we can specify a *labels* argument to the
 
 ```{r concatenate}
 # lets try concatenating the hv024
-better_bound <- rbind_labelled(extract2,labels = list("hv024"="concatenate"))
+better_bound <- rbind_labelled(extract2, labels = list("hv024"="concatenate"))
 
 head(better_bound$hv024)
 
@@ -291,7 +291,7 @@ We could also specify new labels for a variable. For example, imagine the two da
 # lets try concatenating the hv024 and providing new labels
 better_bound <- rbind_labelled(extract2,
                                labels = list("hv024"="concatenate",
-                                             "hml35"=c("NegativeTest"=0,"PositiveTest"=1)))
+                                             "hml35"=c("NegativeTest"=0, "PositiveTest"=1)))
 
 # and our new label
 head(better_bound$hml35)
@@ -301,11 +301,11 @@ The other option is to not use the labelled class at all. We can control this wh
 
 ```{r reformat}
 # grab the questions but specifying the reformat argument
-questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hml35"),
+questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "hml35"),
                                      reformat=TRUE)
 
 # and now extract the data
-extract3 <- client$extract(questions,add_geo = TRUE)
+extract3 <- client$extract(questions, add_geo = TRUE)
 
 # group our results
 bound_no_labels <- rbind_labelled(extract3)
