@@ -253,11 +253,11 @@ R6_client_dhs <- R6::R6Class(
     # GET DATASETS
     # Gets datasets provided, either by downloading or retrieving from the cache
     get_datasets = function(dataset_filenames,
-                                 download_option="rds",
-                                 reformat=FALSE,
-                                 all_lower=TRUE,
-                                 output_dir_root=file.path(private$root,"datasets"),
-                                 ...){
+                            download_option="rds",
+                            reformat=FALSE,
+                            all_lower=TRUE,
+                            output_dir_root=file.path(private$root,"datasets"),
+                            ...){
 
       # check credentials are good
       if(credentials_not_present()) handle_credentials(private$credentials_path)
@@ -276,7 +276,8 @@ R6_client_dhs <- R6::R6Class(
 
       # handle for more than one dataset specified
       download_iterations <- length(res) <- dim(datasets)[1]
-      names(res) <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+      names(res) <- paste0(strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist,
+                           "_",datasets$SurveyId)
 
       # iterate through download requests
       for(i in 1:download_iterations){
@@ -327,9 +328,6 @@ R6_client_dhs <- R6::R6Class(
         }
       }
 
-      # return vector of paths
-      res <- unlist(res)
-      
       # add the reformat as an attribute to make life easier is survey_questions/variables
       attr(res,which = "reformat") <- reformat
       return(res)
@@ -415,9 +413,9 @@ R6_client_dhs <- R6::R6Class(
 
       # now remove datasets that do not have essential terms:
       if(!is.null(essential_terms)){
-          if(sum(is.na(grep(essential_terms,df$description)))>0){
-            df <- df[grepl(essential_terms,df$description),]
-          }
+        if(sum(is.na(grep(essential_terms,df$description)))>0){
+          df <- df[grepl(essential_terms,df$description),]
+        }
       }
 
 
@@ -429,9 +427,9 @@ R6_client_dhs <- R6::R6Class(
     # SURVEY_VARIABLES
     # Creates data.frame of wanted survey variables and descriptions
     survey_variables = function(dataset_filenames,
-                            variables,
-                            essential_variables = NULL,
-                            ...){
+                                variables,
+                                essential_variables = NULL,
+                                ...){
 
 
       # check credentials are good
@@ -532,7 +530,7 @@ R6_client_dhs <- R6::R6Class(
 
         if(sum(!is.na(ge_match))>0){
           geo_surveys <- self$get_datasets(dataset_filenames = datasets$FileName[ge_match],
-                                                download_option = "rds")
+                                           download_option = "rds")
         }
       }
 
@@ -546,6 +544,54 @@ R6_client_dhs <- R6::R6Class(
     # GETTERS
     get_cache_date = function() private$cache_date,
     get_root = function() private$root,
+
+    # get a dataset's var labels
+    get_dataset_var_labels = function(dataset_filenames=NULL, dataset=NULL){
+
+      # catch if both null
+      if(is.null(dataset_filenames) & is.null(dataset)){
+        stop ("One of dataset_filenames or dataset must not be null")
+      }
+
+      # catch if both provided
+      if(!is.null(dataset_filenames) & !is.null(dataset)){
+        message("Both of dataset_filenames and dataset are provided. The filenames will be used")
+        dataset <- NULL
+      }
+
+      # get vars from a dataset
+      if(!is.null(dataset)){
+
+        vars <- get_var_labels(dataset)
+        return(vars)
+      }
+
+      if(!is.null(dataset_filenames)){
+
+        # grab the variables using a catch all variables term
+        vars <- self$survey_questions(dataset_filenames = dataset_filenames,search_terms = "")
+        return(vars)
+      }
+
+
+    },
+
+
+    ## DOWNLOADED_DATASETS
+    # Grab all downloaded datasets
+    downloaded_datasets = function(){
+
+      # grab the keys within the namespace for this
+      keys <- private$storr$list("downloaded_datasets")
+
+      # download paths
+      private$storr$mget(keys,namespace = "downloaded_datasets")
+
+      # compare to datasets
+      datasets <- dhs_datasets(client = self)
+      datasets[grep(datasets) %>% unlist,]
+
+    },
 
     # SETTERS
     set_cache_date = function(date) private$cache_date = date,
@@ -580,18 +626,63 @@ R6_client_dhs <- R6::R6Class(
     check_available_datasets = function(filenames){
 
       # fetch which datasets you can download from your login
-      available_datasets <- self$available_datasets()
+      avs <- self$available_datasets()
 
-      # check that the requested filenames are available
-      found_datasets <- match(filenames, available_datasets$FileName)
-      if(sum(is.na(found_datasets))>0) {
-        message(paste0("These requested datasets are not available from your DHS login credentials:\n---\n",
-                       paste0(filenames[which(is.na(found_datasets))],collapse="\n"),
-                       "\n---\nPlease request permission for these datasets from the DHS website to be able to download them"))
+      # fetch all the datasets so we can catch for the India matches by using the country code catch
+      datasets <- dhs_datasets(client = self)
+
+      # find all the duplicate filenames and what datasets they belong to
+      duplicates <- datasets[duplicated(datasets$FileName),]$FileName
+      duplicate_data <- datasets[which(datasets$FileName %in% duplicates),]
+
+      # because there are duplicate filenames in the API we allow/recommend users to provide as the
+      # datasets argument the output of dhs_datasets so that we have the full info about the dataset
+      # they want. As such we now may have filenames that are filenames or the entire API output so let's check this
+      if(is.vector(filenames)){
+
+        # do their requested filenames include any of the duplicates
+        duplicates_found <- match(duplicates, filenames)
+
+        # if there are no duplicates matched then perfect
+        if(sum(duplicates_found,na.rm=TRUE)==0){
+
+          # check that the requested filenames are available
+          found_datasets <- match(filenames, avs$FileName)
+
+        } else {
+
+          # let the user know there are duplicate matches and suggest that they clarify using dhs_datasets()
+          message(paste0("The following requested dataset file names are used by more than one dataset:\n---\n",
+                         paste0(duplicates[which(!is.na(duplicates_found))],collapse="\n"),
+                         "\n---\nBy default the above datasets will be downloaded according to the country code\n",
+                         "indicated by the first 2 letters of these datasets. If you wished for the the above\n",
+                         "datatasets to be downloaded not based on their first 2 letters then please provide\n",
+                         "the desired rows from the output of dhs_datasets() for the datasets argument.",
+                         "See introductory vignette for more info"))
+
+          # if there are duplicates what we will do is assume that they want the country versions
+          found_datasets <- match(paste0(toupper(substr(filenames,1,2)),toupper(filenames)),
+                                  paste0(toupper(avs$DHS_CountryCode),toupper(avs$FileName)))
+
+        }
+
+      } else {
+
+        # if they gave the full output then we can match with the provided country code
+        found_datasets <- match(paste0(toupper(filenames$DHS_CountryCode),toupper(filenames$FileName)),
+                                paste0(toupper(avs$DHS_CountryCode),toupper(avs$FileName)))
+
       }
 
       # create the datasets data.frame that will then be used to download datasets
-      datasets <- available_datasets[na.omit(found_datasets),]
+      datasets <- avs[na.omit(found_datasets),]
+
+      # let them know about any datasets that they requested that aren't avaialable for them to download also
+      if(sum(is.na(found_datasets))>0) {
+        message(paste0("These requested datasets are not available from your DHS login credentials:\n---\n",
+                       paste0(filenames[which(is.na(found_datasets))],collapse=", "),
+                       "\n---\nPlease request permission for these datasets from the DHS website to be able to download them"))
+      }
 
       return(datasets)
     }
