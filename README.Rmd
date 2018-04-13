@@ -158,3 +158,21 @@ extract2_bound <- rbind_labelled(extract2,
                                  labels = list("hv024" = "concatenate",
                                                "hml35" = c("NegativeTest"=0, "PositiveTest"=1)))
 ```
+
+
+There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specifed by the argument `reformat=TRUE`.
+
+```{r reformat}
+# identify questions but specifying the reformat argument
+questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "hml35"),
+                                     reformat=TRUE)
+
+# and now extract the data
+extract3 <- client$extract(questions, add_geo = TRUE)
+
+# group our results
+extract3_bound <- rbind_labelled(extract3)
+
+# our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
+str(extract3_bound)
+```
