@@ -33,7 +33,7 @@ This process is described below and should cover most functionality that will be
 
 ### 0. Installation
 
-You can install rdhs from github with:
+Install rdhs from github with `devtools`:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
@@ -69,7 +69,7 @@ Since there are quite a lot of indicators, it might be easier to first query by 
 tags <- dhs_tags()
 
 # Let's say we want to view the tags that relate to malaria
-tags[grepl("Malaria",tags$TagName),]
+tags[grepl("Malaria", tags$TagName), ]
 
 # and now let's then grab this data by specifying the countryIds and the survey year starts
 data <- dhs_data(tagIds = 36,countryIds = c("CD","TZ"),breakdown="subnational",surveyYearStart = 2010)
@@ -78,11 +78,11 @@ str(data)
 
 Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. For example we can very quickly find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). 
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE,fig.height='750px',fig.width='500px'}
+```{r API call, include=TRUE, message = FALSE, warning = FALSE, fig.height='750px', fig.width='500px'}
 # Make an api request
 resp <- dhs_data(indicatorIds = "ML_FEVT_C_AML", surveyYearStart = 2010,breakdown = "subnational")
 
-# and let's filter it to 12 countries for space
+# filter it to 12 countries for space
 countries  <- c("Angola","Ghana","Kenya","Liberia",
                 "Madagascar","Mali","Malawi","Nigeria",
                 "Rwanda","Sierra Leone","Senegal","Tanzania")
@@ -99,7 +99,7 @@ ggplot(resp[resp$CountryName %in% countries,],
 
 ```
 
-If we miss entered a filter query (very possible) rdhs will give you an error that is somewhat nicely presented on the page for you to see way:
+If we incorrectly entered a filter query (very possible), `rdhs` will give a well-presented error message:
 
 ```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE,cache=TRUE}
 # Make an api request
@@ -120,7 +120,7 @@ To start our extraction we'll query the *surveyCharacteristics* endpoint using `
 ```{r sc}
 ## make a call with no arguments
 sc <- dhs_surveyCharacteristics()
-sc[grepl("Malaria",sc$SurveyCharacteristicName),]
+sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 ```
 
@@ -128,18 +128,18 @@ There are 87 different survey characteristics, with one specific survey characte
 
 ```{r surv}
 ## what are the countryIds
-ids <- dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))
+ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 str(ids)
 
 # lets find all the surveys that fit our search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89,countryIds = c("CD","TZ"),surveyYearStart = 2013)
 
-# and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV")
+# and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "flat")
 str(datasets)
 ```
 
-we can now use this to download our datasets for further analysis. 
+We can now use this to download our datasets for further analysis. 
 
 ### 3. Download survey datasets
 
@@ -155,7 +155,7 @@ It also takes an argument for its `root`, which is the directory path where the 
 
 ```{r client}
 ## create a client
-client <- client(credentials = "credentials")
+client <- client_dhs(credentials = "credentials")
 client
 
 ```
@@ -167,7 +167,7 @@ Before we use our client to download our datasets, it is worth mentioning that t
 s <- dhs_surveys(client = client)
 
 # with it cached it will be returned much quicker with the client argument
-microbenchmark::microbenchmark(dhs_surveys(client = client),times = 1)
+microbenchmark::microbenchmark(dhs_surveys(client = client), times = 1)
 
 # without it cached again for comparison
 microbenchmark::microbenchmark(dhs_surveys(),times = 1)
@@ -180,7 +180,7 @@ So first we will download all these datasets:
 
 ```{r download, message=FALSE}
 # download datasets
-downloads <- client$download_datasets(datasets$FileName)
+downloads <- client$get_datasets(datasets$FileName)
 
 str(downloads)
 ```
@@ -193,18 +193,18 @@ We can now examine what it is we have actually downloadsed, by reading in one of
 
 ```{r read a dataset}
 # read in our dataset
-cdpr <- readRDS(downloads$CDPR61SV)
+cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
 The dataset returned here is a list that contains the *dataset* but also a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is:
 
 ```{r probe dataset}
 # let's look at the variable_names
-head(cdpr$variable_names)
+head(get_var_labels(cdpr))
 
 # and then the dataset
-class(cdpr$dataset)
-str(cdpr$dataset$hv024)
+class(cdpr)
+str(cdpr$hv024)
 ```
 
 This is the default behaviour for the client function `download_datasets` - it will download the datasets for you, and then by default save them in your client's root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client's root directory. You can control this behaviour using the `download_option` argument as such:
@@ -217,7 +217,7 @@ The other main reason for reading the dataset in straight away as the default op
 
 ```{r questions}
 # rapid diagnostic test search
-questions <- client$survey_questions(datasets$FileName,search_terms = "malaria rapid test")
+questions <- client$survey_questions(datasets$FileName, search_terms = "malaria rapid test")
 
 table(questions$dataset_filename)
 ```
@@ -230,14 +230,14 @@ To extract our data we pass our questions object to the client function `extract
 
 ```{r extract_questions}
 # let's just use the PR files thus
-datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "SV",fileType = "PR")
-downloads <- client$download_datasets(datasets$FileName)
+datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
+downloads <- client$get_datasets(datasets$FileName)
 
 # and grab the questions from this again along with also questions detailing the province
-questions <- client$survey_questions(datasets$FileName,search_terms = c("malaria rapid test"))
+questions <- client$survey_questions(datasets$FileName, search_terms = c("malaria rapid test"))
 
 # and now extract the data
-extract <- client$extract(questions,add_geo = TRUE)
+extract <- client$extract(questions, add_geo = TRUE)
 
 # what does our extract look like
 str(extract)
@@ -249,14 +249,14 @@ We can also query our datasets for the survey question variables. In the example
 
 ```{r extract_variables}
 # and grab the questions from this now utilising the survey variables
-questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hml35"))
+questions <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
-extract2 <- client$extract(questions,add_geo = TRUE)
+extract2 <- client$extract(questions, add_geo = TRUE)
 
 # quick check
-head(extract2$CDPR61SV)
-head(extract2$TZPR7HSV)
+head(extract2$CDPR61FL)
+head(extract2$TZPR7HFL)
 
 ```
 
@@ -279,7 +279,7 @@ There are a few work arounds. Firstly, we can specify a *labels* argument to the
 
 ```{r concatenate}
 # lets try concatenating the hv024
-better_bound <- rbind_labelled(extract2,labels = list("hv024"="concatenate"))
+better_bound <- rbind_labelled(extract2, labels = list("hv024"="concatenate"))
 
 head(better_bound$hv024)
 
@@ -291,7 +291,7 @@ We could also specify new labels for a variable. For example, imagine the two da
 # lets try concatenating the hv024 and providing new labels
 better_bound <- rbind_labelled(extract2,
                                labels = list("hv024"="concatenate",
-                                             "hml35"=c("NegativeTest"=0,"PositiveTest"=1)))
+                                             "hml35"=c("NegativeTest"=0, "PositiveTest"=1)))
 
 # and our new label
 head(better_bound$hml35)
@@ -301,11 +301,11 @@ The other option is to not use the labelled class at all. We can control this wh
 
 ```{r reformat}
 # grab the questions but specifying the reformat argument
-questions <- client$survey_variables(datasets$FileName,variables = c("hv024","hml35"),
+questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "hml35"),
                                      reformat=TRUE)
 
 # and now extract the data
-extract3 <- client$extract(questions,add_geo = TRUE)
+extract3 <- client$extract(questions, add_geo = TRUE)
 
 # group our results
 bound_no_labels <- rbind_labelled(extract3)

@@ -33,10 +33,10 @@ client_cache_date <- function(root){
     }
 
     # Read the client cache and return the chace date
-    dhs_client <- readRDS(file.path(cache_dir,client_file_name()))
+    client_dhs <- readRDS(file.path(cache_dir,client_file_name()))
 
     # return client cache date
-    return(dhs_client$get_cache_date())
+    return(client_dhs$get_cache_date())
 
   }
 
@@ -46,7 +46,7 @@ client_cache_date <- function(root){
 ## -------------------------------------------------------------------
 
 #' file name for where client is saved between sessions
-client_file_name <- function() "dhs_client.rds"
+client_file_name <- function() "client_dhs.rds"
 
 
 
