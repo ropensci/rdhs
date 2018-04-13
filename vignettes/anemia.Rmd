@@ -97,7 +97,7 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 
 ## Download datasets
 
-To get datasets, we establish a `dhsclient` object. The DHS client creates a cache in a specified location to save downloaded datasets and metatdata. The client requires login credentials for accessing datasets from the DHS website, including the email address, password, and project name. Credentials should be stored in a text file with three lines:
+To get datasets, we establish a `client_dhs` object. The DHS client creates a cache in a specified location to save downloaded datasets and metatdata. The client requires login credentials for accessing datasets from the DHS website, including the email address, password, and project name. Credentials should be stored in a text file with three lines:
 
 ```
 email=dummy@gmail.com
@@ -105,10 +105,10 @@ password=dummypass
 project=Dummy Project Name
 ```
 
-The file path to to this credentials file and the desired location for the cache are passed to the `client()` function to establish the DHS client.
+The file path to to this credentials file and the desired location for the cache are passed to the `client_dhs()` function to establish the DHS client.
 
 ```{r }
-client <- dhs_client(credentials = "~/Documents/Data/DHS/rdhs/credentials",
+client <- client_dhs(credentials = "~/Documents/Data/DHS/rdhs/credentials",
                      root = "~/Downloads/rdhs_cache")
 ```
 
