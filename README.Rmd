@@ -85,11 +85,11 @@ str(datasets)
 
 ### Download datasets
 
-A DHS `client` will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the `dhs_client()` function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See introduction vignette for specific format for credentials).
+A DHS `client` will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the `client_dhs()` function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See introduction vignette for specific format for credentials).
 
 ```{r client}
 ## create a client
-client <- dhs_client(credentials = "credentials", root="~/Downloads/rdhs_cache")
+client <- client_dhs(credentials = "credentials", root="~/Downloads/rdhs_cache")
 ```
 
 Note that the client can be provided as an argument to any of the API functions used above. This will cache the results of the API request, such that previous API requests (e.g. survey metadata) can be returned when working remotely or with poor internet connection.
