@@ -199,7 +199,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(~CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
 <p><img src="README-API%20call-1.png" width="700"></p>
-<p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will give a well-presented error message:</p>
+<p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
                  <span class="dt">surveyYearStart=</span><span class="dv">202231231306</span>,
@@ -330,42 +330,17 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                          expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  dhs_surveys(client = client) 3.442959 3.442959 3.442959 3.442959 3.442959</span>
+<span class="co">#&gt;  dhs_surveys(client = client) 3.966402 3.966402 3.966402 3.966402 3.966402</span>
 <span class="co">#&gt;       max neval</span>
-<span class="co">#&gt;  3.442959     1</span>
+<span class="co">#&gt;  3.966402     1</span>
 
 <span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  dhs_surveys() 853.0636 853.0636 853.0636 853.0636 853.0636 853.0636     1</span></code></pre></div>
+<span class="co">#&gt;  dhs_surveys() 840.1478 840.1478 840.1478 840.1478 840.1478 840.1478     1</span></code></pre></div>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
-downloads &lt;-<span class="st"> </span>client$<span class="kw">get_datasets</span>(datasets$FileName)
-
-<span class="kw">str</span>(downloads)
-<span class="co">#&gt; List of 19</span>
-<span class="co">#&gt;  $ CDAR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDAR61FL.rds"</span>
-<span class="co">#&gt;  $ CDBR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDBR61FL.rds"</span>
-<span class="co">#&gt;  $ CDCR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDCR61FL.rds"</span>
-<span class="co">#&gt;  $ CDHR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDHR61FL.rds"</span>
-<span class="co">#&gt;  $ CDIR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDIR61FL.rds"</span>
-<span class="co">#&gt;  $ CDKR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDKR61FL.rds"</span>
-<span class="co">#&gt;  $ CDMR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDMR61FL.rds"</span>
-<span class="co">#&gt;  $ CDPR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61FL.rds"</span>
-<span class="co">#&gt;  $ CDGE61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDGE61FL.rds"</span>
-<span class="co">#&gt;  $ CDGC61FL: chr "This dataset is not available with your DHS login credentials"</span>
-<span class="co">#&gt;  $ TZHR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZHR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZIR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZIR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZKR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZKR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZBR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZBR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZCR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZCR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZMR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZMR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZPR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7HFL.rds"</span>
-<span class="co">#&gt;  $ TZGC7AFL: chr "This dataset is not available with your DHS login credentials"</span>
-<span class="co">#&gt;  $ TZGE7AFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZGE7AFL.rds"</span>
-<span class="co">#&gt;  - attr(*, "reformat")= logi FALSE</span></code></pre></div>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
 </div>
 <div id="load-datasets-and-associated-metadata-into-r-" class="section level2">
