@@ -10,7 +10,7 @@ dhs_info(allResults = TRUE, client = NULL, infoType = NULL, f = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
 
 \item{infoType}{Specify a type of info to obtain the information requested. Default is version. infoType=version (default) Provides the version of the API. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version infoType=citation Provides the citation for the API to include with your application or data. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation}
 
