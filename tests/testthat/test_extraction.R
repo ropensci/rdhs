@@ -97,7 +97,7 @@ test_that("rbind_labelled", {
 
   dat <- rbind_labelled(extract,labels=list("v024"="concatenate","v130"= "concatenate"))
 
-  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"),warn = FALSE)
 
   })
 
