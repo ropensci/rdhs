@@ -37,7 +37,8 @@ Suggests:
     rmarkdown,
     ggplot2,
     survey,
-    devtools
+    devtools,
+    microbenchmark
 Remotes:
     tidyverse/haven
 License: GPL (>= 2)

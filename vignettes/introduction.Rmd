@@ -188,11 +188,9 @@ Now back to our dataset downloads. If we have a look back at our datasets object
 
 So first we will download all these datasets:
 
-```{r download, message=FALSE}
+```{r download, message=FALSE, echo=FALSE}
 # download datasets
 downloads <- client$get_datasets(datasets$FileName)
-
-str(downloads)
 ```
 
 The function returns a list with a file path to where the downloaded datasets have been saved to. 
