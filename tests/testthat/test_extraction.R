@@ -69,3 +69,35 @@ test_that("query codes having downloaded surveys", {
   unlink(td)
 })
 
+
+test_that("rbind_labelled", {
+
+  skip_if_no_auth()
+
+  # Create new directory
+  td <- file.path(tempdir(),as.integer(Sys.time()))
+
+  # create auth through whichever route is valid for the environment
+  if(file.exists("credentials")){
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  } else {
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+  }
+
+  # create availbale surveys
+  survs <- cli$available_datasets()
+
+  d <- cli$get_datasets(c("AOBR62FL.ZIP","BJBR41FL.ZIP"))
+
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP","BJBR41FL.ZIP"),variables = c("v024","v130"))
+
+  extract <- cli$extract(quest,add_geo = TRUE)
+
+  expect_warning(rbind_labelled(extract))
+
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate","v130"= "concatenate"))
+
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+
+  })
+

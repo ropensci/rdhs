@@ -70,6 +70,9 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
 
         results_full <- cbind.data.frame(results,gedata)
 
+      } else {
+
+        results_full <- results
       }
 
       list_res[[i]] <- results_full
