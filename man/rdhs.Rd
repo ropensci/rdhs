@@ -12,6 +12,14 @@ and metadata, (2) identifying surveys and datasets for analysis, (3) downloading
 survey datasets from the DHS website, (4) loading datasets and associate metadata
 into R, and (5) extracting variables and combining datasets for pooled analysis.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://ojwatson.github.io/rdhs/}
+  \item Report bugs at \url{https://github.com/OJWatson/rdhs/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk}
 
