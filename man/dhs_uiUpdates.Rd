@@ -10,7 +10,7 @@ dhs_uiUpdates(allResults = TRUE, client = NULL, lastUpdate = NULL,
 \arguments{
 \item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client}}}
+\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
 
 \item{lastUpdate}{Specify a date or Unix time to filter the updates by. Only results for interfaces that has been updated on or after the sepcified date will be returned.}
 
