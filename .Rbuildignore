@@ -7,12 +7,7 @@ TODO.txt
 ^\.credentials$
 ^autodoc\.R$
 ^man-roxygen$
-^vignettes/rdhs_vignette_client_root
-^vignettes/*_html*
-^vignettes/rdhs_cache
-^vignettes/*.html$
-^vignettes/rdhs_html_cache
-^vignettes/rdhs_html_files
+^_pkgdown\.yml$
 ^scripts
 ^credentials$
 ^\.httr-oauth$

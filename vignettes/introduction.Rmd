@@ -104,9 +104,9 @@ ggplot(resp[resp$CountryName %in% countries,],
 ```
 
 
-If we incorrectly entered a filter query (very possible), `rdhs` will give a well-presented error message:
+If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
 
-```{r API fail, include=TRUE, message = FALSE, error=TRUE, purl= FALSE, warning = FALSE}
+```{r API fail, include=TRUE, message = FALSE, error=TRUE, warning = FALSE}
 # Make an api request
 resp <- dhs_data(indicatorIds="ML_FEVT_C_AMasfafasfL",
                  surveyYearStart=202231231306,
