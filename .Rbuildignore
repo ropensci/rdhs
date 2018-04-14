@@ -15,3 +15,5 @@ TODO.txt
 ^README-.*\.png$
 output.txt
 TODO.md
+^vignettes/inroduction_cache/
+^docs$

@@ -75,7 +75,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   ## Ensure same column ordering for all dfs
   dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
-  islab <- sapply(dfs, sapply, labelled::is.labelled)
+  islab <- sapply(dfs, sapply, haven::is.labelled)
   anylab <- names(which(apply(islab, 1, any)))
 
   ## Convert "concatenated" variables to characters (will be converted back later).
@@ -83,7 +83,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(haven::as_factor(x[[v]]))); x})
   labels <- labels[!names(labels) %in% catvar]
 
-  islab <- sapply(dfs, sapply, labelled::is.labelled)
+  islab <- sapply(dfs, sapply, haven::is.labelled)
   anylab <- names(which(apply(islab, 1, any)))
   needslab <- setdiff(anylab, names(labels))
 

@@ -70,7 +70,7 @@
 ##'     \item{\code{output_dir_root}:   Root directory where the datasets will be stored within. The default will download datasets to a subfolder of the client root called "datasets"
 ##'     }
 ##'
-##'     \item{\code{...}:   Any other arguments to be passed to \code{\link{dhs_read_dataset}}
+##'     \item{\code{...}:   Any other arguments to be passed to \code{\link{read_dhs_dataset}}
 ##'     }
 ##'   }
 ##'

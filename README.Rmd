@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
 [![Documentation via pkgdown](tools/pkgdownshield.svg)](https://ojwatson.github.io/rdhs/)
 
-![]()<img src="tools/logo.png" width="50%">
+![]()<img src="tools/logo.svg" width="50%">
 
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
