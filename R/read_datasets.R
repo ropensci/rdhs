@@ -160,8 +160,8 @@ get_var_labels <- function(data, return_all=TRUE) {
     type <- "foreign"
   } else if(any(lapply(data,class) %>% unlist == "labelled")) {
     type <- "labelled"
-  } else {
-    stop ("Dataset does not have a label.table attribute or any labelled vaiable classes")
+  } else if(any(lapply(data,attributes) %>% lapply(names) %>% unlist == "label")){
+    type <- "labelled"
   }
 
   if(type=="labelled"){
@@ -185,6 +185,20 @@ get_var_labels <- function(data, return_all=TRUE) {
                                   stringsAsFactors = FALSE)
 
   return(description_table)
+
+}
+
+#' Create list of dataset and its variable names
+#'
+#' Function to give the former output of get_datasets as it can be nice to have both the
+#' definitions and the dataset attached together
+#'
+#' @param dataset Any read in dataset created by \code{get_datasets}
+#' @export
+data_and_labels <- function(dataset){
+
+  variable_names <- get_var_labels(dataset)
+  res <- list("dataset"=dataset,"variable_names"=variable_names)
 
 }
 
@@ -220,11 +234,12 @@ create_new_filenames <- function(data){
   data
 }
 
-
+# NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
 read_zipdta <- function(zfile, ...){
   read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
 }
 
+# NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
 find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
   map <- read_zipdata(zfile, pattern, readLines, TRUE)
   as.logical(length(grep(str, map, ignore.case)))

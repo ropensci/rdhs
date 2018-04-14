@@ -72,12 +72,20 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown-header">Articles</li>
-<li>
-  <a href="../articles/introduction.html">Introduction to rdhs (Overview)</a>
-</li>
-<li>
-  <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/introduction.html">Introduction to rdhs (Overview)</a>
+    </li>
+    <li>
+      <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -85,7 +93,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/OJWatson/rdhs">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -112,7 +125,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-query-dhs-api" class="hasAnchor"><a href="#section-query-dhs-api" class="anchor"></a>Query DHS API</h2>
-          <p class="section-desc"><p>Functions for interacting with each of the DHS API endpoints. They all start ‘dhs_’ for ease</p></p>
+          <p class="section-desc"><p>Functions for interacting with each of the DHS API endpoints. They all start ‘dhs_’ for simplicity.</p></p>
         </th>
       </tr>
       <tr>
@@ -192,7 +205,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-client" class="hasAnchor"><a href="#section-client" class="anchor"></a>Client</h2>
-          <p class="section-desc"><p>Create a rdhs client for downloading datasets, querying survey variables and extracting data</p></p>
+          <p class="section-desc"><p>Create a rdhs client for downloading datasets, querying survey variables and extracting data.</p></p>
         </th>
       </tr>
       <tr>
@@ -201,6 +214,58 @@
           <p><code><a href="client_dhs.html">client_dhs()</a></code> </p>
         </td>
         <td><p>Make a dhs client</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-downstream-dataset-helper-functions" class="hasAnchor"><a href="#section-downstream-dataset-helper-functions" class="anchor"></a>Downstream Dataset Helper Functions</h2>
+          <p class="section-desc"><p>Tools to help combine extracted datasets, as well as extract and apend dataset variable names and definitions</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rbind_labelled.html">rbind_labelled()</a></code> </p>
+        </td>
+        <td><p>Combine data frames with columns of class `labelled`</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_var_labels.html">get_var_labels()</a></code> </p>
+        </td>
+        <td><p>Return variable labels from a dataset</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="data_and_labels.html">data_and_labels()</a></code> </p>
+        </td>
+        <td><p>Create list of dataset and its variable names</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-dhs-dataset-parsers" class="hasAnchor"><a href="#section-dhs-dataset-parsers" class="anchor"></a>DHS Dataset Parsers</h2>
+          <p class="section-desc"><p>Custom built parsers for handling flat ASCII and stata DHS datasets</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="read_dhs_flat.html">read_dhs_flat()</a></code> </p>
+        </td>
+        <td><p>Read DHS flat file data set</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="parse_meta.html">parse_dcf()</a></code> <code><a href="parse_meta.html">parse_sps()</a></code> <code><a href="parse_meta.html">parse_do()</a></code> </p>
+        </td>
+        <td><p>Parse fixed-width file metadata</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="read_dhs_dta.html">read_dhs_dta()</a></code> </p>
+        </td>
+        <td><p>Read DHS Stata data set</p></td>
       </tr>
     </tbody>
     </table>
@@ -211,6 +276,8 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-query-dhs-api">Query DHS API</a></li>
       <li><a href="#section-client">Client</a></li>
+      <li><a href="#section-downstream-dataset-helper-functions">Downstream Dataset Helper Functions</a></li>
+      <li><a href="#section-dhs-dataset-parsers">DHS Dataset Parsers</a></li>
     </ul>
   </div>
 </div>

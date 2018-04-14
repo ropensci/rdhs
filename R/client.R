@@ -520,6 +520,8 @@ R6_client_dhs <- R6::R6Class(
     extract = function(questions,
                        add_geo=TRUE){
 
+      if(dim(questions)[1]==0) stop("questions argument is empty - check your survey_questions/variables terms?")
+
       # append the filename as survey to the datasets for easier matching later
       datasets <- self$available_datasets()
       datasets$Survey <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x) x[1]) %>% unlist

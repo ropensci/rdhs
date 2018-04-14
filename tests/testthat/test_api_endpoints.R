@@ -28,7 +28,9 @@ test_that("format catches and al_results tests", {
   dat <- dhs_datasets(f = "xml", allResults = FALSE)
 
   # tests for rubbish arguments
-  dat <- dhs_datasets(surveyIds = "laksjdoash,dasjd",allResults = FALSE)
+  expect_error(dhs_data(indicatorIds="ML_FEVT_C_AMasfafasfL",
+                   surveyYearStart=202231231306,
+                   breakdown="subParTyping"))
   dat <- dhs_datasets(surveyIds = "laksjdoash,dasjd",f="xml",allResults = FALSE)
 
   # test for misstyped args
@@ -49,7 +51,7 @@ test_that("dhs_countries works", {
 
   dat <- dhs_countries(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR",
                        surveyIds = "SN2010DHS", surveyYear = "2010", allResults = FALSE)
-  dat <- dhs_countries(surveyYearStart = "1991", surveyYearEnd = "2006",
+  dat <- dhs_countries(countryIds = c("EG","SN"), surveyYearStart = "1991", surveyYearEnd = "2006",
                        surveyType = "DHS", surveyCharacteristicIds = "32")
   dat <- dhs_countries(tagIds = "1", allResults = FALSE)
 })

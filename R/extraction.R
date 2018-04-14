@@ -28,9 +28,6 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
 
       # survey data
       r <- readRDS(dataset_i)
-      if(class(r)=="list"){
-        r <- r$dataset
-      }
 
       # fetch codes that relate to this dataset
       quest_rows_i <- which(questions$dataset_path==dataset_i)

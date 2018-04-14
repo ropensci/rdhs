@@ -2,22 +2,12 @@
 title: "How to use rdhs?"
 author: "OJ Watson, Jeff Eaton"
 date: "`r Sys.Date()`"
-output:
-rmarkdown::html_vignette:
-css: vignette.css
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to use rdhs?}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
-  
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-collapse = TRUE,
-comment = "#>",
-fig.path = "README-"
-)
-```
 
 ## Overview
 
@@ -82,7 +72,7 @@ data[1,]
 
 Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. For example we can very quickly find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). 
 
-```{r API call, include=TRUE, message = FALSE, warning = FALSE}
+```{r fig.height=4, fig.width=7, fig.align="center"}
 # Make an api request
 resp <- dhs_data(indicatorIds = "ML_FEVT_C_AML", surveyYearStart = 2010,breakdown = "subnational")
 
@@ -97,7 +87,7 @@ ggplot(resp[resp$CountryName %in% countries,],
        aes(x=SurveyYear,y=Value,colour=CountryName)) +
   geom_point() +
   geom_smooth(method = "glm") + 
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = .5)) +
   ylab(resp$Indicator[1]) + 
   facet_wrap(~CountryName,ncol = 6) 
 
@@ -212,8 +202,7 @@ The dataset returned here is a list that contains the *dataset* but also a data.
 head(get_var_labels(cdpr))
 
 # and then the dataset
-class(cdpr)
-str(cdpr$hv024)
+class(cdpr$hv024)
 ```
 
 
@@ -313,7 +302,7 @@ head(better_bound$hml35)
 ```
 
 
-The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obectt returned by *client$get_datasets()* is now a list of 2 elements that contain both the dataset and a description table of all the survey variable names and definitions.
+The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
 ```{r reformat}
 # download the datasets with the reformat arguments

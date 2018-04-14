@@ -75,12 +75,20 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown-header">Articles</li>
-<li>
-  <a href="../articles/introduction.html">Introduction to rdhs (Overview)</a>
-</li>
-<li>
-  <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/introduction.html">Introduction to rdhs (Overview)</a>
+    </li>
+    <li>
+      <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -88,7 +96,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/OJWatson/rdhs">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -176,7 +189,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <li><p><code>reformat</code>:   Boolean concerning whether to reformat read in datasets by removing all factors and labels. Default = FALSE.</p></li>
 <li><p><code>all_lower</code>:   Logical indicating whether all value labels should be lower case. Default to `TRUE`.</p></li>
 <li><p><code>output_dir_root</code>:   Root directory where the datasets will be stored within. The default will download datasets to a subfolder of the client root called "datasets"</p></li>
-<li><p><code>...</code>:   Any other arguments to be passed to <code>dhs_read_dataset</code></p></li>
+<li><p><code>...</code>:   Any other arguments to be passed to <code><a href='read_dhs_dataset.html'>read_dhs_dataset</a></code></p></li>
 </ul>
     <em>Value</em>:
   Depends on the download_option requested, but ultimately it is a file path to where the dataset was downloaded to, so that you can interact with it accordingly.</p></dd>

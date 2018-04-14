@@ -15,10 +15,14 @@ test_that("can request api through dhs_api_request via client", {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
+  # make call
   req <- cli$dhs_api_request(api_endpoint = "surveys",query = list("indicatorIds"="ML_AMLD_C_QNN"))
 
-  # test the error catch for response http codes
-  req <- cli$dhs_api_request(api_endpoint = "surveys",query = list("breakdowAndCry"="subartyping"))
+  # remake call to test cache
+  req <- cli$dhs_api_request(api_endpoint = "surveys",query = list("indicatorIds"="ML_AMLD_C_QNN"))
+
+  # test the error catch for wrong endpoint
+  expect_error(cli$dhs_api_request(api_endpoint = "blargh",query = list("breakdowAndCry"="subartyping")))
 
   unlink(td)
 

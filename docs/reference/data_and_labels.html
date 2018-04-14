@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a data frame of datasets that your log in can download — download_datasets • rdhs</title>
+<title>Create list of dataset and its variable names — data_and_labels • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Create a data frame of datasets that your log in can download — download_datasets" />
+<meta property="og:title" content="Create list of dataset and its variable names — data_and_labels" />
 
-<meta property="og:description" content="Download datasets specified using output of available_datasets." />
+<meta property="og:description" content="Function to give the former output of get_datasets as it can be nice to have both the
+definitions and the dataset attached together" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,61 +115,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a data frame of datasets that your log in can download</h1>
+    <h1>Create list of dataset and its variable names</h1>
     
-    <div class="hidden name"><code>download_datasets.Rd</code></div>
+    <div class="hidden name"><code>data_and_labels.Rd</code></div>
     </div>
 
     
-    <p>Download datasets specified using output of <code>available_datasets</code>.</p>
+    <p>Function to give the former output of get_datasets as it can be nice to have both the
+definitions and the dataset attached together</p>
     
 
-    <pre class="usage"><span class='fu'>download_datasets</span>(<span class='no'>desired_dataset</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
-  <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>your_email</span>,
-  <span class='no'>your_password</span>, <span class='no'>your_project</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>data_and_labels</span>(<span class='no'>dataset</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>desired_dataset</th>
-      <td><p>Row from <code>available_datasets</code></p></td>
-    </tr>
-    <tr>
-      <th>download_option</th>
-      <td><p>Chracter dictating how the durvey is stored when downloaded. Must be one of:</p><ul>
-<li><p>"zip" - Just the zip. "z" or   will match</p></li>
-<li><p>"rds" - Just the read in and saved rds. "r" or anything like will match</p></li>
-<li><p>"both" - Both the rds and extract. "b" or anything like will match</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>reformat</th>
-      <td><p>Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE</p></td>
-    </tr>
-    <tr>
-      <th>all_lower</th>
-      <td><p>Logical indicating whether all value labels should be lower case. Default to `TRUE`.</p></td>
-    </tr>
-    <tr>
-      <th>output_dir_root</th>
-      <td><p>Directory where files are to be downloaded to</p></td>
-    </tr>
-    <tr>
-      <th>your_email</th>
-      <td><p>Character for email address for DHS website</p></td>
-    </tr>
-    <tr>
-      <th>your_password</th>
-      <td><p>Character for password for DHS website</p></td>
-    </tr>
-    <tr>
-      <th>your_project</th>
-      <td><p>Character string for the name of your project that gives you access to the DHS database</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Any other arguments to be passed to <code><a href='read_dhs_dataset.html'>read_dhs_dataset</a></code></p></td>
+      <th>dataset</th>
+      <td><p>Any read in dataset created by <code>get_datasets</code></p></td>
     </tr>
     </table>
     

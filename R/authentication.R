@@ -120,7 +120,7 @@ available_datasets <- function(your_email, your_password, your_project,
   if(sum(is.na(fileName_matches))>0) fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
   res[res_matches,1:length(datasets_api_results)] <- datasets_api_results[fileName_matches,]
 
-  # if this is greater than 0, then their API is liekly out of date (which is an issue...)
+  # if this is greater than 0, then their API is out of date (which is an issue...)
   # TODO: Ask about how they would like to be contacated about this
   missings <- which(res$FileFormat=="")
   if(length(missings)>0){
@@ -130,7 +130,7 @@ available_datasets <- function(your_email, your_password, your_project,
     res$SurveyNum[missings] <- (qdapRegex::rm_between(res$URLS[missings],"surv_id=","&dm",extract = TRUE) %>% unlist)
     missing_survey_nums <- unique(res$SurveyNum[missings])
 
-    ## TODO: MAKE THIS NOT TERRIBLE - will most likely break, and there is no telling that the surveys api is any better
+    ## TODO: MAKE THIS LESS CUSTOM BUILT  - also there is no telling that the surveys api is any better for providing information
     needed_cols <- c("SurveyId","SurveyYearLabel","SurveyType","SurveyYear","DHS_CountryCode","CountryName")
 
     # grab file types and format types for matching from the filenames
@@ -235,6 +235,8 @@ download_datasets <- function(desired_dataset,
 
   # check that the zip doesn't contain nested zips and if does keep extracting till the correct zip is found
   # this is slightly ugly but works
+  # so far only one case of a zip being inside one zip. Maximum nesting so far = 1, but the extra step here puts
+  # cataches if it is greater than 1
   unzipped_files <- unzip_warn_fails(tf , list=TRUE)
   unzip_round <- 1
   while(sum(!is.na(grep("\\.zip",unzipped_files$Name,ignore.case = TRUE)))>0){
@@ -279,12 +281,9 @@ download_datasets <- function(desired_dataset,
       # set up the rds_path to save the dataset
       rds_path <- file.path(dataset_dir,paste0(desired_dataset$file,".rds"))
 
-      # if we reformatted return the dataset with the description table for ease of reference
-      if(reformat){
-        saveRDS(res,rds_path)
-      } else {
-        saveRDS(res$dataset,rds_path)
-      }
+      # save the dataset out
+      saveRDS(res$dataset,rds_path)
+
 
 
       # if the class of the object is from a geo file then we will just return the rds path

@@ -62,4 +62,9 @@ test_that("data dictionaries FWF lengths match file width", {
   expect_equal(sum(parse_dcf(dcf)$len), nchar(dat[1]))
   expect_equal(sum(parse_sps(sps)$len), nchar(dat[1]))
   expect_equal(sum(parse_do(do, dct)$len), nchar(dat[1]))
-})
+
+  # check for incorrect pattern
+  expect_warning(rdhs:::read_zipdata(arfl_zip, "\\.notachance", readLines))
+
+
+  })

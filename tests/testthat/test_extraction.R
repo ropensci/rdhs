@@ -19,9 +19,29 @@ test_that("query codes having downloaded surveys", {
 
   # check rds only for one survey
   downloads <-  cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r")
+  downloads <-  cli$get_datasets(dataset_filenames = "AOBR62SV.ZIP",download_option = "r",all_lower = FALSE,reformat = TRUE)
+
+  ## QUESTIONS AND VARIABLE TESTS
 
   # create questions
   quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever","malaria","test"))
+
+  # check the regeex option
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever|test"))
+
+  # check the essetial temrs option
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever|test"),essential_terms = "malaria")
+
+
+  # check the same with an uppercase survey, one variable that is na and essential
+  quest <- cli$survey_variables(dataset_filenames = "AOBR62SV.ZIP",variables =  "hml32",essential_variables = c("hml35","h32n"),
+                                reformat=TRUE)
+
+  # check variable
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever|test"))
+
+
+  ####
 
   # extract the data
   extract <- cli$extract(quest,add_geo = T)
@@ -33,6 +53,8 @@ test_that("query codes having downloaded surveys", {
 
   # check rds only for one survey
   downloads <-  cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP",download_option = "r")
+  r <- readRDS(downloads$ZWHR31SV)
+  r <- data_and_labels(r)
 
   # create questions
   quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",search_terms = c("Has refrigerator"))
@@ -41,6 +63,9 @@ test_that("query codes having downloaded surveys", {
   extract <- cli$extract(quest,add_geo = T)
   expect_identical(extract$ZWHR31SV$LATNUM[1],NA)
 
+  # and repreat for reformatted ones
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms =  "malaria",reformat = TRUE)
+  extract <- cli$extract(quest,add_geo = T)
   unlink(td)
 })
 

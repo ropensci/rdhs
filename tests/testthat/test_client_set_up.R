@@ -26,6 +26,24 @@ test_that("save credentials", {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
+  # test client extra functions
+
+  # date test
+  cli$set_cache_date(Sys.time())
+
+  # save test
+  cli$save_client()
+
+  # namespace clear test
+  countries <- cli$dhs_api_request(api_endpoint = "countries")
+  cli$clear_namespace(namespace = "api_calls")
+
+  # check that you can refresh the client - i.e. set the cache date just
+  # before the most recnet update to flush certain api and functioanlity
+  cli <- client_refresh(cli)
+  cli$.__enclos_env__$private$credentials_path <- NULL
+  cli <- client_refresh(cli)
+
   unlink(td)
 
 })

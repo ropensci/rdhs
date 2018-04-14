@@ -36,6 +36,12 @@ test_that("credentials", {
   Sys.setenv("rdhs_USER_PASS"=pass)
   Sys.setenv("rdhs_USER_PROJECT"=proj)
 
+  # check for unnamed list attempt
+  expect_error(read_credentials(list("humpty","dumpty","project")))
+
+  # check for too many args
+  expect_error(read_credentials(list("email"="humpty","password"="dumpty","project"="project","huh"=2)))
+
   # remove this
   unlink("rubbish_no_more.txt")
 

@@ -4,9 +4,9 @@
 .Ruserdata
 inst/doc
 credentials
-credential_file
 scripts/
 TODO.txt
 .httr-oauth
 *.csv
 *~
+credentials_file
