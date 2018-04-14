@@ -4,5 +4,5 @@ credentials_file
 rdhs_cache
 rdhs_vignette_client_root
 rdhs_files
-*_html*
-*.css
+*.cache
+*.html
