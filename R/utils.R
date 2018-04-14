@@ -41,11 +41,11 @@ client_refresh <- function(cli){
   cli$save_client()
   root <- cli$get_root()
   if(file.exists(cli$.__enclos_env__$private$credentials_path)){
-    cli <- rdhs::client(api_key = "ICLSPH-527168",
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
                             credentials = cli$.__enclos_env__$private$credentials_path,
                             root = root)
   } else {
-    cli <- rdhs::client(api_key = "ICLSPH-527168",root = root)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = root)
   }
 
   return(cli)
@@ -68,12 +68,9 @@ type_convert_df <- function(df){
 
 }
 
-
-
-# remove punctuation, space and non ascii for string matching purposes
-rm_punct_non_ascii <- function(string){
-  string <- stringi::stri_trans_general(string, "latin-ascii")
-  return(gsub('[[:punct:] ]+','',string))
+# convert api mdy_hms character date times to posix
+mdy_hms <- function(dates){
+  strptime(dates,format = "%B, %d %Y %H:%M:%S")
 }
 
 # check if uppercase

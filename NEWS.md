@@ -5,7 +5,7 @@
 * Substantial change to API interaction. All endpoints can now be queried using
 bespoke functions taking the form `dhs_<endpoint>()`.
 
-* As a result of API changes, the DHS client is called with rdhs::client() now.
+* As a result of API changes, the DHS client is called with rdhs::client_dhs() now.
 
 * Flat datasets can now be read in with a variety of download read in options
 

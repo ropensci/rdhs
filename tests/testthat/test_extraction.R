@@ -9,16 +9,16 @@ test_that("query codes having downloaded surveys", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale surveys
   survs <- cli$available_datasets()
 
   # check rds only for one survey
-  downloads <-  cli$download_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r")
+  downloads <-  cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r")
 
   # create questions
   quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever","malaria","test"))
@@ -32,7 +32,7 @@ test_that("query codes having downloaded surveys", {
   ## and repeat for sruveys that have no geo
 
   # check rds only for one survey
-  downloads <-  cli$download_datasets(dataset_filenames = "ZWHR31SV.ZIP",download_option = "r")
+  downloads <-  cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP",download_option = "r")
 
   # create questions
   quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",search_terms = c("Has refrigerator"))

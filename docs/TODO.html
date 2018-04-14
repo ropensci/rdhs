@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -62,30 +62,25 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/rdhs.html">Get started</a>
+  <a href="articles/introduction.html">Introduction</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="articles/rdhs_html.html">rdhs package tutorial overview</a>
-    </li>
-  </ul>
+<li class="dropdown-header">Articles</li>
+<li>
+  <a href="articles/introduction.html">Introduction to rdhs (Overview)</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="articles/anemia.html">An example use case looking at trends in anemia</a>
+</li>
+<li>
+  <a href="news/index.html">News</a>
 </li>
       </ul>
       
@@ -107,19 +102,16 @@
     </div>
 
 
-<p>TODO:</p>
+<p>TODO Functionality list:</p>
+<hr>
 <ol>
-<li>Vignette and function to take extracted survey results and calculate design effect adjusted estimates for numeric variables, and proportions for categorical variables at the cluster, sub-admin1, admin 1 level.</li>
-<li>Functionality to chain together pipeline in tutorial into something that can be cached and then repeated without fail by someone else.</li>
-<li>More testing and annotation</li>
-<li>Something to merge across survey types (this shouldn’t actually be hard I’m just buzy/bit bored/should do phd work to get round to this soon)</li>
-<li><p>Something that does some validated fuzzy matching when survey codes and descriptions are not the same across surveys. Should combine columns that have the same code and description, and then match based on valid descriptions with some fizzy text match and then highlight all matches made this way for you to review and check. There are issues however when questions are “in the last x weeks” so although it’s the same question it carries fundamentally different data. 10.Function to take multiple datasets and group_by cluster number and summarise all numeric data to produce clustered data - need to figure out what to do when it comes to categorical data as will become long if every character variable is simply table(x)/sum(table(x)) etc.</p></li>
-<li>zip test break</li>
-<li>Merging with HIV pacakge</li>
-<li><p>recreate hrp2 discordance</p></li>
-<li><p>500 server errors catch in client load</p></li>
+<li>Anemia vignette should full embrace survey_variables() and extract() functionality</li>
+<li>Need to add / fix parsers for a few cases: DHS Phase I, Wealth index datasets</li>
+<li>Some harmonization of terminology across package (questions vs. labels, etc.)</li>
+<li>Additional functionality for merging datasets (IR, MR, AR, etc.)</li>
+<li>Handling of survey strata</li>
+<li>Additional functionality for statistical analysis of survey data</li>
 </ol>
-<p>…</p>
 
 
   </div>

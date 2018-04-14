@@ -1,10 +1,10 @@
 context("Authentication")
 
-test_that("dhs_authenticate works", {
+test_that("authenticate_dhs works", {
 
   skip_if_no_auth()
 
-  expect_equal(rdhs:::dhs_authenticate(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+  expect_equal(rdhs:::authenticate_dhs(your_email=Sys.getenv("rdhs_USER_EMAIL"),
                                        your_password=Sys.getenv("rdhs_USER_PASS"),
                                        your_project=Sys.getenv("rdhs_USER_PROJECT"))$proj_id, "111616")
 })
@@ -18,9 +18,9 @@ test_that("available_surveys works", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
   # create availbale datasets

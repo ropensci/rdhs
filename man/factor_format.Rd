@@ -2,15 +2,12 @@
 % Please edit documentation in R/read_datasets.R
 \name{factor_format}
 \alias{factor_format}
-\title{reformat haven and labelled read ins to be more useful}
+\title{reformat haven and labelled read ins to have no factors or labels}
 \usage{
-factor_format(res, type = "labelled", reformat = FALSE, all_lower = TRUE)
+factor_format(res, reformat = FALSE, all_lower = TRUE)
 }
 \arguments{
 \item{res}{dataset to be formatted}
-
-\item{type}{One of "labelled" or "foreign" as to whether the dataset was read in using foreign or
-was read in and suitably labelled using `haven::labelled`. Default = "labelled"}
 
 \item{reformat}{Boolean whether to remove all factors and labels and
 just return the unfactored data. Default = FALSE}
@@ -21,5 +18,5 @@ just return the unfactored data. Default = FALSE}
 list with the formatted dataset and the code descriptions
 }
 \description{
-reformat haven and labelled read ins to be more useful
+reformat haven and labelled read ins to have no factors or labels
 }

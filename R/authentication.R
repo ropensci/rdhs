@@ -96,10 +96,11 @@ available_datasets <- function(your_email, your_password, your_project,
   # submit request for all the possible datasets
   message("Creating Download url list from DHS website...")
   z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/index.cfm" , body = values)
-  link.urls <- XML::xpathSApply( XML::htmlParse( httr::content( z ) ) , "//a" , XML::xmlGetAttr , "href" ) %>% unlist()
+  link.urls <- xml2::xml_find_all(httr::content(z),"//a" )
 
   # pull all links download and read in
-  url_link <- paste0("https://dhsprogram.com",grep(pattern = "/data/download/urlslist",link.urls,value = TRUE))
+  url_link <- paste0("https://dhsprogram.com",grep(pattern = "/data/download/urlslist",
+                                                   xml2::xml_attr(link.urls,"href"),value = TRUE))
   httr::GET(url_link , destfile = tf, httr::write_disk( tf , overwrite = TRUE ))
   urls <- readLines(tf)
   urls <- urls[-which(!nzchar(urls))]
@@ -110,9 +111,11 @@ available_datasets <- function(your_email, your_password, your_project,
   res <- as.data.frame(res,stringsAsFactors = FALSE)
   res$URLS <- urls
   res$FileName <- qdapRegex::rm_between(urls,"Filename=","&Tp",extract = TRUE) %>% unlist
+  res$DHS_CountryCode <- qdapRegex::rm_between(urls,"Ctry_Code=","&surv_id",extract = TRUE) %>% unlist
 
-  # match meta using filenames
-  fileName_matches <- match(toupper(res$FileName),toupper(datasets_api_results$FileName))
+  # match meta using filenames and countrycodes (India has subnational datasets that clash)
+  fileName_matches <- match(paste0(toupper(res$FileName),toupper(res$DHS_CountryCode)),
+                            paste0(toupper(datasets_api_results$FileName),toupper(datasets_api_results$DHS_CountryCode)))
   res_matches <- which(!is.na(fileName_matches))
   if(sum(is.na(fileName_matches))>0) fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
   res[res_matches,1:length(datasets_api_results)] <- datasets_api_results[fileName_matches,]
@@ -201,7 +204,7 @@ download_datasets <- function(desired_dataset,
 
   # make sure the folder exists and create the zip path
   dir.create( dataset_dir , showWarnings = FALSE, recursive = T )
-  zip_path <- file.path(dataset_dir,desired_dataset$FileName)
+  zip_path <- file.path(dataset_dir,desired_dataset$file)
 
   # login
   values <- authenticate_dhs( your_email , your_password , your_project )
@@ -267,16 +270,22 @@ download_datasets <- function(desired_dataset,
     # now read the dataset in with the requested reformat options
     res <- read_dhs_dataset(zip_path,reformat,all_lower,...)
 
-    # let's assign the file name attribute to the res
-    attr(res$dataset,which = "filename") <- desired_dataset$FileName
-
     # handle results. If it's character it's because we haven't yet got a parser we are happy with
     if(!is.character(res)){
 
+      # let's assign the file name attribute to the res
+      attr(res$dataset,which = "filename") <- desired_dataset$file
+
       # set up the rds_path to save the dataset
-      rds_path <- file.path(dataset_dir,
-                            paste0(strsplit(desired_dataset$FileName,".",fixed=TRUE)[[1]][1],".rds"))
-      saveRDS(res$dataset,rds_path)
+      rds_path <- file.path(dataset_dir,paste0(desired_dataset$file,".rds"))
+
+      # if we reformatted return the dataset with the description table for ease of reference
+      if(reformat){
+        saveRDS(res,rds_path)
+      } else {
+        saveRDS(res$dataset,rds_path)
+      }
+
 
       # if the class of the object is from a geo file then we will just return the rds path
       if(class(res$dataset)[1]=="SpatialPointsDataFrame"){

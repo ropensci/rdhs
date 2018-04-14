@@ -14,7 +14,7 @@
 ##' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
 ##' @param api_key Character for DHS API KEY
 ##'
-##' @template client_methods
+##' @template client_dhs_methods
 ##' @export
 ##'
 client_dhs <- function(credentials=NULL,
@@ -47,12 +47,12 @@ client_dhs <- function(credentials=NULL,
       updates <- client$dhs_api_request(api_endpoint = "dataupdates")
 
       # are any of the listed updates more recent than the cache date
-      if(max(lubridate::mdy_hms(updates$UpdateDate))>client$get_cache_date()){
+      if(max(mdy_hms(updates$UpdateDate))>client$get_cache_date()){
 
         # check which datasets have been downloaded in the past
         downloaded_dataset_keys <-  client$.__enclos_env__$private$storr$list("downloaded_datasets")
         downloaded_surveyIds <- strsplit(downloaded_dataset_keys,"_") %>% lapply(function(x) x[1]) %>% unlist
-        datasets_to_clear <- which(downloaded_surveyIds %in% updates$SurveyId[lubridate::mdy_hms(updates$UpdateDate)>client$get_cache_date()])
+        datasets_to_clear <- which(downloaded_surveyIds %in% updates$SurveyId[mdy_hms(updates$UpdateDate)>client$get_cache_date()])
         # do any of them match those that have been updated since the last cache_date
         if(length(datasets_to_clear) > 0){
 
@@ -276,58 +276,60 @@ R6_client_dhs <- R6::R6Class(
 
       # handle for more than one dataset specified
       download_iterations <- length(res) <- dim(datasets)[1]
-      names(res) <- paste0(strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist,
-                           "_",datasets$SurveyId)
+      names(res) <- datasets$file
 
       # iterate through download requests
       for(i in 1:download_iterations){
 
-        # key from file name
-        filename <- strsplit(datasets[i,]$FileName,".",fixed=TRUE)[[1]][1]
-
-        # create key for this
-        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_",download_option,"_",reformat)
-
-        # first check against cache
-        out <- tryCatch(private$storr$get(key,"downloaded_datasets"),
-                        KeyError = function(e) NULL)
-
-        # check out agianst cache, if fine then return just that
-        if(!is.null(out)){
-
-          res[[i]] <- out
-
+        # if no url then place error message in results list
+        if(is.na(datasets$URLS[i])){
+          res[[i]] <- "This dataset is not available with your DHS login credentials"
         } else {
 
-          # Download dataset
-          resp <- download_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
-                                    your_password=Sys.getenv("rdhs_USER_PASS"),
-                                    your_project=Sys.getenv("rdhs_USER_PROJECT"),
-                                    desired_dataset=datasets[i,],
-                                    output_dir_root=output_dir_root,
-                                    download_option=download_option,
-                                    all_lower=all_lower,
-                                    reformat=reformat,
-                                    ...)
+          # create key for this
+          key <- paste0(datasets[i,]$SurveyId,"_",datasets[i,]$file,"_",download_option,"_",reformat)
 
-          # if there were 2 results returned with these names then we cache them into different namespace
-          # the reason for this is it's really helpful to have the questions in each dataset quickly accessible without having
-          # to load the dataset each time. And we cache the dataset path rather than the full dataset so that people can more
-          # quickly jump and grab a dataset from the rds iin the datasets directory rather than having to go into the db directory
+          # first check against cache
+          out <- tryCatch(private$storr$get(key,"downloaded_datasets"),
+                          KeyError = function(e) NULL)
 
-          if(identical(names(resp),c("dataset","variable_names"))){
-            private$storr$set(key,resp$dataset,"downloaded_datasets")
-            private$storr$set(key,resp$variable_names,"downloaded_dataset_variable_names")
-            res[[i]] <- resp$dataset
+          # check out agianst cache, if fine then return just that
+          if(!is.null(out)){
+
+            res[[i]] <- out
+
           } else {
-            ## then cache the resp and store it in the results list
-            private$storr$set(key,resp,"downloaded_datasets")
-            res[[i]] <- resp
+
+            # Download dataset
+            resp <- download_datasets(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                      your_password=Sys.getenv("rdhs_USER_PASS"),
+                                      your_project=Sys.getenv("rdhs_USER_PROJECT"),
+                                      desired_dataset=datasets[i,],
+                                      output_dir_root=output_dir_root,
+                                      download_option=download_option,
+                                      all_lower=all_lower,
+                                      reformat=reformat,
+                                      ...)
+
+            # if there were 2 results returned with these names then we cache them into different namespace
+            # the reason for this is it's really helpful to have the questions in each dataset quickly accessible without having
+            # to load the dataset each time. And we cache the dataset path rather than the full dataset so that people can more
+            # quickly jump and grab a dataset from the rds iin the datasets directory rather than having to go into the db directory
+
+            if(identical(names(resp),c("dataset","variable_names"))){
+              private$storr$set(key,resp$dataset,"downloaded_datasets")
+              private$storr$set(key,resp$variable_names,"downloaded_dataset_variable_names")
+              res[[i]] <- resp$dataset
+            } else {
+              ## then cache the resp and store it in the results list
+              private$storr$set(key,resp,"downloaded_datasets")
+              res[[i]] <- resp
+            }
+
           }
-
         }
-      }
 
+      }
       # add the reformat as an attribute to make life easier is survey_questions/variables
       attr(res,which = "reformat") <- reformat
       return(res)
@@ -546,7 +548,7 @@ R6_client_dhs <- R6::R6Class(
     get_root = function() private$root,
 
     # get a dataset's var labels
-    get_dataset_var_labels = function(dataset_filenames=NULL, dataset=NULL){
+    get_var_labels = function(dataset_filenames=NULL, dataset=NULL){
 
       # catch if both null
       if(is.null(dataset_filenames) & is.null(dataset)){
@@ -563,33 +565,32 @@ R6_client_dhs <- R6::R6Class(
       if(!is.null(dataset)){
 
         vars <- get_var_labels(dataset)
-        return(vars)
       }
 
       if(!is.null(dataset_filenames)){
 
         # grab the variables using a catch all variables term
         vars <- self$survey_questions(dataset_filenames = dataset_filenames,search_terms = "")
-        return(vars)
       }
 
+      return(vars)
 
     },
 
 
-    ## DOWNLOADED_DATASETS
+    ## GET_DOWNLOADED_DATASETS
     # Grab all downloaded datasets
-    downloaded_datasets = function(){
+    get_downloaded_datasets = function(){
 
       # grab the keys within the namespace for this
       keys <- private$storr$list("downloaded_datasets")
 
       # download paths
-      private$storr$mget(keys,namespace = "downloaded_datasets")
+      downloads <- private$storr$mget(keys,namespace = "downloaded_datasets")
+      names(downloads) <- strsplit(basename(unlist(downloads)),".rds",fixed=TRUE) %>%
+        lapply(function(x) x[1]) %>% unlist
 
-      # compare to datasets
-      datasets <- dhs_datasets(client = self)
-      datasets[grep(datasets) %>% unlist,]
+      downloads
 
     },
 
@@ -631,6 +632,10 @@ R6_client_dhs <- R6::R6Class(
       # fetch all the datasets so we can catch for the India matches by using the country code catch
       datasets <- dhs_datasets(client = self)
 
+      # create new filename argument that takes into account the india difficiulties where needed
+      avs <- create_new_filenames(avs)
+      datasets <- create_new_filenames(datasets)
+
       # find all the duplicate filenames and what datasets they belong to
       duplicates <- datasets[duplicated(datasets$FileName),]$FileName
       duplicate_data <- datasets[which(datasets$FileName %in% duplicates),]
@@ -646,7 +651,10 @@ R6_client_dhs <- R6::R6Class(
         # if there are no duplicates matched then perfect
         if(sum(duplicates_found,na.rm=TRUE)==0){
 
-          # check that the requested filenames are available
+          # what is the full set of datasets they have asked for
+          potential <- datasets[match(filenames,datasets$FileName),]
+
+          # now match the requested filenames are available
           found_datasets <- match(filenames, avs$FileName)
 
         } else {
@@ -656,9 +664,13 @@ R6_client_dhs <- R6::R6Class(
                          paste0(duplicates[which(!is.na(duplicates_found))],collapse="\n"),
                          "\n---\nBy default the above datasets will be downloaded according to the country code\n",
                          "indicated by the first 2 letters of these datasets. If you wished for the the above\n",
-                         "datatasets to be downloaded not based on their first 2 letters then please provide\n",
-                         "the desired rows from the output of dhs_datasets() for the datasets argument.",
-                         "See introductory vignette for more info"))
+                         "datatasets to be downloaded not based on just their first 2 letters then please provide\n",
+                         "the desired rows from the output of dhs_datasets() for the datasets argument.\n",
+                         "See introductory vignette for more info about this issue."))
+
+          # what is the full set of datasets they have asked for based on the countrycode assumpotion
+          potential <- datasets[match(paste0(toupper(substr(filenames,1,2)),toupper(filenames)),
+                                      paste0(toupper(datasets$DHS_CountryCode),toupper(datasets$FileName))),]
 
           # if there are duplicates what we will do is assume that they want the country versions
           found_datasets <- match(paste0(toupper(substr(filenames,1,2)),toupper(filenames)),
@@ -668,6 +680,10 @@ R6_client_dhs <- R6::R6Class(
 
       } else {
 
+        # what is the full set of datasets they have asked for
+        potential <- datasets[match(paste0(toupper(filenames$DHS_CountryCode),toupper(filenames$FileName)),
+                                    paste0(toupper(datasets$DHS_CountryCode),toupper(datasets$FileName))),]
+
         # if they gave the full output then we can match with the provided country code
         found_datasets <- match(paste0(toupper(filenames$DHS_CountryCode),toupper(filenames$FileName)),
                                 paste0(toupper(avs$DHS_CountryCode),toupper(avs$FileName)))
@@ -675,7 +691,7 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # create the datasets data.frame that will then be used to download datasets
-      datasets <- avs[na.omit(found_datasets),]
+      potential$URLS <- avs$URLS[found_datasets]
 
       # let them know about any datasets that they requested that aren't avaialable for them to download also
       if(sum(is.na(found_datasets))>0) {
@@ -684,7 +700,7 @@ R6_client_dhs <- R6::R6Class(
                        "\n---\nPlease request permission for these datasets from the DHS website to be able to download them"))
       }
 
-      return(datasets)
+      return(potential)
     }
 
 

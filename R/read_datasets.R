@@ -18,11 +18,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
     res <- read_dhs_dta(file,...)
 
     # reformat to create the nice description table
-    if(is.element("label.table",attributes(res) %>% names)){
-      res <- factor_format(res,type = "foreign",reformat,all_lower)
-    } else {
-      res <- factor_format(res,type="labelled",reformat,all_lower)
-    }
+    res <- factor_format(res,reformat,all_lower)
 
     # 2. .sav file
   } else if(file_match==2){
@@ -31,7 +27,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
     res <- read_zipdata(file,".sav$",haven::read_spss,user_na=TRUE)
 
     # reformat to create the nice description table
-    res <- factor_format(res,type="labelled",reformat,all_lower)
+    res <- factor_format(res,reformat,all_lower)
 
     # 3. .dat file
   } else if(file_match==3){
@@ -39,7 +35,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
     # check that it's a flat .dat file, otherwise we can't read it yet
     if(grepl("FL",basename(file))){
       res <- read_dhs_flat(file,all_lower = all_lower,...)
-      res <- factor_format(res,type="labelled",reformat,all_lower)
+      res <- factor_format(res,reformat,all_lower)
     } else {
       message("No support for reading in hierarchal .dat files as of yet. Perhaps read/download flat .dat datasets instead?")
       res <- "No support for importing hierarchal .dat"
@@ -57,7 +53,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
     # dbf is a bit different due to the arguments of readOGR so we have to unzip here and handle
     unzipped_files <- unzip_warn_fails(file,exdir=tempfile())
     file <- unzipped_files[which(toupper(filetype) %in% toupper(file_types))]
-    res <- list(dataset = rgdal::readOGR(dsn = dirname(file), layer = strsplit(basename(file), ".", fixed=TRUE)[[1]][1]))
+    res <- list("dataset"=rgdal::readOGR(dsn = dirname(file), layer = strsplit(basename(file), ".", fixed=TRUE)[[1]][1]))
 
   }
 
@@ -65,16 +61,24 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
 }
 
 
-#' reformat haven and labelled read ins to be more useful
+#' reformat haven and labelled read ins to have no factors or labels
 #' @param res dataset to be formatted
-#' @param type One of "labelled" or "foreign" as to whether the dataset was read in using foreign or
-#' was read in and suitably labelled using `haven::labelled`. Default = "labelled"
 #' @param reformat Boolean whether to remove all factors and labels and
 #' just return the unfactored data. Default = FALSE
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
 #'
 #' @return list with the formatted dataset and the code descriptions
-factor_format <- function(res, type="labelled", reformat=FALSE, all_lower=TRUE){
+
+factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
+
+  # what kind of dataset is it we are working with
+  if(is.element("label.table",attributes(res) %>% names)) {
+    type <- "foreign"
+  } else if(any(lapply(res,class) %>% unlist == "labelled")) {
+    type <- "labelled"
+  } else {
+    stop ("Dataset does not have a label.table attribute or any labelled vaiable classes")
+  }
 
   if(type=="labelled"){
 
@@ -135,7 +139,7 @@ factor_format <- function(res, type="labelled", reformat=FALSE, all_lower=TRUE){
 
     # reassign variable labels
     res[description_table$variable] <- Map("attr<-", res[description_table$variable], "label", description_table$description)
-      
+
   }
 
   return(list("dataset"=res, "variable_names"=description_table))
@@ -150,14 +154,38 @@ factor_format <- function(res, type="labelled", reformat=FALSE, all_lower=TRUE){
 #' @return A \code{data.frame} consisting of the variable name and labels.
 #' @export
 get_var_labels <- function(data, return_all=TRUE) {
-  lab <- unlist(lapply(data, attr, "label"))
-  if(return_all){
-    lab[setdiff(names(data), names(lab))] <- NA
-    lab <- lab[names(data)]
+
+  # what kind of dataset is it we are working with
+  if(is.element("label.table",attributes(data) %>% names)) {
+    type <- "foreign"
+  } else if(any(lapply(data,class) %>% unlist == "labelled")) {
+    type <- "labelled"
+  } else {
+    stop ("Dataset does not have a label.table attribute or any labelled vaiable classes")
   }
-  data.frame(variable = names(lab),
-             label = lab,
-             stringsAsFactors = FALSE)
+
+  if(type=="labelled"){
+
+    # and for labelled it's the the label attribute
+    description <- lapply(data,attr,"label")
+
+  } else if(type=="foreign"){
+
+    # for the foreign extracts we grab the var.labels attributes
+    description <- attributes(data)$var.labels
+  }
+
+  if(return_all){
+    description[setdiff(names(data), names(description))] <- NA
+    description <- description[names(data)]
+  }
+
+  # create the description table
+  description_table <- data.frame("variable"=names(data),"description"=as.character(description),
+                                  stringsAsFactors = FALSE)
+
+  return(description_table)
+
 }
 
 
@@ -182,6 +210,16 @@ read_zipdata <- function(zfile, pattern=".dta$", readfn=foreign::read.dta, ...){
     warning(paste0("Multiple file names match pattern '", pattern, "' in zip file '", basename(zfile), "'. Returning file '", file[1], "'."))
   return(readfn(unzip(zfile, file[1], exdir=tmp), ...))
 }
+
+
+# create simplest unique filenames that handles the india duplication.
+create_new_filenames <- function(data){
+  data$file <- strsplit(data$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+  issues <- which(!(tolower(substr(data$FileName,1,2))==tolower(data$DHS_CountryCode)))
+  data$file[issues] <- paste0(data$file[issues],"_",data$CountryName[issues])
+  data
+}
+
 
 read_zipdta <- function(zfile, ...){
   read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)

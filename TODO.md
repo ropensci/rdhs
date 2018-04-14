@@ -2,9 +2,9 @@ TODO Functionality list:
 
 ---
 
-1. Functionality to chain together pipeline in tutorial into something that can be cached and then repeated without fail by someone else.
-2. More testing and annotation
-3. Merge across survey types
-4. Something that does some validated fuzzy matching when survey codes and descriptions are not the same across surveys. Should combine columns that have the same code and description, and then match based on valid descriptions with some fizzy text match and then highlight all matches made this way for you to review and check. There are issues however when questions are "in the last x weeks" so although it's the same question it carries fundamentally different data.
-5. Function to take multiple datasets and group_by cluster number and summarise all numeric data to produce clustered data - need to figure out what to do when it comes to categorical data and how to check the correct survey_design stratification for each dataset
-6. 500 server errors catch in client load
+1. Anemia vignette should full embrace survey_variables() and extract() functionality
+2. Need to add / fix parsers for a few cases: DHS Phase I, Wealth index datasets
+3. Some harmonization of terminology across package (questions vs. labels, etc.)
+4. Additional functionality for merging datasets (IR, MR, AR, etc.)
+5. Handling of survey strata
+6. Additional functionality for statistical analysis of survey data
