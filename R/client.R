@@ -648,16 +648,16 @@ R6_client_dhs <- R6::R6Class(
       if(is.vector(filenames)){
 
         # do their requested filenames include any of the duplicates
-        duplicates_found <- match(duplicates, filenames)
+        duplicates_found <- match(toupper(duplicates), toupper(filenames))
 
         # if there are no duplicates matched then perfect
         if(sum(duplicates_found,na.rm=TRUE)==0){
 
           # what is the full set of datasets they have asked for
-          potential <- datasets[match(filenames,datasets$FileName),]
+          potential <- datasets[match(toupper(filenames),toupper(datasets$FileName)),]
 
           # now match the requested filenames are available
-          found_datasets <- match(filenames, avs$FileName)
+          found_datasets <- match(toupper(filenames), toupper(avs$FileName))
 
         } else {
 
