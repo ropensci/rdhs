@@ -25,9 +25,7 @@ response_is_json <- function(x) {
   dat$type == "application" && dat$subtype == "json"
 }
 
-#' unzips files without throwing warnings
-#' @param ... arguments to pass to \code{unzip}
-#' @importFrom utils unzip
+# unzips files without throwing warnings
 unzip_warn_fails <- function (...){
   tryCatch({
     unzip(...)
@@ -40,11 +38,12 @@ client_refresh <- function(cli){
   cli$set_cache_date(last_api_update()-1)
   cli$save_client()
   root <- cli$get_root()
+  if(!is.null(cli$.__enclos_env__$private$credentials_path)){
   if(file.exists(cli$.__enclos_env__$private$credentials_path)){
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
                             credentials = cli$.__enclos_env__$private$credentials_path,
                             root = root)
-  } else {
+  }} else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = root)
   }
 
@@ -84,6 +83,11 @@ is_uppercase <- function (string)
   !grepl("[a-z]", string, perl = TRUE)
 }
 
+
+## helper functions - not package related - but easiest to have here while developing
+## ----------------------------------------------
+
+
 # call_tree
 match.call.defaults <- function(...) {
   call <- evalq(match.call(expand.dots = FALSE), parent.frame(1))
@@ -96,16 +100,11 @@ match.call.defaults <- function(...) {
   match.call(sys.function(sys.parent()), call)
 }
 
-
-
-## helper functions - not package related
-## ----------------------------------------------
-
 # open file outside'
 sopen <- function(txt_path) system(paste0("open ","\"",txt_path,"\""))
 
 # open folder outside
-sdir <- function(x)  shell(paste0("explorer ",x))
+sdir <- function(x)  {if(Sys.info()["sysname"] == "Windows") shell.exec(x) else system2("open", x)}
 
 # chracterise vector
 rechar_vec <- function(what) cat(paste0("c(\"",paste0(what,collapse="\",\""),"\")"))

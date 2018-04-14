@@ -32,6 +32,9 @@ test_that("avaialble surveys and download work", {
   # check rds only
   downloads <- cli$get_datasets(dataset_filenames = survs[hhs_dta[sample_survs],]$FileName,download_option = "r")
 
+  # check handle for dataset you don't have permission for
+  downloads <- cli$get_datasets("CDGC61FL.ZIP")
+
   # check dta foreign only
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw")
 
@@ -47,8 +50,22 @@ test_that("avaialble surveys and download work", {
   cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw",reformat=TRUE,all_lower=TRUE)
 
-  # check FL with upper foreign only
-  downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw")
+  # check FL
+  downloads <- cli$get_datasets(dataset_filenames = "AOBR62FL.ZIP",download_option = "r",all_lower = FALSE)
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62FL_rds_TRUE",namespace = "downloaded_datasets")
+
+  # remove the cache and then check for the map parser
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
+  downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="map",reformat=TRUE)
+
+
+  # check FL with allLowr default
+  downloads <- cli$get_datasets(dataset_filenames = "AOBR62FL.ZIP",download_option = "r")
+
+  # check the irritating shared filename case
+  downloads <- cli$get_datasets("KEKR42FL.ZIP")
+  datasets <- dhs_datasets()
+  downloads <- cli$get_datasets(datasets[6047,])
 
   # check hierarchal catch and sas7bdat
   downloads <- cli$get_datasets(dataset_filenames = "AOIR62.ZIP",download_option = "r",mode="raw")
@@ -59,6 +76,20 @@ test_that("avaialble surveys and download work", {
 
   # check both
   downloads <- cli$get_datasets(dataset_filenames = survs[hhs_dta[sample_survs],]$FileName,download_option = "b")
+
+  # check downloaded surveys
+  d <- cli$get_downloaded_datasets()
+
+  # check var label fetch
+  v <- cli$get_var_labels(dataset_filenames = "AOBR62FL.ZIP")
+  downloads <- cli$get_datasets(dataset_filenames = "AOBR62FL.ZIP",download_option = "r")
+  v <- cli$get_var_labels(dataset = readRDS(downloads$AOBR62FL))
+  v <- cli$get_var_labels(dataset_filenames = "AOBR62FL.ZIP",dataset = readRDS(downloads$AOBR62FL))
+
+  # and check the non client version on normal and fommatted
+  v <- get_var_labels(readRDS(downloads$AOBR62FL))
+  downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",reformat=TRUE)
+  v <- get_var_labels(readRDS(downloads$AOBR62DT))
 
   unlink(td)
 

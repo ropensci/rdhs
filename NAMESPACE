@@ -2,6 +2,7 @@
 
 export("%>%")
 export(client_dhs)
+export(data_and_labels)
 export(dhs_countries)
 export(dhs_data)
 export(dhs_dataUpdates)
