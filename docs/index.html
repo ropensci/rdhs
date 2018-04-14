@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API Client and Data Munging for the Demographic and Health Survey Data • rdhs</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>API Client and Dataset Management for the Demographic and Health Survey (DHS) Data • rdhs</title>
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="API Client and Data Munging for the Demographic and Health Survey Data">
-<meta property="og:description" content="Provides an API client for the DHS API that allows DHS survey indicators
-  to be queried. This allows desired indicators to be easily found and passed onto 
-  subsequent functionality within rdhs for downloading datasets and conducting basic
-  data munging tasks. ">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="API Client and Dataset Management for the Demographic and Health Survey (DHS) Data">
+<meta property="og:description" content="Provides a client for (1) querying the DHS API for survey indicators
+  and metadata, (2) identifying surveys and datasets for analysis, (3) downloading
+  survey datasets from the DHS website, (4) loading datasets and associate metadata
+  into R, and (5) extracting variables and combining datasets for pooled analysis.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -40,30 +40,25 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/rdhs.html">Get started</a>
+  <a href="articles/introduction.html">Introduction</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Articles</li>
 <li>
-      <a href="articles/rdhs_html.html">rdhs package tutorial overview</a>
-    </li>
-  </ul>
+  <a href="articles/introduction.html">Introduction to rdhs (Overview)</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="articles/anemia.html">An example use case looking at trends in anemia</a>
+</li>
+<li>
+  <a href="news/index.html">News</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -82,7 +77,7 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
+<p><img src="img/logo.svg" align="left" height="149" width="149"><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a> <a href="https://travis-ci.org/OJWatson/rdhs"><img src="https://travis-ci.org/OJWatson/rdhs.png?branch=master" alt="Travis-CI Build Status"></a> <a href="https://codecov.io/github/OJWatson/rdhs?branch=master"><img src="https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></p>
 <p><code>rdhs</code> is a package for management and analysis of <a href="www.dhsprogram.com">Demographic and Health Survey (DHS)</a> data. This includes functionality to:</p>
 <ol style="list-style-type: decimal">
 <li>Access standard indicator data (i.e. <a href="https://www.statcompiler.com/">DHS STATcompiler</a>) in R via the <a href="https://api.dhsprogram.com/">DHS API</a>.</li>
@@ -91,464 +86,470 @@
 <li>Load datasets and associated metadata into R.</li>
 <li>Extract variables and combining datasets for pooled multi-survey analyses.</li>
 </ol>
+<hr>
+<div id="motivation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#motivation" class="anchor"></a>Motivation</h2>
+<p>The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within <code>rdhs</code> improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install rdhs from github with:</p>
+<p>Install <code>rdhs</code> from github with <code>devtools</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools::<span class="kw">install_github</span>(<span class="st">"OJWatson/rdhs"</span>)</code></pre></div>
+<span class="co"># devtools::install_github("OJWatson/rdhs")</span>
+<span class="kw">library</span>(rdhs)</code></pre></div>
+</div>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h2>
+<p>TODO: An example workflow using <code>rdhs</code> to calculate trends in anemia prevalence is available <a href="INSERT%20LINK">here</a>.</p>
+<p>TODO: Full functionality is described in the tutorial <a href="INSERT%20LINK">here</a>.</p>
 </div>
 <div id="basic-functionality" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-functionality" class="anchor"></a>Basic Functionality</h2>
-<p>This is a basic example which shows you how to follow the 5 steps above to quickly identify, download and extract datasets you are interested in.</p>
-<p>Let’s say we want to get all the survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we’ll interact with the DHS API to identify our datasets.</p>
-<p>The DHS API has many <em>endpoints</em> that can be accessed using anyone of <code>dhs_&lt;endpoint&gt;()</code> functions. Each one interacts with a different endpoint of the <a href="https://api.dhsprogram.com/">DHS API</a>. Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.</p>
-<p>To start our extraction we’ll query the <em>surveyCharacteristics</em> endpoint using <code><a href="reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics()</a></code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rdhs)
-## make a call with no arguments
+<div id="query-the-dhs-api-" class="section level3">
+<h3 class="hasAnchor">
+<a href="#query-the-dhs-api-" class="anchor"></a>Query the <a href="https://api.dhsprogram.com/">DHS API</a>.</h3>
+<p>Obtain survey esimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
+<span class="co">#&gt;                              ShortName   IndicatorId</span>
+<span class="co">#&gt; 1: Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
+<span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
+       <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
+<span class="co">#&gt;                              Indicator  SurveyId SurveyYearLabel Value</span>
+<span class="co">#&gt; 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
+<span class="co">#&gt; 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
+<span class="co">#&gt;                  CountryName</span>
+<span class="co">#&gt; 1: Congo Democratic Republic</span>
+<span class="co">#&gt; 2:                  Tanzania</span></code></pre></div>
+</div>
+<div id="identify-survey-datasets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#identify-survey-datasets" class="anchor"></a>Identify survey datasets</h3>
+<p>Now, obtain survey microdatasets to analyze these same indicators. Query the <em>surveyCharacteristics</em> endpoint to identify the survey characteristic ID for malaria RDT testing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## call with no arguments to return all characterstics
 sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>()
-sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>,sc$SurveyCharacteristicName),]
+sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc$SurveyCharacteristicName), ]
 <span class="co">#&gt;    SurveyCharacteristicID SurveyCharacteristicName</span>
 <span class="co">#&gt; 1:                     96            Malaria - DBS</span>
 <span class="co">#&gt; 2:                     90     Malaria - Microscopy</span>
 <span class="co">#&gt; 3:                     89            Malaria - RDT</span>
 <span class="co">#&gt; 4:                     57          Malaria module </span>
 <span class="co">#&gt; 5:                      8 Malaria/bednet questions</span></code></pre></div>
-<p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API endpoints first:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds
-ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>,<span class="st">"DHS_CountryCode"</span>))
-<span class="kw">str</span>(ids)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   94 obs. of  2 variables:</span>
-<span class="co">#&gt;  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...</span>
-<span class="co">#&gt;  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...</span>
-<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span>
+<p>Use <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code> identify surveys for the countries and years of interest.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds - we can find that using this API request
+ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
 
-<span class="co"># lets find all the surveys that fit our search criteria</span>
-survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)
-
-<span class="co"># and lastly use this to find the datasets we will want to download and let's download the spss (.sav) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)</span>
-datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs$SurveyId, <span class="dt">fileFormat =</span> <span class="st">"SV"</span>)
+## find all the surveys that match the search criteria
+survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>, <span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</code></pre></div>
+<p>Lastly, identify the datasets required for download. By default, the recommended option is to download the flat file (.dat) datasets. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs$SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
 <span class="kw">str</span>(datasets)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   15 obs. of  13 variables:</span>
-<span class="co">#&gt;  $ FileFormat          : chr  "SPSS dataset (.sav)" "SPSS dataset (.sav)" "SPSS dataset (.sav)" "SPSS dataset (.sav)" ...</span>
-<span class="co">#&gt;  $ FileSize            : int  225788 7147499 3423479 8385666 11832635 4797858 1735199 8364572 9162774 11654800 ...</span>
-<span class="co">#&gt;  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...</span>
-<span class="co">#&gt;  $ SurveyNum           : int  421 421 421 421 421 421 421 421 485 485 ...</span>
-<span class="co">#&gt;  $ SurveyId            : chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span>
-<span class="co">#&gt;  $ FileType            : chr  "HIV Test Results Recode" "Births Recode" "Couples' Recode" "Household Recode" ...</span>
-<span class="co">#&gt;  $ FileDateLastModified: chr  "November, 14 2014 12:48:33" "November, 17 2014 15:42:20" "November, 17 2014 15:42:29" "September, 19 2016 09:55:46" ...</span>
-<span class="co">#&gt;  $ SurveyYearLabel     : chr  "2013-14" "2013-14" "2013-14" "2013-14" ...</span>
-<span class="co">#&gt;  $ SurveyType          : chr  "DHS" "DHS" "DHS" "DHS" ...</span>
-<span class="co">#&gt;  $ SurveyYear          : int  2013 2013 2013 2013 2013 2013 2013 2013 2015 2015 ...</span>
-<span class="co">#&gt;  $ DHS_CountryCode     : chr  "CD" "CD" "CD" "CD" ...</span>
-<span class="co">#&gt;  $ FileName            : chr  "CDAR61SV.ZIP" "CDBR61SV.ZIP" "CDCR61SV.ZIP" "CDHR61SV.ZIP" ...</span>
-<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...</span>
+<span class="co">#&gt; Classes 'data.table' and 'data.frame':   2 obs. of  13 variables:</span>
+<span class="co">#&gt;  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"</span>
+<span class="co">#&gt;  $ FileSize            : int  6595349 6622108</span>
+<span class="co">#&gt;  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets"</span>
+<span class="co">#&gt;  $ SurveyNum           : int  421 485</span>
+<span class="co">#&gt;  $ SurveyId            : chr  "CD2013DHS" "TZ2015DHS"</span>
+<span class="co">#&gt;  $ FileType            : chr  "Household Member Recode" "Household Member Recode"</span>
+<span class="co">#&gt;  $ FileDateLastModified: chr  "September, 19 2016 09:58:23" "December, 09 2016 14:10:59"</span>
+<span class="co">#&gt;  $ SurveyYearLabel     : chr  "2013-14" "2015-16"</span>
+<span class="co">#&gt;  $ SurveyType          : chr  "DHS" "DHS"</span>
+<span class="co">#&gt;  $ SurveyYear          : int  2013 2015</span>
+<span class="co">#&gt;  $ DHS_CountryCode     : chr  "CD" "TZ"</span>
+<span class="co">#&gt;  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7HFL.ZIP"</span>
+<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"</span>
 <span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
-<p>we can now use this to download our datasets for further analysis. The raw data can be very useful for a lot of analysis, however, the DHS does publish a set of standard health indicators that have been statistically calculated to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we need to query the <code><a href="reference/dhs_data.html">dhs_data()</a></code> endpoint. We can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the indicaators
-indicators &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>()
-<span class="kw">str</span>(indicators)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   2943 obs. of  22 variables:</span>
-<span class="co">#&gt;  $ Definition             : chr  "Age-specific fertility rate for the three years preceding the survey for age group 15-19 expressed per 1,000 women" "Age-specific fertility rate for the three years preceding the survey for age group 20-24 expressed per 1,000 women" "Age-specific fertility rate for the three years preceding the survey for age group 25-29 expressed per 1,000 women" "Age-specific fertility rate for the three years preceding the survey for age group 30-34 expressed per 1,000 women" ...</span>
-<span class="co">#&gt;  $ NumberScale            : int  0 0 0 0 0 0 0 1 1 0 ...</span>
-<span class="co">#&gt;  $ IndicatorType          : chr  "I" "I" "I" "I" ...</span>
-<span class="co">#&gt;  $ MeasurementType        : chr  "Rate" "Rate" "Rate" "Rate" ...</span>
-<span class="co">#&gt;  $ IsQuickStat            : int  0 0 0 0 0 0 0 1 0 0 ...</span>
-<span class="co">#&gt;  $ ShortName              : chr  "ASFR 15-19" "ASFR 20-24" "ASFR 25-29" "ASFR 30-34" ...</span>
-<span class="co">#&gt;  $ IndicatorId            : chr  "FE_FRTR_W_A15" "FE_FRTR_W_A20" "FE_FRTR_W_A25" "FE_FRTR_W_A30" ...</span>
-<span class="co">#&gt;  $ Level1                 : chr  "Fertility" "Fertility" "Fertility" "Fertility" ...</span>
-<span class="co">#&gt;  $ IndicatorTotalId       : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ Level2                 : chr  "Fertility rates" "Fertility rates" "Fertility rates" "Fertility rates" ...</span>
-<span class="co">#&gt;  $ Level3                 : chr  "Women" "Women" "Women" "Women" ...</span>
-<span class="co">#&gt;  $ SDRID                  : chr  "FEFRTRWA15" "FEFRTRWA20" "FEFRTRWA25" "FEFRTRWA30" ...</span>
-<span class="co">#&gt;  $ IndicatorOldId         : chr  "19165001" "19165002" "19165003" "19165004" ...</span>
-<span class="co">#&gt;  $ TagIds                 : chr  "74, 1, 7, 81, 80" "74" "74" "74" ...</span>
-<span class="co">#&gt;  $ DenominatorWeightedId  : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ Label                  : chr  "Age specific fertility rate: 15-19" "Age specific fertility rate: 20-24" "Age specific fertility rate: 25-29" "Age specific fertility rate: 30-34" ...</span>
-<span class="co">#&gt;  $ IndicatorOrder         : int  11763010 11763020 11763030 11763040 11763050 11763060 11763070 11763080 11763090 11763100 ...</span>
-<span class="co">#&gt;  $ Denominator            : chr  "Per thousand women years exposed in the period 1-36 months prior to interview" "Per thousand women years exposed in the period 1-36 months prior to interview" "Per thousand women years exposed in the period 1-36 months prior to interview" "Per thousand women years exposed in the period 1-36 months prior to interview" ...</span>
-<span class="co">#&gt;  $ QuickStatOrder         : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ IndicatorSpecial1Id    : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ DenominatorUnweightedId: chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ IndicatorSpecial2Id    : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span>
-
-<span class="co"># quite a lot of indicators! It might be easier to first query by tags. First let's look at what the tags are:</span>
-tags &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_tags.html">dhs_tags</a></span>()
-tags[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>,tags$TagName),]
-<span class="co">#&gt;    TagType                   TagName TagID TagOrder</span>
-<span class="co">#&gt; 1:       0       Malaria Parasitemia    36      540</span>
-<span class="co">#&gt; 2:       2 Select Malaria Indicators    79     1000</span>
-
-<span class="co"># and let's then grab this data</span>
-data &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)
-<span class="kw">str</span>(data)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   300 obs. of  27 variables:</span>
-<span class="co">#&gt;  $ DataId                : int  3121901 2733430 1943241 1587484 1343913 1878573 2443671 2770492 1882836 1475239 ...</span>
-<span class="co">#&gt;  $ Indicator             : chr  "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" "Malaria prevalence according to RDT" ...</span>
-<span class="co">#&gt;  $ SurveyId              : chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span>
-<span class="co">#&gt;  $ IsPreferred           : int  1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ Value                 : num  17.1 47.1 20.2 27.4 49.1 2.9 44.1 12 38.9 49.4 ...</span>
-<span class="co">#&gt;  $ SDRID                 : chr  "MLPMALCRDT" "MLPMALCRDT" "MLPMALCRDT" "MLPMALCRDT" ...</span>
-<span class="co">#&gt;  $ Precision             : int  1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;  $ RegionId              : chr  "CDDHS2013503010" "CDDHS2013503020" "CDDHS2013503030" "CDDHS2013503040" ...</span>
-<span class="co">#&gt;  $ SurveyYearLabel       : chr  "2013-14" "2013-14" "2013-14" "2013-14" ...</span>
-<span class="co">#&gt;  $ SurveyType            : chr  "DHS" "DHS" "DHS" "DHS" ...</span>
-<span class="co">#&gt;  $ SurveyYear            : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...</span>
-<span class="co">#&gt;  $ IndicatorOrder        : int  125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 125136010 ...</span>
-<span class="co">#&gt;  $ DHS_CountryCode       : chr  "CD" "CD" "CD" "CD" ...</span>
-<span class="co">#&gt;  $ CILow                 : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ CountryName           : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...</span>
-<span class="co">#&gt;  $ IndicatorType         : chr  "I" "I" "I" "I" ...</span>
-<span class="co">#&gt;  $ CharacteristicId      : int  503010 503020 503030 503040 503050 503061 503062 503063 503070 503080 ...</span>
-<span class="co">#&gt;  $ CharacteristicCategory: chr  "Region" "Region" "Region" "Region" ...</span>
-<span class="co">#&gt;  $ IndicatorId           : chr  "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" "ML_PMAL_C_RDT" ...</span>
-<span class="co">#&gt;  $ CharacteristicOrder   : int  1503010 1503020 1503030 1503040 1503050 1503061 1503062 1503063 1503070 1503080 ...</span>
-<span class="co">#&gt;  $ CharacteristicLabel   : chr  "Kinshasa" "Bas-Congo" "Bandundu" "Equateur" ...</span>
-<span class="co">#&gt;  $ ByVariableLabel       : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ DenominatorUnweighted : chr  "406" "375" "1081" "1281" ...</span>
-<span class="co">#&gt;  $ DenominatorWeighted   : chr  "532" "347" "1414" "1236" ...</span>
-<span class="co">#&gt;  $ CIHigh                : chr  "" "" "" "" ...</span>
-<span class="co">#&gt;  $ IsTotal               : int  0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  $ ByVariableId          : int  0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
-<p>Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via <a href="https://www.statcompiler.com/">DHS STATcompiler</a> if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the <code>rdhs</code> API interaction.</p>
-<hr>
-<p>We can now go ahead and download our datasets. To do this we need to first create a <code>client</code>. The client is an R6 class (similar to R’s built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis.</p>
-<p>To create our client we use the <code><a href="reference/client.html">client()</a></code> function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:</p>
-<ul>
-<li>email=“dummy@gmail.com”</li>
-<li>password=“dummypass”</li>
-<li>project=“Dummy Project”</li>
-</ul>
-<p>It also takes an argument for its <code>root</code>, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.</p>
+</div>
+<div id="download-datasets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#download-datasets" class="anchor"></a>Download datasets</h3>
+<p>A DHS <code>client</code> will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the <code><a href="reference/client_dhs.html">client_dhs()</a></code> function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See introduction vignette for specific format for credentials).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## create a client
-client &lt;-<span class="st"> </span><span class="kw"><a href="reference/client.html">client</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>)
-client
-<span class="co">#&gt; &lt;client&gt;</span>
-<span class="co">#&gt;   Public:</span>
-<span class="co">#&gt;     available_datasets: function (clear_cache_first = FALSE) </span>
-<span class="co">#&gt;     clear_namespace: function (namespace) </span>
-<span class="co">#&gt;     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key, </span>
-<span class="co">#&gt;     download_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE, </span>
-<span class="co">#&gt;     extract: function (questions, add_geo = TRUE) </span>
-<span class="co">#&gt;     get_cache_date: function () </span>
-<span class="co">#&gt;     get_root: function () </span>
-<span class="co">#&gt;     initialize: function (api_key = NULL, root = NULL, credentials = NULL) </span>
-<span class="co">#&gt;     save_client: function () </span>
-<span class="co">#&gt;     set_cache_date: function (date) </span>
-<span class="co">#&gt;     survey_questions: function (dataset_filenames, search_terms = NULL, essential_terms = NULL, </span>
-<span class="co">#&gt;     survey_variables: function (dataset_filenames, variables, essential_variables = NULL, </span>
-<span class="co">#&gt;   Private:</span>
-<span class="co">#&gt;     api_endpoints: data indicators countries surveys surveycharacteristics  ...</span>
-<span class="co">#&gt;     api_key: ICLSPH-527168</span>
-<span class="co">#&gt;     cache_date: 2018-04-10 18:44:42</span>
-<span class="co">#&gt;     check_available_datasets: function (filenames) </span>
-<span class="co">#&gt;     credentials_path: C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rd ...</span>
-<span class="co">#&gt;     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$</span>
-<span class="co">#&gt;     package_version: package_version, numeric_version</span>
-<span class="co">#&gt;     root: C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache</span>
-<span class="co">#&gt;     storr: storr, R6</span>
-<span class="co">#&gt;     url: https://api.dhsprogram.com/rest/dhs/</span></code></pre></div>
-<p>Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># before it's cached we provide the client so the results is cached within our client</span>
+client &lt;-<span class="st"> </span><span class="kw"><a href="reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
+<p>Note that the client can be provided as an argument to any of the API functions used above. This will cache the results of the API request, such that previous API requests (e.g. survey metadata) can be returned when working remotely or with poor internet connection.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># before it's cached, provide the client so the results is cached within our client</span>
 s &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client)
 
-<span class="co"># with it cached it will be returned much quicker with the client argument</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client),<span class="dt">times =</span> <span class="dv">1</span>)
-<span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                          expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  dhs_surveys(client = client) 32.56069 32.56069 32.56069 32.56069 32.56069</span>
-<span class="co">#&gt;       max neval</span>
-<span class="co">#&gt;  32.56069     1</span>
-
-<span class="co"># without it cached again for comparison</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)
-<span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;           expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  dhs_surveys() 452.2639 452.2639 452.2639 452.2639 452.2639 452.2639     1</span></code></pre></div>
-<p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
-<p>So first we will download all these datasets:</p>
+<span class="co"># after caching, results will be available instantly</span>
+s &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client)</code></pre></div>
+<p>Download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
-downloads &lt;-<span class="st"> </span>client$<span class="kw"><a href="reference/download_datasets.html">download_datasets</a></span>(datasets$FileName)
+downloads &lt;-<span class="st"> </span>client$<span class="kw">get_datasets</span>(datasets$FileName)
 
 <span class="kw">str</span>(downloads)
-<span class="co">#&gt; List of 15</span>
-<span class="co">#&gt;  $ CDAR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDAR61SV.rds"</span>
-<span class="co">#&gt;  $ CDBR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDBR61SV.rds"</span>
-<span class="co">#&gt;  $ CDCR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDCR61SV.rds"</span>
-<span class="co">#&gt;  $ CDHR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDHR61SV.rds"</span>
-<span class="co">#&gt;  $ CDIR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDIR61SV.rds"</span>
-<span class="co">#&gt;  $ CDKR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDKR61SV.rds"</span>
-<span class="co">#&gt;  $ CDMR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDMR61SV.rds"</span>
-<span class="co">#&gt;  $ CDPR61SV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61SV.rds"</span>
-<span class="co">#&gt;  $ TZHR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZHR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZIR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZIR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZKR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZKR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZBR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZBR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZCR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZCR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZMR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZMR7HSV.rds"</span>
-<span class="co">#&gt;  $ TZPR7HSV: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7HSV.rds"</span>
+<span class="co">#&gt; List of 2</span>
+<span class="co">#&gt;  $ CDPR61FL: chr "~/Downloads/rdhs_cache/datasets/CDPR61FL.rds"</span>
+<span class="co">#&gt;  $ TZPR7HFL: chr "~/Downloads/rdhs_cache/datasets/TZPR7HFL.rds"</span>
 <span class="co">#&gt;  - attr(*, "reformat")= logi FALSE</span></code></pre></div>
-<p>The function returns a list with a file path to where the downloaded dataset has been saved to. We can then read in one of these datasets:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in our dataset</span>
-cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDPR61SV)
-
-<span class="co"># what is our cdpr object?</span>
-<span class="kw">names</span>(cdpr)
-<span class="co">#&gt; [1] "dataset"        "variable_names"</span></code></pre></div>
-<p>The dataset returned here is a list that contains the <em>dataset</em> but also a data.frame called <em>variable_names</em>. This contains all the survey questions within the dataset, and what their survey variable is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's look at the variable_names</span>
-<span class="kw">head</span>(cdpr$variable_names)
-<span class="co">#&gt;   variable                                                  description</span>
-<span class="co">#&gt; 1     hhid                                          Case Identification</span>
-<span class="co">#&gt; 2    hvidx                                                  Line number</span>
-<span class="co">#&gt; 3    hv000                                       Country code and phase</span>
-<span class="co">#&gt; 4    hv001                                               Cluster number</span>
-<span class="co">#&gt; 5    hv002                                             Household number</span>
-<span class="co">#&gt; 6    hv003 Respondent's line number (answering Household questionnaire)</span>
-
-<span class="co"># and then the dataset</span>
-<span class="kw">class</span>(cdpr$dataset)
-<span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
-<span class="kw">str</span>(cdpr$dataset$hv024)
-<span class="co">#&gt; Class 'labelled'  atomic [1:95949] 4 4 4 4 4 4 4 4 4 4 ...</span>
-<span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
-<span class="co">#&gt;   ..- attr(*, "format.spss")= chr "F2.0"</span>
-<span class="co">#&gt;   ..- attr(*, "display_width")= int 7</span>
-<span class="co">#&gt;   ..- attr(*, "labels")= Named num [1:11] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:11] "Kinshasa" "Bandundu" "Bas-Congo" "Equateur" ...</span></code></pre></div>
-<p>This is the default behaviour for the The client function <code>download_datasets</code> - it will download the datasets for you, and then by default save them in your client’s root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client’s root directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
-<ul>
-<li>
-<code>client$download_datasets(download_option = "zip")</code> - Just the downloaded zip will be saved</li>
-<li>
-<code>client$download_datasets(download_option = "rds")</code> - Just the read in rds will be saved</li>
-<li>
-<code>client$download_datasets(download_option = "both")</code> - The zip is downloaded and saved as well as the read in rds</li>
-</ul>
-<p>The other main reason for reading the dataset in straight away as the default option is that the created table of all the survey variables and their definitions is cached then and there, which then allows us to quickly query for particular search terms or survey variables:</p>
+</div>
+<div id="load-datasets-into-r" class="section level3">
+<h3 class="hasAnchor">
+<a href="#load-datasets-into-r" class="anchor"></a>Load datasets into R</h3>
+<p>The <code>get_datasets()</code> function returns a vector with a file path to the saved location of the downloaded datasets. These are read using <code>readRDS()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in first dataset</span>
+cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDPR61FL)</code></pre></div>
+<p>Value labels are stored as attributes to each of the columns of the data frame using the <code>labelled</code> class (see <code><a href="http://www.rdocumentation.org/packages/haven/topics/labelled">haven::labelled</a></code> or our introduction vignette for more details). Variable labels are stored in the <code>label</code> attribute.</p>
+</div>
+<div id="extract-variables-and-pool-datasets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#extract-variables-and-pool-datasets" class="anchor"></a>Extract variables and pool datasets</h3>
+<p>The client also caches all variable labels to quickly query variables in each survey <em>without</em> loading the datasets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rapid diagnostic test search</span>
-questions &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(datasets$FileName,<span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)
-
-<span class="kw">table</span>(questions$dataset_filename)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; CDHR61SV CDPR61SV TZHR7HSV TZPR7HSV </span>
-<span class="co">#&gt;       24        1       48        1</span></code></pre></div>
-<p>What we see from the questions is that the question “Result of malaria rapid test” appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. To do this we pass our questions object to the client function <code>extract</code>, which will create a list with each dataset and its extracted data as a data.frame. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's just use the PR files thus</span>
-datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs$SurveyId, <span class="dt">fileFormat =</span> <span class="st">"SV"</span>,<span class="dt">fileType =</span> <span class="st">"PR"</span>)
-downloads &lt;-<span class="st"> </span>client$<span class="kw"><a href="reference/download_datasets.html">download_datasets</a></span>(datasets$FileName)
-
-<span class="co"># and grab the questions from this again along with also questions detailing the province</span>
-questions &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(datasets$FileName,<span class="dt">search_terms =</span> <span class="kw">c</span>(<span class="st">"malaria rapid test"</span>))
-
-<span class="co"># and now extract the data</span>
-extract &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions,<span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61SV</span>
+vars &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(datasets$FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</code></pre></div>
+<p>Then extract these variables from the datasets. Optionally, geographic data may be added.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and now extract the data</span>
+extract &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(vars, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61FL</span>
 <span class="co">#&gt; Loading required package: sp</span>
 <span class="co">#&gt; Warning: package 'sp' was built under R version 3.4.3</span>
-<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HSV</span>
-
-<span class="co"># what does our extract look like</span>
-<span class="kw">str</span>(extract)
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ CDPR61SV:'data.frame':    95949 obs. of  7 variables:</span>
-<span class="co">#&gt;   ..$ hml35   :Classes 'labelled_spss', 'labelled'  atomic [1:95949] NA NA NA NA NA NA NA 1 0 NA ...</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "na_values")= num 9</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "format.spss")= chr "F1.0"</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "display_width")= int 7</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "labels")= Named num [1:2] 0 1</span>
-<span class="co">#&gt;   .. .. .. ..- attr(*, "names")= chr [1:2] "Negative" "Positive"</span>
-<span class="co">#&gt;   ..$ CLUSTER : atomic [1:95949] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "label")= chr "Cluster number"</span>
-<span class="co">#&gt;   .. ..- attr(*, "format.spss")= chr "F8.0"</span>
-<span class="co">#&gt;   .. ..- attr(*, "display_width")= int 10</span>
-<span class="co">#&gt;   ..$ ALT_DEM : int [1:95949] 407 407 407 407 407 407 407 407 407 407 ...</span>
-<span class="co">#&gt;   ..$ LATNUM  : num [1:95949] 0.22 0.22 0.22 0.22 0.22 ...</span>
-<span class="co">#&gt;   ..$ LONGNUM : num [1:95949] 21.8 21.8 21.8 21.8 21.8 ...</span>
-<span class="co">#&gt;   ..$ ADM1NAME: chr [1:95949] "Tshuapa" "Tshuapa" "Tshuapa" "Tshuapa" ...</span>
-<span class="co">#&gt;   ..$ DHSREGNA: chr [1:95949] "Equateur" "Equateur" "Equateur" "Equateur" ...</span>
-<span class="co">#&gt;  $ TZPR7HSV:'data.frame':    64880 obs. of  7 variables:</span>
-<span class="co">#&gt;   ..$ hml35   :Classes 'labelled_spss', 'labelled'  atomic [1:64880] NA NA NA NA NA NA NA 0 NA NA ...</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "na_values")= num 9</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "format.spss")= chr "F1.0"</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "display_width")= int 7</span>
-<span class="co">#&gt;   .. .. ..- attr(*, "labels")= Named num [1:2] 0 1</span>
-<span class="co">#&gt;   .. .. .. ..- attr(*, "names")= chr [1:2] "Negative" "Positive"</span>
-<span class="co">#&gt;   ..$ CLUSTER : atomic [1:64880] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="co">#&gt;   .. ..- attr(*, "label")= chr "Cluster number"</span>
-<span class="co">#&gt;   .. ..- attr(*, "format.spss")= chr "F6.0"</span>
-<span class="co">#&gt;   ..$ ALT_DEM : int [1:64880] 1236 1236 1236 1236 1236 1236 1236 1236 1236 1236 ...</span>
-<span class="co">#&gt;   ..$ LATNUM  : num [1:64880] -4.73 -4.73 -4.73 -4.73 -4.73 ...</span>
-<span class="co">#&gt;   ..$ LONGNUM : num [1:64880] 35.9 35.9 35.9 35.9 35.9 ...</span>
-<span class="co">#&gt;   ..$ ADM1NAME: chr [1:64880] "Dodoma" "Dodoma" "Dodoma" "Dodoma" ...</span>
-<span class="co">#&gt;   ..$ DHSREGNA: chr [1:64880] "Central" "Central" "Central" "Central" ...</span></code></pre></div>
-<p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="http://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
-<p>We can also query our datasets for the survey question variables. In the example above the survey question was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code>survey_variables()</code>:</p>
+<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HFL</span></code></pre></div>
+<p>The returned object is a list of extracted datasets.</p>
+<p>Dataset extracts can alternate be specified by providing a vector of surveys and vector of variable names:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and grab the questions from this now utilising the survey variables</span>
-questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName,<span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
+vars &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
 
 <span class="co"># and now extract the data</span>
-extract2 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions,<span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61SV</span>
-<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HSV</span>
-
-<span class="co"># quick check</span>
-<span class="kw">head</span>(extract2$CDPR61SV)
-<span class="co">#&gt;   hv024 hml35 CLUSTER ALT_DEM   LATNUM  LONGNUM ADM1NAME DHSREGNA</span>
-<span class="co">#&gt; 1     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; 2     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; 3     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; 4     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; 5     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; 6     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="kw">head</span>(extract2$TZPR7HSV)
-<span class="co">#&gt;   hv024 hml35 CLUSTER ALT_DEM    LATNUM  LONGNUM ADM1NAME DHSREGNA</span>
-<span class="co">#&gt; 1     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span>
-<span class="co">#&gt; 2     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span>
-<span class="co">#&gt; 3     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span>
-<span class="co">#&gt; 4     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span>
-<span class="co">#&gt; 5     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span>
-<span class="co">#&gt; 6     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</span></code></pre></div>
-<p>We can now combine our two dataframes for further analysis using the <code>rdhs</code> package function <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled data.frames:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first let's bind our first extraction, without the hv024</span>
-extract_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract)
-
-<span class="kw">head</span>(extract_bound)
-<span class="co">#&gt;            hml35 CLUSTER ALT_DEM   LATNUM  LONGNUM ADM1NAME DHSREGNA</span>
-<span class="co">#&gt; CDPR61SV.1    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; CDPR61SV.2    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; CDPR61SV.3    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; CDPR61SV.4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; CDPR61SV.5    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-<span class="co">#&gt; CDPR61SV.6    NA       1     407 0.220128 21.79508  Tshuapa Equateur</span>
-
-<span class="co"># now let's try our second extraction</span>
-extract2_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract2)
-<span class="co">#&gt; Warning in rbind_labelled(extract2): Some variables have non-matching value labels: hv024.</span>
-<span class="co">#&gt; Inheriting labels from first data frame.</span></code></pre></div>
-<p>This hasn’t quite done what we might want in the second instance. The <em>hv024</em> variable stores the regions for these 2 countries, which will not be the same and thus the labels will be different between the two of them. Without specifying any additional arguments <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code> will simply use the first data.frames labelling as the default, which will mean that some of the Tanzanian provinces will have been encoded as DRC provinces - not good! (This is a similar problem in nature to say trying to add new character strings to a factored data.frame).</p>
-<p>There are a few work arounds. Firstly, we can specify a <em>labels</em> argument to the function which will detail how we should handle different variables. <em>labels</em> is a names list that specifies how to handle each variable. If we simply want to keep all the labels then we us the string “concatenate”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets try concatenating the hv024</span>
-better_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract2,<span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))
-
-<span class="kw">head</span>(better_bound$hv024)
-<span class="co">#&gt; &lt;Labelled integer&gt;</span>
-<span class="co">#&gt; [1] 6 6 6 6 6 6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Labels:</span>
-<span class="co">#&gt;  value            label</span>
-<span class="co">#&gt;      1           Arusha</span>
-<span class="co">#&gt;      2         Bandundu</span>
-<span class="co">#&gt;      3        Bas-Congo</span>
-<span class="co">#&gt;      4    Dar Es Salaam</span>
-<span class="co">#&gt;      5           Dodoma</span>
-<span class="co">#&gt;      6         Equateur</span>
-<span class="co">#&gt;      7            Geita</span>
-<span class="co">#&gt;      8           Iringa</span>
-<span class="co">#&gt;      9           Kagera</span>
-<span class="co">#&gt;     10 Kasai-Occidental</span>
-<span class="co">#&gt;     11   Kasai-Oriental</span>
-<span class="co">#&gt;     12  Kaskazini Pemba</span>
-<span class="co">#&gt;     13 Kaskazini Unguja</span>
-<span class="co">#&gt;     14          Katanga</span>
-<span class="co">#&gt;     15           Katavi</span>
-<span class="co">#&gt;     16           Kigoma</span>
-<span class="co">#&gt;     17      Kilimanjaro</span>
-<span class="co">#&gt;     18         Kinshasa</span>
-<span class="co">#&gt;     19     Kusini Pemba</span>
-<span class="co">#&gt;     20    Kusini Unguja</span>
-<span class="co">#&gt;     21            Lindi</span>
-<span class="co">#&gt;     22          Maniema</span>
-<span class="co">#&gt;     23          Manyara</span>
-<span class="co">#&gt;     24             Mara</span>
-<span class="co">#&gt;     25            Mbeya</span>
-<span class="co">#&gt;     26  Mjini Magharibi</span>
-<span class="co">#&gt;     27         Morogoro</span>
-<span class="co">#&gt;     28           Mtwara</span>
-<span class="co">#&gt;     29           Mwanza</span>
-<span class="co">#&gt;     30           Njombe</span>
-<span class="co">#&gt;     31        Nord-Kivu</span>
-<span class="co">#&gt;     32        Orientale</span>
-<span class="co">#&gt;     33            Pwani</span>
-<span class="co">#&gt;     34            Rukwa</span>
-<span class="co">#&gt;     35           Ruvuma</span>
-<span class="co">#&gt;     36        Shinyanga</span>
-<span class="co">#&gt;     37           Simiyu</span>
-<span class="co">#&gt;     38          Singida</span>
-<span class="co">#&gt;     39         Sud-Kivu</span>
-<span class="co">#&gt;     40           Tabora</span>
-<span class="co">#&gt;     41            Tanga</span></code></pre></div>
-<p>We could also specify new labels for a variable. For example, imagine the two datasets encoded their RDT responses differently, with the first one as <code>c("No","Yes")</code> and the other as <code>c("Negative","Positive")</code>. These would be for our purposes the same response, and so we could either leave it and all our results would use the <code>c("No","Yes")</code> labelling. But we may want to use the latter as it’s more informative/correct, or we may want to be crystal clear and use <code>c("NegativeTest","PositiveTest")</code>. we can do that like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets try concatenating the hv024 and providing new labels</span>
-better_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract2,
-                               <span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,
-                                             <span class="st">"hml35"</span>=<span class="kw">c</span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>,<span class="st">"PositiveTest"</span>=<span class="dv">1</span>)))
-
-<span class="co"># and our new label</span>
-<span class="kw">head</span>(better_bound$hml35)
-<span class="co">#&gt; &lt;Labelled double&gt;</span>
-<span class="co">#&gt; [1] NA NA NA NA NA NA</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Labels:</span>
-<span class="co">#&gt;  value        label</span>
-<span class="co">#&gt;      0 NegativeTest</span>
-<span class="co">#&gt;      1 PositiveTest</span></code></pre></div>
-<p>The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument <code>reformat=TRUE</code>. This will ensure that no factors or labels are used and it is just the raw data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grab the questions but specifying the reformat argument</span>
-questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName,<span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>),
+extract2 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(vars, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61FL</span>
+<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HFL</span></code></pre></div>
+<p>Finally, the two datasets are pooled using the function <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled <code>data.frame</code>s. Labels are specified for each variable: for <code>hv024</code> all labels are retained (concatenate) but for <code>hml35</code> labels across both datasets to be “NegativeTest” and “PositiveTest”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now let's try our second extraction</span>
+extract2_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract2,
+                                 <span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span> =<span class="st"> "concatenate"</span>,
+                                               <span class="st">"hml35"</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>)))</code></pre></div>
+<p>There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specifed by the argument <code>reformat=TRUE</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># identify questions but specifying the reformat argument</span>
+questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),
                                      <span class="dt">reformat=</span><span class="ot">TRUE</span>)
+<span class="co">#&gt; Logging into DHS website...</span>
+<span class="co">#&gt; Downloading: </span>
+<span class="co">#&gt; Congo Democratic Republic 2013 DHS Household Member Recode Flat ASCII data (.dat)</span>
+<span class="co">#&gt; </span>
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|</span><span class="st">                                                                 </span><span class="er">|</span><span class="st">   </span><span class="dv">0</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|</span><span class="st">                                                                 </span><span class="er">|</span><span class="st">   </span><span class="dv">1</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=</span><span class="st">                                                                </span><span class="er">|</span><span class="st">   </span><span class="dv">1</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=</span><span class="st">                                                                </span><span class="er">|</span><span class="st">   </span><span class="dv">2</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==</span><span class="st">                                                               </span><span class="er">|</span><span class="st">   </span><span class="dv">2</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==</span><span class="st">                                                               </span><span class="er">|</span><span class="st">   </span><span class="dv">3</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==</span><span class="st">                                                               </span><span class="er">|</span><span class="st">   </span><span class="dv">4</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===</span><span class="st">                                                              </span><span class="er">|</span><span class="st">   </span><span class="dv">4</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===</span><span class="st">                                                              </span><span class="er">|</span><span class="st">   </span><span class="dv">5</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====</span><span class="st">                                                            </span><span class="er">|</span><span class="st">   </span><span class="dv">7</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====</span><span class="st">                                                            </span><span class="er">|</span><span class="st">   </span><span class="dv">8</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======</span><span class="st">                                                           </span><span class="er">|</span><span class="st">   </span><span class="dv">9</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======</span><span class="st">                                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">10</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======</span><span class="st">                                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">10</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======</span><span class="st">                                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">11</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========</span><span class="st">                                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">12</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========</span><span class="st">                                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">13</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========</span><span class="st">                                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">13</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========</span><span class="st">                                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">14</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========</span><span class="st">                                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">15</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========</span><span class="st">                                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">16</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========</span><span class="st">                                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">16</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========</span><span class="st">                                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">17</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========</span><span class="st">                                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">18</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============</span><span class="st">                                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">18</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============</span><span class="st">                                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">19</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============</span><span class="st">                                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">19</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============</span><span class="st">                                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">20</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============</span><span class="st">                                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">21</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============</span><span class="st">                                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">21</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============</span><span class="st">                                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">22</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============</span><span class="st">                                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">22</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============</span><span class="st">                                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">23</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============</span><span class="st">                                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">24</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================</span><span class="st">                                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">24</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================</span><span class="st">                                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">25</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================</span><span class="st">                                                </span><span class="er">|</span><span class="st">  </span><span class="dv">26</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================</span><span class="st">                                                </span><span class="er">|</span><span class="st">  </span><span class="dv">27</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================</span><span class="st">                                               </span><span class="er">|</span><span class="st">  </span><span class="dv">27</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================</span><span class="st">                                               </span><span class="er">|</span><span class="st">  </span><span class="dv">28</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================</span><span class="st">                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">29</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================</span><span class="st">                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">30</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================</span><span class="st">                                             </span><span class="er">|</span><span class="st">  </span><span class="dv">30</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================</span><span class="st">                                             </span><span class="er">|</span><span class="st">  </span><span class="dv">31</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================</span><span class="st">                                            </span><span class="er">|</span><span class="st">  </span><span class="dv">32</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================</span><span class="st">                                            </span><span class="er">|</span><span class="st">  </span><span class="dv">33</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================</span><span class="st">                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">33</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================</span><span class="st">                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">34</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================</span><span class="st">                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">35</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================</span><span class="st">                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">35</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================</span><span class="st">                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">36</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================</span><span class="st">                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">36</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================</span><span class="st">                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">37</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================</span><span class="st">                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">38</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================</span><span class="st">                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">38</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================</span><span class="st">                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">39</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================</span><span class="st">                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">39</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================</span><span class="st">                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">40</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================</span><span class="st">                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">41</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================</span><span class="st">                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">41</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================</span><span class="st">                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">42</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================</span><span class="st">                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">42</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================</span><span class="st">                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">43</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================</span><span class="st">                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">44</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================</span><span class="st">                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">44</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================</span><span class="st">                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">45</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================</span><span class="st">                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">45</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================</span><span class="st">                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">46</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================</span><span class="st">                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">47</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================</span><span class="st">                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">47</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================</span><span class="st">                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">48</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================</span><span class="st">                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">49</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================</span><span class="st">                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">50</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================</span><span class="st">                                </span><span class="er">|</span><span class="st">  </span><span class="dv">50</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================</span><span class="st">                                </span><span class="er">|</span><span class="st">  </span><span class="dv">51</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================================</span><span class="st">                               </span><span class="er">|</span><span class="st">  </span><span class="dv">52</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================================</span><span class="st">                               </span><span class="er">|</span><span class="st">  </span><span class="dv">53</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================================</span><span class="st">                              </span><span class="er">|</span><span class="st">  </span><span class="dv">53</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================================</span><span class="st">                              </span><span class="er">|</span><span class="st">  </span><span class="dv">54</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================================</span><span class="st">                             </span><span class="er">|</span><span class="st">  </span><span class="dv">55</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================================</span><span class="st">                             </span><span class="er">|</span><span class="st">  </span><span class="dv">56</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================================</span><span class="st">                            </span><span class="er">|</span><span class="st">  </span><span class="dv">56</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================================</span><span class="st">                            </span><span class="er">|</span><span class="st">  </span><span class="dv">57</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================================</span><span class="st">                            </span><span class="er">|</span><span class="st">  </span><span class="dv">58</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================================</span><span class="st">                           </span><span class="er">|</span><span class="st">  </span><span class="dv">58</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================================</span><span class="st">                           </span><span class="er">|</span><span class="st">  </span><span class="dv">59</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================================</span><span class="st">                          </span><span class="er">|</span><span class="st">  </span><span class="dv">59</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================================</span><span class="st">                          </span><span class="er">|</span><span class="st">  </span><span class="dv">60</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================================</span><span class="st">                          </span><span class="er">|</span><span class="st">  </span><span class="dv">61</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================================</span><span class="st">                         </span><span class="er">|</span><span class="st">  </span><span class="dv">61</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================================</span><span class="st">                         </span><span class="er">|</span><span class="st">  </span><span class="dv">62</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================================</span><span class="st">                        </span><span class="er">|</span><span class="st">  </span><span class="dv">62</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================================</span><span class="st">                        </span><span class="er">|</span><span class="st">  </span><span class="dv">63</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================================</span><span class="st">                        </span><span class="er">|</span><span class="st">  </span><span class="dv">64</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================================</span><span class="st">                       </span><span class="er">|</span><span class="st">  </span><span class="dv">64</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================================</span><span class="st">                       </span><span class="er">|</span><span class="st">  </span><span class="dv">65</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================================</span><span class="st">                      </span><span class="er">|</span><span class="st">  </span><span class="dv">66</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================================</span><span class="st">                      </span><span class="er">|</span><span class="st">  </span><span class="dv">67</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================================</span><span class="st">                     </span><span class="er">|</span><span class="st">  </span><span class="dv">67</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================================</span><span class="st">                     </span><span class="er">|</span><span class="st">  </span><span class="dv">68</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================================</span><span class="st">                    </span><span class="er">|</span><span class="st">  </span><span class="dv">69</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================================</span><span class="st">                    </span><span class="er">|</span><span class="st">  </span><span class="dv">70</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================================</span><span class="st">                   </span><span class="er">|</span><span class="st">  </span><span class="dv">70</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================================</span><span class="st">                   </span><span class="er">|</span><span class="st">  </span><span class="dv">71</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================================</span><span class="st">                  </span><span class="er">|</span><span class="st">  </span><span class="dv">72</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================================</span><span class="st">                  </span><span class="er">|</span><span class="st">  </span><span class="dv">73</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================================</span><span class="st">                 </span><span class="er">|</span><span class="st">  </span><span class="dv">73</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================================</span><span class="st">                 </span><span class="er">|</span><span class="st">  </span><span class="dv">74</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================================</span><span class="st">                 </span><span class="er">|</span><span class="st">  </span><span class="dv">75</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================================</span><span class="st">                </span><span class="er">|</span><span class="st">  </span><span class="dv">75</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================================</span><span class="st">                </span><span class="er">|</span><span class="st">  </span><span class="dv">76</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================================================</span><span class="st">               </span><span class="er">|</span><span class="st">  </span><span class="dv">76</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================================================</span><span class="st">               </span><span class="er">|</span><span class="st">  </span><span class="dv">77</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==================================================</span><span class="st">               </span><span class="er">|</span><span class="st">  </span><span class="dv">78</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================================================</span><span class="st">              </span><span class="er">|</span><span class="st">  </span><span class="dv">78</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===================================================</span><span class="st">              </span><span class="er">|</span><span class="st">  </span><span class="dv">79</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================================================</span><span class="st">             </span><span class="er">|</span><span class="st">  </span><span class="dv">79</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================================================</span><span class="st">             </span><span class="er">|</span><span class="st">  </span><span class="dv">80</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|====================================================</span><span class="st">             </span><span class="er">|</span><span class="st">  </span><span class="dv">81</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================================================</span><span class="st">            </span><span class="er">|</span><span class="st">  </span><span class="dv">81</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=====================================================</span><span class="st">            </span><span class="er">|</span><span class="st">  </span><span class="dv">82</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================================================</span><span class="st">           </span><span class="er">|</span><span class="st">  </span><span class="dv">82</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================================================</span><span class="st">           </span><span class="er">|</span><span class="st">  </span><span class="dv">83</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|======================================================</span><span class="st">           </span><span class="er">|</span><span class="st">  </span><span class="dv">84</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================================================</span><span class="st">          </span><span class="er">|</span><span class="st">  </span><span class="dv">84</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=======================================================</span><span class="st">          </span><span class="er">|</span><span class="st">  </span><span class="dv">85</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================================================</span><span class="st">         </span><span class="er">|</span><span class="st">  </span><span class="dv">85</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================================================</span><span class="st">         </span><span class="er">|</span><span class="st">  </span><span class="dv">86</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|========================================================</span><span class="st">         </span><span class="er">|</span><span class="st">  </span><span class="dv">87</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================================================</span><span class="st">        </span><span class="er">|</span><span class="st">  </span><span class="dv">87</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=========================================================</span><span class="st">        </span><span class="er">|</span><span class="st">  </span><span class="dv">88</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================================================</span><span class="st">       </span><span class="er">|</span><span class="st">  </span><span class="dv">89</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==========================================================</span><span class="st">       </span><span class="er">|</span><span class="st">  </span><span class="dv">90</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================================================</span><span class="st">      </span><span class="er">|</span><span class="st">  </span><span class="dv">90</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===========================================================</span><span class="st">      </span><span class="er">|</span><span class="st">  </span><span class="dv">91</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================================================</span><span class="st">     </span><span class="er">|</span><span class="st">  </span><span class="dv">92</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|============================================================</span><span class="st">     </span><span class="er">|</span><span class="st">  </span><span class="dv">93</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================================================</span><span class="st">    </span><span class="er">|</span><span class="st">  </span><span class="dv">93</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=============================================================</span><span class="st">    </span><span class="er">|</span><span class="st">  </span><span class="dv">94</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================================================</span><span class="st">   </span><span class="er">|</span><span class="st">  </span><span class="dv">95</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|==============================================================</span><span class="st">   </span><span class="er">|</span><span class="st">  </span><span class="dv">96</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================================================</span><span class="st">  </span><span class="er">|</span><span class="st">  </span><span class="dv">96</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================================================</span><span class="st">  </span><span class="er">|</span><span class="st">  </span><span class="dv">97</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|===============================================================</span><span class="st">  </span><span class="er">|</span><span class="st">  </span><span class="dv">98</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================================================</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="dv">98</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|================================================================</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="dv">99</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================================================|</span><span class="st">  </span><span class="dv">99</span>%
+  |<span class="st">                                                                       </span>
+<span class="st">  </span><span class="er">|=================================================================|</span><span class="st"> </span><span class="dv">100</span>%
+<span class="co">#&gt; Dataset download finished</span>
 
 <span class="co"># and now extract the data</span>
-extract3 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions,<span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61SV</span>
-<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HSV</span>
+extract3 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61FL</span>
+<span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HFL</span>
 
 <span class="co"># group our results</span>
-bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract3)
+extract3_bound &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract3)
 
-<span class="co"># what does our hv024 look like now</span>
-<span class="kw">table</span>(bound_no_labels$hv024)
-<span class="co">#&gt; </span>
-<span class="co">#&gt;           Arusha         Bandundu        Bas-Congo    Dar Es Salaam </span>
-<span class="co">#&gt;             1883            12175             4596             2980 </span>
-<span class="co">#&gt;           Dodoma         Equateur            Geita           Iringa </span>
-<span class="co">#&gt;             1878            14231             2859             1736 </span>
-<span class="co">#&gt;           Kagera Kasai-Occidental   Kasai-Oriental  Kaskazini Pemba </span>
-<span class="co">#&gt;             2161             7593            11033             1847 </span>
-<span class="co">#&gt; Kaskazini Unguja          Katanga           Katavi           Kigoma </span>
-<span class="co">#&gt;             1830            11827             2347             2465 </span>
-<span class="co">#&gt;      Kilimanjaro         Kinshasa     Kusini Pemba    Kusini Unguja </span>
-<span class="co">#&gt;             1796             7156             1919             1709 </span>
-<span class="co">#&gt;            Lindi          Maniema          Manyara             Mara </span>
-<span class="co">#&gt;             1821             4851             2222             2657 </span>
-<span class="co">#&gt;            Mbeya  Mjini Magharibi         Morogoro           Mtwara </span>
-<span class="co">#&gt;             1748             2636             1798             1654 </span>
-<span class="co">#&gt;           Mwanza           Njombe        Nord-Kivu        Orientale </span>
-<span class="co">#&gt;             2428             1691             5740            11360 </span>
-<span class="co">#&gt;            Pwani            Rukwa           Ruvuma        Shinyanga </span>
-<span class="co">#&gt;             1702             2127             1886             2616 </span>
-<span class="co">#&gt;           Simiyu          Singida         Sud-Kivu           Tabora </span>
-<span class="co">#&gt;             3254             2274             5387             2907 </span>
-<span class="co">#&gt;            Tanga </span>
-<span class="co">#&gt;             2049</span></code></pre></div>
-<p>The <em>hv024</em> column in now just characters, which is possibly the best option depending on your downstream analysis/preferences. It’s for this reason that the geographic data that is added is never turned into factors or labels.</p>
-<hr>
+<span class="co"># our hv024 variable is now just character strings, so you can decide when/how to factor/label it later</span>
+<span class="kw">str</span>(extract3_bound)
+<span class="co">#&gt; 'data.frame':    160829 obs. of  9 variables:</span>
+<span class="co">#&gt;  $ hv024   : atomic  equateur equateur equateur equateur ...</span>
+<span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
+<span class="co">#&gt;  $ hml35   : atomic  NA NA NA NA ...</span>
+<span class="co">#&gt;   ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
+<span class="co">#&gt;  $ CLUSTER : atomic  1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="co">#&gt;   ..- attr(*, "label")= chr "Cluster number"</span>
+<span class="co">#&gt;  $ ALT_DEM : int  407 407 407 407 407 407 407 407 407 407 ...</span>
+<span class="co">#&gt;  $ LATNUM  : num  0.22 0.22 0.22 0.22 0.22 ...</span>
+<span class="co">#&gt;  $ LONGNUM : num  21.8 21.8 21.8 21.8 21.8 ...</span>
+<span class="co">#&gt;  $ ADM1NAME: chr  "Tshuapa" "Tshuapa" "Tshuapa" "Tshuapa" ...</span>
+<span class="co">#&gt;  $ DHSREGNA: chr  "Equateur" "Equateur" "Equateur" "Equateur" ...</span>
+<span class="co">#&gt;  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...</span></code></pre></div>
 </div>
-<div id="further-vignettes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-vignettes" class="anchor"></a>Further vignettes</h2>
-<p>TODO: An example workflow using <code>rdhs</code> to calculate trends in anemia prevalence is available <a href="INSERT%20LINK">here</a>.</p>
-<p>TODO: Full functionality is described in the tutorial <a href="https://rawgit.com/OJWatson/rdhs/c33321a/vignettes/rdhs.html">here</a>.</p>
-</div>
-<div id="motivation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h2>
-<p>The Demographic and Health Surveys (DHS) Program has collected and disseminated population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy such as detailing trends in child mortality and characterising the distribution of use of insecticide-treated bed nets in Africa. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within <code>rdhs</code> hopes to extend the accessibility of these datasets to more researchers within the global health community, who are increasingly using R for their statistical analysis, and is the output of conversations with numerous research groups globally. The end result aims to increase the end user accessibility to the raw data and create a tool that supports reproducible global health research, as well as simplifying commonly required analytical pipelines.</p>
 </div>
   </div>
 
@@ -574,15 +575,7 @@ bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="referenc
 </ul>
 </div>
 
-      <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
-<li><a href="https://travis-ci.org/OJWatson/rdhs"><img src="https://travis-ci.org/OJWatson/rdhs.png?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://codecov.io/github/OJWatson/rdhs?branch=master"><img src="https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></li>
-</ul>
-</div>
-</div>
+      </div>
 
 </div>
 

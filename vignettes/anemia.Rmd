@@ -19,8 +19,8 @@ and Lesotho.
 
 Load the `rdhs` package and other useful packages for analysing data.
 
-```{r, results=FALSE}
-devtools::install_github("OJWatson/rdhs")
+```{r, results=FALSE, message = FALSE}
+#devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 library(data.table)
 library(ggplot2)
@@ -38,6 +38,8 @@ that have `"anemia"` in the indicator name. API calls return `data.table` object
 is not loaded, they will be printed as `data.frame`s instead.
 
 ```{r }
+library(rdhs)
+
 indicators <- dhs_indicators()
 tail(indicators[grepl("anemia", Label), .(IndicatorId, ShortName, Label)])
 ```
@@ -55,11 +57,10 @@ dhscc
 
 Now query the indicators dataset for the women with any anemia indicator for these three countries.
 
-```{r }
+```{r ,fig.height=2.5, fig.width=4, fig.align="center"}
 statcomp <- dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc)
 statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]
 
-```{r fig.height=2.5, fig.width=4, fig.align="center"}
 ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
@@ -108,14 +109,14 @@ project=Dummy Project Name
 The file path to to this credentials file and the desired location for the cache are passed to the `client_dhs()` function to establish the DHS client.
 
 ```{r }
-client <- client_dhs(credentials = "~/Documents/Data/DHS/rdhs/credentials",
-                     root = "~/Downloads/rdhs_cache")
+client <- client_dhs(credentials = "credentials",
+                     root = file.path(path.expand('~'),'rdhs_cache'))
 ```
 
 After establishing the client, the function `client$get_datasets()` returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, the client will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository. 
 
 ```{r }
-datasets$path <- client$get_datasets(datasets$FileName)
+datasets$path <- unlist(client$get_datasets(datasets$FileName))
 ```
 
 ## Identify survey variables
@@ -130,7 +131,7 @@ individual recode dataset and searching the metadata for the variable
 names corresponding to the hemoglobin measurement and pregnancy status.
 
 ```{r }
-head(client$survey_questions(datasets$FileName[1], "hemoglobin")[,1:2])
+head(client$survey_questions(datasets$FileName[10], "hemoglobin")[,1:2])
 ```
 
 Variable `v042` records the household selection for hemoglobin testing.
@@ -138,7 +139,7 @@ Variable `v455` reports the outcome of hemoglobin measurement and `v456`
 the result of altitude adjusted hemoglobin levels.
 
 ```{r }
-ir <- readRDS(datasets$path[1])
+ir <- readRDS(datasets$path[10])
 table(as_factor(ir$v042))
 table(as_factor(ir$v455))
 summary(ir$v456)
@@ -169,6 +170,8 @@ datlst <- list()
 
 for(i in 1:nrow(datasets)){
 
+  if(file.exists(datasets$path[i])){
+  
   print(paste(i, datasets$SurveyId[i]))
   ir <- readRDS(datasets$path[i])
 
@@ -177,6 +180,7 @@ for(i in 1:nrow(datasets)){
   ir$SurveyYear <- datasets$SurveyYear[i]
 
   datlst[[datasets$SurveyId[i]]] <- ir[vars]
+  }
 }
 ```
 
@@ -242,12 +246,14 @@ res$anemia_denom0 <- round(res$anemia_denom)
 The table below compares the prevalence of any anemia calcuated from survey microdata
 with the estimates from DHS StatCompiler and the weighted denominators for each
 calculation. The estimates are identical for most cases. There are some small
-differences to be ironed out.
-
-```{r }
-knitr::kable(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], digits=1)
+differences to be ironed out, which will require looking at the specific coutnries to check
+how their stratification was carried out. (We are hoping to bring this feature in once the DHS
+program has compiled how sample strata were constructed for all of their studies).
 
 ```{r fig.height=2.5, fig.width=4, fig.align="center"}
+knitr::kable(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], digits=1)
+
+
 ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
                 col=CountryName, fill=CountryName)) +
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
@@ -267,4 +273,4 @@ des <- update(des, v106 = relevel(v106, "primary"))
 summary(svyglm(anemia ~ SurveyId + v025 + v106, des, family="binomial"))
 ```
 
-The results suggest a that anemia prevalence is lower among women with higher education.
+The results suggest that anemia prevalence is lower among women with higher education.

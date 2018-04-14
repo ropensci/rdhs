@@ -70,9 +70,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/rdhs.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -83,7 +80,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/rdhs_html.html">rdhs package tutorial overview</a>
+      <a href="../articles/anemia.html">Anemia prevalence among women: an `rdhs` example</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">How to use rdhs?</a>
     </li>
   </ul>
 </li>
@@ -145,7 +145,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 
     
     <dl class='dl-horizontal'>
-<dt><code>dhs_api_request</code></dt><dd><p>Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see <code><a href='../articles/rdhs.html'>vignette(rdhs)</a></code> for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default paramters will return all of the results, and will format it nicely into a data.frame for you.
+<dt><code>dhs_api_request</code></dt><dd><p>Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see <code>vignette(rdhs)</code> for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default paramters will return all of the results, and will format it nicely into a data.frame for you.
   N.B. This is easier to now do by using the bespoke functions that are included within the package. These take the form dhs_&lt;endpoint&gt;, e.g. <code><a href='dhs_data.html'>dhs_data</a></code>. These functions can also take your client as an argument that will cache the response for you
     <em>Usage:</em>
   <code>dhs_api_request(api_endpoint, query = list(), api_key = private$api_key,

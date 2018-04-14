@@ -1,0 +1,45 @@
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: "Query DHS API"
+    desc: "Functions for interacting with each of the DHS API endpoints. They all start 'dhs_' for ease"
+    contents:
+      - dhs_countries
+      - dhs_data
+      - dhs_dataUpdates
+      - dhs_datasets
+      - dhs_geometry
+      - dhs_indicators
+      - dhs_info
+      - dhs_publications
+      - dhs_surveyCharacteristics
+      - dhs_surveys
+      - dhs_tags
+      - dhs_uiUpdates
+  - title: "Client"
+    desc: "Create a rdhs client for downloading datasets, querying survey variables and extracting data"
+    contents:
+      - client_dhs
+
+navbar:
+  type: default
+  left:
+    - href: index.html
+      icon: fa-home
+    - text: Introduction
+      href: articles/introduction.html
+    - text: Reference
+      href: reference/index.html
+    - text: Articles
+      menu:
+      - text: Introduction to rdhs (Overview)
+        href: articles/introduction.html
+      - text: An example use case looking at trends in anemia
+        href: articles/anemia.html
+    - text: News
+      href: news/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/OJWatson/rdhs

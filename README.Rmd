@@ -12,9 +12,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs)
 [![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
+
+![]()<img src="img/logo.svg" width="50%">
 
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
@@ -34,9 +37,10 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 Install `rdhs` from github with `devtools`:
 
-```{r gh-installation, eval = FALSE}
+```{r gh-installation}
 # install.packages("devtools")
-devtools::install_github("OJWatson/rdhs")
+# devtools::install_github("OJWatson/rdhs")
+library(rdhs)
 ```
 
 ## Getting started
@@ -76,6 +80,7 @@ ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 ## find all the surveys that match the search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), surveyYearStart = 2013)
 ```
+
 Lastly, identify the datasets required for download. By default, the recommended option is to download the flat file (.dat) datasets. The household member recode (`PR`) reports the RDT status for children under five.
 
 ```{r }
@@ -117,7 +122,7 @@ The `get_datasets()` function returns a vector with a file path to the saved loc
 
 ```{r read a dataset}
 # read in first dataset
-cdpr <- readRDS(downloads["CDPR61FL"])
+cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
 Value labels are stored as attributes to each of the columns of the data frame using the `labelled` class (see `haven::labelled` or our introduction vignette for more details). Variable labels are stored in the `label` attribute.

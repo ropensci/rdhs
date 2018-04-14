@@ -15,9 +15,9 @@ test_that("format catches and al_results tests", {
 
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
-    cli <- rdhs::client(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
   } else {
-    cli <- rdhs::client(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
   dat <- dhs_dataUpdates(client = cli, lastUpdate = "20150901", allResults = FALSE)
