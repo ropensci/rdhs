@@ -7,6 +7,8 @@ Authors@R: c(
          email="o.watson15@imperial.ac.uk"),
   person("Jeff", "Eaton", role="aut"))
 Maintainer: OJ Watson <o.watson15@imperial.ac.uk>
+URL: https://ojwatson.github.io/rdhs/
+BugReports: https://github.com/OJWatson/rdhs/issues
 Description: Provides a client for (1) querying the DHS API for survey indicators
   and metadata, (2) identifying surveys and datasets for analysis, (3) downloading
   survey datasets from the DHS website, (4) loading datasets and associate metadata
