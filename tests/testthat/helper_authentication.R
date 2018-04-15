@@ -10,3 +10,21 @@ skip_if_no_auth <- function(credentials_path = "credentials") {
     set_environment_credentials(read_credentials(credentials_path))
   }
 }
+
+
+
+new_rand_client <- funtion(){
+
+# Create new directory
+td <- file.path(tempdir(),as.integer(Sys.time()))
+
+# create auth through whichever route is valid for the environment
+if(file.exists("credentials")){
+  cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+} else {
+  cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+}
+
+return(cli)
+
+}

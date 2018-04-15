@@ -67,13 +67,6 @@ test_that("avaialble surveys and download work", {
   datasets <- dhs_datasets()
   downloads <- cli$get_datasets(datasets[6047,])
 
-  # check hierarchal catch and sas7bdat
-  downloads <- cli$get_datasets(dataset_filenames = "AOIR62.ZIP",download_option = "r",mode="raw")
-  expect_identical(downloads[[1]],"No support for importing hierarchal .dat")
-
-  downloads <- cli$get_datasets(dataset_filenames = "AOHR51sd.zip",download_option = "r",mode="raw")
-  expect_identical(downloads[[1]],"No support for importing .sas7bdat")
-
   # check both
   downloads <- cli$get_datasets(dataset_filenames = survs[hhs_dta[sample_survs],]$FileName,download_option = "b")
 
@@ -95,6 +88,23 @@ test_that("avaialble surveys and download work", {
 
 })
 
+
+test_that("Hierarchal and sas7bdat dataset test",{
+
+
+  cli <- new_rand_client()
+
+
+  # check hierarchal catch and sas7bdat
+  downloads <- cli$get_datasets(dataset_filenames = "AOIR62.ZIP",download_option = "r",mode="raw")
+  expect_identical(downloads[[1]],"No support for importing hierarchal .dat")
+
+  downloads <- cli$get_datasets(dataset_filenames = "AOHR51sd.zip",download_option = "r",mode="raw")
+  expect_identical(downloads[[1]],"No support for importing .sas7bdat")
+
+  expect_error(cli$.__enclos_env__$private$storr$get("AO2011MIS_AOHR51sd_rds_FALSE","downloaded_datsets"))
+
+})
 
 test_that("Geo dataset test", {
 
