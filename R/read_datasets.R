@@ -33,7 +33,7 @@ read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
   } else if(file_match==3){
 
     # check that it's a flat .dat file, otherwise we can't read it yet
-    if(grepl("FL",basename(file))){
+    if(grepl("FL",basename(file),ignore.case=TRUE)){
       res <- read_dhs_flat(file,all_lower = all_lower,...)
       res <- factor_format(res,reformat,all_lower)
     } else {
