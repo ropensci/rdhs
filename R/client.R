@@ -599,7 +599,7 @@ R6_client_dhs <- R6::R6Class(
     },
 
     # SETTERS
-    set_cache_date = function(date) private$cache_date = date,
+    set_cache_date = function(date) private$cache_date <- date,
 
     # SAVE CLIENT
     save_client = function() saveRDS(self,file.path(private$root,client_file_name())),

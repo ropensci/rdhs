@@ -21,7 +21,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
   list_res <- list() ; length(list_res) <- length(filenames)
   names(list_res) <- filenames
 
-  for(i in 1:length(list_res)){
+  for(i in seq_len(length(list_res))){
 
     message(paste0("Starting Survey ",i," out of ",length(list_res)," surveys:",filenames[i]))
     dataset_i <- unique(questions$dataset_path[questions$dataset_filename==filenames[i]])
@@ -87,7 +87,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
 extract_codes_to_descriptions <- function(extraction,questions){
 
 
-    for(i in 1:length(extraction)){
+    for(i in seq_len(length(extraction))){
 
         survey <- names(extraction)[i]
         surv_pos <- which(questions$dataset_filename==survey)

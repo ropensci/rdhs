@@ -2,6 +2,7 @@ context("Authentication")
 
 test_that("authenticate_dhs works", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   expect_equal(rdhs:::authenticate_dhs(your_email=Sys.getenv("rdhs_USER_EMAIL"),
@@ -11,6 +12,7 @@ test_that("authenticate_dhs works", {
 
 test_that("available_surveys works", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory

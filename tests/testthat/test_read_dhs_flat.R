@@ -72,6 +72,7 @@ test_that("data dictionaries FWF lengths match file width", {
 
 test_that("lower case flat file check",{
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory

@@ -136,6 +136,7 @@ datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "flat")
 str(datasets)
 ```
 
+Lastly, we recommended to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly.
 
 We can now use this to download our datasets for further analysis. 
 
