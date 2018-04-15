@@ -26,8 +26,8 @@ This process is described below and should cover most functionality that will be
 Install rdhs from github with `devtools`:
 
 ```{r gh-installation, warnings = FALSE, message = FALSE}
-install.packages("devtools")
-devtools::install_github("OJWatson/rdhs")
+# install.packages("devtools")
+# devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 ```
 
