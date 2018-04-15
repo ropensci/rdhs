@@ -114,8 +114,12 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>0. Installation</h2>
 <p>Install rdhs from github with <code>devtools</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-<span class="co"># devtools::install_github("OJWatson/rdhs")</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)</code></pre></div>
+<pre><code>## package 'devtools' successfully unpacked and MD5 sums checked
+## 
+## The downloaded binary packages are in
+##  C:\Users\Oliver\AppData\Local\Temp\Rtmpcra4AB\downloaded_packages</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"OJWatson/rdhs"</span>)
 <span class="kw">library</span>(rdhs)</code></pre></div>
 </div>
 <div id="access-standard-indicator-data-via-the-api" class="section level2">
@@ -301,14 +305,14 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 2.962438 2.962438 2.962438 2.962438 2.962438
+##  dhs_surveys(client = client) 3.051078 3.051078 3.051078 3.051078 3.051078
 ##       max neval
-##  2.962438     1</code></pre>
+##  3.051078     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## Unit: seconds
+<pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 1.062291 1.062291 1.062291 1.062291 1.062291 1.062291     1</code></pre>
+##  dhs_surveys() 867.8473 867.8473 867.8473 867.8473 867.8473 867.8473     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>

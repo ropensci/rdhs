@@ -88,7 +88,7 @@
       <h1>Anemia prevalence among women: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-14</h4>
+            <h4 class="date">2018-04-15</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -102,13 +102,11 @@
 <h1 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h1>
 <p>Load the <code>rdhs</code> package and other useful packages for analysing data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#devtools::install_github("OJWatson/rdhs")</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"OJWatson/rdhs"</span>)
 <span class="kw">library</span>(rdhs)
-<span class="kw">library</span>(data.table)</code></pre></div>
-<pre><code>## Warning: package 'data.table' was built under R version 3.4.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.4.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(survey)
+<span class="kw">library</span>(data.table)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(survey)
 <span class="kw">library</span>(haven)</code></pre></div>
 </div>
 <div id="using-calculated-indicators-from-statcompiler" class="section level1">
@@ -146,8 +144,8 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 ##  8: Women with any anemia     Lesotho       2004  32.9                3008
 ##  9: Women with any anemia     Lesotho       2009  26.3                3839
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(statcomp, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) +
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(statcomp, <span class="kw">aes</span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) +
+<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="anemia_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
@@ -519,9 +517,9 @@ res$anemia_denom0 &lt;-<span class="st"> </span><span class="kw">round</span>(re
 </tr>
 </tbody>
 </table>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res, <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
                 <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) +
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_ribbon">geom_ribbon</a></span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() +<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>()</code></pre></div>
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="anemia_files/figure-html/unnamed-chunk-19-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 </div>
