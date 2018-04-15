@@ -70,7 +70,7 @@ test_that("data dictionaries FWF lengths match file width", {
   })
 
 
-test_that("lower case flat file check"){
+test_that("lower case flat file check",{
 
   skip_if_no_auth()
 
@@ -84,6 +84,6 @@ test_that("lower case flat file check"){
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
-  dat <- cli$get_datasets("ngcr4afl.zip")
+  expect_warning(cli$get_datasets("ngcr4afl.zip"))
 
-}
+})
