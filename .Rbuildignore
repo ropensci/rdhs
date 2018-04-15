@@ -18,3 +18,4 @@ output.txt
 TODO.md
 ^vignettes/inroduction_cache/
 ^docs$
+^CONDUCT\.md$

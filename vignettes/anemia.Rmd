@@ -19,8 +19,8 @@ and Lesotho.
 
 Load the `rdhs` package and other useful packages for analysing data.
 
-```{r, results=FALSE, message = FALSE}
-#devtools::install_github("OJWatson/rdhs")
+```{r, results=FALSE, message = FALSE, warning=FALSE}
+devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 library(data.table)
 library(ggplot2)

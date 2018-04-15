@@ -25,9 +25,9 @@ This process is described below and should cover most functionality that will be
 
 Install rdhs from github with `devtools`:
 
-```{r gh-installation}
-# install.packages("devtools")
-# devtools::install_github("OJWatson/rdhs")
+```{r gh-installation, warnings = FALSE, message = FALSE}
+install.packages("devtools")
+devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 ```
 
@@ -72,7 +72,7 @@ data[1,]
 
 Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via [DHS STATcompiler](https://www.statcompiler.com/) if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the `rdhs` API interaction. For example we can very quickly find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010). 
 
-```{r fig.height=4, fig.width=7, fig.align="center"}
+```{r fig.height=4, fig.width=7, fig.align="center", warnings = FALSE}
 # Make an api request
 resp <- dhs_data(indicatorIds = "ML_FEVT_C_AML", surveyYearStart = 2010,breakdown = "subnational")
 

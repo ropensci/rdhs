@@ -35,9 +35,9 @@ library(rdhs)
 Getting started
 ---------------
 
--   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](introduction.html).
+-   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
 
--   Full functionality is described in the tutorial [here](INSERT%20LINK).
+-   Full functionality is described in the tutorial [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
 
 Basic Functionality
 -------------------
