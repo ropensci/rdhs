@@ -195,7 +195,7 @@ cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
 
-The dataset returned here is a list that contains the *dataset* but also a data.frame called *variable_names*. This contains all the survey questions within the dataset, and what their survey variable is:
+The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:
 
 ```{r probe dataset}
 # let's look at the variable_names

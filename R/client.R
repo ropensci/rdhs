@@ -320,7 +320,7 @@ R6_client_dhs <- R6::R6Class(
               private$storr$set(key,resp$dataset,"downloaded_datasets")
               private$storr$set(key,resp$variable_names,"downloaded_dataset_variable_names")
               res[[i]] <- resp$dataset
-            } else if (grep("No support for reading in",resp)) {
+            } else if(grep("No support for reading in",resp)) {
               res[[i]] <- resp
             } else {
               ## then cache the resp and store it in the results list

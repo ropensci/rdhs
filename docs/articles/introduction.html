@@ -285,7 +285,7 @@ client</code></pre></div>
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ICLSPH-527168
-##     cache_date: 2018-04-14 21:59:07
+##     cache_date: 2018-04-15 21:40:09
 ##     check_available_datasets: function (filenames) 
 ##     credentials_path: C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rd ...
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
@@ -300,15 +300,15 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 <span class="co"># with it cached it will be returned much quicker with the client argument</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
-##                          expr     min      lq    mean  median      uq
-##  dhs_surveys(client = client) 3.17564 3.17564 3.17564 3.17564 3.17564
-##      max neval
-##  3.17564     1</code></pre>
+##                          expr      min       lq     mean   median       uq
+##  dhs_surveys(client = client) 3.106595 3.106595 3.106595 3.106595 3.106595
+##       max neval
+##  3.106595     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 920.7401 920.7401 920.7401 920.7401 920.7401 920.7401     1</code></pre>
+##  dhs_surveys() 890.9146 890.9146 890.9146 890.9146 890.9146 890.9146     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
@@ -319,7 +319,7 @@ microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href=
 <p>We can now examine what it is we have actually downloadsed, by reading in one of these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in our dataset</span>
 cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDPR61FL)</code></pre></div>
-<p>The dataset returned here is a list that contains the <em>dataset</em> but also a data.frame called <em>variable_names</em>. This contains all the survey questions within the dataset, and what their survey variable is:</p>
+<p>The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's look at the variable_names</span>
 <span class="kw">head</span>(<span class="kw"><a href="../reference/get_var_labels.html">get_var_labels</a></span>(cdpr))</code></pre></div>
 <pre><code>##   variable                                                  description
