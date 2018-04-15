@@ -2,8 +2,6 @@
 rdhs
 ====
 
-------------------------------------------------------------------------
-
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs) [![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master) [![Documentation via pkgdown](https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png)](https://ojwatson.github.io/rdhs)
 
 ![](https://github.com/OJWatson/rdhs/raw/master/tools/logo.png)
