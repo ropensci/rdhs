@@ -169,7 +169,7 @@ available_datasets <- function(your_email, your_password, your_project,
 ##'
 ##' Download datasets specified using output of \code{available_datasets}.
 ##' @param desired_dataset Row from \code{available_datasets}
-##' @param download_option Chracter dictating how the durvey is stored when downloaded. Must be one of:
+##' @param download_option Character dictating how the durvey is stored when downloaded. Must be one of:
 ##' \itemize{
 ##'       \item{"zip"} - Just the zip. "z" or   will match
 ##'       \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
@@ -309,7 +309,7 @@ download_datasets <- function(desired_dataset,
 
 
 
-##' Autheticate Users for DHS website
+##' Authenticate Users for DHS website
 ##'
 ##' @title DHS Wesbite Authentication
 ##' @param your_email Character for email address for DHS website

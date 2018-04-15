@@ -250,6 +250,7 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 ##  $ FileName            : chr  "CDAR61FL.ZIP" "CDBR61FL.ZIP" "CDCR61FL.ZIP" "CDHR61FL.ZIP" ...
 ##  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...
 ##  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</code></pre>
+<p>Lastly, we recommended to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly.</p>
 <p>We can now use this to download our datasets for further analysis.</p>
 </div>
 <div id="download-survey-datasets" class="section level2">
@@ -301,14 +302,14 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 3.106595 3.106595 3.106595 3.106595 3.106595
+##  dhs_surveys(client = client) 3.136452 3.136452 3.136452 3.136452 3.136452
 ##       max neval
-##  3.106595     1</code></pre>
+##  3.136452     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 890.9146 890.9146 890.9146 890.9146 890.9146 890.9146     1</code></pre>
+##  dhs_surveys() 901.8696 901.8696 901.8696 901.8696 901.8696 901.8696     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
