@@ -13,7 +13,7 @@ skip_if_no_auth <- function(credentials_path = "credentials") {
 
 
 
-new_rand_client <- funtion(){
+new_rand_client <- function(){
 
 # Create new directory
 td <- file.path(tempdir(),as.integer(Sys.time()))
