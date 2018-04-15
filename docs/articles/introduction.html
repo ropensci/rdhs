@@ -88,7 +88,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-14</h4>
+            <h4 class="date">2018-04-15</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -301,14 +301,14 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 3.726607 3.726607 3.726607 3.726607 3.726607
+##  dhs_surveys(client = client) 2.962438 2.962438 2.962438 2.962438 2.962438
 ##       max neval
-##  3.726607     1</code></pre>
+##  2.962438     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## Unit: milliseconds
+<pre><code>## Unit: seconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 933.1655 933.1655 933.1655 933.1655 933.1655 933.1655     1</code></pre>
+##  dhs_surveys() 1.062291 1.062291 1.062291 1.062291 1.062291 1.062291     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
