@@ -2,6 +2,7 @@ context("Extraction")
 
 test_that("query codes having downloaded surveys", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory
@@ -72,6 +73,7 @@ test_that("query codes having downloaded surveys", {
 
 test_that("rbind_labelled", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory

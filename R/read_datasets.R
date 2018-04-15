@@ -126,7 +126,7 @@ factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
   if(reformat){
 
     # replace value codes with value labels
-    for(i in 1:length(lab)){
+    for(i in seq_len(length(lab))){
       pos <- match(names(lab[i]), names(res))
       lab_matches <- which(!is.na(match(res[[pos]], lab[[i]])))
       if(length(lab_matches) > 0){

@@ -79,7 +79,7 @@ ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), surveyYearStart = 2013)
 ```
 
-Lastly, identify the datasets required for download. By default, the recommended option is to download the flat file (.dat) datasets. The household member recode (`PR`) reports the RDT status for children under five.
+Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
 
 ```{r }
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")

@@ -3,6 +3,7 @@ context("Downloads")
 test_that("avaialble surveys and download work", {
 
   skip_if_no_auth()
+  testthat::skip_on_cran()
 
   # Create new directory
   td <- file.path(tempdir(),as.integer(Sys.time()))
@@ -91,7 +92,7 @@ test_that("avaialble surveys and download work", {
 
 test_that("Hierarchal and sas7bdat dataset test",{
 
-
+  testthat::skip_on_cran()
   cli <- new_rand_client()
 
 
@@ -108,6 +109,7 @@ test_that("Hierarchal and sas7bdat dataset test",{
 
 test_that("Geo dataset test", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory

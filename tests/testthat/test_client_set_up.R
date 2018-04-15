@@ -2,6 +2,7 @@ context("Client Setup")
 
 test_that("save credentials", {
 
+  testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory
