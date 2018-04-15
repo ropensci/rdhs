@@ -116,7 +116,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
 
   # add names to each datasets
   if(exists("df_names")){
-  for(i in 1:length(dfs)){ dfs[[i]]$DATASET <- df_names[i]}
+  for(i in seq_len(length(dfs))){ dfs[[i]]$DATASET <- df_names[i]}
   }
   ## rbind data frames
   df <- do.call(rbind, dfs)
