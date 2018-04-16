@@ -139,7 +139,7 @@ parse_sps <- function(sps, all_lower=TRUE){
   values <- lapply(items, sub,
                    pattern=" *([0-9]+) +\\\"([^\\\"]+)\\\".*",
                    replacement="\\1")
-  values <- lapply(values, as.integer)
+  values <- suppressWarnings(lapply(values, as.integer))
 
   labels <- lapply(items, sub,
                    pattern=" *([0-9]+) +\\\"([^\\\"]+)\\\".*",
@@ -208,7 +208,7 @@ parse_do <- function(do, dct, all_lower=TRUE){
 
   lblstr <- lapply(lblstr, function(x) x[-length(x)])
   levels <- lapply(lblstr, "[", c(TRUE, FALSE))
-  levels <- lapply(levels, as.integer)
+  levels <- suppressWarnings(lapply(levels, as.integer))
 
   labels <- lapply(lblstr, "[", c(FALSE, TRUE))
   if(all_lower)
