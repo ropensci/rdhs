@@ -26,7 +26,6 @@ Imports:
     digest,
     storr,
     xml2,
-    dplyr,
     data.table,
     qdapRegex,
     rgdal,
@@ -36,12 +35,13 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
+    dplyr,
     ggplot2,
     survey,
     devtools,
     microbenchmark
 Remotes:
     tidyverse/haven
-License: GPL (>= 2)
+License: MIT + file LICENSE
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

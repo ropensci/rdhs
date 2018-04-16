@@ -11,7 +11,7 @@ download_datasets(desired_dataset, download_option = "both",
 \arguments{
 \item{desired_dataset}{Row from \code{available_datasets}}
 
-\item{download_option}{Chracter dictating how the durvey is stored when downloaded. Must be one of:
+\item{download_option}{Character dictating how the durvey is stored when downloaded. Must be one of:
 \itemize{
       \item{"zip"} - Just the zip. "z" or   will match
       \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
