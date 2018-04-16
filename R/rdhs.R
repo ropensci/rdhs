@@ -8,9 +8,12 @@
 #' @docType package
 #' @name rdhs
 #'
-#'
 #' @importFrom stats setNames
 #' @importFrom utils tail type.convert packageVersion unzip
+#' @importFrom rappdirs user_cache_dir
+#' @importFrom R6 R6Class
+#' @importFrom storr storr_rds
+#'
 "_PACKAGE"
 
 globalVariables(c("x"))

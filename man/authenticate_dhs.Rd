@@ -23,7 +23,7 @@ Returns list of length 3:
       }
 }
 \description{
-Autheticate Users for DHS website
+Authenticate Users for DHS website
 }
 \note{
 Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}

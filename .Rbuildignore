@@ -15,3 +15,4 @@
 ^vignettes/inroduction_cache/
 ^docs$
 ^CONDUCT\.md$
+^cran-comments.md$
