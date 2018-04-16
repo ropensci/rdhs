@@ -519,8 +519,8 @@ R6_client_dhs <- R6::R6Class(
     },
 
     # EXTRACTION
-    extract = function(questions,
-                       add_geo=TRUE){
+    extract = function(questions, add_geo=FALSE){
+                       
 
       if(dim(questions)[1]==0) stop("questions argument is empty - check your survey_questions/variables terms?")
 
