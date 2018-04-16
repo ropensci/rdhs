@@ -133,7 +133,7 @@ parse_sps <- function(sps, all_lower=TRUE){
   vallbl_idx <- grep("^VALUE LABELS.*", sps)
   vallbl <- sps[(vallbl_idx+1):(min(endblock[endblock > vallbl_idx ])-1)]
 
-  validx <- c(1, grep("^ +/.+", vallbl))
+  validx <- c(1, grep("^ */.+", vallbl))
   itidx <- Map(":", validx+1, c(validx[-1]-1, length(vallbl)))
   items <- lapply(itidx, function(idx) vallbl[idx])
 
