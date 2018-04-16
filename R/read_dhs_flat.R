@@ -109,11 +109,12 @@ parse_sps <- function(sps, all_lower=TRUE){
   start <- as.integer(sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\2", varlst))
   end <- as.integer(sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\3", varlst))
   datatype <- sub("^ *([^ ]+) +([0-9]+)-([0-9]+) *([^ ]*)", "\\4", varlst)
+  datatype <- sub("\\([0-9]+\\)", "(D)", datatype)
 
   dct <- data.frame(name = name,
                     start = start,
                     len   = end - start + 1L,
-                    datatype = c("Numeric", "Alpha")[match(datatype, c("", "(A)"))],
+                    datatype = c("Numeric", "Alpha", "Decimal")[match(datatype, c("", "(A)", "(D)"))],
                     stringsAsFactors=FALSE)
 
   ## Parse variable labels
@@ -278,7 +279,7 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
     stop("metadata file not found")
   }
 
-  dct$col_types <- c("integer", "character")[match(dct$datatype, c("Numeric", "Alpha"))]
+  dct$col_types <- c("integer", "character", "numeric")[match(dct$datatype, c("Numeric", "Alpha", "Decimal"))]
   dat <- read_zipdata(zfile, "\\.DAT$", iotools::input.file,
                       formatter = iotools::dstrfw, col_types = dct$col_types, widths = dct$len, strict=FALSE)
   names(dat) <- dct$name
