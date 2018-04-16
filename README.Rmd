@@ -138,7 +138,7 @@ Then extract these variables from the datasets. Optionally, geographic data may 
 
 ```{r extract_questions}
 # and now extract the data
-extract <- client$extract(vars, add_geo = TRUE)
+extract <- client$extract(vars, add_geo = FALSE)
 ```
 
 The returned object is a list of extracted datasets.
@@ -150,7 +150,7 @@ Dataset extracts can alternate be specified by providing a vector of surveys and
 vars <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
-extract2 <- client$extract(vars, add_geo = TRUE)
+extract2 <- client$extract(vars, add_geo = FALSE)
 ```
 
 Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "NegativeTest" and "PositiveTest".
@@ -171,7 +171,7 @@ questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "
                                      reformat=TRUE)
 
 # and now extract the data
-extract3 <- client$extract(questions, add_geo = TRUE)
+extract3 <- client$extract(questions, add_geo = FALSE)
 
 # group our results
 extract3_bound <- rbind_labelled(extract3)

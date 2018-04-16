@@ -11,7 +11,7 @@
 ##' Each list will then contain further lsts of the surveys collected in that country at that time.
 ##'
 ##'
-extraction <- function(questions,available_datasets,geo_surveys,add_geo=TRUE){
+extraction <- function(questions,available_datasets,geo_surveys,add_geo=FALSE){
 
   # dats is shorter than available_datasets..
   dats <- available_datasets
