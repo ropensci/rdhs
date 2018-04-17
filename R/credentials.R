@@ -1,3 +1,43 @@
+
+##' Set DHS login credentials
+##'
+##' @param credentials File path to where log in credentials are written.
+##' File format should be (each bullet is a new line):
+##' \itemize{
+##'       \item email=dummy@gmail.com
+##'       \item password=dummypass
+##'       \item project=Dummy Project
+##'       }
+##' @return Invisibly returns the rdhs package environment client
+##' @export
+set_dhs_credentials <- function(credentials,root=NULL){
+
+  # first create a client in the default location
+  .rdhs$client <- client_dhs(credentials = credentials,
+                             root = .rdhs$default_root)
+
+  # and assign the user_declared_root if it exists
+  # we then save this in the default location so that when we
+  # load rdhs we load this client, then know the last user declared root
+  # and then set the environment client to be at the user declared root
+  if(!is.null(root)){
+
+    # assign the user_declared_root
+    set_rdhs_client_user_declared_root(root)
+
+    # save this in the default location
+    saveRDS(.rdhs$client,file.path(.rdhs$default_root,
+                                   client_file_name()))
+
+    # set the environment client to be at the user declared root
+    .rdhs$client <-   client_dhs(credentials,
+                                 root = root)
+    }
+
+  invisible(.rdhs$client)
+}
+
+
 ## Format is
 # email=dummy@gmail.com
 # password=dummypass

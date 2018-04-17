@@ -46,3 +46,63 @@ test_that("credentials", {
   unlink("rubbish_no_more.txt")
 
 })
+
+
+
+test_that("set_dhs_credentials", {
+
+  # lets make a credentials object
+  write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
+        file = "rubbish_no_more.txt")
+  out <- set_dhs_credentials(credentials="rubbish_no_more.txt")
+
+  # check that it returns the client invisibly
+  expect_identical(class(out),c("client_dhs", "R6"))
+
+  # check it's set the system variables
+  expect_identical(Sys.getenv("rdhs_USER_EMAIL"),"dummy@gmail.com")
+  expect_identical(Sys.getenv("rdhs_USER_PASS"),"dummy")
+  expect_identical(Sys.getenv("rdhs_USER_PROJECT"),"Dummy space")
+
+  expect_identical(.rdhs$client$.__enclos_env__$private$credentials_path,
+                   "rubbish_no_more.txt")
+
+
+
+  # now let's try it with a new root
+  out <- set_dhs_credentials(credentials="rubbish_no_more.txt",
+                             root=file.path(getwd(),"dummy"))
+
+  # the env client root should now be this new dummy
+  expect_identical(.rdhs$client$get_root() %>% basename,
+                   "dummy")
+  expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
+
+  # and the client at the default root should have dummyas the udr
+  dcrc <- readRDS(file.path(.rdhs$default_root,client_file_name()))
+  expect_identical(dcrc$.__enclos_env__$private$user_declared_root %>% basename,
+                   "dummy")
+
+  ## and if it's working we should get the same now after triggering an .onLoad
+
+  # so first let's clear the package environment to be doubly sure
+  rdhs_reset()
+  expect_null(.rdhs$test)
+
+  rdhs:::.onLoad()
+
+  # the env client root should now be this new dummy
+  expect_identical(.rdhs$client$get_root() %>% basename,
+                   "dummy")
+  expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
+
+  # and the client at the default root should have dummyas the udr
+  dcrc <- readRDS(file.path(.rdhs$default_root,client_file_name()))
+  expect_identical(dcrc$.__enclos_env__$private$user_declared_root %>% basename,
+                   "dummy")
+
+  # remove this
+  unlink("rubbish_no_more.txt")
+  unlink("dummy")
+
+})

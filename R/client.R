@@ -21,9 +21,6 @@ client_dhs <- function(credentials=NULL,
                        root = rappdirs::user_cache_dir("rdhs",Sys.info()["user"]),
                        api_key="ICLSPH-527168"){
 
-  # handle credentials first
-  handle_credentials(credentials)
-
   # check rdhs against api last update time
   cache_date <- client_cache_date(root=root)
   if(last_api_update() > cache_date){
@@ -67,6 +64,11 @@ client_dhs <- function(credentials=NULL,
 
     }
 
+    # handle credentials last now - this way you can create a client still from a saved one and
+    # then use the client argument credentials_path from that saved one
+    if(is.null(credentials)) credentials <- client$.__enclos_env__$private$credentials_path
+    handle_credentials(credentials)
+
     return(client)
 
     # if no api updates have occurred then get the cached api client
@@ -74,6 +76,18 @@ client_dhs <- function(credentials=NULL,
 
     # load cached client
     client <- readRDS(file.path(root,client_file_name()))
+
+    # if there were no credentials provided then grab from the client
+    if(is.null(credentials)){
+      credentials <- client$.__enclos_env__$private$credentials_path
+    } else {
+      # otherwise lets set the client's new credentials and save the now changed client
+      client$.__enclos_env__$private$credentials_path <- credentials
+      saveRDS(client,file.path(client$get_root(),client_file_name()))
+    }
+
+    # now handle the credentials accordingly
+    handle_credentials(credentials)
 
     # check client against rdhs pacakge version
     # so that the R6 functions definitely work with any future pacakge version
@@ -520,7 +534,7 @@ R6_client_dhs <- R6::R6Class(
 
     # EXTRACTION
     extract = function(questions, add_geo=FALSE){
-                       
+
 
       if(dim(questions)[1]==0) stop("questions argument is empty - check your survey_questions/variables terms?")
 
@@ -616,6 +630,7 @@ R6_client_dhs <- R6::R6Class(
 
     api_key = NULL,
     root = NULL,
+    user_declared_root = NULL,
     credentials_path = NULL,
     cache_date = Sys.time(),
     package_version = packageVersion("rdhs"),
