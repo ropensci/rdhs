@@ -75,7 +75,20 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   ## Ensure same column ordering for all dfs
   dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
+  # check to see if variables are labelled
   islab <- sapply(dfs, sapply, haven::is.labelled)
+
+  ## let's catch for one variable dataframes
+  islab_vec_catch <- function(islab_obj){
+    if(is.vector(islab_obj)){
+      islab_obj <- t(islab_obj)
+    colnames(islab_obj) <- names(dfs)
+    rownames(islab_obj) <- names(dfs[[1]])[1]
+    }
+    islab_obj
+  }
+
+  islab <- islab_vec_catch(islab)
   anylab <- names(which(apply(islab, 1, any)))
 
   ## Convert "concatenated" variables to characters (will be converted back later).
@@ -83,7 +96,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(haven::as_factor(x[[v]]))); x})
   labels <- labels[!names(labels) %in% catvar]
 
-  islab <- sapply(dfs, sapply, haven::is.labelled)
+  islab <- sapply(dfs, sapply, haven::is.labelled) %>% islab_vec_catch
   anylab <- names(which(apply(islab, 1, any)))
   needslab <- setdiff(anylab, names(labels))
 
