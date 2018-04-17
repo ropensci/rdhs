@@ -238,7 +238,7 @@ downloads <- client$get_datasets(datasets$FileName)
 questions <- client$survey_questions(datasets$FileName, search_terms = c("malaria rapid test"))
 
 # and now extract the data
-extract <- client$extract(questions, add_geo = TRUE)
+extract <- client$extract(questions, add_geo = FALSE)
 
 # what does our extract look like
 str(extract)
@@ -254,7 +254,7 @@ We can also query our datasets for the survey question variables. In the example
 questions <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
-extract2 <- client$extract(questions, add_geo = TRUE)
+extract2 <- client$extract(questions, add_geo = FALSE)
 
 # quick check
 head(extract2$CDPR61FL)
@@ -314,7 +314,7 @@ questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "
                                      reformat=TRUE)
 
 # and now extract the data
-extract3 <- client$extract(questions, add_geo = TRUE)
+extract3 <- client$extract(questions, add_geo = FALSE)
 
 # group our results
 bound_no_labels <- rbind_labelled(extract3)
