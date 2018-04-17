@@ -4,7 +4,7 @@
 \alias{extraction}
 \title{DHS survey questions extracted from datasets}
 \usage{
-extraction(questions, available_datasets, geo_surveys, add_geo = TRUE)
+extraction(questions, available_datasets, geo_surveys, add_geo = FALSE)
 }
 \arguments{
 \item{questions}{Output of \code{R6_client_dhs$public_methods$survey_questions}}

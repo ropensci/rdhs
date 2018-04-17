@@ -86,9 +86,7 @@ test_that("rbind_labelled", {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
-  # create availbale surveys
-  survs <- cli$available_datasets()
-
+  # get some datasets
   d <- cli$get_datasets(c("AOBR62FL.ZIP","BJBR41FL.ZIP"))
 
   quest <- cli$survey_variables(c("AOBR62FL.ZIP","BJBR41FL.ZIP"),variables = c("v024","v130"))
@@ -101,5 +99,10 @@ test_that("rbind_labelled", {
 
   dat <- rbind_labelled(extract,labels=list("v024"="concatenate"),warn = FALSE)
 
+  # now do it for just one variable
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP","BJBR41FL.ZIP"),variables = c("v024"))
+  extract <- cli$extract(quest,add_geo = FALSE)
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+  expect_warning(rbind_labelled(extract))
   })
 
