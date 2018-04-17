@@ -201,7 +201,7 @@ parse_do <- function(do, dct, all_lower=TRUE){
   lbldef <- grep("^ *label define", x, value=TRUE)
 
   lblname <- sub("^ *label define ([^ ]+) +(.*)", "\\1", lbldef)
-  lblstr <- sub("^ label define ([^ ]+) +(.*)", "\\2", lbldef)
+  lblstr <- sub("^ *label define ([^ ]+) +(.*)", "\\2", lbldef)
   lblstr <- strsplit(lblstr, "\"")
 
   if(any(sapply(lblstr, length) %% 2 != 1))

@@ -85,6 +85,6 @@ test_that("lower case flat file check",{
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
-  expect_warning(cli$get_datasets("ngcr4afl.zip"))
+  dat <- cli$get_datasets("ngcr4afl.zip")
 
 })

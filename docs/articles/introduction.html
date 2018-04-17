@@ -88,7 +88,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-15</h4>
+            <h4 class="date">2018-04-17</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -189,9 +189,8 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
                 <span class="st">"Rwanda"</span>,<span class="st">"Sierra Leone"</span>,<span class="st">"Senegal"</span>,<span class="st">"Tanzania"</span>)
 
 <span class="co"># and plot the results</span>
-<span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.4.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(resp[resp$CountryName %in%<span class="st"> </span>countries,],
+<span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(resp[resp$CountryName %in%<span class="st"> </span>countries,],
        <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"glm"</span>) +<span class="st"> </span>
@@ -302,14 +301,14 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 3.136452 3.136452 3.136452 3.136452 3.136452
+##  dhs_surveys(client = client) 7.996641 7.996641 7.996641 7.996641 7.996641
 ##       max neval
-##  3.136452     1</code></pre>
+##  7.996641     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 901.8696 901.8696 901.8696 901.8696 901.8696 901.8696     1</code></pre>
+##  dhs_surveys() 427.1347 427.1347 427.1347 427.1347 427.1347 427.1347     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
@@ -364,83 +363,60 @@ downloads &lt;-<span class="st"> </span>client$<span class="kw">get_datasets</sp
 questions &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(datasets$FileName, <span class="dt">search_terms =</span> <span class="kw">c</span>(<span class="st">"malaria rapid test"</span>))
 
 <span class="co"># and now extract the data</span>
-extract &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)</code></pre></div>
+extract &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Starting Survey 1 out of 2 surveys:CDPR61FL</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## Warning: package 'sp' was built under R version 3.4.3</code></pre>
 <pre><code>## Starting Survey 2 out of 2 surveys:TZPR7HFL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># what does our extract look like</span>
 <span class="kw">str</span>(extract)</code></pre></div>
 <pre><code>## List of 2
-##  $ CDPR61FL:'data.frame':    95949 obs. of  7 variables:
-##   ..$ hml35   :Class 'labelled'  atomic [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
+##  $ CDPR61FL:'data.frame':    95949 obs. of  1 variable:
+##   ..$ hml35:Class 'labelled'  atomic [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
 ##   .. .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
-##   ..$ CLUSTER : atomic [1:95949] 1 1 1 1 1 1 1 1 1 1 ...
-##   .. ..- attr(*, "label")= chr "Cluster number"
-##   ..$ ALT_DEM : int [1:95949] 407 407 407 407 407 407 407 407 407 407 ...
-##   ..$ LATNUM  : num [1:95949] 0.22 0.22 0.22 0.22 0.22 ...
-##   ..$ LONGNUM : num [1:95949] 21.8 21.8 21.8 21.8 21.8 ...
-##   ..$ ADM1NAME: chr [1:95949] "Tshuapa" "Tshuapa" "Tshuapa" "Tshuapa" ...
-##   ..$ DHSREGNA: chr [1:95949] "Equateur" "Equateur" "Equateur" "Equateur" ...
-##  $ TZPR7HFL:'data.frame':    64880 obs. of  7 variables:
-##   ..$ hml35   :Class 'labelled'  atomic [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
+##  $ TZPR7HFL:'data.frame':    64880 obs. of  1 variable:
+##   ..$ hml35:Class 'labelled'  atomic [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
 ##   .. .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
-##   .. .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
-##   ..$ CLUSTER : atomic [1:64880] 1 1 1 1 1 1 1 1 1 1 ...
-##   .. ..- attr(*, "label")= chr "Cluster number"
-##   ..$ ALT_DEM : int [1:64880] 1236 1236 1236 1236 1236 1236 1236 1236 1236 1236 ...
-##   ..$ LATNUM  : num [1:64880] -4.73 -4.73 -4.73 -4.73 -4.73 ...
-##   ..$ LONGNUM : num [1:64880] 35.9 35.9 35.9 35.9 35.9 ...
-##   ..$ ADM1NAME: chr [1:64880] "Dodoma" "Dodoma" "Dodoma" "Dodoma" ...
-##   ..$ DHSREGNA: chr [1:64880] "Central" "Central" "Central" "Central" ...</code></pre>
+##   .. .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"</code></pre>
 <p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="http://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
 <p>We can also query our datasets for the survey question variables. In the example above the survey question was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code>survey_variables()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and grab the questions from this now utilising the survey variables</span>
 questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
 
 <span class="co"># and now extract the data</span>
-extract2 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)</code></pre></div>
+extract2 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Starting Survey 1 out of 2 surveys:CDPR61FL</code></pre>
 <pre><code>## Starting Survey 2 out of 2 surveys:TZPR7HFL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># quick check</span>
 <span class="kw">head</span>(extract2$CDPR61FL)</code></pre></div>
-<pre><code>##   hv024 hml35 CLUSTER ALT_DEM   LATNUM  LONGNUM ADM1NAME DHSREGNA
-## 1     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## 2     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## 3     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## 4     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## 5     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## 6     4    NA       1     407 0.220128 21.79508  Tshuapa Equateur</code></pre>
+<pre><code>##   hv024 hml35
+## 1     4    NA
+## 2     4    NA
+## 3     4    NA
+## 4     4    NA
+## 5     4    NA
+## 6     4    NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(extract2$TZPR7HFL)</code></pre></div>
-<pre><code>##   hv024 hml35 CLUSTER ALT_DEM    LATNUM  LONGNUM ADM1NAME DHSREGNA
-## 1     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central
-## 2     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central
-## 3     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central
-## 4     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central
-## 5     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central
-## 6     1    NA       1    1236 -4.726384 35.91285   Dodoma  Central</code></pre>
+<pre><code>##   hv024 hml35
+## 1     1    NA
+## 2     1    NA
+## 3     1    NA
+## 4     1    NA
+## 5     1    NA
+## 6     1    NA</code></pre>
 <p>We can now combine our two dataframes for further analysis using the <code>rdhs</code> package function <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled data.frames:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first let's bind our first extraction, without the hv024</span>
 extract_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract)
 
 <span class="kw">head</span>(extract_bound)</code></pre></div>
-<pre><code>##            hml35 CLUSTER ALT_DEM   LATNUM  LONGNUM ADM1NAME DHSREGNA
-## CDPR61FL.1    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## CDPR61FL.2    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## CDPR61FL.3    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## CDPR61FL.4    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## CDPR61FL.5    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-## CDPR61FL.6    NA       1     407 0.220128 21.79508  Tshuapa Equateur
-##             DATASET
-## CDPR61FL.1 CDPR61FL
-## CDPR61FL.2 CDPR61FL
-## CDPR61FL.3 CDPR61FL
-## CDPR61FL.4 CDPR61FL
-## CDPR61FL.5 CDPR61FL
-## CDPR61FL.6 CDPR61FL</code></pre>
+<pre><code>##            hml35  DATASET
+## CDPR61FL.1    NA CDPR61FL
+## CDPR61FL.2    NA CDPR61FL
+## CDPR61FL.3    NA CDPR61FL
+## CDPR61FL.4    NA CDPR61FL
+## CDPR61FL.5    NA CDPR61FL
+## CDPR61FL.6    NA CDPR61FL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now let's try our second extraction</span>
 extract2_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2)</code></pre></div>
 <pre><code>## Warning in rbind_labelled(extract2): Some variables have non-matching value labels: hv024.
@@ -521,7 +497,7 @@ questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables
                                      <span class="dt">reformat=</span><span class="ot">TRUE</span>)
 
 <span class="co"># and now extract the data</span>
-extract3 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">TRUE</span>)</code></pre></div>
+extract3 &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Starting Survey 1 out of 2 surveys:CDPR61FL</code></pre>
 <pre><code>## Starting Survey 2 out of 2 surveys:TZPR7HFL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group our results</span>
@@ -536,6 +512,7 @@ bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="../refer
 questions &lt;-<span class="st"> </span>client$<span class="kw">survey_variables</span>(datasets$FileName,<span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv005"</span>,<span class="st">"hv023"</span>,<span class="st">"hv024"</span>,<span class="st">"hv025"</span>,<span class="st">"hv214"</span>,<span class="st">"hml20"</span>,<span class="st">"hml35"</span>))
 extraction &lt;-<span class="st"> </span>client$<span class="kw">extract</span>(questions,<span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Starting Survey 1 out of 2 surveys:CDPR61FL</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
 <pre><code>## Starting Survey 2 out of 2 surveys:TZPR7HFL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now concatenate the provinces as before and remove missing responses</span>
 dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extraction,<span class="dt">labels=</span><span class="kw">list</span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))</code></pre></div>
