@@ -89,6 +89,17 @@ test_that("avaialble surveys and download work", {
 
 })
 
+test_that("ETAR71FL.ZIP test",{
+
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+  dat <- cli$get_datasets("ETAR71FL.ZIP")
+  r <- readRDS(dat[[1]])
+  expect_identical(class(r),"data.frame")
+
+
+})
 
 test_that("Hierarchal and sas7bdat dataset test",{
 
