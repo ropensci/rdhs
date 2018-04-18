@@ -101,6 +101,17 @@ test_that("ETAR71FL.ZIP test",{
 
 })
 
+test_that("ugir41fl.zip test",{
+
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+  dat <- cli$get_datasets("ugir41fl.zip")
+  r <- readRDS(dat[[1]])
+  expect_equal(r %>% dim,c(7246, 3862))
+
+})
+
 test_that("zip file ending test",{
 
   testthat::skip_on_cran()
