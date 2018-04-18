@@ -17,7 +17,7 @@ read_dhs_dataset <- function(file, dataset,
   format_expected <- file_dataset_format(dataset$FileFormat)
 
   # we'll check the file format we are expecting is actually in the zip
-  format_match <- any(filetype==format_expected)
+  format_match <- any(tolower(filetype)==tolower(format_expected))
 
   # if there is no match it is probably because it is a geographic file
   if(!format_match & dataset$FileType %in% c("Geographic Data", "Geospatial Covariates")){
