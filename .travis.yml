@@ -14,6 +14,4 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_23ddd56c4332_key -iv $encrypted_23ddd56c4332_iv
   -in vignettes/credentials_file.enc -out vignettes/credentials_file -d
 - openssl aes-256-cbc -K $encrypted_23ddd56c4332_key -iv $encrypted_23ddd56c4332_iv
-  -in vignettes/credentials.enc -out vignettes/credentials -d
-- openssl aes-256-cbc -K $encrypted_23ddd56c4332_key -iv $encrypted_23ddd56c4332_iv
   -in credentials.enc -out credentials -d
