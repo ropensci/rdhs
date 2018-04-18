@@ -51,6 +51,9 @@ test_that("credentials", {
 
 test_that("set_dhs_credentials", {
 
+  # first let's grab the default client objct so we can rewrite it
+  old_client <- .rdhs$client
+
   # lets make a credentials object
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
         file = "rubbish_no_more.txt")
@@ -67,8 +70,6 @@ test_that("set_dhs_credentials", {
   expect_identical(.rdhs$client$.__enclos_env__$private$credentials_path,
                    "rubbish_no_more.txt")
 
-
-
   # now let's try it with a new root
   out <- set_dhs_credentials(credentials="rubbish_no_more.txt",
                              root=file.path(getwd(),"dummy"))
@@ -78,7 +79,7 @@ test_that("set_dhs_credentials", {
                    "dummy")
   expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
 
-  # and the client at the default root should have dummyas the udr
+  # and the client at the default root should have dummy as the udr
   dcrc <- readRDS(file.path(.rdhs$default_root,client_file_name()))
   expect_identical(dcrc$.__enclos_env__$private$user_declared_root %>% basename,
                    "dummy")
@@ -104,5 +105,8 @@ test_that("set_dhs_credentials", {
   # remove this
   unlink("rubbish_no_more.txt")
   unlink("dummy")
+
+  # and put the old client back in place
+  saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
 
 })
