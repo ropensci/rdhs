@@ -204,7 +204,7 @@ download_datasets <- function(desired_dataset,
 
   # make sure the folder exists and create the zip path
   dir.create( dataset_dir , showWarnings = FALSE, recursive = T )
-  zip_path <- file.path(dataset_dir,desired_dataset$file)
+  zip_path <- file.path(dataset_dir,desired_dataset$FileName)
 
   # login
   values <- authenticate_dhs( your_email , your_password , your_project )

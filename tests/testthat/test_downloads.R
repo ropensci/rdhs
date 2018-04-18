@@ -101,6 +101,18 @@ test_that("ETAR71FL.ZIP test",{
 
 })
 
+test_that("zip file ending test",{
+
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+  dat <- cli$get_datasets("ETAR71FL.ZIP",download_option = "zip")
+  extension <- strsplit(dat$ETAR71FL,".",fixed=TRUE) %>% lapply(function(x) x[length(x)]) %>% unlist
+  expect_identical(toupper(extension),"ZIP")
+
+
+})
+
 test_that("Hierarchal and sas7bdat dataset test",{
 
   testthat::skip_on_cran()
