@@ -1,15 +1,18 @@
 #' read in dhs standard file types
 #' @param file path to zip file to be read
-#' @param reformat boolean detailing if datasets should be nicely reformatted. Default = TRUE
+#' @param file_format FileFormat for a file as taken from the API, e.g. \code{dhs_datasets(returnFields = "FileFormat")}
+#' @param reformat boolean detailing if datasets should be nicely reformatted. Default = `FALSE`
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
-#' @param ... Extra arguments to be
+#' @param ... Extra arguments to be passed to either \code{\link{read_dhs_dta}} or \code{\link{read_dhs_flat}}
 #'
-read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
+read_dhs_dataset <- function(file, file_format,
+                             reformat = FALSE, all_lower = TRUE, ...){
 
   zip_contents <- unzip_warn_fails(file,list=TRUE)
   filetype <- strsplit(zip_contents$Name,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
   file_types <- c("dta","sav","dat","sas7bdat","dbf")
-  file_match <- which(toupper(file_types) %in% toupper(filetype))
+  format_expected <- file_dataset_format(file_format)
+  file_match <- which(tolower(file_types)==tolower(format_expected))
 
   # 1. .dta file
   if(file_match==1){
