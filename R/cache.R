@@ -1,7 +1,7 @@
 #' Pull last DHS API database update time
 last_api_update <- function(){
 
-  updates <- rdhs::dhs_dataUpdates()
+  updates <- dhs_dataUpdates()
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
     max

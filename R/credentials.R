@@ -12,7 +12,13 @@
 ##' @export
 set_dhs_credentials <- function(credentials,root=NULL){
 
-  # first create a client in the default location
+  # normalise credentials here for ease
+  credentials <- normalizePath(credentials)
+
+  # set these using internal package env alterning function
+  set_rdhs_client_credentials(credentials)
+
+  # next create a client in the default location
   .rdhs$client <- client_dhs(credentials = credentials,
                              root = .rdhs$default_root)
 

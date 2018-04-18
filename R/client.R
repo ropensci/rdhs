@@ -80,6 +80,16 @@ client_dhs <- function(credentials=NULL,
     # if there were no credentials provided then grab from the client
     if(is.null(credentials)){
       credentials <- client$.__enclos_env__$private$credentials_path
+
+      # if this does not exist then throw here, rather than run throught to handle credentials
+      # This way the error message can be a bit more specific and helpful
+      if(!file.exists(credentials)){
+        stop("Your login credentials provided last time are no longer there!\n",
+             "Please recreate your credentials file at the following path:\n   -> ",
+             credentials,"\n",
+             "Alternatively use set_dhs_credentials() to specify a new credentials file.")
+      }
+
     } else {
       # otherwise lets set the client's new credentials and save the now changed client
       client$.__enclos_env__$private$credentials_path <- credentials
@@ -171,7 +181,9 @@ R6_client_dhs <- R6::R6Class(
       if(!is.null(out)){ return(out) } else {
 
         # Get request
-        resp <- httr::GET(url,httr::accept_json(),httr::user_agent("https://github.com/OJWatson/rdhs"),encode = "json")
+        resp <- httr::GET(url,httr::accept_json(),
+                          httr::user_agent("https://github.com/OJWatson/rdhs"),
+                          encode = "json")
 
         ## pass to response parse
         parsed_resp <- handle_api_response(resp,TRUE)
@@ -194,7 +206,9 @@ R6_client_dhs <- R6::R6Class(
 
           # Create new request and parse this
           url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
-          resp <- httr::GET(url,httr::accept_json(),encode = "json")
+          resp <- httr::GET(url,httr::accept_json(),
+                            httr::user_agent("https://github.com/OJWatson/rdhs"),
+                            encode = "json")
           parsed_resp <- handle_api_response(resp,TRUE)
 
           # if this larger page query has returned all the results then return this else we will loop through
@@ -209,7 +223,9 @@ R6_client_dhs <- R6::R6Class(
             for(i in 2:length(parsed_resp)){
               query$page <- i
               url <- httr::modify_url(paste0(private$url,api_endpoint),query = query)
-              resp <- httr::GET(url,httr::accept_json(),encode = "json")
+              resp <- httr::GET(url,httr::accept_json(),
+                                httr::user_agent("https://github.com/OJWatson/rdhs"),
+                                encode = "json")
               temp_parsed_resp <- handle_api_response(resp,TRUE)
               parsed_resp[[i]] <- temp_parsed_resp
             }

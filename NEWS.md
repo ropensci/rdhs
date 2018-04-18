@@ -1,3 +1,12 @@
+## rdhs 0.3.0
+
+* Change to the UI - end user interaction is now through normal functions, as opposed
+to `client_dhs` methods
+
+* These are faciliated through the package internal environment, which means you know call
+`set_dhs_credentials()` once with your credentials and the package handles everything else in 
+the backend. 
+
 ## rdhs 0.2.0
 
 * New vignettes: `anemia`

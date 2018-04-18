@@ -68,14 +68,14 @@ test_that("set_dhs_credentials", {
   expect_identical(Sys.getenv("rdhs_USER_PROJECT"),"Dummy space")
 
   expect_identical(.rdhs$client$.__enclos_env__$private$credentials_path,
-                   "rubbish_no_more.txt")
+                   normalizePath("rubbish_no_more.txt"))
 
   # now let's try it with a new root
   out <- set_dhs_credentials(credentials="rubbish_no_more.txt",
                              root=file.path(getwd(),"dummy"))
 
   # the env client root should now be this new dummy
-  expect_identical(.rdhs$client$get_root() %>% basename,
+  expect_identical(.rdhs$client$.__enclos_env__$private$user_declared_root %>% basename,
                    "dummy")
   expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
 

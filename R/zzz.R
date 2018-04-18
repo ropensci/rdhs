@@ -18,15 +18,19 @@ rdhs_reset <- function() {
   # check for a client here
   if(file.exists(file.path(.rdhs$default_root,client_file_name()))){
 
-    # rad in this client
-    .rdhs$client <- readRDS((file.path(.rdhs$default_root,client_file_name())))
+    # read in this client
+    .rdhs$client <- client_dhs(root = .rdhs$default_root)
 
     # if the user has previously specified a different root then grab it and then
     # set the environment client to that
     udr <- .rdhs$client$.__enclos_env__$private$user_declared_root
-    if(!is.null(udr)) .rdhs$client <- readRDS((file.path(udr,client_file_name())))
+    if(!is.null(udr)){
+      if(file.exists(file.path(udr,client_file_name()))){
+      .rdhs$client <- client_dhs(root = udr)
+    }
+    }
 
-    message("\nWelcome back :) \n",
+    packageStartupMessage("\nWelcome back :) \n",
             "-------------------------\n",
             "rdhs will be using the login credentials you set last time, which it will read from:\n   -> ",
             .rdhs$client$.__enclos_env__$private$credentials_path,"\n",
@@ -43,10 +47,19 @@ rdhs_reset <- function() {
 
 set_rdhs_client_user_declared_root <- function(path){
 
-  old <- rappdirs::user_cache_dir("rdhs",Sys.info()["user"])
+  old <- .rdhs$client$.__enclos_env__$private$user_declared_root
 
   # assign the new user_declared_root
-  .rdhs$client$.__enclos_env__$private$user_declared_root <- path
+  .rdhs$client$.__enclos_env__$private$user_declared_root <- normalizePath(path)
+  invisible(old)
+}
+
+set_rdhs_client_credentials <- function(credentials){
+
+  old <- .rdhs$client$.__enclos_env__$private$credentials_path
+
+  # assign the new user_declared_root
+  .rdhs$client$.__enclos_env__$private$credentials_path <- normalizePath(credentials)
   invisible(old)
 }
 
