@@ -70,6 +70,19 @@ test_that("query codes having downloaded surveys", {
   unlink(td)
 })
 
+test_that("surveyId in extract",{
+
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+  dat <- cli$survey_variables(dataset_filenames = "ZWHR31SV.ZIP",variables="hv024")
+  expect_identical(names(dat)[5],"survey_id")
+
+  extract <- cli$extract(dat)
+
+})
+
+
 
 test_that("rbind_labelled", {
 

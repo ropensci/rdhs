@@ -7,8 +7,9 @@
 ##' @param add_geo Boolean detailing if geographic datasets should be added.
 ##'
 ##'
-##' @return Returns \code{"list"} of length equal to the number of unique country year combinations within questions.
-##' Each list will then contain further lsts of the surveys collected in that country at that time.
+##' @return Returns `data.frame` with variables corresponding to the reqested variables in the questions object.
+##' Will also have geographic data related columns if `add_geo=TRUE` is set. Lastly a SurveyId variable will also be
+##' appended corresponding to \code{\link{dhs_datasets}}$SurveyId
 ##'
 ##'
 extraction <- function(questions,available_datasets,geo_surveys,add_geo=FALSE){
@@ -75,6 +76,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=FALSE){
         results_full <- results
       }
 
+      results_full$SurveyId <- unique(questions$survey_id[quest_rows_i])
       list_res[[i]] <- results_full
 
     }
