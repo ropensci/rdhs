@@ -154,7 +154,7 @@ It also takes an argument for its `root`, which is the directory path where the 
 
 ```{r client}
 ## create a client
-client <- client_dhs(credentials = "credentials_file")
+client <- client_dhs(credentials = "credentials")
 client
 
 ```
