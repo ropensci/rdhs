@@ -88,7 +88,7 @@
       <h1>Anemia prevalence: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-17</h4>
+            <h4 class="date">2018-04-18</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -199,6 +199,7 @@ project=Dummy Project Name</code></pre>
 <p>The file path to to this credentials file and the desired location for the cache are passed to the <code><a href="../reference/client_dhs.html">client_dhs()</a></code> function to establish the DHS client.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>,
                      <span class="dt">root =</span> <span class="kw">file.path</span>(<span class="kw">path.expand</span>(<span class="st">'~'</span>),<span class="st">'rdhs_cache'</span>))</code></pre></div>
+<pre><code>## New version of rdhs detected. Your saved client will be updated.</code></pre>
 <p>After establishing the client, the function <code>client$get_datasets()</code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, the client will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets$path &lt;-<span class="st"> </span><span class="kw">unlist</span>(client$<span class="kw">get_datasets</span>(datasets$FileName))</code></pre></div>
 </div>

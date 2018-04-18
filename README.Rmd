@@ -33,7 +33,7 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 ## Installation
 
-Install `rdhs` from github with `devtools`:
+Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ojwatson.github.io/rdhs/articles/toolkit.html)
 
 ```{r gh-installation}
 # install.packages("devtools")

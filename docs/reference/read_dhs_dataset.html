@@ -123,7 +123,7 @@
     <p>read in dhs standard file types</p>
     
 
-    <pre class="usage"><span class='fu'>read_dhs_dataset</span>(<span class='no'>file</span>, <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_dhs_dataset</span>(<span class='no'>file</span>, <span class='no'>dataset</span>, <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,8 +133,12 @@
       <td><p>path to zip file to be read</p></td>
     </tr>
     <tr>
+      <th>dataset</th>
+      <td><p>row from <code><a href='dhs_datasets.html'>dhs_datasets</a></code> that corresponds to the file</p></td>
+    </tr>
+    <tr>
       <th>reformat</th>
-      <td><p>boolean detailing if datasets should be nicely reformatted. Default = TRUE</p></td>
+      <td><p>boolean detailing if datasets should be nicely reformatted. Default = `FALSE`</p></td>
     </tr>
     <tr>
       <th>all_lower</th>
@@ -142,7 +146,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Extra arguments to be</p></td>
+      <td><p>Extra arguments to be passed to either <code><a href='read_dhs_dta.html'>read_dhs_dta</a></code> or <code><a href='read_dhs_flat.html'>read_dhs_flat</a></code></p></td>
     </tr>
     </table>
     
