@@ -17,6 +17,6 @@ Returns what the dataset file ending should be for a given filename
 }
 \examples{
 file_format <- "Stata dataset (.dta)"
-identical(file_dataset_format(file_format),"dta")
+identical(rdhs:::file_dataset_format(file_format),"dta")
 
 }
