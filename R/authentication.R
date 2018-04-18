@@ -271,7 +271,7 @@ download_datasets <- function(desired_dataset,
 
     # now read the dataset in with the requested reformat options
     res <- read_dhs_dataset(zip_path,
-                            file_format = desired_dataset$FileFormat,
+                            dataset = desired_dataset,
                             reformat,all_lower,...)
 
     # handle results. If it's character it's because we haven't yet got a parser we are happy with
