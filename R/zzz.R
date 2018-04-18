@@ -18,10 +18,6 @@ rdhs_reset <- function() {
   # check for a client here
   if(file.exists(file.path(.rdhs$default_root,client_file_name()))){
 
-    # debug file on travis
-    r <- readRDS(file.path(.rdhs$default_root,client_file_name()))
-    print(r)
-
     # read in this client
     .rdhs$client <- client_dhs(root = .rdhs$default_root)
 

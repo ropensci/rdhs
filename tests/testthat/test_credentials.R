@@ -54,6 +54,12 @@ test_that("set_dhs_credentials", {
   # first let's grab the default client objct so we can rewrite it
   old_client <- .rdhs$client
 
+  # save them so this test doesn't nuke the others
+  em <- Sys.getenv("rdhs_USER_EMAIL")
+  pass <- Sys.getenv("rdhs_USER_PASS")
+  proj <- Sys.getenv("rdhs_USER_PROJECT")
+
+
   # lets make a credentials object
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
         file = "rubbish_no_more.txt")
@@ -106,7 +112,13 @@ test_that("set_dhs_credentials", {
   unlink("rubbish_no_more.txt")
   unlink("dummy")
 
+  # reset our credentials
+  Sys.setenv("rdhs_USER_EMAIL"=em)
+  Sys.setenv("rdhs_USER_PASS"=pass)
+  Sys.setenv("rdhs_USER_PROJECT"=proj)
+
   # and put the old client back in place
   saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
+  .rdhs$client <- old_client
 
 })
