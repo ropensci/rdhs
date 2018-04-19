@@ -109,7 +109,7 @@ project=Dummy Project Name
 The file path to to this credentials file and the desired location for the cache are passed to the `client_dhs()` function to establish the DHS client.
 
 ```{r }
-client <- client_dhs(credentials = "credentials",
+client <- client_dhs(credentials = "credentials_file",
                      root = file.path(path.expand('~'),'rdhs_cache'))
 ```
 

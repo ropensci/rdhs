@@ -88,7 +88,7 @@
       <h1>Anemia prevalence: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-18</h4>
+            <h4 class="date">2018-04-19</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -197,9 +197,8 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]</code></pre><
 password=dummypass
 project=Dummy Project Name</code></pre>
 <p>The file path to to this credentials file and the desired location for the cache are passed to the <code><a href="../reference/client_dhs.html">client_dhs()</a></code> function to establish the DHS client.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials_file"</span>,
                      <span class="dt">root =</span> <span class="kw">file.path</span>(<span class="kw">path.expand</span>(<span class="st">'~'</span>),<span class="st">'rdhs_cache'</span>))</code></pre></div>
-<pre><code>## New version of rdhs detected. Your saved client will be updated.</code></pre>
 <p>After establishing the client, the function <code>client$get_datasets()</code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, the client will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets$path &lt;-<span class="st"> </span><span class="kw">unlist</span>(client$<span class="kw">get_datasets</span>(datasets$FileName))</code></pre></div>
 </div>
@@ -287,7 +286,7 @@ for(i in <span class="dv">1</span>:<span class="kw">nrow</span>(datasets)){
                                     <span class="dt">v454 =</span> <span class="kw">c</span>(<span class="st">"no/don't know"</span> =<span class="st"> </span>0L,
                                              <span class="st">"yes"</span> =<span class="st"> </span>1L, <span class="st">"missing"</span> =<span class="st"> </span>9L)))</code></pre></div>
 <pre><code>## Warning in rbind_labelled(datlst, labels = list(v024 = "concatenate", v454 = c(`no/don't know` = 0L, : Some variables have non-matching value labels: v106, v455, v456.
-## Inheriting labels from first data frame.</code></pre>
+## Inheriting labels from first data frame with labels.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(dat, is.labelled)</code></pre></div>
 <pre><code>##    SurveyId CountryName  SurveyYear        v000        v001        v005 
 ##       FALSE       FALSE       FALSE       FALSE       FALSE       FALSE 

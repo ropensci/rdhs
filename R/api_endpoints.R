@@ -26,6 +26,8 @@
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_data(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_data(surveyIds="SN2010DHS",allResults=FALSE)
@@ -39,8 +41,6 @@
 ##' dat <- dhs_data(characteristicCategory="wealth quintile",allResults=FALSE)
 ##' dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",allResults=FALSE)
 ##' dat <- dhs_data(tagIds="1",allResults=FALSE)
-##' ## not run only because they take a very long time
-##' \dontrun{
 ##' dat <- dhs_data(breakdown="subnational",allResults=FALSE)
 ##' dat <- dhs_data(breakdown="background",allResults=FALSE)
 ##' dat <- dhs_data(breakdown="all",allResults=FALSE)
@@ -105,6 +105,8 @@ dhs_data <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_indicators(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
@@ -115,6 +117,7 @@ dhs_data <- function(allResults=TRUE,
 ##' dat <- dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
 ##' dat <- dhs_indicators(tagIds="1",allResults=FALSE)
 ##' dat <- dhs_indicators(f="html",allResults=FALSE)
+##' }
 
 dhs_indicators <- function(allResults=TRUE,
                            client=NULL,
@@ -160,8 +163,11 @@ dhs_indicators <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_uiUpdates(lastUpdate="20150901",allResults=FALSE)
 ##' dat <- dhs_uiUpdates(f="html",allResults=FALSE)
+##' }
 
 dhs_uiUpdates <- function(allResults=TRUE,
                           client=NULL,
@@ -199,9 +205,12 @@ dhs_uiUpdates <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_info(infoType="version",allResults=FALSE)
 ##' dat <- dhs_info(infoType="citation",allResults=FALSE)
 ##' dat <- dhs_info(f="html",allResults=FALSE)
+##' }
 
 dhs_info <- function(allResults=TRUE,
                      client=NULL,
@@ -247,6 +256,8 @@ dhs_info <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_countries(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
@@ -257,6 +268,7 @@ dhs_info <- function(allResults=TRUE,
 ##' dat <- dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
 ##' dat <- dhs_countries(tagIds="1",allResults=FALSE)
 ##' dat <- dhs_countries(f="html",allResults=FALSE)
+##' }
 
 dhs_countries <- function(allResults=TRUE,
                           client=NULL,
@@ -312,6 +324,8 @@ dhs_countries <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_surveys(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
@@ -327,6 +341,7 @@ dhs_countries <- function(allResults=TRUE,
 ##' dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
 ##' dat <- dhs_surveys(tagIds="1",allResults=FALSE)
 ##' dat <- dhs_surveys(f="html",allResults=FALSE)
+##' }
 
 dhs_surveys <- function(allResults=TRUE,
                         client=NULL,
@@ -380,6 +395,8 @@ dhs_surveys <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_surveyCharacteristics(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,allResults=FALSE")
@@ -388,6 +405,7 @@ dhs_surveys <- function(allResults=TRUE,
 ##' dat <- dhs_surveyCharacteristics(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 ##' dat <- dhs_surveyCharacteristics(surveyType="DHS",allResults=FALSE)
 ##' dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
+##' }
 
 dhs_surveyCharacteristics <- function(allResults=TRUE,
                                       client=NULL,
@@ -440,6 +458,8 @@ dhs_surveyCharacteristics <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_publications(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_publications(selectSurveys="latest",allResults=FALSE)
 ##' dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
@@ -451,6 +471,7 @@ dhs_surveyCharacteristics <- function(allResults=TRUE,
 ##' dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
 ##' dat <- dhs_publications(tagIds=1,allResults=FALSE)
 ##' dat <- dhs_publications(f="html",allResults=FALSE)
+##' }
 
 dhs_publications <- function(allResults=TRUE,
                              client=NULL,
@@ -505,6 +526,8 @@ dhs_publications <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_datasets(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_datasets(selectSurveys="latest",allResults=FALSE)
 ##' dat <- dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
@@ -516,6 +539,7 @@ dhs_publications <- function(allResults=TRUE,
 ##' dat <- dhs_datasets(fileFormat="DT",allResults=FALSE)
 ##' dat <- dhs_datasets(fileType="KR",allResults=FALSE)
 ##' dat <- dhs_datasets(f="geojson",allResults=FALSE)
+##' }
 
 dhs_datasets <- function(allResults=TRUE,
                          client=NULL,
@@ -566,6 +590,7 @@ dhs_datasets <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
 ##' dat <- dhs_geometry(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_geometry(surveyIds="SN2010DHS",allResults=FALSE)
@@ -623,6 +648,8 @@ dhs_geometry <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_tags(countryIds="EG",allResults=FALSE)
 ##' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 ##' dat <- dhs_tags(surveyIds="SN2010DHS",allResults=FALSE)
@@ -631,6 +658,7 @@ dhs_geometry <- function(allResults=TRUE,
 ##' dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 ##' dat <- dhs_tags(surveyType="DHS",allResults=FALSE)
 ##' dat <- dhs_tags(f="html",allResults=FALSE)
+##' }
 
 dhs_tags <- function(allResults=TRUE,
                      client=NULL,
@@ -674,8 +702,11 @@ dhs_tags <- function(allResults=TRUE,
 ##'
 ##' @export
 ##' @examples
+##' ## not run only because they take a very long time and interact with an API
+##' \dontrun{
 ##' dat <- dhs_dataUpdates(lastUpdate="20150901",allResults=FALSE)
 ##' dat <- dhs_dataUpdates(f="html",allResults=FALSE)
+##' }
 
 dhs_dataUpdates <- function(allResults=TRUE,
                             client=NULL,

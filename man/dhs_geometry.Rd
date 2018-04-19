@@ -41,6 +41,7 @@ Returns a `data.table` of 7 (or less if `returnFields` is provided) geometry wit
 API request of DHS Geometry
 }
 \examples{
+## not run only because they take a very long time and interact with an API
 \dontrun{
 dat <- dhs_geometry(countryIds="EG",allResults=FALSE)
 dat <- dhs_geometry(surveyIds="SN2010DHS",allResults=FALSE)

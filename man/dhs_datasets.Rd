@@ -48,6 +48,8 @@ Returns a `data.table` of 13 (or less if `returnFields` is provided) datasets wi
 API request of DHS Datasets
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_datasets(countryIds="EG",allResults=FALSE)
 dat <- dhs_datasets(selectSurveys="latest",allResults=FALSE)
 dat <- dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
@@ -59,4 +61,5 @@ dat <- dhs_datasets(fileFormat="stata",allResults=FALSE)
 dat <- dhs_datasets(fileFormat="DT",allResults=FALSE)
 dat <- dhs_datasets(fileType="KR",allResults=FALSE)
 dat <- dhs_datasets(f="geojson",allResults=FALSE)
+}
 }

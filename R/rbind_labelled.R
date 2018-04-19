@@ -110,11 +110,11 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
     lablist <- do.call(Map, c(f=list, lablist))
 
     .check <- function(x) all(sapply(x, identical, x[[1]]))
-    allequal <- sapply(lablist, .check)
+    allequal <- sapply(lablist, .check) # .check <- function(x) lapply(x, identical, x[[1]]); allequal <- sapply(lablist, .check); allequal <- apply(allequal,2,function(x) unlist(x) %>% all)
     if(any(!allequal))
       warning(paste0("Some variables have non-matching value labels: ",
                      paste(names(allequal[!allequal]), collapse=", "),
-                     ".\nInheriting labels from first data frame."))
+                     ".\nInheriting labels from first data frame with labels."))
   }
 
   ## Grab inherited labels

@@ -48,6 +48,8 @@ Returns a `data.table` of 18 (or less if `returnFields` is provided) indicators 
 API request of DHS Indicators
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_indicators(countryIds="EG",allResults=FALSE)
 dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
@@ -58,4 +60,5 @@ dat <- dhs_indicators(surveyType="DHS",allResults=FALSE)
 dat <- dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_indicators(tagIds="1",allResults=FALSE)
 dat <- dhs_indicators(f="html",allResults=FALSE)
+}
 }

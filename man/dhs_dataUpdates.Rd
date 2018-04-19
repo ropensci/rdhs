@@ -29,6 +29,9 @@ Returns a `data.table` of 9 (or less if `returnFields` is provided) indicators o
 API request of DHS Data Updates
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_dataUpdates(lastUpdate="20150901",allResults=FALSE)
 dat <- dhs_dataUpdates(f="html",allResults=FALSE)
+}
 }

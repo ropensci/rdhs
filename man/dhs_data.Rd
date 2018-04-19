@@ -60,6 +60,8 @@ Returns a `data.table` of 27 (or less if `returnFields` is provided) data for yo
 API request of DHS Indicator Data
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_data(countryIds="EG",allResults=FALSE)
 dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_data(surveyIds="SN2010DHS",allResults=FALSE)
@@ -73,8 +75,6 @@ dat <- dhs_data(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_data(characteristicCategory="wealth quintile",allResults=FALSE)
 dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",allResults=FALSE)
 dat <- dhs_data(tagIds="1",allResults=FALSE)
-## not run only because they take a very long time
-\dontrun{
 dat <- dhs_data(breakdown="subnational",allResults=FALSE)
 dat <- dhs_data(breakdown="background",allResults=FALSE)
 dat <- dhs_data(breakdown="all",allResults=FALSE)
