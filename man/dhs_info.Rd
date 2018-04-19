@@ -29,7 +29,10 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided)A fields desc
 API request of DHS Info
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_info(infoType="version",allResults=FALSE)
 dat <- dhs_info(infoType="citation",allResults=FALSE)
 dat <- dhs_info(f="html",allResults=FALSE)
+}
 }

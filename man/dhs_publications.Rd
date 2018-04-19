@@ -50,6 +50,8 @@ Returns a `data.table` of 10 (or less if `returnFields` is provided) publication
 API request of DHS Publications
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_publications(countryIds="EG",allResults=FALSE)
 dat <- dhs_publications(selectSurveys="latest",allResults=FALSE)
 dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
@@ -61,4 +63,5 @@ dat <- dhs_publications(surveyType="DHS",allResults=FALSE)
 dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_publications(tagIds=1,allResults=FALSE)
 dat <- dhs_publications(f="html",allResults=FALSE)
+}
 }

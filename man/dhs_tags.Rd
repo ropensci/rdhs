@@ -43,6 +43,8 @@ Returns a `data.table` of 4 (or less if `returnFields` is provided) tags with de
 API request of DHS Tags
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_tags(countryIds="EG",allResults=FALSE)
 dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_tags(surveyIds="SN2010DHS",allResults=FALSE)
@@ -51,4 +53,5 @@ dat <- dhs_tags(surveyYearStart="2006",allResults=FALSE)
 dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 dat <- dhs_tags(surveyType="DHS",allResults=FALSE)
 dat <- dhs_tags(f="html",allResults=FALSE)
+}
 }
