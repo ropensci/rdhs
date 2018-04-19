@@ -12,33 +12,18 @@
 ##' @export
 set_dhs_credentials <- function(credentials,root=NULL){
 
-  # normalise credentials here for ease
-  credentials <- normalizePath(credentials)
+  # first deal with the credentials
+  set_rdhs_CREDENTIALS_PATH(credentials)
 
-  # set these using internal package env alterning function
-  set_rdhs_client_credentials(credentials)
+  ## set the root if provided
+  if(is.null(root)) root <- .rdhs$default_root
 
-  # next create a client in the default location
-  .rdhs$client <- client_dhs(credentials = credentials,
-                             root = .rdhs$default_root)
+  ## next handle the root
+  set_rdhs_ROOT_PATH(root)
 
-  # and assign the user_declared_root if it exists
-  # we then save this in the default location so that when we
-  # load rdhs we load this client, then know the last user declared root
-  # and then set the environment client to be at the user declared root
-  if(!is.null(root)){
-
-    # assign the user_declared_root
-    set_rdhs_client_user_declared_root(root)
-
-    # save this in the default location
-    saveRDS(.rdhs$client,file.path(.rdhs$default_root,
-                                   client_file_name()))
-
-    # set the environment client to be at the user declared root
-    .rdhs$client <-   client_dhs(credentials,
-                                 root = root)
-    }
+  # and then create the client here for them using these set environemnt variabes to be sure
+  .rdhs$client <- client_dhs(credentials = Sys.getenv(renv_cred_path_name()),
+                             root = Sys.getenv(renv_root_path_name()))
 
   invisible(.rdhs$client)
 }

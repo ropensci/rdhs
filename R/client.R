@@ -66,6 +66,7 @@ client_dhs <- function(credentials=NULL,
 
     # handle credentials last now - this way you can create a client still from a saved one and
     # then use the client argument credentials_path from that saved one
+    # This shouldn't ever be needed though as there is no real way to get here without providing credentials
     if(is.null(credentials)) credentials <- client$.__enclos_env__$private$credentials_path
     handle_credentials(credentials)
 
@@ -78,6 +79,7 @@ client_dhs <- function(credentials=NULL,
     client <- readRDS(file.path(root,client_file_name()))
 
     # if there were no credentials provided then grab from the client
+    # This shouldn't ever be needed though as there is no real way to get here without providing credentials and will probs delete soon
     if(is.null(credentials)){
       credentials <- client$.__enclos_env__$private$credentials_path
 
@@ -124,7 +126,7 @@ R6_client_dhs <- R6::R6Class(
     initialize = function(api_key = NULL, root = NULL, credentials=NULL){
       private$api_key <- api_key
       private$root <- root
-      if(!is.null(credentials)) private$credentials_path <- normalizePath(credentials)
+      if(!is.null(credentials)) private$credentials_path <- normalizePath(credentials,winslash="/")
       private$storr <- storr::storr_rds(file.path(root,"db"))
       private$cache_date <- Sys.time()
       saveRDS(self,file.path(root,client_file_name()))

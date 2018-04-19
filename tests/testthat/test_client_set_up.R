@@ -11,7 +11,7 @@ test_that("save credentials", {
   # create auth through whichever route is valid for the environment
   if(file.exists("credentials")){
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
-    testthat::expect_identical(normalizePath(file.path("credentials")),
+    testthat::expect_identical(normalizePath(file.path("credentials"),winslash="/"),
                                cli$.__enclos_env__$private$credentials_path)
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
