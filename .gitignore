@@ -10,3 +10,4 @@ TODO.txt
 *.csv
 *~
 credentials_file
+credentials.tar
