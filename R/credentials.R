@@ -8,6 +8,8 @@
 ##'       \item password=dummypass
 ##'       \item project=Dummy Project
 ##'       }
+##' @param root Character for root directory to where client, caches, surveys etc. will be stored.
+##' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
 ##' @return Invisibly returns the rdhs package environment client
 ##' @export
 set_dhs_credentials <- function(credentials,root=NULL){

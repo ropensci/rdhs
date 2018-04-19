@@ -2,6 +2,9 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.credentials$
+^credentials$
+^credentials\.tar$
+^credentials\.tar\.enc$
 ^autodoc\.R$
 ^man-roxygen$
 ^_pkgdown\.yml$
