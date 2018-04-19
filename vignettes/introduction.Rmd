@@ -144,11 +144,13 @@ We can now use this to download our datasets for further analysis.
 
 We can now go ahead and download our datasets. To do this we need to first create a `client`. The client is an R6 class (similar to R's built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis. 
 
-To create our client we use the `client()` function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:
+To create our client we use the `client_dhs()` function and you *need to specify your log in credentials for the DHS website*. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file that contains 3 lines, something like this:
 
 * email="dummy\@gmail.com"
 * password="dummypass"
 * project="Dummy Project"
+
+For example, create a file on your desktop called "credentials.txt". In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use `client_dhs(credentials="C:/Users/A/Desktop/credentials.txt")` to create your client.  
 
 It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
 
