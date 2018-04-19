@@ -74,21 +74,21 @@ test_that("set_dhs_credentials", {
   expect_identical(Sys.getenv("rdhs_USER_PROJECT"),"Dummy space")
 
   expect_identical(.rdhs$client$.__enclos_env__$private$credentials_path,
-                   normalizePath("rubbish_no_more.txt"),winslash="/")
+                   normalizePath("rubbish_no_more.txt",winslash="/"))
 
   # now let's try it with a new root
   out <- set_dhs_credentials(credentials="rubbish_no_more.txt",
                              root=file.path(getwd(),"dummy"))
 
   # the env client root should now be this new dummy
-  expect_identical(.rdhs$client$.__enclos_env__$private$user_declared_root %>% basename,
+  expect_identical(.rdhs$client$get_root() %>% basename,
                    "dummy")
   expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
 
-  # and the client at the default root should have dummy as the udr
+  # and the client at the default root should still be there
   dcrc <- readRDS(file.path(.rdhs$default_root,client_file_name()))
-  expect_identical(dcrc$.__enclos_env__$private$user_declared_root %>% basename,
-                   "dummy")
+  expect_identical(dcrc$get_root() %>% basename,
+                   rappdirs::user_cache_dir("rdhs", Sys.info()["user"]) %>% basename)
 
   ## and if it's working we should get the same now after triggering an .onLoad
 
@@ -96,29 +96,34 @@ test_that("set_dhs_credentials", {
   rdhs_reset()
   expect_null(.rdhs$test)
 
-  rdhs:::.onLoad()
+  expect_message(rdhs:::.onLoad())
 
   # the env client root should now be this new dummy
   expect_identical(.rdhs$client$get_root() %>% basename,
                    "dummy")
   expect_null(.rdhs$client$.__enclos_env__$private$user_declared_root)
 
-  # and the client at the default root should have dummyas the udr
-  dcrc <- readRDS(file.path(.rdhs$default_root,client_file_name()))
-  expect_identical(dcrc$.__enclos_env__$private$user_declared_root %>% basename,
-                   "dummy")
+  # and we should have these options saved on the .Renviron
+  environ <- readLines(file.path(normalizePath("~"),".Renviron"))
+  expect_true(any(grepl(rdhs:::renv_cred_path_name(),environ)))
+  expect_true(any(grepl(rdhs:::renv_root_path_name(),environ)))
 
   # remove this
   unlink("rubbish_no_more.txt")
-  unlink("dummy")
+  unlink("dummy",recursive = TRUE)
 
   # reset our credentials
   Sys.setenv("rdhs_USER_EMAIL"=em)
   Sys.setenv("rdhs_USER_PASS"=pass)
   Sys.setenv("rdhs_USER_PROJECT"=proj)
 
-  # and put the old client back in place
+  # and put the old client back in place and reset the renvirons
   saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
   .rdhs$client <- old_client
+
+  expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_client$.__enclos_env__$private$credentials_path),
+                   old_client$.__enclos_env__$private$credentials_path)
+  expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
+                   old_client$get_root())
 
 })

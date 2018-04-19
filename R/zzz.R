@@ -23,8 +23,7 @@ rdhs_reset <- function() {
 
   # check for a client here
   if(root_path == "" | cred_path == ""){
-    packageStartupMessage("\nFor help with rdhs and to report any
-                          issues please head to the github repo:\n   -> ",
+    packageStartupMessage("\nFor help with rdhs and to report any issues please head to the github repo:\n   -> ",
                           "https://github.com/OJWatson/rdhs\n")
   } else {
 
@@ -48,7 +47,7 @@ rdhs_reset <- function() {
                     })
 
     # check the root has a client object there
-    root <- normalizePath(root,winslash="/", mustWork = FALSE)
+    root <- normalizePath(root_path,winslash="/", mustWork = FALSE)
     if(!file.exists(file.path(root,client_file_name()))){
 
       packageStartupMessage("Your rdhs root directory (see ?set_dhs_credentials) provided last time",
@@ -91,10 +90,10 @@ set_renviron <- function(variable,value){
 
   # check to see if the variable already exists
   current_vars <- strsplit(current,"=") %>% lapply(function(x) x[1]) %>% unlist
-  presets <- grep(variable,current_vars)
+  presets <- grepl(variable,current_vars)
 
   # remove any previous rdhs variables for the variable of interest
-  current <- current[-presets]
+  current <- current[!presets]
 
   # add our new value always placing it in quotes
   new <- c(current, paste0(variable," = ","\"",value,"\""))
@@ -109,8 +108,8 @@ set_renviron <- function(variable,value){
 set_rdhs_CREDENTIALS_PATH <- function(path){
 
   # normalise credentials here for ease with no warnings as we'll check it ourselves
-  credentials <- normalizePath(credentials,winslash="/", mustWork = FALSE)
-  if(!file.exists(credentials)) stop("credentials file does not exist. Please check:\n   ->",credentials)
+  credentials <- normalizePath(path,winslash="/", mustWork = FALSE)
+  if(!file.exists(credentials)) stop("credentials file does not exist. Please check:\n   -> ",credentials)
 
   # and let's check their validity before going any further
   out <- read_credentials(credentials)
@@ -124,8 +123,8 @@ set_rdhs_CREDENTIALS_PATH <- function(path){
 set_rdhs_ROOT_PATH <- function(path){
 
   # normalise the root path and create the directory
-  root <- normalizePath(root,winslash="/", mustWork = FALSE)
-  dir.create(root,recursive = TRUE)
+  root <- normalizePath(path,winslash="/", mustWork = FALSE)
+  dir.create(root,recursive = TRUE,showWarnings = FALSE)
 
   # and let's then set these too to the .Renviron
   set_renviron(renv_root_path_name(),root)
