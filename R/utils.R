@@ -25,6 +25,33 @@ response_is_json <- function(x) {
   dat$type == "application" && dat$subtype == "json"
 }
 
+#' Returns what the dataset file ending should be for a given filename
+#'
+#' @param file_format FileFormat for a file as taken from the API, e.g. \code{dhs_datasets(returnFields = "FileFormat")}
+#'
+#' @return One of "dat","dat","sas7bdat","sav" or "dta"
+#'
+#' @examples
+#' file_format <- "Stata dataset (.dta)"
+#' identical(rdhs:::file_dataset_format(file_format),"dta")
+#'
+file_dataset_format <- function(file_format){
+
+  # hard coded here at the moment - when the package env client is finished replace this with
+  # dats <- dhs_datasets(client = .rdhs$client,returnFields = "FileFormat")
+  # dhs_file_formats <- unique(dats)
+
+  dhs_file_formats <- c("Flat ASCII data (.dat)",
+                        "Hierarchical ASCII data (.dat)",
+                        "SAS dataset (.sas7bdat) ",
+                        "SPSS dataset (.sav)",
+                        "Stata dataset (.dta)")
+
+  file_endings <- qdapRegex::ex_between(dhs_file_formats,left = "(.",right=")") %>% unlist
+  file_endings[match(file_format,dhs_file_formats)]
+}
+
+
 # unzips files without throwing warnings
 unzip_warn_fails <- function (...){
   tryCatch({

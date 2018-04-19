@@ -4,16 +4,18 @@
 \alias{read_dhs_dataset}
 \title{read in dhs standard file types}
 \usage{
-read_dhs_dataset(file, reformat = FALSE, all_lower = TRUE, ...)
+read_dhs_dataset(file, dataset, reformat = FALSE, all_lower = TRUE, ...)
 }
 \arguments{
 \item{file}{path to zip file to be read}
 
-\item{reformat}{boolean detailing if datasets should be nicely reformatted. Default = TRUE}
+\item{dataset}{row from \code{\link{dhs_datasets}} that corresponds to the file}
+
+\item{reformat}{boolean detailing if datasets should be nicely reformatted. Default = `FALSE`}
 
 \item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
 
-\item{...}{Extra arguments to be}
+\item{...}{Extra arguments to be passed to either \code{\link{read_dhs_dta}} or \code{\link{read_dhs_flat}}}
 }
 \description{
 read in dhs standard file types

@@ -1,15 +1,32 @@
 #' read in dhs standard file types
 #' @param file path to zip file to be read
-#' @param reformat boolean detailing if datasets should be nicely reformatted. Default = TRUE
+#' @param dataset row from \code{\link{dhs_datasets}} that corresponds to the file
+#' @param reformat boolean detailing if datasets should be nicely reformatted. Default = `FALSE`
 #' @param all_lower Logical indicating whether all value labels should be lower case. Default to `TRUE`.
-#' @param ... Extra arguments to be
+#' @param ... Extra arguments to be passed to either \code{\link{read_dhs_dta}} or \code{\link{read_dhs_flat}}
 #'
-read_dhs_dataset <- function(file, reformat = FALSE, all_lower = TRUE, ...){
+read_dhs_dataset <- function(file, dataset,
+                             reformat = FALSE, all_lower = TRUE, ...){
 
+  # open the zip and grab the file endings
   zip_contents <- unzip_warn_fails(file,list=TRUE)
   filetype <- strsplit(zip_contents$Name,".",fixed=T) %>% lapply(function(x) tail(x,1)) %>% unlist
+
+  # now let's check the file endings against those we expect to see
   file_types <- c("dta","sav","dat","sas7bdat","dbf")
-  file_match <- which(toupper(file_types) %in% toupper(filetype))
+  format_expected <- file_dataset_format(dataset$FileFormat)
+
+  # we'll check the file format we are expecting is actually in the zip
+  format_match <- any(tolower(filetype)==tolower(format_expected))
+
+  # if there is no match it is probably because it is a geographic file
+  if(!format_match & dataset$FileType %in% c("Geographic Data", "Geospatial Covariates")){
+  file_match <- 5
+  } else if(format_match) {
+    file_match <- which(tolower(file_types)==tolower(format_expected))
+  } else {
+    stop("Downloaded zip contents are not recognised for: ",dataset$FileName)
+  }
 
   # 1. .dta file
   if(file_match==1){

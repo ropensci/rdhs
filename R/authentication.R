@@ -205,7 +205,7 @@ download_datasets <- function(desired_dataset,
 
   # make sure the folder exists and create the zip path
   dir.create( dataset_dir , showWarnings = FALSE, recursive = T )
-  zip_path <- file.path(dataset_dir,desired_dataset$file)
+  zip_path <- file.path(dataset_dir,desired_dataset$FileName)
 
   # login
   values <- authenticate_dhs( your_email , your_password , your_project )
@@ -272,7 +272,9 @@ download_datasets <- function(desired_dataset,
   if(download_option>=2){
 
     # now read the dataset in with the requested reformat options
-    res <- read_dhs_dataset(zip_path,reformat,all_lower,...)
+    res <- read_dhs_dataset(zip_path,
+                            dataset = desired_dataset,
+                            reformat,all_lower,...)
 
     # handle results. If it's character it's because we haven't yet got a parser we are happy with
     if(!is.character(res)){

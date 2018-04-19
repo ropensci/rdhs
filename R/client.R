@@ -398,7 +398,7 @@ R6_client_dhs <- R6::R6Class(
       # results storage
       df <- data.frame("code"= character(0),"description"= character(0),
                        "dataset_filename"= character(0), "dataset_path" = character(0),
-                       "country_code"= character(0), "survey_year" = character(0))
+                       "survey_id"= character(0))
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
       names(res) <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
@@ -438,8 +438,7 @@ R6_client_dhs <- R6::R6Class(
                                     "description"=out_descr$description[matched_rows],
                                     "dataset_filename"=rep(names(res[i]),length(matched_rows)),
                                     "dataset_path" = rep(res[[i]],length(matched_rows)),
-                                    "country_code" = rep(datasets[i,]$DHS_CountryCode,length(matched_rows)),
-                                    "survey_year" = rep(datasets[i,]$SurveyYear,length(matched_rows)),
+                                    "survey_id" = rep(datasets[i,]$SurveyId,length(matched_rows)),
                                     stringsAsFactors = FALSE))
 
         }
@@ -478,7 +477,7 @@ R6_client_dhs <- R6::R6Class(
       # results storage
       df <- data.frame("code"= character(0),"description"= character(0),
                        "dataset_filename"= character(0), "dataset_path" = character(0),
-                       "country_code"= character(0), "survey_year" = character(0))
+                       "survey_id"= character(0))
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
       names(res) <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
@@ -527,8 +526,7 @@ R6_client_dhs <- R6::R6Class(
                                     "description"=out_descr$description[matched_rows],
                                     "dataset_filename"=rep(names(res[i]),length(matched_rows)),
                                     "dataset_path" = rep(res[[i]],length(matched_rows)),
-                                    "country_code" = rep(datasets[i,]$DHS_CountryCode,length(matched_rows)),
-                                    "survey_year" = rep(datasets[i,]$SurveyYear,length(matched_rows)),
+                                    "survey_id" = rep(datasets[i,]$SurveyId,length(matched_rows)),
                                     stringsAsFactors = FALSE))
         }
       }

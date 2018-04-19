@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DHS survey questions extracted from datasets — extraction • rdhs</title>
+<title>Returns what the dataset file ending should be for a given filename — file_dataset_format • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="DHS survey questions extracted from datasets — extraction" />
+<meta property="og:title" content="Returns what the dataset file ending should be for a given filename — file_dataset_format" />
 
-<meta property="og:description" content="Create a list of survey responses extracted using output of R6_client_dhs$public_methods$survey_questions" />
+<meta property="og:description" content="Returns what the dataset file ending should be for a given filename" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,45 +114,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>DHS survey questions extracted from datasets</h1>
+    <h1>Returns what the dataset file ending should be for a given filename</h1>
     
-    <div class="hidden name"><code>extraction.Rd</code></div>
+    <div class="hidden name"><code>file_dataset_format.Rd</code></div>
     </div>
 
     
-    <p>Create a list of survey responses extracted using output of <code>R6_client_dhs$public_methods$survey_questions</code></p>
+    <p>Returns what the dataset file ending should be for a given filename</p>
     
 
-    <pre class="usage"><span class='fu'>extraction</span>(<span class='no'>questions</span>, <span class='no'>available_datasets</span>, <span class='no'>geo_surveys</span>, <span class='kw'>add_geo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>file_dataset_format</span>(<span class='no'>file_format</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>questions</th>
-      <td><p>Output of <code>R6_client_dhs$public_methods$survey_questions</code></p></td>
-    </tr>
-    <tr>
-      <th>available_datasets</th>
-      <td><p>Datasets that could be available. Output of <code>R6_client_dhs$public_methods$available_datasets</code></p></td>
-    </tr>
-    <tr>
-      <th>geo_surveys</th>
-      <td><p>Geographic Data Survey file paths.</p></td>
-    </tr>
-    <tr>
-      <th>add_geo</th>
-      <td><p>Boolean detailing if geographic datasets should be added.</p></td>
+      <th>file_format</th>
+      <td><p>FileFormat for a file as taken from the API, e.g. <code><a href='dhs_datasets.html'>dhs_datasets(returnFields = "FileFormat")</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns `data.frame` with variables corresponding to the reqested variables in the questions object.
-Will also have geographic data related columns if `add_geo=TRUE` is set. Lastly a SurveyId variable will also be
-appended corresponding to <code><a href='dhs_datasets.html'>dhs_datasets</a></code>$SurveyId</p>
+    <p>One of "dat","dat","sas7bdat","sav" or "dta"</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>file_format</span> <span class='kw'>&lt;-</span> <span class='st'>"Stata dataset (.dta)"</span>
+<span class='fu'>identical</span>(<span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/file_dataset_format'>file_dataset_format</a></span>(<span class='no'>file_format</span>),<span class='st'>"dta"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,7 +150,9 @@ appended corresponding to <code><a href='dhs_datasets.html'>dhs_datasets</a></co
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
