@@ -20,4 +20,4 @@ after_success:
 - Rscript -e 'covr::codecov()'
 
 before_install:
-- Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(key))),"credentials.tar"") ; unzip("credentials.tar"")'
+- Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"credentials.tar"") ; unzip("credentials.tar")'
