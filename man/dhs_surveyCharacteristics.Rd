@@ -44,6 +44,8 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided) survey chara
 API request of DHS Survey Characteristics
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_surveyCharacteristics(countryIds="EG",allResults=FALSE)
 dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,allResults=FALSE")
@@ -52,4 +54,5 @@ dat <- dhs_surveyCharacteristics(surveyYearStart="2006",allResults=FALSE)
 dat <- dhs_surveyCharacteristics(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 dat <- dhs_surveyCharacteristics(surveyType="DHS",allResults=FALSE)
 dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
+}
 }

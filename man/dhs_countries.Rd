@@ -48,6 +48,8 @@ Returns a `data.table` of 12 (or less if `returnFields` is provided) countries w
 API request of DHS Countries
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_countries(countryIds="EG",allResults=FALSE)
 dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
@@ -58,4 +60,5 @@ dat <- dhs_countries(surveyType="DHS",allResults=FALSE)
 dat <- dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_countries(tagIds="1",allResults=FALSE)
 dat <- dhs_countries(f="html",allResults=FALSE)
+}
 }

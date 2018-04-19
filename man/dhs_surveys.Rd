@@ -53,6 +53,8 @@ Returns a `data.table` of 28 (or less if `returnFields` is provided) surveys wit
 API request of DHS Surveys
 }
 \examples{
+## not run only because they take a very long time and interact with an API
+\dontrun{
 dat <- dhs_surveys(countryIds="EG",allResults=FALSE)
 dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
@@ -68,4 +70,5 @@ dat <- dhs_surveys(surveyStatus="all",allResults=FALSE)
 dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_surveys(tagIds="1",allResults=FALSE)
 dat <- dhs_surveys(f="html",allResults=FALSE)
+}
 }
