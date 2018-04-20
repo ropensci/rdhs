@@ -41,7 +41,7 @@ get_datasets <- function(dataset_filenames,
                          download_option="rds",
                          reformat=FALSE,
                          all_lower=TRUE,
-                         output_dir_root=file.path(rdhs$client$get_root(),"datasets"),
+                         output_dir_root=file.path(.rdhs$client$get_root(),"datasets"),
                          ...){
 
   check_for_client()
@@ -249,7 +249,7 @@ search_variable_labels <- function(dataset_filenames,
 get_var_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a recognised dhs_dataset data.frame then we read the labels from that
-  if(all(class(dataset) %in% c("data.frame","dhs_dataset"))){
+  if(all(c("data.frame","dhs_dataset") %in% class(dataset))){
 
     res <- get_labels_from_dataset(dataset, return_all)
 

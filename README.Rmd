@@ -89,7 +89,7 @@ str(datasets)
 
 ### Download datasets
 
-A DHS `client` will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the `client_dhs()` function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See introduction vignette for specific format for credentials).
+A DHS `client` will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the `client_dhs()` function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials).
 
 ```{r client}
 ## create a client

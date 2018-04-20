@@ -256,16 +256,18 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 <h2 class="hasAnchor">
 <a href="#download-survey-datasets" class="anchor"></a>3. Download survey datasets</h2>
 <p>We can now go ahead and download our datasets. To do this we need to first create a <code>client</code>. The client is an R6 class (similar to R’s built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis.</p>
-<p>To create our client we use the <code>client()</code> function and you need to specify your log in credentials for the DHS website. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file path that contains 3 lines, something like this:</p>
+<p>To create our client we use the <code><a href="../reference/client_dhs.html">client_dhs()</a></code> function and you <em>need to specify your log in credentials for the DHS website</em>. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file that contains 3 lines, something like this:</p>
 <ul>
 <li>email=“dummy@gmail.com”</li>
 <li>password=“dummypass”</li>
 <li>project=“Dummy Project”</li>
 </ul>
+<p>For example, create a file on your desktop called “credentials.txt”. In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use <code><a href="../reference/client_dhs.html">client_dhs(credentials="C:/Users/A/Desktop/credentials.txt")</a></code> to create your client.</p>
 <p>It also takes an argument for its <code>root</code>, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## create a client
-client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>)
-client</code></pre></div>
+client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>)</code></pre></div>
+<pre><code>## New version of rdhs detected. Your saved client will be updated.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client</code></pre></div>
 <pre><code>## &lt;client_dhs&gt;
 ##   Public:
 ##     available_datasets: function (clear_cache_first = FALSE) 
@@ -285,7 +287,7 @@ client</code></pre></div>
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ICLSPH-527168
-##     cache_date: 2018-04-19 15:22:20
+##     cache_date: 2018-04-19 21:34:55
 ##     check_available_datasets: function (filenames) 
 ##     credentials_path: C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rd ...
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
@@ -300,15 +302,15 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 <span class="co"># with it cached it will be returned much quicker with the client argument</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
-##                          expr     min      lq    mean  median      uq
-##  dhs_surveys(client = client) 3.08047 3.08047 3.08047 3.08047 3.08047
-##      max neval
-##  3.08047     1</code></pre>
+##                          expr      min       lq     mean   median       uq
+##  dhs_surveys(client = client) 3.670624 3.670624 3.670624 3.670624 3.670624
+##       max neval
+##  3.670624     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 453.5805 453.5805 453.5805 453.5805 453.5805 453.5805     1</code></pre>
+##  dhs_surveys() 468.7062 468.7062 468.7062 468.7062 468.7062 468.7062     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>

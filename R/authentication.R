@@ -321,8 +321,11 @@ download_datasets <- function(desired_dataset,
 ##' @param your_project Character string for the name of your
 ##' project that gives you access to the DHS database
 ##'
+##' @details If the user has more than one project that contains the first 30 characters of the provided
+##' project they will be prompted to choose which project they want. This choice will be saved so they do
+##' not have to enter it again in this R session.
 ##'
-##' @note Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
+##' @note Credit for some of the function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
 ##'
 ##' @return Returns list of length 3:
 ##' \itemize{
@@ -352,48 +355,97 @@ authenticate_dhs <- function( your_email , your_password , your_project ){
   tf <- tempfile(fileext = ".txt")
 
   # set the username and password
-  values <-
-    list(
-      UserName = your_email ,
-      UserPass = your_password ,
-      Submitted = 1 ,
-      UserType = 2
-    )
+  values <- list(
+    UserName = your_email ,
+    UserPass = your_password ,
+    Submitted = 1 ,
+    UserType = 2)
 
   # log in.
   message("Logging into DHS website...")
-  #httr::GET( terms , query = values )
-  z <- httr::POST( terms , body = values)
+  z <- httr::POST( terms , body = values) %>% handle_api_response(to_json=FALSE)
 
   # extract the available countries from the projects page
-  #z <- httr::GET( downloads )
-
   # write the information from the `projects` page to a local file
   writeBin( z$content , tf )
 
   # load the text
   y <- readLines( tf , warn = FALSE )
 
-  # figure out the project number - only use first 30 chars due to ellipsis formation
-  project.line <- unique( y[ grepl( "option value" , y ) &
-                               grepl( paste0(strsplit(your_project,"")[[1]][1:30],collapse="") , y , fixed = TRUE ) ] )
+  # figure out the project number - only use first 30 chars due to ellipsis formation if it is longer than 30
+  if(nchar(your_project)>30){
+  project_lines <- unique( y[ grepl( "option value" , y ) &
+                                grepl( paste0(strsplit(your_project,"")[[1]][1:30],collapse="") , y , fixed = TRUE ) ] )
+  } else {
 
-  # confirm only one project
-  stopifnot( length( project.line ) == 1 )
+  project_lines <- unique( y[ grepl( "option value" , y ) &
+                                grepl( paste0(strsplit(your_project,"")[[1]],collapse="") , y , fixed = TRUE ) ] )
+
+  }
+
+  # confirm only one project and handle if more than
+  if(length( project_lines ) == 1){
+
+  } else {
+    if(length(project_lines)>1){
+
+      # if they have more than one project that is similar then have they encoutnereed this before:
+      pl <- Sys.getenv("rdhs_PROJECT_CHOICE")
+
+      # if nothing is set then ask them which one:
+      if(pl==""){
+
+        # get the names of the projects
+        projs <- qdapRegex::ex_between(project_lines,">","<") %>% unlist
+
+        # prompt for an option until they give is a good one
+        valid_prompt <- FALSE
+        while(!valid_prompt){
+
+        pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
+                                  "Which one did you want to use? (enter the correct number for your project)\n",
+                                  paste(seq_len(length(project_lines)),projs,sep = ": "),
+                                  "\nYour choice will be remembered within this R session, but will need to be entered each",
+                                  "time you load a new R session.",sep="\n")) %>% as.integer()
+
+        if(is.element(pl,seq_len(length(project_lines)))) valid_prompt <- TRUE
+        }
+
+        # set this when UI changes come in
+        # # prompt for an option
+        # pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
+        #                           "Which one did you want to use? (enter the correct number for your project)\n",
+        #                           paste(seq_len(length(project_lines)),projs,sep = ": "),
+        #                           "\nYour choice will be remembered within this R session, but will need to be entered each",
+        #                           "time you load a new R session. To set it permanently, use the following command:",
+        #                           "   -> rdhs:::set_renviron(\"rdhs_PROJECT_CHOICE\",n)",
+        #                           "where n is the number of the project chosen",sep="\n"))
+
+        # set the option for the future
+        Sys.setenv("rdhs_PROJECT_CHOICE"=pl)
+      }
+      project_lines <- project_lines[as.numeric(pl)]
+
+    } else {
+      stop("Your log in credentials were not recognised by the DHS website.\n",
+           "Please check the format of your credentials argument (see ?client_dhs for help), ",
+           "and your internet connection for possible error.")
+    }
+  }
 
   # extract the project number from the line above
-  project_number <- gsub( "(.*)<option value=\"([0-9]*)\">(.*)" , "\\2" , project.line )
+  project_number <- gsub( "(.*)<option value=\"([0-9]*)\">(.*)" , "\\2" , project_lines )
 
   # remove the tf
   suppressWarnings( file.remove( tf ) )
 
-  # log in again, but specifically with the project number
+  # return these credentials to be used for downloading datasets
   res <- list(
     user_name = your_email ,
     user_pass = your_password ,
     proj_id = project_number
   )
 
-
+  return(res)
 
 }

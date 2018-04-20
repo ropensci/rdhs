@@ -5,7 +5,7 @@
 \title{Get Datasets}
 \usage{
 get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
-  all_lower = TRUE, output_dir_root = file.path(rdhs$client$get_root(),
+  all_lower = TRUE, output_dir_root = file.path(.rdhs$client$get_root(),
   "datasets"), ...)
 }
 \arguments{

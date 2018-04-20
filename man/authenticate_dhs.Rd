@@ -25,6 +25,11 @@ Returns list of length 3:
 \description{
 Authenticate Users for DHS website
 }
+\details{
+If the user has more than one project that contains the first 30 characters of the provided
+project they will be prompted to choose which project they want. This choice will be saved so they do
+not have to enter it again in this R session.
+}
 \note{
-Credit for function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
+Credit for some of the function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
 }

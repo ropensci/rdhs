@@ -218,7 +218,7 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 #' @export
 data_and_labels <- function(dataset){
 
-  if(class(dataset)=="character"){
+  if(class(dataset)[1]=="character"){
     if(file.exists(dataset)){
       dataset <- readRDS(dataset)
     } else {
