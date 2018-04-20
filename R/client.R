@@ -319,7 +319,7 @@ R6_client_dhs <- R6::R6Class(
         } else {
 
           # create key for this
-          key <- paste0(datasets[i,]$SurveyId,"_",datasets[i,]$file,"_",download_option,"_",reformat)
+          key <- paste0(datasets[i,]$SurveyId,"_",datasets[i,]$FileName,"_",download_option,"_",reformat)
 
           # first check against cache
           out <- tryCatch(private$storr$get(key,"downloaded_datasets"),
@@ -582,29 +582,60 @@ R6_client_dhs <- R6::R6Class(
     get_root = function() private$root,
 
     # get a dataset's var labels
-    get_var_labels = function(dataset_filenames=NULL, dataset=NULL){
+    get_var_labels = function(dataset_filenames=NULL, dataset_paths=NULL){
 
       # catch if both null
-      if(is.null(dataset_filenames) & is.null(dataset)){
-        stop ("One of dataset_filenames or dataset must not be null")
+      if(is.null(dataset_filenames) & is.null(dataset_paths)){
+        stop ("One of dataset_filenames or dataset_paths must not be null")
       }
 
       # catch if both provided
-      if(!is.null(dataset_filenames) & !is.null(dataset)){
-        message("Both of dataset_filenames and dataset are provided. The filenames will be used")
+      if(!is.null(dataset_filenames) & !is.null(dataset_paths)){
+        message("Both of dataset_filenames and dataset_paths are provided. The filenames will be used")
         dataset <- NULL
       }
 
-      # get vars from a dataset
-      if(!is.null(dataset)){
+      # grab these now
+      filenames <- dhs_datasets(client = self)$FileName
 
-        vars <- get_var_labels(dataset)
-      }
+      # get vars from dataset_paths
+      if(!is.null(dataset_paths)){
+
+        # message any poor file paths first
+        if(any(!file.exists(dataset_paths))){
+          message("Following dataset file paths were not found:\n   ",
+                 paste0(dataset_paths[!file.exists(dataset_paths)],sep="\n   "))
+        }
+
+        # what have we downloaded
+        downs <- self$get_downloaded_datasets()
+
+        # which file paths are these
+        mats <- match(dataset_paths[file.exists(dataset_paths)],downs)
+
+        # what keys do these belong to and what were the donwloaded options (so we don't download extra files)
+        keys <- private$storr$list("downloaded_datasets")[mats]
+        options <- strsplit(keys,"_") %>% lapply(function(x)x[c(2,4)])
+        options <- lapply(options,function(x)c(grep(x[1],filenames,value=TRUE),x[2]))
+        vars <- lapply(options,function(x) self$survey_questions(dataset_filenames = x[1],
+                                                                 search_terms = "",
+                                                                 reformat = x[2]))
+        vars <- rbind_labelled(vars)
+        }
 
       if(!is.null(dataset_filenames)){
 
+        # just get the ones that exist
+        names_matched <- filenames[match(dataset_filenames,filenames)]
+
+        # message any poor file names
+        if(any(is.na(names_matched))){
+          message("Following dataset file names are not valid:\n   ",
+                  paste0(dataset_filenames[is.na(names_matched)],sep="\n   "))
+        }
+
         # grab the variables using a catch all variables term
-        vars <- self$survey_questions(dataset_filenames = dataset_filenames,search_terms = "")
+        vars <- self$survey_questions(dataset_filenames = files_matched[!is.na(names_matched)],search_terms = "")
       }
 
       return(vars)
