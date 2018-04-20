@@ -249,7 +249,7 @@ search_variable_labels <- function(dataset_filenames,
 get_var_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a recognised dhs_dataset data.frame then we read the labels from that
-  if(all(class(dataset) %in% c("dhs_dataset","dhs_dataset"))){
+  if(all(class(dataset) %in% c("data.frame","dhs_dataset"))){
 
     res <- get_labels_from_dataset(dataset, return_all)
 
@@ -262,6 +262,9 @@ get_var_labels <- function(dataset, return_all=TRUE) {
       res <-  .rdhs$client$get_var_labels(dataset_filenames = dataset[file.exists(dataset)])
     }
 
+  } else if (class(dataset)[1]=="SpatialPointsDataFrame"){
+    stop("Not possible to return variable labels for a geographic data set. Have a look at teh following for help on spatial points objects:",
+         " https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf ")
   }
 
   return(res)

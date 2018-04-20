@@ -98,7 +98,8 @@ test_that("set_dhs_credentials", {
   rdhs_reset()
   expect_null(.rdhs$test)
 
-  expect_message(rdhs:::.onLoad())
+  expect_silent(.onLoad())
+  expect_message(.onAttach())
 
   # the env client root should now be this new dummy
   expect_identical(.rdhs$client$get_root() %>% basename,
@@ -130,11 +131,6 @@ test_that("set_dhs_credentials", {
   expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
                    old_client$get_root())
 
-  } else {
-    expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_cred),old_cred)
-    expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_root),old_root)
-}
-
-
+  }
 
 })

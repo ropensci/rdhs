@@ -76,9 +76,9 @@ test_that("avaialble surveys and download work", {
 
   # check var label fetch
   v <- cli$get_var_labels(dataset_filenames = "AOBR62FL.ZIP")
-  downloads <- cli$get_datasets(dataset_filenames = "AOBR62FL.ZIP",download_option = "r")
-  v <- cli$get_var_labels(dataset = readRDS(downloads$AOBR62FL))
-  v <- cli$get_var_labels(dataset_filenames = "AOBR62FL.ZIP",dataset = readRDS(downloads$AOBR62FL))
+  downloads <- cli$get_datasets(dataset_filenames = c("AOBR62FL.ZIP","AOBR62DT.ZIP"),download_option = "r")
+  v <- cli$get_var_labels(dataset_paths = unlist(downloads))
+  v <- cli$get_var_labels(dataset_filenames = c("AOBR62FL.ZIP","AOBR62DT.ZIP"))
 
   # and check the non client version on normal and fommatted
   v <- get_var_labels(readRDS(downloads$AOBR62FL))
@@ -96,7 +96,7 @@ test_that("ETAR71FL.ZIP test",{
 
   dat <- cli$get_datasets("ETAR71FL.ZIP")
   r <- readRDS(dat[[1]])
-  expect_identical(class(r),c("dhs_dataset","data.frame"))
+  expect_identical(class(r),c("data.frame","dhs_dataset"))
 
 
 })
