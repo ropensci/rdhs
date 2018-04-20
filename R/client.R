@@ -629,7 +629,7 @@ R6_client_dhs <- R6::R6Class(
         }
 
         # grab the variables using a catch all variables term
-        vars <- self$survey_questions(dataset_filenames = files_matched[!is.na(names_matched)],search_terms = "")
+        vars <- self$survey_questions(dataset_filenames = names_matched[!is.na(names_matched)],search_terms = "")
       }
 
       return(vars)
