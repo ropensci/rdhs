@@ -48,3 +48,32 @@ test_that("save credentials", {
   unlink(td)
 
 })
+
+test_that("new updates are recognised", {
+
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+
+  # Create new directory
+  td <- file.path(tempdir(),as.integer(Sys.time()))
+
+  # create auth through whichever route is valid for the environment
+  if(file.exists("credentials")){
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  } else {
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+  }
+
+  cli$.__enclos_env__$private$cache_date <- rdhs:::last_api_update() - 1
+  saveRDS(cli,file.path(cli$get_root(),rdhs:::client_file_name()))
+
+  # create auth through whichever route is valid for the environment
+  if(file.exists("credentials")){
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  } else {
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+  }
+
+  unlink(td)
+
+})

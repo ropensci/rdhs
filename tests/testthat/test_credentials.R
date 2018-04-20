@@ -6,9 +6,7 @@ test_that("credentials", {
   skip_if_no_auth()
 
   # save them so this test doesn't nuke the others
-  em <- Sys.getenv("rdhs_USER_EMAIL")
-  pass <- Sys.getenv("rdhs_USER_PASS")
-  proj <- Sys.getenv("rdhs_USER_PROJECT")
+  old_envs <- save_current_envs()
 
   # remove these credentials
   Sys.setenv("rdhs_USER_EMAIL"="")
@@ -32,9 +30,7 @@ test_that("credentials", {
   expect_identical(Sys.getenv("rdhs_USER_PROJECT"),"Dummy space")
 
   # reset our credentials
-  Sys.setenv("rdhs_USER_EMAIL"=em)
-  Sys.setenv("rdhs_USER_PASS"=pass)
-  Sys.setenv("rdhs_USER_PROJECT"=proj)
+  restore_current_envs(old_envs)
 
   # check for unnamed list attempt
   expect_error(read_credentials(list("humpty","dumpty","project")))
@@ -57,10 +53,7 @@ test_that("set_dhs_credentials", {
   old_root <- Sys.getenv(renv_root_path_name())
 
   # save them so this test doesn't nuke the others
-  em <- Sys.getenv("rdhs_USER_EMAIL")
-  pass <- Sys.getenv("rdhs_USER_PASS")
-  proj <- Sys.getenv("rdhs_USER_PROJECT")
-
+  old_envs <- save_current_envs()
 
   # lets make a credentials object
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
@@ -116,9 +109,7 @@ test_that("set_dhs_credentials", {
   unlink("dummy",recursive = TRUE)
 
   # reset our credentials
-  Sys.setenv("rdhs_USER_EMAIL"=em)
-  Sys.setenv("rdhs_USER_PASS"=pass)
-  Sys.setenv("rdhs_USER_PROJECT"=proj)
+  restore_current_envs(old_envs)
 
   # and put the old client back in place and reset the renvirons if they existed before hand
   if(!is.null(old_client)){

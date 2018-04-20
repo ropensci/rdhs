@@ -14,6 +14,10 @@ test_that("authenticate_dhs works", {
                           your_password=Sys.getenv("rdhs_USER_PASS"),
                           your_project=paste0(strsplit(Sys.getenv("rdhs_USER_PROJECT"),"")[[1]][1:10],collapse=""))$proj_id, "111616")
 
+  expect_error(rdhs:::authenticate_dhs(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                                       your_password=Sys.getenv("rdhs_USER_PASS"),
+                                       your_project="twaddle_for_days"))
+
 })
 
 test_that("available_surveys works", {

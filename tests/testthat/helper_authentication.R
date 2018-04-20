@@ -28,3 +28,24 @@ if(file.exists("credentials")){
 return(cli)
 
 }
+
+
+save_current_envs <- function(){
+
+  # save them so this test doesn't nuke the others
+  em <- Sys.getenv("rdhs_USER_EMAIL")
+  pass <- Sys.getenv("rdhs_USER_PASS")
+  proj <- Sys.getenv("rdhs_USER_PROJECT")
+
+  return(c(em,pass,proj))
+
+}
+
+restore_current_envs <- function(old_env){
+
+  # restore them so this test doesn't nuke the others
+  Sys.setenv("rdhs_USER_EMAIL"=old_env[1])
+  Sys.setenv("rdhs_USER_PASS"=old_env[2])
+  Sys.setenv("rdhs_USER_PROJECT"=old_env[3])
+
+}
