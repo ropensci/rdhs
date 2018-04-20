@@ -24,6 +24,9 @@ handle_api_request <- function(endpoint, query, allResults, client){
   query <- query_creation(query)
   if(is.null(query$f)) query$f <- "json"
 
+  # if no client was provided we'll look for the package environment client by default
+  client <- if(is.null(.rdhs$client)) NULL else .rdhs$client
+
   # if there is no client then make request
   if(is.null(client)){
 
