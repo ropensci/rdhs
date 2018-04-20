@@ -6,7 +6,9 @@ rdhs_reset <- function() {
   rm(list = ls(.rdhs, all.names = TRUE), envir = .rdhs)
 }
 
-.onLoad <- function(...) {
+.onLoad <- function(...) suppressPackageStartupMessages(.onAttach())
+
+.onAttach <- function(...) {
 
   # just in case clear the pacakge environment
   rdhs_reset()
@@ -35,16 +37,20 @@ rdhs_reset <- function() {
                             "Please recreate your credentials file at the following path and reload rdhs:\n   -> ",
                             credentials,"\n",
                             "Alternatively use set_dhs_credentials() to specify a new credentials file.")
+      return(invisible(credentials))
     }
 
     # and check if it is still valid
     out <- tryCatch(expr = read_credentials(credentials),
-                    error=function() {
+                    error=function(e) {
                       packageStartupMessage("Your login credentials provided last time are not valid!\n",
                                             "Please check your credentials file at the following path and reload rdhs:\n   -> ",
                                             credentials,"\n",
                                             "Alternatively use set_dhs_credentials() to specify a new credentials file.")
                     })
+
+    # and return now if that errored
+    if(is.null(out)) return(invisible(credentials))
 
     # check the root has a client object there
     root <- normalizePath(root_path,winslash="/", mustWork = FALSE)
@@ -54,6 +60,8 @@ rdhs_reset <- function() {
                             "does not appear to be here anymore!:\n   -> ",
                             root,"\n",
                             "If it has moved location, then reset your root using set_dhs_credentials()")
+
+      return(invisible(root))
 
     }
 
@@ -66,7 +74,8 @@ rdhs_reset <- function() {
                           "rdhs will be using the login credentials you set last time, which it will read from:\n   -> ",
                           .rdhs$client$.__enclos_env__$private$credentials_path,"\n",
                           "It will also save any datasets you download inside this directory:\n   -> ",
-                          .rdhs$client$get_root())
+                          .rdhs$client$get_root(),"\n",
+                          "If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()")
 
     # and now let's hande the credentials from this client
     handle_credentials(.rdhs$client$.__enclos_env__$private$credentials_path)

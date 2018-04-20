@@ -53,6 +53,8 @@ test_that("set_dhs_credentials", {
 
   # first let's grab the default client objct so we can rewrite it
   old_client <- .rdhs$client
+  old_cred <- Sys.getenv(renv_cred_path_name())
+  old_root <- Sys.getenv(renv_root_path_name())
 
   # save them so this test doesn't nuke the others
   em <- Sys.getenv("rdhs_USER_EMAIL")
@@ -117,7 +119,9 @@ test_that("set_dhs_credentials", {
   Sys.setenv("rdhs_USER_PASS"=pass)
   Sys.setenv("rdhs_USER_PROJECT"=proj)
 
-  # and put the old client back in place and reset the renvirons
+  # and put the old client back in place and reset the renvirons if they existed before hand
+  if(!is.null(old_client)){
+
   saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
   .rdhs$client <- old_client
 
@@ -125,5 +129,12 @@ test_that("set_dhs_credentials", {
                    old_client$.__enclos_env__$private$credentials_path)
   expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
                    old_client$get_root())
+
+  } else {
+    expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_cred),old_cred)
+    expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_root),old_root)
+}
+
+
 
 })

@@ -249,7 +249,7 @@ search_variable_labels <- function(dataset_filenames,
 get_var_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a recognised dhs_dataset data.frame then we read the labels from that
-  if(all(class(res) %in% c("dhs_dataset","dhs_dataset"))){
+  if(all(class(dataset) %in% c("dhs_dataset","dhs_dataset"))){
 
     res <- get_labels_from_dataset(dataset, return_all)
 
