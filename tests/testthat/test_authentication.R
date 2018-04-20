@@ -8,6 +8,12 @@ test_that("authenticate_dhs works", {
   expect_equal(rdhs:::authenticate_dhs(your_email=Sys.getenv("rdhs_USER_EMAIL"),
                                        your_password=Sys.getenv("rdhs_USER_PASS"),
                                        your_project=Sys.getenv("rdhs_USER_PROJECT"))$proj_id, "111616")
+
+  # catch if your project has a short name that won't be ellipsis cocnerned
+  expect_equal(rdhs:::authenticate_dhs(your_email=Sys.getenv("rdhs_USER_EMAIL"),
+                          your_password=Sys.getenv("rdhs_USER_PASS"),
+                          your_project=paste0(strsplit(Sys.getenv("rdhs_USER_PROJECT"),"")[[1]][1:10],collapse=""))$proj_id, "111616")
+
 })
 
 test_that("available_surveys works", {

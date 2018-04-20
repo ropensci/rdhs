@@ -370,9 +370,16 @@ authenticate_dhs <- function( your_email , your_password , your_project ){
   # load the text
   y <- readLines( tf , warn = FALSE )
 
-  # figure out the project number - only use first 30 chars due to ellipsis formation
+  # figure out the project number - only use first 30 chars due to ellipsis formation if it is longer than 30
+  if(nchar(your_project)>30){
   project_lines <- unique( y[ grepl( "option value" , y ) &
                                 grepl( paste0(strsplit(your_project,"")[[1]][1:30],collapse="") , y , fixed = TRUE ) ] )
+  } else {
+
+  project_lines <- unique( y[ grepl( "option value" , y ) &
+                                grepl( paste0(strsplit(your_project,"")[[1]],collapse="") , y , fixed = TRUE ) ] )
+
+  }
 
   # confirm only one project and handle if more than
   if(length( project_lines ) == 1){
@@ -418,8 +425,8 @@ authenticate_dhs <- function( your_email , your_password , your_project ){
       project_lines <- project_lines[as.numeric(pl)]
 
     } else {
-      stop("Your log in credentials were not recognised by the DHS website.",
-           "Please check the format of your credentials argument (see ?client_dhs for help),",
+      stop("Your log in credentials were not recognised by the DHS website.\n",
+           "Please check the format of your credentials argument (see ?client_dhs for help), ",
            "and your internet connection for possible error.")
     }
   }
