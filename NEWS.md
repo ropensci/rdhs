@@ -1,3 +1,7 @@
+## rdhs 0.2.1
+
+* Patch to authenticate_dhs. failed to connect before if project names were very short. Fixed in 7e4ef81.
+
 ## rdhs 0.2.0
 
 * New vignettes: `anemia`
