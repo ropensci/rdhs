@@ -85,7 +85,9 @@ set_renviron <- function(variable,value){
   value <- gsub("\"","",value)
   variable <- gsub("\"","",variable)
 
-  # next grab the current .Renviron
+  # next grab the current .Renviron if it exists
+  if(file.exists(file.path(normalizePath("~",winslash="/"),".Renviron"))){
+
   current <- readLines(file.path(normalizePath("~",winslash="/"),".Renviron"))
 
   # check to see if the variable already exists
@@ -97,6 +99,11 @@ set_renviron <- function(variable,value){
 
   # add our new value always placing it in quotes
   new <- c(current, paste0(variable," = ","\"",value,"\""))
+
+  } else {
+    new <- paste0(variable," = ","\"",value,"\"")
+  }
+
   writeLines(new,file.path(normalizePath("~",winslash="/"),".Renviron"))
 
   # and set it within our current session as well
