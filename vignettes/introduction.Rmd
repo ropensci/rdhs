@@ -231,7 +231,7 @@ What we see from the questions is that the question "Result of malaria rapid tes
 
 To extract our data we pass our questions object to the client function `extract`, which will create a list with each dataset and its extracted data as a `data.frame`. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
 
-```{r extract_questions}
+```{r extract_questions, message=FALSE, echo=FALSE}
 # let's just use the PR files thus
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 downloads <- client$get_datasets(datasets$FileName)
@@ -251,17 +251,19 @@ The resultant extract is a list, with a new element for each different dataset t
 
 We can also query our datasets for the survey question variables. In the example above the survey question was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `survey_variables()`:
 
-```{r extract_variables}
+```{r extract_variables, message=FALSE, echo=FALSE}
 # and grab the questions from this now utilising the survey variables
 questions <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
 extract2 <- client$extract(questions, add_geo = FALSE)
 
-# quick check
+# quick check 
 head(extract2$CDPR61FL)
 head(extract2$TZPR7HFL)
 
+# and just to prove that hml35 did actually read in okay (there are just lots of NA)
+table(extract2$CDPR61FL$hml35,useNA = "always")
 ```
 
 
@@ -307,7 +309,7 @@ head(better_bound$hml35)
 
 The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
-```{r reformat}
+```{r reformat, message=FALSE, echo=FALSE}
 # download the datasets with the reformat arguments
 downloads <- client$get_datasets(datasets$FileName, reformat=TRUE)
 
@@ -331,13 +333,13 @@ The *hv024* column is now just characters, which is possibly the best option dep
 
 Lastly, we can now use our extract dataset to carry out some regression analysis, to investigate the relationship between malaria prevalence and the quality of wall materials. To do this we will need to first grab the sample weights and stratification from the surveys, along with the extra variables and we will then check the RDT prevalence calculated using the raw data versus the API:
 
-```{r regression analysis}
+```{r regression analysis, message=FALSE, echo=FALSE}
 # grab the additional variable hv023 and hv024 which have the strata and weights respectively
-questions <- client$survey_variables(datasets$FileName,variables = c("hv005","hv023","hv024","hv025","hv214","hml20","hml35"))
+questions <- client$survey_variables(datasets$FileName,variables = c("hv005","hv021","hv022","hv023","hv024","hv025","hv214","hml20","hml35"))
 extraction <- client$extract(questions,TRUE)
 
 # now concatenate the provinces as before and remove missing responses
-dat <- rbind_labelled(extraction,labels=list("hv024"="concatenate"))
+dat <- rbind_labelled(extraction,labels=list("hv024"="concatenate","hv214"="concatenate"))
 dat <- dat[-which(dat$hml35==9),] # remove missing responses
 
 # create a denominator response for hml35
@@ -376,7 +378,7 @@ And lastly we will construct a logistic regression to investigat the relationshi
 
 ```{r altitutde glm}
 # contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35
-summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="binomial"))
+summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="quasibinomial"))
 
 ```
 
