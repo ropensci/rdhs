@@ -130,14 +130,20 @@ extract:
     add_geo: >-
       Add geograpic information to the extract. Defaut = TRUE
 
+get_downloaded_datasets:
+  short: >-
+    Returns a \code{data.frame} of the datasets that have been downloaded within this client
+  value: >-
+    Data.frame of downlaoded datasets
+
 get_var_labels:
   short: >-
       Returns information about a dataset's survey variables and definitions.
   params:
     dataset_filenames: >-
       Vector of dataset filenames to look up
-    dataset: >-
-      A full read in dataset that has not been reformatted whe declaring \code{client$get_datasets()}
+    dataset_paths: >-
+      Vector of dataset file paths to where datasets have been saved to
   value: >-
       Data frame of survey variable names and definitions
 
