@@ -403,16 +403,13 @@ R6_client_dhs <- R6::R6Class(
                        "survey_id"= character(0))
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
-      names(res) <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+      names(res) <- datasets$file
 
       # iterate through downloaded surveys
       for(i in 1:download_iteration){
 
-        # key from file name
-        filename <- strsplit(datasets[i,]$FileName,".",fixed=TRUE)[[1]][1]
-
         # create key for this
-        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds",
+        key <- paste0(datasets[i,]$SurveyId,"_",datasets[i,]$FileName,"_","rds",
                       "_",attr(download,which = "reformat"))
 
         # first check against cache
@@ -482,16 +479,13 @@ R6_client_dhs <- R6::R6Class(
                        "survey_id"= character(0))
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
-      names(res) <- strsplit(datasets$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
+      names(res) <- datasets$file
 
       # iterate through datasets
       for(i in 1:download_iteration){
 
-        # key from file name
-        filename <- strsplit(datasets[i,]$FileName,".",fixed=TRUE)[[1]][1]
-
         # create key for this
-        key <- paste0(datasets[i,]$SurveyId,"_",filename,"_","rds",
+        key <- paste0(datasets[i,]$SurveyId,"_",datasets[i,]$FileName,"_","rds",
                       "_",attr(download,which = "reformat"))
 
         # Get description and dataset path and find the matched_rows for the requested variables
