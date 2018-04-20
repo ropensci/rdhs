@@ -159,6 +159,8 @@ factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
 
   }
 
+  class(res) <- c(class(res),"dhs_dataset")
+
   return(list("dataset"=res, "variable_names"=description_table))
 }
 
@@ -169,8 +171,8 @@ factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
 #' @param data A \code{data.frame} from which to extract variable labels.
 #' @param return_all Logical whether to return all variables (\code{TRUE}) or only those with labels.
 #' @return A \code{data.frame} consisting of the variable name and labels.
-#' @export
-get_var_labels <- function(data, return_all=TRUE) {
+#'
+get_labels_from_dataset <- function(data, return_all=TRUE) {
 
   # what kind of dataset is it we are working with
   if(is.element("label.table",attributes(data) %>% names)) {
