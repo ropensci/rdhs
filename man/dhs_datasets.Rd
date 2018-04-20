@@ -4,16 +4,16 @@
 \alias{dhs_datasets}
 \title{API request of DHS Datasets}
 \usage{
-dhs_datasets(allResults = TRUE, client = NULL, countryIds = NULL,
+dhs_datasets(client = NULL, allResults = TRUE, countryIds = NULL,
   selectSurveys = NULL, surveyIds = NULL, surveyYear = NULL,
   surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
   fileFormat = NULL, fileType = NULL, f = NULL, returnFields = NULL,
   perPage = NULL, page = NULL)
 }
 \arguments{
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
-
 \item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+
+\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
