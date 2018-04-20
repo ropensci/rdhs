@@ -2,10 +2,9 @@
 % Please edit documentation in R/ui.R
 \name{get_available_datasets}
 \alias{get_available_datasets}
-\title{Get Available Datasets
-Details the datasets that your login credentials have access to}
+\title{Get Available Datasets}
 \usage{
-get_available_datasets()
+get_available_datasets(clear_cache_first = FALSE)
 }
 \arguments{
 \item{clear_cache_first}{Boolean detailing if you would like to clear the cached available datasets first.
@@ -15,6 +14,9 @@ client fetches any new datasets that you have recently been given access to.}
 \value{
 Data.frame object with 14 variables that detail the surveys you can download,
   their url download links and the country, survey, year etc info for that link.
+}
+\description{
+Details the datasets that your login credentials have access to
 }
 \details{
 Searches the DHS website for all the datasets that you can donwload. The results

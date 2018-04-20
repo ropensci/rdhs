@@ -3,8 +3,7 @@
 \name{get_downloaded_datasets}
 \alias{get_downloaded_datasets}
 \alias{get_downloaded_datasets}
-\title{Get Variable Labels
-Returns a data.frame of}
+\title{Get Variable Labels}
 \usage{
 get_downloaded_datasets()
 
@@ -14,6 +13,11 @@ get_downloaded_datasets()
 Data.frame of downlaoded datasets
 
 Data.frame of downlaoded datasets
+}
+\description{
+Returns a data.frame of
+
+Detail the datasets that you have already downloaded
 }
 \details{
 Returns a \code{data.frame} of the datasets that have been downloaded within this client.

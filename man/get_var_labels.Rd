@@ -2,19 +2,21 @@
 % Please edit documentation in R/ui.R
 \name{get_var_labels}
 \alias{get_var_labels}
-\title{Get Survey Variable Labels
-Return variable labels from a dataset}
+\title{Get Survey Variable Labels}
 \usage{
-get_var_labels(data, return_all = TRUE)
+get_var_labels(dataset, return_all = TRUE)
 }
 \arguments{
-\item{return_all}{Logical whether to return all variables (\code{TRUE}) or only those with labels.}
-
 \item{dataset}{Can be either the file path to a dataset, the dataset as a `data.frame` or the filenaes of datasets.
 See details for more information}
+
+\item{return_all}{Logical whether to return all variables (\code{TRUE}) or only those with labels.}
 }
 \value{
 A \code{data.frame} consisting of the variable name and labels.
+}
+\description{
+Return variable labels from a dataset
 }
 \details{
 Returns variable names and their labels from a dataset. You can pass for the `data` argument any of

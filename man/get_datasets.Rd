@@ -2,12 +2,11 @@
 % Please edit documentation in R/ui.R
 \name{get_datasets}
 \alias{get_datasets}
-\title{Get Datasets
-Downloads datasets you have access to from the DHS website}
+\title{Get Datasets}
 \usage{
 get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
-  all_lower = TRUE, output_dir_root = file.path(private$root, "datasets"),
-  ...)
+  all_lower = TRUE, output_dir_root = file.path(rdhs$client$get_root(),
+  "datasets"), ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be found as one of the
@@ -16,8 +15,10 @@ returned fields from \code{\link{dhs_datasets}}. Alternatively you can also pass
 
 \item{download_option}{Character specifying whether the dataset should be just downloaded ("zip"),
 imported and saved as an .rds object ("rds"), or both extract and rds ("both").
-Conveniently you can just specify any letter from these options.
-reformat}
+Conveniently you can just specify any letter from these options.}
+
+\item{reformat}{Boolean concerning whether to reformat read in datasets by removing all factors and labels.
+Default = FALSE.}
 
 \item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
 
@@ -25,13 +26,13 @@ reformat}
 datasets to a subfolder of the client root called "datasets"}
 
 \item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
-
-\item{Boolean}{concerning whether to reformat read in datasets by removing all factors and labels.
-Default = FALSE.}
 }
 \value{
 Depends on the download_option requested, but ultimately it is a file path to where the dataset
   was downloaded to, so that you can interact with it accordingly.
+}
+\description{
+Downloads datasets you have access to from the DHS website
 }
 \details{
 Gets datasets from your cache or dwonlaods from the DHS website. By providing the filenames, as specified in one of the

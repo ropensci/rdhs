@@ -207,15 +207,25 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 
 }
 
+
 #' Create list of dataset and its variable names
 #'
 #' Function to give the former output of get_datasets as it can be nice to have both the
 #' definitions and the dataset attached together
 #'
-#' @param dataset Any read in dataset created by \code{get_datasets}
+#' @param dataset Any read in dataset created by \code{get_datasets}, either as the file path or after having
+#' been read using \code{readRDS}
 #' @export
 data_and_labels <- function(dataset){
 
+  if(class(dataset)=="character"){
+    if(file.exists(dataset)){
+      dataset <- readRDS(dataset)
+    } else {
+      stop("Invalid dataset argument. Must be a character string to where a dataset has been saved, or a read in dataset.",
+           "See ?data_and_labels for more inforation")
+    }
+  }
   variable_names <- get_var_labels(dataset)
   res <- list("dataset"=dataset,"variable_names"=variable_names)
 

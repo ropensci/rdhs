@@ -2,10 +2,7 @@
 % Please edit documentation in R/ui.R
 \name{search_variable_labels}
 \alias{search_variable_labels}
-\title{Search Survey Variable Definitions
-Searches across datasets specified for requested survey variable definitions. This function (or
-\code{\link{search_variable_labels}}) should be used to provide the `questions` argument for
-\code{\link{extract_dhs}}.}
+\title{Search Survey Variable Definitions}
 \usage{
 search_variable_labels(dataset_filenames, search_terms = NULL,
   essential_terms = NULL, regex = NULL, ...)
@@ -28,6 +25,11 @@ this argument. N.B. If both `search_terms` and `regex`` are supplied as argument
 }
 \value{
 Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+}
+\description{
+Searches across datasets specified for requested survey variable definitions. This function (or
+\code{\link{search_variable_labels}}) should be used to provide the `questions` argument for
+\code{\link{extract_dhs}}.
 }
 \details{
 Use this function after \code{\link{get_datasets}} to query downloaded datasets for what survey questions they asked.

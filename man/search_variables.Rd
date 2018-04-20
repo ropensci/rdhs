@@ -2,9 +2,7 @@
 % Please edit documentation in R/ui.R
 \name{search_variables}
 \alias{search_variables}
-\title{Search Survey Variables
-Searches across datasets specified for requested survey variables. This function (or \code{\link{search_variable_labels}})
-should be used to provide the `questions` argument for \code{\link{extract_dhs}}.}
+\title{Search Survey Variables}
 \usage{
 search_variables(dataset_filenames, variables, essential_variables = NULL,
   ...)
@@ -22,6 +20,10 @@ the survey will not be returned by this functon. Default = `NULL`.}
 }
 \value{
 Data frame of the surveys where matches were found and then all the resultant codes and descriptions.
+}
+\description{
+Searches across datasets specified for requested survey variables. This function (or \code{\link{search_variable_labels}})
+should be used to provide the `questions` argument for \code{\link{extract_dhs}}.
 }
 \details{
 Use this function after \code{\link{get_datasets}} to look up all the survey variables that have the required variable.
