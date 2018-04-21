@@ -78,7 +78,7 @@ rdhs_reset <- function() {
                           "If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()")
 
     # and now let's hande the credentials from this client
-    handle_credentials(.rdhs$client$.__enclos_env__$private$credentials_path)
+    return(invisible(.rdhs$client))
 
   }
 

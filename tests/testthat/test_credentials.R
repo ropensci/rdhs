@@ -54,6 +54,7 @@ test_that("set_dhs_credentials", {
 
   # save them so this test doesn't nuke the others
   old_envs <- save_current_envs()
+  old_renviron <- readLines(file.path(normalizePath("~"),".Renviron"))
 
   # lets make a credentials object
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
@@ -110,6 +111,7 @@ test_that("set_dhs_credentials", {
 
   # reset our credentials
   restore_current_envs(old_envs)
+  write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
 
   # and put the old client back in place and reset the renvirons if they existed before hand
   if(!is.null(old_client)){
