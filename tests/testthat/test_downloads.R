@@ -38,25 +38,27 @@ test_that("avaialble surveys and download work", {
 
   # check dta foreign only
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw")
+  d <- readRDS(downloads$AOBR62DT)
+  v <- get_var_labels(d)
 
   # remove the cache and then check for the reformat
-  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT.ZIP_rds_TRUE",namespace = "downloaded_datasets")
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw",reformat=TRUE)
 
   # remove the cache and then check for the toupper no reformat
-  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT.ZIP_rds_TRUE",namespace = "downloaded_datasets")
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw",all_lower=FALSE)
 
   # remove the cache and then check for the reformat to upper
-  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT.ZIP_rds_TRUE",namespace = "downloaded_datasets")
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="raw",reformat=TRUE,all_lower=TRUE)
 
   # check FL
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62FL.ZIP",download_option = "r",all_lower = FALSE)
-  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62FL_rds_TRUE",namespace = "downloaded_datasets")
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62FL.ZIP_rds_TRUE",namespace = "downloaded_datasets")
 
   # remove the cache and then check for the map parser
-  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT_rds_TRUE",namespace = "downloaded_datasets")
+  cli$.__enclos_env__$private$storr$del(key="AO2011MIS_AOBR62DT.ZIP_rds_TRUE",namespace = "downloaded_datasets")
   downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP",download_option = "r",mode="map",reformat=TRUE)
 
 

@@ -114,21 +114,21 @@ test_that("set_dhs_credentials", {
   # reset our credentials
   restore_current_envs(old_envs)
   if(exists("old_renviron")){
-  write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
+    write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
   } else {
     write(x = "",file.path(normalizePath("~"),".Renviron"))
-}
+  }
 
   # and put the old client back in place and reset the renvirons if they existed before hand
   if(!is.null(old_client)){
 
-  saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
-  .rdhs$client <- old_client
+    saveRDS(old_client,file.path(old_client$get_root(),client_file_name()))
+    .rdhs$client <- old_client
 
-  expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_client$.__enclos_env__$private$credentials_path),
-                   old_client$.__enclos_env__$private$credentials_path)
-  expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
-                   normalizePath(old_client$get_root(),winslash="/", mustWork = FALSE))
+    expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_client$.__enclos_env__$private$credentials_path),
+                     old_client$.__enclos_env__$private$credentials_path)
+    expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
+                     normalizePath(old_client$get_root(),winslash="/", mustWork = FALSE))
 
   }
 

@@ -74,6 +74,11 @@ test_that("new updates are recognised", {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
   }
 
+  # this dataset has been updated in the past so if we force the cache dat back and then refresh it should trig clearing this
+  d <- cli$get_datasets("BUBR70SV.ZIP")
+  cli$set_cache_date(1)
+  cli <- client_refresh(cli)
+
   unlink(td)
 
 })
