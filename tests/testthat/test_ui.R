@@ -6,11 +6,12 @@ test_that("check_for_client",{
   old_envs <- save_current_envs()
 
   # nuke the package client
-  .rdhs$client <- NULL
+  rdhs_reset()
   expect_error(check_for_client())
 
   # set up some credentials
-  out <- set_dhs_credentials("credentials")
+  .rdhs$default_root <- rappdirs::user_cache_dir("rdhs",Sys.info()["user"])
+  out <- set_dhs_credentials("credentials",rappdirs::user_cache_dir("rdhs",Sys.info()["user"]))
   expect_true(check_for_client())
 
   restore_current_envs(old_envs)
@@ -173,7 +174,6 @@ test_that("get_var_labels direct via client",{
   expect_message(cli$get_var_labels(dataset_filenames = c("twaddle","ZWHR31SV.ZIP")))
   expect_error(cli$get_var_labels(dataset_filenames = c("twaddle")))
 
-  extract <- cli$extract(dat)
 
 })
 
