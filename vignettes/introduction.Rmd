@@ -150,7 +150,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
@@ -275,7 +275,7 @@ microbenchmark::microbenchmark(dhs_surveys(),times = 1)
 ```
 ## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 17.54696 17.54696 17.54696 17.54696 17.54696 17.54696     1
+##  dhs_surveys() 16.56213 16.56213 16.56213 16.56213 16.56213 16.56213     1
 ```
 
 ```r
@@ -286,7 +286,7 @@ microbenchmark::microbenchmark(dhs_surveys(), times = 1)
 ```
 ## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 10.17772 10.17772 10.17772 10.17772 10.17772 10.17772     1
+##  dhs_surveys() 9.488665 9.488665 9.488665 9.488665 9.488665 9.488665     1
 ```
 
 
@@ -554,13 +554,20 @@ Lastly, we can now use our extract dataset to carry out some regression analysis
 ## Eastern                   Eastern      0.11433225         44.5
 ## Equateur                 Equateur      0.27322684         49.4
 ## Kasai-Occidental Kasai-Occidental      0.45073408         38.9
-##                  Survey_RDT_Denom API_RDT_Denom    API_Regions  SurveyID
-## Bandundu                1415.6056          1414       Bandundu CD2013DHS
-## Bas-Congo                342.6473           347      Bas-Congo CD2013DHS
-## Central                 1267.4746          1236       Equateur CD2013DHS
-## Eastern                  604.6050           612 Kasa? Occident CD2013DHS
-## Equateur                 892.6006           894 Kasa? Oriental CD2013DHS
-## Kasai-Occidental         861.2030           844        Katanga CD2013DHS
+##                  Survey_RDT_Denom API_RDT_Denom           API_Regions
+## Bandundu                1415.6056          1414              Bandundu
+## Bas-Congo                342.6473           347             Bas-Congo
+## Central                 1267.4746          1236              Equateur
+## Eastern                  604.6050           612 Kasa<U+00EF> Occident
+## Equateur                 892.6006           894 Kasa<U+00EF> Oriental
+## Kasai-Occidental         861.2030           844               Katanga
+##                   SurveyID
+## Bandundu         CD2013DHS
+## Bas-Congo        CD2013DHS
+## Central          CD2013DHS
+## Eastern          CD2013DHS
+## Equateur         CD2013DHS
+## Kasai-Occidental CD2013DHS
 ```
 
 

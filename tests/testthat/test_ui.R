@@ -166,7 +166,7 @@ test_that("get_var_labels direct via client",{
   cli <- new_rand_client()
 
   dat <- cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP")
-  expect_error(cli$get_var_labels("ZWHR31SV.ZIP",dat$ZWHR31))
+  expect_message(cli$get_var_labels("ZWHR31SV.ZIP",dat$ZWHR31))
   expect_error(cli$get_var_labels())
   expect_message(cli$get_var_labels(dataset_paths = c(dat$ZWHR31SV,"twaddle")))
   expect_error(cli$get_var_labels(dataset_paths = c("twaddle")))

@@ -21,7 +21,7 @@ read_dhs_dataset <- function(file, dataset,
 
   # if there is no match it is probably because it is a geographic file
   if(!format_match & dataset$FileType %in% c("Geographic Data", "Geospatial Covariates")){
-  file_match <- 5
+    file_match <- 5
   } else if(format_match) {
     file_match <- which(tolower(file_types)==tolower(format_expected))
   } else {

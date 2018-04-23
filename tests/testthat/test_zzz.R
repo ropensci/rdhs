@@ -25,10 +25,6 @@ test_that("check for poor errors in creds etc",{
   Sys.setenv("rdhs_ROOT_PATH"="rubbish_no_more.txt")
   expect_message(rdhs:::.onAttach(),"last time are not valid")
 
-  # and now just a failing root
-  write("email=dummy@gmail.com",file = "rubbish_no_more.txt")
-  expect_message(rdhs:::.onAttach(),"does not appear to be here anymore")
-
   # remove this
   unlink("rubbish_no_more.txt")
   unlink("dummy",recursive = TRUE)

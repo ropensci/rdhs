@@ -64,6 +64,12 @@
     <li>
       <a href="articles/anemia.html">An example use case looking at trends in anemia</a>
     </li>
+    <li>
+      <a href="articles/client.html">How to use the client</a>
+    </li>
+    <li>
+      <a href="articles/toolkit.html">Installation</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -202,20 +208,20 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
 <p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1992</span>),<span class="dt">times =</span> <span class="dv">1</span>)
-<span class="co">#&gt; Unit: milliseconds</span>
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+<span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1992) 50.49953 50.49953 50.49953 50.49953</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1991) 4.176869 4.176869 4.176869 4.176869</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  50.49953 50.49953     1</span>
+<span class="co">#&gt;  4.176869 4.176869     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1992</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1992) 7.261006 7.261006 7.261006 7.261006</span>
-<span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  7.261006 7.261006     1</span></code></pre></div>
+<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1991) 7.37857 7.37857 7.37857 7.37857</span>
+<span class="co">#&gt;       uq     max neval</span>
+<span class="co">#&gt;  7.37857 7.37857     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)

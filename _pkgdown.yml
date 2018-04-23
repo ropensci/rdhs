@@ -70,6 +70,10 @@ navbar:
         href: articles/introduction.html
       - text: An example use case looking at trends in anemia
         href: articles/anemia.html
+      - text: How to use the client
+        href: articles/client.html
+      - text: Installation
+        href: articles/toolkit.html
     - text: News
       href: news/index.html
   right:

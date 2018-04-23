@@ -60,6 +60,12 @@
     <li>
       <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
     </li>
+    <li>
+      <a href="../articles/client.html">How to use the client</a>
+    </li>
+    <li>
+      <a href="../articles/toolkit.html">Installation</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -197,7 +203,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> .<span class="dv">5</span>)) +
 <span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(~CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
@@ -273,12 +279,12 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 17.54696 17.54696 17.54696 17.54696 17.54696 17.54696     1</code></pre>
+##  dhs_surveys() 16.56213 16.56213 16.56213 16.56213 16.56213 16.56213     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 10.17772 10.17772 10.17772 10.17772 10.17772 10.17772     1</code></pre>
+##  dhs_surveys() 9.488665 9.488665 9.488665 9.488665 9.488665 9.488665     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
@@ -451,13 +457,20 @@ better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 ## Eastern                   Eastern      0.11433225         44.5
 ## Equateur                 Equateur      0.27322684         49.4
 ## Kasai-Occidental Kasai-Occidental      0.45073408         38.9
-##                  Survey_RDT_Denom API_RDT_Denom    API_Regions  SurveyID
-## Bandundu                1415.6056          1414       Bandundu CD2013DHS
-## Bas-Congo                342.6473           347      Bas-Congo CD2013DHS
-## Central                 1267.4746          1236       Equateur CD2013DHS
-## Eastern                  604.6050           612 Kasa? Occident CD2013DHS
-## Equateur                 892.6006           894 Kasa? Oriental CD2013DHS
-## Kasai-Occidental         861.2030           844        Katanga CD2013DHS</code></pre>
+##                  Survey_RDT_Denom API_RDT_Denom           API_Regions
+## Bandundu                1415.6056          1414              Bandundu
+## Bas-Congo                342.6473           347             Bas-Congo
+## Central                 1267.4746          1236              Equateur
+## Eastern                  604.6050           612 Kasa&lt;U+00EF&gt; Occident
+## Equateur                 892.6006           894 Kasa&lt;U+00EF&gt; Oriental
+## Kasai-Occidental         861.2030           844               Katanga
+##                   SurveyID
+## Bandundu         CD2013DHS
+## Bas-Congo        CD2013DHS
+## Central          CD2013DHS
+## Eastern          CD2013DHS
+## Equateur         CD2013DHS
+## Kasai-Occidental CD2013DHS</code></pre>
 <p>It’s a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user.</p>
 <p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>hv025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span>

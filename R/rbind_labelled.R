@@ -82,8 +82,8 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   islab_vec_catch <- function(islab_obj){
     if(is.vector(islab_obj)){
       islab_obj <- t(islab_obj)
-    colnames(islab_obj) <- names(dfs)
-    rownames(islab_obj) <- names(dfs[[1]])[1]
+      colnames(islab_obj) <- names(dfs)
+      rownames(islab_obj) <- names(dfs[[1]])[1]
     }
     islab_obj
   }
@@ -119,17 +119,17 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
 
   ## Grab inherited labels
   if(dim(islab[needslab,,drop=FALSE])[1]>0){
-  whichlab <- apply(islab[needslab,,drop=FALSE], 1, function(x) min(which(x)))
-  if(length(whichlab)){
-    inherlab <- setNames(lapply(Map("[[", dfs[whichlab], names(whichlab)), attr, "labels"),
-                         names(whichlab))
-    labels <- c(labels, inherlab)
-  }
+    whichlab <- apply(islab[needslab,,drop=FALSE], 1, function(x) min(which(x)))
+    if(length(whichlab)){
+      inherlab <- setNames(lapply(Map("[[", dfs[whichlab], names(whichlab)), attr, "labels"),
+                           names(whichlab))
+      labels <- c(labels, inherlab)
+    }
   }
 
   # add names to each datasets
   if(exists("df_names")){
-  for(i in seq_len(length(dfs))){ dfs[[i]]$DATASET <- df_names[i]}
+    for(i in seq_len(length(dfs))){ dfs[[i]]$DATASET <- df_names[i]}
   }
   ## rbind data frames
   df <- do.call(rbind, dfs)
