@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -179,9 +179,9 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
   Data.frame object with 14 variables that detail the surveys you can download, their url download links and the country, survey, year etc info for that link.</p></dd>
 <dt><code>get_datasets</code></dt><dd><p>Gets datasets from your cache or dwonlaods from the DHS website. By providing the filenames, as specified in one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R <code>data.frame</code>. This coverted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when neaded with <code>readRDS</code>. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
     <em>Usage:</em>
-  <code>get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
+  <code><a href='get_datasets.html'>get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
       all_lower = TRUE, output_dir_root = file.path(private$root,
-          "datasets"), ...)</code>
+          "datasets"), ...)</a></code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>. Alternatively you can also pass the desired rows from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
@@ -250,7 +250,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
   Character string file path</p></dd>
 <dt><code>get_downloaded_datasets</code></dt><dd><p>Returns a named list of all downloaded datasets and their file paths
     <em>Usage:</em>
-  <code>get_downloaded_datasets()</code>
+  <code><a href='get_downloaded_datasets.html'>get_downloaded_datasets()</a></code>
     <em>Value</em>:
   List of dataset names and file paths.</p></dd>
 <dt><code>set_cache_date</code></dt><dd><p>Sets the private member variable cache-date, which is the date the client was last created/valiated against the DHS API. This should never really be needed but is icluded to demonstrate the cache clearing properties of the client in the vignette.

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pull last DHS API database update time — last_api_update • rdhs</title>
+<title>Get Downloaded Datasets — get_downloaded_datasets • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Pull last DHS API database update time — last_api_update" />
+<meta property="og:title" content="Get Downloaded Datasets — get_downloaded_datasets" />
 
-<meta property="og:description" content="Pull last DHS API database update time" />
+<meta property="og:description" content="Detail the datasets that you have already downloaded" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,23 +114,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pull last DHS API database update time</h1>
+    <h1>Get Downloaded Datasets</h1>
     
-    <div class="hidden name"><code>last_api_update.Rd</code></div>
+    <div class="hidden name"><code>get_downloaded_datasets.Rd</code></div>
     </div>
 
     
-    <p>Pull last DHS API database update time</p>
+    <p>Detail the datasets that you have already downloaded</p>
     
 
-    <pre class="usage"><span class='fu'>last_api_update</span>()</pre>
+    <pre class="usage"><span class='fu'>get_downloaded_datasets</span>()</pre>
         
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Data.frame of downlaoded datasets</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Returns a <code>data.frame</code> of the datasets that have been downloaded within this client.
+  This could be useful if you are without an interent connection and wish to know which saved
+  dataset files in your root diretory correspond to which dataset</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pull last DHS API database update time — last_api_update • rdhs</title>
+<title>Search Survey Variables — search_variables • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Pull last DHS API database update time — last_api_update" />
+<meta property="og:title" content="Search Survey Variables — search_variables" />
 
-<meta property="og:description" content="Pull last DHS API database update time" />
+<meta property="og:description" content="Searches across datasets specified for requested survey variables. This function (or search_variable_labels)
+should be used to provide the `questions` argument for extract_dhs." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,23 +115,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pull last DHS API database update time</h1>
+    <h1>Search Survey Variables</h1>
     
-    <div class="hidden name"><code>last_api_update.Rd</code></div>
+    <div class="hidden name"><code>search_variables.Rd</code></div>
     </div>
 
     
-    <p>Pull last DHS API database update time</p>
+    <p>Searches across datasets specified for requested survey variables. This function (or <code><a href='search_variable_labels.html'>search_variable_labels</a></code>)
+should be used to provide the `questions` argument for <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>last_api_update</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>search_variables</span>(<span class='no'>dataset_filenames</span>, <span class='no'>variables</span>, <span class='kw'>essential_variables</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dataset_filenames</th>
+      <td><p>The desired filenames to be downloaded. These can be found as one of the
+returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>variables</th>
+      <td><p>Character vector of survey variables to be looked up</p></td>
+    </tr>
+    <tr>
+      <th>essential_variables</th>
+      <td><p>Character vector of variables that need to present. If any of the codes are not present in that survey,
+the survey will not be returned by this functon. Default = `NULL`.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Data frame of the surveys where matches were found and then all the resultant codes and descriptions.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Use this function after <code><a href='get_datasets.html'>get_datasets</a></code> to look up all the survey variables that have the required variable.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

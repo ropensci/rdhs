@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -154,8 +154,8 @@ of DHS Phase V, VI, and VIII. To be extended in the future and perhaps add other
 <span class='fu'>download.file</span>(<span class='fu'>paste0</span>(<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm"</span>,
 <span class='st'>"?Filename=ZZMR61DT.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>), <span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>)
 
-<span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrdt_zip</span>, <span class='st'>"\\.MAP"</span>, <span class='no'>readLines</span>)
-<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/parse_map'>parse_map</a></span>(<span class='no'>map</span>)</div></pre>
+<span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrdt_zip</span>, <span class='st'>"\\.MAP"</span>, <span class='no'>readLines</span>)
+<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_map.html'>parse_map</a></span>(<span class='no'>map</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

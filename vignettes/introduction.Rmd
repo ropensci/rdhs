@@ -150,7 +150,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rdhs\vignettes\introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
@@ -558,8 +558,8 @@ Lastly, we can now use our extract dataset to carry out some regression analysis
 ## Bandundu                1415.6056          1414       Bandundu CD2013DHS
 ## Bas-Congo                342.6473           347      Bas-Congo CD2013DHS
 ## Central                 1267.4746          1236       Equateur CD2013DHS
-## Eastern                  604.6050           612 Kasaï Occident CD2013DHS
-## Equateur                 892.6006           894 Kasaï Oriental CD2013DHS
+## Eastern                  604.6050           612 Kasa? Occident CD2013DHS
+## Equateur                 892.6006           894 Kasa? Oriental CD2013DHS
 ## Kasai-Occidental         861.2030           844        Katanga CD2013DHS
 ```
 

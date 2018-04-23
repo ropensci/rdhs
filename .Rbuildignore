@@ -19,3 +19,4 @@
 ^docs$
 ^CONDUCT\.md$
 ^cran-comments.md$
+vignettes_src

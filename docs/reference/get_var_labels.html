@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return variable labels from a dataset — get_var_labels • rdhs</title>
+<title>Get Survey Variable Labels — get_var_labels • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Return variable labels from a dataset — get_var_labels" />
+<meta property="og:title" content="Get Survey Variable Labels — get_var_labels" />
 
-<meta property="og:description" content="Returns variable labels stored as "label" attribute." />
+<meta property="og:description" content="Return variable labels from a dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -114,23 +114,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return variable labels from a dataset</h1>
+    <h1>Get Survey Variable Labels</h1>
     
     <div class="hidden name"><code>get_var_labels.Rd</code></div>
     </div>
 
     
-    <p>Returns variable labels stored as <code>"label"</code> attribute.</p>
+    <p>Return variable labels from a dataset</p>
     
 
-    <pre class="usage"><span class='fu'>get_var_labels</span>(<span class='no'>data</span>, <span class='kw'>return_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_var_labels</span>(<span class='no'>dataset</span>, <span class='kw'>return_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>A <code>data.frame</code> from which to extract variable labels.</p></td>
+      <th>dataset</th>
+      <td><p>Can be either the file path to a dataset, the dataset as a `data.frame` or the filenaes of datasets.
+See details for more information</p></td>
     </tr>
     <tr>
       <th>return_all</th>
@@ -142,6 +143,17 @@
 
     <p>A <code>data.frame</code> consisting of the variable name and labels.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Returns variable names and their labels from a dataset. You can pass for the `data` argument any of
+the following:</p><ul>
+<li><p>The file path to a saved dataset. This would be the direct output of <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
+<li><p>A read in dataset, i.e. produced by using <code>readRDS</code> to load a dataset from
+      a file path produced by <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
+<li><p>Dataset filenames. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.
+      If these datasets have not been downloaded before this will download them for you.</p></li>
+</ul>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -150,6 +162,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

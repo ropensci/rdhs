@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -204,16 +204,66 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-client" class="hasAnchor"><a href="#section-client" class="anchor"></a>Client</h2>
-          <p class="section-desc"><p>Create a rdhs client for downloading datasets, querying survey variables and extracting data.</p></p>
+          <h2 id="section-set-up-dhs-login-credentials" class="hasAnchor"><a href="#section-set-up-dhs-login-credentials" class="anchor"></a>Set up DHS login credentials</h2>
+          <p class="section-desc"><p>“Set our credentials for logging into the DHS website. This creates in the backend a rdhs client for downloading datasets, querying survey variables and extracting data.”</p></p>
         </th>
       </tr>
       <tr>
         <!--  -->
         <td>
+          <p><code><a href="set_dhs_credentials.html">set_dhs_credentials()</a></code> </p>
+        </td>
+        <td><p>Set DHS login credentials</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
           <p><code><a href="client_dhs.html">client_dhs()</a></code> </p>
         </td>
         <td><p>Make a dhs client</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-user-interface" class="hasAnchor"><a href="#section-user-interface" class="anchor"></a>User Interface</h2>
+          <p class="section-desc"><p>Functions to download, search and interact with downloaded datasets</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="extract_dhs.html">extract_dhs()</a></code> </p>
+        </td>
+        <td><p>Extract Data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_available_datasets.html">get_available_datasets()</a></code> </p>
+        </td>
+        <td><p>Get Available Datasets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_datasets.html">get_datasets()</a></code> </p>
+        </td>
+        <td><p>Get Datasets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_downloaded_datasets.html">get_downloaded_datasets()</a></code> </p>
+        </td>
+        <td><p>Get Downloaded Datasets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="search_variables.html">search_variables()</a></code> </p>
+        </td>
+        <td><p>Search Survey Variables</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="search_variable_labels.html">search_variable_labels()</a></code> </p>
+        </td>
+        <td><p>Search Survey Variable Definitions</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -233,7 +283,7 @@
         <td>
           <p><code><a href="get_var_labels.html">get_var_labels()</a></code> </p>
         </td>
-        <td><p>Return variable labels from a dataset</p></td>
+        <td><p>Get Survey Variable Labels</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -275,7 +325,8 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#section-query-dhs-api">Query DHS API</a></li>
-      <li><a href="#section-client">Client</a></li>
+      <li><a href="#section-set-up-dhs-login-credentials">Set up DHS login credentials</a></li>
+      <li><a href="#section-user-interface">User Interface</a></li>
       <li><a href="#section-downstream-dataset-helper-functions">Downstream Dataset Helper Functions</a></li>
       <li><a href="#section-dhs-dataset-parsers">DHS Dataset Parsers</a></li>
     </ul>

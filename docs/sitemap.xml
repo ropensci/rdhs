@@ -13,9 +13,6 @@
     <loc>https://ojwatson.github.io/rdhs//reference/client_dhs.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/client_file_name.html</loc>
-  </url>
-  <url>
     <loc>https://ojwatson.github.io/rdhs//reference/data_and_labels.html</loc>
   </url>
   <url>
@@ -61,10 +58,25 @@
     <loc>https://ojwatson.github.io/rdhs//reference/extraction.html</loc>
   </url>
   <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/extract_dhs.html</loc>
+  </url>
+  <url>
     <loc>https://ojwatson.github.io/rdhs//reference/factor_format.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/file_dataset_format.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_available_datasets.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_datasets.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_downloaded_datasets.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_labels_from_dataset.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/get_var_labels.html</loc>
@@ -106,7 +118,19 @@
     <loc>https://ojwatson.github.io/rdhs//reference/response_to_json.html</loc>
   </url>
   <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/search_variables.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/search_variable_labels.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/set_dhs_credentials.html</loc>
+  </url>
+  <url>
     <loc>https://ojwatson.github.io/rdhs//articles/anemia.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//articles/client.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//articles/introduction.html</loc>

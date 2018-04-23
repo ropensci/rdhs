@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -164,14 +164,14 @@
 <span class='fu'>download.file</span>(<span class='fu'>paste0</span>(<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?"</span>,
 <span class='st'>"Filename=ZZMR61FL.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>), <span class='no'>mrfl_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>)
 
-<span class='no'>dcf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCF"</span>, <span class='no'>readLines</span>)
-<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/parse_meta'>parse_dcf</a></span>(<span class='no'>dcf</span>)
+<span class='no'>dcf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCF"</span>, <span class='no'>readLines</span>)
+<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_meta.html'>parse_dcf</a></span>(<span class='no'>dcf</span>)
 
-<span class='no'>sps</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.SPS"</span>, <span class='no'>readLines</span>)
+<span class='no'>sps</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.SPS"</span>, <span class='no'>readLines</span>)
 <span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_sps</span>(<span class='no'>sps</span>)
 
-<span class='no'>do</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DO"</span>, <span class='no'>readLines</span>)
-<span class='no'>dctin</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCT"</span>, <span class='no'>readLines</span>)
+<span class='no'>do</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DO"</span>, <span class='no'>readLines</span>)
+<span class='no'>dctin</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCT"</span>, <span class='no'>readLines</span>)
 <span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='fu'>parse_do</span>(<span class='no'>do</span>, <span class='no'>dctin</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

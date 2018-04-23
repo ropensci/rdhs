@@ -58,7 +58,7 @@ it reads in the stata data set using read_dta" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -192,7 +192,7 @@ see <a href='https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334'
 <span class='fu'>download.file</span>(<span class='fu'>paste0</span>(<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?"</span>,
 <span class='st'>"Filename=ZZMR61DT.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>), <span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>)
 
-<span class='no'>mr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_dhs_dta'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>,<span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"map"</span>)
+<span class='no'>mr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_dta.html'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>,<span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"map"</span>)
 <span class='fu'>attr</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>, <span class='st'>"label"</span>)</div><div class='output co'>#&gt; [1] "partner currently pregnant"</div><div class='input'><span class='fu'>class</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; [1] "labelled"</div><div class='input'><span class='fu'>head</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; &lt;Labelled integer&gt;
 #&gt; [1] NA  0  0 NA  0 NA
 #&gt; 
@@ -207,7 +207,7 @@ see <a href='https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334'
 #&gt;      no     yes  unsure missing 
 #&gt;    1766     239      57       0 </div><div class='input'>
 <span class='co'>## If Stata file codebook is complete, `mode="map"` and `"haven"` should be the same.</span>
-<span class='no'>mr_hav</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_dhs_dta'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"haven"</span>)
+<span class='no'>mr_hav</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_dta.html'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"haven"</span>)
 <span class='fu'>attr</span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>, <span class='st'>"label"</span>)</div><div class='output co'>#&gt; [1] "partner currently pregnant"</div><div class='input'><span class='fu'>class</span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; [1] "labelled"</div><div class='input'><span class='fu'>head</span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>)  <span class='co'># "9=missing" omitted from .dta codebook</span></div><div class='output co'>#&gt; &lt;Labelled double&gt;
 #&gt; [1] NA  0  0 NA  0 NA
 #&gt; 
@@ -225,10 +225,10 @@ see <a href='https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334'
 # Specifying foreignNA can help but often will not as below.
 # Thus we would recommend either using mode = "haven" or mode = "raw"
 </div><span class='co'># NOT RUN {</span>
-<span class='no'>mr_for</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_dhs_dta'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"foreign"</span>)
-<span class='no'>mr_for</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_dhs_dta'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"foreignNA"</span>)
+<span class='no'>mr_for</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_dta.html'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"foreign"</span>)
+<span class='no'>mr_for</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_dta.html'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"foreignNA"</span>)
 <span class='co'># }</span><div class='input'><span class='co'>## Don't convert factors</span>
-<span class='no'>mr_raw</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rdhs/topics/read_dhs_dta'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"raw"</span>)
+<span class='no'>mr_raw</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_dta.html'>read_dhs_dta</a></span>(<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"raw"</span>)
 <span class='fu'>table</span>(<span class='no'>mr_raw</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; 
 #&gt;    0    1    8 
 #&gt; 1766  239   57 </div><div class='input'>

@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to use rdhs? • rdhs</title>
+<title>Using the rdhs client? • rdhs</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="How to use rdhs?">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Using the rdhs client?">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -85,13 +85,13 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>How to use rdhs?</h1>
+      <h1>Using the rdhs client?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
             <h4 class="date">2018-04-23</h4>
       
       
-      <div class="hidden name"><code>introduction.Rmd</code></div>
+      <div class="hidden name"><code>client.Rmd</code></div>
 
     </div>
 
@@ -100,6 +100,8 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
+<p>The following is the exact same vignette as the Introduction vignette - “How to use rdhs?”. However, this one achieves the same results using the <code>rdhs</code> client object to download datasets etc, rather than using the easier user interfacing functions. This vignette was written before these functions were written and is still included so that people can see how the client object works, which may be useful for anyone adding extra functionality to <code>rdhs</code> in the future.</p>
+<hr>
 <p><code>rdhs</code> is a package for management and analysis of <a href="www.dhsprogram.com">Demographic and Health Survey (DHS)</a> data. This includes functionality to:</p>
 <ol style="list-style-type: decimal">
 <li>Access standard indicator data (i.e. <a href="https://www.statcompiler.com/">DHS STATcompiler</a>) in R via the <a href="https://api.dhsprogram.com/">DHS API</a>.</li>
@@ -197,7 +199,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> .<span class="dv">5</span>)) +
 <span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(~CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
@@ -255,30 +257,62 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 <div id="download-survey-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-survey-datasets" class="anchor"></a>3. Download survey datasets</h2>
-<p>We can now go ahead and download our datasets. To do this we need to first set out login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function <code><a href="../reference/set_dhs_credentials.html">set_dhs_credentials()</a></code>. Here you need to provide your login credentials in the form of a text file (for security reasons) that contains the email, password and project that you use to log in to the DHS website. This should take the form of a file like this:</p>
+<p>We can now go ahead and download our datasets. To do this we need to first create a <code>client</code>. The client is an R6 class (similar to R’s built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis.</p>
+<p>To create our client we use the <code><a href="../reference/client_dhs.html">client_dhs()</a></code> function and you <em>need to specify your log in credentials for the DHS website</em>. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file that contains 3 lines, something like this:</p>
 <ul>
 <li>email=“dummy@gmail.com”</li>
 <li>password=“dummypass”</li>
 <li>project=“Dummy Project”</li>
 </ul>
-<p>For example, create a file on your desktop called “credentials.txt”. In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use <code><a href="../reference/set_dhs_credentials.html">set_dhs_credentials(credentials="C:/Users/A/Desktop/credentials.txt")</a></code> to create your client.</p>
-<p>It also takes an argument for its <code>root</code>, which is the directory path where your datasets and other cached information is stored so that you can access your data later. If left blank, a suitable directory will be created within your user cache directory for your operating system.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
-<span class="kw"><a href="../reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>)</code></pre></div>
-<p><code>set_dhs_credentials</code> will store the file path to where your credentials are so that the next time you load <code>rdhs</code> it will be able to log you in without you having to use <code>set_dhs_credentials</code> again. However, if you want to change where your credentials file is saved, or where your datasets are saved to then you can reuse the function.</p>
-<p>(<code>set_dhs_credential</code> also invisibly returns a <code>client_dhs</code> object. This object is used in the back end to help store your datasets and API calls so that you can access them quickly in the future. You don’t, however, need to know anything about this to use <code>rdhs</code>, but for those interested this <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">vignette</a> exists in its entirety using the client object. This is only for anyone interested in adding functionality to <code>rdhs</code>.)</p>
-<hr>
-<p>Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the root directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time we call this function, rdhs will make the API request</span>
+<p>For example, create a file on your desktop called “credentials.txt”. In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use <code><a href="../reference/client_dhs.html">client_dhs(credentials="C:/Users/A/Desktop/credentials.txt")</a></code> to create your client.</p>
+<p>It also takes an argument for its <code>root</code>, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## create a client
+client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>)
+client</code></pre></div>
+<pre><code>## &lt;client_dhs&gt;
+##   Public:
+##     available_datasets: function (clear_cache_first = FALSE) 
+##     clear_namespace: function (namespace) 
+##     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key, 
+##     extract: function (questions, add_geo = FALSE) 
+##     get_cache_date: function () 
+##     get_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE, 
+##     get_downloaded_datasets: function () 
+##     get_root: function () 
+##     get_var_labels: function (dataset_filenames = NULL, dataset_paths = NULL) 
+##     initialize: function (api_key = NULL, root = NULL, credentials = NULL) 
+##     save_client: function () 
+##     set_cache_date: function (date) 
+##     survey_questions: function (dataset_filenames, search_terms = NULL, essential_terms = NULL, 
+##     survey_variables: function (dataset_filenames, variables, essential_variables = NULL, 
+##   Private:
+##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
+##     api_key: ICLSPH-527168
+##     cache_date: 2018-04-23 16:18:21
+##     check_available_datasets: function (filenames) 
+##     credentials_path: C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rd ...
+##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
+##     package_version: package_version, numeric_version
+##     root: C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache
+##     storr: storr, R6
+##     url: https://api.dhsprogram.com/rest/dhs/
+##     user_declared_root: NULL</code></pre>
+<p>Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># before it's cached we provide the client so the results is cached within our client</span>
+s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client)
+
+<span class="co"># with it cached it will be returned much quicker with the client argument</span>
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
+<pre><code>## Unit: milliseconds
+##                          expr      min       lq     mean   median       uq
+##  dhs_surveys(client = client) 10.46044 10.46044 10.46044 10.46044 10.46044
+##       max neval
+##  10.46044     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 17.54696 17.54696 17.54696 17.54696 17.54696 17.54696     1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## Unit: milliseconds
-##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 10.17772 10.17772 10.17772 10.17772 10.17772 10.17772     1</code></pre>
+##  dhs_surveys() 10.53788 10.53788 10.53788 10.53788 10.53788 10.53788     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
@@ -286,7 +320,7 @@ microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href=
 <div id="load-datasets-and-associated-metadata-into-r-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-datasets-and-associated-metadata-into-r-" class="anchor"></a>4. Load datasets and associated metadata into R.</h2>
-<p>We can now examine what it is we have actually downloaded, by reading in one of these datasets:</p>
+<p>We can now examine what it is we have actually downloadsed, by reading in one of these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in our dataset</span>
 cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDPR61FL)</code></pre></div>
 <p>The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:</p>
@@ -302,7 +336,7 @@ cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDP
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and then the dataset</span>
 <span class="kw">class</span>(cdpr$hv024)</code></pre></div>
 <pre><code>## [1] "labelled"</code></pre>
-<p>This is the default behaviour for the function <code>get_datasets</code> - it will download the datasets for you, and then by default save them in your root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the root directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
+<p>This is the default behaviour for the client function <code>get_datasets</code> - it will download the datasets for you, and then by default save them in your client’s root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client’s root directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
 <ul>
 <li>
 <code>client$get_datasets(download_option = "zip")</code> - Just the downloaded zip will be saved</li>
@@ -311,9 +345,9 @@ cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDP
 <li>
 <code>client$get_datasets(download_option = "both")</code> - The zip is downloaded and saved as well as the read in rds</li>
 </ul>
-<p>The other main reason for reading the dataset in straight away as the default option is that <code>rdhs</code> will also create a table of all the survey variables and their labels (definitions) and cached them for you, which then allows us to quickly query for particular search terms or survey variables:</p>
+<p>The other main reason for reading the dataset in straight away as the default option is that the created table of all the survey variables and their definitions is cached then and there, which then allows us to quickly query for particular search terms or survey variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rapid diagnostic test search</span>
-questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets$FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)
+questions &lt;-<span class="st"> </span>client$<span class="kw">survey_questions</span>(datasets$FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)
 
 <span class="kw">table</span>(questions$dataset_filename)</code></pre></div>
 <pre><code>## 
@@ -324,7 +358,7 @@ questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/s
 <div id="extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-" class="anchor"></a>5. Extract variables and combining datasets for pooled multi-survey analyses.</h2>
-<p>To extract our data we pass our questions object to the function <code>extract_dhs</code>, which will create a list with each dataset and its extracted data as a <code>data.frame</code>. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:</p>
+<p>To extract our data we pass our questions object to the client function <code>extract</code>, which will create a list with each dataset and its extracted data as a <code>data.frame</code>. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:</p>
 <pre><code>## List of 2
 ##  $ CDPR61FL:Classes 'dhs_dataset' and 'data.frame':  95949 obs. of  2 variables:
 ##   ..$ hml35   :Class 'labelled'  atomic [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
@@ -339,7 +373,7 @@ questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/s
 ##   .. .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:64880] "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" ...</code></pre>
 <p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="http://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
-<p>We can also query our datasets for the survey question variables. In the example above the survey variable label was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code><a href="../reference/search_variables.html">search_variables()</a></code>:</p>
+<p>We can also query our datasets for the survey question variables. In the example above the survey question was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code>survey_variables()</code>:</p>
 <pre><code>##   hv024 hml35  SurveyId
 ## 1     4    NA CD2013DHS
 ## 2     4    NA CD2013DHS
@@ -440,7 +474,7 @@ better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 ##  value        label
 ##      0 NegativeTest
 ##      1 PositiveTest</code></pre>
-<p>The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument <code>reformat=TRUE</code>. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the object returned by <code><a href="../reference/get_datasets.html">get_datasets()</a></code> no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using <code><a href="../reference/get_var_labels.html">get_var_labels()</a></code>, which will take any dataset output by <code><a href="../reference/get_datasets.html">get_datasets()</a></code> and return a data.frame describing the survey question variables and definitions.</p>
+<p>The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument <code>reformat=TRUE</code>. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by <code>client$get_datasets()</code> no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using <code><a href="../reference/get_var_labels.html">get_var_labels()</a></code>, which will take any dataset output by <code><a href="../reference/get_datasets.html">get_datasets()</a></code> and return a data.frame describing the survey question variables and definitions.</p>
 <pre><code>## [1] "character"</code></pre>
 <p>The <em>hv024</em> column is now just characters, which is possibly the best option depending on your downstream analysis/preferences. It’s for this reason that the geographic data that is added is never turned into factors or labels.</p>
 <p>Lastly, we can now use our extract dataset to carry out some regression analysis, to investigate the relationship between malaria prevalence and the quality of wall materials. To do this we will need to first grab the sample weights and stratification from the surveys, along with the extra variables and we will then check the RDT prevalence calculated using the raw data versus the API:</p>
@@ -458,8 +492,8 @@ better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 ## Eastern                  604.6050           612 Kasa? Occident CD2013DHS
 ## Equateur                 892.6006           894 Kasa? Oriental CD2013DHS
 ## Kasai-Occidental         861.2030           844        Katanga CD2013DHS</code></pre>
-<p>It’s a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user.</p>
-<p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>hv025</code>) and fixed effects for each survey.</p>
+<p>It’s a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how thye have grouped the primary sampling units. We are hoping to get this information from the DHfor each survey so we can make this process more streamline again.</p>
+<p>And lastly we will construct a logistic regression to investigat the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span>
 <span class="kw">summary</span>(<span class="kw">svyglm</span>(hml35 ~<span class="st"> </span>DATASET +<span class="st"> </span>hv025 +<span class="st"> </span>net +<span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</code></pre></div>
 <pre><code>## 
@@ -483,14 +517,14 @@ better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../referenc
 ## (Dispersion parameter for quasibinomial family taken to be 0.9563804)
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
-<p>What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticidal net (<em>hml20</em> that we converted to net) was not significant.</p>
+<p>What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticial net (<em>hml20</em> that we converted to net) was not significant.</p>
 <hr>
 </div>
 <div id="summary-and-further-thoughts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-and-further-thoughts" class="anchor"></a>Summary and further thoughts</h2>
-<p>Hopefully the above tutorial has shown how the <code>rdhs</code> package can facilitate both querying the DHS API and hopefully make downloading and interacting with the raw datasets a smoother, more reproducible process. It is worth bearing in mind though, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, which is hopefully when the <code>survey_questions</code> functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid.</p>
-<p>Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at <a href="mailto:%22o.watson15@imperial.ac.uk%22">"o.watson15@imperial.ac.uk"</a>. And if there is any further functionality that you think you would be useful, then also let me know. :)</p>
+<p>Hopefully the above tutorial has shown how the <code>rdhs</code> package can facilitate both querying the DHS API and hopefully make downloadeding and interacting with the raw datasets a smoother, more reprodcuable process. It is worth bearing in mind thogh, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, wich is hopefully when the <code>survey_questions</code> functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid.</p>
+<p>Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at <a href="mailto:%22o.watson15@imperial.ac.uk%22">"o.watson15@imperial.ac.uk"</a>. And if there is any further functionality that you think you wouldbe useful, then also let me know. :)</p>
 </div>
   </div>
 

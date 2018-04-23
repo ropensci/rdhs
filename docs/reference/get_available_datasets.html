@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pull last DHS API database update time — last_api_update • rdhs</title>
+<title>Get Available Datasets — get_available_datasets • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Pull last DHS API database update time — last_api_update" />
+<meta property="og:title" content="Get Available Datasets — get_available_datasets" />
 
-<meta property="og:description" content="Pull last DHS API database update time" />
+<meta property="og:description" content="Details the datasets that your login credentials have access to" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,23 +114,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pull last DHS API database update time</h1>
+    <h1>Get Available Datasets</h1>
     
-    <div class="hidden name"><code>last_api_update.Rd</code></div>
+    <div class="hidden name"><code>get_available_datasets.Rd</code></div>
     </div>
 
     
-    <p>Pull last DHS API database update time</p>
+    <p>Details the datasets that your login credentials have access to</p>
     
 
-    <pre class="usage"><span class='fu'>last_api_update</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>get_available_datasets</span>(<span class='kw'>clear_cache_first</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>clear_cache_first</th>
+      <td><p>Boolean detailing if you would like to clear the cached available datasets first.
+The default is set to FALSE. This option is available so that you can make sure your
+client fetches any new datasets that you have recently been given access to.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Data.frame object with 14 variables that detail the surveys you can download,
+  their url download links and the country, survey, year etc info for that link.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Searches the DHS website for all the datasets that you can donwload. The results
+  of this function are cached in the client. If you have recently reqeusted new datasets
+  from the DHS website then you can specify to clear the cache first so that you get the new
+  set of datasets avaialble to you. This function is used by <code><a href='get_datasets.html'>get_datasets</a></code> and should
+  thus be used with `clear_cache_first = TRUE` before using `get_datasets` if you have recently
+  requested new datasets.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

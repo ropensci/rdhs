@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <h1>Anemia prevalence: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-19</h4>
+            <h4 class="date">2018-04-23</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -146,7 +146,7 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(statcomp, <span class="kw">aes</span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="anemia_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
 <h1 class="hasAnchor">
@@ -154,7 +154,7 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 <div id="identify-surveys-that-include-anemia-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-surveys-that-include-anemia-testing" class="anchor"></a>Identify surveys that include anemia testing</h2>
-<p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full liest of survey characteristics, and the second uses <code>grepl()</code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
+<p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code>grepl()</code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveychar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>()
 surveychar[<span class="kw">grepl</span>(<span class="st">"anemia"</span>, SurveyCharacteristicName, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)]</code></pre></div>
 <pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
@@ -192,21 +192,21 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]</code></pre><
 <div id="download-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-datasets" class="anchor"></a>Download datasets</h2>
-<p>To get datasets, we establish a <code>client_dhs</code> object. The DHS client creates a cache in a specified location to save downloaded datasets and metatdata. The client requires login credentials for accessing datasets from the DHS website, including the email address, password, and project name. Credentials should be stored in a text file with three lines:</p>
+<p>To get datasets, we set up our log in credentials by providing the file path to a text file where our credentials are saved. <code>rdhs</code> will then create a cache in a specified location to save downloaded datasets and metadata. Credentials should be stored in a text file with three lines:</p>
 <pre><code>email=dummy@gmail.com
 password=dummypass
 project=Dummy Project Name</code></pre>
-<p>The file path to to this credentials file and the desired location for the cache are passed to the <code><a href="../reference/client_dhs.html">client_dhs()</a></code> function to establish the DHS client.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client &lt;-<span class="st"> </span><span class="kw"><a href="../reference/client_dhs.html">client_dhs</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials_file"</span>,
+<p>The file path to to this credentials file and the desired location for the cache are passed to the <code><a href="../reference/set_dhs_credentials.html">set_dhs_credentials()</a></code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials_file"</span>,
                      <span class="dt">root =</span> <span class="kw">file.path</span>(<span class="kw">path.expand</span>(<span class="st">'~'</span>),<span class="st">'rdhs_cache'</span>))</code></pre></div>
-<p>After establishing the client, the function <code>client$get_datasets()</code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, the client will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets$path &lt;-<span class="st"> </span><span class="kw">unlist</span>(client$<span class="kw">get_datasets</span>(datasets$FileName))</code></pre></div>
+<p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets$path &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets$FileName))</code></pre></div>
 </div>
 <div id="identify-survey-variables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-survey-variables" class="anchor"></a>Identify survey variables</h2>
 <p>Anemia is defined as having a hemoglobin (Hb) &lt;12.0 g/dL for non-pregnant women or Hb &lt;11.0 g/dL for currently pregnant women<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. To calculate anemia prevalence from DHS microdata, we must identify the DHS recode survey variables for hemoglobin measurement and pregnancy status. This could be done by consulting the DHS recode manual or the .MAP files accompanying survey datasets. It is convenient though to do this in R by loading the first individual recode dataset and searching the metadata for the variable names corresponding to the hemoglobin measurement and pregnancy status.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(client$<span class="kw">survey_questions</span>(datasets$FileName[<span class="dv">10</span>], <span class="st">"hemoglobin"</span>)[,<span class="dv">1</span>:<span class="dv">2</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets$FileName[<span class="dv">10</span>], <span class="st">"hemoglobin"</span>)[,<span class="dv">1</span>:<span class="dv">2</span>])</code></pre></div>
 <pre><code>##   variable
 ## 1     v042
 ## 2    v452c
@@ -239,7 +239,7 @@ project=Dummy Project Name</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 ##    24.0   118.0   130.0   145.6   141.0   999.0    3203</code></pre>
 <p>Variable <code>v454</code> reports the current pregnancy status used for determining the anemia threshold.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">client$<span class="kw">survey_questions</span>(datasets$FileName[<span class="dv">1</span>], <span class="st">"currently.*pregnant"</span>)[,<span class="dv">1</span>:<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets$FileName[<span class="dv">1</span>], <span class="st">"currently.*pregnant"</span>)[,<span class="dv">1</span>:<span class="dv">2</span>]</code></pre></div>
 <pre><code>##   variable        description
 ## 1     v213 Currently pregnant
 ## 2     v454 Currently pregnant</code></pre>
@@ -401,7 +401,7 @@ res$anemia &lt;-<span class="st"> </span><span class="dv">100</span>*res$anemia
 res$ci_l &lt;-<span class="st"> </span><span class="dv">100</span>*res$ci_l
 res$ci_u &lt;-<span class="st"> </span><span class="dv">100</span>*res$ci_u
 res$anemia_denom0 &lt;-<span class="st"> </span><span class="kw">round</span>(res$anemia_denom)</code></pre></div>
-<p>The table below compares the prevalence of any anemia calcuated from survey microdata with the estimates from DHS StatCompiler and the weighted denominators for each calculation. The estimates are identical for most cases. There are some small differences to be ironed out, which will require looking at the specific coutnries to check how their stratification was carried out. (We are hoping to bring this feature in once the DHS program has compiled how sample strata were constructed for all of their studies).</p>
+<p>The table below compares the prevalence of any anemia calculated from survey microdata with the estimates from DHS StatCompiler and the weighted denominators for each calculation. The estimates are identical for most cases. There are some small differences to be ironed out, which will require looking at the specific countries to check how their stratification was carried out. (We are hoping to bring this feature in once the DHS program has compiled how sample strata were constructed for all of their studies).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], <span class="dt">digits=</span><span class="dv">1</span>)</code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -520,7 +520,7 @@ res$anemia_denom0 &lt;-<span class="st"> </span><span class="kw">round</span>(re
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
                 <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="anemia_files/figure-html/unnamed-chunk-19-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="regression-analysis-relationship-between-education-and-anemia" class="section level1">

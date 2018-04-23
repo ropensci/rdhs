@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pull last DHS API database update time — last_api_update • rdhs</title>
+<title>Extract Data — extract_dhs • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Pull last DHS API database update time — last_api_update" />
+<meta property="og:title" content="Extract Data — extract_dhs" />
 
-<meta property="og:description" content="Pull last DHS API database update time" />
+<meta property="og:description" content="Extracts data from your downloaded datasets according to a data.frame of requested survey variables or survey definitions" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,23 +114,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pull last DHS API database update time</h1>
+    <h1>Extract Data</h1>
     
-    <div class="hidden name"><code>last_api_update.Rd</code></div>
+    <div class="hidden name"><code>extract_dhs.Rd</code></div>
     </div>
 
     
-    <p>Pull last DHS API database update time</p>
+    <p>Extracts data from your downloaded datasets according to a data.frame of requested survey variables or survey definitions</p>
     
 
-    <pre class="usage"><span class='fu'>last_api_update</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>extract_dhs</span>(<span class='no'>questions</span>, <span class='kw'>add_geo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>questions</th>
+      <td><p>Questions to be queried, in the format from <code><a href='search_variables.html'>search_variables</a></code> or <code><a href='search_variable_labels.html'>search_variable_labels</a></code></p></td>
+    </tr>
+    <tr>
+      <th>add_geo</th>
+      <td><p>Add geograpic information to the extract. Defaut = `TRUE`</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Function to extract datasets using a set of survey questions as taken from the output from <code><a href='search_variables.html'>search_variables</a></code>
+  or <code><a href='search_variable_labels.html'>search_variable_labels</a></code></p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
