@@ -126,14 +126,10 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
 <span class="kw">library</span>(rdhs)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Welcome back :) </span>
-<span class="co">#&gt; -------------------------</span>
-<span class="co">#&gt; rdhs will be using the login credentials you set last time, which it will read from:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes_src/credentials</span>
-<span class="co">#&gt; It will also save any datasets you download inside this directory:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/AppData/Local/Oliver/rdhs/Cache</span>
-<span class="co">#&gt; If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()</span></code></pre></div>
+<span class="co">#&gt; Your login credentials provided last time are no longer there!</span>
+<span class="co">#&gt; Please recreate your credentials file at the following path and reload rdhs:</span>
+<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/rubbish_no_more.txt</span>
+<span class="co">#&gt; Alternatively use set_dhs_credentials() to specify a new credentials file.</span></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -208,20 +204,20 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
 <p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1985</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1991) 4.176869 4.176869 4.176869 4.176869</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1985) 4.206145 4.206145 4.206145 4.206145</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  4.176869 4.176869     1</span>
+<span class="co">#&gt;  4.206145 4.206145     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1985</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1991) 7.37857 7.37857 7.37857 7.37857</span>
-<span class="co">#&gt;       uq     max neval</span>
-<span class="co">#&gt;  7.37857 7.37857     1</span></code></pre></div>
+<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1985) 7.379503 7.379503 7.379503 7.379503</span>
+<span class="co">#&gt;        uq      max neval</span>
+<span class="co">#&gt;  7.379503 7.379503     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)

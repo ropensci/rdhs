@@ -35,7 +35,7 @@ test_that("check on the use of the default client for API caching in extract",{
   ## now recreate the key
 
   key <- digest::digest(paste0("https://api.dhsprogram.com/rest/dhs/countries?countryIds=SN&f=json&apiKey=ICLSPH-527168",
-                        "allResults=",FALSE,collapse=""))
+                               "allResults=",FALSE,collapse=""))
 
   # set up a package client
   create_correct_credentials("credentials.txt")

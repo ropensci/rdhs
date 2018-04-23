@@ -205,7 +205,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> .<span class="dv">5</span>)) +
 <span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(~CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
-<p><img src="vignettes/client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
