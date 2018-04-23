@@ -132,6 +132,11 @@ p > code, li > code {
   padding: 2px 0px;
 }
 
+.sourceCode+ pre {
+    background: white;
+    padding: 2%;
+}
+
 div.figure {
   text-align: center;
 }

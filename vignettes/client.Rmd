@@ -1,15 +1,19 @@
 ---
-title: "How to use rdhs?"
+title: "Using the rdhs client?"
 author: "OJ Watson, Jeff Eaton"
 date: "2018-04-23"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to use rdhs?}
+  %\VignetteIndexEntry{Using the rdhs client}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ## Overview
+
+The following is the exact same vignette as the Introduction vignette - "How to use rdhs?". However, this one achieves the same results using the `rdhs` client object to download datasets etc, rather than using the easier user interfacing functions. This vignette was written before these functions were written and is still included so that people can see how the client object works, which may be useful for anyone adding extra functionality to `rdhs` in the future. 
+
+---
 
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
@@ -150,7 +154,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rdhs\vignettes\introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="C:\Users\Oliver\GoogleDrive\AcademicWork\Imperial\git\rdhs\vignettes\client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
@@ -242,51 +246,85 @@ We can now use this to download our datasets for further analysis.
 
 ## 3. Download survey datasets
 
-We can now go ahead and download our datasets. To do this we need to first set out login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function `set_dhs_credentials()`. Here you need to provide your login credentials in the form of a text file (for security reasons) that contains the email, password and project that you use to log in to the DHS website. This should take the form of a file like this:
+We can now go ahead and download our datasets. To do this we need to first create a `client`. The client is an R6 class (similar to R's built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis. 
+
+To create our client we use the `client_dhs()` function and you *need to specify your log in credentials for the DHS website*. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file that contains 3 lines, something like this:
 
 * email="dummy\@gmail.com"
 * password="dummypass"
 * project="Dummy Project"
 
-For example, create a file on your desktop called "credentials.txt". In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use `set_dhs_credentials(credentials="C:/Users/A/Desktop/credentials.txt")` to create your client.  
+For example, create a file on your desktop called "credentials.txt". In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use `client_dhs(credentials="C:/Users/A/Desktop/credentials.txt")` to create your client.  
 
-It also takes an argument for its `root`, which is the directory path where your datasets and other cached information is stored so that you can access your data later. If left blank, a suitable directory will be created within your user cache directory for your operating system.
+It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
 
 
 ```r
-## set up your credentials
-set_dhs_credentials(credentials = "credentials")
+## create a client
+client <- client_dhs(credentials = "credentials")
+client
 ```
 
-`set_dhs_credentials` will store the file path to where your credentials are so that the next time you load `rdhs` it will be able to log you in without you having to use `set_dhs_credentials` again. However, if you want to change where your credentials file is saved, or where your datasets are saved to then you can reuse the function. 
+```
+## <client_dhs>
+##   Public:
+##     available_datasets: function (clear_cache_first = FALSE) 
+##     clear_namespace: function (namespace) 
+##     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key, 
+##     extract: function (questions, add_geo = FALSE) 
+##     get_cache_date: function () 
+##     get_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE, 
+##     get_downloaded_datasets: function () 
+##     get_root: function () 
+##     get_var_labels: function (dataset_filenames = NULL, dataset_paths = NULL) 
+##     initialize: function (api_key = NULL, root = NULL, credentials = NULL) 
+##     save_client: function () 
+##     set_cache_date: function (date) 
+##     survey_questions: function (dataset_filenames, search_terms = NULL, essential_terms = NULL, 
+##     survey_variables: function (dataset_filenames, variables, essential_variables = NULL, 
+##   Private:
+##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
+##     api_key: ICLSPH-527168
+##     cache_date: 2018-04-23 16:18:21
+##     check_available_datasets: function (filenames) 
+##     credentials_path: C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rd ...
+##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
+##     package_version: package_version, numeric_version
+##     root: C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache
+##     storr: storr, R6
+##     url: https://api.dhsprogram.com/rest/dhs/
+##     user_declared_root: NULL
+```
 
-(`set_dhs_credential` also invisibly returns a `client_dhs` object. This object is used in the back end to help store your datasets and API calls so that you can access them quickly in the future. You don't, however, need to know anything about this to use `rdhs`, but for those interested this [vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) exists in its entirety using the client object. This is only for anyone interested in adding functionality to `rdhs`.)
 
----
-
-Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the root directory used. This will allow those working remotely or without a good internet connection to be able to still  return previous API requests:
+Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:
 
 
 ```r
-# the first time we call this function, rdhs will make the API request
+# before it's cached we provide the client so the results is cached within our client
+s <- dhs_surveys(client = client)
+
+# with it cached it will be returned much quicker with the client argument
+microbenchmark::microbenchmark(dhs_surveys(client = client), times = 1)
+```
+
+```
+## Unit: milliseconds
+##                          expr      min       lq     mean   median       uq
+##  dhs_surveys(client = client) 10.46044 10.46044 10.46044 10.46044 10.46044
+##       max neval
+##  10.46044     1
+```
+
+```r
+# without it cached again for comparison
 microbenchmark::microbenchmark(dhs_surveys(),times = 1)
 ```
 
 ```
 ## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 17.54696 17.54696 17.54696 17.54696 17.54696 17.54696     1
-```
-
-```r
-# with it cached it will be returned much quicker
-microbenchmark::microbenchmark(dhs_surveys(), times = 1)
-```
-
-```
-## Unit: milliseconds
-##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 10.17772 10.17772 10.17772 10.17772 10.17772 10.17772     1
+##  dhs_surveys() 10.53788 10.53788 10.53788 10.53788 10.53788 10.53788     1
 ```
 
 
@@ -300,7 +338,7 @@ The function returns a list with a file path to where the downloaded datasets ha
 
 ## 4. Load datasets and associated metadata into R.
 
-We can now examine what it is we have actually downloaded, by reading in one of these datasets:
+We can now examine what it is we have actually downloadsed, by reading in one of these datasets:
 
 
 ```r
@@ -337,18 +375,18 @@ class(cdpr$hv024)
 ```
 
 
-This is the default behaviour for the function `get_datasets` - it will download the datasets for you, and then by default save them in your root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the root directory. You can control this behaviour using the `download_option` argument as such:
+This is the default behaviour for the client function `get_datasets` - it will download the datasets for you, and then by default save them in your client's root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client's root directory. You can control this behaviour using the `download_option` argument as such:
 
 * `client$get_datasets(download_option = "zip")` - Just the downloaded zip will be saved
 * `client$get_datasets(download_option = "rds")` - Just the read in rds will be saved
 * `client$get_datasets(download_option = "both")` - The zip is downloaded and saved as well as the read in rds
 
-The other main reason for reading the dataset in straight away as the default option is that `rdhs` will also create a table of all the survey variables and their labels (definitions) and cached them for you, which then allows us to quickly query for particular search terms or survey variables:
+The other main reason for reading the dataset in straight away as the default option is that the created table of all the survey variables and their definitions is cached then and there, which then allows us to quickly query for particular search terms or survey variables:
 
 
 ```r
 # rapid diagnostic test search
-questions <- search_variable_labels(datasets$FileName, search_terms = "malaria rapid test")
+questions <- client$survey_questions(datasets$FileName, search_terms = "malaria rapid test")
 
 table(questions$dataset_filename)
 ```
@@ -364,7 +402,7 @@ What we see from the questions is that the question "Result of malaria rapid tes
 
 ## 5. Extract variables and combining datasets for pooled multi-survey analyses.
 
-To extract our data we pass our questions object to the function `extract_dhs`, which will create a list with each dataset and its extracted data as a `data.frame`. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
+To extract our data we pass our questions object to the client function `extract`, which will create a list with each dataset and its extracted data as a `data.frame`. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
 
 
 ```
@@ -386,7 +424,7 @@ To extract our data we pass our questions object to the function `extract_dhs`, 
 
 The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a *labelled* class from the [haven package](https://github.com/tidyverse/haven). This class preserves the original semantics and can easily be coerced to factors with `haven::as_factor()`. Special missing values are also preserved. For more info on the *labelled* class have a look at their github.
 
-We can also query our datasets for the survey question variables. In the example above the survey variable label was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `search_variables()`:
+We can also query our datasets for the survey question variables. In the example above the survey question was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `survey_variables()`:
 
 
 ```
@@ -533,7 +571,7 @@ head(better_bound$hml35)
 ```
 
 
-The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the object returned by `get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
+The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
 
 ```
@@ -564,9 +602,9 @@ Lastly, we can now use our extract dataset to carry out some regression analysis
 ```
 
 
-It's a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user. 
+It's a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how thye have grouped the primary sampling units. We are hoping to get this information from the DHfor each survey so we can make this process more streamline again.
 
-And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`hv025`) and fixed effects for each survey.
+And lastly we will construct a logistic regression to investigat the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`v025`) and fixed effects for each survey.
 
 
 ```r
@@ -599,12 +637,12 @@ summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="quasibinomia
 ```
 
 
-What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticidal net (*hml20* that we converted to net) was not significant.  
+What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticial net (*hml20* that we converted to net) was not significant.  
 
 ---
 
 ## Summary and further thoughts
 
-Hopefully the above tutorial has shown how the `rdhs` package can facilitate both querying the DHS API and hopefully make downloading and interacting with the raw datasets a smoother, more reproducible process. It is worth bearing in mind though, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, which is hopefully when the `survey_questions` functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid. 
+Hopefully the above tutorial has shown how the `rdhs` package can facilitate both querying the DHS API and hopefully make downloadeding and interacting with the raw datasets a smoother, more reprodcuable process. It is worth bearing in mind thogh, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, wich is hopefully when the `survey_questions` functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid. 
 
-Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at "o.watson15@imperial.ac.uk". And if there is any further functionality that you think you would be useful, then also let me know. :)
+Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at "o.watson15@imperial.ac.uk". And if there is any further functionality that you think you wouldbe useful, then also let me know. :)
