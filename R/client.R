@@ -573,8 +573,15 @@ R6_client_dhs <- R6::R6Class(
       # get vars from dataset_paths
       if(!is.null(dataset_paths)){
 
-        # message any poor file paths first
+
+        # stop if all poor file paths
         if(any(!file.exists(dataset_paths))){
+          stop("All dataset file paths were not found:\n   ",
+                  paste0(dataset_paths[!file.exists(dataset_paths)],sep="\n   "))
+        }
+
+        # message any poor file paths first
+        if(all(!file.exists(dataset_paths))){
           message("Following dataset file paths were not found:\n   ",
                  paste0(dataset_paths[!file.exists(dataset_paths)],sep="\n   "))
         }
@@ -599,6 +606,13 @@ R6_client_dhs <- R6::R6Class(
 
         # just get the ones that exist
         names_matched <- filenames[match(dataset_filenames,filenames)]
+
+
+        # stop if all poor file names
+        if(all(is.na(names_matched))){
+          stop("All dataset file names are not valid:\n   ",
+                  paste0(dataset_filenames[is.na(names_matched)],sep="\n   "))
+        }
 
         # message any poor file names
         if(any(is.na(names_matched))){

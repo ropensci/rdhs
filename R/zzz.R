@@ -52,18 +52,6 @@ rdhs_reset <- function() {
     # and return now if that errored
     if(is.null(out)) return(invisible(credentials))
 
-    # check the root has a client object there
-    root <- normalizePath(root_path,winslash="/", mustWork = FALSE)
-    if(!file.exists(file.path(root,client_file_name()))){
-
-      packageStartupMessage("Your rdhs root directory (see ?set_dhs_credentials) provided last time",
-                            "does not appear to be here anymore!:\n   -> ",
-                            root,"\n",
-                            "If it has moved location, then reset your root using set_dhs_credentials()")
-
-      return(invisible(root))
-
-    }
 
     # if we have got to this point then hooray and let's get their client and set it in the package environment
     .rdhs$client <- client_dhs(credentials = Sys.getenv(renv_cred_path_name()),
@@ -148,18 +136,6 @@ set_rdhs_ROOT_PATH <- function(path){
   invisible(Sys.getenv(renv_root_path_name()))
 }
 
-
-## preliminary stuff to be deleted at some point
-
-set_rdhs_client_credentials <- function(credentials){
-
-  old <- .rdhs$client$.__enclos_env__$private$credentials_path
-
-  # assign the new user_declared_root
-  .rdhs$client$.__enclos_env__$private$credentials_path <- normalizePath(credentials,winslash="/")
-  invisible(old)
-}
-
 check_client <- function(client){
 
   # if it's null then return early
@@ -180,18 +156,16 @@ check_client <- function(client){
     if(!file.exists(credentials)) return(FALSE)
 
     # and check if it is still valid
-    out <- tryCatch(expr = read_credentials(credentials),
-                    error=function(e) { NULL })
+    out <- tryCatch(expr = read_credentials(credentials),error=function(e) { NULL })
 
     # and return now if that errored
     if(is.null(out)) return(FALSE)
 
     # check the storr database is valid
-    out <- storr:::is_storr(client$.__enclos_env__$private$storr)
+    out <- inherits(client$.__enclos_env__$private$storr,"storr")
 
     # and check if it can be used
-    out <- tryCatch(expr = client$.__enclos_env__$private$storr$set("dummy",value = 1),
-                    error=function(e) { NULL })
+    out <- tryCatch(expr = client$.__enclos_env__$private$storr$set("dummy",value = 1),error=function(e) { NULL })
 
 
     # and return now if that errored
