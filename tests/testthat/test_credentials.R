@@ -116,7 +116,7 @@ test_that("set_dhs_credentials", {
   if(exists("old_renviron")){
   write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
   } else {
-    write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
+    write(x = "",file.path(normalizePath("~"),".Renviron"))
 }
 
   # and put the old client back in place and reset the renvirons if they existed before hand

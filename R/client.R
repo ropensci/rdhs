@@ -64,10 +64,7 @@ client_dhs <- function(credentials=NULL,
 
     }
 
-    # handle credentials last now - this way you can create a client still from a saved one and
-    # then use the client argument credentials_path from that saved one
-    # This shouldn't ever be needed though as there is no real way to get here without providing credentials
-    if(is.null(credentials)) credentials <- client$.__enclos_env__$private$credentials_path
+    # handle credentials now
     handle_credentials(credentials)
 
     return(client)
@@ -77,26 +74,6 @@ client_dhs <- function(credentials=NULL,
 
     # load cached client
     client <- readRDS(file.path(root,client_file_name()))
-
-    # if there were no credentials provided then grab from the client
-    # This shouldn't ever be needed though as there is no real way to get here without providing credentials and will probs delete soon
-    if(is.null(credentials)){
-      credentials <- client$.__enclos_env__$private$credentials_path
-
-      # if this does not exist then throw here, rather than run throught to handle credentials
-      # This way the error message can be a bit more specific and helpful
-      if(!file.exists(credentials)){
-        stop("Your login credentials provided last time are no longer there!\n",
-             "Please recreate your credentials file at the following path:\n   -> ",
-             credentials,"\n",
-             "Alternatively use set_dhs_credentials() to specify a new credentials file.")
-      }
-
-    } else {
-      # otherwise lets set the client's new credentials and save the now changed client
-      client$.__enclos_env__$private$credentials_path <- credentials
-      saveRDS(client,file.path(client$get_root(),client_file_name()))
-    }
 
     # now handle the credentials accordingly
     handle_credentials(credentials)

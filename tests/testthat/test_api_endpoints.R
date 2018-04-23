@@ -173,7 +173,7 @@ test_that("dhs_countries works", {
     testthat::skip_on_cran()
 
     dat <- dhs_tags(indicatorIds = "FE_FRTR_W_TFR", allResults = FALSE)
-    expect_identical(dim(dat)[2],4)
+    expect_equal(dim(dat)[2],4)
     dat <- dhs_tags(countryIds = "SN", allResults = FALSE)
     expect_true(any(dat$TagName %in% "DHS Mobile"))
   })
