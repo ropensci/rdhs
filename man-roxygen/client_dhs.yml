@@ -136,8 +136,8 @@ get_var_labels:
   params:
     dataset_filenames: >-
       Vector of dataset filenames to look up
-    dataset: >-
-      A full read in dataset that has not been reformatted whe declaring \code{client$get_datasets()}
+    dataset_paths: >-
+      Vector of dataset file paths to where datasets have been saved to
   value: >-
       Data frame of survey variable names and definitions
 

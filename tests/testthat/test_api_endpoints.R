@@ -49,72 +49,70 @@ test_that("dhs_countries works", {
 
   testthat::skip_on_cran()
 
-  dat <- dhs_countries(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR",
-                       surveyIds = "SN2010DHS", surveyYear = "2010", allResults = FALSE)
+  dat <- dhs_countries(countryIds = "SN", surveyYearStart = "2010", allResults = FALSE)
+  expect_identical(dat$UNAIDS_CountryCode[1] , "SEN")
   dat <- dhs_countries(countryIds = c("EG","SN"), surveyYearStart = "1991", surveyYearEnd = "2006",
                        surveyType = "DHS", surveyCharacteristicIds = "32")
+  expect_identical(dat$ISO3_CountryCode[1:2],c("EGY","SEN"))
   dat <- dhs_countries(tagIds = "1", allResults = FALSE)
+  expect_true(any(dat$SubregionName %in% "South Asia"))
+
 })
 
   test_that("dhs_data works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_data(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR", allResults = FALSE)
+    dat <- dhs_data(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR", selectSurveys = "latest",allResults = FALSE)
+    expect_true(dat$DataId[1]==42365)
     dat <- dhs_data(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_data(selectSurveys = "latest", allResults = FALSE)
-    dat <- dhs_data(selectSurveys = "byIndicator", indicatorIds = "FE_CEBA_W_CH0",
-                    allResults = FALSE)
-    dat <- dhs_data(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_data(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_data(surveyType = "DHS", allResults = FALSE)
+    expect_true(any(dat$DataId %in% 471035))
+    dat <- dhs_data(selectSurveys = "byIndicator", indicatorIds = "FE_CEBA_W_CH0",surveyCharacteristicIds = "32", allResults = FALSE)
+    expect_true(any(dat$DataId %in% 966))
+    dat <- dhs_data(surveyYear = "2010", surveyType = "DHS", allResults = FALSE)
+    expect_true(any(dat$DataId %in% 2086))
     dat <- dhs_data(surveyCharacteristicIds = "32", allResults = FALSE)
+    expect_true(any(dat$DataId %in% 952))
     dat <- dhs_data(breakdown = "subnational", countryIds = "AZ",
-                    characteristicLabel = "6+", allResults = FALSE)
-  })
+                     allResults = FALSE)
+    expect_true(any(dat$CharacteristicLabel %in% "Baku"))
+    })
 
   test_that("dhs_dataUpdates works", {
 
     testthat::skip_on_cran()
 
     dat <- dhs_dataUpdates(lastUpdate = "20150901", allResults = FALSE)
+    expect_true(any(dat$SurveyId %in% "TL2016DHS"))
     dat <- dhs_dataUpdates(f = "html", allResults = FALSE)
+    expect_true(class(dat)=="response")
   })
 
   test_that("dhs_datasets works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_datasets(countryIds = "EG", allResults = FALSE)
-    dat <- dhs_datasets(selectSurveys = "latest", allResults = FALSE)
-    dat <- dhs_datasets(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_datasets(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_datasets(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_datasets(surveyYearStart = "1991", surveyYearEnd = "2006",
-                        allResults = FALSE)
-    dat <- dhs_datasets(surveyType = "DHS", allResults = FALSE)
-    dat <- dhs_datasets(fileFormat = "stata", allResults = FALSE)
-    dat <- dhs_datasets(fileFormat = "DT", allResults = FALSE)
+    dat <- dhs_datasets(countryIds = "EG",selectSurveys = "latest",
+                        surveyYearStart=2000, surveyYearEnd = 2016,
+                        surveyType = "DHS", allResults = FALSE)
+    expect_true(any(dat$FileName %in% "EGGE42FL.zip"))
     dat <- dhs_datasets(fileType = "KR", allResults = FALSE)
+    expect_true(any(dat$FileType %in% "Children's Recode"))
   })
 
   test_that("dhs_indicators works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_indicators(countryIds = "EG", allResults = FALSE)
-    dat <- dhs_indicators(indicatorIds = "FE_FRTR_W_TFR",
-                          allResults = FALSE)
-    dat <- dhs_indicators(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_indicators(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_indicators(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_indicators(surveyYearStart = "1991", surveyYearEnd = "2006",
-                          allResults = FALSE)
-    dat <- dhs_indicators(surveyType = "DHS", allResults = FALSE)
-    dat <- dhs_indicators(surveyCharacteristicIds = "32",
-                          allResults = FALSE)
-    dat <- dhs_indicators(tagIds = "1", allResults = FALSE)
-    dat <- dhs_indicators(f = "html", allResults = FALSE)
+    dat <- dhs_indicators(countryIds = "EG", allResults = FALSE,indicatorIds = "FE_FRTR_W_TFR")
+    expect_identical(dat$ShortName[1],"TFR 15-49")
+    dat <- dhs_indicators(surveyIds = "SN2010DHS",surveyYearStart = "2006", allResults = FALSE,
+                          surveyYearEnd = "2015")
+    expect_true(any(dat$MeasurementType %in% "Rate"))
+    dat <- dhs_indicators(surveyType = "DHS", surveyCharacteristicIds = "32",
+                          tagIds = "1",allResults = FALSE)
+    expect_true(any(dat$DenominatorWeightedId %in% "FP_CUSM_W_NUM"))
+
   })
 
   test_that("dhs_info works", {
@@ -122,28 +120,24 @@ test_that("dhs_countries works", {
     testthat::skip_on_cran()
 
     dat <- dhs_info(infoType = "version", allResults = FALSE)
+    expect_identical(dat$InfoType,"Version")
     dat <- dhs_info(infoType = "citation", allResults = FALSE)
-    dat <- dhs_info(f = "html", allResults = FALSE)
+    expect_identical(dat$InfoType,"Citation")
   })
 
   test_that("dhs_publications works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_publications(countryIds = "EG", allResults = FALSE)
-    dat <- dhs_publications(selectSurveys = "latest", allResults = FALSE)
-    dat <- dhs_publications(indicatorIds = "FE_FRTR_W_TFR",
+    dat <- dhs_publications(countryIds = "EG", allResults = FALSE,selectSurveys = "latest")
+    expect_true(any(dat$SurveyYear %in% 2015))
+    dat <- dhs_publications(surveyYearStart = "2006", surveyYearEnd = "2016",
                             allResults = FALSE)
-    dat <- dhs_publications(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_publications(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_publications(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_publications(surveyYearStart = "1991", surveyYearEnd = "2006",
-                            allResults = FALSE)
-    dat <- dhs_publications(surveyType = "DHS", allResults = FALSE)
-    dat <- dhs_publications(surveyCharacteristicIds = "32",
-                            allResults = FALSE)
-    dat <- dhs_publications(tagIds = 1, allResults = FALSE)
-    dat <- dhs_publications(f = "html", allResults = FALSE)
+    expect_true(any(dat$PublicationSize %in% 926663))
+    dat <- dhs_publications(surveyType = "DHS", surveyCharacteristicIds = "32",
+                            allResults = FALSE,tagIds = 1)
+    expect_true(any(dat$PublicationTitle %in% "Final Report"))
+
   })
 
   test_that("dhs_surveyCharacteristics works", {
@@ -151,54 +145,37 @@ test_that("dhs_countries works", {
     testthat::skip_on_cran()
 
     dat <- dhs_surveyCharacteristics(countryIds = "EG",
-                                     allResults = FALSE)
-    dat <- dhs_surveyCharacteristics(indicatorIds = "FE_FRTR_W_TFR",
-                                     allResults = FALSE)
-    dat <- dhs_surveyCharacteristics(surveyIds = "SN2010DHS,allResults=FALSE")
-    dat <- dhs_surveyCharacteristics(surveyYear = "2010,allResults=FALSE")
-    dat <- dhs_surveyCharacteristics(surveyYearStart = "2006",
-                                     allResults = FALSE)
-    dat <- dhs_surveyCharacteristics(surveyYearStart = "1991",
-                                     surveyYearEnd = "2006", allResults = FALSE)
-    dat <- dhs_surveyCharacteristics(surveyType = "DHS",
-                                     allResults = FALSE)
-  })
+                                     surveyYearStart=2000, surveyYearEnd = 2016,
+                                     surveyType = "DHS", allResults = FALSE)
+    alc <- which(dat$SurveyCharacteristicID==16)
+    expect_equal(dat$SurveyCharacteristicID[alc],16)
+    expect_equal(dat$SurveyCharacteristicName[alc],"Abortion")
+    dat <- dhs_surveyCharacteristics(surveyYearStart = "1991",surveyType = "DHS")
+    expect_true(any(dat$SurveyCharacteristicName %in% "Abortion"))
+    })
 
   test_that("dhs_surveys works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_surveys(countryIds = "EG", allResults = FALSE)
-    dat <- dhs_surveys(indicatorIds = "FE_FRTR_W_TFR",
-                       allResults = FALSE)
-    dat <- dhs_surveys(selectSurveys = "latest", allResults = FALSE)
-    dat <- dhs_surveys(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_surveys(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_surveys(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_surveys(surveyYearStart = "1991", surveyYearEnd = "2006",
-                       allResults = FALSE)
+    dat <- dhs_surveys(countryIds = "EG",
+                       surveyYearStart=2000, surveyYearEnd = 2016,
+                       surveyType = "DHS", allResults = FALSE)
+    expect_true(any(dat$NumberofHouseholds %in% 16957))
     dat <- dhs_surveys(surveyType = "DHS", allResults = FALSE)
-    dat <- dhs_surveys(surveyStatus = "surveys", allResults = FALSE)
-    dat <- dhs_surveys(surveyStatus = "completed", allResults = FALSE)
-    dat <- dhs_surveys(surveyStatus = "ongoing", allResults = FALSE)
-    dat <- dhs_surveys(surveyStatus = "all", allResults = FALSE)
-    dat <- dhs_surveys(surveyCharacteristicIds = "32",
-                       allResults = FALSE)
-    dat <- dhs_surveys(tagIds = "1", allResults = FALSE)
+    dat <- dhs_surveys(surveyStatus = "Ongoing", allResults = FALSE)
+    expect_identical(dat$SurveyStatus[1],"Ongoing")
+
   })
 
   test_that("dhs_tags works", {
 
     testthat::skip_on_cran()
 
-    dat <- dhs_tags(countryIds = "EG", allResults = FALSE)
     dat <- dhs_tags(indicatorIds = "FE_FRTR_W_TFR", allResults = FALSE)
-    dat <- dhs_tags(surveyIds = "SN2010DHS", allResults = FALSE)
-    dat <- dhs_tags(surveyYear = "2010", allResults = FALSE)
-    dat <- dhs_tags(surveyYearStart = "2006", allResults = FALSE)
-    dat <- dhs_tags(surveyYearStart = "1991", surveyYearEnd = "2006",
-                    allResults = FALSE)
-    dat <- dhs_tags(surveyType = "DHS", allResults = FALSE)
+    expect_equal(dim(dat)[2],4)
+    dat <- dhs_tags(countryIds = "SN", allResults = FALSE)
+    expect_true(any(dat$TagName %in% "DHS Mobile"))
   })
 
   test_that("dhs_uiUpdates works", {
@@ -206,4 +183,5 @@ test_that("dhs_countries works", {
     testthat::skip_on_cran()
 
     dat <- dhs_uiUpdates(lastUpdate = "20150901", allResults = FALSE)
+    expect_true(any(dat$Interface %in% "Surveys"))
   })

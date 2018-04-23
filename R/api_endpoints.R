@@ -1,8 +1,8 @@
 ##' API request of DHS Indicator Data
 ##'
 ##' @title API request of DHS Indicator Data
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicator ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -48,26 +48,26 @@
 ##' dat <- dhs_data(f="geojson", returnGeometry="true",allResults=FALSE)
 ##' }
 
-dhs_data <- function(allResults=TRUE,
-                              client=NULL,
-                              countryIds=NULL,
-                              indicatorIds=NULL,
-                              surveyIds=NULL,
-                              selectSurveys=NULL,
-                              surveyYear=NULL,
-                              surveyYearStart=NULL,
-                              surveyYearEnd=NULL,
-                              surveyType=NULL,
-                              surveyCharacteristicIds=NULL,
-                              characteristicCategory=NULL,
-                              characteristicLabel=NULL,
-                              tagIds=NULL,
-                              breakdown=NULL,
-                              returnGeometry=NULL,
-                              f=NULL,
-                              returnFields=NULL,
-                              perPage=NULL,
-                              page=NULL){
+dhs_data <- function(client=NULL,
+                     allResults=TRUE,
+                     countryIds=NULL,
+                     indicatorIds=NULL,
+                     surveyIds=NULL,
+                     selectSurveys=NULL,
+                     surveyYear=NULL,
+                     surveyYearStart=NULL,
+                     surveyYearEnd=NULL,
+                     surveyType=NULL,
+                     surveyCharacteristicIds=NULL,
+                     characteristicCategory=NULL,
+                     characteristicLabel=NULL,
+                     tagIds=NULL,
+                     breakdown=NULL,
+                     returnGeometry=NULL,
+                     f=NULL,
+                     returnFields=NULL,
+                     perPage=NULL,
+                     page=NULL){
 
   # create query with all provided arguments
   args <- ls() ; query <- lapply(args,function(x) eval(parse(text = x))) ; names(query) <- args
@@ -85,8 +85,8 @@ dhs_data <- function(allResults=TRUE,
 ##' API request of DHS Indicators
 ##'
 ##' @title API request of DHS Indicators
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -119,8 +119,8 @@ dhs_data <- function(allResults=TRUE,
 ##' dat <- dhs_indicators(f="html",allResults=FALSE)
 ##' }
 
-dhs_indicators <- function(allResults=TRUE,
-                           client=NULL,
+dhs_indicators <- function(client=NULL,
+                           allResults=TRUE,
                            countryIds=NULL,
                            indicatorIds=NULL,
                            surveyIds=NULL,
@@ -151,8 +151,8 @@ dhs_indicators <- function(allResults=TRUE,
 ##' API request of DHS UI Updates
 ##'
 ##' @title API request of DHS UI Updates
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param lastUpdate Specify a date or Unix time to filter the updates by. Only results for interfaces that has been updated on or after the sepcified date will be returned.
 ##' @param f You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.
 ##' @param returnFields Specify a list of attributes to be returned.
@@ -169,8 +169,8 @@ dhs_indicators <- function(allResults=TRUE,
 ##' dat <- dhs_uiUpdates(f="html",allResults=FALSE)
 ##' }
 
-dhs_uiUpdates <- function(allResults=TRUE,
-                          client=NULL,
+dhs_uiUpdates <- function(client=NULL,
+                          allResults=TRUE,
                           lastUpdate=NULL,
                           f=NULL,
                           returnFields=NULL,
@@ -193,8 +193,8 @@ dhs_uiUpdates <- function(allResults=TRUE,
 ##' API request of DHS Info
 ##'
 ##' @title API request of DHS Info
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param infoType Specify a type of info to obtain the information requested. Default is version. infoType=version (default) Provides the version of the API. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version infoType=citation Provides the citation for the API to include with your application or data. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation
 ##' @param f You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.
 ##' @param returnFields Specify a list of attributes to be returned.
@@ -212,8 +212,8 @@ dhs_uiUpdates <- function(allResults=TRUE,
 ##' dat <- dhs_info(f="html",allResults=FALSE)
 ##' }
 
-dhs_info <- function(allResults=TRUE,
-                     client=NULL,
+dhs_info <- function(client=NULL,
+                     allResults=TRUE,
                      infoType=NULL,
                      f=NULL,
                      returnFields=NULL,
@@ -236,8 +236,8 @@ dhs_info <- function(allResults=TRUE,
 ##' API request of DHS Countries
 ##'
 ##' @title API request of DHS Countries
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -270,8 +270,8 @@ dhs_info <- function(allResults=TRUE,
 ##' dat <- dhs_countries(f="html",allResults=FALSE)
 ##' }
 
-dhs_countries <- function(allResults=TRUE,
-                          client=NULL,
+dhs_countries <- function(client=NULL,
+                          allResults=TRUE,
                           countryIds=NULL,
                           indicatorIds=NULL,
                           surveyIds=NULL,
@@ -302,8 +302,8 @@ dhs_countries <- function(allResults=TRUE,
 ##' API request of DHS Surveys
 ##'
 ##' @title API request of DHS Surveys
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param selectSurveys Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.
@@ -312,7 +312,7 @@ dhs_countries <- function(allResults=TRUE,
 ##' @param surveyYearStart Specify a range of Survey Years to filter Surveys on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.
 ##' @param surveyYearEnd Specify a range of Survey Years to filter Surveys on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.
 ##' @param surveyType Specify a survey type to filter by.
-##' @param surveyStatus Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.
+##' @param surveyStatus Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="Completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="Ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.
 ##' @param surveyCharacteristicIds Specify a survey characteristic id to filter surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
 ##' @param tagIds Specify a tag id to filter surveys containing indicators with the specified tag. For a list of tags use \code{dhs_tags()}
 ##' @param f You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.
@@ -334,17 +334,17 @@ dhs_countries <- function(allResults=TRUE,
 ##' dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
 ##' dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 ##' dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="surveys",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="completed",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="ongoing",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="all",allResults=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Surveys",allResults=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Completed",allResults=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Ongoing",allResults=FALSE)
+##' dat <- dhs_surveys(surveyStatus="All",allResults=FALSE)
 ##' dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
 ##' dat <- dhs_surveys(tagIds="1",allResults=FALSE)
 ##' dat <- dhs_surveys(f="html",allResults=FALSE)
 ##' }
 
-dhs_surveys <- function(allResults=TRUE,
-                        client=NULL,
+dhs_surveys <- function(client=NULL,
+                        allResults=TRUE,
                         countryIds=NULL,
                         indicatorIds=NULL,
                         selectSurveys=NULL,
@@ -377,8 +377,8 @@ dhs_surveys <- function(allResults=TRUE,
 ##' API request of DHS Survey Characteristics
 ##'
 ##' @title API request of DHS Survey Characteristics
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -407,8 +407,8 @@ dhs_surveys <- function(allResults=TRUE,
 ##' dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
 ##' }
 
-dhs_surveyCharacteristics <- function(allResults=TRUE,
-                                      client=NULL,
+dhs_surveyCharacteristics <- function(client=NULL,
+                                      allResults=TRUE,
                                       countryIds=NULL,
                                       indicatorIds=NULL,
                                       surveyIds=NULL,
@@ -437,8 +437,8 @@ dhs_surveyCharacteristics <- function(allResults=TRUE,
 ##' API request of DHS Publications
 ##'
 ##' @title API request of DHS Publications
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param selectSurveys Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
@@ -473,8 +473,8 @@ dhs_surveyCharacteristics <- function(allResults=TRUE,
 ##' dat <- dhs_publications(f="html",allResults=FALSE)
 ##' }
 
-dhs_publications <- function(allResults=TRUE,
-                             client=NULL,
+dhs_publications <- function(client=NULL,
+                             allResults=TRUE,
                              countryIds=NULL,
                              selectSurveys=NULL,
                              indicatorIds=NULL,
@@ -506,8 +506,8 @@ dhs_publications <- function(allResults=TRUE,
 ##' API request of DHS Datasets
 ##'
 ##' @title API request of DHS Datasets
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param selectSurveys Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -541,8 +541,8 @@ dhs_publications <- function(allResults=TRUE,
 ##' dat <- dhs_datasets(f="geojson",allResults=FALSE)
 ##' }
 
-dhs_datasets <- function(allResults=TRUE,
-                         client=NULL,
+dhs_datasets <- function(client=NULL,
+                         allResults=TRUE,
                          countryIds=NULL,
                          selectSurveys=NULL,
                          surveyIds=NULL,
@@ -573,8 +573,8 @@ dhs_datasets <- function(allResults=TRUE,
 ##' API request of DHS Geometry
 ##'
 ##' @title API request of DHS Geometry
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
 ##' @param surveyYear Specify a comma separated list of survey years to filter by.
@@ -602,8 +602,8 @@ dhs_datasets <- function(allResults=TRUE,
 ##' }
 
 
-dhs_geometry <- function(allResults=TRUE,
-                         client=NULL,
+dhs_geometry <- function(client=NULL,
+                         allResults=TRUE,
                          countryIds=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
@@ -630,8 +630,8 @@ dhs_geometry <- function(allResults=TRUE,
 ##' API request of DHS Tags
 ##'
 ##' @title API request of DHS Tags
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
 ##' @param indicatorIds Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}
 ##' @param surveyIds Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}
@@ -660,8 +660,8 @@ dhs_geometry <- function(allResults=TRUE,
 ##' dat <- dhs_tags(f="html",allResults=FALSE)
 ##' }
 
-dhs_tags <- function(allResults=TRUE,
-                     client=NULL,
+dhs_tags <- function(client=NULL,
+                     allResults=TRUE,
                      countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
@@ -690,8 +690,8 @@ dhs_tags <- function(allResults=TRUE,
 ##' API request of DHS Data Updates
 ##'
 ##' @title API request of DHS Data Updates
-##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param client If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}
+##' @param allResults Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.
 ##' @param lastUpdate Specify a date or Unix time to filter the updates by. Only results for data that have been updated on or after the specified date will be returned.
 ##' @param f You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.
 ##' @param returnFields Specify a list of attributes to be returned.
@@ -708,8 +708,8 @@ dhs_tags <- function(allResults=TRUE,
 ##' dat <- dhs_dataUpdates(f="html",allResults=FALSE)
 ##' }
 
-dhs_dataUpdates <- function(allResults=TRUE,
-                            client=NULL,
+dhs_dataUpdates <- function(client=NULL,
+                            allResults=TRUE,
                             lastUpdate=NULL,
                             f=NULL,
                             returnFields=NULL,

@@ -1,15 +1,25 @@
-language: r
-
+language: R
 cache: packages
 
 r_packages:
-  - covr
+- covr
+- sodium
+
 addons:
   apt:
+    sources:
+      - sourceline: 'ppa:chris-lea/libsodium'
     packages:
-    - libgdal-dev
-    - libproj-dev
-    - gdal-bin
+      - libsodium-dev
+      - libssl-dev
+      - libgdal-dev
+      - libproj-dev
+      - gdal-bin
+
+before_script:
+- Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"credentials.tar") ; unzip("credentials.tar")'
+
 
 after_success:
 - Rscript -e 'covr::codecov()'
+

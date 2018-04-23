@@ -54,7 +54,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
       </span>
     </div>
 
@@ -84,6 +84,12 @@
     </li>
     <li>
       <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
+    </li>
+    <li>
+      <a href="../articles/client.html">How to use the client</a>
+    </li>
+    <li>
+      <a href="../articles/toolkit.html">Installation</a>
     </li>
   </ul>
 </li>
@@ -115,6 +121,21 @@
       
     </div>
 
+    <div id="rdhs-0-2-1-900" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rdhs-0-2-1-900" class="anchor"></a>rdhs 0.2.1.900</h2>
+<ul>
+<li><p>Change to the UI - end user interaction is now through normal functions, as opposed to <code>client_dhs</code> methods</p></li>
+<li><p>These are faciliated through the package internal environment, which means you know call <code><a href="../reference/set_dhs_credentials.html">set_dhs_credentials()</a></code> once with your credentials and the package handles everything else in the backend.</p></li>
+</ul>
+</div>
+    <div id="rdhs-0-2-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rdhs-0-2-1" class="anchor"></a>rdhs 0.2.1</h2>
+<ul>
+<li>Patch to authenticate_dhs. failed to connect before if project names were very short. Fixed in 7e4ef81.</li>
+</ul>
+</div>
     <div id="rdhs-0-2-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-2-0" class="anchor"></a>rdhs 0.2.0</h2>
@@ -138,6 +159,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#rdhs-0-2-1-900">0.2.1.900</a></li>
+        <li><a href="#rdhs-0-2-1">0.2.1</a></li>
         <li><a href="#rdhs-0-2-0">0.2.0</a></li>
         <li><a href="#rdhs-0-1-0">0.1.0</a></li>
       </ul>

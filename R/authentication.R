@@ -101,7 +101,8 @@ available_datasets <- function(your_email, your_password, your_project,
   # pull all links download and read in
   url_link <- paste0("https://dhsprogram.com",grep(pattern = "/data/download/urlslist",
                                                    xml2::xml_attr(link.urls,"href"),value = TRUE))
-  httr::GET(url_link , destfile = tf, httr::write_disk( tf , overwrite = TRUE ))
+  httr::GET(url_link , httr::user_agent("https://github.com/OJWatson/rdhs"),
+            destfile = tf, httr::write_disk( tf , overwrite = TRUE ))
   urls <- readLines(tf)
   urls <- urls[-which(!nzchar(urls))]
 
@@ -229,6 +230,7 @@ download_datasets <- function(desired_dataset,
 
   # download zip to our tempfile
   resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,
+                    httr::user_agent("https://github.com/OJWatson/rdhs"),
                     httr::write_disk( tf , overwrite = TRUE ),
                     httr::progress()) %>% handle_api_response(to_json=FALSE)
 

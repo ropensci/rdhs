@@ -21,10 +21,23 @@ reference:
       - dhs_tags
       - dhs_uiUpdates
 
-  - title: "Client"
-    desc: "Create a rdhs client for downloading datasets, querying survey variables and extracting data."
+  - title: "Set up DHS login credentials"
+    desc: >
+      "Set our credentials for logging into the DHS website. This creates in the backend a rdhs client for
+      downloading datasets, querying survey variables and extracting data."
     contents:
+      - set_dhs_credentials
       - client_dhs
+
+  - title: "User Interface"
+    desc: "Functions to download, search and interact with downloaded datasets"
+    contents:
+      - extract_dhs
+      - get_available_datasets
+      - get_datasets
+      - get_downloaded_datasets
+      - search_variables
+      - search_variable_labels
 
   - title: "Downstream Dataset Helper Functions"
     desc: Tools to help combine extracted datasets, as well as extract and apend dataset variable names and definitions
@@ -57,6 +70,10 @@ navbar:
         href: articles/introduction.html
       - text: An example use case looking at trends in anemia
         href: articles/anemia.html
+      - text: How to use the client
+        href: articles/client.html
+      - text: Installation
+        href: articles/toolkit.html
     - text: News
       href: news/index.html
   right:

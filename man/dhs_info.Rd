@@ -4,13 +4,13 @@
 \alias{dhs_info}
 \title{API request of DHS Info}
 \usage{
-dhs_info(allResults = TRUE, client = NULL, infoType = NULL, f = NULL,
+dhs_info(client = NULL, allResults = TRUE, infoType = NULL, f = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
-
 \item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+
+\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
 
 \item{infoType}{Specify a type of info to obtain the information requested. Default is version. infoType=version (default) Provides the version of the API. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version infoType=citation Provides the citation for the API to include with your application or data. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation}
 

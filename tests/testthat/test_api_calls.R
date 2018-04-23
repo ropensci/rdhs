@@ -21,6 +21,9 @@ test_that("can request api through dhs_api_request via client", {
   # remake call to test cache
   req <- cli$dhs_api_request(api_endpoint = "surveys",query = list("indicatorIds"="ML_AMLD_C_QNN"))
 
+  # test more than id
+  req <- cli$dhs_api_request(api_endpoint = "surveys",query = list("indicatorIds"=c("ML_AMLD_C_QNN","FE_FRTR_W_A20")))
+
   # test the error catch for wrong endpoint
   expect_error(cli$dhs_api_request(api_endpoint = "blargh",query = list("breakdowAndCry"="subartyping")))
 

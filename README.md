@@ -24,20 +24,28 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 Installation
 ------------
 
-Install `rdhs` from github with `devtools`:
+Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ojwatson.github.io/rdhs/articles/toolkit.html)
 
 ``` r
 # install.packages("devtools")
 # devtools::install_github("OJWatson/rdhs")
 library(rdhs)
+#> 
+#> Welcome back :) 
+#> -------------------------
+#> rdhs will be using the login credentials you set last time, which it will read from:
+#>    -> C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/credentials
+#> It will also save any datasets you download inside this directory:
+#>    -> C:/Users/Oliver/Documents/Downloads/rdhs_cache
+#> If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()
 ```
 
 Getting started
 ---------------
 
--   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
-
 -   Full functionality is described in the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
+
+-   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
 
 Basic Functionality
 -------------------
@@ -86,7 +94,7 @@ ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), surveyYearStart = 2013)
 ```
 
-Lastly, identify the datasets required for download. By default, the recommended option is to download the flat file (.dat) datasets. The household member recode (`PR`) reports the RDT status for children under five.
+Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
 
 ``` r
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
@@ -110,33 +118,43 @@ str(datasets)
 
 ### Download datasets
 
-A DHS `client` will be used to log in to your DHS account, download datasets, and help query datasets for survey variables of interest. Create the client using the `client_dhs()` function. Establishing the client requires login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See introduction vignette for specific format for credentials).
+To download datasets we need to first log in to our DHS account using `set_dhs_credentials()`. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials).
 
 ``` r
-## create a client
-client <- client_dhs(credentials = "credentials", root="~/Downloads/rdhs_cache")
+## login
+set_dhs_credentials(credentials = "credentials", root="~/Downloads/rdhs_cache")
 ```
 
-Note that the client can be provided as an argument to any of the API functions used above. This will cache the results of the API request, such that previous API requests (e.g. survey metadata) can be returned when working remotely or with poor internet connection.
+The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.
 
 ``` r
-# before it's cached, provide the client so the results is cached within our client
-s <- dhs_surveys(client = client)
+# the first time this will take a few seconds 
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1992),times = 1)
+#> Unit: seconds
+#>                                  expr      min       lq     mean   median
+#>  dhs_datasets(surveyYearStart = 1992) 3.881243 3.881243 3.881243 3.881243
+#>        uq      max neval
+#>  3.881243 3.881243     1
 
 # after caching, results will be available instantly
-s <- dhs_surveys(client = client)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1992),times = 1)
+#> Unit: milliseconds
+#>                                  expr      min       lq     mean   median
+#>  dhs_datasets(surveyYearStart = 1992) 7.017479 7.017479 7.017479 7.017479
+#>        uq      max neval
+#>  7.017479 7.017479     1
 ```
 
-Download datasets by providing a list of desired dataset filenames.
+Now download datasets by providing a list of desired dataset filenames.
 
 ``` r
 # download datasets
-downloads <- client$get_datasets(datasets$FileName)
+downloads <- get_datasets(datasets$FileName)
 
 str(downloads)
 #> List of 2
-#>  $ CDPR61FL: chr "~/Downloads/rdhs_cache/datasets/CDPR61FL.rds"
-#>  $ TZPR7HFL: chr "~/Downloads/rdhs_cache/datasets/TZPR7HFL.rds"
+#>  $ CDPR61FL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/CDPR61FL.rds"
+#>  $ TZPR7HFL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/TZPR7HFL.rds"
 #>  - attr(*, "reformat")= logi FALSE
 ```
 
@@ -157,17 +175,15 @@ The client also caches all variable labels to quickly query variables in each su
 
 ``` r
 # rapid diagnostic test search
-vars <- client$survey_questions(datasets$FileName, search_terms = "malaria rapid test")
+vars <- search_variable_labels(datasets$FileName, search_terms = "malaria rapid test")
 ```
 
 Then extract these variables from the datasets. Optionally, geographic data may be added.
 
 ``` r
 # and now extract the data
-extract <- client$extract(vars, add_geo = TRUE)
+extract <- extract_dhs(vars, add_geo = FALSE)
 #> Starting Survey 1 out of 2 surveys:CDPR61FL
-#> Loading required package: sp
-#> Warning: package 'sp' was built under R version 3.4.3
 #> Starting Survey 2 out of 2 surveys:TZPR7HFL
 ```
 
@@ -177,10 +193,10 @@ Dataset extracts can alternate be specified by providing a vector of surveys and
 
 ``` r
 # and grab the questions from this now utilising the survey variables
-vars <- client$survey_variables(datasets$FileName, variables = c("hv024","hml35"))
+vars <- search_variables(datasets$FileName, variables = c("hv024","hml35"))
 
 # and now extract the data
-extract2 <- client$extract(vars, add_geo = TRUE)
+extract <- extract_dhs(vars, add_geo = FALSE)
 #> Starting Survey 1 out of 2 surveys:CDPR61FL
 #> Starting Survey 2 out of 2 surveys:TZPR7HFL
 ```
@@ -189,7 +205,7 @@ Finally, the two datasets are pooled using the function `rbind_labelled()`. This
 
 ``` r
 # now let's try our second extraction
-extract2_bound <- rbind_labelled(extract2,
+extract <- rbind_labelled(extract,
                                  labels = list("hv024" = "concatenate",
                                                "hml35" = c("NegativeTest"=0, "PositiveTest"=1)))
 ```
@@ -198,30 +214,24 @@ There is also an option to process downloaded datasets with labelled variables c
 
 ``` r
 # identify questions but specifying the reformat argument
-questions <- client$survey_variables(datasets$FileName, variables = c("hv024", "hml35"),
+questions <- search_variables(datasets$FileName, variables = c("hv024", "hml35"),
                                      reformat=TRUE)
 
 # and now extract the data
-extract3 <- client$extract(questions, add_geo = TRUE)
+extract <- extract_dhs(questions, add_geo = FALSE)
 #> Starting Survey 1 out of 2 surveys:CDPR61FL
 #> Starting Survey 2 out of 2 surveys:TZPR7HFL
 
 # group our results
-extract3_bound <- rbind_labelled(extract3)
+extract <- rbind_labelled(extract)
 
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
-str(extract3_bound)
-#> 'data.frame':    160829 obs. of  9 variables:
+str(extract)
+#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:
 #>  $ hv024   : atomic  equateur equateur equateur equateur ...
 #>   ..- attr(*, "label")= chr "Province"
 #>  $ hml35   : atomic  NA NA NA NA ...
 #>   ..- attr(*, "label")= chr "Result of malaria rapid test"
-#>  $ CLUSTER : atomic  1 1 1 1 1 1 1 1 1 1 ...
-#>   ..- attr(*, "label")= chr "Cluster number"
-#>  $ ALT_DEM : int  407 407 407 407 407 407 407 407 407 407 ...
-#>  $ LATNUM  : num  0.22 0.22 0.22 0.22 0.22 ...
-#>  $ LONGNUM : num  21.8 21.8 21.8 21.8 21.8 ...
-#>  $ ADM1NAME: chr  "Tshuapa" "Tshuapa" "Tshuapa" "Tshuapa" ...
-#>  $ DHSREGNA: chr  "Equateur" "Equateur" "Equateur" "Equateur" ...
+#>  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
 #>  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...
 ```

@@ -1,0 +1,9 @@
+*.R
+credentials
+credentials_file
+rdhs_cache
+rdhs_vignette_client_root
+rdhs_files
+*.cache
+*.html
+introduction_cache

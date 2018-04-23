@@ -161,7 +161,7 @@ Make a DHS API client
   Function to extract datasets using a set of survey questions as taken from the output from \code{survey_questions}
 
   \emph{Usage:}
-  \code{extract(questions, add_geo = TRUE)}
+  \code{extract(questions, add_geo = FALSE)}
 
   \emph{Arguments:}
   \itemize{
@@ -176,14 +176,14 @@ Make a DHS API client
   Returns information about a dataset's survey variables and definitions.
 
   \emph{Usage:}
-  \code{get_var_labels(dataset_filenames = NULL, dataset = NULL)}
+  \code{get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)}
 
   \emph{Arguments:}
   \itemize{
     \item{\code{dataset_filenames}:   Vector of dataset filenames to look up
     }
 
-    \item{\code{dataset}:   A full read in dataset that has not been reformatted whe declaring \code{client$get_datasets()}
+    \item{\code{dataset_paths}:   Vector of dataset file paths to where datasets have been saved to
     }
   }
 

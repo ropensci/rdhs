@@ -24,6 +24,9 @@ handle_api_request <- function(endpoint, query, allResults, client){
   query <- query_creation(query)
   if(is.null(query$f)) query$f <- "json"
 
+  # if no client was provided we'll look for the package environment client by default
+  client <- if(!check_client(.rdhs$client)) NULL else .rdhs$client
+
   # if there is no client then make request
   if(is.null(client)){
 
@@ -115,7 +118,8 @@ api_request <- function(endpoint, query, allResults, client){
 
         # Create new request and parse this
         url <- httr::modify_url(endpoint,query = query)
-        resp <- httr::GET(url,httr::accept_json(),encode = "json")
+        resp <- httr::GET(url,httr::user_agent("https://github.com/OJWatson/rdhs"),
+                          httr::accept_json(),encode = "json")
         parsed_resp <- handle_api_response(resp,TRUE)
 
         # if this larger page query has returned all the results then return this else we will loop through
@@ -130,7 +134,8 @@ api_request <- function(endpoint, query, allResults, client){
           for(i in 2:length(parsed_resp)){
             query$page <- i
             url <- httr::modify_url(endpoint,query = query)
-            resp <- httr::GET(url,httr::accept_json(),encode = "json")
+            resp <- httr::GET(url,httr::user_agent("https://github.com/OJWatson/rdhs"),
+                              httr::accept_json(),encode = "json")
             temp_parsed_resp <- handle_api_response(resp,TRUE)
             parsed_resp[[i]] <- temp_parsed_resp
           }

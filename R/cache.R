@@ -1,7 +1,7 @@
 #' Pull last DHS API database update time
 last_api_update <- function(){
 
-  updates <- rdhs::dhs_dataUpdates()
+  updates <- dhs_dataUpdates()
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
     max
@@ -45,8 +45,13 @@ client_cache_date <- function(root){
 ## CACHE (overly DRY) functions for constants
 ## -------------------------------------------------------------------
 
-#' file name for where client is saved between sessions
+# file name for where client is saved between sessions
 client_file_name <- function() "client_dhs.rds"
 
+# renv variable name for the credentials path
+renv_cred_path_name <- function() "rdhs_CREDENTIALS_PATH"
+
+# renv variable name for the root path
+renv_root_path_name <- function() "rdhs_ROOT_PATH"
 
 

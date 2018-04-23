@@ -7,7 +7,8 @@
 data_and_labels(dataset)
 }
 \arguments{
-\item{dataset}{Any read in dataset created by \code{get_datasets}}
+\item{dataset}{Any read in dataset created by \code{get_datasets}, either as the file path or after having
+been read using \code{readRDS}}
 }
 \description{
 Function to give the former output of get_datasets as it can be nice to have both the

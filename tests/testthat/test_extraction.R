@@ -28,7 +28,7 @@ test_that("query codes having downloaded surveys", {
   quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever","malaria","test"))
 
   # check the regeex option
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever|test"))
+  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",regex = c("fever|test"))
 
   # check the essetial temrs option
   quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP",search_terms = c("fever|test"),essential_terms = "malaria")
@@ -57,8 +57,10 @@ test_that("query codes having downloaded surveys", {
   r <- readRDS(downloads$ZWHR31SV)
   r <- data_and_labels(r)
 
-  # create questions
+  # create questions for a regex and non
+  quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",regex = c("Has refrigerator","fever"))
   quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP",search_terms = c("Has refrigerator"))
+
 
   # extract the data
   extract <- cli$extract(quest,add_geo = T)
@@ -117,5 +119,20 @@ test_that("rbind_labelled", {
   extract <- cli$extract(quest,add_geo = FALSE)
   dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
   expect_warning(rbind_labelled(extract))
+
+
+  # now let's force it to look out for factors and reformats
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP","BJBR41FL.ZIP"),variables = c("v024","v130"), reformat = TRUE)
+  extract <- cli$extract(quest,add_geo = FALSE)
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+
+  # now for factors
+  extract$AOBR62FL$v024 <- as.factor(extract$AOBR62FL$v024)
+  extract$BJBR41FL$v024 <- as.factor(extract$BJBR41FL$v024)
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+
+  expect_equal(as.numeric(sort(table(dat$v024))),
+               as.numeric(sort(c(table(extract$AOBR62FL$v024),table(extract$BJBR41FL$v024)))))
+
   })
 

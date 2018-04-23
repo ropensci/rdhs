@@ -21,7 +21,7 @@ read_dhs_dataset <- function(file, dataset,
 
   # if there is no match it is probably because it is a geographic file
   if(!format_match & dataset$FileType %in% c("Geographic Data", "Geospatial Covariates")){
-  file_match <- 5
+    file_match <- 5
   } else if(format_match) {
     file_match <- which(tolower(file_types)==tolower(format_expected))
   } else {
@@ -159,6 +159,8 @@ factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
 
   }
 
+  class(res) <- c(class(res),"dhs_dataset")
+
   return(list("dataset"=res, "variable_names"=description_table))
 }
 
@@ -169,8 +171,8 @@ factor_format <- function(res,reformat=FALSE,all_lower=TRUE){
 #' @param data A \code{data.frame} from which to extract variable labels.
 #' @param return_all Logical whether to return all variables (\code{TRUE}) or only those with labels.
 #' @return A \code{data.frame} consisting of the variable name and labels.
-#' @export
-get_var_labels <- function(data, return_all=TRUE) {
+#'
+get_labels_from_dataset <- function(data, return_all=TRUE) {
 
   # what kind of dataset is it we are working with
   if(is.element("label.table",attributes(data) %>% names)) {
@@ -205,15 +207,25 @@ get_var_labels <- function(data, return_all=TRUE) {
 
 }
 
+
 #' Create list of dataset and its variable names
 #'
 #' Function to give the former output of get_datasets as it can be nice to have both the
 #' definitions and the dataset attached together
 #'
-#' @param dataset Any read in dataset created by \code{get_datasets}
+#' @param dataset Any read in dataset created by \code{get_datasets}, either as the file path or after having
+#' been read using \code{readRDS}
 #' @export
 data_and_labels <- function(dataset){
 
+  if(class(dataset)[1]=="character"){
+    if(file.exists(dataset)){
+      dataset <- readRDS(dataset)
+    } else {
+      stop("Invalid dataset argument. Must be a character string to where a dataset has been saved, or a read in dataset.",
+           "See ?data_and_labels for more inforation")
+    }
+  }
   variable_names <- get_var_labels(dataset)
   res <- list("dataset"=dataset,"variable_names"=variable_names)
 
@@ -252,12 +264,12 @@ create_new_filenames <- function(data){
 }
 
 # NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
-read_zipdta <- function(zfile, ...){
-  read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
-}
+# read_zipdta <- function(zfile, ...){
+#   read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
+# }
 
 # NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
-find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
-  map <- read_zipdata(zfile, pattern, readLines, TRUE)
-  as.logical(length(grep(str, map, ignore.case)))
-}
+# find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
+#   map <- read_zipdata(zfile, pattern, readLines, TRUE)
+#   as.logical(length(grep(str, map, ignore.case)))
+# }
