@@ -75,15 +75,16 @@ client_dhs <- function(credentials=NULL,
     # load cached client
     client <- readRDS(file.path(root,client_file_name()))
 
-    # now handle the credentials accordingly
-    handle_credentials(credentials)
-
-    # check client against rdhs pacakge version
-    # so that the R6 functions definitely work with any future pacakge version
+    # spit out a message to say if the client is being updated from  aprevious rdhs version
     if(packageVersion("rdhs")!=client$.__enclos_env__$private$package_version){
       message("New version of rdhs detected. Your saved client will be updated.")
-      client <- R6_client_dhs$new(api_key,root,credentials)
     }
+
+    # create client in the location rather than readRDS so that we are usingnew credentials etc
+    client <- R6_client_dhs$new(api_key,root,credentials)
+
+    # now handle the credentials accordingly
+    handle_credentials(credentials)
 
     return(client)
 

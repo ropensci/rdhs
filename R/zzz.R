@@ -160,8 +160,43 @@ set_rdhs_client_credentials <- function(credentials){
   invisible(old)
 }
 
-set_test <- function(value){
-  old <- .rdhs$test
-  .rdhs$test <- value
-  invisible(old)
+check_client <- function(client){
+
+  # if it's null then return early
+  if(is.null(client)) return(FALSE)
+
+  # and if this is somehow not a client object we know return FALSE
+  if(!identical(class(client),c("client_dhs","R6"))) return(FALSE)
+
+  cred_path <- client$.__enclos_env__$private$credentials_path
+  root_path <- client$get_root()
+
+  # check for a client here
+  if(root_path == "" | cred_path == "") return(FALSE)
+
+    # check the credentials file we have for them is still valid
+    credentials <- normalizePath(cred_path,winslash="/", mustWork = FALSE)
+
+    if(!file.exists(credentials)) return(FALSE)
+
+    # and check if it is still valid
+    out <- tryCatch(expr = read_credentials(credentials),
+                    error=function(e) { NULL })
+
+    # and return now if that errored
+    if(is.null(out)) return(FALSE)
+
+    # check the storr database is valid
+    out <- storr:::is_storr(client$.__enclos_env__$private$storr)
+
+    # and check if it can be used
+    out <- tryCatch(expr = client$.__enclos_env__$private$storr$set("dummy",value = 1),
+                    error=function(e) { NULL })
+
+
+    # and return now if that errored
+    if(is.null(out)) return(FALSE)
+
+    ## if we have got this far it's probably good
+    return(TRUE)
 }

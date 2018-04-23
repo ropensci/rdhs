@@ -49,3 +49,14 @@ restore_current_envs <- function(old_env){
   Sys.setenv("rdhs_USER_PROJECT"=old_env[3])
 
 }
+
+create_correct_credentials <- function(filename){
+
+  envs <- save_current_envs()
+
+  #  make a credentials object
+  write(paste0("email=",envs[1],"\npassword=",envs[2],"\nproject=",envs[3]),
+        file = filename)
+  out <- set_dhs_credentials(credentials=filename)
+
+}
