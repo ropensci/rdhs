@@ -2,28 +2,17 @@
 % Please edit documentation in R/ui.R
 \name{get_downloaded_datasets}
 \alias{get_downloaded_datasets}
-\alias{get_downloaded_datasets}
-\title{Get Variable Labels}
+\title{Get Downloaded Datasets}
 \usage{
-get_downloaded_datasets()
-
 get_downloaded_datasets()
 }
 \value{
 Data.frame of downlaoded datasets
-
-Data.frame of downlaoded datasets
 }
 \description{
-Returns a data.frame of
-
 Detail the datasets that you have already downloaded
 }
 \details{
-Returns a \code{data.frame} of the datasets that have been downloaded within this client.
-  This could be useful if you are without an interent connection and wish to know which saved
-  dataset files in your root diretory correspond to which dataset
-
 Returns a \code{data.frame} of the datasets that have been downloaded within this client.
   This could be useful if you are without an interent connection and wish to know which saved
   dataset files in your root diretory correspond to which dataset

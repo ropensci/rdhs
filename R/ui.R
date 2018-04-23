@@ -1,6 +1,7 @@
 # check to see if the package client exists and is le
 check_for_client <- function(){
   if(is.null(.rdhs$client)) stop("Please set up your DHS credentials first using set_dhs_credentials()")
+  return(invisible(TRUE))
 }
 
 #' Get Datasets
@@ -51,28 +52,6 @@ get_datasets <- function(dataset_filenames,
                             all_lower=all_lower,
                             output_dir_root=output_dir_root,
                             ...)
-}
-
-
-#' Get Variable Labels
-#'
-#' Returns a data.frame of
-#'
-#' @rdname get_downloaded_datasets
-#'
-#' @details Returns a \code{data.frame} of the datasets that have been downloaded within this client.
-#'   This could be useful if you are without an interent connection and wish to know which saved
-#'   dataset files in your root diretory correspond to which dataset
-#'
-#' @return Data.frame of downlaoded datasets
-#' @export
-#'
-
-get_downloaded_datasets <- function() {
-
-  check_for_client()
-  .rdhs$client$get_downloaded_datasets()
-
 }
 
 
@@ -259,7 +238,7 @@ get_var_labels <- function(dataset, return_all=TRUE) {
     if(any(file.exists(dataset))){
       res <-  .rdhs$client$get_var_labels(dataset_paths = dataset[file.exists(dataset)])
     } else {
-      res <-  .rdhs$client$get_var_labels(dataset_filenames = dataset[file.exists(dataset)])
+      res <-  .rdhs$client$get_var_labels(dataset_filenames = dataset)
     }
 
   } else if (class(dataset)[1]=="SpatialPointsDataFrame"){
@@ -267,7 +246,7 @@ get_var_labels <- function(dataset, return_all=TRUE) {
          " https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf ")
   }
 
-  return(res)
+
 
 }
 
