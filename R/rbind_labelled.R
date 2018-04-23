@@ -74,6 +74,8 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
     type <- "labelled"
   } else if(any(lapply(dfs[[1]],attributes) %>% lapply(names) %>% unlist == "label")){
     type <- "reformat"
+  } else {
+    type <- "reformat"
   }
 
   # if the data has names let's grab that and append it later
