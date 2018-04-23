@@ -119,5 +119,20 @@ test_that("rbind_labelled", {
   extract <- cli$extract(quest,add_geo = FALSE)
   dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
   expect_warning(rbind_labelled(extract))
+
+
+  # now let's force it to look out for factors and reformats
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP","BJBR41FL.ZIP"),variables = c("v024","v130"), reformat = TRUE)
+  extract <- cli$extract(quest,add_geo = FALSE)
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+
+  # now for factors
+  extract$AOBR62FL$v024 <- as.factor(extract$AOBR62FL$v024)
+  extract$BJBR41FL$v024 <- as.factor(extract$BJBR41FL$v024)
+  dat <- rbind_labelled(extract,labels=list("v024"="concatenate"))
+
+  expect_equal(as.numeric(sort(table(dat$v024))),
+               as.numeric(sort(c(table(extract$AOBR62FL$v024),table(extract$BJBR41FL$v024)))))
+
   })
 

@@ -67,70 +67,78 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
     dfs <- dfs[[1]]
   }
 
+  # what kind of dataset is it we are working with
+  if(is.element("label.table",attributes(dfs[[1]]) %>% names)) {
+    type <- "foreign"
+  } else if(any(lapply(dfs[[1]],class) %>% unlist == "labelled")) {
+    type <- "labelled"
+  } else if(any(lapply(dfs[[1]],attributes) %>% lapply(names) %>% unlist == "label")){
+    type <- "reformat"
+  }
+
   # if the data has names let's grab that and append it later
   if(!is.null(names(dfs))){
     df_names <- names(dfs)
   }
 
-  ## Ensure same column ordering for all dfs
-  dfs <- lapply(dfs, "[", names(dfs[[1]]))
+  # if its a foregin or reformatted dataset list then skip over the labelling bit
+  if(!is.element(type,c("foreign","reformat"))){
 
-  # check to see if variables are labelled
-  islab <- sapply(dfs, sapply, haven::is.labelled)
+    ## Ensure same column ordering for all dfs
+    dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
-  ## let's catch for one variable dataframes
-  islab_vec_catch <- function(islab_obj){
-    if(is.vector(islab_obj)){
-      islab_obj <- t(islab_obj)
-      colnames(islab_obj) <- names(dfs)
-      rownames(islab_obj) <- names(dfs[[1]])[1]
+    # check to see if variables are labelled
+    islab <- sapply(dfs, sapply, haven::is.labelled)
+
+    ## let's catch for one variable dataframes
+    islab_vec_catch <- function(islab_obj){
+      if(is.vector(islab_obj)){
+        islab_obj <- t(islab_obj)
+        colnames(islab_obj) <- names(dfs)
+        rownames(islab_obj) <- names(dfs[[1]])[1]
+      }
+      islab_obj
     }
-    islab_obj
-  }
 
-  islab <- islab_vec_catch(islab)
-  anylab <- names(which(apply(islab, 1, any)))
+    islab <- islab_vec_catch(islab)
+    anylab <- names(which(apply(islab, 1, any)))
 
-  ## Convert "concatenated" variables to characters (will be converted back later).
-  catvar <- intersect(anylab, names(which(labels == "concatenate")))
-  dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(haven::as_factor(x[[v]]))); x})
-  labels <- labels[!names(labels) %in% catvar]
+    ## Convert "concatenated" variables to characters (will be converted back later).
+    catvar <- intersect(anylab, names(which(labels == "concatenate")))
+    dfs <- lapply(dfs, function(x){x[catvar] <- lapply(catvar, function(v) as.character(haven::as_factor(x[[v]]))); x})
+    labels <- labels[!names(labels) %in% catvar]
 
-  islab <- sapply(dfs, sapply, haven::is.labelled) %>% islab_vec_catch
-  anylab <- names(which(apply(islab, 1, any)))
-  needslab <- setdiff(anylab, names(labels))
+    islab <- sapply(dfs, sapply, haven::is.labelled) %>% islab_vec_catch
+    anylab <- names(which(apply(islab, 1, any)))
+    needslab <- setdiff(anylab, names(labels))
 
-  if(warn){
-    partlab <- intersect(names(which(apply(islab, 1, any) & !apply(islab, 1, all))), needslab)
-    if(length(partlab))
-      warning(paste("Some variables are only partially labelled:", paste(partlab, collapse=", ")))
+    if(warn){
+      partlab <- intersect(names(which(apply(islab, 1, any) & !apply(islab, 1, all))), needslab)
+      if(length(partlab))
+        warning(paste("Some variables are only partially labelled:", paste(partlab, collapse=", ")))
 
-    lablist <- lapply(dfs, "[", intersect(anylab, needslab))
-    lablist <- lapply(lablist, lapply, attr, "labels")
-    lablist <- do.call(Map, c(f=list, lablist))
+      lablist <- lapply(dfs, "[", intersect(anylab, needslab))
+      lablist <- lapply(lablist, lapply, attr, "labels")
+      lablist <- do.call(Map, c(f=list, lablist))
 
-    .check <- function(x) all(sapply(x, identical, x[[1]]))
-    allequal <- sapply(lablist, .check) # .check <- function(x) lapply(x, identical, x[[1]]); allequal <- sapply(lablist, .check); allequal <- apply(allequal,2,function(x) unlist(x) %>% all)
-    if(any(!allequal))
-      warning(paste0("Some variables have non-matching value labels: ",
-                     paste(names(allequal[!allequal]), collapse=", "),
-                     ".\nInheriting labels from first data frame with labels."))
-  }
-
-  ## Grab inherited labels
-  if(dim(islab[needslab,,drop=FALSE])[1]>0){
-    whichlab <- apply(islab[needslab,,drop=FALSE], 1, function(x) min(which(x)))
-    if(length(whichlab)){
-      inherlab <- setNames(lapply(Map("[[", dfs[whichlab], names(whichlab)), attr, "labels"),
-                           names(whichlab))
-      labels <- c(labels, inherlab)
+      .check <- function(x) all(sapply(x, identical, x[[1]]))
+      allequal <- sapply(lablist, .check) # .check <- function(x) lapply(x, identical, x[[1]]); allequal <- sapply(lablist, .check); allequal <- apply(allequal,2,function(x) unlist(x) %>% all)
+      if(any(!allequal))
+        warning(paste0("Some variables have non-matching value labels: ",
+                       paste(names(allequal[!allequal]), collapse=", "),
+                       ".\nInheriting labels from first data frame with labels."))
     }
-  }
 
-  # add names to each datasets
-  if(exists("df_names")){
-    for(i in seq_len(length(dfs))){ dfs[[i]]$DATASET <- df_names[i]}
-  }
+    ## Grab inherited labels
+    if(dim(islab[needslab,,drop=FALSE])[1]>0){
+      whichlab <- apply(islab[needslab,,drop=FALSE], 1, function(x) min(which(x)))
+      if(length(whichlab)){
+        inherlab <- setNames(lapply(Map("[[", dfs[whichlab], names(whichlab)), attr, "labels"),
+                             names(whichlab))
+        labels <- c(labels, inherlab)
+      }
+    }
+
   ## rbind data frames
   df <- do.call(rbind, dfs)
 
@@ -141,6 +149,18 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE){
   df[catvar] <- lapply(df[catvar], factor)
   df[catvar] <- lapply(df[catvar], function(x)
     haven::labelled(as.integer(x), setNames(seq_along(levels(x)), levels(x))))
+
+  } else {
+
+    ## rbind data frames
+    df <- do.call(rbind, dfs)
+
+  }
+
+  # add names to each datasets
+  if(exists("df_names")){
+    for(i in seq_len(length(dfs))){ dfs[[i]]$DATASET <- df_names[i]}
+  }
 
   return(df)
 }
