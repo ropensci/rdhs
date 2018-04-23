@@ -111,5 +111,5 @@ process_dhs <- function() {
   writeLines(str, "man-roxygen/client_dhs_methods.R")
 }
 
-  process_dhs()
+process_dhs()
 

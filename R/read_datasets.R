@@ -264,12 +264,12 @@ create_new_filenames <- function(data){
 }
 
 # NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
-read_zipdta <- function(zfile, ...){
-  read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
-}
+# read_zipdta <- function(zfile, ...){
+#   read_zipdata(zfile, ".dta$", foreign::read.dta, TRUE, ...)
+# }
 
 # NOT USED ANYMORE - REMOVE AT NEXT PACKAGE VERSION MOVE
-find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
-  map <- read_zipdata(zfile, pattern, readLines, TRUE)
-  as.logical(length(grep(str, map, ignore.case)))
-}
+# find_dhsvar <- function(zfile, str="hdpidx", pattern=".MAP$", ignore.case=TRUE){
+#   map <- read_zipdata(zfile, pattern, readLines, TRUE)
+#   as.logical(length(grep(str, map, ignore.case)))
+# }
