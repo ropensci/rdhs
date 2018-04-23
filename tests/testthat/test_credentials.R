@@ -54,7 +54,9 @@ test_that("set_dhs_credentials", {
 
   # save them so this test doesn't nuke the others
   old_envs <- save_current_envs()
-  old_renviron <- readLines(file.path(normalizePath("~"),".Renviron"))
+  if(file.exists(file.path(normalizePath("~"),".Renviron"))){
+    old_renviron <- readLines(file.path(normalizePath("~"),".Renviron"))
+  }
 
   # lets make a credentials object
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
@@ -92,8 +94,8 @@ test_that("set_dhs_credentials", {
   rdhs_reset()
   expect_null(.rdhs$test)
 
-  expect_silent(.onLoad())
-  expect_message(.onAttach())
+  expect_silent(rdhs:::.onLoad())
+  expect_message(rdhs:::.onAttach())
 
   # the env client root should now be this new dummy
   expect_identical(.rdhs$client$get_root() %>% basename,
@@ -111,7 +113,11 @@ test_that("set_dhs_credentials", {
 
   # reset our credentials
   restore_current_envs(old_envs)
+  if(exists("old_renviron")){
   write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
+  } else {
+    write(x = old_renviron,file.path(normalizePath("~"),".Renviron"))
+}
 
   # and put the old client back in place and reset the renvirons if they existed before hand
   if(!is.null(old_client)){
@@ -122,7 +128,7 @@ test_that("set_dhs_credentials", {
   expect_identical(rdhs:::set_rdhs_CREDENTIALS_PATH(old_client$.__enclos_env__$private$credentials_path),
                    old_client$.__enclos_env__$private$credentials_path)
   expect_identical(rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
-                   old_client$get_root())
+                   normalizePath(old_client$get_root(),winslash="/", mustWork = FALSE))
 
   }
 

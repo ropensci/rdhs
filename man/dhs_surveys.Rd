@@ -32,7 +32,7 @@ dhs_surveys(client = NULL, allResults = TRUE, countryIds = NULL,
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyStatus}{Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.}
+\item{surveyStatus}{Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="Completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="Ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.}
 
 \item{surveyCharacteristicIds}{Specify a survey characteristic id to filter surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
 
@@ -63,10 +63,10 @@ dat <- dhs_surveys(surveyYear="2010",allResults=FALSE)
 dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
 dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
 dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="surveys",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="completed",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="ongoing",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="all",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="Surveys",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="Completed",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="Ongoing",allResults=FALSE)
+dat <- dhs_surveys(surveyStatus="All",allResults=FALSE)
 dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_surveys(tagIds="1",allResults=FALSE)
 dat <- dhs_surveys(f="html",allResults=FALSE)
