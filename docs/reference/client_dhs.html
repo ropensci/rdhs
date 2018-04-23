@@ -57,7 +57,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -228,7 +228,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
   Data frame of the surveys where matches were found and then all the resultant codes and descriptions.</p></dd>
 <dt><code>extract</code></dt><dd><p>Function to extract datasets using a set of survey questions as taken from the output from <code>survey_questions</code>
     <em>Usage:</em>
-  <code>extract(questions, add_geo = TRUE)</code>
+  <code>extract(questions, add_geo = FALSE)</code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>questions</code>:   Questions to be queried, in the format from <code>survey_questions</code></p></li>
@@ -236,11 +236,11 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 </ul></p></dd>
 <dt><code>get_var_labels</code></dt><dd><p>Returns information about a dataset's survey variables and definitions.
     <em>Usage:</em>
-  <code><a href='get_var_labels.html'>get_var_labels(dataset_filenames = NULL, dataset = NULL)</a></code>
+  <code><a href='get_var_labels.html'>get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)</a></code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   Vector of dataset filenames to look up</p></li>
-<li><p><code>dataset</code>:   A full read in dataset that has not been reformatted whe declaring <code>client$get_datasets()</code></p></li>
+<li><p><code>dataset_paths</code>:   Vector of dataset file paths to where datasets have been saved to</p></li>
 </ul>
     <em>Value</em>:
   Data frame of survey variable names and definitions</p></dd>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -126,10 +126,14 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
 <span class="kw">library</span>(rdhs)
-<span class="co">#&gt; Your login credentials provided last time are no longer there!</span>
-<span class="co">#&gt; Please recreate your credentials file at the following path and reload rdhs:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/rubbish_no_more.txt</span>
-<span class="co">#&gt; Alternatively use set_dhs_credentials() to specify a new credentials file.</span></code></pre></div>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Welcome back :) </span>
+<span class="co">#&gt; -------------------------</span>
+<span class="co">#&gt; rdhs will be using the login credentials you set last time, which it will read from:</span>
+<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes_src/credentials</span>
+<span class="co">#&gt; It will also save any datasets you download inside this directory:</span>
+<span class="co">#&gt;    -&gt; C:/Users/Oliver/AppData/Local/Oliver/rdhs/Cache</span>
+<span class="co">#&gt; If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()</span></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -204,20 +208,20 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
 <p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1985</span>),<span class="dt">times =</span> <span class="dv">1</span>)
-<span class="co">#&gt; Unit: seconds</span>
-<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1985) 4.206145 4.206145 4.206145 4.206145</span>
-<span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  4.206145 4.206145     1</span>
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1987</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+<span class="co">#&gt; Unit: milliseconds</span>
+<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1987) 55.2245 55.2245 55.2245 55.2245</span>
+<span class="co">#&gt;       uq     max neval</span>
+<span class="co">#&gt;  55.2245 55.2245     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1985</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1987</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1985) 7.379503 7.379503 7.379503 7.379503</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1987) 7.019345 7.019345 7.019345 7.019345</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  7.379503 7.379503     1</span></code></pre></div>
+<span class="co">#&gt;  7.019345 7.019345     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)
@@ -276,13 +280,12 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 
 <span class="co"># our hv024 variable is now just character strings, so you can decide when/how to factor/label it later</span>
 <span class="kw">str</span>(extract)
-<span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:</span>
+<span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  3 variables:</span>
 <span class="co">#&gt;  $ hv024   : atomic  equateur equateur equateur equateur ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
 <span class="co">#&gt;  $ hml35   : atomic  NA NA NA NA ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
-<span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span>
-<span class="co">#&gt;  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...</span></code></pre></div>
+<span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span></code></pre></div>
 </div>
 </div>
 </div>

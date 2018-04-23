@@ -129,20 +129,20 @@ The path to your credentials is saved between sessions so you only have to set t
 
 ``` r
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1992),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1987),times = 1)
 #> Unit: seconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1992) 3.881243 3.881243 3.881243 3.881243
+#>  dhs_datasets(surveyYearStart = 1987) 4.720333 4.720333 4.720333 4.720333
 #>        uq      max neval
-#>  3.881243 3.881243     1
+#>  4.720333 4.720333     1
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1992),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1987),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1992) 7.017479 7.017479 7.017479 7.017479
+#>  dhs_datasets(surveyYearStart = 1987) 7.180762 7.180762 7.180762 7.180762
 #>        uq      max neval
-#>  7.017479 7.017479     1
+#>  7.180762 7.180762     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
@@ -227,11 +227,10 @@ extract <- rbind_labelled(extract)
 
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
 str(extract)
-#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:
+#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  3 variables:
 #>  $ hv024   : atomic  equateur equateur equateur equateur ...
 #>   ..- attr(*, "label")= chr "Province"
 #>  $ hml35   : atomic  NA NA NA NA ...
 #>   ..- attr(*, "label")= chr "Result of malaria rapid test"
 #>  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
-#>  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...
 ```
