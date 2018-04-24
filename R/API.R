@@ -1,3 +1,4 @@
+#' @noRd
 query_creation <- function(query){
 
   # Collapse query list
@@ -15,6 +16,7 @@ query_creation <- function(query){
   return(query)
 }
 
+#' @noRd
 handle_api_request <- function(endpoint, query, allResults, client){
 
   # first clear the query list of any not needed query args
@@ -60,7 +62,7 @@ handle_api_request <- function(endpoint, query, allResults, client){
     return(resp)
 }
 
-
+#' @noRd
 api_request <- function(endpoint, query, allResults, client){
 
 

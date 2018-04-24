@@ -1,4 +1,5 @@
-# check to see if the package client exists and is le
+# check to see if the package client exists
+#' @noRd
 check_for_client <- function(){
   if(is.null(.rdhs$client)) stop("Please set up your DHS credentials first using set_dhs_credentials()")
   return(invisible(TRUE))

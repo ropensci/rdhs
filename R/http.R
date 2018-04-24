@@ -1,3 +1,4 @@
+#' @noRd
 handle_api_response <- function(res, to_json = TRUE) {
   code <- httr::status_code(res)
   if (code >= 400 && code < 600) {
@@ -16,6 +17,7 @@ handle_api_response <- function(res, to_json = TRUE) {
   res
 }
 
+#' @noRd
 handle_api_error <- function(code, text, errors) {
   if (!nzchar(text)) {
     text <- httr::http_status(code)$message

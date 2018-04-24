@@ -85,7 +85,7 @@ extraction <- function(questions,available_datasets,geo_surveys,add_geo=FALSE){
 
 }
 
-#
+# Function to change dataset variables to the descriptions. Still undecided if should be exposed.
 extract_codes_to_descriptions <- function(extraction,questions){
 
 

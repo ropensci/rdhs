@@ -53,6 +53,7 @@ file_dataset_format <- function(file_format){
 
 
 # unzips files without throwing warnings
+#' @noRd
 unzip_warn_fails <- function (...){
   tryCatch({
     unzip(...)
@@ -60,6 +61,7 @@ unzip_warn_fails <- function (...){
 }
 
 # refresh client
+#' @noRd
 client_refresh <- function(cli){
 
   cli$set_cache_date(last_api_update()-1)
@@ -79,6 +81,7 @@ client_refresh <- function(cli){
 }
 
 ## convert list
+#' @noRd
 type_convert_list_to_df <- function(l){
 
   l[lapply(l,is.character) %>% unlist] <- lapply(l[lapply(l,is.character) %>% unlist],type.convert,as.is=TRUE)
@@ -87,6 +90,7 @@ type_convert_list_to_df <- function(l){
 }
 
 # type convert factor df to normal df
+#' @noRd
 type_convert_df <- function(df){
 
   l <- lapply(df,as.character)
@@ -95,12 +99,14 @@ type_convert_df <- function(df){
 }
 
 # convert api mdy_hms character date times to posix
+#' @noRd
 mdy_hms <- function(dates){
   strptime(dates,format = "%B, %d %Y %H:%M:%S")
 }
 
 # check if uppercase
 # Credit: R package lettercase
+#' @noRd
 is_uppercase <- function (string)
 {
   if (!is.atomic(string))

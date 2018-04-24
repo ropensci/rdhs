@@ -256,6 +256,7 @@ read_zipdata <- function(zfile, pattern=".dta$", readfn=foreign::read.dta, ...){
 
 
 # create simplest unique filenames that handles the india duplication.
+#' @noRd
 create_new_filenames <- function(data){
   data$file <- strsplit(data$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
   issues <- which(!(tolower(substr(data$FileName,1,2))==tolower(data$DHS_CountryCode)))

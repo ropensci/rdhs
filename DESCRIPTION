@@ -15,7 +15,7 @@ Description: Provides a client for (1) querying the DHS API for survey indicator
   (4) loading datasets and associate metadata into R, and (5) extracting variables
   and combining datasets for pooled analysis.
 LazyData: TRUE
-Depends: R (>= 2.10)
+Depends: R (>= 3.3.0)
 Imports: 
     R6,
     httr,
