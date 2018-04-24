@@ -61,12 +61,8 @@ read_dhs_dataset <- function(file, dataset,
     # 4. .sas7bdat file
   } else if(file_match==4){
 
-    # haven 1.1.1 has some issues, so have changed the description
-    res <- read_zipdata(file,".sas7bdat$",haven::read_sas)
-
-    # reformat to create the nice description table
-    res <- factor_format(res,reformat,all_lower)
-
+    message("No support for reading in .sas7bdat files as of yet. Perhaps read/download .dat datasets instead?")
+    res <- "No support for importing .sas7bdat"
 
     # 5. .dbf (geographic datasets)
   } else if(file_match==5){
