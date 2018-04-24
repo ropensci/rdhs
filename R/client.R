@@ -747,8 +747,10 @@ R6_client_dhs <- R6::R6Class(
 
       # let them know about any datasets that they requested that aren't avaialable for them to download also
       if(sum(is.na(found_datasets))>0) {
+        fail_names <- filenames
+        if(is.data.frame(fail_names)) fail_names <- filenames$FileName
         message(paste0("These requested datasets are not available from your DHS login credentials:\n---\n",
-                       paste0(filenames[which(is.na(found_datasets))],collapse=", "),
+                       paste0(fail_names[which(is.na(found_datasets))],collapse=", "),
                        "\n---\nPlease request permission for these datasets from the DHS website to be able to download them"))
       }
 
