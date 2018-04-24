@@ -46,12 +46,15 @@ client_cache_date <- function(root){
 ## -------------------------------------------------------------------
 
 # file name for where client is saved between sessions
+#' @noRd
 client_file_name <- function() "client_dhs.rds"
 
 # renv variable name for the credentials path
+#' @noRd
 renv_cred_path_name <- function() "rdhs_CREDENTIALS_PATH"
 
 # renv variable name for the root path
+#' @noRd
 renv_root_path_name <- function() "rdhs_ROOT_PATH"
 
 

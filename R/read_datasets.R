@@ -61,8 +61,12 @@ read_dhs_dataset <- function(file, dataset,
     # 4. .sas7bdat file
   } else if(file_match==4){
 
-    message("No support for reading in .sas7bdat files as of yet. Perhaps read/download .dat datasets instead?")
-    res <- "No support for importing .sas7bdat"
+    # haven 1.1.1 has some issues, so have changed the description
+    res <- read_zipdata(file,".sas7bdat$",haven::read_sas)
+
+    # reformat to create the nice description table
+    res <- factor_format(res,reformat,all_lower)
+
 
     # 5. .dbf (geographic datasets)
   } else if(file_match==5){
@@ -256,6 +260,7 @@ read_zipdata <- function(zfile, pattern=".dta$", readfn=foreign::read.dta, ...){
 
 
 # create simplest unique filenames that handles the india duplication.
+#' @noRd
 create_new_filenames <- function(data){
   data$file <- strsplit(data$FileName,".",fixed=T) %>% lapply(function(x)x[1]) %>% unlist
   issues <- which(!(tolower(substr(data$FileName,1,2))==tolower(data$DHS_CountryCode)))

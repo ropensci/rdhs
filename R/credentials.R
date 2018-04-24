@@ -35,6 +35,7 @@ set_dhs_credentials <- function(credentials,root=NULL){
 # email=dummy@gmail.com
 # password=dummypass
 # project=Dummy Project
+#' @noRd
 read_credentials <- function(filename) {
   if(is.list(filename)){
     check_credentials(filename)
@@ -47,6 +48,7 @@ read_credentials <- function(filename) {
   }
 }
 
+#' @noRd
 check_credentials <- function(credentials) {
   if (is.null(names(credentials))) {
     stop("Credentials must be named")
@@ -58,12 +60,14 @@ check_credentials <- function(credentials) {
   credentials # consider credentials[req]
 }
 
+#' @noRd
 set_environment_credentials <- function(credentials){
   Sys.setenv("rdhs_USER_EMAIL"=credentials$email)
   Sys.setenv("rdhs_USER_PASS"=credentials$password)
   Sys.setenv("rdhs_USER_PROJECT"=credentials$project)
 }
 
+#' @noRd
 credentials_not_present <- function(){
   return(identical(Sys.getenv("rdhs_USER_PASS"), "") | identical(Sys.getenv("rdhs_USER_EMAIL"), "") | identical(Sys.getenv("rdhs_USER_PROJECT"), ""))
 }

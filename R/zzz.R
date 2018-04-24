@@ -2,12 +2,15 @@
 
 .rdhs <- new.env(parent = emptyenv())
 
+#' @noRd
 rdhs_reset <- function() {
   rm(list = ls(.rdhs, all.names = TRUE), envir = .rdhs)
 }
 
+#' @noRd
 .onLoad <- function(...) suppressPackageStartupMessages(.onAttach())
 
+#' @noRd
 .onAttach <- function(...) {
 
   # just in case clear the pacakge environment
@@ -73,6 +76,7 @@ rdhs_reset <- function() {
 }
 
 # set .Renviron variable
+#' @noRd
 set_renviron <- function(variable,value){
 
   # first do some checking:
@@ -109,6 +113,7 @@ set_renviron <- function(variable,value){
 
 }
 
+#' @noRd
 set_rdhs_CREDENTIALS_PATH <- function(path){
 
   # normalise credentials here for ease with no warnings as we'll check it ourselves
@@ -124,6 +129,7 @@ set_rdhs_CREDENTIALS_PATH <- function(path){
   invisible(Sys.getenv(renv_cred_path_name()))
 }
 
+#' @noRd
 set_rdhs_ROOT_PATH <- function(path){
 
   # normalise the root path and create the directory
@@ -136,6 +142,7 @@ set_rdhs_ROOT_PATH <- function(path){
   invisible(Sys.getenv(renv_root_path_name()))
 }
 
+#' @noRd
 check_client <- function(client){
 
   # if it's null then return early
