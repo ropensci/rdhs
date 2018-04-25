@@ -207,14 +207,6 @@ download_datasets <- function(desired_dataset,
   dir.create( dataset_dir , showWarnings = FALSE, recursive = T )
   zip_path <- file.path(dataset_dir,desired_dataset$FileName)
 
-  # login
-  values <- authenticate_dhs( your_email , your_password , your_project )
-  project_number <- values$proj_id
-
-  # access the download-datasets page
-  z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm" ,
-                   body = list( proj_id = project_number ) )
-
   # download our zip and parse the response for any errors
   message("Downloading: \n", paste(desired_dataset$CountryName,desired_dataset$SurveyYear,
                                    desired_dataset$SurveyType,desired_dataset$FileType,
@@ -228,11 +220,38 @@ download_datasets <- function(desired_dataset,
   tdir2 <- tempfile()
   on.exit(unlink(c(tf,tdir1,tdir2),recursive = TRUE,force=TRUE))
 
-  # download zip to our tempfile
-  resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,
-                    httr::user_agent("https://github.com/OJWatson/rdhs"),
-                    httr::write_disk( tf , overwrite = TRUE ),
-                    httr::progress()) %>% handle_api_response(to_json=FALSE)
+  # create a simple while loop on file size check and carry this out three times befoe stopping
+  file_size_check <- TRUE
+  file_size_attempts <- 3
+
+  # if the downloaded file is not the size we expect then re log in the first time
+  while(file_size_check | file_size_attempts>0){
+
+    # download zip to our tempfile
+    resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,
+                      httr::user_agent("https://github.com/OJWatson/rdhs"),
+                      httr::write_disk( tf , overwrite = TRUE ),
+                      httr::progress()) %>% handle_api_response(to_json=FALSE)
+
+    # if it's not the right size and this is the first time we've tried then log in
+    if(file.size(tf)!=desired_dataset$FileSize[1] & file_size_attempts==3 ){
+
+      # login
+      values <- authenticate_dhs( your_email , your_password , your_project )
+      project_number <- values$proj_id
+
+      # access the download-datasets page
+      z <- httr::POST( "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm" ,
+                       body = list( proj_id = project_number ) )
+    } else if (file.size(tf)==desired_dataset$FileSize[1]) {
+
+      file_size_check <- FALSE
+      file_size_attempts <- 0
+    }
+
+    file_size_attempts <- file_size_attempts - 1
+
+  }
 
 
   # check that the zip doesn't contain nested zips and if does keep extracting till the correct zip is found
@@ -374,12 +393,12 @@ authenticate_dhs <- function( your_email , your_password , your_project ){
 
   # figure out the project number - only use first 30 chars due to ellipsis formation if it is longer than 30
   if(nchar(your_project)>30){
-  project_lines <- unique( y[ grepl( "option value" , y ) &
-                                grepl( paste0(strsplit(your_project,"")[[1]][1:30],collapse="") , y , fixed = TRUE ) ] )
+    project_lines <- unique( y[ grepl( "option value" , y ) &
+                                  grepl( paste0(strsplit(your_project,"")[[1]][1:30],collapse="") , y , fixed = TRUE ) ] )
   } else {
 
-  project_lines <- unique( y[ grepl( "option value" , y ) &
-                                grepl( paste0(strsplit(your_project,"")[[1]],collapse="") , y , fixed = TRUE ) ] )
+    project_lines <- unique( y[ grepl( "option value" , y ) &
+                                  grepl( paste0(strsplit(your_project,"")[[1]],collapse="") , y , fixed = TRUE ) ] )
 
   }
 
@@ -402,24 +421,26 @@ authenticate_dhs <- function( your_email , your_password , your_project ){
         valid_prompt <- FALSE
         while(!valid_prompt){
 
-        pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
-                                  "Which one did you want to use? (enter the correct number for your project)\n",
-                                  paste(seq_len(length(project_lines)),projs,sep = ": "),
-                                  "\nYour choice will be remembered within this R session, but will need to be entered each",
-                                  "time you load a new R session.",sep="\n")) %>% as.integer()
+          pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
+                                    "Which one did you want to use? (enter the correct number for your project)\n",
+                                    paste(seq_len(length(project_lines)),projs,sep = ": "),
+                                    "\nYour choice will be remembered within this R session, but will need to be entered each",
+                                    "time you load a new R session. To set it permanently, use the following command:",
+                                    "   -> rdhs:::set_renviron(\"rdhs_PROJECT_CHOICE\",n)",
+                                    "where n is the number of the project chosen",sep="\n")) %>% as.integer()
 
-        if(is.element(pl,seq_len(length(project_lines)))) valid_prompt <- TRUE
+          # pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
+          #                           "Which one did you want to use? (enter the correct number for your project)\n",
+          #                           paste(seq_len(length(project_lines)),projs,sep = ": "),
+          #                           "\nYour choice will be remembered within this R session, but will need to be entered each",
+          #                           "time you load a new R session.",sep="\n")) %>% as.integer()
+
+          if(is.element(pl,seq_len(length(project_lines)))) valid_prompt <- TRUE
         }
 
         # set this when UI changes come in
         # # prompt for an option
-        # pl <- readline(prompt=cat("You have multiple projects with the DHS that have very similar names.",
-        #                           "Which one did you want to use? (enter the correct number for your project)\n",
-        #                           paste(seq_len(length(project_lines)),projs,sep = ": "),
-        #                           "\nYour choice will be remembered within this R session, but will need to be entered each",
-        #                           "time you load a new R session. To set it permanently, use the following command:",
-        #                           "   -> rdhs:::set_renviron(\"rdhs_PROJECT_CHOICE\",n)",
-        #                           "where n is the number of the project chosen",sep="\n"))
+
 
         # set the option for the future
         Sys.setenv("rdhs_PROJECT_CHOICE"=pl)
