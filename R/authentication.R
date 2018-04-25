@@ -225,7 +225,7 @@ download_datasets <- function(desired_dataset,
   file_size_attempts <- 3
 
   # if the downloaded file is not the size we expect then re log in the first time
-  while(file_size_check | file_size_attempts>0){
+  while(file_size_check & file_size_attempts>0){
 
     # download zip to our tempfile
     resp <- httr::GET(desired_dataset$URLS[1], destfile = tf,

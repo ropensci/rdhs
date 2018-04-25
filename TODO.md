@@ -13,7 +13,7 @@
 
 
 1. Use the model datasets with a dummy login account that the DHS will set up to create a better demo for users
-2. Somehow wrap each step in the example analytical pipeline within internal package environments, so that the 
+2. DRAKE THE FOLLOWING: Somehow wrap each step in the example analytical pipeline within internal package environments, so that the 
 user can use a new function to return the precise function call tree used to produce the final dataset/statistics etc,
 without accidentally altering it etc. It can then be packageversion/date branded so it can definitely be reproduced using
 old datasets if they get updated, this aiding the reproducibility of their analysis.
