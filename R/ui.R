@@ -247,7 +247,7 @@ get_var_labels <- function(dataset, return_all=TRUE) {
          " https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf ")
   }
 
-
+res
 
 }
 
