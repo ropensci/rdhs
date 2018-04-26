@@ -156,8 +156,11 @@ test_that("get_var_labels",{
   # 1 and 3 same
   expect_identical(var1,var3)
 
-  # if just using the dataset we make n assumption about having a client or cached info to add on the extra useful meta
+  # if just using the dataset we make no assumption about having a client or cached info to add on the extra useful meta
   expect_identical(var1[,1:2],var2)
+
+  # test to catch not return it
+  expect_equal(dim(var1),c(572,5))
 
 })
 
