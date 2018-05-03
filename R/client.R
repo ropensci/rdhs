@@ -21,8 +21,8 @@
 ##' @export
 ##'
 client_dhs <- function(credentials=NULL,
-                       root = rappdirs::user_cache_dir("rdhs",
-                                                       Sys.info()["user"]),
+                       root = rappdirs::user_cache_dir(
+                         "rdhs",Sys.info()["user"]),
                        api_key="ICLSPH-527168") {
 
   # check rdhs against api last update time
@@ -59,7 +59,8 @@ client_dhs <- function(credentials=NULL,
         # get the surveyIds for all downloaded datasets
         downloaded_dataset_keys <- private$storr$list("downloaded_datasets")
         downloaded_surveyIds <- strsplit(downloaded_dataset_keys, "_") %>%
-          lapply(function(x) x[1]) %>% unlist()
+          lapply(function(x) x[1]) %>%
+          unlist()
 
         # which of the updates have occured since our last client was created
         chge <- upd$SurveyId[mdy_hms(upd$UpdateDate) > client$get_cache_date()]
@@ -107,7 +108,6 @@ client_dhs <- function(credentials=NULL,
 }
 
 R6_client_dhs <- R6::R6Class(
-
   classname = "client_dhs",
   cloneable = FALSE,
 
@@ -140,10 +140,9 @@ R6_client_dhs <- R6::R6Class(
       if (!is.element(api_endpoint, private$api_endpoints)) {
         stop(paste("Requested api_endpoint is invalid. Must be one one of:",
                    paste(api_endpoints, collapse = "\n"),
-                   "For more information check the api website:
-                   https://api.dhsprogram.com/#/index.html",
-                   sep = "\n"
-        ))
+                   "For more information check the api website:",
+                   "https://api.dhsprogram.com/#/index.html",
+                   sep = "\n"))
       }
 
       # Collapse query list
@@ -172,17 +171,15 @@ R6_client_dhs <- R6::R6Class(
 
       # SLight hacking to deal eith page numbers etc now
       pp <- which(names(query) == "perPage")
-      key <- paste0(api_endpoint, "_", paste0(names(query)[-pp],
-                                              unlist(query)[-pp],
-                                              collapse = ","),
+      key <- paste0(api_endpoint, "_",
+                    paste0(names(query)[-pp],unlist(query)[-pp],collapse = ","),
                     ",num_results", num_results, ",just_results", just_results)
 
       key <- digest::digest(key)
 
       # first check against cache
       out <- tryCatch(private$storr$get(key, "api_calls"),
-                      KeyError = function(e) NULL
-      )
+                      KeyError = function(e) NULL)
 
       # check out agianst cache, if fine then return just that
       if (!is.null(out)) {
@@ -192,8 +189,7 @@ R6_client_dhs <- R6::R6Class(
         # Get request
         resp <- httr::GET(url, httr::accept_json(),
                           httr::user_agent("https://github.com/OJWatson/rdhs"),
-                          encode = "json"
-        )
+                          encode = "json")
 
         ## pass to response parse
         parsed_resp <- handle_api_response(resp, TRUE)
@@ -230,9 +226,11 @@ R6_client_dhs <- R6::R6Class(
           url <- httr::modify_url(paste0(private$url, api_endpoint),
                                   query = query)
 
-          resp <- httr::GET(url, httr::accept_json(),
-                            httr::user_agent("https://github.com/OJWatson/rdhs"),
-                            encode = "json")
+          resp <- httr::GET(
+            url, httr::accept_json(),
+            httr::user_agent("https://github.com/OJWatson/rdhs"),
+            encode = "json"
+          )
 
           parsed_resp <- handle_api_response(resp, TRUE)
 
@@ -256,9 +254,11 @@ R6_client_dhs <- R6::R6Class(
               url <- httr::modify_url(paste0(private$url, api_endpoint),
                                       query = query)
 
-              resp <- httr::GET(url, httr::accept_json(),
-                                httr::user_agent("https://github.com/OJWatson/rdhs"),
-                                encode = "json")
+              resp <- httr::GET(
+                url, httr::accept_json(),
+                httr::user_agent("https://github.com/OJWatson/rdhs"),
+                encode = "json"
+              )
 
               temp_parsed_resp <- handle_api_response(resp, TRUE)
               parsed_resp[[i]] <- temp_parsed_resp
@@ -266,11 +266,7 @@ R6_client_dhs <- R6::R6Class(
 
             # and now concatenate the results
             if (just_results) {
-              parsed_resp <- rbind_list_base(do.call(c,
-                                                           lapply(parsed_resp,
-                                                                  function(x) {
-                                                                    x$Data
-                                                                    })))
+              parsed_resp <- collapse_api_responses(parsed_resp)
             }
           }
         }
@@ -323,7 +319,6 @@ R6_client_dhs <- R6::R6Class(
           surveys_api_results = self$dhs_api_request("surveys",
                                                      num_results = "ALL")
         )
-        resp <- data.table::as.data.table(resp)
 
         ## then cache the resp if we haven't stopped already and return
         ## the parsed resp
@@ -354,10 +349,10 @@ R6_client_dhs <- R6::R6Class(
 
       # possible download options:
       download_possibilities <- c("zip", "rds", "both")
-      dopt <- grep(paste0(strsplit(download_option, "") %>% unlist(),
-                          collapse = "|"),
-                   download_possibilities,
-                   ignore.case = TRUE)
+      dopt <- grep(paste0(strsplit(download_option, "") %>%
+                            unlist(), collapse = "|"),
+                   download_possibilities,ignore.case = TRUE)
+
       download_option <- download_possibilities[dopt]
       if (!is.element(download_option, download_possibilities)) {
         stop("Download option provided is not valid")
@@ -381,8 +376,7 @@ R6_client_dhs <- R6::R6Class(
 
           # first check against cache
           out <- tryCatch(private$storr$get(key, "downloaded_datasets"),
-                          KeyError = function(e) NULL
-          )
+                          KeyError = function(e) NULL)
 
           # check out agianst cache, if fine then return just that
           if (!is.null(out)) {
@@ -411,7 +405,8 @@ R6_client_dhs <- R6::R6Class(
             # directory rather than having to go into the db directory
 
             if (identical(names(resp), c("dataset", "variable_names"))) {
-              private$storr$set(key, resp$dataset, "downloaded_datasets")
+              private$storr$set(key, resp$dataset,
+                                "downloaded_datasets")
               private$storr$set(key, resp$variable_names,
                                 "downloaded_dataset_variable_names")
               res[[i]] <- resp$dataset
@@ -461,20 +456,17 @@ R6_client_dhs <- R6::R6Class(
       } else {
         pattern <- paste0(search_terms, essential_terms, collapse = "|")
         if (!is.null(regex)) {
-          message(paste0(
-            "Both regex and search_terms were provided.",
+          message(paste0("Both regex and search_terms were provided.",
             "search_terms will be used.",
-            "To use regex for searching, do not specify a search_terms argment"
-          ))
+            "To use regex for searching, do not specify search_terms"))
         }
       }
 
       # results storage
-      df <- data.frame(
-        "code" = character(0), "description" = character(0),
+      df <- data.frame("code" = character(0), "description" = character(0),
         "dataset_filename" = character(0), "dataset_path" = character(0),
-        "survey_id" = character(0)
-      )
+        "survey_id" = character(0))
+
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
       names(res) <- datasets$file
@@ -483,19 +475,21 @@ R6_client_dhs <- R6::R6Class(
       for (i in 1:download_iteration) {
 
         # create key for this
-        key <- paste0(
-          datasets[i, ]$SurveyId, "_", datasets[i, ]$FileName, "_", "rds",
-          "_", attr(download, which = "reformat")
-        )
+        key <- paste0(datasets[i, ]$SurveyId, "_",
+                      datasets[i, ]$FileName, "_",
+                      "rds","_",
+                      attr(download, which = "reformat"))
 
         # first check against cache
-        out <- tryCatch(private$storr$get(key, "downloaded_datasets"),
-                        KeyError = function(e) NULL
+        out <- tryCatch(
+          private$storr$get(key, "downloaded_datasets"),
+          KeyError = function(e) NULL
         )
 
         out_desc <- tryCatch(
-          private$storr$get(key,"downloaded_dataset_variable_names"),
-          KeyError = function(e) NULL)
+          private$storr$get(key, "downloaded_dataset_variable_names"),
+          KeyError = function(e) NULL
+        )
 
         # add the survey file path to the res list
         res[[i]] <- out
@@ -505,6 +499,7 @@ R6_client_dhs <- R6::R6Class(
                              ignore.case = TRUE)
         na_from_match <- grep(private$na_s, out_desc$description[matched_rows],
                               ignore.case = TRUE)
+
         if (length(na_from_match) > 0) {
           matched_rows <- matched_rows[-grep(private$na_s,
                                              out_desc$description[matched_rows],
@@ -605,11 +600,13 @@ R6_client_dhs <- R6::R6Class(
 
         # remove na results
         na_from_match <- grep(private$na_s, out_desc$description[matched_rows],
-                              ignore.case = TRUE)
+                              ignore.case = TRUE
+        )
         if (length(na_from_match) > 0) {
           matched_rows <- matched_rows[-grep(private$na_s,
                                              out_desc$description[matched_rows],
-                                             ignore.case = TRUE)]
+                                             ignore.case = TRUE
+          )]
         }
 
         # only add if we have found any questions that match
@@ -631,8 +628,10 @@ R6_client_dhs <- R6::R6Class(
       # now remove datasets that do not have essential codes:
       if (!is.null(essential_variables)) {
         for (i in unique(df$dataset_filename)) {
-          if (sum(is.na(match(essential_variables,
-                              df$variable[df$dataset_filename == i]))) > 0) {
+          if (sum(is.na(match(
+            essential_variables,
+            df$variable[df$dataset_filename == i]
+          ))) > 0) {
             df <- df[-which(df$dataset_filename == i), ]
           }
         }
@@ -652,7 +651,8 @@ R6_client_dhs <- R6::R6Class(
       # append the filename as survey to the datasets for easier matching later
       datasets <- self$available_datasets()
       datasets$Survey <- strsplit(datasets$FileName, ".", fixed = T) %>%
-        lapply(function(x) x[1]) %>% unlist()
+        lapply(function(x) x[1]) %>%
+        unlist()
 
       ## get geo_surveys if needed
       if (add_geo) {
@@ -700,21 +700,16 @@ R6_client_dhs <- R6::R6Class(
       # get vars from dataset_paths
       if (!is.null(dataset_paths)) {
 
-
         # stop if all poor file paths
         if (all(!file.exists(dataset_paths))) {
-          stop(
-            "All dataset file paths were not found:\n   ",
-            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n   ")
-          )
+          stop("All dataset file paths were not found:\n   ",
+               paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
         }
 
         # message any poor file paths first
         if (any(!file.exists(dataset_paths))) {
-          message(
-            "Following dataset file paths were not found:\n   ",
-            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n   ")
-          )
+          message("Following dataset file paths were not found:\n   ",
+            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
         }
 
         # what have we downloaded
@@ -731,11 +726,11 @@ R6_client_dhs <- R6::R6Class(
           c(grep(x[1], filenames, value = TRUE), x[2])
         })
 
-        vars <- lapply(options, function(x) self$survey_questions(
-          dataset_filenames = x[1],
-          search_terms = "",
-          reformat = x[2]
-        ))
+        vars <- lapply(options, function(x) {
+          self$survey_questions(dataset_filenames = x[1],
+                                search_terms = "",
+                                reformat = x[2])
+        })
         vars <- rbind_labelled(vars)
       }
 
@@ -744,27 +739,23 @@ R6_client_dhs <- R6::R6Class(
         # just get the ones that exist
         names_matched <- filenames[match(dataset_filenames, filenames)]
 
-
         # stop if all poor file names
         if (all(is.na(names_matched))) {
-          stop(
-            "All dataset file names are not valid:\n   ",
-            paste0(dataset_filenames[is.na(names_matched)], sep = "\n   ")
-          )
+          stop("All dataset file names are not valid:\n   ",
+               paste0(dataset_filenames[is.na(names_matched)], sep = "\n "))
         }
 
         # message any poor file names
         if (any(is.na(names_matched))) {
-          message(
-            "Following dataset file names are not valid:\n   ",
-            paste0(dataset_filenames[is.na(names_matched)], sep = "\n   ")
-          )
+          message("Following dataset file names are not valid:\n   ",
+                  paste0(dataset_filenames[is.na(names_matched)], sep = "\n "))
         }
 
         # grab the variables using a catch all variables term
         vars <- self$survey_questions(
           dataset_filenames = names_matched[!is.na(names_matched)],
-          search_terms = "")
+          search_terms = ""
+        )
       }
 
       return(vars)
@@ -781,26 +772,27 @@ R6_client_dhs <- R6::R6Class(
       # download paths
       downloads <- private$storr$mget(keys, namespace = "downloaded_datasets")
       names(downloads) <- strsplit(basename(unlist(downloads)),
-                                   ".rds", fixed = TRUE) %>%
+                                   ".rds",fixed = TRUE) %>%
         lapply(function(x) x[1]) %>%
         unlist()
 
-      downloads
+      return(downloads)
     },
 
     # SETTERS
     set_cache_date = function(date) private$cache_date <- date,
 
     # SAVE CLIENT
-    save_client = function() saveRDS(self, file.path(private$root,
-                                                     client_file_name())),
+    save_client = function() saveRDS(self, file.path(
+      private$root,
+      client_file_name()
+    )),
 
     # CLEAR NAMESPACE
     clear_namespace = function(namespace) {
       private$storr$clear(namespace = namespace)
       private$storr$gc()
     }
-
   ),
 
   private = list(
@@ -873,36 +865,40 @@ R6_client_dhs <- R6::R6Class(
             "provide the desired rows from the output of dhs_datasets() for",
             "the datasets argument.",
             "See introductory vignette for more info about this issue.",
-          collapse = "\n"))
+            collapse = "\n"
+          ))
 
           # what is the full set of datasets they have asked for based on
           # the countrycode assumpotion
           potential <- datasets[match(paste0(toupper(substr(filenames, 1, 2)),
-                                             toupper(filenames)),
+                                             toupper(filenames) ),
                                       paste0(toupper(datasets$DHS_CountryCode),
-                                             toupper(datasets$FileName))), ]
+                                             toupper(datasets$FileName) ) ), ]
 
           # if there are duplicates what we will do is assume that they want
           # the country versions
           found_datasets <- match(paste0(toupper(substr(filenames, 1, 2)),
-                                         toupper(filenames)),
+                                         toupper(filenames) ),
                                   paste0(toupper(avs$DHS_CountryCode),
-                                         toupper(avs$FileName)))
+                                         toupper(avs$FileName) ) )
         }
       } else {
 
         # what is the full set of datasets they have asked for
-        potential <- datasets[match(paste0(toupper(filenames$DHS_CountryCode),
-                                           toupper(filenames$FileName)),
-                                    paste0(toupper(datasets$DHS_CountryCode),
-                                           toupper(datasets$FileName))), ]
+        potential <- datasets[match(
+          paste0(toupper(filenames$DHS_CountryCode),
+                 toupper(filenames$FileName) ),
+          paste0(toupper(datasets$DHS_CountryCode),
+                 toupper(datasets$FileName) ) ), ]
 
         # if they gave the full output then we can match with the
         # provided country code
-        found_datasets <- match(paste0(toupper(filenames$DHS_CountryCode),
-                                       toupper(filenames$FileName)),
-                                paste0(toupper(avs$DHS_CountryCode),
-                                       toupper(avs$FileName)))
+        found_datasets <- match(
+          paste0(toupper(filenames$DHS_CountryCode),
+                 toupper(filenames$FileName) ),
+          paste0(toupper(avs$DHS_CountryCode),
+                 toupper(avs$FileName) )
+        )
       }
 
       # create the datasets data.frame that will
@@ -912,36 +908,25 @@ R6_client_dhs <- R6::R6Class(
       # let them know about any datasets that they requested that aren't
       # avaialable for them to download also
       if (sum(is.na(found_datasets)) > 0) {
+
+        # which filenames have failed
         fail_names <- filenames
-        if (is.data.frame(fail_names)) fail_names <- filenames$FileName
-        message(paste0(
-          "These requested datasets are not available from your ",
-          "DHS login credentials:\n---\n",
-          paste0(fail_names[which(is.na(found_datasets))], collapse = ", "),
-          "\n---\nPlease request permission for these datasets from ",
-          "the DHS website to be able to download them"
-        ))
+        if (is.data.frame(fail_names)) {
+          fail_names <- filenames$FileName
+        }
+
+        message(
+          paste0(
+            "These requested datasets are not available from your ",
+            "DHS login credentials:\n---\n",
+            paste0(fail_names[which(is.na(found_datasets))], collapse = ", "),
+            "\n---\nPlease request permission for these datasets from ",
+            "the DHS website to be able to download them"
+          ))
       }
 
       return(potential)
     }
-
-  ## not explicityl needed as only pulling so no need for all these
-
-  # ## HTTP verbs
-  # .get = function(...) {
-  #   self$dhs_request(httr::GET, private$url, private$api_key, ...)
-  # },
-  # .put = function(...) {
-  #   self$dhs_request(httr::PUT, private$url, private$api_key, ...)
-  # },
-  # .post = function(...) {
-  #   self$dhs_request(httr::POST, private$url, private$api_key, ...)
-  # },
-  # .delete = function(...) {
-  #   self$dhs_request(httr::DELETE, private$url, private$api_key, ...)
-  # }
-  # )
 
   )
 )
