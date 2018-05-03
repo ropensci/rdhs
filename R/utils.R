@@ -10,6 +10,16 @@
 #' @usage lhs \%>\% rhs
 NULL
 
+#' implementation of data.tables rbindlist
+#' @param x List of lists to be converted to a data.frame
+rbind_list_base <- function(x) {
+  x2 <- do.call(rbind.data.frame,
+                c(x,stringsAsFactors = FALSE,make.row.names=FALSE))
+  rownames(x2) <- 1:(dim(x2)[1])
+  x2
+}
+
+
 #' converts response to json by first converting the response to text
 #' @param x A response
 response_to_json <- function(x) {

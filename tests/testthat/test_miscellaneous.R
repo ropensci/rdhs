@@ -15,3 +15,16 @@ test_that("file_dataset_format", {
   expect_identical(file_dataset_format(dhs_file_formats[5]),"dta")
 
 })
+
+# test the base version of rbindlist from data.table implemented for our uses
+test_that("rbind_list_base", {
+
+  l <- list()
+  l[[1]] <- list("a"=1,"b"=2,"c"=3)
+  l[[2]] <- list("a"=1,"b"=2,"c"=3)
+  l <- rbind_list_base(l)
+
+  expect_equal(dim(l),c(2,3))
+  expect_equal(names(l),c("a","b","c"))
+  expect_equal(l$a,c(1,1))
+})

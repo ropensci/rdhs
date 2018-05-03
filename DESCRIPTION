@@ -26,7 +26,6 @@ Imports:
     digest,
     storr,
     xml2,
-    data.table,
     qdapRegex,
     rgdal,
     haven,
