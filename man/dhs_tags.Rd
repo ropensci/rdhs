@@ -10,34 +10,56 @@ dhs_tags(client = NULL, allResults = TRUE, countryIds = NULL,
   f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Tags on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Tags on.
+surveyYearStart is an inclusive value. Can be used alone or in
+conjunction with surveyYearEnd.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Tags on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Tags on.
+surveyYearEnd is an inclusive value. Can be used alone or in conjunction
+with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 4 (or less if `returnFields` is provided) tags with detailed information. An indicators can be tagged with one or more tags to help identify certain topics an indicator can be indentified by. A description of the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/tags/fields}
+Returns a `data.table` of 4 (or less if `returnFields` is provided)
+  tags with detailed information. An indicators can be tagged with one or
+  more tags to help identify certain topics an indicator can be indentified
+  by. A description of the attributes returned is provided at
+  \url{https://api.dhsprogram.com/rest/dhs/tags/fields}
 }
 \description{
 API request of DHS Tags
@@ -50,7 +72,8 @@ dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_tags(surveyIds="SN2010DHS",allResults=FALSE)
 dat <- dhs_tags(surveyYear="2010",allResults=FALSE)
 dat <- dhs_tags(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",
+allResults=FALSE)
 dat <- dhs_tags(surveyType="DHS",allResults=FALSE)
 dat <- dhs_tags(f="html",allResults=FALSE)
 }

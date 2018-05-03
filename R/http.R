@@ -23,20 +23,21 @@ handle_api_error <- function(code, text, errors) {
     text <- httr::http_status(code)$message
   }
 
-  parent <- c(sys.calls()[[1]] %>% as.character %>% strsplit("\\(") %>% unlist)[1]
+  parent <- c(sys.calls()[[1]] %>% as.character() %>%
+                strsplit("\\(") %>% unlist())[1]
 
   type <- switch(as.character(code),
-                 "400" = "dhs_invalid_request",
-                 "401" = "dhs_unauthorized",
-                 "403" = "dhs_forbidden",
-                 "404" = "dhs_invalid_path - Likely incorrect query parameters",
-                 "429" = "dhs_rate_limit_exceeded",
-                 "500" = "dhs_internal_server_error",
-                 "501" = "dhs_not_initialized",
-                 "503" = "dhs_down",
-                 "dhs_unknown_error")
+    "400" = "dhs_invalid_request",
+    "401" = "dhs_unauthorized",
+    "403" = "dhs_forbidden",
+    "404" = "dhs_invalid_path - Likely incorrect query parameters",
+    "429" = "dhs_rate_limit_exceeded",
+    "500" = "dhs_internal_server_error",
+    "501" = "dhs_not_initialized",
+    "503" = "dhs_down",
+    "dhs_unknown_error"
+  )
 
-  err <- (paste0("DHS API Request Failed [",code,"] Error Type: ",type))
+  err <- (paste0("DHS API Request Failed [", code, "] Error Type: ", type))
   err
 }
-

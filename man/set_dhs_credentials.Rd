@@ -15,7 +15,8 @@ File format should be (each bullet is a new line):
       \item project=Dummy Project
       }}
 
-\item{root}{Character for root directory to where client, caches, surveys etc. will be stored.
+\item{root}{Character for root directory to where client,
+  caches, surveys etc. will be stored.
 Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}}
 }
 \value{

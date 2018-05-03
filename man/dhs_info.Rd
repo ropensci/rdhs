@@ -8,22 +8,37 @@ dhs_info(client = NULL, allResults = TRUE, infoType = NULL, f = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{infoType}{Specify a type of info to obtain the information requested. Default is version. infoType=version (default) Provides the version of the API. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version infoType=citation Provides the citation for the API to include with your application or data. Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation}
+\item{infoType}{Specify a type of info to obtain the information requested.
+Default is version. `infoType="version"`` (default) Provides the version
+of the API.
+Example: https://api.dhsprogram.com/rest/dhs/info?infoType=version
+`infoType="citation"` Provides the citation for the API to include with
+your application or data.
+Example: https://api.dhsprogram.com/rest/dhs/info?infoType=citation}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided)A fields describing the type of information that was requested and a value corresponding to the information requested. \url{https://api.dhsprogram.com/rest/dhs/info/fields}
+Returns a `data.table` of 2 (or less if `returnFields` is provided)
+  fields describing the type of information that was requested and a value
+  corresponding to the information requested.
+  \url{https://api.dhsprogram.com/rest/dhs/info/fields}
 }
 \description{
 API request of DHS Info

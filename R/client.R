@@ -1,4 +1,3 @@
-
 ##' Make a DHS API client
 ##'
 ##' @title Make a dhs client
@@ -650,7 +649,7 @@ R6_client_dhs <- R6::R6Class(
 
       # append the filename as survey to the datasets for easier matching later
       datasets <- self$available_datasets()
-      datasets$Survey <- strsplit(datasets$FileName, ".", fixed = T) %>%
+      datasets$Survey <- strsplit(datasets$FileName, ".", fixed = TRUE) %>%
         lapply(function(x) x[1]) %>%
         unlist()
 

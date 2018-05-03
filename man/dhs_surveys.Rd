@@ -12,42 +12,76 @@ dhs_surveys(client = NULL, allResults = TRUE, countryIds = NULL,
   page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{countryIds}{Specify a comma separated list of country ids to
+filter by. For a list of countries use
+ \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{selectSurveys}{Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
+\item{selectSurveys}{Specify to filter data from the latest survey by
+including `selectSurveys=TRUE` in your request. Note: Please use this
+parameter in conjunction with countryCode, surveyType, or indicatorIds
+for best results.}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Surveys on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Surveys on.
+surveyYearStart is an inclusive value. Can be used alone or in conjunction
+with surveyYearEnd.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Surveys on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Surveys on.
+surveyYearEnd is an inclusive value. Can be used alone or in conjunction
+with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyStatus}{Every survey is assigned a surveys status and can be queried based on the surveyStatus parameter. `surveyStatus="available"` (default) provides a list of all surveys for which the DHS API contains Indicator Data. `surveyStatus="Completed"` provides a list of all completed surveys. NOTE: Data may not be available for every completed survey. `surveyStatus="Ongoing"` provides a list of all ongoing surveys. `surveyStatus="all"` provides a list of all surveys.}
+\item{surveyStatus}{Every survey is assigned a surveys status and can be
+queried based on the surveyStatus parameter. `surveyStatus="available"`
+(default) provides a list of all surveys for which the DHS API contains
+Indicator Data. `surveyStatus="Completed"` provides a list of all
+completed surveys. NOTE: Data may not be available for every completed
+survey. `surveyStatus="Ongoing"` provides a list of all ongoing surveys.
+`surveyStatus="all"` provides a list of all surveys.}
 
-\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter
+surveys with the specified survey characteristic. For a list of survey
+characteristics use \code{dhs_surveys(returnFields=c("SurveyId",
+"SurveyYearLabel","SurveyType","CountryName"))}}
 
-\item{tagIds}{Specify a tag id to filter surveys containing indicators with the specified tag. For a list of tags use \code{dhs_tags()}}
+\item{tagIds}{Specify a tag id to filter surveys containing indicators with
+the specified tag. For a list of tags use \code{dhs_tags()}}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 28 (or less if `returnFields` is provided) surveys with detailed information for each survey. A detailed description of all the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/surveys/fields}
+Returns a `data.table` of 28 (or less if `returnFields` is provided)
+  surveys with detailed information for each survey. A detailed description
+  of all the attributes returned is provided at
+  \url{https://api.dhsprogram.com/rest/dhs/surveys/fields}
 }
 \description{
 API request of DHS Surveys
@@ -61,7 +95,8 @@ dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
 dat <- dhs_surveys(surveyIds="SN2010DHS",allResults=FALSE)
 dat <- dhs_surveys(surveyYear="2010",allResults=FALSE)
 dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",
+allResults=FALSE)
 dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
 dat <- dhs_surveys(surveyStatus="Surveys",allResults=FALSE)
 dat <- dhs_surveys(surveyStatus="Completed",allResults=FALSE)

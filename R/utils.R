@@ -46,7 +46,8 @@ response_is_json <- function(x) {
 
 #' Returns what the dataset file ending should be for a given filename
 #'
-#' @param file_format FileFormat for a file as taken from the API, e.g. \code{dhs_datasets(returnFields = "FileFormat")}
+#' @param file_format FileFormat for a file as taken from the API,
+#'   e.g. \code{dhs_datasets(returnFields = "FileFormat")}
 #'
 #' @return One of "dat","dat","sas7bdat","sav" or "dta"
 #'
@@ -56,7 +57,8 @@ response_is_json <- function(x) {
 #'
 file_dataset_format <- function(file_format) {
 
-  # hard coded here at the moment - when the package env client is finished replace this with
+  # hard coded here at the moment - when the package env client
+  # is finished replace this with
   # dats <- dhs_datasets(client = .rdhs$client,returnFields = "FileFormat")
   # dhs_file_formats <- unique(dats)
 
@@ -68,7 +70,8 @@ file_dataset_format <- function(file_format) {
     "Stata dataset (.dta)"
   )
 
-  file_endings <- qdapRegex::ex_between(dhs_file_formats, left = "(.", right = ")") %>% unlist()
+  file_endings <- qdapRegex::ex_between(dhs_file_formats,
+                                        left = "(.", right = ")") %>% unlist()
   file_endings[match(file_format, dhs_file_formats)]
 }
 
@@ -76,6 +79,7 @@ file_dataset_format <- function(file_format) {
 # unzips files without throwing warnings
 #' @noRd
 unzip_warn_fails <- function(...) {
+
   tryCatch({
     unzip(...)
   }, warning = function(w) stop(conditionMessage(w)))
@@ -84,6 +88,7 @@ unzip_warn_fails <- function(...) {
 # refresh client
 #' @noRd
 client_refresh <- function(cli) {
+
   cli$set_cache_date(last_api_update() - 1)
   cli$save_client()
   root <- cli$get_root()
@@ -105,7 +110,9 @@ client_refresh <- function(cli) {
 ## convert list
 #' @noRd
 type_convert_list_to_df <- function(l) {
-  l[lapply(l, is.character) %>% unlist()] <- lapply(l[lapply(l, is.character) %>% unlist()], type.convert, as.is = TRUE)
+
+  l[lapply(l, is.character) %>% unlist()] <-
+    lapply(l[lapply(l, is.character) %>% unlist()], type.convert, as.is = TRUE)
 
   return(l)
 }
@@ -113,20 +120,20 @@ type_convert_list_to_df <- function(l) {
 # type convert factor df to normal df
 #' @noRd
 type_convert_df <- function(df) {
+
   l <- lapply(df, as.character)
   df <- as.data.frame.list(type_convert_list_to_df(l), stringsAsFactors = FALSE)
 }
 
 # convert api mdy_hms character date times to posix
 #' @noRd
-mdy_hms <- function(dates) {
-  strptime(dates, format = "%B, %d %Y %H:%M:%S")
-}
+mdy_hms <- function(dates) strptime(dates, format = "%B, %d %Y %H:%M:%S")
 
 # check if uppercase
 # Credit: R package lettercase
 #' @noRd
 is_uppercase <- function(string) {
+
   if (!is.atomic(string)) {
     stop("String must be an atomic vector", call. = FALSE)
   }

@@ -13,48 +13,98 @@ dhs_data(client = NULL, allResults = TRUE, countryIds = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+  by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{indicatorIds}{Specify a comma separated list of indicator ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{indicatorIds}{Specify a comma separated list of indicator ids to
+  filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+  For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+  "SurveyType","CountryName"))}}
 
-\item{selectSurveys}{Specify to filter Data from the latest survey by adding `selectSurveys="latest"` in conjunction with a Country Code and/or Survey Type. Please Note: Not all indicators are present in the latest surveys. To filter your API Indicator Data call to return the latest survey data in which a specific set of indicators is present, add `selectSurveys="byIndicator"` in conjunction with Indicator IDs, Country Code, and/or Survey Type instead of using `selectSurveys="latest"`.}
+\item{selectSurveys}{Specify to filter Data from the latest survey by adding
+`selectSurveys="latest"` in conjunction with a Country Code and/or Survey
+Type. Please Note: Not all indicators are present in the latest surveys.
+To filter your API Indicator Data call to return the latest survey data in
+which a specific set of indicators is present, add
+`selectSurveys="byIndicator"` in conjunction with Indicator IDs, Country
+Code, and/or Survey Type instead
+of using `selectSurveys="latest"`.}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Data on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Data on.
+surveyYearStart is an inclusive value. Can be used alone or in conjunction
+with surveyYearEnd.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Data on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Data on.
+surveyYearEnd is an inclusive value. Can be used alone or in conjunction
+with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter data on surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter
+  data on surveys with the specified survey characteristic. For a list of
+  survey characteristics use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+  "SurveyType","CountryName"))}}
 
-\item{characteristicCategory}{Specify a survey characteristic category to filter data on surveys with the specified survey characteristic category. This query is case insensitive, but it only recognizes exact phrase matches. For example, `characteristicCategory="wealth"` will return results that have a characteristic category of `Wealth` while `characteristicCategory="wealth quintile"' will return results that have a characteristic category of `Wealth Quintile`.}
+\item{characteristicCategory}{Specify a survey characteristic category to
+filter data on surveys with the specified survey characteristic category.
+This query is case insensitive, but it only recognizes exact phrase
+matches. For example, `characteristicCategory="wealth"` will return
+results that have a characteristic category of `Wealth` while
+`characteristicCategory="wealth quintile"' will return results that have
+a characteristic category of `Wealth Quintile`.}
 
-\item{characteristicLabel}{Specify a survey characteristic category to filter data on surveys with the specified survey characteristic category. This query is case insensitive, but it only recognizes exact phrase matches. You can use characteristicLabel on its own or in conjunction with characteristicCategory.}
+\item{characteristicLabel}{Specify a survey characteristic category to
+filter data on surveys with the specified survey characteristic category.
+This query is case insensitive, but it only recognizes exact phrase
+matches. You can use characteristicLabel on its own or in conjunction with
+characteristicCategory.}
 
-\item{tagIds}{Specify a tag id to filter data on indicators with the specified tag. For a list of tags use \code{dhs_tags()}}
+\item{tagIds}{Specify a tag id to filter data on indicators with the
+specified tag. For a list of tags use \code{dhs_tags()}}
 
-\item{breakdown}{Data can be requested at different levels via the breakdown parameter. By default national data is returned and provides totals on a national level. `breakdown="subnational"` data provides values on a subnational level. `breakdown="background"` provides totals on categorized basis. Examples are urban/rural,education and wealth level. `breakdown="all"` provides all the data including disaggregated data.}
+\item{breakdown}{Data can be requested at different levels via the breakdown
+parameter. By default national data is returned and provides totals on a
+national level. `breakdown="subnational"` data provides values on a
+subnational level. `breakdown="background"` provides totals on categorized
+basis. Examples are urban/rural,education and wealth level.
+`breakdown="all"` provides all the data including disaggregated data.}
 
-\item{returnGeometry}{Coordinates can be requested from the API by including `returnGeometry=TRUE` in your request. The default for this value is false.}
+\item{returnGeometry}{Coordinates can be requested from the API by including
+`returnGeometry=TRUE` in your request. The default for this value is
+false.}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is
+JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset.
+By default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 27 (or less if `returnFields` is provided) data for your particular query. Details of properties returned with each row of data are provided at \url{https://api.dhsprogram.com/rest/dhs/data/fields}
+Returns a `data.table` of 27 (or less if `returnFields` is provided)
+  data for your particular query. Details of properties returned with each
+  row of data are provided at
+\url{https://api.dhsprogram.com/rest/dhs/data/fields}
 }
 \description{
 API request of DHS Indicator Data
@@ -66,14 +116,17 @@ dat <- dhs_data(countryIds="EG",allResults=FALSE)
 dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_data(surveyIds="SN2010DHS",allResults=FALSE)
 dat <- dhs_data(selectSurveys="latest",allResults=FALSE)
-dat <- dhs_data(selectSurveys="byIndicator", indicatorIds="FE_CEBA_W_CH0",allResults=FALSE)
+dat <- dhs_data(selectSurveys="byIndicator", indicatorIds="FE_CEBA_W_CH0",
+allResults=FALSE)
 dat <- dhs_data(surveyYear="2010",allResults=FALSE)
 dat <- dhs_data(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_data(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_data(surveyYearStart="1991", surveyYearEnd="2006",
+allResults=FALSE)
 dat <- dhs_data(surveyType="DHS",allResults=FALSE)
 dat <- dhs_data(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_data(characteristicCategory="wealth quintile",allResults=FALSE)
-dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",allResults=FALSE)
+dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",
+allResults=FALSE)
 dat <- dhs_data(tagIds="1",allResults=FALSE)
 dat <- dhs_data(breakdown="subnational",allResults=FALSE)
 dat <- dhs_data(breakdown="background",allResults=FALSE)

@@ -9,7 +9,8 @@ get_labels_from_dataset(data, return_all = TRUE)
 \arguments{
 \item{data}{A \code{data.frame} from which to extract variable labels.}
 
-\item{return_all}{Logical whether to return all variables (\code{TRUE}) or only those with labels.}
+\item{return_all}{Logical whether to return all variables (\code{TRUE})
+or only those with labels.}
 }
 \value{
 A \code{data.frame} consisting of the variable name and labels.

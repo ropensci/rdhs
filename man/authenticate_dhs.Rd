@@ -16,20 +16,22 @@ project that gives you access to the DHS database}
 }
 \value{
 Returns list of length 3:
-\itemize{
-      \item{"user_name"}{ your email usually}
-      \item{"user_pass"}{ your pasword you provided}
-      \item{"proj_id"}{ your project number that will enable your project to be accessed downstream}
+  \itemize{
+      \item{"user_name"}{ your email usually }
+      \item{"user_pass"}{ your pasword you provided }
+      \item{"proj_id"}{ your project number }
       }
 }
 \description{
 Authenticate Users for DHS website
 }
 \details{
-If the user has more than one project that contains the first 30 characters of the provided
-project they will be prompted to choose which project they want. This choice will be saved so they do
-not have to enter it again in this R session.
+If the user has more than one project that contains the first
+  30 characters of the provided project they will be prompted to choose
+  which project they want. This choice will be saved so they do
+  not have to enter it again in this R session.
 }
 \note{
-Credit for some of the function to \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
+Credit for some of the function to
+  \url{https://github.com/ajdamico/lodown/blob/master/R/dhs.R}
 }

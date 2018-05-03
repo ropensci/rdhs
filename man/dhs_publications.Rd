@@ -11,40 +11,70 @@ dhs_publications(client = NULL, allResults = TRUE, countryIds = NULL,
   f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{selectSurveys}{Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.}
+\item{selectSurveys}{Specify to filter data from the latest survey by
+including `selectSurveys=TRUE` in your request. Note: Please use this
+parameter in conjunction with countryCode, surveyType, or indicatorIds
+for best results.}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Publications on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter
+Publications on. surveyYearStart is an inclusive value. Can be used alone
+or in conjunction with surveyYearEnd.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Publications on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Publications
+on. surveyYearEnd is an inclusive value. Can be used alone or in
+conjunction with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter publications with countries with the specified survey characteristics. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter
+publications with countries with the specified survey characteristics.
+For a list of survey characteristics use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{tagIds}{Specify a tag id to filter publications with surveys containing indicators with the specified tag. For a list of tags use \code{dhs_tags()}}
+\item{tagIds}{Specify a tag id to filter publications with surveys
+containing indicators with the specified tag. For a list of tags use
+\code{dhs_tags()}}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is
+JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset.
+By default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 10 (or less if `returnFields` is provided) publications with detailed information for each publication. A detailed description of all the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/publications/fields}
+Returns a `data.table` of 10 (or less if `returnFields` is provided)
+  publications with detailed information for each publication. A detailed
+  description of all the attributes returned is provided at
+  \url{https://api.dhsprogram.com/rest/dhs/publications/fields}
 }
 \description{
 API request of DHS Publications
@@ -58,7 +88,8 @@ dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_publications(surveyIds="SN2010DHS",allResults=FALSE)
 dat <- dhs_publications(surveyYear="2010",allResults=FALSE)
 dat <- dhs_publications(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",
+allResults=FALSE)
 dat <- dhs_publications(surveyType="DHS",allResults=FALSE)
 dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_publications(tagIds=1,allResults=FALSE)

@@ -11,38 +11,64 @@ dhs_indicators(client = NULL, allResults = TRUE, countryIds = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{allResults}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+  by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+  filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+  For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+  "SurveyType","CountryName"))}}
 
 \item{surveyYear}{Specify a survey year to filter by.}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Indicators on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Indicators
+on. surveyYearStart is an inclusive value. Can be used alone or in
+conjunction with surveyYearEnd.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Indicators on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Indicators
+on. surveyYearEnd is an inclusive value. Can be used alone or in
+conjunction with surveyYearStart.}
 
-\item{surveyType}{Specify a comma separated list of survey years to filter by.}
+\item{surveyType}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter indicators in surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter
+indicators in surveys with the specified survey characteristic. For a list
+of survey characteristics use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{tagIds}{Specify a tag id to filter indicators with the specified tag. For a list of tags use \code{dhs_tags()}}
+\item{tagIds}{Specify a tag id to filter indicators with the specified tag.
+For a list of tags use \code{dhs_tags()}}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 18 (or less if `returnFields` is provided) indicators with attributes for each indicator. A detailed description of all the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
+Returns a `data.table` of 18 (or less if `returnFields` is provided)
+  indicators with attributes for each indicator. A detailed description of
+  all the attributes returned is provided at
+  \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
 }
 \description{
 API request of DHS Indicators
@@ -55,7 +81,8 @@ dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
 dat <- dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
 dat <- dhs_indicators(surveyYear="2010",allResults=FALSE)
 dat <- dhs_indicators(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_indicators(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
+dat <- dhs_indicators(surveyYearStart="1991", surveyYearEnd="2006",
+allResults=FALSE)
 dat <- dhs_indicators(surveyType="DHS",allResults=FALSE)
 dat <- dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
 dat <- dhs_indicators(tagIds="1",allResults=FALSE)
