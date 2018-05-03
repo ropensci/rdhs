@@ -107,12 +107,12 @@ api_request <- function(endpoint, query, allResults, client){
 
     # Now let's address the num_results argument. If that was everything then great
     if(!allResults){
-      parsed_resp <- data.table::rbindlist(parsed_resp$Data)
+      parsed_resp <- rbind_list_base(parsed_resp$Data)
     } else {
 
       # if the first call has caught all the results then great
       if(parsed_resp$RecordsReturned == parsed_resp$RecordCount){
-        parsed_resp <- data.table::rbindlist(parsed_resp$Data)
+        parsed_resp <- rbind_list_base(parsed_resp$Data)
       } else {
 
         # if not then query with either max possible or their requested amount
@@ -126,7 +126,7 @@ api_request <- function(endpoint, query, allResults, client){
 
         # if this larger page query has returned all the results then return this else we will loop through
         if(parsed_resp$TotalPages == 1){
-          parsed_resp <- data.table::rbindlist(parsed_resp$Data)
+          parsed_resp <- rbind_list_base(parsed_resp$Data)
         } else {
 
           # save the resp as a temp and then make parsed_resp the list we will loop requests into
@@ -143,7 +143,7 @@ api_request <- function(endpoint, query, allResults, client){
           }
 
           # and now concatenate the results
-          parsed_resp <- data.table::rbindlist(do.call(c,lapply(parsed_resp,function(x) x$Data)))
+          parsed_resp <- rbind_list_base(do.call(c,lapply(parsed_resp,function(x) x$Data)))
         }
       }
 

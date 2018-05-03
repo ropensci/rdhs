@@ -8,15 +8,18 @@ client_dhs(credentials = NULL, root = rappdirs::user_cache_dir("rdhs",
   Sys.info()["user"]), api_key = "ICLSPH-527168")
 }
 \arguments{
-\item{credentials}{File path to where log in credentials are stored (preferred as no
-secrets are typed into an R session). File format should be (each bullet is a new line):
+\item{credentials}{File path to where log in credentials are stored
+(preferred as no
+secrets are typed into an R session). File format should be (each bullet
+is a new line):
 \itemize{
-      \item email=dummy@gmail.com
-      \item password=dummypass
-      \item project=Dummy Project
-      }}
+    \item email=dummy@gmail.com
+    \item password=dummypass
+    \item project=Dummy Project
+    }}
 
-\item{root}{Character for root directory to where client, caches, surveys etc. will be stored.
+\item{root}{Character for root directory to where client, caches,
+surveys etc. will be stored.
 Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}}
 
 \item{api_key}{Character for DHS API KEY}
