@@ -17,10 +17,10 @@ query_creation <- function(query) {
 }
 
 #' @noRd
-handle_api_request <- function(endpoint, query, allResults, client) {
+handle_api_request <- function(endpoint, query, all_results, client) {
 
   # first clear the query list of any not needed query args
-  query$allResults <- NULL
+  query$all_results <- NULL
   query$client <- NULL
 
   # create query and set format to json of not specified
@@ -35,14 +35,14 @@ handle_api_request <- function(endpoint, query, allResults, client) {
   if (is.null(client)) {
 
     # create generic request
-    resp <- api_request(endpoint, query, allResults, client)
+    resp <- api_request(endpoint, query, all_results, client)
   } else {
 
     # create url for api request
     url <- httr::modify_url(endpoint, query = query)
 
     # create a client cache key for this
-    key <- digest::digest(paste0(url, "allResults=", allResults, collapse = ""))
+    key <- digest::digest(paste0(url, "all_results=", all_results, collapse = ""))
 
     out <- tryCatch(client$.__enclos_env__$private$storr$get(key, "api_calls"),
       KeyError = function(e) NULL
@@ -54,7 +54,7 @@ handle_api_request <- function(endpoint, query, allResults, client) {
     } else {
 
       # create generic request
-      resp <- api_request(endpoint, query, allResults, client)
+      resp <- api_request(endpoint, query, all_results, client)
 
       ## then cache the resp and return the parsed resp
       client$.__enclos_env__$private$storr$set(key, resp, "api_calls")
@@ -65,7 +65,7 @@ handle_api_request <- function(endpoint, query, allResults, client) {
 }
 
 #' @noRd
-api_request <- function(endpoint, query, allResults, client) {
+api_request <- function(endpoint, query, all_results, client) {
 
 
   # make url for request
@@ -77,19 +77,24 @@ api_request <- function(endpoint, query, allResults, client) {
     # Make the request
     resp <- httr::GET(url, httr::user_agent("https://github.com/OJWatson/rdhs"))
 
-    # if they have allResults still as TRUE then let them now
+    # if they have all_results still as TRUE then let them now
     # that not all results will be returned
-    if (allResults) {
+    if (all_results) {
       message(paste0(
         "Format specified is not equal to 'json'. ",
-        "allResults will be ignored and only the ",
+        "all_results will be ignored and only the ",
         "first response from the API will be returned. ",
         "Set 'f=\"json\"' to return all API results."
       ))
     }
 
     ## pass to response parse and then return
-    parsed_resp <- handle_api_response(resp, FALSE)
+    if(query$f == "geojson") {
+      message("geojson requested - this will be improved in the future")
+      parsed_resp <- handle_api_response(resp, TRUE)
+    } else {
+      parsed_resp <- handle_api_response(resp, FALSE)
+    }
     return(parsed_resp)
   }
 
@@ -115,7 +120,7 @@ api_request <- function(endpoint, query, allResults, client) {
   }
 
   # Now address the num_results argument. If that was everything then great
-  if (!allResults) {
+  if (!all_results) {
     parsed_resp <- rbind_list_base(parsed_resp$Data)
   } else {
 
