@@ -37,7 +37,12 @@ test_that("credentials", {
   expect_error(read_credentials(list("humpty", "dumpty", "project")))
 
   # check for too many args
-  expect_error(read_credentials(list("email" = "humpty", "password" = "dumpty", "project" = "project", "huh" = 2)))
+  expect_error(read_credentials(list(
+    "email" = "humpty",
+    "password" = "dumpty",
+    "project" = "project",
+    "huh" = 2
+  )))
 
   # remove this
   unlink("rubbish_no_more.txt")
@@ -130,13 +135,16 @@ test_that("set_dhs_credentials", {
     write(x = "", file.path(normalizePath("~"), ".Renviron"))
   }
 
-  # and put the old client back in place and reset the renvirons if they existed before hand
+  # and put the old client back in place and reset
+  # the renvirons if they existed before hand
   if (!is.null(old_client)) {
     saveRDS(old_client, file.path(old_client$get_root(), client_file_name()))
     .rdhs$client <- old_client
 
     expect_identical(
-      rdhs:::set_rdhs_CREDENTIALS_PATH(old_client$.__enclos_env__$private$credentials_path),
+      rdhs:::set_rdhs_CREDENTIALS_PATH(
+        old_client$.__enclos_env__$private$credentials_path
+      ),
       old_client$.__enclos_env__$private$credentials_path
     )
     expect_identical(

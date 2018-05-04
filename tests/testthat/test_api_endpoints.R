@@ -13,13 +13,19 @@ test_that("format catches and al_results tests", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
-  dat <- dhs_dataUpdates(client = cli, lastUpdate = "20150901", all_results = FALSE)
-  dat2 <- dhs_dataUpdates(client = cli, lastUpdate = "20150901", all_results = FALSE)
+  dat <- dhs_dataUpdates(
+    client = cli, lastUpdate = "20150901", all_results = FALSE
+  )
+  dat2 <- dhs_dataUpdates(
+    client = cli, lastUpdate = "20150901", all_results = FALSE
+  )
   expect_identical(dat, dat2)
 
   # tets for non "json" specification
@@ -31,7 +37,9 @@ test_that("format catches and al_results tests", {
     surveyYearStart = 202231231306,
     breakdown = "subParTyping"
   ))
-  dat <- dhs_datasets(surveyIds = "laksjdoash,dasjd", f = "xml", all_results = FALSE)
+  dat <- dhs_datasets(
+    surveyIds = "laksjdoash,dasjd", f = "xml", all_results = FALSE
+  )
 
   # test for misstyped args
   expect_message(dhs_countries(countryIds = "SE"))
@@ -47,10 +55,13 @@ test_that("format catches and al_results tests", {
 test_that("dhs_countries works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_countries(countryIds = "SN", surveyYearStart = "2010", all_results = FALSE)
+  dat <- dhs_countries(
+    countryIds = "SN", surveyYearStart = "2010", all_results = FALSE
+  )
   expect_identical(dat$UNAIDS_CountryCode[1], "SEN")
   dat <- dhs_countries(
-    countryIds = c("EG", "SN"), surveyYearStart = "1991", surveyYearEnd = "2006",
+    countryIds = c("EG", "SN"),
+    surveyYearStart = "1991", surveyYearEnd = "2006",
     surveyType = "DHS", surveyCharacteristicIds = "32"
   )
   expect_identical(dat$ISO3_CountryCode[1:2], c("EGY", "SEN"))
@@ -61,11 +72,17 @@ test_that("dhs_countries works", {
 test_that("dhs_data works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_data(countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR", selectSurveys = "latest", all_results = FALSE)
+  dat <- dhs_data(
+    countryIds = "EG", indicatorIds = "FE_FRTR_W_TFR",
+    selectSurveys = "latest", all_results = FALSE
+  )
   expect_true(dat$DataId[1] == 42365)
   dat <- dhs_data(surveyIds = "SN2010DHS", all_results = FALSE)
   expect_true(any(dat$DataId %in% 471035))
-  dat <- dhs_data(selectSurveys = "byIndicator", indicatorIds = "FE_CEBA_W_CH0", surveyCharacteristicIds = "32", all_results = FALSE)
+  dat <- dhs_data(
+    selectSurveys = "byIndicator", indicatorIds = "FE_CEBA_W_CH0",
+    surveyCharacteristicIds = "32", all_results = FALSE
+  )
   expect_true(any(dat$DataId %in% 966))
   dat <- dhs_data(surveyYear = "2010", surveyType = "DHS", all_results = FALSE)
   expect_true(any(dat$DataId %in% 2086))
@@ -103,7 +120,10 @@ test_that("dhs_datasets works", {
 test_that("dhs_indicators works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_indicators(countryIds = "EG", all_results = FALSE, indicatorIds = "FE_FRTR_W_TFR")
+  dat <- dhs_indicators(
+    countryIds = "EG", all_results = FALSE,
+    indicatorIds = "FE_FRTR_W_TFR"
+  )
   expect_identical(dat$ShortName[1], "TFR 15-49")
   dat <- dhs_indicators(
     surveyIds = "SN2010DHS", surveyYearStart = "2006", all_results = FALSE,
@@ -129,7 +149,10 @@ test_that("dhs_info works", {
 test_that("dhs_publications works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_publications(countryIds = "EG", all_results = FALSE, selectSurveys = "latest")
+  dat <- dhs_publications(
+    countryIds = "EG", all_results = FALSE,
+    selectSurveys = "latest"
+  )
   expect_true(any(dat$SurveyYear %in% 2015))
   dat <- dhs_publications(
     surveyYearStart = "2006", surveyYearEnd = "2016",

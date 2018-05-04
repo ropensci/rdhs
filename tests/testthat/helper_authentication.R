@@ -2,8 +2,8 @@ skip_if_no_auth <- function(credentials_path = "credentials") {
   have_cred_path <- file.exists(credentials_path)
 
   if (!have_cred_path & (identical(Sys.getenv("rdhs_USER_PASS"), "") ||
-                         identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
-                         identical(Sys.getenv("rdhs_USER_PROJECT"), ""))) {
+    identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
+    identical(Sys.getenv("rdhs_USER_PROJECT"), ""))) {
     skip("No authentication available")
   }
 
@@ -21,8 +21,10 @@ new_rand_client <- function() {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
-                            credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168",
+      credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
@@ -53,10 +55,12 @@ create_correct_credentials <- function(filename) {
   envs <- save_current_envs()
 
   #  make a credentials object
-  write(paste0("email=", envs[1],
-               "\npassword=", envs[2],
-               "\nproject=", envs[3]),
-    file = filename
+  write(paste0(
+    "email=", envs[1],
+    "\npassword=", envs[2],
+    "\nproject=", envs[3]
+  ),
+  file = filename
   )
   out <- set_dhs_credentials(credentials = filename)
 }

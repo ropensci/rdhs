@@ -30,5 +30,4 @@ test_that("rbind_list_base", {
   l <- list()
   l[[1]] <- list()
   l <- rbind_list_base(l)
-
 })

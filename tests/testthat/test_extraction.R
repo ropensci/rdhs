@@ -9,7 +9,9 @@ test_that("query codes having downloaded surveys", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
@@ -18,29 +20,47 @@ test_that("query codes having downloaded surveys", {
   survs <- cli$available_datasets()
 
   # check rds only for one survey
-  downloads <- cli$get_datasets(dataset_filenames = "AOBR62DT.ZIP", download_option = "r")
-  downloads <- cli$get_datasets(dataset_filenames = "AOBR62SV.ZIP", download_option = "r", all_lower = FALSE, reformat = TRUE)
+  downloads <- cli$get_datasets(
+    dataset_filenames = "AOBR62DT.ZIP", download_option = "r"
+  )
+  downloads <- cli$get_datasets(
+    dataset_filenames = "AOBR62SV.ZIP", download_option = "r",
+    all_lower = FALSE, reformat = TRUE
+  )
 
   ## QUESTIONS AND VARIABLE TESTS
 
   # create questions
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP", search_terms = c("fever", "malaria", "test"))
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP",
+    search_terms = c("fever", "malaria", "test")
+  )
 
   # check the regeex option
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP", regex = c("fever|test"))
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP", regex = c("fever|test")
+  )
 
   # check the essetial temrs option
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP", search_terms = c("fever|test"), essential_terms = "malaria")
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP",
+    search_terms = c("fever|test"),
+    essential_terms = "malaria"
+  )
 
 
-  # check the same with an uppercase survey, one variable that is na and essential
+  # check the same with an uppercase survey, one variable that is na essential
   quest <- cli$survey_variables(
-    dataset_filenames = "AOBR62SV.ZIP", variables = "hml32", essential_variables = c("hml35", "h32n"),
+    dataset_filenames = "AOBR62SV.ZIP", variables = "hml32",
+    essential_variables = c("hml35", "h32n"),
     reformat = TRUE
   )
 
   # check variable
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP", search_terms = c("fever|test"))
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP",
+    search_terms = c("fever|test")
+  )
 
 
   ####
@@ -54,13 +74,22 @@ test_that("query codes having downloaded surveys", {
   ## and repeat for sruveys that have no geo
 
   # check rds only for one survey
-  downloads <- cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP", download_option = "r")
+  downloads <- cli$get_datasets(
+    dataset_filenames = "ZWHR31SV.ZIP",
+    download_option = "r"
+  )
   r <- readRDS(downloads$ZWHR31SV)
   r <- data_and_labels(r)
 
   # create questions for a regex and non
-  quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP", regex = c("Has refrigerator", "fever"))
-  quest <- cli$survey_questions(dataset_filenames = "ZWHR31SV.ZIP", search_terms = c("Has refrigerator"))
+  quest <- cli$survey_questions(
+    dataset_filenames = "ZWHR31SV.ZIP",
+    regex = c("Has refrigerator", "fever")
+  )
+  quest <- cli$survey_questions(
+    dataset_filenames = "ZWHR31SV.ZIP",
+    search_terms = c("Has refrigerator")
+  )
 
 
   # extract the data
@@ -68,7 +97,10 @@ test_that("query codes having downloaded surveys", {
   expect_identical(extract$ZWHR31SV$LATNUM[1], NA)
 
   # and repreat for reformatted ones
-  quest <- cli$survey_questions(dataset_filenames = "AOBR62DT.ZIP", search_terms = "malaria", reformat = TRUE)
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP",
+    search_terms = "malaria", reformat = TRUE
+  )
   extract <- cli$extract(quest, add_geo = T)
   unlink(td)
 })
@@ -77,7 +109,10 @@ test_that("surveyId in extract", {
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
-  dat <- cli$survey_variables(dataset_filenames = "ZWHR31SV.ZIP", variables = "hv024")
+  dat <- cli$survey_variables(
+    dataset_filenames = "ZWHR31SV.ZIP",
+    variables = "hv024"
+  )
   expect_identical(names(dat)[5], "survey_id")
 
   extract <- cli$extract(dat)
@@ -94,7 +129,9 @@ test_that("rbind_labelled", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
@@ -102,25 +139,37 @@ test_that("rbind_labelled", {
   # get some datasets
   d <- cli$get_datasets(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"))
 
-  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"), variables = c("v024", "v130"))
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"),
+    variables = c("v024", "v130")
+  )
 
   extract <- cli$extract(quest, add_geo = TRUE)
 
   expect_warning(rbind_labelled(extract))
 
-  dat <- rbind_labelled(extract, labels = list("v024" = "concatenate", "v130" = "concatenate"))
+  dat <- rbind_labelled(extract, labels = list(
+    "v024" = "concatenate",
+    "v130" = "concatenate"
+  ))
 
-  dat <- rbind_labelled(extract, labels = list("v024" = "concatenate"), warn = FALSE)
+  dat <- rbind_labelled(extract,
+    labels = list("v024" = "concatenate"),
+    warn = FALSE
+  )
 
   # now do it for just one variable
-  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"), variables = c("v024"))
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"),
+    variables = c("v024")
+  )
   extract <- cli$extract(quest, add_geo = FALSE)
   dat <- rbind_labelled(extract, labels = list("v024" = "concatenate"))
   expect_warning(rbind_labelled(extract))
 
 
   # now let's force it to look out for factors and reformats
-  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"), variables = c("v024", "v130"), reformat = TRUE)
+  quest <- cli$survey_variables(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"),
+    variables = c("v024", "v130"), reformat = TRUE
+  )
   extract <- cli$extract(quest, add_geo = FALSE)
   dat <- rbind_labelled(extract, labels = list("v024" = "concatenate"))
 
@@ -131,6 +180,9 @@ test_that("rbind_labelled", {
 
   expect_equal(
     as.numeric(sort(table(dat$v024))),
-    as.numeric(sort(c(table(extract$AOBR62FL$v024), table(extract$BJBR41FL$v024))))
+    as.numeric(sort(c(
+      table(extract$AOBR62FL$v024),
+      table(extract$BJBR41FL$v024)
+    )))
   )
 })

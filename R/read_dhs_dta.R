@@ -42,13 +42,18 @@ parse_map <- function(map, all_lower=TRUE) {
   ## (>0.7 arbitrarily) to exclude white spaces
   ## in header variable names.
 
-  hspaces <- sapply(strsplit(header, NULL), "==", " ")
+  hspaces <- vapply(
+    strsplit(header, NULL), "==", logical(nchar(header[1])), " "
+    )
+
   hspaces <- which(apply(hspaces, 1, all))
   hspaces <- setdiff(hspaces + 1, hspaces) - 1
 
   Sys.setlocale("LC_ALL", "C") ## !!! TODO
   vspaces <- lapply(strsplit(var, NULL), "==", " ")
-  vspaces <- sapply(vspaces, "[", seq_along(vspaces[[1]]))
+  vspaces <- vapply(
+    vspaces, "[", logical(length(vspaces[[1]])), seq_along(vspaces[[1]])
+  )
   vspaces <- which(apply(vspaces, 1, mean) > 0.7)
 
   idx1 <- c(intersect(hspaces, vspaces), max(nchar(c(header, var))))
@@ -62,7 +67,9 @@ parse_map <- function(map, all_lower=TRUE) {
   header <- Map(substr, list(x = header), start = idx0, stop = idx1)
   header <- lapply(header, gsub, pattern = "^\\s+", replacement = "")
   header <- lapply(header, gsub, pattern = "\\s+$", replacement = "")
-  header <- gsub("^\\s", "", sapply(header, paste, collapse = " "))
+  header <- gsub(
+    "^\\s", "", vapply(header, paste, character(1), collapse = " ")
+    )
 
   names(var) <- tolower(header)
   var$name <- tolower(gsub("\\s+.*", "", var[["item name"]]))
@@ -274,7 +281,7 @@ read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
     map <- read_zipdata(zfile, "\\.MAP$", readLines)
     dct <- parse_map(map, all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
-    haslbl <- sapply(dct$labels, length) > 0
+    haslbl <- unlist(lapply(dct$labels,length)) > 0
     dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
                                  dct$labels[haslbl])
   }

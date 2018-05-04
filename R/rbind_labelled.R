@@ -27,14 +27,14 @@
 #' See examples.
 #'
 #' @examples
-#' df1 <- data.frame(
-#' area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
-#' climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
-#' )
-#' df2 <- data.frame(
-#' area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
-#' climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1))
-#' )
+# df1 <- data.frame(
+# area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+# climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+# )
+# df2 <- data.frame(
+# area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
+# climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1))
+# )
 #'
 #' # Default: all data frames inherit labels from first df. Incorrect if
 #' # "reg 1" and "reg A" are from different countries, for example.
@@ -121,7 +121,13 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     })
     labels <- labels[!names(labels) %in% catvar]
 
-    islab <- sapply(dfs, sapply, haven::is.labelled) %>% islab_vec_catch()
+    islab <- vapply(
+      dfs,function(x){
+        vapply(x,haven::is.labelled,logical(1))
+      },
+      logical(length(dfs[[1]]))
+    ) %>% islab_vec_catch()
+
     anylab <- names(which(apply(islab, 1, any)))
     needslab <- setdiff(anylab, names(labels))
 
@@ -138,8 +144,12 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
       lablist <- lapply(lablist, lapply, attr, "labels")
       lablist <- do.call(Map, c(f = list, lablist))
 
-      .check <- function(x) all(sapply(x, identical, x[[1]]))
-      allequal <- sapply(lablist, .check)
+      allequal <- lapply(lablist, function(x) {
+        lapply(x, function(y) {
+          identical(y,x[[1]])
+        }) %>% unlist %>% all
+      }) %>% unlist
+
       if (any(!allequal)) {
         warning(paste0(
           "Some variables have non-matching value labels: ",

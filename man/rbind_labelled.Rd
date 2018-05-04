@@ -40,14 +40,6 @@ data.
 See examples.
 }
 \examples{
-df1 <- data.frame(
-area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
-climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
-)
-df2 <- data.frame(
-area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
-climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1))
-)
 
 # Default: all data frames inherit labels from first df. Incorrect if
 # "reg 1" and "reg A" are from different countries, for example.

@@ -236,7 +236,7 @@ parse_do <- function(do, dct, all_lower=TRUE) {
   lblstr <- sub("^ *label define ([^ ]+) +(.*)", "\\2", lbldef)
   lblstr <- strsplit(lblstr, "\"")
 
-  if (any(sapply(lblstr, length) %% 2 != 1)) {
+  if (any(unlist(lapply(lblstr,length)) %% 2 != 1)) {
     stop("Error parsing value labels")
   }
 
@@ -330,7 +330,7 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
   )
   names(dat) <- dct$name
   dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
-  haslbl <- sapply(dct$labels, length) > 0
+  haslbl <- unlist(lapply(dct$labels,length)) > 0
   dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
                                dct$labels[haslbl])
 

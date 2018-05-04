@@ -9,7 +9,9 @@ test_that("save credentials", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
     testthat::expect_identical(
       normalizePath(file.path("credentials"), winslash = "/"),
       cli$.__enclos_env__$private$credentials_path
@@ -23,7 +25,9 @@ test_that("save credentials", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
@@ -58,7 +62,9 @@ test_that("new updates are recognised", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
@@ -68,12 +74,15 @@ test_that("new updates are recognised", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
-  # this dataset has been updated in the past so if we force the cache dat back and then refresh it should trig clearing this
+  # this dataset has been updated in the past so if we
+  # force the cache dat back and then refresh it should trig clearing this
   d <- cli$get_datasets("BUBR70SV.ZIP")
   cli$set_cache_date(1)
   cli <- client_refresh(cli)

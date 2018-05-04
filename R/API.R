@@ -42,10 +42,12 @@ handle_api_request <- function(endpoint, query, all_results, client) {
     url <- httr::modify_url(endpoint, query = query)
 
     # create a client cache key for this
-    key <- digest::digest(paste0(url, "all_results=", all_results, collapse = ""))
+    key <- digest::digest(
+      paste0(url, "all_results=", all_results, collapse = "")
+    )
 
     out <- tryCatch(client$.__enclos_env__$private$storr$get(key, "api_calls"),
-      KeyError = function(e) NULL
+                    KeyError = function(e) NULL
     )
 
     # check out agianst cache, if fine return that and if not make request
@@ -100,8 +102,8 @@ api_request <- function(endpoint, query, all_results, client) {
 
   # make the request
   resp <- httr::GET(url, httr::accept_json(),
-    httr::user_agent("https://github.com/OJWatson/rdhs"),
-    encode = "json"
+                    httr::user_agent("https://github.com/OJWatson/rdhs"),
+                    encode = "json"
   )
 
   ## pass to response parse and if its json then grab the data
