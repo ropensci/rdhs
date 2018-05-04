@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Get Datasets — get_datasets" />
 
 <meta property="og:description" content="Downloads datasets you have access to from the DHS website" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>get_datasets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Downloads datasets you have access to from the DHS website</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>get_datasets</span>(<span class='no'>dataset_filenames</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"rds"</span>, <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='no'>.rdhs</span>$<span class='no'>client</span>$<span class='fu'>get_root</span>(),
@@ -138,28 +141,32 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset_filenames</th>
-      <td><p>The desired filenames to be downloaded. These can be found as one of the
-returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>. Alternatively you can also pass the desired rows from
-<code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
+      <td><p>The desired filenames to be downloaded. These can be
+found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.
+Alternatively you can also pass the desired rows from
+code<a href='dhs_datasets.html'>dhs_datasets</a>.</p></td>
     </tr>
     <tr>
       <th>download_option</th>
-      <td><p>Character specifying whether the dataset should be just downloaded ("zip"),
-imported and saved as an .rds object ("rds"), or both extract and rds ("both").
-Conveniently you can just specify any letter from these options.</p></td>
+      <td><p>Character specifying whether the dataset should be
+just downloaded ("zip"), imported and saved as an .rds object ("rds"), or
+both extract and rds ("both"). Conveniently you can just specify any letter
+from these options.</p></td>
     </tr>
     <tr>
       <th>reformat</th>
-      <td><p>Boolean concerning whether to reformat read in datasets by removing all factors and labels.
-Default = FALSE.</p></td>
+      <td><p>Boolean concerning whether to reformat read in datasets by
+removing all factors and labels. Default = FALSE.</p></td>
     </tr>
     <tr>
       <th>all_lower</th>
-      <td><p>Logical indicating whether all value labels should be lower case. Default to `TRUE`.</p></td>
+      <td><p>Logical indicating whether all value labels should be lower
+case. Default to `TRUE`.</p></td>
     </tr>
     <tr>
       <th>output_dir_root</th>
-      <td><p>Root directory where the datasets will be stored within. The default will download
+      <td><p>Root directory where the datasets will be stored
+within. The default will download
 datasets to a subfolder of the client root called "datasets"</p></td>
     </tr>
     <tr>
@@ -170,20 +177,25 @@ datasets to a subfolder of the client root called "datasets"</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Depends on the download_option requested, but ultimately it is a file path to where the dataset
-  was downloaded to, so that you can interact with it accordingly.</p>
+    <p>Depends on the download_option requested, but ultimately it is a file
+  path to where the dataset was downloaded to, so that you can interact with
+  it accordingly.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Gets datasets from your cache or dwonlaods from the DHS website. By providing the filenames, as specified in one of the
-  returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all
-  the files you hae requested. If any of the requested files are unavailable for your log in, these
-  will be flagged up first as a message so you can make a note and request them through the DHS website.
-  You also have the option to control whether the downloaded zip file is then extracted and converted
-  into a more convenient R <code>data.frame</code>. This converted object will then be subsequently saved as
-  a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded
-  when needed with <code>readRDS</code>. You also have the option to reformat the dataset, which will ensure that the
-  datasets returned are encoded simply as character strings, i.e. there are no factors or labels.</p>
+    <p>Gets datasets from your cache or dwonlaods from the DHS website.
+  By providing the filenames, as specified in one of the returned fields from
+  <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all
+  the files you hae requested. If any of the requested files are unavailable
+  for your log in, these will be flagged up first as a message so you can
+  make a note and request them through the DHS website. You also have the
+  option to control whether the downloaded zip file is then extracted and
+  converted into a more convenient R <code>data.frame</code>. This converted object
+  will then be subsequently saved as a ".rds" object within the client root
+  directory datasets folder, which can then be more quickly loaded when
+  needed with <code>readRDS</code>. You also have the option to reformat the
+  dataset, which will ensure that the datasets returned are encoded simply
+  as character strings, i.e. there are no factors or labels.</p>
     
 
   </div>

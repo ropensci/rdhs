@@ -4,7 +4,7 @@
 \alias{dhs_publications}
 \title{API request of DHS Publications}
 \usage{
-dhs_publications(client = NULL, allResults = TRUE, countryIds = NULL,
+dhs_publications(client = NULL, all_results = TRUE, countryIds = NULL,
   selectSurveys = NULL, indicatorIds = NULL, surveyIds = NULL,
   surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
   surveyType = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
@@ -14,7 +14,7 @@ dhs_publications(client = NULL, allResults = TRUE, countryIds = NULL,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -82,17 +82,17 @@ API request of DHS Publications
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_publications(countryIds="EG",allResults=FALSE)
-dat <- dhs_publications(selectSurveys="latest",allResults=FALSE)
-dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_publications(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_publications(surveyYear="2010",allResults=FALSE)
-dat <- dhs_publications(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_publications(countryIds="EG",all_results=FALSE)
+dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
+dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+dat <- dhs_publications(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_publications(surveyYear="2010",all_results=FALSE)
+dat <- dhs_publications(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",
-allResults=FALSE)
-dat <- dhs_publications(surveyType="DHS",allResults=FALSE)
-dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
-dat <- dhs_publications(tagIds=1,allResults=FALSE)
-dat <- dhs_publications(f="html",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_publications(surveyType="DHS",all_results=FALSE)
+dat <- dhs_publications(surveyCharacteristicIds="32",all_results=FALSE)
+dat <- dhs_publications(tagIds=1,all_results=FALSE)
+dat <- dhs_publications(f="html",all_results=FALSE)
 }
 }

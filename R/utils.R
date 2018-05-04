@@ -24,7 +24,7 @@ rbind_list_base <- function(x) {
 #' collapse API response list
 #' @param x List of lists from API to be collapsed
 collapse_api_responses <- function(x) {
-  rbind_list_base(do.call(c,lapply(x,function(y) {y$Data})))
+  rbind_list_base(do.call(c, lapply(x, function(y) y$Data)))
 }
 
 
@@ -57,11 +57,6 @@ response_is_json <- function(x) {
 #'
 file_dataset_format <- function(file_format) {
 
-  # hard coded here at the moment - when the package env client
-  # is finished replace this with
-  # dats <- dhs_datasets(client = .rdhs$client,returnFields = "FileFormat")
-  # dhs_file_formats <- unique(dats)
-
   dhs_file_formats <- c(
     "Flat ASCII data (.dat)",
     "Hierarchical ASCII data (.dat)",
@@ -80,9 +75,10 @@ file_dataset_format <- function(file_format) {
 #' @noRd
 unzip_warn_fails <- function(...) {
 
-  tryCatch({
+  tryCatch( {
     unzip(...)
-  }, warning = function(w) stop(conditionMessage(w)))
+  },
+  warning = function(w) stop(conditionMessage(w)))
 }
 
 # refresh client

@@ -258,6 +258,7 @@ data_and_labels <- function(dataset) {
   }
   variable_names <- get_var_labels(dataset)
   res <- list("dataset" = dataset, "variable_names" = variable_names)
+  return(res)
 }
 
 
@@ -310,4 +311,3 @@ create_new_filenames <- function(data) {
   data$file[issues] <- paste0(data$file[issues], "_", data$CountryName[issues])
   data
 }
-

@@ -223,7 +223,7 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 
   varlbl <- grep("^label variable", x, value = TRUE)
 
-  varlabels <- sub("^label variable ([^ ]+) +?([^ ].*)","\\2", varlbl)
+  varlabels <- sub("^label variable ([^ ]+) +?([^ ].*)", "\\2", varlbl)
   varlabels <- gsub("\"", "", varlabels)
   names(varlabels) <- tolower(sub("^label variable ([^ ]+) +?([^ ].*)",
                                   "\\1", varlbl))

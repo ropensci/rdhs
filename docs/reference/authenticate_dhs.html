@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="DHS Wesbite Authentication — authenticate_dhs" />
 
 <meta property="og:description" content="Authenticate Users for DHS website" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>authenticate_dhs.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Authenticate Users for DHS website</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>authenticate_dhs</span>(<span class='no'>your_email</span>, <span class='no'>your_password</span>, <span class='no'>your_project</span>)</pre>
     
@@ -154,19 +157,21 @@ project that gives you access to the DHS database</p></td>
     <p>Returns list of length 3:</p><ul>
 <li><p>"user_name" your email usually</p></li>
 <li><p>"user_pass" your pasword you provided</p></li>
-<li><p>"proj_id" your project number that will enable your project to be accessed downstream</p></li>
+<li><p>"proj_id" your project number</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If the user has more than one project that contains the first 30 characters of the provided
-project they will be prompted to choose which project they want. This choice will be saved so they do
-not have to enter it again in this R session.</p>
+    <p>If the user has more than one project that contains the first
+  30 characters of the provided project they will be prompted to choose
+  which project they want. This choice will be saved so they do
+  not have to enter it again in this R session.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Credit for some of the function to <a href='https://github.com/ajdamico/lodown/blob/master/R/dhs.R'>https://github.com/ajdamico/lodown/blob/master/R/dhs.R</a></p>
+    <p>Credit for some of the function to
+  <a href='https://github.com/ajdamico/lodown/blob/master/R/dhs.R'>https://github.com/ajdamico/lodown/blob/master/R/dhs.R</a></p>
     
 
   </div>

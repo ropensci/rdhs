@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Parse fixed-width file metadata — parse_meta" />
 
 <meta property="og:description" content="Parse dataset metadata" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>parse_meta.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Parse dataset metadata</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>parse_dcf</span>(<span class='no'>dcf</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -144,7 +147,8 @@
     </tr>
     <tr>
       <th>all_lower</th>
-      <td><p>logical indicating whether to convert variable labels to lower case. Defaults to `TRUE`.</p></td>
+      <td><p>logical indicating whether to convert variable labels to
+lower case. Defaults to `TRUE`.</p></td>
     </tr>
     <tr>
       <th>sps</th>
@@ -167,8 +171,12 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>mrfl_zip</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
-<span class='fu'>download.file</span>(<span class='fu'>paste0</span>(<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?"</span>,
-<span class='st'>"Filename=ZZMR61FL.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>), <span class='no'>mrfl_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>)
+<span class='fu'>download.file</span>(
+<span class='fu'>paste0</span>(
+<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?"</span>,
+<span class='st'>"Filename=ZZMR61FL.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>),
+<span class='no'>mrfl_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>
+)
 
 <span class='no'>dcf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCF"</span>, <span class='no'>readLines</span>)
 <span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_meta.html'>parse_dcf</a></span>(<span class='no'>dcf</span>)

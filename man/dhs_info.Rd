@@ -4,14 +4,14 @@
 \alias{dhs_info}
 \title{API request of DHS Info}
 \usage{
-dhs_info(client = NULL, allResults = TRUE, infoType = NULL, f = NULL,
+dhs_info(client = NULL, all_results = TRUE, infoType = NULL, f = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{infoType}{Specify a type of info to obtain the information requested.
@@ -46,8 +46,8 @@ API request of DHS Info
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_info(infoType="version",allResults=FALSE)
-dat <- dhs_info(infoType="citation",allResults=FALSE)
-dat <- dhs_info(f="html",allResults=FALSE)
+dat <- dhs_info(infoType="version",all_results=FALSE)
+dat <- dhs_info(infoType="citation",all_results=FALSE)
+dat <- dhs_info(f="html",all_results=FALSE)
 }
 }

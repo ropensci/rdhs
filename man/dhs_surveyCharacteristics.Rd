@@ -4,7 +4,7 @@
 \alias{dhs_surveyCharacteristics}
 \title{API request of DHS Survey Characteristics}
 \usage{
-dhs_surveyCharacteristics(client = NULL, allResults = TRUE,
+dhs_surveyCharacteristics(client = NULL, all_results = TRUE,
   countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
   surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
   surveyType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
@@ -14,7 +14,7 @@ dhs_surveyCharacteristics(client = NULL, allResults = TRUE,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -68,15 +68,15 @@ API request of DHS Survey Characteristics
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_surveyCharacteristics(countryIds="EG",allResults=FALSE)
+dat <- dhs_surveyCharacteristics(countryIds="EG",all_results=FALSE)
 dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",
-allResults=FALSE)
-dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,allResults=FALSE")
-dat <- dhs_surveyCharacteristics(surveyYear="2010,allResults=FALSE")
-dat <- dhs_surveyCharacteristics(surveyYearStart="2006",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,all_results=FALSE")
+dat <- dhs_surveyCharacteristics(surveyYear="2010,all_results=FALSE")
+dat <- dhs_surveyCharacteristics(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_surveyCharacteristics(surveyYearStart="1991",
-surveyYearEnd="2006",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(surveyType="DHS",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
+surveyYearEnd="2006",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(surveyType="DHS",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
 }
 }

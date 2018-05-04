@@ -4,14 +4,14 @@
 \alias{dhs_uiUpdates}
 \title{API request of DHS UI Updates}
 \usage{
-dhs_uiUpdates(client = NULL, allResults = TRUE, lastUpdate = NULL,
+dhs_uiUpdates(client = NULL, all_results = TRUE, lastUpdate = NULL,
   f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{lastUpdate}{Specify a date or Unix time to filter the updates by. Only
@@ -42,7 +42,7 @@ API request of DHS UI Updates
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_uiUpdates(lastUpdate="20150901",allResults=FALSE)
-dat <- dhs_uiUpdates(f="html",allResults=FALSE)
+dat <- dhs_uiUpdates(lastUpdate="20150901",all_results=FALSE)
+dat <- dhs_uiUpdates(f="html",all_results=FALSE)
 }
 }

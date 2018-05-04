@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create dictionary from DHS .MAP codebook — parse_map" />
 
 <meta property="og:description" content="Create dictionary from DHS .MAP codebook" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>parse_map.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create dictionary from DHS .MAP codebook</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>parse_map</span>(<span class='no'>map</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -140,25 +143,31 @@
     </tr>
     <tr>
       <th>all_lower</th>
-      <td><p>Logical indicating whether all value labels should be converted to lower case</p></td>
+      <td><p>Logical indicating whether all value labels should be
+converted to lower case</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame containing metadata, principally variable labels and
-a vector of value labels.</p>
+  a vector of value labels.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Currently hardcoded for 111 char width .MAP files, which covers the vast majority
-of DHS Phase V, VI, and VIII. To be extended in the future and perhaps add other useful options.</p>
+    <p>Currently hardcoded for 111 char width .MAP files, which covers the
+  vast majority
+  of DHS Phase V, VI, and VIII. To be extended in the future and perhaps add other useful options.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>mrdt_zip</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
-<span class='fu'>download.file</span>(<span class='fu'>paste0</span>(<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm"</span>,
-<span class='st'>"?Filename=ZZMR61DT.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>), <span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>)
+<span class='fu'>download.file</span>(
+<span class='fu'>paste0</span>(
+<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm"</span>,
+<span class='st'>"?Filename=ZZMR61DT.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>),
+<span class='no'>mrdt_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>
+)
 
 <span class='no'>map</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrdt_zip</span>, <span class='st'>"\\.MAP"</span>, <span class='no'>readLines</span>)
 <span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_map.html'>parse_map</a></span>(<span class='no'>map</span>)</div></pre>

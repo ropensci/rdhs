@@ -60,7 +60,8 @@ extraction <- function(questions, available_datasets,
 
       # add the cluster info
       cluster_quest <- grep("cluster$|cluster number$",
-                            sapply(r, attr, "label"), ignore.case = TRUE)
+                            vapply(r,attr,character(1),"label"),
+                            ignore.case = TRUE)
       results$CLUSTER <- r[[cluster_quest]]
 
       # where is the geo survey we want

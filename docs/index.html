@@ -105,6 +105,11 @@
 <div class="figure">
 <img src="https://github.com/OJWatson/rdhs/raw/master/tools/logo.png">
 </div>
+<div id="motivation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#motivation" class="anchor"></a>Motivation</h2>
+<p>The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within <code>rdhs</code> improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.</p>
+<hr>
 <p><code>rdhs</code> is a package for management and analysis of <a href="www.dhsprogram.com">Demographic and Health Survey (DHS)</a> data. This includes functionality to:</p>
 <ol style="list-style-type: decimal">
 <li>Access standard indicator data (i.e. <a href="https://www.statcompiler.com/">DHS STATcompiler</a>) in R via the <a href="https://api.dhsprogram.com/">DHS API</a>.</li>
@@ -113,11 +118,6 @@
 <li>Load datasets and associated metadata into R.</li>
 <li>Extract variables and combining datasets for pooled multi-survey analyses.</li>
 </ol>
-<hr>
-<div id="motivation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#motivation" class="anchor"></a>Motivation</h2>
-<p>The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within <code>rdhs</code> improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -130,7 +130,7 @@
 <span class="co">#&gt; Welcome back :) </span>
 <span class="co">#&gt; -------------------------</span>
 <span class="co">#&gt; rdhs will be using the login credentials you set last time, which it will read from:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes_src/credentials</span>
+<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/credentials</span>
 <span class="co">#&gt; It will also save any datasets you download inside this directory:</span>
 <span class="co">#&gt;    -&gt; C:/Users/Oliver/AppData/Local/Oliver/rdhs/Cache</span>
 <span class="co">#&gt; If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()</span></code></pre></div>
@@ -151,16 +151,16 @@
 <a href="#query-the-dhs-api-" class="anchor"></a>Query the <a href="https://api.dhsprogram.com/">DHS API</a>.</h3>
 <p>Obtain survey esimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
-<span class="co">#&gt;                              ShortName   IndicatorId</span>
-<span class="co">#&gt; 1: Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
+<span class="co">#&gt;                             ShortName   IndicatorId</span>
+<span class="co">#&gt; 1 Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
 <span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
        <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
-<span class="co">#&gt;                              Indicator  SurveyId SurveyYearLabel Value</span>
-<span class="co">#&gt; 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
-<span class="co">#&gt; 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
-<span class="co">#&gt;                  CountryName</span>
-<span class="co">#&gt; 1: Congo Democratic Republic</span>
-<span class="co">#&gt; 2:                  Tanzania</span></code></pre></div>
+<span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
+<span class="co">#&gt; 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
+<span class="co">#&gt; 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
+<span class="co">#&gt;                 CountryName</span>
+<span class="co">#&gt; 1 Congo Democratic Republic</span>
+<span class="co">#&gt; 2                  Tanzania</span></code></pre></div>
 </div>
 <div id="identify-survey-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -170,11 +170,11 @@
 sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>()
 sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc$SurveyCharacteristicName), ]
 <span class="co">#&gt;    SurveyCharacteristicID SurveyCharacteristicName</span>
-<span class="co">#&gt; 1:                     96            Malaria - DBS</span>
-<span class="co">#&gt; 2:                     90     Malaria - Microscopy</span>
-<span class="co">#&gt; 3:                     89            Malaria - RDT</span>
-<span class="co">#&gt; 4:                     57          Malaria module </span>
-<span class="co">#&gt; 5:                      8 Malaria/bednet questions</span></code></pre></div>
+<span class="co">#&gt; 56                     96            Malaria - DBS</span>
+<span class="co">#&gt; 57                     90     Malaria - Microscopy</span>
+<span class="co">#&gt; 58                     89            Malaria - RDT</span>
+<span class="co">#&gt; 59                     57          Malaria module </span>
+<span class="co">#&gt; 60                      8 Malaria/bednet questions</span></code></pre></div>
 <p>Use <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code> identify surveys for the countries and years of interest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds - we can find that using this API request
 ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
@@ -184,7 +184,7 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <p>Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs$SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
 <span class="kw">str</span>(datasets)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   2 obs. of  13 variables:</span>
+<span class="co">#&gt; 'data.frame':    2 obs. of  13 variables:</span>
 <span class="co">#&gt;  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"</span>
 <span class="co">#&gt;  $ FileSize            : int  6595349 6622108</span>
 <span class="co">#&gt;  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets"</span>
@@ -197,8 +197,7 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="co">#&gt;  $ SurveyYear          : int  2013 2015</span>
 <span class="co">#&gt;  $ DHS_CountryCode     : chr  "CD" "TZ"</span>
 <span class="co">#&gt;  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7HFL.ZIP"</span>
-<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"</span>
-<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
+<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"</span></code></pre></div>
 </div>
 <div id="download-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -208,20 +207,20 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
 <p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1987</span>),<span class="dt">times =</span> <span class="dv">1</span>)
-<span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1987) 55.2245 55.2245 55.2245 55.2245</span>
-<span class="co">#&gt;       uq     max neval</span>
-<span class="co">#&gt;  55.2245 55.2245     1</span>
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1967</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+<span class="co">#&gt; Unit: seconds</span>
+<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1967) 4.830023 4.830023 4.830023 4.830023</span>
+<span class="co">#&gt;        uq      max neval</span>
+<span class="co">#&gt;  4.830023 4.830023     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1987</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1967</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1987) 7.019345 7.019345 7.019345 7.019345</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1967) 5.861919 5.861919 5.861919 5.861919</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  7.019345 7.019345     1</span></code></pre></div>
+<span class="co">#&gt;  5.861919 5.861919     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)
@@ -281,9 +280,9 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 <span class="co"># our hv024 variable is now just character strings, so you can decide when/how to factor/label it later</span>
 <span class="kw">str</span>(extract)
 <span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  3 variables:</span>
-<span class="co">#&gt;  $ hv024   : atomic  equateur equateur equateur equateur ...</span>
+<span class="co">#&gt;  $ hv024   : chr  "equateur" "equateur" "equateur" "equateur" ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
-<span class="co">#&gt;  $ hml35   : atomic  NA NA NA NA ...</span>
+<span class="co">#&gt;  $ hml35   : chr  NA NA NA NA ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
 <span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span></code></pre></div>
 </div>

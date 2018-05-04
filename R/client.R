@@ -21,7 +21,7 @@
 ##'
 client_dhs <- function(credentials=NULL,
                        root = rappdirs::user_cache_dir(
-                         "rdhs",Sys.info()["user"]),
+                         "rdhs", Sys.info()["user"]),
                        api_key="ICLSPH-527168") {
 
   # check rdhs against api last update time
@@ -171,7 +171,9 @@ R6_client_dhs <- R6::R6Class(
       # SLight hacking to deal eith page numbers etc now
       pp <- which(names(query) == "perPage")
       key <- paste0(api_endpoint, "_",
-                    paste0(names(query)[-pp],unlist(query)[-pp],collapse = ","),
+                    paste0(
+                      names(query)[-pp], unlist(query)[-pp], collapse = ","
+                      ),
                     ",num_results", num_results, ",just_results", just_results)
 
       key <- digest::digest(key)
@@ -350,7 +352,7 @@ R6_client_dhs <- R6::R6Class(
       download_possibilities <- c("zip", "rds", "both")
       dopt <- grep(paste0(strsplit(download_option, "") %>%
                             unlist(), collapse = "|"),
-                   download_possibilities,ignore.case = TRUE)
+                   download_possibilities, ignore.case = TRUE)
 
       download_option <- download_possibilities[dopt]
       if (!is.element(download_option, download_possibilities)) {
@@ -420,7 +422,7 @@ R6_client_dhs <- R6::R6Class(
         }
       }
       # add the reformat as an attribute to make life easier is
-      # survey_questions/variables
+      # in survey questions/variables
       attr(res, which = "reformat") <- reformat
       return(res)
     },
@@ -476,7 +478,7 @@ R6_client_dhs <- R6::R6Class(
         # create key for this
         key <- paste0(datasets[i, ]$SurveyId, "_",
                       datasets[i, ]$FileName, "_",
-                      "rds","_",
+                      "rds", "_",
                       attr(download, which = "reformat"))
 
         # first check against cache
@@ -599,13 +601,12 @@ R6_client_dhs <- R6::R6Class(
 
         # remove na results
         na_from_match <- grep(private$na_s, out_desc$description[matched_rows],
-                              ignore.case = TRUE
-        )
+                              ignore.case = TRUE)
+
         if (length(na_from_match) > 0) {
           matched_rows <- matched_rows[-grep(private$na_s,
                                              out_desc$description[matched_rows],
-                                             ignore.case = TRUE
-          )]
+                                             ignore.case = TRUE)]
         }
 
         # only add if we have found any questions that match
@@ -627,10 +628,8 @@ R6_client_dhs <- R6::R6Class(
       # now remove datasets that do not have essential codes:
       if (!is.null(essential_variables)) {
         for (i in unique(df$dataset_filename)) {
-          if (sum(is.na(match(
-            essential_variables,
-            df$variable[df$dataset_filename == i]
-          ))) > 0) {
+          if (sum(is.na(match(essential_variables,
+                              df$variable[df$dataset_filename == i]))) > 0) {
             df <- df[-which(df$dataset_filename == i), ]
           }
         }
@@ -770,10 +769,9 @@ R6_client_dhs <- R6::R6Class(
 
       # download paths
       downloads <- private$storr$mget(keys, namespace = "downloaded_datasets")
-      names(downloads) <- strsplit(basename(unlist(downloads)),
-                                   ".rds",fixed = TRUE) %>%
-        lapply(function(x) x[1]) %>%
-        unlist()
+      names(downloads) <- strsplit(
+        basename(unlist(downloads)), ".rds", fixed = TRUE
+        ) %>% lapply(function(x) x[1]) %>% unlist()
 
       return(downloads)
     },
@@ -867,37 +865,39 @@ R6_client_dhs <- R6::R6Class(
             collapse = "\n"
           ))
 
+          # unique match strings
+          fil_match <- paste0(toupper(substr(filenames, 1, 2)),
+                              toupper(filenames))
+          dat_match <- paste0(toupper(datasets$DHS_CountryCode),
+                                     toupper(datasets$FileName))
+          avs_match <- paste0(toupper(avs$DHS_CountryCode),
+                              toupper(avs$FileName))
+
           # what is the full set of datasets they have asked for based on
           # the countrycode assumpotion
-          potential <- datasets[match(paste0(toupper(substr(filenames, 1, 2)),
-                                             toupper(filenames) ),
-                                      paste0(toupper(datasets$DHS_CountryCode),
-                                             toupper(datasets$FileName) ) ), ]
+          potential <- datasets[match(fil_match, dat_match), ]
 
           # if there are duplicates what we will do is assume that they want
           # the country versions
-          found_datasets <- match(paste0(toupper(substr(filenames, 1, 2)),
-                                         toupper(filenames) ),
-                                  paste0(toupper(avs$DHS_CountryCode),
-                                         toupper(avs$FileName) ) )
+          found_datasets <- match(fil_match, avs_match)
         }
       } else {
 
+        # unique match strings
+        fil_match <- paste0(toupper(filenames$DHS_CountryCode),
+                             toupper(filenames$FileName))
+        dat_match <- paste0(toupper(datasets$DHS_CountryCode),
+                            toupper(datasets$FileName))
+        avs_match <- paste0(toupper(avs$DHS_CountryCode),
+                            toupper(avs$FileName))
+
         # what is the full set of datasets they have asked for
-        potential <- datasets[match(
-          paste0(toupper(filenames$DHS_CountryCode),
-                 toupper(filenames$FileName) ),
-          paste0(toupper(datasets$DHS_CountryCode),
-                 toupper(datasets$FileName) ) ), ]
+        potential <- datasets[match(fil_match, dat_match), ]
 
         # if they gave the full output then we can match with the
         # provided country code
-        found_datasets <- match(
-          paste0(toupper(filenames$DHS_CountryCode),
-                 toupper(filenames$FileName) ),
-          paste0(toupper(avs$DHS_CountryCode),
-                 toupper(avs$FileName) )
-        )
+        found_datasets <- match(fil_match, avs_match)
+
       }
 
       # create the datasets data.frame that will

@@ -4,7 +4,7 @@
 \alias{dhs_data}
 \title{API request of DHS Indicator Data}
 \usage{
-dhs_data(client = NULL, allResults = TRUE, countryIds = NULL,
+dhs_data(client = NULL, all_results = TRUE, countryIds = NULL,
   indicatorIds = NULL, surveyIds = NULL, selectSurveys = NULL,
   surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
   surveyType = NULL, surveyCharacteristicIds = NULL,
@@ -16,7 +16,7 @@ dhs_data(client = NULL, allResults = TRUE, countryIds = NULL,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -112,26 +112,26 @@ API request of DHS Indicator Data
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_data(countryIds="EG",allResults=FALSE)
-dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_data(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_data(selectSurveys="latest",allResults=FALSE)
+dat <- dhs_data(countryIds="EG",all_results=FALSE)
+dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+dat <- dhs_data(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_data(selectSurveys="latest",all_results=FALSE)
 dat <- dhs_data(selectSurveys="byIndicator", indicatorIds="FE_CEBA_W_CH0",
-allResults=FALSE)
-dat <- dhs_data(surveyYear="2010",allResults=FALSE)
-dat <- dhs_data(surveyYearStart="2006",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_data(surveyYear="2010",all_results=FALSE)
+dat <- dhs_data(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_data(surveyYearStart="1991", surveyYearEnd="2006",
-allResults=FALSE)
-dat <- dhs_data(surveyType="DHS",allResults=FALSE)
-dat <- dhs_data(surveyCharacteristicIds="32",allResults=FALSE)
-dat <- dhs_data(characteristicCategory="wealth quintile",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_data(surveyType="DHS",all_results=FALSE)
+dat <- dhs_data(surveyCharacteristicIds="32",all_results=FALSE)
+dat <- dhs_data(characteristicCategory="wealth quintile",all_results=FALSE)
 dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",
-allResults=FALSE)
-dat <- dhs_data(tagIds="1",allResults=FALSE)
-dat <- dhs_data(breakdown="subnational",allResults=FALSE)
-dat <- dhs_data(breakdown="background",allResults=FALSE)
-dat <- dhs_data(breakdown="all",allResults=FALSE)
-dat <- dhs_data(f="html",allResults=FALSE)
-dat <- dhs_data(f="geojson", returnGeometry="true",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_data(tagIds="1",all_results=FALSE)
+dat <- dhs_data(breakdown="subnational",all_results=FALSE)
+dat <- dhs_data(breakdown="background",all_results=FALSE)
+dat <- dhs_data(breakdown="all",all_results=FALSE)
+dat <- dhs_data(f="html",all_results=FALSE)
+dat <- dhs_data(f="geojson", returnGeometry="true",all_results=FALSE)
 }
 }

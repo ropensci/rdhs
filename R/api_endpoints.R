@@ -3,7 +3,7 @@
 ##' @title API request of DHS Indicator Data
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -78,31 +78,31 @@
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_data(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_data(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_data(selectSurveys="latest",allResults=FALSE)
+##' dat <- dhs_data(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_data(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_data(selectSurveys="latest",all_results=FALSE)
 ##' dat <- dhs_data(selectSurveys="byIndicator", indicatorIds="FE_CEBA_W_CH0",
-##' allResults=FALSE)
-##' dat <- dhs_data(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_data(surveyYearStart="2006",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_data(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_data(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_data(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_data(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_data(surveyCharacteristicIds="32",allResults=FALSE)
-##' dat <- dhs_data(characteristicCategory="wealth quintile",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_data(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_data(surveyCharacteristicIds="32",all_results=FALSE)
+##' dat <- dhs_data(characteristicCategory="wealth quintile",all_results=FALSE)
 ##' dat <- dhs_data(breakdown="all", countryIds="AZ", characteristicLabel="6+",
-##' allResults=FALSE)
-##' dat <- dhs_data(tagIds="1",allResults=FALSE)
-##' dat <- dhs_data(breakdown="subnational",allResults=FALSE)
-##' dat <- dhs_data(breakdown="background",allResults=FALSE)
-##' dat <- dhs_data(breakdown="all",allResults=FALSE)
-##' dat <- dhs_data(f="html",allResults=FALSE)
-##' dat <- dhs_data(f="geojson", returnGeometry="true",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_data(tagIds="1",all_results=FALSE)
+##' dat <- dhs_data(breakdown="subnational",all_results=FALSE)
+##' dat <- dhs_data(breakdown="background",all_results=FALSE)
+##' dat <- dhs_data(breakdown="all",all_results=FALSE)
+##' dat <- dhs_data(f="html",all_results=FALSE)
+##' dat <- dhs_data(f="geojson", returnGeometry="true",all_results=FALSE)
 ##' }
 
 dhs_data <- function(client=NULL,
-                     allResults=TRUE,
+                     all_results=TRUE,
                      countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
@@ -131,7 +131,7 @@ dhs_data <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/data"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -141,7 +141,7 @@ dhs_data <- function(client=NULL,
 ##' @title API request of DHS Indicators
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -187,21 +187,21 @@ dhs_data <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_indicators(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_indicators(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_indicators(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_indicators(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_indicators(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_indicators(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_indicators(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_indicators(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_indicators(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_indicators(surveyCharacteristicIds="32",allResults=FALSE)
-##' dat <- dhs_indicators(tagIds="1",allResults=FALSE)
-##' dat <- dhs_indicators(f="html",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_indicators(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_indicators(surveyCharacteristicIds="32",all_results=FALSE)
+##' dat <- dhs_indicators(tagIds="1",all_results=FALSE)
+##' dat <- dhs_indicators(f="html",all_results=FALSE)
 ##' }
 
 dhs_indicators <- function(client=NULL,
-                           allResults=TRUE,
+                           all_results=TRUE,
                            countryIds=NULL,
                            indicatorIds=NULL,
                            surveyIds=NULL,
@@ -225,7 +225,7 @@ dhs_indicators <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/indicators"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -235,7 +235,7 @@ dhs_indicators <- function(client=NULL,
 ##' @title API request of DHS UI Updates
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param lastUpdate Specify a date or Unix time to filter the updates by. Only
 ##'   results for interfaces that has been updated on or after the sepcified
@@ -258,12 +258,12 @@ dhs_indicators <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_uiUpdates(lastUpdate="20150901",allResults=FALSE)
-##' dat <- dhs_uiUpdates(f="html",allResults=FALSE)
+##' dat <- dhs_uiUpdates(lastUpdate="20150901",all_results=FALSE)
+##' dat <- dhs_uiUpdates(f="html",all_results=FALSE)
 ##' }
 
 dhs_uiUpdates <- function(client=NULL,
-                          allResults=TRUE,
+                          all_results=TRUE,
                           lastUpdate=NULL,
                           f=NULL,
                           returnFields=NULL,
@@ -279,7 +279,7 @@ dhs_uiUpdates <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/uiupdates"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -289,7 +289,7 @@ dhs_uiUpdates <- function(client=NULL,
 ##' @title API request of DHS Info
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param infoType Specify a type of info to obtain the information requested.
 ##'   Default is version. `infoType="version"`` (default) Provides the version
@@ -316,13 +316,13 @@ dhs_uiUpdates <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_info(infoType="version",allResults=FALSE)
-##' dat <- dhs_info(infoType="citation",allResults=FALSE)
-##' dat <- dhs_info(f="html",allResults=FALSE)
+##' dat <- dhs_info(infoType="version",all_results=FALSE)
+##' dat <- dhs_info(infoType="citation",all_results=FALSE)
+##' dat <- dhs_info(f="html",all_results=FALSE)
 ##' }
 
 dhs_info <- function(client=NULL,
-                     allResults=TRUE,
+                     all_results=TRUE,
                      infoType=NULL,
                      f=NULL,
                      returnFields=NULL,
@@ -338,7 +338,7 @@ dhs_info <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/info"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -348,7 +348,7 @@ dhs_info <- function(client=NULL,
 ##' @title API request of DHS Countries
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -394,21 +394,21 @@ dhs_info <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_countries(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_countries(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_countries(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_countries(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_countries(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_countries(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_countries(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_countries(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_countries(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
-##' dat <- dhs_countries(tagIds="1",allResults=FALSE)
-##' dat <- dhs_countries(f="html",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_countries(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_countries(surveyCharacteristicIds="32",all_results=FALSE)
+##' dat <- dhs_countries(tagIds="1",all_results=FALSE)
+##' dat <- dhs_countries(f="html",all_results=FALSE)
 ##' }
 
 dhs_countries <- function(client=NULL,
-                          allResults=TRUE,
+                          all_results=TRUE,
                           countryIds=NULL,
                           indicatorIds=NULL,
                           surveyIds=NULL,
@@ -432,7 +432,7 @@ dhs_countries <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/countries"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -442,7 +442,7 @@ dhs_countries <- function(client=NULL,
 ##' @title API request of DHS Surveys
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to
 ##'  filter by. For a list of countries use
@@ -498,26 +498,26 @@ dhs_countries <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_surveys(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
-##' dat <- dhs_surveys(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_surveys(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_surveys(selectSurveys="latest",all_results=FALSE)
+##' dat <- dhs_surveys(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_surveys(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_surveys(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="Surveys",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="Completed",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="Ongoing",allResults=FALSE)
-##' dat <- dhs_surveys(surveyStatus="All",allResults=FALSE)
-##' dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
-##' dat <- dhs_surveys(tagIds="1",allResults=FALSE)
-##' dat <- dhs_surveys(f="html",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_surveys(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Surveys",all_results=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Completed",all_results=FALSE)
+##' dat <- dhs_surveys(surveyStatus="Ongoing",all_results=FALSE)
+##' dat <- dhs_surveys(surveyStatus="All",all_results=FALSE)
+##' dat <- dhs_surveys(surveyCharacteristicIds="32",all_results=FALSE)
+##' dat <- dhs_surveys(tagIds="1",all_results=FALSE)
+##' dat <- dhs_surveys(f="html",all_results=FALSE)
 ##' }
 
 dhs_surveys <- function(client=NULL,
-                        allResults=TRUE,
+                        all_results=TRUE,
                         countryIds=NULL,
                         indicatorIds=NULL,
                         selectSurveys=NULL,
@@ -543,7 +543,7 @@ dhs_surveys <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveys"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -553,7 +553,7 @@ dhs_surveys <- function(client=NULL,
 ##' @title API request of DHS Survey Characteristics
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -593,20 +593,20 @@ dhs_surveys <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_surveyCharacteristics(countryIds="EG",allResults=FALSE)
+##' dat <- dhs_surveyCharacteristics(countryIds="EG",all_results=FALSE)
 ##' dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",
-##' allResults=FALSE)
-##' dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,allResults=FALSE")
-##' dat <- dhs_surveyCharacteristics(surveyYear="2010,allResults=FALSE")
-##' dat <- dhs_surveyCharacteristics(surveyYearStart="2006",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,all_results=FALSE")
+##' dat <- dhs_surveyCharacteristics(surveyYear="2010,all_results=FALSE")
+##' dat <- dhs_surveyCharacteristics(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_surveyCharacteristics(surveyYearStart="1991",
-##' surveyYearEnd="2006",allResults=FALSE)
-##' dat <- dhs_surveyCharacteristics(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
+##' surveyYearEnd="2006",all_results=FALSE)
+##' dat <- dhs_surveyCharacteristics(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
 ##' }
 
 dhs_surveyCharacteristics <- function(client=NULL,
-                                      allResults=TRUE,
+                                      all_results=TRUE,
                                       countryIds=NULL,
                                       indicatorIds=NULL,
                                       surveyIds=NULL,
@@ -628,7 +628,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveycharacteristics"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -638,7 +638,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 ##' @title API request of DHS Publications
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -689,22 +689,22 @@ dhs_surveyCharacteristics <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_publications(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_publications(selectSurveys="latest",allResults=FALSE)
-##' dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_publications(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_publications(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_publications(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_publications(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
+##' dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_publications(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_publications(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_publications(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_publications(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_publications(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_publications(surveyCharacteristicIds="32",allResults=FALSE)
-##' dat <- dhs_publications(tagIds=1,allResults=FALSE)
-##' dat <- dhs_publications(f="html",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_publications(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_publications(surveyCharacteristicIds="32",all_results=FALSE)
+##' dat <- dhs_publications(tagIds=1,all_results=FALSE)
+##' dat <- dhs_publications(f="html",all_results=FALSE)
 ##' }
 
 dhs_publications <- function(client=NULL,
-                             allResults=TRUE,
+                             all_results=TRUE,
                              countryIds=NULL,
                              selectSurveys=NULL,
                              indicatorIds=NULL,
@@ -729,7 +729,7 @@ dhs_publications <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/publications"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -739,7 +739,7 @@ dhs_publications <- function(client=NULL,
 ##' @title API request of DHS Datasets
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -786,22 +786,22 @@ dhs_publications <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_datasets(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_datasets(selectSurveys="latest",allResults=FALSE)
-##' dat <- dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_datasets(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_datasets(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
+##' dat <- dhs_datasets(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_datasets(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_datasets(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_datasets(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_datasets(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_datasets(fileFormat="stata",allResults=FALSE)
-##' dat <- dhs_datasets(fileFormat="DT",allResults=FALSE)
-##' dat <- dhs_datasets(fileType="KR",allResults=FALSE)
-##' dat <- dhs_datasets(f="geojson",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_datasets(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_datasets(fileFormat="stata",all_results=FALSE)
+##' dat <- dhs_datasets(fileFormat="DT",all_results=FALSE)
+##' dat <- dhs_datasets(fileType="KR",all_results=FALSE)
+##' dat <- dhs_datasets(f="geojson",all_results=FALSE)
 ##' }
 
 dhs_datasets <- function(client=NULL,
-                         allResults=TRUE,
+                         all_results=TRUE,
                          countryIds=NULL,
                          selectSurveys=NULL,
                          surveyIds=NULL,
@@ -825,7 +825,7 @@ dhs_datasets <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/datasets"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -835,7 +835,7 @@ dhs_datasets <- function(client=NULL,
 ##' @title API request of DHS Geometry
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -871,19 +871,19 @@ dhs_datasets <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_geometry(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_geometry(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_geometry(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_geometry(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_geometry(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_geometry(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_geometry(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_geometry(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_geometry(f="geojson",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_geometry(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_geometry(f="geojson",all_results=FALSE)
 ##' }
 
 
 dhs_geometry <- function(client=NULL,
-                         allResults=TRUE,
+                         all_results=TRUE,
                          countryIds=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
@@ -904,7 +904,7 @@ dhs_geometry <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/geometry"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -914,7 +914,7 @@ dhs_geometry <- function(client=NULL,
 ##' @title API request of DHS Tags
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##' then the specifed page only will be returned. Default = TRUE.
 ##' @param countryIds Specify a comma separated list of country ids to filter
 ##'   by. For a list of countries use
@@ -954,19 +954,19 @@ dhs_geometry <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_tags(countryIds="EG",allResults=FALSE)
-##' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-##' dat <- dhs_tags(surveyIds="SN2010DHS",allResults=FALSE)
-##' dat <- dhs_tags(surveyYear="2010",allResults=FALSE)
-##' dat <- dhs_tags(surveyYearStart="2006",allResults=FALSE)
+##' dat <- dhs_tags(countryIds="EG",all_results=FALSE)
+##' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+##' dat <- dhs_tags(surveyIds="SN2010DHS",all_results=FALSE)
+##' dat <- dhs_tags(surveyYear="2010",all_results=FALSE)
+##' dat <- dhs_tags(surveyYearStart="2006",all_results=FALSE)
 ##' dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",
-##' allResults=FALSE)
-##' dat <- dhs_tags(surveyType="DHS",allResults=FALSE)
-##' dat <- dhs_tags(f="html",allResults=FALSE)
+##' all_results=FALSE)
+##' dat <- dhs_tags(surveyType="DHS",all_results=FALSE)
+##' dat <- dhs_tags(f="html",all_results=FALSE)
 ##' }
 
 dhs_tags <- function(client=NULL,
-                     allResults=TRUE,
+                     all_results=TRUE,
                      countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
@@ -988,7 +988,7 @@ dhs_tags <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/tags"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }
 
 
@@ -998,7 +998,7 @@ dhs_tags <- function(client=NULL,
 ##' @title API request of DHS Data Updates
 ##' @param client If the api request should be cached, then provide a client
 ##'   object created by \code{\link{client_dhs}}
-##' @param allResults Boolean for if all results should be returned. If FALSE
+##' @param all_results Boolean for if all results should be returned. If FALSE
 ##'   then the specifed page only will be returned. Default = TRUE.
 ##' @param lastUpdate Specify a date or Unix time to filter the updates by.
 ##'   Only results for data that have been updated on or after the specified
@@ -1021,12 +1021,12 @@ dhs_tags <- function(client=NULL,
 ##' @examples
 ##' ## not run only because they take a very long time and interact with an API
 ##' \dontrun{
-##' dat <- dhs_dataUpdates(lastUpdate="20150901",allResults=FALSE)
-##' dat <- dhs_dataUpdates(f="html",allResults=FALSE)
+##' dat <- dhs_dataUpdates(lastUpdate="20150901",all_results=FALSE)
+##' dat <- dhs_dataUpdates(f="html",all_results=FALSE)
 ##' }
 
 dhs_dataUpdates <- function(client=NULL,
-                            allResults=TRUE,
+                            all_results=TRUE,
                             lastUpdate=NULL,
                             f=NULL,
                             returnFields=NULL,
@@ -1042,5 +1042,5 @@ dhs_dataUpdates <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/dataupdates"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, allResults, client)
+  handle_api_request(endpoint, query, all_results, client)
 }

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create a data frame of datasets that your log in can download — download_datasets" />
 
 <meta property="og:description" content="Download datasets specified using output of available_datasets." />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>download_datasets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Download datasets specified using output of <code>available_datasets</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>download_datasets</span>(<span class='no'>desired_dataset</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
   <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>your_email</span>,
@@ -142,19 +145,24 @@
     </tr>
     <tr>
       <th>download_option</th>
-      <td><p>Character dictating how the durvey is stored when downloaded. Must be one of:</p><ul>
-<li><p>"zip" - Just the zip. "z" or   will match</p></li>
-<li><p>"rds" - Just the read in and saved rds. "r" or anything like will match</p></li>
-<li><p>"both" - Both the rds and extract. "b" or anything like will match</p></li>
+      <td><p>Character dictating how the durvey is stored when
+downloaded. Must be one of:</p><ul>
+<li><p>"zip" - Just the zip. "z", "i", "p" or "zip" will match</p></li>
+<li><p>"rds" - Just the read in and saved rds. "r", "d", "s" or "rdhs"
+    will match</p></li>
+<li><p>"both" - Both the rds and extract. "b", "o", "t", "h" or "both"
+    will match</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>reformat</th>
-      <td><p>Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE</p></td>
+      <td><p>Boolean detailing whether dataset rds should be
+reformatted for ease of use later. Default = TRUE</p></td>
     </tr>
     <tr>
       <th>all_lower</th>
-      <td><p>Logical indicating whether all value labels should be lower case. Default to `TRUE`.</p></td>
+      <td><p>Logical indicating whether all value labels should be
+lower case. Default to `TRUE`.</p></td>
     </tr>
     <tr>
       <th>output_dir_root</th>
@@ -170,11 +178,13 @@
     </tr>
     <tr>
       <th>your_project</th>
-      <td><p>Character string for the name of your project that gives you access to the DHS database</p></td>
+      <td><p>Character string for the name of your project that gives
+you access to the DHS database</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Any other arguments to be passed to <code><a href='read_dhs_dataset.html'>read_dhs_dataset</a></code></p></td>
+      <td><p>Any other arguments to be passed to
+<code><a href='read_dhs_dataset.html'>read_dhs_dataset</a></code></p></td>
     </tr>
     </table>
     

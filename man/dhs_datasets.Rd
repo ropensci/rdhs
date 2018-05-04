@@ -4,7 +4,7 @@
 \alias{dhs_datasets}
 \title{API request of DHS Datasets}
 \usage{
-dhs_datasets(client = NULL, allResults = TRUE, countryIds = NULL,
+dhs_datasets(client = NULL, all_results = TRUE, countryIds = NULL,
   selectSurveys = NULL, surveyIds = NULL, surveyYear = NULL,
   surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
   fileFormat = NULL, fileType = NULL, f = NULL, returnFields = NULL,
@@ -14,7 +14,7 @@ dhs_datasets(client = NULL, allResults = TRUE, countryIds = NULL,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -77,17 +77,17 @@ API request of DHS Datasets
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_datasets(countryIds="EG",allResults=FALSE)
-dat <- dhs_datasets(selectSurveys="latest",allResults=FALSE)
-dat <- dhs_datasets(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_datasets(surveyYear="2010",allResults=FALSE)
-dat <- dhs_datasets(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
+dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
+dat <- dhs_datasets(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_datasets(surveyYear="2010",all_results=FALSE)
+dat <- dhs_datasets(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_datasets(surveyYearStart="1991", surveyYearEnd="2006",
-allResults=FALSE)
-dat <- dhs_datasets(surveyType="DHS",allResults=FALSE)
-dat <- dhs_datasets(fileFormat="stata",allResults=FALSE)
-dat <- dhs_datasets(fileFormat="DT",allResults=FALSE)
-dat <- dhs_datasets(fileType="KR",allResults=FALSE)
-dat <- dhs_datasets(f="geojson",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_datasets(surveyType="DHS",all_results=FALSE)
+dat <- dhs_datasets(fileFormat="stata",all_results=FALSE)
+dat <- dhs_datasets(fileFormat="DT",all_results=FALSE)
+dat <- dhs_datasets(fileType="KR",all_results=FALSE)
+dat <- dhs_datasets(f="geojson",all_results=FALSE)
 }
 }

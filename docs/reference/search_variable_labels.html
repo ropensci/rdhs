@@ -25,11 +25,14 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Search Survey Variable Definitions — search_variable_labels" />
 
-<meta property="og:description" content="Searches across datasets specified for requested survey variable definitions. This function (or
-search_variable_labels) should be used to provide the `questions` argument for
-extract_dhs." />
+<meta property="og:description" content="Searches across datasets specified for requested survey variable definitions.
+This function (or search_variable_labels) should be used to
+provide the `questions` argument for extract_dhs." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -40,8 +43,6 @@ extract_dhs." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -127,11 +128,13 @@ extract_dhs." />
     <div class="hidden name"><code>search_variable_labels.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Searches across datasets specified for requested survey variable definitions. This function (or
-<code>search_variable_labels</code>) should be used to provide the `questions` argument for
-<code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
+    <p>Searches across datasets specified for requested survey variable definitions.
+This function (or <code>search_variable_labels</code>) should be used to
+provide the `questions` argument for <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>search_variable_labels</span>(<span class='no'>dataset_filenames</span>, <span class='kw'>search_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>essential_terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>regex</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
@@ -141,40 +144,48 @@ extract_dhs." />
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset_filenames</th>
-      <td><p>The desired filenames to be downloaded. These can be found as one of the
-returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
+      <td><p>The desired filenames to be downloaded. These can be
+found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
     </tr>
     <tr>
       <th>search_terms</th>
-      <td><p>Character vector of search terms. If any of these terms are found within the survey question
-definitions, the corresponding survey variable and definitions will be returned.</p></td>
+      <td><p>Character vector of search terms. If any of these terms
+are found within the survey question definitions, the corresponding survey
+variable and definitions will be returned.</p></td>
     </tr>
     <tr>
       <th>essential_terms</th>
-      <td><p>Character pattern that has to be in the definitions of survey question definitions. I.e. the function will first find
-all survey variable definitions that contain your `search_terms` (or regex) OR `essential_terms`. It will then remove any questions
+      <td><p>Character pattern that has to be in the definitions of
+survey question definitions. I.e. the function will first find
+all survey variable definitions that contain your `search_terms`
+(or regex) OR `essential_terms`. It will then remove any questions
 that did not contain your `essential_terms`. Default = `NULL`.</p></td>
     </tr>
     <tr>
       <th>regex</th>
-      <td><p>Regex character pattern for matching. If you want to specify your regex search pattern, then specify
-this argument. N.B. If both `search_terms` and `regex`` are supplied as arguments then regex will be ignored.</p></td>
+      <td><p>Regex character pattern for matching. If you want to specify
+your regex search pattern, then specify this argument. N.B. If both
+`search_terms` and `regex`` are supplied as arguments then regex will
+be ignored.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></td>
+      <td><p>Any other arguments to be passed to
+<code><a href='download_datasets.html'>download_datasets</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data frame of the surveys where matches were found and then all the resultant codes and descriptions.</p>
+    <p>Data frame of the surveys where matches were found and then all
+  the resultant codes and descriptions.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Use this function after <code><a href='get_datasets.html'>get_datasets</a></code> to query downloaded datasets for what survey questions they asked.
-  This function will look for your downloaded and imported survey datasets from your cached files, and will
-  download them if not previously downloaded.</p>
+    <p>Use this function after <code><a href='get_datasets.html'>get_datasets</a></code> to query
+  downloaded datasets for what survey questions they asked.
+  This function will look for your downloaded and imported survey datasets
+  from your cached files, and will download them if not downloaded.</p>
     
 
   </div>

@@ -94,7 +94,9 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     dfs <- lapply(dfs, "[", names(dfs[[1]]))
 
     # check to see if variables are labelled
-    islab <- sapply(dfs, sapply, haven::is.labelled)
+    islab <- vapply(dfs,function(x){
+        vapply(x,haven::is.labelled,logical(1))
+      },logical(length(dfs[[1]])))
 
     ## let's catch for one variable dataframes
     islab_vec_catch <- function(islab_obj) {
@@ -148,8 +150,8 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     }
 
     ## Grab inherited labels
-    if (dim(islab[needslab, , drop = FALSE])[1] > 0) {
-      whichlab <- apply(islab[needslab, , drop = FALSE], 1,
+    if (dim(islab[needslab,, drop = FALSE])[1] > 0) {
+      whichlab <- apply(islab[needslab,, drop = FALSE], 1,
                         function(x) min(which(x)))
       if (length(whichlab)) {
         inherlab <- setNames(

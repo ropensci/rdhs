@@ -25,9 +25,13 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="DHS survey questions extracted from datasets — extraction" />
 
-<meta property="og:description" content="Create a list of survey responses extracted using output of R6_client_dhs$public_methods$survey_questions" />
+<meta property="og:description" content="Create a list of survey responses extracted using output of
+R6_client_dhs$public_methods$survey_questions" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -38,8 +42,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -57,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
       </span>
     </div>
 
@@ -125,9 +127,12 @@
     <div class="hidden name"><code>extraction.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Create a list of survey responses extracted using output of <code>R6_client_dhs$public_methods$survey_questions</code></p>
+    <p>Create a list of survey responses extracted using output of
+<code>R6_client_dhs$public_methods$survey_questions</code></p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>extraction</span>(<span class='no'>questions</span>, <span class='no'>available_datasets</span>, <span class='no'>geo_surveys</span>, <span class='kw'>add_geo</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
@@ -136,11 +141,13 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>questions</th>
-      <td><p>Output of <code>R6_client_dhs$public_methods$survey_questions</code></p></td>
+      <td><p>Output of
+<code>R6_client_dhs$public_methods$survey_questions</code></p></td>
     </tr>
     <tr>
       <th>available_datasets</th>
-      <td><p>Datasets that could be available. Output of <code>R6_client_dhs$public_methods$available_datasets</code></p></td>
+      <td><p>Datasets that could be available.
+Output of <code>R6_client_dhs$public_methods$available_datasets</code></p></td>
     </tr>
     <tr>
       <th>geo_surveys</th>
@@ -154,9 +161,11 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns `data.frame` with variables corresponding to the reqested variables in the questions object.
-Will also have geographic data related columns if `add_geo=TRUE` is set. Lastly a SurveyId variable will also be
-appended corresponding to <code><a href='dhs_datasets.html'>dhs_datasets</a></code>$SurveyId</p>
+    <p>Returns `data.frame` with variables corresponding to
+  the reqested variables in the questions object. Will also have
+  geographic data related columns if `add_geo=TRUE` is set.
+  Lastly a SurveyId variable will also be appended corresponding to
+  <code><a href='dhs_datasets.html'>dhs_datasets</a></code>$SurveyId</p>
     
 
   </div>

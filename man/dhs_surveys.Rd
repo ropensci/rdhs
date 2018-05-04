@@ -4,7 +4,7 @@
 \alias{dhs_surveys}
 \title{API request of DHS Surveys}
 \usage{
-dhs_surveys(client = NULL, allResults = TRUE, countryIds = NULL,
+dhs_surveys(client = NULL, all_results = TRUE, countryIds = NULL,
   indicatorIds = NULL, selectSurveys = NULL, surveyIds = NULL,
   surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
   surveyType = NULL, surveyStatus = NULL, surveyCharacteristicIds = NULL,
@@ -15,7 +15,7 @@ dhs_surveys(client = NULL, allResults = TRUE, countryIds = NULL,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to
@@ -89,21 +89,21 @@ API request of DHS Surveys
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_surveys(countryIds="EG",allResults=FALSE)
-dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_surveys(selectSurveys="latest",allResults=FALSE)
-dat <- dhs_surveys(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_surveys(surveyYear="2010",allResults=FALSE)
-dat <- dhs_surveys(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
+dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+dat <- dhs_surveys(selectSurveys="latest",all_results=FALSE)
+dat <- dhs_surveys(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_surveys(surveyYear="2010",all_results=FALSE)
+dat <- dhs_surveys(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_surveys(surveyYearStart="1991", surveyYearEnd="2006",
-allResults=FALSE)
-dat <- dhs_surveys(surveyType="DHS",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="Surveys",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="Completed",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="Ongoing",allResults=FALSE)
-dat <- dhs_surveys(surveyStatus="All",allResults=FALSE)
-dat <- dhs_surveys(surveyCharacteristicIds="32",allResults=FALSE)
-dat <- dhs_surveys(tagIds="1",allResults=FALSE)
-dat <- dhs_surveys(f="html",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_surveys(surveyType="DHS",all_results=FALSE)
+dat <- dhs_surveys(surveyStatus="Surveys",all_results=FALSE)
+dat <- dhs_surveys(surveyStatus="Completed",all_results=FALSE)
+dat <- dhs_surveys(surveyStatus="Ongoing",all_results=FALSE)
+dat <- dhs_surveys(surveyStatus="All",all_results=FALSE)
+dat <- dhs_surveys(surveyCharacteristicIds="32",all_results=FALSE)
+dat <- dhs_surveys(tagIds="1",all_results=FALSE)
+dat <- dhs_surveys(f="html",all_results=FALSE)
 }
 }

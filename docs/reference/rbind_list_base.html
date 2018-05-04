@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read DHS flat file data set — read_dhs_flat • rdhs</title>
+<title>implementation of data.tables rbindlist — rbind_list_base • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Read DHS flat file data set — read_dhs_flat" />
+<meta property="og:title" content="implementation of data.tables rbindlist — rbind_list_base" />
 
-<meta property="og:description" content="This function reads a DHS recode dataset from the zipped flat file dataset." />
+<meta property="og:description" content="implementation of data.tables rbindlist" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,89 +121,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read DHS flat file data set</h1>
+    <h1>implementation of data.tables rbindlist</h1>
     
-    <div class="hidden name"><code>read_dhs_flat.Rd</code></div>
+    <div class="hidden name"><code>rbind_list_base.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function reads a DHS recode dataset from the zipped flat file dataset.</p>
+    <p>implementation of data.tables rbindlist</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>read_dhs_flat</span>(<span class='no'>zfile</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>meta_source</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>rbind_list_base</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>zfile</th>
-      <td><p>Path to `.zip` file containing flat file dataset, usually
-ending in filename `XXXXXXFL.zip`</p></td>
-    </tr>
-    <tr>
-      <th>all_lower</th>
-      <td><p>Logical indicating whether all value labels should be
-lower case. Default to `TRUE`.</p></td>
-    </tr>
-    <tr>
-      <th>meta_source</th>
-      <td><p>character string indicating metadata source file for data
-dictionary. Default <code>NULL</code> first trieds to use <code>.DCF</code> and then
-.SPS if not found.</p></td>
+      <th>x</th>
+      <td><p>List of lists to be converted to a data.frame</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame. Value labels for each variable are stored as the
-  `labelled` class from `haven`.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/haven/topics/labelled'>labelled</a></code>, <code><a href='read_dhs_dta.html'>read_dhs_dta</a></code>.</p>
-<p>For more information on the DHS filetypes and contents of distributed
-dataset .ZIP files, see
-<a href='https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334'>https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334</a>.</p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>mrfl_zip</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
-<span class='fu'>download.file</span>(
-<span class='fu'>paste0</span>(
-<span class='st'>"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?"</span>,
-<span class='st'>"Filename=ZZMR61FL.ZIP&amp;Tp=1&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=dhs"</span>),
-<span class='no'>mrfl_zip</span>,<span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>
-)
-
-<span class='no'>mr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_dhs_flat.html'>read_dhs_flat</a></span>(<span class='no'>mrfl_zip</span>)
-<span class='fu'>attr</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>, <span class='st'>"label"</span>)</div><div class='output co'>#&gt; [1] "Partner currently pregnant"</div><div class='input'><span class='fu'>class</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; [1] "labelled"</div><div class='input'><span class='fu'>head</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; &lt;Labelled integer&gt;
-#&gt; [1] NA  0  0 NA  0 NA
-#&gt; 
-#&gt; Labels:
-#&gt;  value   label
-#&gt;      0      no
-#&gt;      1     yes
-#&gt;      8  unsure
-#&gt;      9 missing</div><div class='input'><span class='fu'>table</span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; 
-#&gt;    0    1    8    9 
-#&gt; 1766  239   57   13 </div><div class='input'><span class='fu'>table</span>(<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/haven/topics/as_factor'>as_factor</a></span>(<span class='no'>mr</span>$<span class='no'>mv213</span>))</div><div class='output co'>#&gt; 
-#&gt;      no     yes  unsure missing 
-#&gt;    1766     239      57      13 </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

@@ -39,7 +39,7 @@ available_datasets <- function(your_email, your_password, your_project,
 
 
   # fetch all the datasets meta from the api if to already passed
-  if (is.null(datasets_api_results) | is.null(surveys_api_results)) {
+  if (is.null(datasets_api_results) || is.null(surveys_api_results)) {
     datasets_api_results <- dhs_datasets()
     surveys_api_results <- dhs_surveys()
   }

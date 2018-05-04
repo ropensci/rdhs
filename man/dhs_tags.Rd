@@ -4,7 +4,7 @@
 \alias{dhs_tags}
 \title{API request of DHS Tags}
 \usage{
-dhs_tags(client = NULL, allResults = TRUE, countryIds = NULL,
+dhs_tags(client = NULL, all_results = TRUE, countryIds = NULL,
   indicatorIds = NULL, surveyIds = NULL, surveyYear = NULL,
   surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
   f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
@@ -13,7 +13,7 @@ dhs_tags(client = NULL, allResults = TRUE, countryIds = NULL,
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE
+\item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}
 
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -67,14 +67,14 @@ API request of DHS Tags
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_tags(countryIds="EG",allResults=FALSE)
-dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_tags(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_tags(surveyYear="2010",allResults=FALSE)
-dat <- dhs_tags(surveyYearStart="2006",allResults=FALSE)
+dat <- dhs_tags(countryIds="EG",all_results=FALSE)
+dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+dat <- dhs_tags(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_tags(surveyYear="2010",all_results=FALSE)
+dat <- dhs_tags(surveyYearStart="2006",all_results=FALSE)
 dat <- dhs_tags(surveyYearStart="1991", surveyYearEnd="2006",
-allResults=FALSE)
-dat <- dhs_tags(surveyType="DHS",allResults=FALSE)
-dat <- dhs_tags(f="html",allResults=FALSE)
+all_results=FALSE)
+dat <- dhs_tags(surveyType="DHS",all_results=FALSE)
+dat <- dhs_tags(f="html",all_results=FALSE)
 }
 }
