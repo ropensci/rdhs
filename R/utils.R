@@ -125,6 +125,29 @@ type_convert_df <- function(df) {
 #' @noRd
 mdy_hms <- function(dates) strptime(dates, format = "%B, %d %Y %H:%M:%S")
 
+# find Renviron file
+#' @noRd
+
+find_renviron <- function(){
+
+  pathnames <- c(Sys.getenv("R_ENVIRON_USER"),
+                 "./.Renviron",
+                 "~/.Renviron")
+
+  pathnames <- pathnames[file.exists(pathnames)]
+  pathnames <- pathnames[!file.info(pathnames)$isdir]
+
+  pathnames <- if(length(pathnames) == 0) {
+    character(0L)
+  } else {
+    pathnames[1]
+  }
+
+  pathnames
+
+}
+
+
 # check if uppercase
 # Credit: R package lettercase
 #' @noRd

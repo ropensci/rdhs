@@ -1,6 +1,9 @@
 context("user interface")
 
 test_that("check_for_client", {
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   old <- .rdhs$client
   old_envs <- save_current_envs()
 
@@ -19,6 +22,8 @@ test_that("check_for_client", {
 
 test_that("check on the use of the default client for API caching in extract", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
 
   # clear the api call cache
   .rdhs$client$clear_namespace("api_calls")
@@ -52,6 +57,9 @@ test_that("check on the use of the default client for API caching in extract", {
 
 test_that("get_datasets", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   rdhs_reset()
   .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 
@@ -65,6 +73,9 @@ test_that("get_datasets", {
 
 test_that("get_downloaded_datasets", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   rdhs_reset()
   .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 
@@ -79,6 +90,8 @@ test_that("get_downloaded_datasets", {
 
 test_that("get_available_datasets", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
 
   # clear the available_datasets_calls call cache
   .rdhs$client$clear_namespace("available_datasets_calls")
@@ -111,6 +124,9 @@ test_that("get_available_datasets", {
 
 test_that("search_and_extract_dhs", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   rdhs_reset()
   .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 
@@ -131,6 +147,9 @@ test_that("search_and_extract_dhs", {
 
 test_that("get_var_labels", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   rdhs_reset()
   .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 
@@ -157,6 +176,9 @@ test_that("get_var_labels", {
 
 test_that("get_var_labels direct via client", {
   testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   cli <- new_rand_client()
 
   dat <- cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP")

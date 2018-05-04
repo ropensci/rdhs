@@ -42,7 +42,7 @@ test_that("format catches and al_results tests", {
   )
 
   # test for misstyped args
-  expect_message(dhs_countries(countryIds = "SE"))
+  expect_error(dhs_countries(countryIds = "SE"))
 
   # test for all_results  and smaller than 5000 page
   dat <- dhs_indicators()

@@ -91,15 +91,24 @@ rdhs_reset <- function() {
 set_renviron <- function(variable, value) {
 
   # first do some checking:
-  if (substr(variable, 1, 4) != "rdhs") stop("renviron variable to be set does not begin \"rdhs\"")
+  if (substr(variable, 1, 4) != "rdhs") {
+    stop("renviron variable to be set does not begin \"rdhs\"")
+  }
+
+  # ask user if okay to write
+  if(Sys.getenv("rdhs_RENVIRON_PERMISSION")!=1) {
+  ask_user_permission()
+  }
+
+  if(Sys.getenv("rdhs_RENVIRON_PERMISSION")==1) {
 
   # now remove any trailing " that may be in there
   value <- gsub("\"", "", value)
   variable <- gsub("\"", "", variable)
 
   # next grab the current .Renviron if it exists
-  if (file.exists(file.path(normalizePath("~", winslash = "/"), ".Renviron"))) {
-    current <- readLines(file.path(normalizePath("~", winslash = "/"), ".Renviron"))
+  if (file.exists(find_renviron())) {
+    current <- readLines(file.path(find_renviron()))
 
     # check to see if the variable already exists
     current_vars <- strsplit(current, "=") %>% lapply(function(x) x[1]) %>% unlist()
@@ -114,13 +123,58 @@ set_renviron <- function(variable, value) {
     new <- paste0(variable, " = ", "\"", value, "\"")
   }
 
-  writeLines(new, file.path(normalizePath("~", winslash = "/"), ".Renviron"))
+  writeLines(new, file.path(find_renviron()))
 
   # and set it within our current session as well
   args <- list(value)
   names(args) <- variable
   do.call(Sys.setenv, args)
+
+  } else {
+    message("You have not given rdhs permission to save your credentials and ",
+            "root path. You will still be able to use rdhs, but you will have ",
+            "to use set_dhs_credentials() in each session")
+  }
+
 }
+
+#' @noRd
+ask_user_permission <- function(){
+
+  # while loop until they provide valid response
+  int_check <- TRUE
+
+  # loop ask for permission
+  while(int_check) {
+  pl <- readline(
+    prompt = cat(
+      "rdhs would like to write information to your .Renviron ",
+      "file, so that you don't have to provide the path to your ",
+      "user credentials every R session. Do you confirm rdhs to ",
+      "write to your .Renviron file? (Enter 1 or 2)\n",
+      "1: Yes",
+      "2: No\n",
+      "Your choice will be remembered within this R session, ",
+      "but each session rdhs will ask permission each session\n",
+      "To set it permanently, use the following command:",
+      "   -> rdhs:::set_renviron(\"rdhs_RENVIRON_PERMISSION\",1)",
+      sep = "\n"
+    )) %>% as.integer()
+
+  if(is.element(pl, c(1,2))) {
+    int_check <- FALSE
+  }
+
+  }
+
+  if(pl == 1) {
+    Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+  } else {
+    Sys.setenv("rdhs_RENVIRON_PERMISSION"=0)
+  }
+
+}
+
 
 #' @noRd
 set_rdhs_CREDENTIALS_PATH <- function(path) {

@@ -27,14 +27,14 @@
 #' See examples.
 #'
 #' @examples
-# df1 <- data.frame(
-# area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
-# climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
-# )
-# df2 <- data.frame(
-# area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
-# climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1))
-# )
+#' df1 <- data.frame(
+#' area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+#' climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+#' )
+#' df2 <- data.frame(
+#' area    = haven::labelled(c(1L, 2L), c("reg A"=1, "reg B"=2)),
+#' climate = haven::labelled(c(1L, 0L), c("cold"=0, "warm"=1))
+#' )
 #'
 #' # Default: all data frames inherit labels from first df. Incorrect if
 #' # "reg 1" and "reg A" are from different countries, for example.
@@ -82,9 +82,12 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     type <- "reformat"
   }
 
-  # if the data has names let's grab that and append it later
+  # if the data has names let's grab that and append it
   if (!is.null(names(dfs))) {
     df_names <- names(dfs)
+    for (i in seq_len(length(dfs))) {
+      dfs[[i]]$DATASET <- df_names[i]
+    }
   }
 
   # if its a foregin or reformatted dataset list then skip over the labelling
@@ -150,12 +153,14 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
         }) %>% unlist %>% all
       }) %>% unlist
 
-      if (any(!allequal)) {
-        warning(paste0(
-          "Some variables have non-matching value labels: ",
-          paste(names(allequal[!allequal]), collapse = ", "),
-          ".\nInheriting labels from first data frame with labels."
-        ))
+      if(!is.null(allequal)) {
+        if (any(!allequal)) {
+          warning(paste0(
+            "Some variables have non-matching value labels: ",
+            paste(names(allequal[!allequal]), collapse = ", "),
+            ".\nInheriting labels from first data frame with labels."
+          ))
+        }
       }
     }
 
@@ -182,17 +187,12 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     df[catvar] <- lapply(df[catvar], factor)
     df[catvar] <- lapply(df[catvar], function(x)
       haven::labelled(as.integer(x), setNames(seq_along(levels(x)), levels(x))))
+
   } else {
 
     ## rbind data frames
     df <- do.call(rbind, dfs)
-  }
 
-  # add names to each datasets
-  if (exists("df_names")) {
-    for (i in seq_len(length(dfs))) {
-      dfs[[i]]$DATASET <- df_names[i]
-    }
   }
 
   return(df)

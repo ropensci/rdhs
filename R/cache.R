@@ -1,9 +1,26 @@
 #' Pull last DHS API database update time
 last_api_update <- function() {
-  updates <- dhs_dataUpdates()
+
+  if(Sys.getenv("rdhs_TIMEOUT")=="") {
+    Sys.setenv("rdhs_TIMEOUT"=30)
+  }
+
+  updates <- tryCatch(
+    httr::GET(
+      "https://api.dhsprogram.com/rest/dhs/dataupdates",
+      httr::timeout(as.numeric(Sys.getenv("rdhs_TIMEOUT")))
+    ),
+    error = function(e) NULL
+  )
+
+  if(!is.null(updates)) {
+  updates <- rbind_list_base(handle_api_response(updates)$Data)
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
     max()
+  } else {
+  date <- -1
+  }
 
   date
 }

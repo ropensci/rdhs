@@ -50,6 +50,10 @@ test_that("type_convert_df", {
 })
 
 test_that("client_check", {
+
+  # save them so this test doesn't nuke the others
+  old_envs <- save_current_envs()
+
   expect_false(check_client("thing"))
 
   cli <- new_rand_client()
@@ -58,6 +62,12 @@ test_that("client_check", {
   expect_false(check_client(cli))
 
   cli <- new_rand_client()
+
   write("twaddle", file = cli$.__enclos_env__$private$credentials_path)
   expect_false(check_client(cli))
+
+  # reset our credentials
+  restore_current_envs(old_envs)
+  create_correct_credentials(cli$.__enclos_env__$private$credentials_path)
+
 })
