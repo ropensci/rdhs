@@ -32,6 +32,8 @@ test_that("check for poor errors in creds etc", {
 
   # reset our credentials
   restore_current_envs(old_envs)
+  create_correct_credentials(old_root)
+
   if (exists("old_renviron")) {
     write(x = old_renviron, file.path(normalizePath("~"), ".Renviron"))
   } else {
