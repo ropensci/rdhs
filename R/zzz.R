@@ -186,7 +186,7 @@ ask_user_permission <- function(){
 
   if (pl == 1) {
     Sys.setenv("rdhs_RENVIRON_PERMISSION" = 1)
-    rdhs:::set_renviron("rdhs_RENVIRON_PERMISSION", 1)
+    set_renviron("rdhs_RENVIRON_PERMISSION", 1)
   } else {
     Sys.setenv("rdhs_RENVIRON_PERMISSION" = 0)
 
