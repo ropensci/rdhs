@@ -21,9 +21,9 @@ before_script:
 
 script:
 - |
+  R CMD build .
   travis_wait 20 R CMD check rdhs*tar.gz
 
 after_success:
-- |
-  travis_wait 20 Rscript -e 'covr::codecov()'
+- Rscript -e 'covr::codecov()'
 
