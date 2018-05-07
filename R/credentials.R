@@ -18,8 +18,20 @@ set_dhs_credentials <- function(credentials, root=NULL) {
   # first deal with the credentials
   set_rdhs_CREDENTIALS_PATH(credentials)
 
-  ## set the root if provided
+  # set the root if provided
   if (is.null(root)) root <- .rdhs$default_root
+
+  # if no permission was granted then we will need to change this root
+  # to one in the tempdir
+  if(Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1) {
+    root <- tempdir()
+    message("You have not granted permision to rdhs to write outside of ",
+            "your temporary directory. As a result any provided root ",
+            "argument has been set to tempdir(). To use your provided ",
+            "root please allow rdhs permission to write to outside your ",
+            "temporary directory.")
+    set_rdhs_ROOT_PATH(root, ask=FALSE)
+  }
 
   ## next handle the root
   set_rdhs_ROOT_PATH(root)
