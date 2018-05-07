@@ -89,9 +89,15 @@ str(datasets)
 
 ### Download datasets
 
-To download datasets we need to first log in to our DHS account using `set_dhs_credentials()`. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials).
+To download datasets we need to first log in to our DHS account using `set_dhs_credentials()`. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials). Once you have set this up your API results will also be cached within this directory. 
+
+This function will also ask you for your permission to write to files outside your temporary directory. This will then allow your API results and any datasets you have donwloaded to be saved between your R sessions. If you have not given permission to *rdhs* then all datasets downloaded and any cached API results will be deleted after your R session. 
 
 ```{r client}
+
+# we will give our permission here so that we don't have to provide a prompt within the README.
+Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
 ## login
 set_dhs_credentials(credentials = "credentials", root="~/Downloads/rdhs_cache")
 ```
@@ -100,10 +106,10 @@ The path to your credentials is saved between sessions so you only have to set t
 
 ```{r client_api_cache}
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1967),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1969),times = 1)
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1967),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1969),times = 1)
 ```
 
 Now download datasets by providing a list of desired dataset filenames.

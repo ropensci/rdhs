@@ -125,15 +125,7 @@
 <p>Install <code>rdhs</code> from github with <code>devtools</code>. If you have not got a working development environment then please see the <a href="https://ojwatson.github.io/rdhs/articles/toolkit.html">toolkit vignette</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
-<span class="kw">library</span>(rdhs)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Welcome back :) </span>
-<span class="co">#&gt; -------------------------</span>
-<span class="co">#&gt; rdhs will be using the login credentials you set last time, which it will read from:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/credentials</span>
-<span class="co">#&gt; It will also save any datasets you download inside this directory:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/AppData/Local/Oliver/rdhs/Cache</span>
-<span class="co">#&gt; If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()</span></code></pre></div>
+<span class="kw">library</span>(rdhs)</code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -158,9 +150,11 @@
 <span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
 <span class="co">#&gt; 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
 <span class="co">#&gt; 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
+<span class="co">#&gt; 3 Malaria prevalence according to RDT TZ2017MIS            2017   7.3</span>
 <span class="co">#&gt;                 CountryName</span>
 <span class="co">#&gt; 1 Congo Democratic Republic</span>
-<span class="co">#&gt; 2                  Tanzania</span></code></pre></div>
+<span class="co">#&gt; 2                  Tanzania</span>
+<span class="co">#&gt; 3                  Tanzania</span></code></pre></div>
 </div>
 <div id="identify-survey-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -202,25 +196,30 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <div id="download-datasets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-datasets" class="anchor"></a>Download datasets</h3>
-<p>To download datasets we need to first log in to our DHS account using <code><a href="reference/set_dhs_credentials.html">set_dhs_credentials()</a></code>. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for credentials).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## login
+<p>To download datasets we need to first log in to our DHS account using <code><a href="reference/set_dhs_credentials.html">set_dhs_credentials()</a></code>. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for credentials). Once you have set this up your API results will also be cached within this directory.</p>
+<p>This function will also ask you for your permission to write to files outside your temporary directory. This will then allow your API results and any datasets you have donwloaded to be saved between your R sessions. If you have not given permission to <em>rdhs</em> then all datasets downloaded and any cached API results will be deleted after your R session.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># we will give our permission here so that we don't have to provide a prompt within the README.</span>
+<span class="kw">Sys.setenv</span>(<span class="st">"rdhs_RENVIRON_PERMISSION"</span>=<span class="dv">1</span>)
+
+## login
 <span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
 <p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1967</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1969</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: seconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1967) 4.830023 4.830023 4.830023 4.830023</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1969) 4.255012 4.255012 4.255012 4.255012</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  4.830023 4.830023     1</span>
+<span class="co">#&gt;  4.255012 4.255012     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1967</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1969</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1967) 5.861919 5.861919 5.861919 5.861919</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1969) 3.470951 3.470951 3.470951 3.470951</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  5.861919 5.861919     1</span></code></pre></div>
+<span class="co">#&gt;  3.470951 3.470951     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)
@@ -279,12 +278,13 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 
 <span class="co"># our hv024 variable is now just character strings, so you can decide when/how to factor/label it later</span>
 <span class="kw">str</span>(extract)
-<span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  3 variables:</span>
+<span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:</span>
 <span class="co">#&gt;  $ hv024   : chr  "equateur" "equateur" "equateur" "equateur" ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
 <span class="co">#&gt;  $ hml35   : chr  NA NA NA NA ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
-<span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span></code></pre></div>
+<span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span>
+<span class="co">#&gt;  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...</span></code></pre></div>
 </div>
 </div>
 </div>

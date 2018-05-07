@@ -1,7 +1,7 @@
 #' Pull last DHS API database update time
 last_api_update <- function() {
 
-  if(Sys.getenv("rdhs_TIMEOUT")=="") {
+  if (Sys.getenv("rdhs_TIMEOUT")=="") {
     Sys.setenv("rdhs_TIMEOUT"=30)
   }
 
@@ -13,7 +13,7 @@ last_api_update <- function() {
     error = function(e) NULL
   )
 
-  if(!is.null(updates)) {
+  if (!is.null(updates)) {
   updates <- rbind_list_base(handle_api_response(updates)$Data)
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%

@@ -137,7 +137,7 @@ find_renviron <- function(){
   pathnames <- pathnames[file.exists(pathnames)]
   pathnames <- pathnames[!file.info(pathnames)$isdir]
 
-  pathnames <- if(length(pathnames) == 0) {
+  pathnames <- if (length(pathnames) == 0) {
     character(0L)
   } else {
     pathnames[1]

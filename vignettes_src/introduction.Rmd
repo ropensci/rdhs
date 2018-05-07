@@ -144,15 +144,21 @@ We can now use this to download our datasets for further analysis.
 
 We can now go ahead and download our datasets. To do this we need to first set out login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function `set_dhs_credentials()`. Here you need to provide your login credentials in the form of a text file (for security reasons) that contains the email, password and project that you use to log in to the DHS website. This should take the form of a file like this:
 
-* email="dummy\@gmail.com"
-* password="dummypass"
-* project="Dummy Project"
+* email=<dummy\@gmail.com>
+* password=<dummypass>
+* project=<Dummy Project>
 
 For example, create a file on your desktop called "credentials.txt". In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use `set_dhs_credentials(credentials="C:/Users/A/Desktop/credentials.txt")` to create your client.  
 
 It also takes an argument for its `root`, which is the directory path where your datasets and other cached information is stored so that you can access your data later. If left blank, a suitable directory will be created within your user cache directory for your operating system.
 
+This function will also ask you for your permission to write to files outside your temporary directory. This will then allow your API results and any datasets you have donwloaded to be saved between your R sessions. If you have not given permission to *rdhs* then all datasets downloaded and any cached API results will be deleted after your R session. 
+
 ```{r client}
+
+# we will give our permission here so that we don't have to provide a prompt within the README.
+Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
 ## set up your credentials
 set_dhs_credentials(credentials = "credentials")
 
@@ -180,7 +186,7 @@ Now back to our dataset downloads. If we have a look back at our datasets object
 
 So first we will download all these datasets:
 
-```{r download, message=FALSE, echo=FALSE}
+```{r download, message=FALSE}
 # download datasets
 downloads <- get_datasets(datasets$FileName)
 ```
@@ -230,7 +236,7 @@ What we see from the questions is that the question "Result of malaria rapid tes
 
 To extract our data we pass our questions object to the function `extract_dhs`, which will create a list with each dataset and its extracted data as a `data.frame`. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:
 
-```{r extract_questions, message=FALSE, echo=FALSE}
+```{r extract_questions, message=FALSE}
 # let's just use the PR files thus
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 downloads <- get_datasets(datasets$FileName)
@@ -250,7 +256,7 @@ The resultant extract is a list, with a new element for each different dataset t
 
 We can also query our datasets for the survey question variables. In the example above the survey variable label was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `search_variables()`:
 
-```{r extract_variables, message=FALSE, echo=FALSE}
+```{r extract_variables, message=FALSE}
 # and grab the questions from this now utilising the survey variables
 questions <- search_variables(datasets$FileName, variables = c("hv024","hml35"))
 
@@ -297,9 +303,11 @@ We could also specify new labels for a variable. For example, imagine the two da
 
 ```{r concatenate and new label}
 # lets try concatenating the hv024 and providing new labels
-better_bound <- rbind_labelled(extract2,
-                               labels = list("hv024"="concatenate",
-                                             "hml35"=c("NegativeTest"=0, "PositiveTest"=1)))
+better_bound <- rbind_labelled(
+  extract2,
+  labels = list("hv024"="concatenate",
+                "hml35"=c("NegativeTest"=0, "PositiveTest"=1))
+)
 
 # and our new label
 head(better_bound$hml35)
@@ -308,7 +316,7 @@ head(better_bound$hml35)
 
 The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the object returned by `get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
-```{r reformat, message=FALSE, echo=FALSE}
+```{r reformat, message=FALSE}
 # download the datasets with the reformat arguments
 downloads <- get_datasets(datasets$FileName, reformat=TRUE)
 
@@ -332,7 +340,7 @@ The *hv024* column is now just characters, which is possibly the best option dep
 
 Lastly, we can now use our extract dataset to carry out some regression analysis, to investigate the relationship between malaria prevalence and the quality of wall materials. To do this we will need to first grab the sample weights and stratification from the surveys, along with the extra variables and we will then check the RDT prevalence calculated using the raw data versus the API:
 
-```{r regression analysis, message=FALSE, echo=FALSE}
+```{r regression analysis, message=FALSE, warning=FALSE}
 # grab the additional variable hv023 and hv024 which have the strata and weights respectively, and hc1 which is the age
 questions <- search_variables(datasets$FileName,variables = c("hv005","hv021","hv022","hv023","hv024",
                                                               "hv025","hv214","hml20", "hc1","hml35"))
@@ -359,24 +367,26 @@ library(survey)
 
 # construct the sample design and calculate the mean and totals 
 des <-  survey::svydesign(~CLUSTER+DATASET,data=dat,weight=~hv005)
-results <- cbind(survey::svyby(~hml35,by=~DHSREGNA, des, survey::svyciprop,na.rm=TRUE),
+results <- cbind(survey::svyby(~hml35,by=~DHSREGNA+DATASET, des, survey::svyciprop,na.rm=TRUE),
                  survey::svyby(~hml35denom,by=~DHSREGNA+DATASET, des, survey::svytotal,na.rm=TRUE))
 results <- results[order(results$DATASET),]
 
 # grab the same data from the API 
-dhs_api_data <- dhs_data(countryIds = c("CD","TZ"),indicatorIds = "ML_PMAL_C_RDT",breakdown = "subnational",surveyYearStart = 2013)
+dhs_api_data <- dhs_data(countryIds = c("CD","TZ"),indicatorIds = "ML_PMAL_C_RDT",breakdown = "subnational",surveyYearStart = 2013, surveyYearEnd = 2016)
 dhs_api_data <- cbind(dhs_api_data$Value,dhs_api_data$DenominatorWeighted,dhs_api_data$CharacteristicLabel, dhs_api_data$SurveyId)
 api <- dhs_api_data[!grepl("\\.\\.",dhs_api_data[,3]),] # remove subregions included in Tanzania
 api <- api[order(apply(api[,4:3],1,paste,collapse="")),]
 
 # bind the results and remove duplicate Region Columns
-comparison <- cbind(results[,c(1,2,6)],api[])
+comparison <- cbind(results[,c(1,3,7)],api[])
 names(comparison) <- c("Region","Survey_RDT_Prev","Survey_RDT_Denom","API_RDT_Prev","API_RDT_Denom","API_Regions","SurveyID")
 head(comparison[,c(1,2,4,3,5,6,7)])
 ```
 
 
 It's a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user. 
+
+It could also then be the specifc cut off they used in terms of which ages were included within between 5 and 69.
 
 And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`hv025`) and fixed effects for each survey.
 

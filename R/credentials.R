@@ -22,19 +22,22 @@ set_dhs_credentials <- function(credentials, root=NULL) {
   if (is.null(root)) root <- .rdhs$default_root
 
   # if no permission was granted then we will need to change this root
-  # to one in the tempdir
-  if(Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1) {
+  # to one in the tempdir before setting it
+  if (Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1) {
     root <- tempdir()
-    message("You have not granted permision to rdhs to write outside of ",
-            "your temporary directory. As a result any provided root ",
-            "argument has been set to tempdir(). To use your provided ",
-            "root please allow rdhs permission to write to outside your ",
-            "temporary directory.")
-    set_rdhs_ROOT_PATH(root, ask=FALSE)
-  }
+    message(
+      "You have not granted permision to rdhs to write outside of ",
+      "your temporary directory. As a result any provided root ",
+      "argument has been set to tempdir(). To use your provided ",
+      "root please allow rdhs permission to write to outside your ",
+      "temporary directory."
+    )
+    set_rdhs_ROOT_PATH(root, ask = FALSE)
+  } else {
 
-  ## next handle the root
-  set_rdhs_ROOT_PATH(root)
+    set_rdhs_ROOT_PATH(root)
+
+  }
 
   # and then create the client here for them using these variabes to be sure
   .rdhs$client <- client_dhs(
@@ -87,8 +90,8 @@ set_environment_credentials <- function(credentials) {
 #' @noRd
 credentials_not_present <- function() {
   return(identical(Sys.getenv("rdhs_USER_PASS"), "") ||
-         identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
-         identical(Sys.getenv("rdhs_USER_PROJECT"), ""))
+           identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
+           identical(Sys.getenv("rdhs_USER_PROJECT"), ""))
 }
 
 
@@ -99,8 +102,10 @@ handle_credentials <- function(credentials) {
       if (identical(Sys.getenv("rdhs_USER_PASS"), "") ||
           identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
           identical(Sys.getenv("rdhs_USER_PROJECT"), "")) {
-        stop("Credentials are not present in your system environment.",
-             "Please provide credentials argument")
+        stop(
+          "Credentials are not present in your system environment.",
+          "Please provide credentials argument"
+        )
       }
     } else {
       set_environment_credentials(read_credentials(credentials))
@@ -109,8 +114,10 @@ handle_credentials <- function(credentials) {
     if (identical(Sys.getenv("rdhs_USER_PASS"), "") ||
         identical(Sys.getenv("rdhs_USER_EMAIL"), "") ||
         identical(Sys.getenv("rdhs_USER_PROJECT"), "")) {
-      stop("Credentials are not present in your system environment.",
-           "Please provide credentials argument")
+      stop(
+        "Credentials are not present in your system environment.",
+        "Please provide credentials argument"
+      )
     }
   }
 }

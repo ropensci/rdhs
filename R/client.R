@@ -84,8 +84,11 @@ client_dhs <- function(credentials=NULL,
     # if no api updates have occurred then get the cached api client
   } else {
 
+    # create client in the location rather than readRDS so that we
+    # are using new credentials etc
+    client <- R6_client_dhs$new(api_key, root, credentials)
+
     # load cached client
-    client <- readRDS(file.path(root, client_file_name()))
     private <- client$.__enclos_env__$private
 
     # spit out a message to say if the client is being updated from
@@ -94,10 +97,6 @@ client_dhs <- function(credentials=NULL,
       message("New version of rdhs detected.
               Your saved client will be updated.")
     }
-
-    # create client in the location rather than readRDS so that we
-    # are using new credentials etc
-    client <- R6_client_dhs$new(api_key, root, credentials)
 
     # now handle the credentials accordingly
     handle_credentials(credentials)
@@ -681,12 +680,12 @@ R6_client_dhs <- R6::R6Class(
     get_var_labels = function(dataset_filenames=NULL, dataset_paths=NULL) {
 
       # catch if both null
-      if (is.null(dataset_filenames) & is.null(dataset_paths)) {
+      if (is.null(dataset_filenames) && is.null(dataset_paths)) {
         stop("One of dataset_filenames or dataset_paths must not be null")
       }
 
       # catch if both provided
-      if (!is.null(dataset_filenames) & !is.null(dataset_paths)) {
+      if (!is.null(dataset_filenames) && !is.null(dataset_paths)) {
         message("Both of dataset_filenames and dataset_paths are provided.
                 The filenames will be used")
         dataset <- NULL

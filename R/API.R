@@ -91,7 +91,7 @@ api_request <- function(endpoint, query, all_results, client) {
     }
 
     ## pass to response parse and then return
-    if(query$f == "geojson") {
+    if (query$f == "geojson") {
       message("geojson requested - this will be improved in the future")
       parsed_resp <- handle_api_response(resp, TRUE)
     } else {

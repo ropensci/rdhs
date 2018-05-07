@@ -108,8 +108,9 @@ test_that("set_dhs_credentials", {
   rdhs_reset()
   expect_null(.rdhs$test)
 
-  expect_silent(rdhs:::.onLoad())
+  Sys.setenv("rdhs_STARTUP_LOUD" = TRUE)
   expect_message(rdhs:::.onAttach())
+  Sys.setenv("rdhs_STARTUP_LOUD" = FALSE)
 
   # the env client root should now be this new dummy
   expect_identical(

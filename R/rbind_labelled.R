@@ -153,7 +153,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
         }) %>% unlist %>% all
       }) %>% unlist
 
-      if(!is.null(allequal)) {
+      if (!is.null(allequal)) {
         if (any(!allequal)) {
           warning(paste0(
             "Some variables have non-matching value labels: ",
