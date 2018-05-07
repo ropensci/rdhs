@@ -20,9 +20,11 @@ before_script:
 - Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"credentials.tar") ; unzip("credentials.tar")'
 
 script:
-- R CMD build .
+- |
+  R CMD build .
   travis_wait 30 R CMD check rdhs*tar.gz
 
 after_success:
-- travis_wait 20 Rscript -e 'covr::codecov()'
+- |
+  travis_wait 20 Rscript -e 'covr::codecov()'
 
