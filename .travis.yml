@@ -21,7 +21,7 @@ before_script:
 
 script:
 - |
-  R CMD build .
+  R CMD check .
   travis_wait 20 R CMD check rdhs*tar.gz
 
 after_success:
