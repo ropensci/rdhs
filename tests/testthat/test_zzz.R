@@ -17,6 +17,7 @@ test_that("check for poor errors in creds etc", {
   # check for no root and cred
   Sys.setenv("rdhs_CREDENTIALS_PATH" = "")
   Sys.setenv("rdhs_ROOT_PATH" = "")
+  Sys.setenv("rdhs_STARTUP_LOUD" = TRUE)
   expect_message(rdhs:::.onAttach(), "For help with rdhs")
 
   # lets make a failing cred
@@ -36,6 +37,8 @@ test_that("check for poor errors in creds etc", {
   } else {
     write(x = "", file.path(normalizePath("~"), ".Renviron"))
   }
+
+  Sys.setenv("rdhs_STARTUP_LOUD" = FALSE)
 })
 
 
