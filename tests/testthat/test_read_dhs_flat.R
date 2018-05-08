@@ -35,7 +35,8 @@ test_that("datasets parse", {
   expect_equal(attr(mr_sps$mv012, "label"), "Current age")
   expect_equal(attr(mr_do$mv012, "label"), "Current age")
 
-  # check for misssin metadata by first extracting it removing all the meta data and then zipping
+  # check for misssin metadata by first extracting it removing all the meta data
+  # and then zipping
   tf <- tempfile()
   unzip_warn_fails(mrfl_zip, exdir = tf)
   file.remove(list.files(tf, full.names = TRUE)[-grep(".DAT$", list.files(tf))])

@@ -86,7 +86,10 @@ test_that("query codes having downloaded surveys", {
     download_option = "r"
   )
   r <- readRDS(downloads$ZWHR31SV)
-  r <- data_and_labels(r)
+  r1 <- data_and_labels(r)
+  r2 <- data_and_labels(downloads$ZWHR31SV)
+  expect_identical(r1,r2)
+  expect_error(data_and_labels("twaddle"))
 
   # create questions for a regex and non
   quest <- cli$survey_questions(
@@ -97,7 +100,6 @@ test_that("query codes having downloaded surveys", {
     dataset_filenames = "ZWHR31SV.ZIP",
     search_terms = c("Has refrigerator")
   )
-
 
   # extract the data
   extract <- cli$extract(quest, add_geo = T)

@@ -61,6 +61,34 @@ test_that("format catches and al_results tests", {
   Sys.setenv("rdhs_DATA_TABLE" = FALSE)
 })
 
+test_that("geojson works", {
+
+# one that has to paginate
+  d <- dhs_data(countryIds = "SN",
+                surveyYearStart = 2014,
+                breakdown = "subnational",
+                returnGeometry = TRUE,
+                f = "geojson")
+
+  expect_true(inherits(d,"list"))
+  expect_equal(names(d),c("crs","type","features"))
+  expect_true(d$features %>% length > 100)
+
+  # one that doesnt
+  d <- dhs_data(countryIds = "SN",
+                indicatorIds = "FE_FRTR_W_A15",
+                surveyYearStart = 2014,
+                breakdown = "subnational",
+                returnGeometry = TRUE,
+                f = "geojson")
+
+  expect_true(inherits(d,"list"))
+  expect_equal(names(d),c("crs","type","features"))
+  expect_true(d$features %>% length < 100)
+
+
+})
+
 
 test_that("dhs_countries works", {
   testthat::skip_on_cran()

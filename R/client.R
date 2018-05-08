@@ -805,7 +805,7 @@ R6_client_dhs <- R6::R6Class(
       "geometry", "tags", "dataupdates", "uiupdates", "info"
     ),
     storr = NULL,
-    na_s = na_s <- "^na -|^na-|.*-na$|.* - na$| \\{NA\\}$",
+    na_s = "^na -|^na-|.*-na$|.* - na$| \\{NA\\}$|.* NA$",
 
 
     # CHECK_AVAIALABLE_DATASETS

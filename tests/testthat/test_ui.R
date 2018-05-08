@@ -119,11 +119,21 @@ test_that("get_available_datasets", {
   key <- digest::digest(paste0(Sys.getenv("rdhs_USER_PROJECT"), ","))
 
   # this should errror now as there was no client before
-  expect_error(.rdhs$client$.__enclos_env__$private$storr$get(key, namespace = "available_datasets_calls"))
+  expect_error(
+    .rdhs$client$.__enclos_env__$private$storr$get(
+      key, namespace = "available_datasets_calls"
+      )
+    )
 
   # but if we do it using the ui one again
   dat2 <- get_available_datasets()
-  expect_equal(dat2, .rdhs$client$.__enclos_env__$private$storr$get(key, namespace = "available_datasets_calls"))
+  expect_equal(
+    dat2,
+    .rdhs$client$.__enclos_env__$private$storr$get(
+      key,
+      namespace = "available_datasets_calls"
+    )
+  )
 })
 
 test_that("search_and_extract_dhs", {
