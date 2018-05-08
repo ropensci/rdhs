@@ -23,10 +23,13 @@ handle_api_request <- function(endpoint, query, all_results, client,
   # first clear the query list of any not needed query args
   query$all_results <- NULL
   query$client <- NULL
+  query$force <- NULL
 
   # create query and set format to json of not specified
   query <- query_creation(query)
-  if (is.null(query$f)) query$f <- "json"
+  if (is.null(query$f)) {
+    query$f <- "json"
+  }
 
   # if no client was provided we'll look for
   # the package environment client by default
