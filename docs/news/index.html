@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
       </span>
     </div>
 
@@ -122,6 +122,28 @@
       
     </div>
 
+    <div id="rdhs-0-4-0" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rdhs-0-4-0" class="anchor"></a>rdhs 0.4.0</h2>
+<ul>
+<li><p>The user has to now give permission for <code>rdhs</code> to write to files outside of your R temporary directory. This will be prompted the first time access any functionality that requires this, and then stored in you .Renviron file.</p></li>
+<li><p>Startup messages are silent by default now. They can be made loud using: <code>Sys.setenv("rdhs_STARTUP_LOUD" = TRUE)</code>.</p></li>
+<li><p>The initial check against the API’s last update date is now set to timeout after 30 seconds. This is because the package will access the dataUpdates endpoint when it is attached. Therefore if the API is frozen you will still be able to load the package. If 30 seconds is too long, this can be changed using: <code>Sys.setenv("rdhs_TIMEOUT" = 30)</code></p></li>
+<li><p>API requests will return a <code>data.frame</code> by default, but this can be changed now using: <code>Sys.setenv("rdhs_DATA_TABLE" = TRUE)</code></p></li>
+<li><p>API requests and datasets can now be made ignoring any cached responses. API requests using the <code>force = TRUE</code> argument (#23) will ignore any cached responses. <code><a href="../reference/get_datasets.html">get_datasets(clear_cache = TRUE)</a></code> will now download datasets after clearing the cached available datasets. This allows you to be able to donwload new datasets that you have recently requested (#29 <a href='http://github.com/kaisero'>@kaisero</a>).</p></li>
+<li><p>geojson objects can now be requested from the API (#28) so that you can return geojson objects for mapping purposes (#28) e.g. :</p></li>
+</ul>
+<pre><code>d &lt;- dhs_data(countryIds = "SN", surveyYearStart = 2014, 
+              breakdown = "subnational", returnGeometry = TRUE,
+              f = "geojson")
+              
+# convert to spatial object
+sp &lt;- geojsonio::as.json(d) %&gt;% geojsonio::geojson_sp
+</code></pre>
+<ul>
+<li>Large amount of style standardisation.</li>
+</ul>
+</div>
     <div id="rdhs-0-3-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-3-0" class="anchor"></a>rdhs 0.3.0</h2>
@@ -160,6 +182,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#rdhs-0-4-0">0.4.0</a></li>
         <li><a href="#rdhs-0-3-0">0.3.0</a></li>
         <li><a href="#rdhs-0-2-1">0.2.1</a></li>
         <li><a href="#rdhs-0-2-0">0.2.0</a></li>

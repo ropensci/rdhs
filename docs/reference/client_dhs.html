@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
       </span>
     </div>
 
@@ -193,7 +193,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
     <em>Usage:</em>
   <code><a href='get_datasets.html'>get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
       all_lower = TRUE, output_dir_root = file.path(private$root,
-          "datasets"), ...)</a></code>
+          "datasets"), clear_cache = FALSE, ...)</a></code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>. Alternatively you can also pass the desired rows from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
@@ -201,6 +201,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <li><p><code>reformat</code>:   Boolean concerning whether to reformat read in datasets by removing all factors and labels. Default = FALSE.</p></li>
 <li><p><code>all_lower</code>:   Logical indicating whether all value labels should be lower case. Default to `TRUE`.</p></li>
 <li><p><code>output_dir_root</code>:   Root directory where the datasets will be stored within. The default will download datasets to a subfolder of the client root called "datasets"</p></li>
+<li><p><code>clear_cache</code>:   Should your available datasets cache be cleared first. This will allow newly accessed datasets to be available. Default = `TRUE`</p></li>
 <li><p><code>...</code>:   Any other arguments to be passed to <code><a href='read_dhs_dataset.html'>read_dhs_dataset</a></code></p></li>
 </ul>
     <em>Value</em>:
