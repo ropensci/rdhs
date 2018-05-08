@@ -4,41 +4,66 @@
 \alias{dhs_surveyCharacteristics}
 \title{API request of DHS Survey Characteristics}
 \usage{
-dhs_surveyCharacteristics(client = NULL, allResults = TRUE,
-  countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL)
+dhs_surveyCharacteristics(client = NULL, force = FALSE,
+  all_results = TRUE, countryIds = NULL, indicatorIds = NULL,
+  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL, f = NULL,
+  returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{all_results}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+For a list of surveys use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Survey Characteristics on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Survey Characteristics on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Survey
+Characteristics on. surveyYearStart is an inclusive value. Can be used
+alone or in conjunction with surveyYearEnd.}
+
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Survey
+Characteristics on. surveyYearEnd is an inclusive value. Can be used alone
+or in conjunction with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided) survey characteristics. A survey can be labeled with one or more of these survey characteristics. A description of all the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields}
+Returns a `data.table` of 2 (or less if `returnFields` is provided)
+  survey characteristics. A survey can be labeled with one or more of these
+  survey characteristics. A description of all the attributes returned is
+  provided at
+  \url{https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields}
 }
 \description{
 API request of DHS Survey Characteristics
@@ -46,13 +71,15 @@ API request of DHS Survey Characteristics
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_surveyCharacteristics(countryIds="EG",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,allResults=FALSE")
-dat <- dhs_surveyCharacteristics(surveyYear="2010,allResults=FALSE")
-dat <- dhs_surveyCharacteristics(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(surveyType="DHS",allResults=FALSE)
-dat <- dhs_surveyCharacteristics(f="html",allResults=FALSE)
+dat <- dhs_surveyCharacteristics(countryIds="EG",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",
+all_results=FALSE)
+dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,all_results=FALSE")
+dat <- dhs_surveyCharacteristics(surveyYear="2010,all_results=FALSE")
+dat <- dhs_surveyCharacteristics(surveyYearStart="2006",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(surveyYearStart="1991",
+surveyYearEnd="2006",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(surveyType="DHS",all_results=FALSE)
+dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
 }
 }

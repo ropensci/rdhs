@@ -94,7 +94,7 @@
       <h1>Anemia prevalence: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-04-23</h4>
+            <h4 class="date">2018-05-07</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -119,10 +119,10 @@
 <h1 class="hasAnchor">
 <a href="#using-calculated-indicators-from-statcompiler" class="anchor"></a>Using calculated indicators from STATcompiler</h1>
 <p>Anemia prevalence among women is reported as a core indicator through the DHS STATcompiler (<a href="https://www.statcompiler.com/" class="uri">https://www.statcompiler.com/</a>). These indicators can be accessed directly from R via the DHS API with the function <code><a href="../reference/dhs_data.html">dhs_data()</a></code>.</p>
-<p>Query the API for a list of all StatCompiler indicators, and then search the indicators for those that have <code>"anemia"</code> in the indicator name. API calls return <code>data.table</code> objects. If package <code>data.table</code> is not loaded, they will be printed as <code>data.frame</code>s instead.</p>
+<p>Query the API for a list of all StatCompiler indicators, and then search the indicators for those that have <code>"anemia"</code> in the indicator name. API calls return <code>data.frame</code> objects, so if you prefer to use <code>data.table</code> objects then convert afterwards</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rdhs)
 
-indicators &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span>()
+indicators &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span>())
 <span class="kw">tail</span>(indicators[<span class="kw">grepl</span>(<span class="st">"anemia"</span>, Label), .(IndicatorId, ShortName, Label)])</code></pre></div>
 <pre><code>##      IndicatorId                 ShortName                       Label
 ## 1: CN_ANMC_C_SEV Severe anemia (&lt;7.0 g/dl) Children with severe anemia
@@ -132,12 +132,12 @@ indicators &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 ## 5: AN_ANEM_W_SEV                   Severe     Women with severe anemia
 ## 6: AN_ANEM_M_ANY                Any anemia         Men with any anemia</code></pre>
 <p>The indicator ID <code>"AN_ANEM_W_ANY"</code> reports the percentage of women with any anemia. The function <code><a href="../reference/dhs_data.html">dhs_data()</a></code> will query the indicator dataset for the value of this indicator for our three countries of interest. First, use <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> to query the list of DHS countries to identify the DHS country code for each country.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">countries &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">countries &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>())
 dhscc &lt;-<span class="st"> </span>countries[CountryName %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span>), DHS_CountryCode]
 dhscc</code></pre></div>
 <pre><code>## [1] "AM" "KH" "LS"</code></pre>
 <p>Now query the indicators dataset for the women with any anemia indicator for these three countries.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">statcomp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"AN_ANEM_W_ANY"</span>, <span class="dt">countryIds =</span> dhscc)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">statcomp &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"AN_ANEM_W_ANY"</span>, <span class="dt">countryIds =</span> dhscc))
 statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</code></pre></div>
 <pre><code>##                 Indicator CountryName SurveyYear Value DenominatorWeighted
 ##  1: Women with any anemia     Armenia       2000  12.4                6137
@@ -152,7 +152,7 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(statcomp, <span class="kw">aes</span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
 <h1 class="hasAnchor">
@@ -161,13 +161,13 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 <h2 class="hasAnchor">
 <a href="#identify-surveys-that-include-anemia-testing" class="anchor"></a>Identify surveys that include anemia testing</h2>
 <p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code>grepl()</code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveychar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>()
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveychar &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>())
 surveychar[<span class="kw">grepl</span>(<span class="st">"anemia"</span>, SurveyCharacteristicName, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)]</code></pre></div>
 <pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
 ## 1:                     15         Anemia questions
 ## 2:                     41           Anemia testing</code></pre>
 <p>The <code>SurveyCharacteristicID = 41</code> indicates that the survey included anemia testing. Next we query the API to identify the surveys that have this characteristic and were conducted in our countries of interest.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">41</span>, <span class="dt">countryIds =</span> dhscc)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">41</span>, <span class="dt">countryIds =</span> dhscc))
 surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, FieldworkEnd)]</code></pre></div>
 <pre><code>##      SurveyId CountryName SurveyYear NumberOfWomen SurveyNum FieldworkEnd
 ##  1: AM2000DHS     Armenia       2000          6430       203   2000-12-01
@@ -181,7 +181,7 @@ surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, Fieldwor
 ##  9: LS2009DHS     Lesotho       2009          7624       317   2010-01-01
 ## 10: LS2014DHS     Lesotho       2014          6621       462   2014-12-01</code></pre>
 <p>Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> surveys$SurveyId, <span class="dt">fileType =</span> <span class="st">"IR"</span>, <span class="dt">fileFormat=</span><span class="st">"flat"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(<span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> surveys$SurveyId, <span class="dt">fileType =</span> <span class="st">"IR"</span>, <span class="dt">fileFormat=</span><span class="st">"flat"</span>))
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]</code></pre></div>
 <pre><code>##      SurveyId SurveyNum        FileDateLastModified     FileName
 ##  1: AM2000DHS       203   October, 05 2006 14:22:40 AMIR42FL.ZIP
@@ -203,7 +203,10 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]</code></pre><
 password=dummypass
 project=Dummy Project Name</code></pre>
 <p>The file path to to this credentials file and the desired location for the cache are passed to the <code><a href="../reference/set_dhs_credentials.html">set_dhs_credentials()</a></code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials_file"</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we will give our permission here so that we don't have to provide a prompt within the README.</span>
+<span class="kw">Sys.setenv</span>(<span class="st">"rdhs_RENVIRON_PERMISSION"</span>=<span class="dv">1</span>)
+
+<span class="kw"><a href="../reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials_file"</span>,
                      <span class="dt">root =</span> <span class="kw">file.path</span>(<span class="kw">path.expand</span>(<span class="st">'~'</span>),<span class="st">'rdhs_cache'</span>))</code></pre></div>
 <p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets$path &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets$FileName))</code></pre></div>
@@ -526,7 +529,7 @@ res$anemia_denom0 &lt;-<span class="st"> </span><span class="kw">round</span>(re
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
                 <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="regression-analysis-relationship-between-education-and-anemia" class="section level1">

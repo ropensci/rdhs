@@ -7,7 +7,8 @@
 file_dataset_format(file_format)
 }
 \arguments{
-\item{file_format}{FileFormat for a file as taken from the API, e.g. \code{dhs_datasets(returnFields = "FileFormat")}}
+\item{file_format}{FileFormat for a file as taken from the API,
+e.g. \code{dhs_datasets(returnFields = "FileFormat")}}
 }
 \value{
 One of "dat","dat","sas7bdat","sav" or "dta"

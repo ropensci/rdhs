@@ -7,11 +7,14 @@
 read_zipdata(zfile, pattern = ".dta$", readfn = foreign::read.dta, ...)
 }
 \arguments{
-\item{zfile}{Path to `.zip` file containing flat file dataset, usually ending in filename `XXXXXXFL.zip`}
+\item{zfile}{Path to `.zip` file containing flat file dataset,
+usually ending in filename `XXXXXXFL.zip`}
 
-\item{pattern}{String detailing which filetype is to be read from within the zip by means of a grep. Default = ".dta$"}
+\item{pattern}{String detailing which filetype is to be read
+from within the zip by means of a grep. Default = ".dta$"}
 
-\item{readfn}{Function object to be used for reading in the identified file within the zip. Default = `foreign::read.dta`}
+\item{readfn}{Function object to be used for reading in the
+identified file within the zip. Default = `foreign::read.dta`}
 
 \item{...}{additional arguments to readfn}
 }

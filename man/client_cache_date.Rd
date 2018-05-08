@@ -7,7 +7,8 @@
 client_cache_date(root)
 }
 \arguments{
-\item{root}{Character for root path to where client, caches, surveys etc. will be stored.}
+\item{root}{Character for root path to where client,
+caches, surveys etc. will be stored.}
 }
 \description{
 Pull last cache date

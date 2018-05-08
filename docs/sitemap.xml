@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ojwatson.github.io/rdhs//index.html</loc>
+  </url>
+  <url>
     <loc>https://ojwatson.github.io/rdhs//reference/authenticate_dhs.html</loc>
   </url>
   <url>
@@ -11,6 +14,9 @@
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/client_dhs.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/collapse_api_responses.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/data_and_labels.html</loc>
@@ -95,6 +101,9 @@
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/rbind_labelled.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/rbind_list_base.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/rdhs.html</loc>

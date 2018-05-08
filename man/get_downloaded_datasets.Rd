@@ -13,7 +13,8 @@ Data.frame of downlaoded datasets
 Detail the datasets that you have already downloaded
 }
 \details{
-Returns a \code{data.frame} of the datasets that have been downloaded within this client.
-  This could be useful if you are without an interent connection and wish to know which saved
+Returns a \code{data.frame} of the datasets that have been
+  downloaded within this client. This could be useful if you are without
+  an interent connection and wish to know which saved
   dataset files in your root diretory correspond to which dataset
 }

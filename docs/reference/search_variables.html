@@ -25,10 +25,15 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Search Survey Variables — search_variables" />
 
-<meta property="og:description" content="Searches across datasets specified for requested survey variables. This function (or search_variable_labels)
-should be used to provide the `questions` argument for extract_dhs." />
+<meta property="og:description" content="Searches across datasets specified for requested survey variables.
+This function (or search_variable_labels)
+should be used to provide the `questions` argument
+for extract_dhs." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -39,8 +44,6 @@ should be used to provide the `questions` argument for extract_dhs." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -126,10 +129,14 @@ should be used to provide the `questions` argument for extract_dhs." />
     <div class="hidden name"><code>search_variables.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Searches across datasets specified for requested survey variables. This function (or <code><a href='search_variable_labels.html'>search_variable_labels</a></code>)
-should be used to provide the `questions` argument for <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
+    <p>Searches across datasets specified for requested survey variables.
+This function (or <code><a href='search_variable_labels.html'>search_variable_labels</a></code>)
+should be used to provide the `questions` argument
+for <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>search_variables</span>(<span class='no'>dataset_filenames</span>, <span class='no'>variables</span>, <span class='kw'>essential_variables</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>)</pre>
@@ -139,8 +146,9 @@ should be used to provide the `questions` argument for <code><a href='extract_dh
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset_filenames</th>
-      <td><p>The desired filenames to be downloaded. These can be found as one of the
-returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
+      <td><p>The desired filenames to be downloaded.
+These can be found as one of the returned fields from
+<code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></td>
     </tr>
     <tr>
       <th>variables</th>
@@ -148,22 +156,26 @@ returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.<
     </tr>
     <tr>
       <th>essential_variables</th>
-      <td><p>Character vector of variables that need to present. If any of the codes are not present in that survey,
+      <td><p>Character vector of variables that need to
+present. If any of the codes are not present in that survey,
 the survey will not be returned by this functon. Default = `NULL`.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></td>
+      <td><p>Any other arguments to be passed to
+<code><a href='download_datasets.html'>download_datasets</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data frame of the surveys where matches were found and then all the resultant codes and descriptions.</p>
+    <p>Data frame of the surveys where matches were found and then all
+  the resultant codes and descriptions.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Use this function after <code><a href='get_datasets.html'>get_datasets</a></code> to look up all the survey variables that have the required variable.</p>
+    <p>Use this function after <code><a href='get_datasets.html'>get_datasets</a></code> to look up all
+  the survey variables that have the required variable.</p>
     
 
   </div>

@@ -15,8 +15,9 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^TODO\.md$
-^vignettes/inroduction_cache/
+^vignettes/introduction_cache/
 ^docs$
 ^CONDUCT\.md$
 ^cran-comments.md$
 vignettes_src
+^paper

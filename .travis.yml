@@ -17,8 +17,7 @@ addons:
       - gdal-bin
 
 before_script:
-- Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"credentials.tar") ; unzip("credentials.tar")'
-
+- Rscript -e 'writeBin(sodium::data_decrypt(readRDS("credentials.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"credentials.tar") ; unzip("credentials.tar") ; Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)'
 
 after_success:
 - Rscript -e 'covr::codecov()'

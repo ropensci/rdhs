@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="API request of DHS Publications — dhs_publications" />
 
 <meta property="og:description" content="API request of DHS Publications" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -125,11 +126,13 @@
     <div class="hidden name"><code>dhs_publications.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>API request of DHS Publications</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>dhs_publications</span>(<span class='kw'>client</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>allResults</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>countryIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>dhs_publications</span>(<span class='kw'>client</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>all_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>countryIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>selectSurveys</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>indicatorIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>surveyYear</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyYearStart</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyYearEnd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>surveyType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyCharacteristicIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tagIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -140,39 +143,56 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>client</th>
-      <td><p>If the api request should be cached, then provide a client object created by <code><a href='client_dhs.html'>client_dhs</a></code></p></td>
+      <td><p>If the api request should be cached, then provide a client
+object created by <code><a href='client_dhs.html'>client_dhs</a></code></p></td>
     </tr>
     <tr>
-      <th>allResults</th>
-      <td><p>Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.</p></td>
+      <th>all_results</th>
+      <td><p>Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.</p></td>
     </tr>
     <tr>
       <th>countryIds</th>
-      <td><p>Specify a comma separated list of country ids to filter by. For a list of countries use <code><a href='dhs_countries.html'>dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))</a></code></p></td>
+      <td><p>Specify a comma separated list of country ids to filter
+by. For a list of countries use
+<code><a href='dhs_countries.html'>dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))</a></code></p></td>
     </tr>
     <tr>
       <th>selectSurveys</th>
-      <td><p>Specify to filter data from the latest survey by including `selectSurveys=TRUE` in your request. Note: Please use this parameter in conjunction with countryCode, surveyType, or indicatorIds for best results.</p></td>
+      <td><p>Specify to filter data from the latest survey by
+including `selectSurveys=TRUE` in your request. Note: Please use this
+parameter in conjunction with countryCode, surveyType, or indicatorIds
+for best results.</p></td>
     </tr>
     <tr>
       <th>indicatorIds</th>
-      <td><p>Specify a comma separated list of indicators ids to filter by. For a list of indicators use <code><a href='dhs_indicators.html'>dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))</a></code></p></td>
+      <td><p>Specify a comma separated list of indicators ids to
+filter by. For a list of indicators use
+<code><a href='dhs_indicators.html'>dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))</a></code></p></td>
     </tr>
     <tr>
       <th>surveyIds</th>
-      <td><p>Specify a comma separated list of survey ids to filter by. For a list of surveys use <code><a href='dhs_surveys.html'>dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))</a></code></p></td>
+      <td><p>Specify a comma separated list of survey ids to filter by.
+For a list of surveys use
+<code><a href='dhs_surveys.html'>dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))</a></code></p></td>
     </tr>
     <tr>
       <th>surveyYear</th>
-      <td><p>Specify a comma separated list of survey years to filter by.</p></td>
+      <td><p>Specify a comma separated list of survey years to
+filter by.</p></td>
     </tr>
     <tr>
       <th>surveyYearStart</th>
-      <td><p>Specify a range of Survey Years to filter Publications on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.</p></td>
+      <td><p>Specify a range of Survey Years to filter
+Publications on. surveyYearStart is an inclusive value. Can be used alone
+or in conjunction with surveyYearEnd.</p></td>
     </tr>
     <tr>
       <th>surveyYearEnd</th>
-      <td><p>Specify a range of Survey Years to filter Publications on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.</p></td>
+      <td><p>Specify a range of Survey Years to filter Publications
+on. surveyYearEnd is an inclusive value. Can be used alone or in
+conjunction with surveyYearStart.</p></td>
     </tr>
     <tr>
       <th>surveyType</th>
@@ -180,15 +200,23 @@
     </tr>
     <tr>
       <th>surveyCharacteristicIds</th>
-      <td><p>Specify a survey characteristic id to filter publications with countries with the specified survey characteristics. For a list of survey characteristics use <code><a href='dhs_surveys.html'>dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))</a></code></p></td>
+      <td><p>Specify a survey characteristic id to filter
+publications with countries with the specified survey characteristics.
+For a list of survey characteristics use
+<code><a href='dhs_surveys.html'>dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))</a></code></p></td>
     </tr>
     <tr>
       <th>tagIds</th>
-      <td><p>Specify a tag id to filter publications with surveys containing indicators with the specified tag. For a list of tags use <code><a href='dhs_tags.html'>dhs_tags()</a></code></p></td>
+      <td><p>Specify a tag id to filter publications with surveys
+containing indicators with the specified tag. For a list of tags use
+<code><a href='dhs_tags.html'>dhs_tags()</a></code></p></td>
     </tr>
     <tr>
       <th>f</th>
-      <td><p>You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.</p></td>
+      <td><p>You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is
+JSON.</p></td>
     </tr>
     <tr>
       <th>returnFields</th>
@@ -196,33 +224,39 @@
     </tr>
     <tr>
       <th>perPage</th>
-      <td><p>Specify the number of results to be returned per page. By default the API will return 100 results.</p></td>
+      <td><p>Specify the number of results to be returned per page. By
+default the API will return 100 results.</p></td>
     </tr>
     <tr>
       <th>page</th>
-      <td><p>Allows specifying a page number to obtain for the recordset. By default the API will return page 1.</p></td>
+      <td><p>Allows specifying a page number to obtain for the recordset.
+By default the API will return page 1.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 10 (or less if `returnFields` is provided) publications with detailed information for each publication. A detailed description of all the attributes returned is provided at <a href='https://api.dhsprogram.com/rest/dhs/publications/fields'>https://api.dhsprogram.com/rest/dhs/publications/fields</a></p>
+    <p>Returns a `data.table` of 10 (or less if `returnFields` is provided)
+  publications with detailed information for each publication. A detailed
+  description of all the attributes returned is provided at
+  <a href='https://api.dhsprogram.com/rest/dhs/publications/fields'>https://api.dhsprogram.com/rest/dhs/publications/fields</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>## not run only because they take a very long time and interact with an API
 </div><span class='co'># NOT RUN {</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYear</span><span class='kw'>=</span><span class='st'>"2010"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYearStart</span><span class='kw'>=</span><span class='st'>"2006"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYearStart</span><span class='kw'>=</span><span class='st'>"1991"</span>, <span class='kw'>surveyYearEnd</span><span class='kw'>=</span><span class='st'>"2006"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyType</span><span class='kw'>=</span><span class='st'>"DHS"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyCharacteristicIds</span><span class='kw'>=</span><span class='st'>"32"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>tagIds</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>allResults</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYear</span><span class='kw'>=</span><span class='st'>"2010"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYearStart</span><span class='kw'>=</span><span class='st'>"2006"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyYearStart</span><span class='kw'>=</span><span class='st'>"1991"</span>, <span class='kw'>surveyYearEnd</span><span class='kw'>=</span><span class='st'>"2006"</span>,
+<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyType</span><span class='kw'>=</span><span class='st'>"DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>surveyCharacteristicIds</span><span class='kw'>=</span><span class='st'>"32"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>tagIds</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_publications</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

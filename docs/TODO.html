@@ -25,6 +25,9 @@
 <link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script>
 <script src="pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="NA" />
 
 
@@ -35,8 +38,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -120,29 +121,25 @@
       <h1>NA</h1>
     </div>
 
-
-<p>TODO Functionality list:</p>
+<div id="todo-functionality-list" class="section level3">
+<h3 class="hasAnchor">
+<a href="#todo-functionality-list" class="anchor"></a>TODO Functionality list:</h3>
 <hr>
 <ol>
-<li>Anemia vignette should full embrace survey_variables() and extract() functionality</li>
 <li>Need to add / fix parsers for a few edge cases: SNIR02FL, KEIR03FL, BOIR01FL</li>
-<li>Some harmonization of terminology across package (questions vs. labels, etc.)</li>
 <li>Additional functionality for merging datasets (IR, MR, AR, etc.)</li>
-<li>Handling of survey strata</li>
-<li>Additional functionality for statistical analysis of survey data</li>
+<li>Handling of survey strata - ask DHS for strata of each survey so that new sample weighed indicators can be estimated</li>
+<li>Additional functionality for statistical analysis of survey data, e.. wrapping in prevR, the above indicators, plotting etc</li>
 </ol>
-<p>Additional dev todo’s</p>
+<div id="next-major-version" class="section level4">
+<h4 class="hasAnchor">
+<a href="#next-major-version" class="anchor"></a>Next major version</h4>
 <ol>
-<li>place vignettes in vignette_src directory, where they are built, then copy those .md to vignette and write as .Rmd</li>
-<li>vignettes to use updated ui</li>
-<li>full ui tests</li>
+<li>Use the model datasets with a dummy login account that the DHS will set up to create a better demo for users</li>
+<li>DRAKE THE FOLLOWING: Somehow wrap each step in the example analytical pipeline within internal package environments, so that the user can use a new function to return the precise function call tree used to produce the final dataset/statistics etc, without accidentally altering it etc. It can then be packageversion/date branded so it can definitely be reproduced using old datasets if they get updated, this aiding the reproducibility of their analysis.</li>
 </ol>
-<p>Next major version</p>
-<ol>
-<li>Use the model datasets with a dummy login account that the DHS will set up to create a better demo</li>
-<li>
-</ol>
-
+</div>
+</div>
 
   </div>
 

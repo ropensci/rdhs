@@ -36,13 +36,13 @@ Anemia prevalence among women is reported as a core indicator through the DHS ST
 These indicators can be accessed directly from R via the DHS API with the function `dhs_data()`.
 
 Query the API for a list of all StatCompiler indicators, and then search the indicators for those
-that have `"anemia"` in the indicator name. API calls return `data.table` objects. If package `data.table`
-is not loaded, they will be printed as `data.frame`s instead.
+that have `"anemia"` in the indicator name. API calls return `data.frame` objects, so if you prefer
+to use `data.table` objects then convert afterwards
 
 ```{r }
 library(rdhs)
 
-indicators <- dhs_indicators()
+indicators <- as.data.table(dhs_indicators())
 tail(indicators[grepl("anemia", Label), .(IndicatorId, ShortName, Label)])
 ```
 
@@ -52,7 +52,7 @@ for our three countries of interest. First, use `dhs_countries()` to query the
 list of DHS countries to identify the DHS country code for each country.
 
 ```{r }
-countries <- dhs_countries()
+countries <- as.data.table(dhs_countries())
 dhscc <- countries[CountryName %in% c("Armenia", "Cambodia", "Lesotho"), DHS_CountryCode]
 dhscc
 ```
@@ -60,7 +60,7 @@ dhscc
 Now query the indicators dataset for the women with any anemia indicator for these three countries.
 
 ```{r ,fig.height=2.5, fig.width=4, fig.align="center"}
-statcomp <- dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc)
+statcomp <- as.data.table(dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc))
 statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]
 
 ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
@@ -78,7 +78,7 @@ for the full list of survey characteristics, and the second uses `grepl()` to se
 `SurveyCharacteristicName`s that include the word 'anemia'.
 
 ```{r }
-surveychar <- dhs_surveyCharacteristics()
+surveychar <- as.data.table(dhs_surveyCharacteristics())
 surveychar[grepl("anemia", SurveyCharacteristicName, ignore.case=TRUE)]
 ```
 
@@ -87,14 +87,14 @@ query the API to identify the surveys that have this characteristic and were con
 in our countries of interest.
 
 ```{r }
-surveys <- dhs_surveys(surveyCharacteristicIds = 41, countryIds = dhscc)
+surveys <- as.data.table(dhs_surveys(surveyCharacteristicIds = 41, countryIds = dhscc))
 surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, FieldworkEnd)]
 ```
 
 Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys
 
 ```{r }
-datasets <- dhs_datasets(surveyIds = surveys$SurveyId, fileType = "IR", fileFormat="flat")
+datasets <- as.data.table(dhs_datasets(surveyIds = surveys$SurveyId, fileType = "IR", fileFormat="flat"))
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 ```
 
@@ -111,6 +111,10 @@ project=Dummy Project Name
 The file path to to this credentials file and the desired location for the cache are passed to the `set_dhs_credentials()` function: 
 
 ```{r }
+
+# we will give our permission here so that we don't have to provide a prompt within the README.
+Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
 set_dhs_credentials(credentials = "credentials_file",
                      root = file.path(path.expand('~'),'rdhs_cache'))
 ```

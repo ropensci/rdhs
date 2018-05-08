@@ -11,16 +11,21 @@ download_datasets(desired_dataset, download_option = "both",
 \arguments{
 \item{desired_dataset}{Row from \code{available_datasets}}
 
-\item{download_option}{Character dictating how the durvey is stored when downloaded. Must be one of:
+\item{download_option}{Character dictating how the durvey is stored when
+downloaded. Must be one of:
 \itemize{
-      \item{"zip"} - Just the zip. "z" or   will match
-      \item{"rds"} - Just the read in and saved rds. "r" or anything like will match
-      \item{"both"} - Both the rds and extract. "b" or anything like will match
-}}
+    \item{"zip"} - Just the zip. "z", "i", "p" or "zip" will match
+    \item{"rds"} - Just the read in and saved rds. "r", "d", "s" or "rdhs"
+    will match
+    \item{"both"} - Both the rds and extract. "b", "o", "t", "h" or "both"
+    will match
+    }}
 
-\item{reformat}{Boolean detailing whether dataset rds should be reformatted for ease of use later. Default = TRUE}
+\item{reformat}{Boolean detailing whether dataset rds should be
+reformatted for ease of use later. Default = TRUE}
 
-\item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
+\item{all_lower}{Logical indicating whether all value labels should be
+lower case. Default to `TRUE`.}
 
 \item{output_dir_root}{Directory where files are to be downloaded to}
 
@@ -28,9 +33,11 @@ download_datasets(desired_dataset, download_option = "both",
 
 \item{your_password}{Character for password for DHS website}
 
-\item{your_project}{Character string for the name of your project that gives you access to the DHS database}
+\item{your_project}{Character string for the name of your project that gives
+you access to the DHS database}
 
-\item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
+\item{...}{Any other arguments to be passed to
+\code{\link{read_dhs_dataset}}}
 }
 \description{
 Download datasets specified using output of \code{available_datasets}.

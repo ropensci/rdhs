@@ -4,45 +4,74 @@
 \alias{dhs_countries}
 \title{API request of DHS Countries}
 \usage{
-dhs_countries(client = NULL, allResults = TRUE, countryIds = NULL,
-  indicatorIds = NULL, surveyIds = NULL, surveyYear = NULL,
-  surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
-  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL)
+dhs_countries(client = NULL, force = FALSE, all_results = TRUE,
+  countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
+  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
+  surveyType = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
+  f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client object created by \code{\link{client_dhs}}}
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
 
-\item{allResults}{Boolean for if all results should be returned. If FALSE then the specifed page only will be returned. Default = TRUE.}
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
 
-\item{countryIds}{Specify a comma separated list of country ids to filter by. For a list of countries use \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
+\item{all_results}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 
-\item{indicatorIds}{Specify a comma separated list of indicators ids to filter by. For a list of indicators use \code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
+\item{countryIds}{Specify a comma separated list of country ids to filter
+  by. For a list of countries use
+\code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
 
-\item{surveyIds}{Specify a comma separated list of survey ids to filter by. For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{indicatorIds}{Specify a comma separated list of indicators ids to
+  filter by. For a list of indicators use
+\code{dhs_indicators(returnFields=c("IndicatorId","Label","Definition"))}}
 
-\item{surveyYear}{Specify a comma separated list of survey years to filter by.}
+\item{surveyIds}{Specify a comma separated list of survey ids to filter by.
+For a list of surveys use \code{dhs_surveys(returnFields=c("SurveyId",
+"SurveyYearLabel","SurveyType","CountryName"))}}
 
-\item{surveyYearStart}{Specify a range of Survey Years to filter Countries on. surveyYearStart is an inclusive value. Can be used alone or in conjunction with surveyYearEnd.}
+\item{surveyYear}{Specify a comma separated list of survey years to
+filter by.}
 
-\item{surveyYearEnd}{Specify a range of Survey Years to filter Countries on. surveyYearEnd is an inclusive value. Can be used alone or in conjunction with surveyYearStart.}
+\item{surveyYearStart}{Specify a range of Survey Years to filter Countries
+on. surveyYearStart is an inclusive value. Can be used alone or in
+conjunction with surveyYearEnd.}
+
+\item{surveyYearEnd}{Specify a range of Survey Years to filter Countries on.
+surveyYearEnd is an inclusive value. Can be used alone or in conjunction
+with surveyYearStart.}
 
 \item{surveyType}{Specify a survey type to filter by.}
 
-\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter countries in surveys with the specified survey characteristic. For a list of survey characteristics use \code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel","SurveyType","CountryName"))}}
+\item{surveyCharacteristicIds}{Specify a survey characteristic id to filter
+countries in surveys with the specified survey characteristic. For a list
+of survey characteristics use
+\code{dhs_surveys(returnFields=c("SurveyId","SurveyYearLabel",
+"SurveyType","CountryName"))}}
 
-\item{tagIds}{Specify a tag id to filter countries with surveys containing indicators with the specified tag. For a list of tags use \code{dhs_tags()}}
+\item{tagIds}{Specify a tag id to filter countries with surveys containing
+indicators with the specified tag. For a list of tags use
+\code{dhs_tags()}}
 
-\item{f}{You can specify the format of the data returned from the query as HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format is JSON.}
+\item{f}{You can specify the format of the data returned from the query as
+HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
+is JSON.}
 
 \item{returnFields}{Specify a list of attributes to be returned.}
 
-\item{perPage}{Specify the number of results to be returned per page. By default the API will return 100 results.}
+\item{perPage}{Specify the number of results to be returned per page. By
+default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By default the API will return page 1.}
+\item{page}{Allows specifying a page number to obtain for the recordset. By
+default the API will return page 1.}
 }
 \value{
-Returns a `data.table` of 12 (or less if `returnFields` is provided) countries with their corresponding details. A detailed description of all the attributes returned is provided at \url{https://api.dhsprogram.com/rest/dhs/countries/fields}
+Returns a `data.table` of 12 (or less if `returnFields` is provided)
+  countries with their corresponding details. A detailed description of all
+  the attributes returned is provided at
+ \url{https://api.dhsprogram.com/rest/dhs/countries/fields}
 }
 \description{
 API request of DHS Countries
@@ -50,15 +79,16 @@ API request of DHS Countries
 \examples{
 ## not run only because they take a very long time and interact with an API
 \dontrun{
-dat <- dhs_countries(countryIds="EG",allResults=FALSE)
-dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",allResults=FALSE)
-dat <- dhs_countries(surveyIds="SN2010DHS",allResults=FALSE)
-dat <- dhs_countries(surveyYear="2010",allResults=FALSE)
-dat <- dhs_countries(surveyYearStart="2006",allResults=FALSE)
-dat <- dhs_countries(surveyYearStart="1991", surveyYearEnd="2006",allResults=FALSE)
-dat <- dhs_countries(surveyType="DHS",allResults=FALSE)
-dat <- dhs_countries(surveyCharacteristicIds="32",allResults=FALSE)
-dat <- dhs_countries(tagIds="1",allResults=FALSE)
-dat <- dhs_countries(f="html",allResults=FALSE)
+dat <- dhs_countries(countryIds="EG",all_results=FALSE)
+dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
+dat <- dhs_countries(surveyIds="SN2010DHS",all_results=FALSE)
+dat <- dhs_countries(surveyYear="2010",all_results=FALSE)
+dat <- dhs_countries(surveyYearStart="2006",all_results=FALSE)
+dat <- dhs_countries(surveyYearStart="1991", surveyYearEnd="2006",
+all_results=FALSE)
+dat <- dhs_countries(surveyType="DHS",all_results=FALSE)
+dat <- dhs_countries(surveyCharacteristicIds="32",all_results=FALSE)
+dat <- dhs_countries(tagIds="1",all_results=FALSE)
+dat <- dhs_countries(f="html",all_results=FALSE)
 }
 }

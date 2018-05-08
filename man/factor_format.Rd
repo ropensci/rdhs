@@ -12,7 +12,8 @@ factor_format(res, reformat = FALSE, all_lower = TRUE)
 \item{reformat}{Boolean whether to remove all factors and labels and
 just return the unfactored data. Default = FALSE}
 
-\item{all_lower}{Logical indicating whether all value labels should be lower case. Default to `TRUE`.}
+\item{all_lower}{Logical indicating whether all value labels
+should be lower case. Default to `TRUE`.}
 }
 \value{
 list with the formatted dataset and the code descriptions

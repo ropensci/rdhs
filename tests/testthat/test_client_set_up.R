@@ -1,30 +1,35 @@
 context("Client Setup")
 
 test_that("save credentials", {
-
   testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory
-  td <- file.path(tempdir(),as.integer(Sys.time()))
+  td <- file.path(tempdir(), as.integer(Sys.time()))
 
   # create auth through whichever route is valid for the environment
-  if(file.exists("credentials")){
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
-    testthat::expect_identical(normalizePath(file.path("credentials"),winslash="/"),
-                               cli$.__enclos_env__$private$credentials_path)
+  if (file.exists("credentials")) {
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
+    testthat::expect_identical(
+      normalizePath(file.path("credentials"), winslash = "/"),
+      cli$.__enclos_env__$private$credentials_path
+    )
   } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
   # check for when/if (how) the client got deleted but not the root directory
-  file.remove(file.path(cli$get_root(),client_file_name()))
+  file.remove(file.path(cli$get_root(), client_file_name()))
 
   # create auth through whichever route is valid for the environment
-  if(file.exists("credentials")){
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  if (file.exists("credentials")) {
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
   # test client extra functions
@@ -46,39 +51,42 @@ test_that("save credentials", {
   cli <- client_refresh(cli)
 
   unlink(td)
-
 })
 
 test_that("new updates are recognised", {
-
   testthat::skip_on_cran()
   skip_if_no_auth()
 
   # Create new directory
-  td <- file.path(tempdir(),as.integer(Sys.time()))
+  td <- file.path(tempdir(), as.integer(Sys.time()))
 
   # create auth through whichever route is valid for the environment
-  if(file.exists("credentials")){
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  if (file.exists("credentials")) {
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
   cli$.__enclos_env__$private$cache_date <- rdhs:::last_api_update() - 1
-  saveRDS(cli,file.path(cli$get_root(),rdhs:::client_file_name()))
+  saveRDS(cli, file.path(cli$get_root(), rdhs:::client_file_name()))
 
   # create auth through whichever route is valid for the environment
-  if(file.exists("credentials")){
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",credentials = "credentials",root = td)
+  if (file.exists("credentials")) {
+    cli <- rdhs::client_dhs(
+      api_key = "ICLSPH-527168", credentials = "credentials", root = td
+    )
   } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
-  # this dataset has been updated in the past so if we force the cache dat back and then refresh it should trig clearing this
+  # this dataset has been updated in the past so if we
+  # force the cache dat back and then refresh it should trig clearing this
   d <- cli$get_datasets("BUBR70SV.ZIP")
   cli$set_cache_date(1)
-  cli <- client_refresh(cli)
+  cli$save_client()
+  cli <- client_dhs(root = cli$get_root())
 
   unlink(td)
-
 })

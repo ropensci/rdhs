@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Make a dhs client — client_dhs" />
 
 <meta property="og:description" content="Make a DHS API client" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>client_dhs.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Make a DHS API client</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>client_dhs</span>(<span class='kw'>credentials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw pkg'>rappdirs</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>user_cache_dir</a></span>(<span class='st'>"rdhs"</span>,
   <span class='fu'>Sys.info</span>()[<span class='st'>"user"</span>]), <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>)</pre>
@@ -137,8 +140,10 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>credentials</th>
-      <td><p>File path to where log in credentials are stored (preferred as no
-secrets are typed into an R session). File format should be (each bullet is a new line):</p><ul>
+      <td><p>File path to where log in credentials are stored
+(preferred as no
+secrets are typed into an R session). File format should be (each bullet
+is a new line):</p><ul>
 <li><p>email=dummy@gmail.com</p></li>
 <li><p>password=dummypass</p></li>
 <li><p>project=Dummy Project</p></li>
@@ -146,7 +151,8 @@ secrets are typed into an R session). File format should be (each bullet is a ne
     </tr>
     <tr>
       <th>root</th>
-      <td><p>Character for root directory to where client, caches, surveys etc. will be stored.
+      <td><p>Character for root directory to where client, caches,
+surveys etc. will be stored.
 Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>rappdirs::user_cache_dir("rdhs", Sys.info()["user"])</a></code></p></td>
     </tr>
     <tr>

@@ -7,14 +7,17 @@
 extract_dhs(questions, add_geo = FALSE)
 }
 \arguments{
-\item{questions}{Questions to be queried, in the format from \code{\link{search_variables}} or \code{\link{search_variable_labels}}}
+\item{questions}{Questions to be queried, in the format from
+\code{\link{search_variables}} or \code{\link{search_variable_labels}}}
 
 \item{add_geo}{Add geograpic information to the extract. Defaut = `TRUE`}
 }
 \description{
-Extracts data from your downloaded datasets according to a data.frame of requested survey variables or survey definitions
+Extracts data from your downloaded datasets according to a data.frame of
+requested survey variables or survey definitions
 }
 \details{
-Function to extract datasets using a set of survey questions as taken from the output from \code{\link{search_variables}}
+Function to extract datasets using a set of survey questions as
+  taken from the output from \code{\link{search_variables}}
   or \code{\link{search_variable_labels}}
 }

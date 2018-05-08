@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Get Survey Variable Labels — get_var_labels" />
 
 <meta property="og:description" content="Return variable labels from a dataset" />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -125,9 +126,11 @@
     <div class="hidden name"><code>get_var_labels.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Return variable labels from a dataset</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>get_var_labels</span>(<span class='no'>dataset</span>, <span class='kw'>return_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -136,12 +139,13 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>Can be either the file path to a dataset, the dataset as a `data.frame` or the filenaes of datasets.
-See details for more information</p></td>
+      <td><p>Can be either the file path to a dataset, the dataset as a
+`data.frame` or the filenaes of datasets. See details for more information</p></td>
     </tr>
     <tr>
       <th>return_all</th>
-      <td><p>Logical whether to return all variables (<code>TRUE</code>) or only those with labels.</p></td>
+      <td><p>Logical whether to return all variables (<code>TRUE</code>)
+or only those with labels.</p></td>
     </tr>
     </table>
     
@@ -151,13 +155,17 @@ See details for more information</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Returns variable names and their labels from a dataset. You can pass for the `data` argument any of
-the following:</p><ul>
-<li><p>The file path to a saved dataset. This would be the direct output of <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
-<li><p>A read in dataset, i.e. produced by using <code>readRDS</code> to load a dataset from
+    <p>Returns variable names and their labels from a dataset.
+  You can pass for the `data` argument any of
+  the following:</p><ul>
+<li><p>The file path to a saved dataset. This would be the direct
+      output of <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
+<li><p>A read in dataset, i.e. produced by using <code>readRDS</code>
+      to load a dataset from
       a file path produced by <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
-<li><p>Dataset filenames. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.
-      If these datasets have not been downloaded before this will download them for you.</p></li>
+<li><p>Dataset filenames. These can be found as one of the returned
+      fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>. If these datasets have not been
+      downloaded before this will download them for you.</p></li>
 </ul>
     
 
