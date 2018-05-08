@@ -69,6 +69,10 @@ test_that("set_dhs_credentials", {
   write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space",
     file = "rubbish_no_more.txt"
   )
+
+  set_renviron(variable = renv_cred_path_name(), value = "rubbish_no_more.txt",
+               ask = TRUE)
+
   out <- set_dhs_credentials(credentials = "rubbish_no_more.txt")
 
   # check that it returns the client invisibly
