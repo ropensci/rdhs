@@ -1,24 +1,24 @@
-##' Make a DHS API client
-##'
-##' @title Make a dhs client
-##'
-##' @param credentials File path to where log in credentials are stored
-##'   (preferred as no
-##'   secrets are typed into an R session). File format should be (each bullet
-##'   is a new line):
-##'   \itemize{
-##'       \item email=dummy@gmail.com
-##'       \item password=dummypass
-##'       \item project=Dummy Project
-##'       }
-##' @param root Character for root directory to where client, caches,
-##'   surveys etc. will be stored.
-##'   Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
-##' @param api_key Character for DHS API KEY
-##'
-##' @template client_dhs_methods
-##' @export
-##'
+#' Make a DHS API client
+#'
+#' @title Make a dhs client
+#'
+#' @param credentials File path to where log in credentials are stored
+#'   (preferred as no
+#'   secrets are typed into an R session). File format should be (each bullet
+#'   is a new line):
+#'   \itemize{
+#'       \item email=dummy@gmail.com
+#'       \item password=dummypass
+#'       \item project=Dummy Project
+#'       }
+#' @param root Character for root directory to where client, caches,
+#'   surveys etc. will be stored.
+#'   Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
+#' @param api_key Character for DHS API KEY
+#'
+#' @template client_dhs_methods
+#' @export
+#'
 client_dhs <- function(credentials=NULL,
                        root = rappdirs::user_cache_dir(
                          "rdhs", Sys.info()["user"]),
@@ -34,10 +34,10 @@ client_dhs <- function(credentials=NULL,
     # If there was already a client in your root (i.e. there was a DHS update)
     # then empty the api_call cache namespace and check package version
     if (cache_date != -1) {
-      message("DHS API has been updated since you last created a DHS client
-              in this root directory.")
-      message("Previous API / dataset requests will subsequently be rerun in
-              order to ensure your results are up to date. :)")
+      message("DHS API has been updated since you last created a DHS client",
+              "in this root directory.")
+      message("Previous API / dataset requests will subsequently be rerun in",
+              "order to ensure your results are up to date. :)")
       client$clear_namespace(namespace = "api_calls")
       client$clear_namespace(namespace = "available_datasets_calls")
 
@@ -48,7 +48,7 @@ client_dhs <- function(credentials=NULL,
       upd <- client$dhs_api_request(api_endpoint = "dataupdates")
 
       # are any of the listed updates more recent than the cache date
-      if (max(mdy_hms(upd$UpdateDate)) > client$get_cache_date()) {
+      if (max(mdy_hms(upd$UpdateDate)) > cache_date) {
 
         ## check which datasets have been downloaded in the past
 
@@ -94,8 +94,8 @@ client_dhs <- function(credentials=NULL,
     # spit out a message to say if the client is being updated from
     # a previous rdhs version
     if (packageVersion("rdhs") != private$package_version) {
-      message("New version of rdhs detected.
-              Your saved client will be updated.")
+      message("New version of rdhs detected.",
+              "Your saved client will be updated.")
     }
 
     # now handle the credentials accordingly

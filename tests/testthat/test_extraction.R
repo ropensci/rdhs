@@ -41,6 +41,13 @@ test_that("query codes having downloaded surveys", {
     dataset_filenames = "AOBR62DT.ZIP", regex = c("fever|test")
   )
 
+  # cehck for message on both
+  quest <- cli$survey_questions(
+    dataset_filenames = "AOBR62DT.ZIP",
+    regex = c("fever|test"),
+    search_terms = c("fever|test")
+  )
+
   # check the essetial temrs option
   quest <- cli$survey_questions(
     dataset_filenames = "AOBR62DT.ZIP",

@@ -19,7 +19,13 @@ last_api_update <- function() {
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
     max()
   } else {
+
   date <- -1
+  message("The DHS API took longer than ",Sys.getenv("rdhs_TIMEOUT"),
+          " seconds to respond.\n",
+          "As a result some of the functionality of rdhs may not work.\n",
+          "To check if the API is down please head to:\n",
+          "https://api.dhsprogram.com/rest/dhs/dataupdates")
   }
 
   date

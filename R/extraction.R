@@ -1,22 +1,22 @@
-##' Create a list of survey responses extracted using output of
-##' \code{R6_client_dhs$public_methods$survey_questions}
-##'
-##' @title DHS survey questions extracted from datasets
-##' @param questions Output of
-##'   \code{R6_client_dhs$public_methods$survey_questions}
-##' @param available_datasets Datasets that could be available.
-##'   Output of \code{R6_client_dhs$public_methods$available_datasets}
-##' @param geo_surveys Geographic Data Survey file paths.
-##' @param add_geo Boolean detailing if geographic datasets should be added.
-##'
-##'
-##' @return Returns `data.frame` with variables corresponding to
-##'   the reqested variables in the questions object. Will also have
-##'   geographic data related columns if `add_geo=TRUE` is set.
-##'   Lastly a SurveyId variable will also be appended corresponding to
-##'   \code{\link{dhs_datasets}}$SurveyId
-##'
-##'
+#' Create a list of survey responses extracted using output of
+#' \code{R6_client_dhs$public_methods$survey_questions}
+#'
+#' @title DHS survey questions extracted from datasets
+#' @param questions Output of
+#'   \code{R6_client_dhs$public_methods$survey_questions}
+#' @param available_datasets Datasets that could be available.
+#'   Output of \code{R6_client_dhs$public_methods$available_datasets}
+#' @param geo_surveys Geographic Data Survey file paths.
+#' @param add_geo Boolean detailing if geographic datasets should be added.
+#'
+#'
+#' @return Returns `data.frame` with variables corresponding to
+#'   the reqested variables in the questions object. Will also have
+#'   geographic data related columns if `add_geo=TRUE` is set.
+#'   Lastly a SurveyId variable will also be appended corresponding to
+#'   \code{\link{dhs_datasets}}$SurveyId
+#'
+#'
 extraction <- function(questions, available_datasets,
                        geo_surveys, add_geo=FALSE) {
 

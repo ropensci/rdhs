@@ -1,14 +1,14 @@
-##' read in dhs standard file types
-##' @param file path to zip file to be read
-##' @param dataset row from \code{\link{dhs_datasets}} that
-##'   corresponds to the file
-##' @param reformat boolean detailing if datasets should be nicely
-##'   reformatted. Default = `FALSE`
-##' @param all_lower Logical indicating whether all value labels
-##'   should be lower case. Default to `TRUE`.
-##' @param ... Extra arguments to be passed to either
-##'   \code{\link{read_dhs_dta}} or \code{\link{read_dhs_flat}}
-##'
+#' read in dhs standard file types
+#' @param file path to zip file to be read
+#' @param dataset row from \code{\link{dhs_datasets}} that
+#'   corresponds to the file
+#' @param reformat boolean detailing if datasets should be nicely
+#'   reformatted. Default = `FALSE`
+#' @param all_lower Logical indicating whether all value labels
+#'   should be lower case. Default to `TRUE`.
+#' @param ... Extra arguments to be passed to either
+#'   \code{\link{read_dhs_dta}} or \code{\link{read_dhs_flat}}
+#'
 read_dhs_dataset <- function(file, dataset,
                              reformat = FALSE, all_lower = TRUE, ...) {
 
@@ -90,14 +90,14 @@ read_dhs_dataset <- function(file, dataset,
 }
 
 
-##' reformat haven and labelled read ins to have no factors or labels
-##' @param res dataset to be formatted
-##' @param reformat Boolean whether to remove all factors and labels and
-##' just return the unfactored data. Default = FALSE
-##' @param all_lower Logical indicating whether all value labels
-##'   should be lower case. Default to `TRUE`.
-##'
-##' @return list with the formatted dataset and the code descriptions
+#' reformat haven and labelled read ins to have no factors or labels
+#' @param res dataset to be formatted
+#' @param reformat Boolean whether to remove all factors and labels and
+#' just return the unfactored data. Default = FALSE
+#' @param all_lower Logical indicating whether all value labels
+#'   should be lower case. Default to `TRUE`.
+#'
+#' @return list with the formatted dataset and the code descriptions
 
 factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
 
@@ -188,15 +188,15 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
   return(list("dataset" = res, "variable_names" = description_table))
 }
 
-##' Return variable labels from a dataset
-##'
-##' Returns variable labels stored as \code{"label"} attribute.
-##'
-##' @param data A \code{data.frame} from which to extract variable labels.
-##' @param return_all Logical whether to return all variables (\code{TRUE})
-##'   or only those with labels.
-##' @return A \code{data.frame} consisting of the variable name and labels.
-##'
+#' Return variable labels from a dataset
+#'
+#' Returns variable labels stored as \code{"label"} attribute.
+#'
+#' @param data A \code{data.frame} from which to extract variable labels.
+#' @param return_all Logical whether to return all variables (\code{TRUE})
+#'   or only those with labels.
+#' @return A \code{data.frame} consisting of the variable name and labels.
+#'
 get_labels_from_dataset <- function(data, return_all=TRUE) {
 
   # what kind of dataset is it we are working with
@@ -234,15 +234,15 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 }
 
 
-##' Create list of dataset and its variable names
-##'
-##' Function to give the former output of get_datasets as it can be nice to have
-##' both the definitions and the dataset attached together
-##'
-##' @param dataset Any read in dataset created by \code{get_datasets},
-##'   either as the file path or after having
-##'   been read using \code{readRDS}
-##' @export
+#' Create list of dataset and its variable names
+#'
+#' Function to give the former output of get_datasets as it can be nice to have
+#' both the definitions and the dataset attached together
+#'
+#' @param dataset Any read in dataset created by \code{get_datasets},
+#'   either as the file path or after having
+#'   been read using \code{readRDS}
+#' @export
 data_and_labels <- function(dataset) {
 
   if (class(dataset)[1] == "character") {
@@ -262,18 +262,18 @@ data_and_labels <- function(dataset) {
 }
 
 
-##' Read filetype from a zipped folder based on the file ending
-##'
-##'
-##' @param zfile Path to `.zip` file containing flat file dataset,
-##'   usually ending in filename `XXXXXXFL.zip`
-##' @param pattern String detailing which filetype is to be read
-##'   from within the zip by means of a grep. Default = ".dta$"
-##' @param readfn Function object to be used for reading in the
-##'   identified file within the zip. Default = `foreign::read.dta`
-##' @param ...  additional arguments to readfn
-##' @export
-##'
+#' Read filetype from a zipped folder based on the file ending
+#'
+#'
+#' @param zfile Path to `.zip` file containing flat file dataset,
+#'   usually ending in filename `XXXXXXFL.zip`
+#' @param pattern String detailing which filetype is to be read
+#'   from within the zip by means of a grep. Default = ".dta$"
+#' @param readfn Function object to be used for reading in the
+#'   identified file within the zip. Default = `foreign::read.dta`
+#' @param ...  additional arguments to readfn
+#' @export
+#'
 read_zipdata <- function(zfile, pattern=".dta$",
                          readfn=foreign::read.dta, ...) {
 
@@ -299,7 +299,7 @@ read_zipdata <- function(zfile, pattern=".dta$",
 
 
 ## create simplest unique filenames that handles the india duplication.
-##' @noRd
+#' @noRd
 create_new_filenames <- function(data) {
 
   data$file <- strsplit(data$FileName, ".", fixed = TRUE) %>%

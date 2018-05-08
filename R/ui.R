@@ -5,6 +5,7 @@ check_for_client <- function() {
   if (is.null(.rdhs$client)) {
     stop("Please set up your DHS credentials first using set_dhs_credentials()")
   }
+
   return(invisible(TRUE))
 }
 

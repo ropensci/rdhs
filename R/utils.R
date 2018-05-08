@@ -90,14 +90,14 @@ client_refresh <- function(cli) {
   root <- cli$get_root()
   if (!is.null(cli$.__enclos_env__$private$credentials_path)) {
     if (file.exists(cli$.__enclos_env__$private$credentials_path)) {
-      cli <- rdhs::client_dhs(
+      cli <- client_dhs(
         api_key = "ICLSPH-527168",
         credentials = cli$.__enclos_env__$private$credentials_path,
         root = root
       )
     }
   } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = root)
+    cli <- client_dhs(api_key = "ICLSPH-527168", root = root)
   }
 
   return(cli)

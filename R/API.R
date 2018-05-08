@@ -29,7 +29,9 @@ handle_api_request <- function(endpoint, query, all_results, client) {
 
   # if no client was provided we'll look for
   # the package environment client by default
-  client <- if (!check_client(.rdhs$client)) NULL else .rdhs$client
+  if(is.null(client)) {
+    client <- if (!check_client(.rdhs$client)) NULL else .rdhs$client
+  }
 
   # if there is no client then make request
   if (is.null(client)) {
@@ -125,7 +127,7 @@ api_request <- function(endpoint, query, all_results, client) {
         "query terms are too specific or there is a typo ",
         "that does not trigger a 404 or 500 error"
       )
-      )
+    )
   }
 
   # Now address the num_results argument. If that was everything then great

@@ -1,18 +1,17 @@
-
-##' Set DHS login credentials
-##'
-##' @param credentials File path to where log in credentials are written.
-##' File format should be (each bullet is a new line):
-##' \itemize{
-##'       \item email=dummy@gmail.com
-##'       \item password=dummypass
-##'       \item project=Dummy Project
-##'       }
-##' @param root Character for root directory to where client,
-##'   caches, surveys etc. will be stored.
-##' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
-##' @return Invisibly returns the rdhs package environment client
-##' @export
+#' Set DHS login credentials
+#'
+#' @param credentials File path to where log in credentials are written.
+#' File format should be (each bullet is a new line):
+#' \itemize{
+#'       \item email=dummy@gmail.com
+#'       \item password=dummypass
+#'       \item project=Dummy Project
+#'       }
+#' @param root Character for root directory to where client,
+#'   caches, surveys etc. will be stored.
+#' Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
+#' @return Invisibly returns the rdhs package environment client
+#' @export
 set_dhs_credentials <- function(credentials, root=NULL) {
 
   # first deal with the credentials

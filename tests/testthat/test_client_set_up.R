@@ -85,7 +85,8 @@ test_that("new updates are recognised", {
   # force the cache dat back and then refresh it should trig clearing this
   d <- cli$get_datasets("BUBR70SV.ZIP")
   cli$set_cache_date(1)
-  cli <- client_refresh(cli)
+  cli$save_client()
+  cli <- client_dhs(root = cli$get_root())
 
   unlink(td)
 })

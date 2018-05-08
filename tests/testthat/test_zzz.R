@@ -26,6 +26,9 @@ test_that("check for poor errors in creds etc", {
   Sys.setenv("rdhs_ROOT_PATH" = "rubbish_no_more.txt")
   expect_message(rdhs:::.onAttach(), "last time are not valid")
 
+  file.remove("rubbish_no_more.txt")
+  expect_message(rdhs:::.onAttach(), "no longer there")
+
   # remove this
   unlink("rubbish_no_more.txt")
   unlink("dummy", recursive = TRUE)
