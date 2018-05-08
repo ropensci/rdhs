@@ -70,8 +70,8 @@ test_that("set_dhs_credentials", {
     file = "rubbish_no_more.txt"
   )
 
-  set_renviron(variable = "rdhs_CREDENTIALS_PATH", value = "rubbish_no_more.txt",
-               ask = TRUE)
+  set_renviron(variable = "rdhs_CREDENTIALS_PATH",
+               value = "rubbish_no_more.txt")
 
   out <- set_dhs_credentials(credentials = "rubbish_no_more.txt")
 
