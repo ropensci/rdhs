@@ -25,7 +25,7 @@ rdhs_setup <- function() {
   # check for a client here
   if (root_path == "" || cred_path == "") {
     rdhs_startup_message(
-      "\nFor help with rdhs and to report any issues",
+      "\nFor help with rdhs and to report any issues ",
       "please head to the github repo:\n   -> ",
       "https://github.com/OJWatson/rdhs\n"
     )
@@ -126,7 +126,7 @@ set_renviron <- function(variable, value, ask = TRUE) {
   do.call(Sys.setenv, args)
 
   # ask user if okay to write
-  if (Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1 && ask == TRUE) {
+  if (Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1 && ask) {
   ask_user_permission()
   }
 

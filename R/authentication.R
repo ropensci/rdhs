@@ -309,8 +309,7 @@ download_datasets <- function(desired_dataset,
     resp <- httr::GET(desired_dataset$URLS[1],
                       destfile = tf,
                       httr::user_agent("https://github.com/OJWatson/rdhs"),
-                      httr::write_disk(tf, overwrite = TRUE),
-                      httr::progress()
+                      httr::write_disk(tf, overwrite = TRUE)
     ) %>% handle_api_response(to_json = FALSE)
 
     # if it's not the right size and first time we've tried then log in
