@@ -13,7 +13,11 @@ test_that("check_for_client", {
 
   # set up some credentials
   .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
-  out <- set_dhs_credentials("credentials", rappdirs::user_cache_dir("rdhs", Sys.info()["user"]))
+  out <- set_dhs_credentials(
+    "credentials",
+    rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
+    )
+
   expect_true(check_for_client())
 
   restore_current_envs(old_envs)
