@@ -49,6 +49,16 @@ test_that("format catches and al_results tests", {
 
   # test for all_results  and larger than 5000 page
   datasets <- dhs_datasets()
+
+  # test for data.table extension
+  Sys.setenv("rdhs_DATA_TABLE" = TRUE)
+  library(data.table)
+  dat <- dhs_countries(
+    countryIds = "TZ", surveyYearStart = "2010", all_results = FALSE
+  )
+  expect_true(inherits(dat,"data.table"))
+
+  Sys.setenv("rdhs_DATA_TABLE" = FALSE)
 })
 
 
