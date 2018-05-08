@@ -111,8 +111,6 @@ rdhs_setup <- function() {
 #' @noRd
 set_renviron <- function(variable, value, ask = TRUE) {
 
-  print("wazzup")
-
   # first do some checking:
   if (substr(variable, 1, 4) != "rdhs") {
     stop("renviron variable to be set does not begin \"rdhs\"")
@@ -121,8 +119,6 @@ set_renviron <- function(variable, value, ask = TRUE) {
   # now remove any trailing " that may be in there
   value <- gsub("\"", "", value)
   variable <- gsub("\"", "", variable)
-
-  print("wazzup2")
 
   # and set these within our current session
   args <- list(value)
