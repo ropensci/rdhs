@@ -79,7 +79,8 @@ test_that("lower case flat file check", {
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", credentials = "credentials", root = td)
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
+                            credentials = "credentials", root = td)
   } else {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }

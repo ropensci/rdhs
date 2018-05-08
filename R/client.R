@@ -439,6 +439,7 @@ R6_client_dhs <- R6::R6Class(
                                 search_terms = NULL,
                                 essential_terms = NULL,
                                 regex = NULL,
+                                rm_na = TRUE,
                                 ...) {
 
       # check credentials are good
@@ -503,13 +504,20 @@ R6_client_dhs <- R6::R6Class(
         # match on search terms and remove questions that have na's
         matched_rows <- grep(pattern = pattern, out_desc$description,
                              ignore.case = TRUE)
-        na_from_match <- grep(private$na_s, out_desc$description[matched_rows],
-                              ignore.case = TRUE)
 
-        if (length(na_from_match) > 0) {
-          matched_rows <- matched_rows[-grep(private$na_s,
-                                             out_desc$description[matched_rows],
-                                             ignore.case = TRUE)]
+        if(rm_na) {
+          na_from_match <- grep(private$na_s,
+                                out_desc$description[matched_rows],
+                                ignore.case = TRUE)
+
+          if (length(na_from_match) > 0) {
+            matched_rows <- matched_rows[-grep(
+              private$na_s,
+              out_desc$description[matched_rows],
+              ignore.case = TRUE
+              )]
+          }
+
         }
 
         # only add if we have found any questions that match
@@ -544,6 +552,7 @@ R6_client_dhs <- R6::R6Class(
     survey_variables = function(dataset_filenames,
                                 variables,
                                 essential_variables = NULL,
+                                rm_na = TRUE,
                                 ...) {
 
 
@@ -604,14 +613,21 @@ R6_client_dhs <- R6::R6Class(
         # now let's match
         matched_rows <- na.omit(match(variables, out_desc$variable))
 
-        # remove na results
-        na_from_match <- grep(private$na_s, out_desc$description[matched_rows],
-                              ignore.case = TRUE)
+        if(rm_na) {
 
-        if (length(na_from_match) > 0) {
-          matched_rows <- matched_rows[-grep(private$na_s,
-                                             out_desc$description[matched_rows],
-                                             ignore.case = TRUE)]
+          # remove na results
+          na_from_match <- grep(private$na_s,
+                                out_desc$description[matched_rows],
+                                ignore.case = TRUE)
+
+          if (length(na_from_match) > 0) {
+            matched_rows <- matched_rows[-grep(
+              private$na_s,
+              out_desc$description[matched_rows],
+              ignore.case = TRUE
+            )]
+          }
+
         }
 
         # only add if we have found any questions that match
@@ -811,7 +827,7 @@ R6_client_dhs <- R6::R6Class(
       "geometry", "tags", "dataupdates", "uiupdates", "info"
     ),
     storr = NULL,
-    na_s = "^na -|^na-|.*-na$|.* - na$| \\{NA\\}$|.* NA$",
+    na_s = "^na -|^na-|.*-na$|.* - na$| \\{NA\\}$|.* NA$|.*NA$",
 
 
     # CHECK_AVAIALABLE_DATASETS

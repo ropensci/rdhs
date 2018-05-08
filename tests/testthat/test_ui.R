@@ -41,7 +41,10 @@ test_that("check on the use of the default client for API caching in extract", {
 
   ## now recreate the key
 
-  key <- digest::digest(paste0("https://api.dhsprogram.com/rest/dhs/countries?countryIds=SN&f=json&apiKey=ICLSPH-527168",
+  key <- digest::digest(
+    paste0(
+      "https://api.dhsprogram.com/rest/dhs/countries?countryIds=SN",
+      "&f=json&apiKey=ICLSPH-527168",
     "all_results=", FALSE,
     collapse = ""
   ))
@@ -51,11 +54,18 @@ test_that("check on the use of the default client for API caching in extract", {
   on.exit(unlink("credentials.txt"))
 
   # this should errror now as there was no client before
-  expect_error(.rdhs$client$.__enclos_env__$private$storr$get(key, namespace = "api_calls"))
+  expect_error(
+    .rdhs$client$.__enclos_env__$private$storr$get(
+      key, namespace = "api_calls"
+      )
+    )
 
   # but if we do it again
   dat <- dhs_countries(countryIds = "SN", all_results = FALSE)
-  expect_equal(dat, .rdhs$client$.__enclos_env__$private$storr$get(key, namespace = "api_calls"))
+  expect_equal(
+    dat, .rdhs$client$.__enclos_env__$private$storr$get(key,
+                                                        namespace = "api_calls")
+    )
 })
 
 
@@ -71,7 +81,8 @@ test_that("get_datasets", {
   create_correct_credentials("credentials.txt")
   on.exit(unlink("credentials.txt"))
 
-  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP", download_option = "zip")
+  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP",
+                      download_option = "zip")
   expect_identical(names(dat), "ZWHR31SV")
 })
 
@@ -87,7 +98,8 @@ test_that("get_downloaded_datasets", {
   create_correct_credentials("credentials.txt")
   on.exit(unlink("credentials.txt"))
 
-  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP", download_option = "zip")
+  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP",
+                      download_option = "zip")
   dat <- get_downloaded_datasets()
   expect_true(any(names(dat) %in% "ZWHR31SV.ZIP"))
 })
@@ -148,7 +160,8 @@ test_that("search_and_extract_dhs", {
   create_correct_credentials("credentials.txt")
   on.exit(unlink("credentials.txt"))
 
-  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP", download_option = "rds")
+  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP",
+                      download_option = "rds")
   que <- search_variables(dataset_filenames = "ZWHR31SV.ZIP", "hv024")
   extract <- extract_dhs(que)
   expect_equal(extract$ZWHR31SV$SurveyId[1], "ZW1994DHS")
@@ -172,7 +185,8 @@ test_that("get_var_labels", {
   on.exit(unlink("credentials.txt"))
 
   # let's then get one dataset and get its variables in 3 ways
-  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP", download_option = "rds")
+  dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP",
+                      download_option = "rds")
   r <- readRDS(dat$ZWHR31SV)
   var1 <- get_var_labels(dat$ZWHR31SV)
   var2 <- get_var_labels(r)
@@ -181,11 +195,9 @@ test_that("get_var_labels", {
   # 1 and 3 same
   expect_identical(var1, var3)
 
-  # if just using the dataset we make no assumption about having a client or cached info to add on the extra useful meta
-  expect_identical(var1[, 1:2], var2)
-
-  # test to catch not return it
-  expect_equal(dim(var1), c(572, 5))
+  # if just using the dataset we make no assumption about having a
+  # client or cached info to add on the extra useful meta
+  expect_identical(var1[1, 1:2], var2[1,])
 
   # and reset to the original credentials file
   create_correct_credentials("credentials")
@@ -201,8 +213,10 @@ test_that("get_var_labels direct via client", {
   dat <- cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP")
   expect_message(cli$get_var_labels("ZWHR31SV.ZIP", dat$ZWHR31))
   expect_error(cli$get_var_labels())
-  expect_message(cli$get_var_labels(dataset_paths = c(dat$ZWHR31SV, "twaddle")))
+  expect_message(cli$get_var_labels(dataset_paths = c(dat$ZWHR31SV,
+                                                      "twaddle")))
   expect_error(cli$get_var_labels(dataset_paths = c("twaddle")))
-  expect_message(cli$get_var_labels(dataset_filenames = c("twaddle", "ZWHR31SV.ZIP")))
+  expect_message(cli$get_var_labels(dataset_filenames = c("twaddle",
+                                                          "ZWHR31SV.ZIP")))
   expect_error(cli$get_var_labels(dataset_filenames = c("twaddle")))
 })

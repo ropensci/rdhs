@@ -102,6 +102,8 @@ survey_questions:
       Character pattern that has to be in the description of survey questions. I.e. the function will first find
       all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions
       that did not contain your essential_terms. Default = NULL.
+    rm_na: >-
+      Should NAs be removed. Default is `TRUE`
     ...: >-
       Any other arguments to be passed to \code{\link{download_datasets}}
   value: >-
@@ -119,6 +121,8 @@ survey_variables:
     essential_variables: >-
       Character vector of variables that need to present. If any of the codes are not present in that survey,
       the survey will not be returned by this functon. Default = NULL.
+    rm_na: >-
+      Should NAs be removed. Default is `TRUE`
     ...: >-
       Any other arguments to be passed to \code{\link{download_datasets}}
   value: >-
