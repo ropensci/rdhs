@@ -143,7 +143,7 @@ find_renviron <- function(){
     pathnames[1]
   }
 
-  file.path(normalizePath(pathnames, winslash = "/"), ".Renviron")
+  file.path(normalizePath(pathnames, winslash = "/"))
 
 }
 
