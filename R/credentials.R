@@ -16,7 +16,7 @@
 set_dhs_credentials <- function(credentials, root=NULL) {
 
   # first deal with the credentials
-  set_rdhs_CREDENTIALS_PATH(credentials)
+  set_rdhs_CREDENTIALS_PATH(path = credentials)
 
   # set the root if provided
   if (is.null(root)) root <- .rdhs$default_root
