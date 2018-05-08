@@ -43,7 +43,7 @@ test_that("slow api response", {
 
   # now set the timeout super low, to try and mimic a slow cache
   Sys.setenv("rdhs_TIMEOUT" = 0)
-  expect_equal(resp, -1)
+  expect_equal(resp, -0.5)
 
   # set back to normal
   Sys.setenv("rdhs_TIMEOUT" = 30)
