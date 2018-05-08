@@ -112,27 +112,27 @@ rdhs_setup <- function() {
 set_renviron <- function(variable, value, ask = TRUE) {
 
   i=1
-  message(i + 1)
+
 
   # first do some checking:
   if (substr(variable, 1, 4) != "rdhs") {
     stop("renviron variable to be set does not begin \"rdhs\"")
   }
-  message(i + 1)
+
   # now remove any trailing " that may be in there
   value <- gsub("\"", "", value)
   variable <- gsub("\"", "", variable)
-  message(i + 1)
+
   # and set these within our current session
   args <- list(value)
   names(args) <- variable
   do.call(Sys.setenv, args)
-  message(i + 1)
+
   # ask user if okay to write
   if (Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1 && ask) {
     ask_user_permission()
   }
-  message(i + 1)
+
   if (Sys.getenv("rdhs_RENVIRON_PERMISSION") == 1) {
 
     # next grab the current .Renviron if it exists
