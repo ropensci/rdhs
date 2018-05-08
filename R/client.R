@@ -699,7 +699,9 @@ R6_client_dhs <- R6::R6Class(
     get_root = function() private$root,
 
     # get a dataset's var labels
-    get_var_labels = function(dataset_filenames=NULL, dataset_paths=NULL) {
+    get_var_labels = function(dataset_filenames=NULL,
+                              dataset_paths=NULL,
+                              rm_na = FALSE) {
 
       # catch if both null
       if (is.null(dataset_filenames) && is.null(dataset_paths)) {
@@ -748,7 +750,8 @@ R6_client_dhs <- R6::R6Class(
         vars <- lapply(options, function(x) {
           self$survey_questions(dataset_filenames = x[1],
                                 search_terms = "",
-                                reformat = x[2])
+                                reformat = x[2],
+                                rm_na = FALSE)
         })
         vars <- rbind_labelled(vars)
       }
@@ -773,7 +776,8 @@ R6_client_dhs <- R6::R6Class(
         # grab the variables using a catch all variables term
         vars <- self$survey_questions(
           dataset_filenames = names_matched[!is.na(names_matched)],
-          search_terms = ""
+          search_terms = "",
+          rm_na = FALSE
         )
       }
 

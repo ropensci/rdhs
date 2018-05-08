@@ -276,11 +276,9 @@ get_var_labels <- function(dataset, return_all=TRUE) {
     # otherise as filenames
     if (any(file.exists(dataset))) {
       paths <- dataset[file.exists(dataset)]
-      res <- .rdhs$client$get_var_labels(dataset_paths = paths,
-                                         rm_na = FALSE)
+      res <- .rdhs$client$get_var_labels(dataset_paths = paths)
     } else {
-      res <- .rdhs$client$get_var_labels(dataset_filenames = dataset,
-                                         rm_na = FALSE)
+      res <- .rdhs$client$get_var_labels(dataset_filenames = dataset)
     }
   } else if (class(dataset)[1] == "SpatialPointsDataFrame") {
     stop(
