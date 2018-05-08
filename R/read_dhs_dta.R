@@ -281,7 +281,7 @@ read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
     map <- read_zipdata(zfile, "\\.MAP$", readLines)
     dct <- parse_map(map, all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
-    haslbl <- unlist(lapply(dct$labels,length)) > 0
+    haslbl <- unlist(lapply(dct$labels, length)) > 0
     dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
                                  dct$labels[haslbl])
   }

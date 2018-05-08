@@ -42,7 +42,7 @@ client_dhs <- function(credentials=NULL,
       client$clear_namespace(namespace = "available_datasets_calls")
 
       ## clear any now old dataset calls
-      ## ----------------------------------------------------
+      # ----------------------------------------------------
 
       # fetch the dataupdates api endpoint
       upd <- client$dhs_api_request(api_endpoint = "dataupdates")
@@ -343,7 +343,7 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # if cache needs clearing
-      if(clear_cache){
+      if (clear_cache){
         avs <- self$available_datasets(TRUE)
       }
 
@@ -505,7 +505,7 @@ R6_client_dhs <- R6::R6Class(
         matched_rows <- grep(pattern = pattern, out_desc$description,
                              ignore.case = TRUE)
 
-        if(rm_na) {
+        if (rm_na) {
           na_from_match <- grep(private$na_s,
                                 out_desc$description[matched_rows],
                                 ignore.case = TRUE)
@@ -613,7 +613,7 @@ R6_client_dhs <- R6::R6Class(
         # now let's match
         matched_rows <- na.omit(match(variables, out_desc$variable))
 
-        if(rm_na) {
+        if (rm_na) {
 
           # remove na results
           na_from_match <- grep(private$na_s,

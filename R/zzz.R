@@ -164,7 +164,7 @@ ask_user_permission <- function(){
   int_check <- TRUE
 
   # loop ask for permission
-  while(int_check) {
+  while (int_check) {
     pl <- readline(
       prompt = cat(
         "rdhs would like to write to files outisde ",

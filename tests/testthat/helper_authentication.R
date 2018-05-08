@@ -62,5 +62,5 @@ create_correct_credentials <- function(filename) {
   ),
   file = filename
   )
-  out <- set_dhs_credentials(credentials = filename)
+  set_dhs_credentials(credentials = filename)
 }

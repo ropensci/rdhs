@@ -215,7 +215,7 @@ download_datasets <- function(desired_dataset,
   # possible download options:
   download_possibilities <- c("zip", "rds", "both")
   download_option <- grep(
-    paste0(strsplit(download_option, "") %>% unlist(),collapse = "|"),
+    paste0(strsplit(download_option, "") %>% unlist(), collapse = "|"),
     download_possibilities)
 
   if (!is.element(download_option, 1:3)) {
@@ -260,7 +260,7 @@ download_datasets <- function(desired_dataset,
   while (file_size_check & attempts > 0) {
 
     # download zip to our tempfile
-    if(Sys.getenv("rdhs_LOUD_DOWNLOAD") == TRUE) {
+    if (Sys.getenv("rdhs_LOUD_DOWNLOAD") == TRUE) {
       resp <- httr::GET(desired_dataset$URLS[1],
                         destfile = tf,
                         httr::user_agent("https://github.com/OJWatson/rdhs"),

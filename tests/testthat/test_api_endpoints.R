@@ -56,7 +56,7 @@ test_that("format catches and al_results tests", {
   dat <- dhs_countries(
     countryIds = "TZ", surveyYearStart = "2010", all_results = FALSE
   )
-  expect_true(inherits(dat,"data.table"))
+  expect_true(inherits(dat, "data.table"))
 
   Sys.setenv("rdhs_DATA_TABLE" = FALSE)
 })
@@ -70,8 +70,8 @@ test_that("geojson works", {
                 returnGeometry = TRUE,
                 f = "geojson")
 
-  expect_true(inherits(d,"list"))
-  expect_equal(names(d),c("crs","type","features"))
+  expect_true(inherits(d, "list"))
+  expect_equal(names(d), c("crs", "type", "features"))
   expect_true(d$features %>% length > 100)
 
   # one that doesnt
@@ -82,8 +82,8 @@ test_that("geojson works", {
                 returnGeometry = TRUE,
                 f = "geojson")
 
-  expect_true(inherits(d,"list"))
-  expect_equal(names(d),c("crs","type","features"))
+  expect_true(inherits(d, "list"))
+  expect_equal(names(d), c("crs", "type", "features"))
   expect_true(d$features %>% length < 100)
 
 

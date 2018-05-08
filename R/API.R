@@ -33,7 +33,7 @@ handle_api_request <- function(endpoint, query, all_results, client,
 
   # if no client was provided we'll look for
   # the package environment client by default
-  if(is.null(client)) {
+  if (is.null(client)) {
     client <- if (!check_client(.rdhs$client)) NULL else .rdhs$client
   }
 
@@ -71,7 +71,7 @@ handle_api_request <- function(endpoint, query, all_results, client,
   }
 
   # for those (jeff) who want data.table with no package overhead for rdhs
-  if(Sys.getenv("rdhs_DATA_TABLE") == TRUE) {
+  if (Sys.getenv("rdhs_DATA_TABLE") == TRUE) {
     resp <- eval(parse(text = "resp %>% data.table::as.data.table()"))
   }
 
@@ -82,7 +82,7 @@ handle_api_request <- function(endpoint, query, all_results, client,
 api_request <- function(endpoint, query, all_results) {
 
   # if they have specified other than json
-  if (!is.element(query$f, c("json","geojson"))) {
+  if (!is.element(query$f, c("json", "geojson"))) {
 
     # make url for request
     url <- httr::modify_url(endpoint, query = query)
@@ -274,7 +274,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results) {
         }
 
         # and now concatenate the results
-        loop_resp <- do.call(c,loop_resp)
+        loop_resp <- do.call(c, loop_resp)
         parsed_resp$features <- loop_resp
       }
     }

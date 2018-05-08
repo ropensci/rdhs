@@ -143,7 +143,7 @@ find_renviron <- function(){
     pathnames[1]
   }
 
-  if(length(pathnames) == 0) {
+  if (length(pathnames) == 0) {
     pathnames <- normalizePath("~/.Renviron", winslash = "/", mustWork = FALSE)
     file.create(pathnames)
   }

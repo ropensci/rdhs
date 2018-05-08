@@ -88,7 +88,7 @@ test_that("query codes having downloaded surveys", {
   r <- readRDS(downloads$ZWHR31SV)
   r1 <- data_and_labels(r)
   r2 <- data_and_labels(downloads$ZWHR31SV)
-  expect_identical(r1,r2)
+  expect_identical(r1, r2)
   expect_error(data_and_labels("twaddle"))
 
   # create questions for a regex and non

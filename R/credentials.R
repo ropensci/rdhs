@@ -46,12 +46,6 @@ set_dhs_credentials <- function(credentials, root=NULL) {
 
   invisible(.rdhs$client)
 }
-
-
-## Format is
-# email=dummy@gmail.com
-# password=dummypass
-# project=Dummy Project
 #' @noRd
 read_credentials <- function(filename) {
   if (is.list(filename)) {

@@ -1,8 +1,8 @@
 #' Pull last DHS API database update time
 last_api_update <- function() {
 
-  if (Sys.getenv("rdhs_TIMEOUT")=="") {
-    Sys.setenv("rdhs_TIMEOUT"=30)
+  if (Sys.getenv("rdhs_TIMEOUT") == "") {
+    Sys.setenv("rdhs_TIMEOUT" = 30)
   }
 
   updates <- tryCatch(
@@ -21,7 +21,7 @@ last_api_update <- function() {
   } else {
 
   date <- -0.5
-  message("The DHS API took longer than ",Sys.getenv("rdhs_TIMEOUT"),
+  message("The DHS API took longer than ", Sys.getenv("rdhs_TIMEOUT"),
           " seconds to respond.\n",
           "As a result some of the functionality of rdhs may not work.\n",
           "To check if the API is down please head to:\n",
@@ -63,7 +63,7 @@ client_cache_date <- function(root) {
 }
 
 ## CACHE (overly DRY) functions for constants
-## -------------------------------------------------------------------
+# -------------------------------------------------------------------
 
 # file name for where client is saved between sessions
 #' @noRd

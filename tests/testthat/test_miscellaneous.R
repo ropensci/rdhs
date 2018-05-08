@@ -37,8 +37,8 @@ test_that("slow api response", {
 
   # if the response hasn't timed out without our doing then should be time
   resp <- last_api_update()
-  if(resp != 0) {
-  expect_true(inherits(resp,"POSIXlt"))
+  if (resp != 0) {
+  expect_true(inherits(resp, "POSIXlt"))
   }
 
   # now set the timeout super low, to try and mimic a slow cache
@@ -50,4 +50,3 @@ test_that("slow api response", {
   Sys.setenv("rdhs_TIMEOUT" = 30)
 
   })
-

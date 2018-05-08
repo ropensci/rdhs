@@ -236,7 +236,7 @@ parse_do <- function(do, dct, all_lower=TRUE) {
   lblstr <- sub("^ *label define ([^ ]+) +(.*)", "\\2", lbldef)
   lblstr <- strsplit(lblstr, "\"")
 
-  if (any(unlist(lapply(lblstr,length)) %% 2 != 1)) {
+  if (any(unlist(lapply(lblstr, length)) %% 2 != 1)) {
     stop("Error parsing value labels")
   }
 
@@ -301,17 +301,17 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #'
 #' @export
 read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
-  if ((is.null(meta_source) || tolower(meta_source) == "dcf") &&
+  if ( (is.null(meta_source) || tolower(meta_source) == "dcf") &&
     any(grepl("\\.DCF$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
     dcf <- read_zipdata(zfile, "\\.DCF$", readLines)
     dct <- parse_dcf(dcf, all_lower)
   }
-  else if ((is.null(meta_source) || tolower(meta_source) == "sps") &&
+  else if ( (is.null(meta_source) || tolower(meta_source) == "sps") &&
     any(grepl("\\.SPS$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
     sps <- read_zipdata(zfile, "\\.SPS$", readLines)
     dct <- parse_sps(sps, all_lower)
   }
-  else if ((is.null(meta_source) || tolower(meta_source) %in% c("do", "dct")) &&
+  else if ( (is.null(meta_source) || tolower(meta_source) %in% c("do", "dct")) &&
     any(grepl("\\.DO$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE)) &&
     any(grepl("\\.DCT$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
     do <- read_zipdata(zfile, "\\.DO$", readLines)
@@ -330,7 +330,7 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
   )
   names(dat) <- dct$name
   dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
-  haslbl <- unlist(lapply(dct$labels,length)) > 0
+  haslbl <- unlist(lapply(dct$labels, length)) > 0
   dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
                                dct$labels[haslbl])
 
