@@ -52,6 +52,8 @@ test_that("credentials", {
 
 test_that("set_dhs_credentials", {
 
+  Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+
   # first let's grab the default client objct so we can rewrite it
   old_client <- .rdhs$client
   old_cred <- Sys.getenv(renv_cred_path_name())
