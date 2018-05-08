@@ -94,7 +94,7 @@
       <h1>Using the rdhs client?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-05-07</h4>
+            <h4 class="date">2018-05-08</h4>
       
       
       <div class="hidden name"><code>client.Rmd</code></div>
@@ -152,7 +152,8 @@ indicators[<span class="dv">1</span>,]</code></pre></div>
 ## 1                                                           
 ##   IndicatorSpecial2Id
 ## 1</code></pre>
-<p>Each call to a DHS endpoint returns a <code>data.table</code> with all the results available by default. The DHS has a unique <em>IndicatorId</em> for each of the statistics it calculates. The definition and specific string for each indicator is included within the <em>IndicatorId</em> and <em>Definition</em> variable:</p>
+<p>Each call to a DHS endpoint returns a <code>data.frame</code> by default with all the results available by default. If you wish to return a <code>data.table</code> then you can change the default behaviour by setting the following system environment variable using <code>Sys.setenv("rdhs_DATA_TABLE" = TRUE)</code>.</p>
+<p>The DHS has a unique <em>IndicatorId</em> for each of the statistics it calculates. The definition and specific string for each indicator is included within the <em>IndicatorId</em> and <em>Definition</em> variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grab the first 5 alphabetically</span>
 dplyr::<span class="kw">group_by</span>(indicators,IndicatorId) %&gt;%<span class="st"> </span>dplyr::<span class="kw">summarise</span>(<span class="dt">Definition =</span> Definition) %&gt;%<span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## # A tibble: 5 x 2
@@ -176,7 +177,7 @@ tags[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, tags$TagNa
 data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)
 data[<span class="dv">1</span>,]</code></pre></div>
 <pre><code>##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 3121901 Malaria prevalence according to RDT CD2013DHS           1  17.1
+## 1 3199096 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -207,7 +208,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> .<span class="dv">5</span>)) +
 <span class="st">  </span><span class="kw">ylab</span>(resp$Indicator[<span class="dv">1</span>]) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(~CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/client_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
@@ -296,7 +297,7 @@ client</code></pre></div>
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ICLSPH-527168
-##     cache_date: 2018-05-07 13:46:51
+##     cache_date: 2018-05-08 14:14:53
 ##     check_available_datasets: function (filenames) 
 ##     credentials_path: C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rd ...
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
@@ -313,19 +314,27 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surve
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">client =</span> client), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 9.156499 9.156499 9.156499 9.156499 9.156499
+##  dhs_surveys(client = client) 620.4408 620.4408 620.4408 620.4408 620.4408
 ##       max neval
-##  9.156499     1</code></pre>
+##  620.4408     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># without it cached again for comparison</span>
 microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 8.958225 8.958225 8.958225 8.958225 8.958225 8.958225     1</code></pre>
+##  dhs_surveys() 421.0524 421.0524 421.0524 421.0524 421.0524 421.0524     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span>client$<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)</code></pre></div>
-<p>The function returns a list with a file path to where the downloaded datasets have been saved to.</p>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: "C:\Users\Oliver\AppData\Local\Temp\Rtmp2xuMOI\file22686b90979", layer: "CDGE61FL"
+## with 536 features
+## It has 20 fields
+## OGR data source with driver: ESRI Shapefile 
+## Source: "C:\Users\Oliver\AppData\Local\Temp\Rtmp2xuMOI\file22683ff6e6e", layer: "TZGE7AFL"
+## with 608 features
+## It has 20 fields</code></pre>
+<p>The function returns a list with a file path to where the downloaded datasets have been saved to. By default the files will download quietly, i.e. no progress is shown. However, if you want to see the progress then set <code>Sys.setenv("rdhs_LOUD_DOWNLOAD" = TRUE)</code>.</p>
 </div>
 <div id="load-datasets-and-associated-metadata-into-r-" class="section level2">
 <h2 class="hasAnchor">
@@ -574,20 +583,20 @@ comparison &lt;-<span class="st"> </span><span class="kw">cbind</span>(results[,
 ## Kasai-Occidental.CDPR61FL Kasai-Occidental       0.4507341         44.5
 ## Kasai-Oriental.CDPR61FL     Kasai-Oriental       0.4923113         49.4
 ## Katanga.CDPR61FL                   Katanga       0.3989890         38.9
-##                           Survey_RDT_Denom API_RDT_Denom    API_Regions
-## Bandundu.CDPR61FL                1415.6056          1414       Bandundu
-## Bas-Congo.CDPR61FL                342.6473           347      Bas-Congo
-## Equateur.CDPR61FL                1267.4746          1236       Equateur
-## Kasai-Occidental.CDPR61FL         604.6050           612 Kasa? Occident
-## Kasai-Oriental.CDPR61FL           892.6006           894 Kasa? Oriental
-## Katanga.CDPR61FL                  861.2030           844        Katanga
-##                            SurveyID
-## Bandundu.CDPR61FL         CD2013DHS
-## Bas-Congo.CDPR61FL        CD2013DHS
-## Equateur.CDPR61FL         CD2013DHS
-## Kasai-Occidental.CDPR61FL CD2013DHS
-## Kasai-Oriental.CDPR61FL   CD2013DHS
-## Katanga.CDPR61FL          CD2013DHS</code></pre>
+##                           Survey_RDT_Denom API_RDT_Denom
+## Bandundu.CDPR61FL                1415.6056          1414
+## Bas-Congo.CDPR61FL                342.6473           347
+## Equateur.CDPR61FL                1267.4746          1236
+## Kasai-Occidental.CDPR61FL         604.6050           612
+## Kasai-Oriental.CDPR61FL           892.6006           894
+## Katanga.CDPR61FL                  861.2030           844
+##                                     API_Regions  SurveyID
+## Bandundu.CDPR61FL                      Bandundu CD2013DHS
+## Bas-Congo.CDPR61FL                    Bas-Congo CD2013DHS
+## Equateur.CDPR61FL                      Equateur CD2013DHS
+## Kasai-Occidental.CDPR61FL Kasa&lt;U+00EF&gt; Occident CD2013DHS
+## Kasai-Oriental.CDPR61FL   Kasa&lt;U+00EF&gt; Oriental CD2013DHS
+## Katanga.CDPR61FL                        Katanga CD2013DHS</code></pre>
 <p>It’s a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how thye have grouped the primary sampling units. We are hoping to get this information from the DHfor each survey so we can make this process more streamline again.</p>
 <p>And lastly we will construct a logistic regression to investigat the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span>

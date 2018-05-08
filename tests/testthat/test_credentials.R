@@ -134,8 +134,10 @@ test_that("set_dhs_credentials", {
   unlink("rubbish_no_more.txt")
   unlink("dummy", recursive = TRUE)
 
-  # reset our credentials
+  # reset our credentials and remove the rubbish client
   restore_current_envs(old_envs)
+  .rdhs$client <- NULL
+
   if (exists("old_renviron")) {
     write(x = old_renviron, file.path(normalizePath("~"), ".Renviron"))
   } else {

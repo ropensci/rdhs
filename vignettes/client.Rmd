@@ -1,7 +1,7 @@
 ---
 title: "Using the rdhs client?"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-05-07"
+date: "2018-05-08"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using the rdhs client}
@@ -73,7 +73,9 @@ indicators[1,]
 ```
 
 
-Each call to a DHS endpoint returns a `data.table` with all the results available by default. The DHS has a unique *IndicatorId* for each of the statistics it calculates. The definition and specific string for each indicator is included within the *IndicatorId* and *Definition* variable:
+Each call to a DHS endpoint returns a `data.frame` by default with all the results available by default. If you wish to return a `data.table` then you can change the default behaviour by setting the following system environment variable using `Sys.setenv("rdhs_DATA_TABLE" = TRUE)`. 
+
+The DHS has a unique *IndicatorId* for each of the statistics it calculates. The definition and specific string for each indicator is included within the *IndicatorId* and *Definition* variable:
 
 
 ```r
@@ -118,7 +120,7 @@ data[1,]
 
 ```
 ##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 3121901 Malaria prevalence according to RDT CD2013DHS           1  17.1
+## 1 3199096 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -286,7 +288,7 @@ client
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ICLSPH-527168
-##     cache_date: 2018-05-07 13:46:51
+##     cache_date: 2018-05-08 14:14:53
 ##     check_available_datasets: function (filenames) 
 ##     credentials_path: C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rd ...
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$
@@ -312,9 +314,9 @@ microbenchmark::microbenchmark(dhs_surveys(client = client), times = 1)
 ```
 ## Unit: milliseconds
 ##                          expr      min       lq     mean   median       uq
-##  dhs_surveys(client = client) 9.156499 9.156499 9.156499 9.156499 9.156499
+##  dhs_surveys(client = client) 620.4408 620.4408 620.4408 620.4408 620.4408
 ##       max neval
-##  9.156499     1
+##  620.4408     1
 ```
 
 ```r
@@ -325,7 +327,7 @@ microbenchmark::microbenchmark(dhs_surveys(),times = 1)
 ```
 ## Unit: milliseconds
 ##           expr      min       lq     mean   median       uq      max neval
-##  dhs_surveys() 8.958225 8.958225 8.958225 8.958225 8.958225 8.958225     1
+##  dhs_surveys() 421.0524 421.0524 421.0524 421.0524 421.0524 421.0524     1
 ```
 
 
@@ -339,7 +341,19 @@ So first we will download all these datasets:
 downloads <- client$get_datasets(datasets$FileName)
 ```
 
-The function returns a list with a file path to where the downloaded datasets have been saved to. 
+```
+## OGR data source with driver: ESRI Shapefile 
+## Source: "C:\Users\Oliver\AppData\Local\Temp\Rtmp2xuMOI\file22686b90979", layer: "CDGE61FL"
+## with 536 features
+## It has 20 fields
+## OGR data source with driver: ESRI Shapefile 
+## Source: "C:\Users\Oliver\AppData\Local\Temp\Rtmp2xuMOI\file22683ff6e6e", layer: "TZGE7AFL"
+## with 608 features
+## It has 20 fields
+```
+
+The function returns a list with a file path to where the downloaded datasets have been saved to.  By default the files will download quietly, i.e. no progress is shown. However, if you want to see the progress then set `Sys.setenv("rdhs_LOUD_DOWNLOAD" = TRUE)`.
+
 
 ## 4. Load datasets and associated metadata into R.
 
@@ -694,20 +708,20 @@ head(comparison[,c(1,2,4,3,5,6,7)])
 ## Kasai-Occidental.CDPR61FL Kasai-Occidental       0.4507341         44.5
 ## Kasai-Oriental.CDPR61FL     Kasai-Oriental       0.4923113         49.4
 ## Katanga.CDPR61FL                   Katanga       0.3989890         38.9
-##                           Survey_RDT_Denom API_RDT_Denom    API_Regions
-## Bandundu.CDPR61FL                1415.6056          1414       Bandundu
-## Bas-Congo.CDPR61FL                342.6473           347      Bas-Congo
-## Equateur.CDPR61FL                1267.4746          1236       Equateur
-## Kasai-Occidental.CDPR61FL         604.6050           612 Kasa? Occident
-## Kasai-Oriental.CDPR61FL           892.6006           894 Kasa? Oriental
-## Katanga.CDPR61FL                  861.2030           844        Katanga
-##                            SurveyID
-## Bandundu.CDPR61FL         CD2013DHS
-## Bas-Congo.CDPR61FL        CD2013DHS
-## Equateur.CDPR61FL         CD2013DHS
-## Kasai-Occidental.CDPR61FL CD2013DHS
-## Kasai-Oriental.CDPR61FL   CD2013DHS
-## Katanga.CDPR61FL          CD2013DHS
+##                           Survey_RDT_Denom API_RDT_Denom
+## Bandundu.CDPR61FL                1415.6056          1414
+## Bas-Congo.CDPR61FL                342.6473           347
+## Equateur.CDPR61FL                1267.4746          1236
+## Kasai-Occidental.CDPR61FL         604.6050           612
+## Kasai-Oriental.CDPR61FL           892.6006           894
+## Katanga.CDPR61FL                  861.2030           844
+##                                     API_Regions  SurveyID
+## Bandundu.CDPR61FL                      Bandundu CD2013DHS
+## Bas-Congo.CDPR61FL                    Bas-Congo CD2013DHS
+## Equateur.CDPR61FL                      Equateur CD2013DHS
+## Kasai-Occidental.CDPR61FL Kasa<U+00EF> Occident CD2013DHS
+## Kasai-Oriental.CDPR61FL   Kasa<U+00EF> Oriental CD2013DHS
+## Katanga.CDPR61FL                        Katanga CD2013DHS
 ```
 
 

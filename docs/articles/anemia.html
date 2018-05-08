@@ -152,7 +152,7 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(statcomp, <span class="kw">aes</span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
 <h1 class="hasAnchor">
@@ -529,7 +529,7 @@ res$anemia_denom0 &lt;-<span class="st"> </span><span class="kw">round</span>(re
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
                 <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) +
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="regression-analysis-relationship-between-education-and-anemia" class="section level1">
