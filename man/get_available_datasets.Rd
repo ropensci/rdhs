@@ -4,10 +4,10 @@
 \alias{get_available_datasets}
 \title{Get Available Datasets}
 \usage{
-get_available_datasets(clear_cache_first = FALSE)
+get_available_datasets(clear_cache = FALSE)
 }
 \arguments{
-\item{clear_cache_first}{Boolean detailing if you would like to clear the
+\item{clear_cache}{Boolean detailing if you would like to clear the
 cached available datasets first. The default is set to FALSE. This option
 is available so that you can make sure your client fetches any new datasets
 that you have recently been given access to.}

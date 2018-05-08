@@ -4,10 +4,10 @@
 \alias{dhs_data}
 \title{API request of DHS Indicator Data}
 \usage{
-dhs_data(client = NULL, all_results = TRUE, countryIds = NULL,
-  indicatorIds = NULL, surveyIds = NULL, selectSurveys = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, surveyCharacteristicIds = NULL,
+dhs_data(client = NULL, force = FALSE, all_results = TRUE,
+  countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
+  selectSurveys = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL, surveyCharacteristicIds = NULL,
   characteristicCategory = NULL, characteristicLabel = NULL,
   tagIds = NULL, breakdown = NULL, returnGeometry = NULL, f = NULL,
   returnFields = NULL, perPage = NULL, page = NULL)
@@ -15,6 +15,9 @@ dhs_data(client = NULL, all_results = TRUE, countryIds = NULL,
 \arguments{
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
+
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
 
 \item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE}

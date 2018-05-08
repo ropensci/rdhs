@@ -3,6 +3,8 @@
 #' @title API request of DHS Indicator Data
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -102,6 +104,7 @@
 #' }
 
 dhs_data <- function(client=NULL,
+                     force=FALSE,
                      all_results=TRUE,
                      countryIds=NULL,
                      indicatorIds=NULL,
@@ -141,6 +144,8 @@ dhs_data <- function(client=NULL,
 #' @title API request of DHS Indicators
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -201,6 +206,7 @@ dhs_data <- function(client=NULL,
 #' }
 
 dhs_indicators <- function(client=NULL,
+                           force=FALSE,
                            all_results=TRUE,
                            countryIds=NULL,
                            indicatorIds=NULL,
@@ -235,6 +241,8 @@ dhs_indicators <- function(client=NULL,
 #' @title API request of DHS UI Updates
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by. Only
@@ -263,6 +271,7 @@ dhs_indicators <- function(client=NULL,
 #' }
 
 dhs_uiUpdates <- function(client=NULL,
+                          force=FALSE,
                           all_results=TRUE,
                           lastUpdate=NULL,
                           f=NULL,
@@ -289,6 +298,8 @@ dhs_uiUpdates <- function(client=NULL,
 #' @title API request of DHS Info
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param infoType Specify a type of info to obtain the information requested.
@@ -322,6 +333,7 @@ dhs_uiUpdates <- function(client=NULL,
 #' }
 
 dhs_info <- function(client=NULL,
+                     force=FALSE,
                      all_results=TRUE,
                      infoType=NULL,
                      f=NULL,
@@ -348,6 +360,8 @@ dhs_info <- function(client=NULL,
 #' @title API request of DHS Countries
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -408,6 +422,7 @@ dhs_info <- function(client=NULL,
 #' }
 
 dhs_countries <- function(client=NULL,
+                          force=FALSE,
                           all_results=TRUE,
                           countryIds=NULL,
                           indicatorIds=NULL,
@@ -442,6 +457,8 @@ dhs_countries <- function(client=NULL,
 #' @title API request of DHS Surveys
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to
@@ -517,6 +534,7 @@ dhs_countries <- function(client=NULL,
 #' }
 
 dhs_surveys <- function(client=NULL,
+                        force=FALSE,
                         all_results=TRUE,
                         countryIds=NULL,
                         indicatorIds=NULL,
@@ -553,6 +571,8 @@ dhs_surveys <- function(client=NULL,
 #' @title API request of DHS Survey Characteristics
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -606,6 +626,7 @@ dhs_surveys <- function(client=NULL,
 #' }
 
 dhs_surveyCharacteristics <- function(client=NULL,
+                                      force=FALSE,
                                       all_results=TRUE,
                                       countryIds=NULL,
                                       indicatorIds=NULL,
@@ -638,6 +659,8 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' @title API request of DHS Publications
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -704,6 +727,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' }
 
 dhs_publications <- function(client=NULL,
+                             force=FALSE,
                              all_results=TRUE,
                              countryIds=NULL,
                              selectSurveys=NULL,
@@ -739,6 +763,8 @@ dhs_publications <- function(client=NULL,
 #' @title API request of DHS Datasets
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -801,6 +827,7 @@ dhs_publications <- function(client=NULL,
 #' }
 
 dhs_datasets <- function(client=NULL,
+                         force=FALSE,
                          all_results=TRUE,
                          countryIds=NULL,
                          selectSurveys=NULL,
@@ -835,6 +862,8 @@ dhs_datasets <- function(client=NULL,
 #' @title API request of DHS Geometry
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -883,6 +912,7 @@ dhs_datasets <- function(client=NULL,
 
 
 dhs_geometry <- function(client=NULL,
+                         force=FALSE,
                          all_results=TRUE,
                          countryIds=NULL,
                          surveyIds=NULL,
@@ -914,6 +944,8 @@ dhs_geometry <- function(client=NULL,
 #' @title API request of DHS Tags
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #' then the specifed page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
@@ -966,6 +998,7 @@ dhs_geometry <- function(client=NULL,
 #' }
 
 dhs_tags <- function(client=NULL,
+                     force=FALSE,
                      all_results=TRUE,
                      countryIds=NULL,
                      indicatorIds=NULL,
@@ -998,6 +1031,8 @@ dhs_tags <- function(client=NULL,
 #' @title API request of DHS Data Updates
 #' @param client If the api request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
+#' @param force Should we force fetching the API results, and ignore any
+#'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
 #'   then the specifed page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by.
@@ -1026,6 +1061,7 @@ dhs_tags <- function(client=NULL,
 #' }
 
 dhs_dataUpdates <- function(client=NULL,
+                            force=FALSE,
                             all_results=TRUE,
                             lastUpdate=NULL,
                             f=NULL,

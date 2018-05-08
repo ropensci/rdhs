@@ -334,11 +334,17 @@ R6_client_dhs <- R6::R6Class(
                             reformat=FALSE,
                             all_lower=TRUE,
                             output_dir_root=file.path(private$root, "datasets"),
+                            clear_cache = FALSE,
                             ...) {
 
       # check credentials are good
       if (credentials_not_present()) {
         handle_credentials(private$credentials_path)
+      }
+
+      # if cache needs clearing
+      if(clear_cache){
+        avs <- self$available_datasets(TRUE)
       }
 
       # fetch which datasets you can download from your login

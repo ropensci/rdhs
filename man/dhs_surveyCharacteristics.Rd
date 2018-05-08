@@ -4,15 +4,18 @@
 \alias{dhs_surveyCharacteristics}
 \title{API request of DHS Survey Characteristics}
 \usage{
-dhs_surveyCharacteristics(client = NULL, all_results = TRUE,
-  countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL)
+dhs_surveyCharacteristics(client = NULL, force = FALSE,
+  all_results = TRUE, countryIds = NULL, indicatorIds = NULL,
+  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL, f = NULL,
+  returnFields = NULL, perPage = NULL, page = NULL)
 }
 \arguments{
 \item{client}{If the api request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
+
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
 
 \item{all_results}{Boolean for if all results should be returned. If FALSE
 then the specifed page only will be returned. Default = TRUE.}

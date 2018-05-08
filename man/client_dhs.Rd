@@ -81,7 +81,7 @@ Make a DHS API client
   \emph{Usage:}
   \code{get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
       all_lower = TRUE, output_dir_root = file.path(private$root,
-          "datasets"), ...)}
+          "datasets"), clear_cache = FALSE, ...)}
 
   \emph{Arguments:}
   \itemize{
@@ -98,6 +98,9 @@ Make a DHS API client
     }
 
     \item{\code{output_dir_root}:   Root directory where the datasets will be stored within. The default will download datasets to a subfolder of the client root called "datasets"
+    }
+
+    \item{\code{clear_cache}:   Should your available datasets cache be cleared first. This will allow newly accessed datasets to be available. Default = `TRUE`
     }
 
     \item{\code{...}:   Any other arguments to be passed to \code{\link{read_dhs_dataset}}

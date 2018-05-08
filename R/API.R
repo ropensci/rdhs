@@ -17,7 +17,8 @@ query_creation <- function(query) {
 }
 
 #' @noRd
-handle_api_request <- function(endpoint, query, all_results, client) {
+handle_api_request <- function(endpoint, query, all_results, client,
+                               force=FALSE) {
 
   # first clear the query list of any not needed query args
   query$all_results <- NULL
@@ -37,7 +38,8 @@ handle_api_request <- function(endpoint, query, all_results, client) {
   if (is.null(client)) {
 
     # create generic request
-    resp <- api_request(endpoint, query, all_results, client)
+    resp <- api_request(endpoint, query, all_results)
+
   } else {
 
     # create url for api request
@@ -53,7 +55,7 @@ handle_api_request <- function(endpoint, query, all_results, client) {
     )
 
     # check out agianst cache, if fine return that and if not make request
-    if (!is.null(out)) {
+    if (!is.null(out) && !force) {
       return(out)
     } else {
 

@@ -6,7 +6,7 @@
 \usage{
 get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
   all_lower = TRUE, output_dir_root = file.path(.rdhs$client$get_root(),
-  "datasets"), ...)
+  "datasets"), clear_cache = FALSE, ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be
@@ -28,6 +28,9 @@ case. Default to `TRUE`.}
 \item{output_dir_root}{Root directory where the datasets will be stored
 within. The default will download
 datasets to a subfolder of the client root called "datasets"}
+
+\item{clear_cache}{Should your available datasets cache be cleared first.
+This will allow newly accessed datasets to be available. Default = `TRUE`}
 
 \item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
 }

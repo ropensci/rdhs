@@ -28,6 +28,8 @@ check_for_client <- function() {
 #' @param output_dir_root Root directory where the datasets will be stored
 #'   within. The default will download
 #'   datasets to a subfolder of the client root called "datasets"
+#' @param clear_cache Should your available datasets cache be cleared first.
+#'   This will allow newly accessed datasets to be available. Default = `TRUE`
 #' @param ... Any other arguments to be passed to \code{\link{read_dhs_dataset}}
 #'
 #' @rdname get_datasets
@@ -58,6 +60,7 @@ get_datasets <- function(dataset_filenames,
                          all_lower=TRUE,
                          output_dir_root=file.path(.rdhs$client$get_root(),
                                                    "datasets"),
+                         clear_cache=FALSE,
                          ...) {
 
   check_for_client()
@@ -66,6 +69,7 @@ get_datasets <- function(dataset_filenames,
                             reformat = reformat,
                             all_lower = all_lower,
                             output_dir_root = output_dir_root,
+                            clear_cache = clear_cache,
                             ...
   )
 }
@@ -107,7 +111,7 @@ get_downloaded_datasets <- function() {
 #'   used with `clear_cache_first = TRUE` before using `get_datasets` if you
 #'   have recently requested new datasets.
 #'
-#' @param clear_cache_first Boolean detailing if you would like to clear the
+#' @param clear_cache Boolean detailing if you would like to clear the
 #'   cached available datasets first. The default is set to FALSE. This option
 #'   is available so that you can make sure your client fetches any new datasets
 #'   that you have recently been given access to.
@@ -117,10 +121,10 @@ get_downloaded_datasets <- function() {
 #' @export
 #'
 
-get_available_datasets <- function(clear_cache_first = FALSE) {
+get_available_datasets <- function(clear_cache = FALSE) {
 
   check_for_client()
-  .rdhs$client$available_datasets(clear_cache_first)
+  .rdhs$client$available_datasets(clear_cache)
 }
 
 #' Extract Data
