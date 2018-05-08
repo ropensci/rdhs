@@ -105,7 +105,7 @@ rdhs_setup <- function() {
   # return the client invisibly
   return(invisible(rdhs_setup()))
 
-  }
+}
 
 # set .Renviron variable
 #' @noRd
@@ -127,30 +127,30 @@ set_renviron <- function(variable, value, ask = TRUE) {
 
   # ask user if okay to write
   if (Sys.getenv("rdhs_RENVIRON_PERMISSION") != 1 && ask) {
-  ask_user_permission()
+    ask_user_permission()
   }
 
-  if (Sys.getenv("rdhs_RENVIRON_PERMISSION")==1) {
+  if (Sys.getenv("rdhs_RENVIRON_PERMISSION") == 1) {
 
-  # next grab the current .Renviron if it exists
-  if (file.exists(find_renviron())) {
-    current <- readLines(file.path(find_renviron()))
+    # next grab the current .Renviron if it exists
+    if (file.exists(find_renviron())) {
+      current <- readLines(file.path(find_renviron()))
 
-    # check to see if the variable already exists
-    current_vars <- strsplit(current, "=") %>%
-      lapply(function(x) x[1]) %>% unlist()
-    presets <- grepl(variable, current_vars)
+      # check to see if the variable already exists
+      current_vars <- strsplit(current, "=") %>%
+        lapply(function(x) x[1]) %>% unlist()
+      presets <- grepl(variable, current_vars)
 
-    # remove any previous rdhs variables for the variable of interest
-    current <- current[!presets]
+      # remove any previous rdhs variables for the variable of interest
+      current <- current[!presets]
 
-    # add our new value always placing it in quotes
-    new <- c(current, paste0(variable, " = ", "\"", value, "\""))
-  } else {
-    new <- paste0(variable, " = ", "\"", value, "\"")
-  }
+      # add our new value always placing it in quotes
+      new <- c(current, paste0(variable, " = ", "\"", value, "\""))
+    } else {
+      new <- paste0(variable, " = ", "\"", value, "\"")
+    }
 
-  writeLines(new, file.path(find_renviron()))
+    writeLines(new, file.path(find_renviron()))
 
   }
 
@@ -165,22 +165,22 @@ ask_user_permission <- function(){
 
   # loop ask for permission
   while(int_check) {
-  pl <- readline(
-    prompt = cat(
-      "rdhs would like to write to files outisde ",
-      "of your R temporary directory. This is ",
-      "so that your datasets and API calls are cached between ",
-      "R sessions. Do you confirm rdhs to ",
-      "write to files outside your R temporary directry? (Enter 1 or 2)\n",
-      "1: Yes",
-      "2: No\n",
-      "Your choice will be remembered between R sessions.",
-      sep = "\n"
-    )) %>% as.integer()
+    pl <- readline(
+      prompt = cat(
+        "rdhs would like to write to files outisde ",
+        "of your R temporary directory. This is ",
+        "so that your datasets and API calls are cached between ",
+        "R sessions. Do you confirm rdhs to ",
+        "write to files outside your R temporary directry? (Enter 1 or 2)\n",
+        "1: Yes",
+        "2: No\n",
+        "Your choice will be remembered between R sessions.",
+        sep = "\n"
+      )) %>% as.integer()
 
-  if (is.element(pl, c(1, 2))) {
-    int_check <- FALSE
-  }
+    if (is.element(pl, c(1, 2))) {
+      int_check <- FALSE
+    }
 
   }
 
@@ -213,7 +213,9 @@ set_rdhs_CREDENTIALS_PATH <- function(path, ask = TRUE) {
   read_credentials(credentials)
 
   # if these are fine let's set these to the .Renviron
-  set_renviron(renv_cred_path_name(), credentials, ask)
+  set_renviron(variable = renv_cred_path_name(),
+               value = credentials,
+               ask = ask)
 
   invisible(Sys.getenv(renv_cred_path_name()))
 }
