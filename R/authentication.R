@@ -101,7 +101,7 @@ available_datasets <- function(your_email, your_password, your_project,
   formatlist <- grep("fformatlist", y, value = TRUE)
   formatlist <- qdapRegex::rm_between(
     formatlist, '"', '"', extract = TRUE
-    ) %>% lapply(function(x) x[3])
+  ) %>% lapply(function(x) x[3])
 
   names(formatlist) <- rep("fformatlist", length(formatlist))
 
@@ -306,11 +306,20 @@ download_datasets <- function(desired_dataset,
   while (file_size_check & attempts > 0) {
 
     # download zip to our tempfile
-    resp <- httr::GET(desired_dataset$URLS[1],
-                      destfile = tf,
-                      httr::user_agent("https://github.com/OJWatson/rdhs"),
-                      httr::write_disk(tf, overwrite = TRUE)
-    ) %>% handle_api_response(to_json = FALSE)
+    if(Sys.getenv("rdhs_LOUD_DOWNLOAD") == TRUE) {
+      resp <- httr::GET(desired_dataset$URLS[1],
+                        destfile = tf,
+                        httr::user_agent("https://github.com/OJWatson/rdhs"),
+                        httr::write_disk(tf, overwrite = TRUE),
+                        httr::progress()
+      ) %>% handle_api_response(to_json = FALSE)
+    } else {
+      resp <- httr::GET(desired_dataset$URLS[1],
+                        destfile = tf,
+                        httr::user_agent("https://github.com/OJWatson/rdhs"),
+                        httr::write_disk(tf, overwrite = TRUE)
+      ) %>% handle_api_response(to_json = FALSE)
+    }
 
     # if it's not the right size and first time we've tried then log in
     if (file.size(tf) != desired_dataset$FileSize[1] & attempts == 3) {
