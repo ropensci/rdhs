@@ -172,6 +172,9 @@ test_that("get_var_labels", {
 
   # test to catch not return it
   expect_equal(dim(var1), c(572, 5))
+
+  # and reset to the original credentials file
+  create_correct_credentials("credentials")
 })
 
 test_that("get_var_labels direct via client", {
