@@ -63,6 +63,11 @@ handle_api_request <- function(endpoint, query, all_results, client) {
     }
   }
 
+  # for those (jeff) who want data.table with no package overhead for rdhs
+  if(Sys.getenv("rdhs_DATA_TABLE") == FALSE) {
+    resp <- eval(parse(text = "resp %>% data.table::as.data.table()"))
+  }
+
   return(resp)
 }
 
