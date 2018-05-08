@@ -20,7 +20,7 @@ last_api_update <- function() {
     max()
   } else {
 
-  date <- -1
+  date <- -0.5
   message("The DHS API took longer than ",Sys.getenv("rdhs_TIMEOUT"),
           " seconds to respond.\n",
           "As a result some of the functionality of rdhs may not work.\n",
