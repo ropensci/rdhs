@@ -134,7 +134,7 @@ dhs_data <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/data"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -231,7 +231,7 @@ dhs_indicators <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/indicators"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -288,7 +288,7 @@ dhs_uiUpdates <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/uiupdates"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -350,7 +350,7 @@ dhs_info <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/info"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -447,7 +447,7 @@ dhs_countries <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/countries"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -561,7 +561,7 @@ dhs_surveys <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveys"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -649,7 +649,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveycharacteristics"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -753,7 +753,7 @@ dhs_publications <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/publications"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -852,7 +852,7 @@ dhs_datasets <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/datasets"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -934,7 +934,7 @@ dhs_geometry <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/geometry"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -1021,7 +1021,7 @@ dhs_tags <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/tags"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }
 
 
@@ -1078,5 +1078,5 @@ dhs_dataUpdates <- function(client=NULL,
   endpoint <- "https://api.dhsprogram.com/rest/dhs/dataupdates"
 
   # pass request on accordingly
-  handle_api_request(endpoint, query, all_results, client)
+  handle_api_request(endpoint, query, all_results, client, force)
 }

@@ -115,7 +115,7 @@ Make a DHS API client
 
   \emph{Usage:}
   \code{survey_questions(dataset_filenames, search_terms = NULL, essential_terms = NULL,
-      regex = NULL, ...)}
+      regex = NULL, rm_na = TRUE, ...)}
 
   \emph{Arguments:}
   \itemize{
@@ -131,6 +131,9 @@ Make a DHS API client
     \item{\code{regex}:   Regex character pattern for matching. If you want to specify your regex search pattern, then specify this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.
     }
 
+    \item{\code{rm_na}:   Should NAs be removed. Default is `TRUE`
+    }
+
     \item{\code{...}:   Any other arguments to be passed to \code{\link{download_datasets}}
     }
   }
@@ -143,7 +146,7 @@ Make a DHS API client
 
   \emph{Usage:}
   \code{survey_variables(dataset_filenames, variables, essential_variables = NULL,
-      ...)}
+      rm_na = TRUE, ...)}
 
   \emph{Arguments:}
   \itemize{
@@ -154,6 +157,9 @@ Make a DHS API client
     }
 
     \item{\code{essential_variables}:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this functon. Default = NULL.
+    }
+
+    \item{\code{rm_na}:   Should NAs be removed. Default is `TRUE`
     }
 
     \item{\code{...}:   Any other arguments to be passed to \code{\link{download_datasets}}
