@@ -13,7 +13,7 @@ last_api_update <- function() {
     error = function(e) NULL
   )
 
-  if (!is.null(updates)) {
+  if (!is.null(updates) & updates$status_code == 200) {
   updates <- rbind_list_base(handle_api_response(updates)$Data)
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
@@ -22,7 +22,7 @@ last_api_update <- function() {
 
   date <- -0.5
   message("The DHS API took longer than ", Sys.getenv("rdhs_TIMEOUT"),
-          " seconds to respond.\n",
+          " seconds to respond, or it returned an error.\n",
           "As a result some of the functionality of rdhs may not work.\n",
           "To check if the API is down please head to:\n",
           "https://api.dhsprogram.com/rest/dhs/dataupdates")
