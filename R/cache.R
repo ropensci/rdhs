@@ -13,7 +13,7 @@ last_api_update <- function() {
     error = function(e) NULL
   )
 
-  if (!is.null(updates) & updates$status_code == 200) {
+  if (!is.null(updates)) {
   updates <- rbind_list_base(handle_api_response(updates)$Data)
   date <- updates$UpdateDate %>%
     strptime(format = "%B, %d %Y %H:%M:%S") %>%
