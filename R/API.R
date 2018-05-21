@@ -59,7 +59,7 @@ handle_api_request <- function(endpoint, query, all_results, client,
 
     # check out agianst cache, if fine return that and if not make request
     if (!is.null(out) && !force) {
-      return(out)
+      resp <- out
     } else {
 
       # create generic request
