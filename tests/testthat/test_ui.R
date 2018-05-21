@@ -86,6 +86,24 @@ test_that("get_datasets", {
   expect_identical(names(dat), "ZWHR31SV")
 })
 
+test_that("get_model_datasets", {
+  testthat::skip_on_cran()
+
+  Sys.setenv("rdhs_RENVIRON_PERMISSION" = 1)
+
+  rdhs_reset()
+  .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
+
+  # set up a package client
+  create_correct_credentials("credentials.txt")
+  on.exit(unlink("credentials.txt"))
+
+  dat <- get_datasets(dataset_filenames = "zzar61.zip",
+                      download_option = "zip")
+  expect_identical(names(dat), "zzar61")
+})
+
+
 test_that("get_downloaded_datasets", {
   testthat::skip_on_cran()
 

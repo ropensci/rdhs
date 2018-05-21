@@ -839,10 +839,12 @@ R6_client_dhs <- R6::R6Class(
 
       # fetch which datasets you can download from your login
       avs <- self$available_datasets()
+      avs <- rbind(avs, model_datasets)
 
       # fetch all the datasets so we can catch for the India matches by
       # using the country code catch
       datasets <- dhs_datasets(client = self)
+      datasets <-  rbind(datasets,model_datasets[,-14])
 
       # create new filename argument that takes into account the india
       # difficiulties where needed
