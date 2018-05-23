@@ -162,3 +162,23 @@ test_that("set_dhs_credentials", {
     )
   }
 })
+
+
+test_that("read_credentials with spaces", {
+
+  # lets make a credentials object with end lines
+  write("email=dummy@gmail.com\npassword=\"dummy\"\nproject=Dummy space\n\n\n",
+        file = "rubbish_no_more.txt"
+  )
+
+  expect_identical(
+    read_credentials(filename = "rubbish_no_more.txt"),
+    list("email"="dummy@gmail.com",
+         "password"="dummy",
+         "project"="Dummy space")
+    )
+
+  unlink("rubbish_no_more.txt")
+
+})
+
