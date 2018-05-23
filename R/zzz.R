@@ -134,7 +134,7 @@ set_renviron <- function(variable, value, ask = TRUE) {
 
     # next grab the current .Renviron if it exists
     if (file.exists(find_renviron())) {
-      current <- readLines(file.path(find_renviron()))
+      current <- readLines(file.path(find_renviron()), warn = FALSE)
 
       # check to see if the variable already exists
       current_vars <- strsplit(current, "=") %>%

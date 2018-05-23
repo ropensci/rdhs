@@ -52,6 +52,7 @@ read_credentials <- function(filename) {
     check_credentials(filename)
   } else {
     dat <- strsplit(readLines(filename, warn = FALSE), "=")
+    dat <- dat[which(lapply(dat,length) %>% lapply(function(x) x>0) %>% unlist)]
     dat <- setNames(
       as.list(trimws(vapply(dat, "[[", character(1), 2L))),
       trimws(vapply(dat, "[[", character(1), 1L))
