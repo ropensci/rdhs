@@ -17,7 +17,7 @@ last_api_update <- function() {
     if (updates$status_code == 200) {
       updates <- rbind_list_base(handle_api_response(updates)$Data)
       date <- updates$UpdateDate %>%
-        strptime(format = "%B, %d %Y %H:%M:%S") %>%
+        mdy_hms() %>%
         max()
     }
   } else {

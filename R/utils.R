@@ -123,7 +123,10 @@ type_convert_df <- function(df) {
 
 # convert api mdy_hms character date times to posix
 #' @noRd
-mdy_hms <- function(dates) strptime(dates, format = "%B, %d %Y %H:%M:%S")
+mdy_hms <- function(dates) {
+  Sys.setlocale("LC_TIME","C")
+  strptime(dates, format = "%B, %d %Y %H:%M:%S")
+}
 
 # find Renviron file
 #' @noRd
