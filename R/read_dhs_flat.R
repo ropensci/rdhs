@@ -51,9 +51,8 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
     occurences = 1,
     stringsAsFactors = FALSE
   )
-
   has_datatype <- grep(".*?\nDataType", items)
-  dcf$datatype[has_datatype] <- sub(".*?\nDataType=([^\n]*)\n.*", "\\1",
+  dcf$datatype[has_datatype] <- sub(".*?\nDataType=([^\n]*)(\n.*|$)", "\\1",
                                     items[has_datatype])
 
   has_occ <- grep(".*?\nOccurrences", items)
