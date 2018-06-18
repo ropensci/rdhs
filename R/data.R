@@ -4,6 +4,7 @@
 #' to those returned bu `get_available_datasets()`
 #'
 #' @docType data
+#' @usage data(model_datasets)
 #'
 #' @format A dataframe of 36 observations of 14 variables:
 #'

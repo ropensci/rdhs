@@ -1,4 +1,4 @@
-
+library(rdhs)
 url = "https://dhsprogram.com/data/download-model-datasets.cfm"
 
 base_xml <- xml2::read_html(url)
@@ -38,7 +38,8 @@ df <- data.frame("FileFormat" = files,
                  "DHS_CountryCode" = "ZZ",
                  "FileName" = file_names,
                  "CountryName" = "ModelDatasetCountry",
-                 "URLS" = urls)
+                 "URLS" = urls,
+                 stringsAsFactors = FALSE)
 model_datasets <- df
 
 devtools::use_data(model_datasets,overwrite=TRUE)

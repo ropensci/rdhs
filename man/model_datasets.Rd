@@ -24,7 +24,7 @@
       \item{"URLS"}
       }}
 \usage{
-model_datasets
+data(model_datasets)
 }
 \description{
 The model datasets from the DHS website in a `data.frame` that is analagous

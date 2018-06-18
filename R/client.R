@@ -839,6 +839,7 @@ R6_client_dhs <- R6::R6Class(
 
       # fetch which datasets you can download from your login
       avs <- self$available_datasets()
+      #data("model_datatsets",package = "rdhs")
       avs <- rbind(avs, model_datasets)
 
       # fetch all the datasets so we can catch for the India matches by
