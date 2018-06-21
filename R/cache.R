@@ -13,13 +13,12 @@ last_api_update <- function() {
     error = function(e) NULL
   )
 
-  if (inherits(updates,"response")) {
-    if (updates$status_code == 200) {
+  if (inherits(updates,"response") && updates$status_code == 200) {
       updates <- rbind_list_base(handle_api_response(updates)$Data)
       date <- updates$UpdateDate %>%
         mdy_hms() %>%
         max()
-    }
+
   } else {
 
     date <- -0.5
