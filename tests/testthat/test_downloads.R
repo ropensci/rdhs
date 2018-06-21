@@ -217,10 +217,10 @@ test_that("Geo dataset test", {
 
   # check rds only
   downloads <- cli$get_datasets(
-    dataset_filenames = survs[sample(length(hhs_geo),
+    dataset_filenames = survs[hhs_geo[sample(length(hhs_geo),
       2,
       replace = FALSE
-    ), ]$FileName,
+    )], ]$FileName,
     download_option = "r"
   )
 
