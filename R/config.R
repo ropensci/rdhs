@@ -14,6 +14,7 @@ get_rdhs_config <- function() {
 write_rdhs_config <- function(path, email, project, cache_path,
                               verbose_download = FALSE,
                               verbose_startup = FALSE,
+                              data_frame = NULL,
                               timeout = 30,
                               global = TRUE) {
   if (!is.null(path)) {
@@ -26,6 +27,9 @@ write_rdhs_config <- function(path, email, project, cache_path,
   assert_scalar_logical(verbose_startup)
   assert_scalar_logical(global)
   assert_scalar_numeric(timeout)
+  if (!is.null(data_frame)) {
+    assert_scalar_character(data_frame)
+  }
 
   ## This is in a hope to be compliant with the CRAN policy about not
   ## writing to disk.  We need permission to write to a place that we
@@ -59,9 +63,10 @@ write_rdhs_config <- function(path, email, project, cache_path,
               cache_path = cache_path,
               verbose_download = verbose_download,
               verbose_startup = verbose_startup,
-              timeout = timeout)
+              timeout = timeout,
+              data_frame = data_frame)
 
-  str <- jsonlite::toJSON(dat, auto_unbox = TRUE, pretty = TRUE)
+  str <- jsonlite::toJSON(dat, auto_unbox = TRUE, pretty = TRUE, null = "null")
   message("Writing your configuration to '%s'", path)
   message("If you are using git, be sure to add this to your .gitignore")
   writeLines(str, path)
@@ -83,6 +88,18 @@ read_rdhs_config_file <- function(path, global) {
   if (length(msg) > 0L) {
     stop("Missing fields from configuration: ",
          paste(squote(msg), collapse = ", "))
+  }
+
+  if (is.null(dat$data_frame)) {
+    dat$data_frame <- identity
+  } else {
+    if (grepl("::", dat$data_frame)) {
+      ns <- sub("::.*$", "", dat$data_frame)
+      nm <- sub("^.*::", "", dat$data_frame)
+      dat$data_frame <- getExportedValue(ns, nm)
+    } else {
+      dat$data_frame <- match.fun(dat$data_frame)
+    }
   }
 
   ## TODO: we should do validation here again but it's boring so that
