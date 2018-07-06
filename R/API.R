@@ -280,6 +280,6 @@ handle_pagination_geojson <- function(endpoint, query, all_results) {
 ## arguments (in "drop") to api functions that are not actually query
 ## parameters
 args_to_query <- function(env, drop = c("client", "force", "all_results")) {
-  ret <- as.list(environment())
+  ret <- as.list(env)
   ret[setdiff(names(ret), drop)]
 }
