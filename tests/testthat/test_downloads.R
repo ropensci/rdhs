@@ -53,7 +53,7 @@ test_that("avaialble surveys and download work", {
     download_option = "r", mode = "raw"
   )
   d <- readRDS(downloads$AOBR62DT)
-  v <- get_var_labels(d)
+  v <- get_variable_labels(d)
 
   # remove the cache and then check for the reformat
   cli$.__enclos_env__$private$storr$del(
@@ -121,24 +121,24 @@ test_that("avaialble surveys and download work", {
   d <- cli$get_downloaded_datasets()
 
   # check var label fetch
-  v <- cli$get_var_labels(dataset_filenames = "AOBR62FL.ZIP")
+  v <- cli$get_variable_labels(dataset_filenames = "AOBR62FL.ZIP")
   downloads <- cli$get_datasets(
     dataset_filenames = c("AOBR62FL.ZIP", "AOBR62DT.ZIP"),
     download_option = "r"
   )
 
-  v <- cli$get_var_labels(dataset_paths = unlist(downloads))
-  v <- cli$get_var_labels(dataset_filenames = c(
+  v <- cli$get_variable_labels(dataset_paths = unlist(downloads))
+  v <- cli$get_variable_labels(dataset_filenames = c(
     "AOBR62FL.ZIP",
     "AOBR62DT.ZIP"
   ))
 
   # and check the non client version on normal and fommatted
-  v <- get_var_labels(readRDS(downloads$AOBR62FL))
+  v <- get_variable_labels(readRDS(downloads$AOBR62FL))
   downloads <- cli$get_datasets(
     dataset_filenames = "AOBR62DT.ZIP", download_option = "r", reformat = TRUE
   )
-  v <- get_var_labels(readRDS(downloads$AOBR62DT))
+  v <- get_variable_labels(readRDS(downloads$AOBR62DT))
 
   unlink(td)
 })

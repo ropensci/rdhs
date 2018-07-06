@@ -4,7 +4,7 @@ test_that("authenticate_dhs works", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  expect_equal(rdhs:::authenticate_dhs(
+  expect_equal(rdhs::authenticate_dhs(
     your_email = Sys.getenv("rdhs_USER_EMAIL"),
     your_password = Sys.getenv("rdhs_USER_PASS"),
     your_project = Sys.getenv("rdhs_USER_PROJECT")
@@ -20,7 +20,7 @@ test_that("authenticate_dhs works", {
     )
   )$proj_id, "111616")
 
-  expect_error(rdhs:::authenticate_dhs(
+  expect_error(rdhs::authenticate_dhs(
     your_email = Sys.getenv("rdhs_USER_EMAIL"),
     your_password = Sys.getenv("rdhs_USER_PASS"),
     your_project = "twaddle_for_days"

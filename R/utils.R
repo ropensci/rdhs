@@ -53,7 +53,7 @@ response_is_json <- function(x) {
 #'
 #' @examples
 #' file_format <- "Stata dataset (.dta)"
-#' identical(rdhs:::file_dataset_format(file_format),"dta")
+#' identical(rdhs::file_dataset_format(file_format),"dta")
 #'
 file_dataset_format <- function(file_format) {
 

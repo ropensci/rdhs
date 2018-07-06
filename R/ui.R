@@ -241,7 +241,7 @@ search_variable_labels <- function(dataset_filenames,
 #'
 #' Return variable labels from a dataset
 #'
-#' @rdname get_var_labels
+#' @rdname get_variable_labels
 #'
 #' @details Returns variable names and their labels from a dataset.
 #'   You can pass for the `data` argument any of
@@ -265,7 +265,7 @@ search_variable_labels <- function(dataset_filenames,
 #' @return A \code{data.frame} consisting of the variable name and labels.
 #'
 #' @export
-get_var_labels <- function(dataset, return_all=TRUE) {
+get_variable_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a data.frame then we try to read the labels from that
   if (is.data.frame(dataset)) {
@@ -276,9 +276,9 @@ get_var_labels <- function(dataset, return_all=TRUE) {
     # otherise as filenames
     if (any(file.exists(dataset))) {
       paths <- dataset[file.exists(dataset)]
-      res <- .rdhs$client$get_var_labels(dataset_paths = paths)
+      res <- .rdhs$client$get_variable_labels(dataset_paths = paths)
     } else {
-      res <- .rdhs$client$get_var_labels(dataset_filenames = dataset)
+      res <- .rdhs$client$get_variable_labels(dataset_filenames = dataset)
     }
   } else if (class(dataset)[1] == "SpatialPointsDataFrame") {
     stop(

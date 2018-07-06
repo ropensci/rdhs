@@ -115,7 +115,7 @@ test_that("set_dhs_credentials", {
   expect_null(.rdhs$test)
 
   Sys.setenv("rdhs_STARTUP_LOUD" = TRUE)
-  expect_message(rdhs:::.onAttach())
+  expect_message(rdhs::.onAttach())
   Sys.setenv("rdhs_STARTUP_LOUD" = FALSE)
 
   # the env client root should now be this new dummy
@@ -127,8 +127,8 @@ test_that("set_dhs_credentials", {
 
   # and we should have these options saved on the .Renviron
   environ <- readLines(file.path(normalizePath("~"), ".Renviron"))
-  expect_true(any(grepl(rdhs:::renv_cred_path_name(), environ)))
-  expect_true(any(grepl(rdhs:::renv_root_path_name(), environ)))
+  expect_true(any(grepl(rdhs::renv_cred_path_name(), environ)))
+  expect_true(any(grepl(rdhs::renv_root_path_name(), environ)))
 
   # remove this
   unlink("rubbish_no_more.txt")
@@ -151,13 +151,13 @@ test_that("set_dhs_credentials", {
     .rdhs$client <- old_client
 
     expect_identical(
-      rdhs:::set_rdhs_CREDENTIALS_PATH(
+      rdhs::set_rdhs_CREDENTIALS_PATH(
         old_client$.__enclos_env__$private$credentials_path
       ),
       old_client$.__enclos_env__$private$credentials_path
     )
     expect_identical(
-      rdhs:::set_rdhs_ROOT_PATH(old_client$get_root()),
+      rdhs::set_rdhs_ROOT_PATH(old_client$get_root()),
       normalizePath(old_client$get_root(), winslash = "/", mustWork = FALSE)
     )
   }

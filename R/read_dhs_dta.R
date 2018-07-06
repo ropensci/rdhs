@@ -19,7 +19,7 @@
 #' mrdt_zip, mode="wb"
 #' )
 #'
-#' map <- rdhs:::read_zipdata(mrdt_zip, "\\.MAP", readLines)
+#' map <- rdhs::read_zipdata(mrdt_zip, "\\.MAP", readLines)
 #' dct <- rdhs:::parse_map(map)
 #'
 parse_map <- function(map, all_lower=TRUE) {
@@ -224,7 +224,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #' mrdt_zip, mode="wb"
 #' )
 #'
-#' mr <- rdhs:::read_dhs_dta(mrdt_zip,mode="map")
+#' mr <- rdhs::read_dhs_dta(mrdt_zip,mode="map")
 #' attr(mr$mv213, "label")
 #' class(mr$mv213)
 #' head(mr$mv213)
@@ -233,7 +233,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #'
 #' ## If Stata file codebook is complete, `mode="map"` and `"haven"`
 #' ## should be the same.
-#' mr_hav <- rdhs:::read_dhs_dta(mrdt_zip, mode="haven")
+#' mr_hav <- rdhs::read_dhs_dta(mrdt_zip, mode="haven")
 #' attr(mr_hav$mv213, "label")
 #' class(mr_hav$mv213)
 #' head(mr_hav$mv213)  # "9=missing" omitted from .dta codebook
@@ -245,11 +245,11 @@ parse_map <- function(map, all_lower=TRUE) {
 #' # Specifying foreignNA can help but often will not as below.
 #' # Thus we would recommend either using mode = "haven" or mode = "raw"
 #' \dontrun{
-#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode="foreign")
-#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode = "foreignNA")
+#' mr_for <- rdhs::read_dhs_dta(mrdt_zip, mode="foreign")
+#' mr_for <- rdhs::read_dhs_dta(mrdt_zip, mode = "foreignNA")
 #' }
 #' ## Don't convert factors
-#' mr_raw <- rdhs:::read_dhs_dta(mrdt_zip, mode="raw")
+#' mr_raw <- rdhs::read_dhs_dta(mrdt_zip, mode="raw")
 #' table(mr_raw$mv213)
 #'
 read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {

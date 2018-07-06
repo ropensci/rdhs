@@ -279,7 +279,7 @@ client
 ##     get_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE, 
 ##     get_downloaded_datasets: function () 
 ##     get_root: function () 
-##     get_var_labels: function (dataset_filenames = NULL, dataset_paths = NULL) 
+##     get_variable_labels: function (dataset_filenames = NULL, dataset_paths = NULL) 
 ##     initialize: function (api_key = NULL, root = NULL, credentials = NULL) 
 ##     save_client: function () 
 ##     set_cache_date: function (date) 
@@ -371,7 +371,7 @@ The dataset returned here contains all the survey questions within the dataset, 
 
 ```r
 # let's look at the variable_names
-head(get_var_labels(cdpr))
+head(get_variable_labels(cdpr))
 ```
 
 ```
@@ -625,7 +625,7 @@ head(better_bound$hml35)
 ```
 
 
-The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_var_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
+The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_variable_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
 
 ```r

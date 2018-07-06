@@ -699,7 +699,7 @@ R6_client_dhs <- R6::R6Class(
     get_root = function() private$root,
 
     # get a dataset's var labels
-    get_var_labels = function(dataset_filenames=NULL,
+    get_variable_labels = function(dataset_filenames=NULL,
                               dataset_paths=NULL,
                               rm_na = FALSE) {
 

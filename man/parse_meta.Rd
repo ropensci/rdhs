@@ -40,14 +40,14 @@ paste0(
 mrfl_zip, mode="wb"
 )
 
-dcf <- rdhs:::read_zipdata(mrfl_zip, "\\\\.DCF", readLines)
+dcf <- rdhs::read_zipdata(mrfl_zip, "\\\\.DCF", readLines)
 dct <- rdhs:::parse_dcf(dcf)
 
-sps <- rdhs:::read_zipdata(mrfl_zip, "\\\\.SPS", readLines)
+sps <- rdhs::read_zipdata(mrfl_zip, "\\\\.SPS", readLines)
 dct <- parse_sps(sps)
 
-do <- rdhs:::read_zipdata(mrfl_zip, "\\\\.DO", readLines)
-dctin <- rdhs:::read_zipdata(mrfl_zip, "\\\\.DCT", readLines)
-dct <- parse_do(do, dctin)
+do <- rdhs::read_zipdata(mrfl_zip, "\\\\.DO", readLines)
+dctin <- rdhs::read_zipdata(mrfl_zip, "\\\\.DCT", readLines)
+dct <- rdhs:::parse_do(do, dctin)
 
 }

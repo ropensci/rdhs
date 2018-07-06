@@ -154,11 +154,11 @@
 ##'     }
 ##'   }
 ##' }
-##' \item{\code{get_var_labels}}{
+##' \item{\code{get_variable_labels}}{
 ##'   Returns information about a dataset's survey variables and definitions.
 ##'
 ##'   \emph{Usage:}
-##'   \code{get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)}
+##'   \code{get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL)}
 ##'
 ##'   \emph{Arguments:}
 ##'   \itemize{

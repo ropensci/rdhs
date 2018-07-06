@@ -17,22 +17,20 @@
 #' mrfl_zip, mode="wb"
 #' )
 #'
-#' dcf <- rdhs:::read_zipdata(mrfl_zip, "\\.DCF", readLines)
+#' dcf <- rdhs::read_zipdata(mrfl_zip, "\\.DCF", readLines)
 #' dct <- rdhs:::parse_dcf(dcf)
 #'
-#' sps <- rdhs:::read_zipdata(mrfl_zip, "\\.SPS", readLines)
+#' sps <- rdhs::read_zipdata(mrfl_zip, "\\.SPS", readLines)
 #' dct <- parse_sps(sps)
 #'
-#' do <- rdhs:::read_zipdata(mrfl_zip, "\\.DO", readLines)
-#' dctin <- rdhs:::read_zipdata(mrfl_zip, "\\.DCT", readLines)
-#' dct <- parse_do(do, dctin)
+#' do <- rdhs::read_zipdata(mrfl_zip, "\\.DO", readLines)
+#' dctin <- rdhs::read_zipdata(mrfl_zip, "\\.DCT", readLines)
+#' dct <- rdhs:::parse_do(do, dctin)
 #'
 #' @name parse_meta
 NULL
 
 #' @rdname parse_meta
-#' @export
-
 parse_dcf <- function(dcf, all_lower=TRUE) {
   Sys.setlocale("LC_ALL", "C") ## !!! TODO
 
@@ -111,7 +109,6 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
 
 #' @rdname parse_meta
 #' @param sps .SPS file as character vector (e.g. from readLines)
-#' @export
 parse_sps <- function(sps, all_lower=TRUE) {
   endblock <- grep("^ *\\.", sps)
 
@@ -188,7 +185,6 @@ parse_sps <- function(sps, all_lower=TRUE) {
 #' @rdname parse_meta
 #' @param do .DO file as character vector (e.g. from readLines)
 #' @param dct .DCT file as character vector (e.g. from readLines)
-#' @export
 parse_do <- function(do, dct, all_lower=TRUE) {
   Sys.setlocale("LC_ALL", "C") ## !!! TODO
 
@@ -298,7 +294,6 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #' table(mr$mv213)
 #' table(haven::as_factor(mr$mv213))
 #'
-#' @export
 read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   null_meta <- is.null(meta_source)

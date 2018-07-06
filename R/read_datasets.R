@@ -256,7 +256,7 @@ data_and_labels <- function(dataset) {
       )
     }
   }
-  variable_names <- get_var_labels(dataset)
+  variable_names <- get_variable_labels(dataset)
   res <- list("dataset" = dataset, "variable_names" = variable_names)
   return(res)
 }

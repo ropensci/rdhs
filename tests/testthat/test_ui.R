@@ -172,7 +172,7 @@ test_that("search_and_extract_dhs", {
 
 
 
-test_that("get_var_labels", {
+test_that("get_variable_labels", {
   testthat::skip_on_cran()
 
   Sys.setenv("rdhs_RENVIRON_PERMISSION" = 1)
@@ -188,9 +188,9 @@ test_that("get_var_labels", {
   dat <- get_datasets(dataset_filenames = "ZWHR31SV.ZIP",
                       download_option = "rds")
   r <- readRDS(dat$ZWHR31SV)
-  var1 <- get_var_labels(dat$ZWHR31SV)
-  var2 <- get_var_labels(r)
-  var3 <- get_var_labels("ZWHR31SV.ZIP")
+  var1 <- get_variable_labels(dat$ZWHR31SV)
+  var2 <- get_variable_labels(r)
+  var3 <- get_variable_labels("ZWHR31SV.ZIP")
 
   # 1 and 3 same
   expect_identical(var1, var3)
@@ -203,7 +203,7 @@ test_that("get_var_labels", {
   create_correct_credentials("credentials")
 })
 
-test_that("get_var_labels direct via client", {
+test_that("get_variable_labels direct via client", {
   testthat::skip_on_cran()
 
   Sys.setenv("rdhs_RENVIRON_PERMISSION" = 1)
@@ -211,12 +211,12 @@ test_that("get_var_labels direct via client", {
   cli <- new_rand_client()
 
   dat <- cli$get_datasets(dataset_filenames = "ZWHR31SV.ZIP")
-  expect_message(cli$get_var_labels("ZWHR31SV.ZIP", dat$ZWHR31))
-  expect_error(cli$get_var_labels())
-  expect_message(cli$get_var_labels(dataset_paths = c(dat$ZWHR31SV,
+  expect_message(cli$get_variable_labels("ZWHR31SV.ZIP", dat$ZWHR31))
+  expect_error(cli$get_variable_labels())
+  expect_message(cli$get_variable_labels(dataset_paths = c(dat$ZWHR31SV,
                                                       "twaddle")))
-  expect_error(cli$get_var_labels(dataset_paths = c("twaddle")))
-  expect_message(cli$get_var_labels(dataset_filenames = c("twaddle",
+  expect_error(cli$get_variable_labels(dataset_paths = c("twaddle")))
+  expect_message(cli$get_variable_labels(dataset_filenames = c("twaddle",
                                                           "ZWHR31SV.ZIP")))
-  expect_error(cli$get_var_labels(dataset_filenames = c("twaddle")))
+  expect_error(cli$get_variable_labels(dataset_filenames = c("twaddle")))
 })

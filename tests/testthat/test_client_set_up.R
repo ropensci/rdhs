@@ -69,8 +69,8 @@ test_that("new updates are recognised", {
     cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
   }
 
-  cli$.__enclos_env__$private$cache_date <- rdhs:::last_api_update() - 1
-  saveRDS(cli, file.path(cli$get_root(), rdhs:::client_file_name()))
+  cli$.__enclos_env__$private$cache_date <- rdhs::last_api_update() - 1
+  saveRDS(cli, file.path(cli$get_root(), rdhs::client_file_name()))
 
   # create auth through whichever route is valid for the environment
   if (file.exists("credentials")) {
