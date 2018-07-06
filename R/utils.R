@@ -158,3 +158,37 @@ is_uppercase <- function(string) {
   }
   !grepl("[a-z]", string, perl = TRUE)
 }
+
+
+assert_scalar_character <- function(x, name = deparse(substitute(x))) {
+  if (!(is.character(x) && length(x) == 1L && !is.na(x))) {
+    stop(sprintf("'%s' must be a scalar character", name))
+  }
+  invisible(x)
+}
+
+
+assert_scalar_logical <- function(x, name = deparse(substitute(x))) {
+  if (!(is.logical(x) && length(x) == 1L && !is.na(x))) {
+    stop(sprintf("'%s' must be a scalar logical", name))
+  }
+  invisible(x)
+}
+
+
+assert_scalar_numeric <- function(x, name = deparse(substitute(x))) {
+  if (!(is.numeric(x) && length(x) == 1L && !is.na(x))) {
+    stop(sprintf("'%s' must be a scalar numeric", name))
+  }
+  invisible(x)
+}
+
+
+is_absolute_path <- function(path) {
+  grepl("^(/|[A-Za-z]:[/\\]|//|\\\\\\\\)", path)
+}
+
+
+squote <- function(x) {
+  sprintf("'%s'", x)
+}
