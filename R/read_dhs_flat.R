@@ -190,7 +190,7 @@ parse_sps <- function(sps, all_lower=TRUE) {
 #' @param dct .DCT file as character vector (e.g. from readLines)
 #' @export
 parse_do <- function(do, dct, all_lower=TRUE) {
-  Sys.setlocale("LC_ALL", "C") ## !!! TODO
+
 
   ## parse fixed-width
   dct <- dct[-c(1:2, length(dct))]
@@ -305,19 +305,19 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   if ( (null_meta || tolower(meta_source) == "dcf") &&
     any(grepl("\\.DCF$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    dcf <- read_zipdata(zfile, "\\.DCF$", readLines)
+    dcf <- read_zipdata(zfile, "\\.DCF$", readLines, encoding = "UTF-8")
     dct <- parse_dcf(dcf, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) == "sps") &&
     any(grepl("\\.SPS$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    sps <- read_zipdata(zfile, "\\.SPS$", readLines)
+    sps <- read_zipdata(zfile, "\\.SPS$", readLines, encoding = "UTF-8")
     dct <- parse_sps(sps, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) %in% c("do", "dct")) &&
     any(grepl("\\.DO$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE)) &&
     any(grepl("\\.DCT$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    do <- read_zipdata(zfile, "\\.DO$", readLines)
-    dct <- read_zipdata(zfile, "\\.DCT$", readLines)
+    do <- read_zipdata(zfile, "\\.DO$", readLines, encoding = "UTF-8")
+    dct <- read_zipdata(zfile, "\\.DCT$", readLines, encoding = "UTF-8")
     dct <- parse_do(do, dct, all_lower)
   }
   else {

@@ -113,7 +113,12 @@ type_convert_df <- function(df) {
 # convert api mdy_hms character date times to posix
 #' @noRd
 mdy_hms <- function(dates) {
+
+  locale_lc_time <- Sys.getlocale("LC_TIME")
+  on.exit(Sys.setlocale("LC_TIME", locale_lc_time))
+  
   Sys.setlocale("LC_TIME","C")
+  
   strptime(dates, format = "%B, %d %Y %H:%M:%S")
 }
 
