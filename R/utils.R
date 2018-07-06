@@ -70,17 +70,6 @@ file_dataset_format <- function(file_format) {
   file_endings[match(file_format, dhs_file_formats)]
 }
 
-
-# unzips files without throwing warnings
-#' @noRd
-unzip_warn_fails <- function(...) {
-
-  tryCatch( {
-    unzip(...)
-  },
-  warning = function(w) stop(conditionMessage(w)))
-}
-
 # refresh client
 #' @noRd
 client_refresh <- function(cli) {
