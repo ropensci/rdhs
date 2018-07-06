@@ -4,20 +4,11 @@
 \alias{dhs_uiUpdates}
 \title{API request of DHS UI Updates}
 \usage{
-dhs_uiUpdates(client = NULL, force = FALSE, all_results = TRUE,
-  lastUpdate = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL)
+dhs_uiUpdates(lastUpdate = NULL, f = NULL, returnFields = NULL,
+  perPage = NULL, page = NULL, client = NULL, force = FALSE,
+  all_results = TRUE)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client
-object created by \code{\link{client_dhs}}}
-
-\item{force}{Should we force fetching the API results, and ignore any
-cached results we have. Default = FALSE}
-
-\item{all_results}{Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE.}
-
 \item{lastUpdate}{Specify a date or Unix time to filter the updates by. Only
 results for interfaces that has been updated on or after the sepcified
 date will be returned.}
@@ -33,6 +24,15 @@ default the API will return 100 results.}
 
 \item{page}{Allows specifying a page number to obtain for the recordset. By
 default the API will return page 1.}
+
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
+
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
+
+\item{all_results}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 }
 \value{
 Returns a `data.table` of 3 (or less if `returnFields` is provided)

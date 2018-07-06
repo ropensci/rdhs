@@ -103,10 +103,7 @@
 #' dat <- dhs_data(f="geojson", returnGeometry="true",all_results=FALSE)
 #' }
 
-dhs_data <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     countryIds=NULL,
+dhs_data <- function(countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
                      selectSurveys=NULL,
@@ -123,7 +120,10 @@ dhs_data <- function(client=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -205,10 +205,7 @@ dhs_data <- function(client=NULL,
 #' dat <- dhs_indicators(f="html",all_results=FALSE)
 #' }
 
-dhs_indicators <- function(client=NULL,
-                           force=FALSE,
-                           all_results=TRUE,
-                           countryIds=NULL,
+dhs_indicators <- function(countryIds=NULL,
                            indicatorIds=NULL,
                            surveyIds=NULL,
                            surveyYear=NULL,
@@ -220,7 +217,10 @@ dhs_indicators <- function(client=NULL,
                            f=NULL,
                            returnFields=NULL,
                            perPage=NULL,
-                           page=NULL) {
+                           page=NULL,
+                           client=NULL,
+                           force=FALSE,
+                           all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -270,14 +270,14 @@ dhs_indicators <- function(client=NULL,
 #' dat <- dhs_uiUpdates(f="html",all_results=FALSE)
 #' }
 
-dhs_uiUpdates <- function(client=NULL,
-                          force=FALSE,
-                          all_results=TRUE,
-                          lastUpdate=NULL,
+dhs_uiUpdates <- function(lastUpdate=NULL,
                           f=NULL,
                           returnFields=NULL,
                           perPage=NULL,
-                          page=NULL) {
+                          page=NULL,
+                          client=NULL,
+                          force=FALSE,
+                          all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -332,14 +332,14 @@ dhs_uiUpdates <- function(client=NULL,
 #' dat <- dhs_info(f="html",all_results=FALSE)
 #' }
 
-dhs_info <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     infoType=NULL,
+dhs_info <- function(infoType=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -421,10 +421,7 @@ dhs_info <- function(client=NULL,
 #' dat <- dhs_countries(f="html",all_results=FALSE)
 #' }
 
-dhs_countries <- function(client=NULL,
-                          force=FALSE,
-                          all_results=TRUE,
-                          countryIds=NULL,
+dhs_countries <- function(countryIds=NULL,
                           indicatorIds=NULL,
                           surveyIds=NULL,
                           surveyYear=NULL,
@@ -436,7 +433,10 @@ dhs_countries <- function(client=NULL,
                           f=NULL,
                           returnFields=NULL,
                           perPage=NULL,
-                          page=NULL) {
+                          page=NULL,
+                          client=NULL,
+                          force=FALSE,
+                          all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -533,10 +533,7 @@ dhs_countries <- function(client=NULL,
 #' dat <- dhs_surveys(f="html",all_results=FALSE)
 #' }
 
-dhs_surveys <- function(client=NULL,
-                        force=FALSE,
-                        all_results=TRUE,
-                        countryIds=NULL,
+dhs_surveys <- function(countryIds=NULL,
                         indicatorIds=NULL,
                         selectSurveys=NULL,
                         surveyIds=NULL,
@@ -550,7 +547,10 @@ dhs_surveys <- function(client=NULL,
                         f=NULL,
                         returnFields=NULL,
                         perPage=NULL,
-                        page=NULL) {
+                        page=NULL,
+                        client=NULL,
+                        force=FALSE,
+                        all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -625,10 +625,7 @@ dhs_surveys <- function(client=NULL,
 #' dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
 #' }
 
-dhs_surveyCharacteristics <- function(client=NULL,
-                                      force=FALSE,
-                                      all_results=TRUE,
-                                      countryIds=NULL,
+dhs_surveyCharacteristics <- function(countryIds=NULL,
                                       indicatorIds=NULL,
                                       surveyIds=NULL,
                                       surveyYear=NULL,
@@ -638,7 +635,10 @@ dhs_surveyCharacteristics <- function(client=NULL,
                                       f=NULL,
                                       returnFields=NULL,
                                       perPage=NULL,
-                                      page=NULL) {
+                                      page=NULL,
+                                      client=NULL,
+                                      force=FALSE,
+                                      all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -726,10 +726,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' dat <- dhs_publications(f="html",all_results=FALSE)
 #' }
 
-dhs_publications <- function(client=NULL,
-                             force=FALSE,
-                             all_results=TRUE,
-                             countryIds=NULL,
+dhs_publications <- function(countryIds=NULL,
                              selectSurveys=NULL,
                              indicatorIds=NULL,
                              surveyIds=NULL,
@@ -742,7 +739,10 @@ dhs_publications <- function(client=NULL,
                              f=NULL,
                              returnFields=NULL,
                              perPage=NULL,
-                             page=NULL) {
+                             page=NULL,
+                             client=NULL,
+                             force=FALSE,
+                             all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -826,10 +826,7 @@ dhs_publications <- function(client=NULL,
 #' dat <- dhs_datasets(f="geojson",all_results=FALSE)
 #' }
 
-dhs_datasets <- function(client=NULL,
-                         force=FALSE,
-                         all_results=TRUE,
-                         countryIds=NULL,
+dhs_datasets <- function(countryIds=NULL,
                          selectSurveys=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
@@ -841,7 +838,10 @@ dhs_datasets <- function(client=NULL,
                          f=NULL,
                          returnFields=NULL,
                          perPage=NULL,
-                         page=NULL) {
+                         page=NULL,
+                         client=NULL,
+                         force=FALSE,
+                         all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -911,10 +911,7 @@ dhs_datasets <- function(client=NULL,
 #' }
 
 
-dhs_geometry <- function(client=NULL,
-                         force=FALSE,
-                         all_results=TRUE,
-                         countryIds=NULL,
+dhs_geometry <- function(countryIds=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
                          surveyYearStart=NULL,
@@ -923,7 +920,10 @@ dhs_geometry <- function(client=NULL,
                          f=NULL,
                          returnFields=NULL,
                          perPage=NULL,
-                         page=NULL) {
+                         page=NULL,
+                         client=NULL,
+                         force=FALSE,
+                         all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -997,10 +997,7 @@ dhs_geometry <- function(client=NULL,
 #' dat <- dhs_tags(f="html",all_results=FALSE)
 #' }
 
-dhs_tags <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     countryIds=NULL,
+dhs_tags <- function(countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
                      surveyYear=NULL,
@@ -1010,7 +1007,10 @@ dhs_tags <- function(client=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
@@ -1060,14 +1060,14 @@ dhs_tags <- function(client=NULL,
 #' dat <- dhs_dataUpdates(f="html",all_results=FALSE)
 #' }
 
-dhs_dataUpdates <- function(client=NULL,
-                            force=FALSE,
-                            all_results=TRUE,
-                            lastUpdate=NULL,
+dhs_dataUpdates <- function(lastUpdate=NULL,
                             f=NULL,
                             returnFields=NULL,
                             perPage=NULL,
-                            page=NULL) {
+                            page=NULL,
+                            client=NULL,
+                            force=FALSE,
+                            all_results=TRUE) {
 
   # create query with all provided arguments
   args <- ls()
