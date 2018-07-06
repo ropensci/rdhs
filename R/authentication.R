@@ -302,20 +302,24 @@ download_datasets <- function(desired_dataset,
   # so far only one case of a zip being inside one zip. Maximum nesting
   # so far = 1, but the extra step here puts
   # cataches if it is greater than 1
-  unzipped_files <- unzip_warn_fails(tf, list = TRUE)
+  unzipped_files <- suppressWarnings(unzip(tf, list = TRUE))
   unzip_round <- 1
   while (sum(!is.na(
     grep("\\.zip", unzipped_files$Name, ignore.case = TRUE))) > 0) {
     if (unzip_round == 1) {
-      unzipped_files <- unzip_warn_fails(tf, exdir = tdir1, overwrite = TRUE)
+      unzipped_files <- suppressWarnings(
+        unzip(tf, exdir = tdir1, overwrite = TRUE)
+      )
       unzip_round <- 2
     } else {
-      unzipped_files <- unzip_warn_fails(tf, exdir = tdir2, overwrite = TRUE)
+      unzipped_files <- suppressWarnings(
+        unzip(tf, exdir = tdir2, overwrite = TRUE)
+      )
       unzip_round <- 1
     }
     unzipped <- unzipped_files[grep(desired_dataset$FileName,
                                     unzipped_files, ignore.case = TRUE)]
-    unzipped_files <- unzip_warn_fails(unzipped, list = TRUE)
+    unzipped_files <- suppressWarnings(unzip(unzipped, list = TRUE))
     tf <- unzipped
     if (unzip_round == 1) {
       suppressWarnings(file.remove(list.files(tdir1, full.names = TRUE)))
