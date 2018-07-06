@@ -1,29 +1,19 @@
 #' @noRd
 query_creation <- function(query) {
 
-  # Collapse query list
-  query_param_lengths <- lapply(query, length) %>% unlist()
-
-  # collapse where lengths are greater than 1
-  for (i in which(query_param_lengths > 1)) {
-    query[[i]] <- paste0(query[[i]], collapse = ",")
-  }
+  # Collapse query list where lengths are greater than 1
+  j <- lengths(query) > 1
+  query[j] <- lapply(query[j], paste0, collapse = ",")
 
   # add the api key
   query$apiKey <- "ICLSPH-527168"
 
-  # Return query list
   return(query)
 }
 
 #' @noRd
 handle_api_request <- function(endpoint, query, all_results, client,
                                force=FALSE) {
-
-  # first clear the query list of any not needed query args
-  query$all_results <- NULL
-  query$client <- NULL
-  query$force <- NULL
 
   # create query and set format to json of not specified
   query <- query_creation(query)
@@ -282,4 +272,14 @@ handle_pagination_geojson <- function(endpoint, query, all_results) {
 
   return(parsed_resp)
 
+}
+
+
+## This is something of an ugly hack to convert function arguments
+## into a list appropriate for the api queries.  There are common
+## arguments (in "drop") to api functions that are not actually query
+## parameters
+args_to_query <- function(env, drop = c("client", "force", "all_results")) {
+  ret <- as.list(env)
+  ret[setdiff(names(ret), drop)]
 }
