@@ -1,18 +1,13 @@
 #' @noRd
 query_creation <- function(query) {
 
-  # Collapse query list
-  query_param_lengths <- lapply(query, length) %>% unlist()
-
-  # collapse where lengths are greater than 1
-  for (i in which(query_param_lengths > 1)) {
-    query[[i]] <- paste0(query[[i]], collapse = ",")
-  }
+  # Collapse query list where lengths are greater than 1
+  j <- lengths(query) > 1
+  query[j] <- lapply(query[j], paste0, collapse = ",")
 
   # add the api key
   query$apiKey <- "ICLSPH-527168"
 
-  # Return query list
   return(query)
 }
 
