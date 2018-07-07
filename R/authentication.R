@@ -233,11 +233,12 @@ download_datasets <- function(desired_dataset,
   zip_path <- file.path(dataset_dir, desired_dataset$FileName)
 
   # download our zip and parse the response for any errors
-  message("Downloading: \n", paste(desired_dataset$CountryName,
-                                   desired_dataset$SurveyYear,
-                                   desired_dataset$SurveyType,
-                                   desired_dataset$FileType,
-                                   desired_dataset$FileFormat,
+  message("Downloading: \n", paste0(desired_dataset$CountryName, " ", 
+                                   desired_dataset$SurveyYear, " ",
+                                   desired_dataset$SurveyType, " ",
+                                   desired_dataset$FileType, " ",
+                                   desired_dataset$FileFormat, " ",
+                                   "[", desired_dataset$FileName, "]",
                                    collapse = ", "))
 
   # set up temp file for unpacking bins
