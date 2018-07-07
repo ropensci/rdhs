@@ -262,11 +262,11 @@ dhs_indicators <- function(countryIds=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_uiUpdates(lastUpdate="20150901",all_results=FALSE)
-#' dat <- dhs_uiUpdates(f="html",all_results=FALSE)
+#' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
+#' dat <- dhs_ui_updates(f="html",all_results=FALSE)
 #' }
 
-dhs_uiUpdates <- function(lastUpdate=NULL,
+dhs_ui_updates <- function(lastUpdate=NULL,
                           f=NULL,
                           returnFields=NULL,
                           perPage=NULL,
@@ -601,19 +601,19 @@ dhs_surveys <- function(countryIds=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_surveyCharacteristics(countryIds="EG",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",
+#' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
 #' all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,all_results=FALSE")
-#' dat <- dhs_surveyCharacteristics(surveyYear="2010,all_results=FALSE")
-#' dat <- dhs_surveyCharacteristics(surveyYearStart="2006",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyYearStart="1991",
+#' dat <- dhs_survey_characteristics(surveyIds="SN2010DHS,all_results=FALSE")
+#' dat <- dhs_survey_characteristics(surveyYear="2010,all_results=FALSE")
+#' dat <- dhs_survey_characteristics(surveyYearStart="2006",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(surveyYearStart="1991",
 #' surveyYearEnd="2006",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyType="DHS",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(surveyType="DHS",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(f="html",all_results=FALSE)
 #' }
 
-dhs_surveyCharacteristics <- function(countryIds=NULL,
+dhs_survey_characteristics <- function(countryIds=NULL,
                                       indicatorIds=NULL,
                                       surveyIds=NULL,
                                       surveyYear=NULL,
@@ -1034,11 +1034,11 @@ dhs_tags <- function(countryIds=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_dataUpdates(lastUpdate="20150901",all_results=FALSE)
-#' dat <- dhs_dataUpdates(f="html",all_results=FALSE)
+#' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
+#' dat <- dhs_data_updates(f="html",all_results=FALSE)
 #' }
 
-dhs_dataUpdates <- function(lastUpdate=NULL,
+dhs_data_updates <- function(lastUpdate=NULL,
                             f=NULL,
                             returnFields=NULL,
                             perPage=NULL,

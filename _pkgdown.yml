@@ -10,13 +10,13 @@ reference:
     contents:
       - dhs_countries
       - dhs_data
-      - dhs_dataUpdates
+      - dhs_data_updates
       - dhs_datasets
       - dhs_geometry
       - dhs_indicators
       - dhs_info
       - dhs_publications
-      - dhs_surveyCharacteristics
+      - dhs_survey_characteristics
       - dhs_surveys
       - dhs_tags
       - dhs_uiUpdates
