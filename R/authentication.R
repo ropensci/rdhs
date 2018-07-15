@@ -233,11 +233,12 @@ download_datasets <- function(desired_dataset,
   zip_path <- file.path(dataset_dir, desired_dataset$FileName)
 
   # download our zip and parse the response for any errors
-  message("Downloading: \n", paste(desired_dataset$CountryName,
-                                   desired_dataset$SurveyYear,
-                                   desired_dataset$SurveyType,
-                                   desired_dataset$FileType,
-                                   desired_dataset$FileFormat,
+  message("Downloading: \n", paste0(desired_dataset$CountryName, " ", 
+                                   desired_dataset$SurveyYear, " ",
+                                   desired_dataset$SurveyType, " ",
+                                   desired_dataset$FileType, " ",
+                                   desired_dataset$FileFormat, " ",
+                                   "[", desired_dataset$FileName, "]",
                                    collapse = ", "))
 
   # set up temp file for unpacking bins
@@ -246,9 +247,8 @@ download_datasets <- function(desired_dataset,
   # so they can not be unzipped to the same directory.
   # Thus we bounce unzips between these two dirs.
   tf <- tempfile()
-  tdir1 <- tempfile()
-  tdir2 <- tempfile()
-  on.exit(unlink(c(tf, tdir1, tdir2), recursive = TRUE, force = TRUE))
+  tdir <- tempfile()
+  on.exit(unlink(c(tf, tdir), recursive = TRUE, force = TRUE))
 
   # create a simple while loop on file size check and carry this
   # out three times befoe stopping
@@ -296,36 +296,19 @@ download_datasets <- function(desired_dataset,
   }
 
 
-  # check that the zip doesn't contain nested zips and if does keep
-  # extracting till the correct zip is found
-  # this is slightly ugly but works
-  # so far only one case of a zip being inside one zip. Maximum nesting
-  # so far = 1, but the extra step here puts
-  # cataches if it is greater than 1
-  unzipped_files <- suppressWarnings(unzip(tf, list = TRUE))
-  unzip_round <- 1
-  while (sum(!is.na(
-    grep("\\.zip", unzipped_files$Name, ignore.case = TRUE))) > 0) {
-    if (unzip_round == 1) {
-      unzipped_files <- suppressWarnings(
-        unzip(tf, exdir = tdir1, overwrite = TRUE)
-      )
-      unzip_round <- 2
-    } else {
-      unzipped_files <- suppressWarnings(
-        unzip(tf, exdir = tdir2, overwrite = TRUE)
-      )
-      unzip_round <- 1
-    }
-    unzipped <- unzipped_files[grep(desired_dataset$FileName,
-                                    unzipped_files, ignore.case = TRUE)]
-    unzipped_files <- suppressWarnings(unzip(unzipped, list = TRUE))
-    tf <- unzipped
-    if (unzip_round == 1) {
-      suppressWarnings(file.remove(list.files(tdir1, full.names = TRUE)))
-    } else {
-      suppressWarnings(file.remove(list.files(tdir2, full.names = TRUE)))
-    }
+  ## If the zip contains a nested zip file of the same name as the desired file,
+  ## unzip and replace the file with the nested zip.
+
+  nest_zf <- grep(desired_dataset$FileName,
+                  unzip(tf, list = TRUE)$Name,
+                  ignore.case = TRUE,
+                  value=TRUE)
+  while(length(nest_zf)){
+    tf <- unzip(tf, nest_zf[1], exdir = tdir)
+    nest_zf <- grep(desired_dataset$FileName,
+                    unzip(tf, list = TRUE)$Name,
+                    ignore.case = TRUE,
+                    value=TRUE)
   }
 
   ## DOWNLOAD OPTIONS HANDLING:
