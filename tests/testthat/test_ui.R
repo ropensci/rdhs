@@ -94,16 +94,8 @@ test_that("get_datasets with no temp first", {
 })
 
 test_that("get_model_datasets", {
-  testthat::skip_on_cran()
-
-  Sys.setenv("rdhs_RENVIRON_PERMISSION" = 1)
-
+  skip_if_no_auth()
   rdhs_reset()
-  .rdhs$default_root <- rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
-
-  # set up a package client
-  create_correct_credentials("credentials.txt")
-  on.exit(unlink("credentials.txt"))
 
   dat <- get_datasets(dataset_filenames = "zzar61.zip",
                       download_option = "zip")
