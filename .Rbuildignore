@@ -2,6 +2,9 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.credentials$
+^rdhs.json$
+^rdhs.json\.tar$
+^rdhs.json\.tar\.enc$
 ^credentials$
 ^credentials\.tar$
 ^credentials\.tar\.enc$
@@ -21,3 +24,4 @@
 ^cran-comments.md$
 vignettes_src
 ^paper
+project_one

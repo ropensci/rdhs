@@ -13,7 +13,7 @@ is available so that you can make sure your client fetches any new datasets
 that you have recently been given access to.}
 }
 \value{
-Data.frame object with 14 variables that detail the surveys you can
+A \code{data.frame} with 14 variables that detail the surveys you can
   download, their url download links and the country, survey, year etc info
   for that link.
 }

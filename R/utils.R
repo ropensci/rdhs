@@ -21,6 +21,31 @@ rbind_list_base <- function(x) {
   x2
 }
 
+#' unzip special that catches for 4GB+
+#' @inheritParams utils::unzip
+#'
+unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,
+                          junkpaths = FALSE, exdir = ".", unzip = "internal",
+                          setTimes = FALSE){
+
+  if (file.size(zipfile) > 4e9) {
+    unzip_file <- Sys.which("unzip")
+    if (nzchar(unzip_file)) {
+      #system2("unzip", args=c(zfile, files, paste("-d", exdir)), stdout=FALSE)
+      unzip(zipfile, files, overwrite, junkpaths, exdir,
+             unzip = unzip_file, setTimes)
+    } else {
+      stop (basename(zipfile) ," is too large to unzip and a suitable unzip ",
+            "can not be found on your system." )
+    }
+  } else {
+    unzip(zipfile = zipfile, files = files, overwrite = overwrite,
+          junkpaths = junkpaths, exdir = exdir,
+          unzip = unzip, setTimes = setTimes)
+  }
+
+}
+
 #' collapse API response list
 #' @param x List of lists from API to be collapsed
 collapse_api_responses <- function(x) {
@@ -53,7 +78,7 @@ response_is_json <- function(x) {
 #'
 #' @examples
 #' file_format <- "Stata dataset (.dta)"
-#' identical(rdhs::file_dataset_format(file_format),"dta")
+#' identical(rdhs:::file_dataset_format(file_format),"dta")
 #'
 file_dataset_format <- function(file_format) {
 
@@ -74,14 +99,15 @@ file_dataset_format <- function(file_format) {
 #' @noRd
 client_refresh <- function(cli) {
 
-  cli$set_cache_date(last_api_update() - 1)
+  cli$set_cache_date(last_api_update(30) - 1)
   cli$save_client()
   root <- cli$get_root()
-  if (!is.null(cli$.__enclos_env__$private$credentials_path)) {
-    if (file.exists(cli$.__enclos_env__$private$credentials_path)) {
+  config <- cli$get_config()
+  if (!is.null(cli$.__enclos_env__$private$config$config_path)) {
+    if (file.exists(cli$.__enclos_env__$private$config$config_path)) {
       cli <- client_dhs(
         api_key = "ICLSPH-527168",
-        credentials = cli$.__enclos_env__$private$credentials_path,
+        config = config,
         root = root
       )
     }
@@ -116,9 +142,9 @@ mdy_hms <- function(dates) {
 
   locale_lc_time <- Sys.getlocale("LC_TIME")
   on.exit(Sys.setlocale("LC_TIME", locale_lc_time))
-  
+
   Sys.setlocale("LC_TIME","C")
-  
+
   strptime(dates, format = "%B, %d %Y %H:%M:%S")
 }
 
@@ -164,6 +190,18 @@ is_uppercase <- function(string) {
   !grepl("[a-z]", string, perl = TRUE)
 }
 
+# check if is R temp directory
+#' @noRd
+is_r_tempdir <- function(dir){
+  grepl("(\\\\|/|\\\\\\\\)Rtmp.*(\\\\|/|\\\\\\\\)",dir)
+}
+
+
+assert_null_and_func <- function(x, func){
+  if (!is.null(x)) {
+    func(x)
+  }
+}
 
 assert_scalar_character <- function(x, name = deparse(substitute(x))) {
   if (!(is.character(x) && length(x) == 1L && !is.na(x))) {
@@ -187,7 +225,6 @@ assert_scalar_numeric <- function(x, name = deparse(substitute(x))) {
   }
   invisible(x)
 }
-
 
 is_absolute_path <- function(path) {
   grepl("^(/|[A-Za-z]:[/\\]|//|\\\\\\\\)", path)

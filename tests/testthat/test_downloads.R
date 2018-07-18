@@ -5,16 +5,7 @@ test_that("avaialble surveys and download work", {
   testthat::skip_on_cran()
 
   # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
-
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  cli <- new_rand_client()
 
   # create availbale surveys
   survs <- cli$available_datasets()
@@ -140,7 +131,7 @@ test_that("avaialble surveys and download work", {
   )
   v <- get_variable_labels(readRDS(downloads$AOBR62DT))
 
-  unlink(td)
+  unlink(cli$get_root())
 })
 
 test_that("ETAR71FL.ZIP test", {
@@ -197,17 +188,7 @@ test_that("Geo dataset test", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
-
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  cli <- new_rand_client()
 
   # create availbale surveys
   survs <- cli$available_datasets()
@@ -224,5 +205,21 @@ test_that("Geo dataset test", {
     download_option = "r"
   )
 
-  unlink(td)
+  unlink(cli$get_root())
+})
+
+
+test_that("Large India Files", {
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+
+
+})
+
+
+test_that("Odd nesting India", {
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
 })

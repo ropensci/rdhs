@@ -1,32 +1,41 @@
 #' Pull last DHS API database update time
-last_api_update <- function() {
-
-  if (Sys.getenv("rdhs_TIMEOUT") == "") {
-    Sys.setenv("rdhs_TIMEOUT" = 30)
-  }
+#' @param timeout Numeric for API timeout. Default = 30
+last_api_update <- function(timeout = 30) {
 
   updates <- tryCatch(
     httr::GET(
       "https://api.dhsprogram.com/rest/dhs/dataupdates",
-      httr::timeout(as.numeric(Sys.getenv("rdhs_TIMEOUT")))
+      httr::timeout(as.numeric(timeout))
     ),
     error = function(e) NULL
   )
 
   if (inherits(updates,"response") && updates$status_code == 200) {
+
       updates <- rbind_list_base(handle_api_response(updates)$Data)
       date <- updates$UpdateDate %>%
         mdy_hms() %>%
         max()
 
-  } else {
+  } else if (is.null(updates)) {
 
     date <- -0.5
-    message("The DHS API took longer than ", Sys.getenv("rdhs_TIMEOUT"),
-            " seconds to respond, or it returned an error.\n",
+    message("While rdhs was setting up your cache directory, it noticed \n",
+            "the DHS API took longer than ", timeout, " seconds to respond.\n",
             "As a result some of the functionality of rdhs may not work.\n",
             "To check if the API is down please head to:\n",
-            "https://api.dhsprogram.com/rest/dhs/dataupdates")
+            "https://api.dhsprogram.com/rest/dhs/dataupdates\n")
+
+  } else if (inherits(updates,"response")) {
+
+    date <- 0.5
+    message("While rdhs was setting up your cache directory, it noticed \n",
+            "the DHS API has failed and has returned the following error:")
+    handle_api_response(updates,stop = FALSE)
+    message("\nAs a result some of the functionality of rdhs may not work.\n",
+            "To confirm if the API is down please head to:\n\n   -> ",
+            "https://api.dhsprogram.com/rest/dhs/dataupdates\n")
+
   }
 
   date
@@ -70,10 +79,11 @@ client_cache_date <- function(root) {
 #' @noRd
 client_file_name <- function() "client_dhs.rds"
 
-# renv variable name for the credentials path
+# rappdirs name
 #' @noRd
-renv_cred_path_name <- function() "rdhs_CREDENTIALS_PATH"
+rappdirs_rdhs <- function() rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 
-# renv variable name for the root path
+# file name for config file
 #' @noRd
-renv_root_path_name <- function() "rdhs_ROOT_PATH"
+config_file_name <- function() "rdhs.json"
+

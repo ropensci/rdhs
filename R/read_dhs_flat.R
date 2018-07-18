@@ -21,7 +21,7 @@
 #' dct <- rdhs:::parse_dcf(dcf)
 #'
 #' sps <- rdhs::read_zipdata(mrfl_zip, "\\.SPS", readLines)
-#' dct <- parse_sps(sps)
+#' dct <- rdhs:::parse_sps(sps)
 #'
 #' do <- rdhs::read_zipdata(mrfl_zip, "\\.DO", readLines)
 #' dctin <- rdhs::read_zipdata(mrfl_zip, "\\.DCT", readLines)
@@ -163,7 +163,7 @@ parse_sps <- function(sps, all_lower=TRUE) {
   items <- lapply(itidx, function(idx) vallbl[idx])
 
   pattern <- "^ *((' *[^ ].*?')|([0-9]+)) *(('[^']*')|(\\\"[^\\\"]*\\\")).*"
-  
+
   values <- lapply(items, sub, pattern = pattern, replacement = "\\1")
   values <- lapply(values, sub, pattern = "' *([^ ].*?) *'", replacement = "\\1")
 
@@ -172,7 +172,7 @@ parse_sps <- function(sps, all_lower=TRUE) {
                    sub,
                    pattern = "^['\\\"] *([^ ].*?) *['\\\"]$",
                    replacement = "\\1")
-  
+
   if (all_lower) {
     labels <- lapply(labels, tolower)
   }

@@ -77,13 +77,9 @@ test_that("lower case flat file check", {
   # Create new directory
   td <- file.path(tempdir(), as.integer(Sys.time()))
 
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
-                            credentials = "credentials", root = td)
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  # create
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td,
+                            config = read_rdhs_config_file("rdhs.json"))
 
   dat <- cli$get_datasets("ngcr4afl.zip")
 })

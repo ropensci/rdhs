@@ -24,45 +24,36 @@ handle_api_request <- function(endpoint, query, all_results, client,
   # if no client was provided we'll look for
   # the package environment client by default
   if (is.null(client)) {
-    client <- if (!check_client(.rdhs$client)) NULL else .rdhs$client
+    client <-  check_for_client()
   }
 
-  # if there is no client then make request
-  if (is.null(client)) {
+  # create url for api request
+  url <- httr::modify_url(endpoint, query = query)
+
+  # create a client cache key for this
+  key <- digest::digest(
+    paste0(url, "all_results=", all_results, collapse = "")
+  )
+
+  out <- tryCatch(client$.__enclos_env__$private$storr$get(key, "api_calls"),
+                  KeyError = function(e) NULL
+  )
+
+  # check out agianst cache, if fine return that and if not make request
+  if (!is.null(out) && !force) {
+    resp <- out
+  } else {
 
     # create generic request
     resp <- api_request(endpoint, query, all_results)
 
-  } else {
-
-    # create url for api request
-    url <- httr::modify_url(endpoint, query = query)
-
-    # create a client cache key for this
-    key <- digest::digest(
-      paste0(url, "all_results=", all_results, collapse = "")
-    )
-
-    out <- tryCatch(client$.__enclos_env__$private$storr$get(key, "api_calls"),
-                    KeyError = function(e) NULL
-    )
-
-    # check out agianst cache, if fine return that and if not make request
-    if (!is.null(out) && !force) {
-      resp <- out
-    } else {
-
-      # create generic request
-      resp <- api_request(endpoint, query, all_results)
-
-      ## then cache the resp and return the parsed resp
-      client$.__enclos_env__$private$storr$set(key, resp, "api_calls")
-    }
+    ## then cache the resp and return the parsed resp
+    client$.__enclos_env__$private$storr$set(key, resp, "api_calls")
   }
 
-  # for those (jeff) who want data.table with no package overhead for rdhs
-  if (Sys.getenv("rdhs_DATA_TABLE") == TRUE) {
-    resp <- eval(parse(text = "resp %>% data.table::as.data.table()"))
+  # only apply coversion if the request was json, i.e. we can handle it
+  if (query$f == "json") {
+    resp <-  client$.__enclos_env__$private$config$data_frame(resp)
   }
 
   return(resp)

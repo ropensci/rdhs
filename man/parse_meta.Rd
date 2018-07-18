@@ -44,7 +44,7 @@ dcf <- rdhs::read_zipdata(mrfl_zip, "\\\\.DCF", readLines)
 dct <- rdhs:::parse_dcf(dcf)
 
 sps <- rdhs::read_zipdata(mrfl_zip, "\\\\.SPS", readLines)
-dct <- parse_sps(sps)
+dct <- rdhs:::parse_sps(sps)
 
 do <- rdhs::read_zipdata(mrfl_zip, "\\\\.DO", readLines)
 dctin <- rdhs::read_zipdata(mrfl_zip, "\\\\.DCT", readLines)

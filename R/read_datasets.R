@@ -294,7 +294,7 @@ read_zipdata <- function(zfile, pattern=".dta$",
                    file[1], "'."))
   }
 
-  return(readfn(unzip(zfile, file[1], exdir = tmp), ...))
+  return(readfn(unzip_special(zfile, file[1], exdir = tmp), ...))
 }
 
 

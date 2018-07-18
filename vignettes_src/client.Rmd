@@ -1,5 +1,5 @@
 ---
-title: "Using the rdhs client?"
+title: "rdhs client object and internal package design"
 author: "OJ Watson, Jeff Eaton"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -11,7 +11,7 @@ vignette: >
 
 ## Overview
 
-The following is the exact same vignette as the Introduction vignette - "How to use rdhs?". However, this one achieves the same results using the `rdhs` client object to download datasets etc, rather than using the easier user interfacing functions. This vignette was written before these functions were written and is still included so that people can see how the client object works, which may be useful for anyone adding extra functionality to `rdhs` in the future. 
+The following is a similar vignette - "How to use rdhs?". However, this one achieves the same results using the `rdhs` client object directly to download datasets etc, rather than using the easier user interfacing functions. This vignette is included to help demonstrate how the pacakge internals are working and adds more information about how the package was designed, which may be useful for anyone adding extra functionality to `rdhs` in the future. 
 
 If are not bothered by this then please read the main introductory vignette. 
 
@@ -45,7 +45,7 @@ The DHS API has many *endpoints* that can be accessed using anyone of `dhs_<endp
 
 One of those endpoints, `dhs_data()`, interacts with the the published set of standard health indicator data calculated by the DHS. This endpoint allows use to retrieve a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the `dhs_data()` endpoint, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
 
-```{r inddata}
+```{r inddata, message = FALSE}
 ## what are the indicators
 indicators <- dhs_indicators()
 indicators[1,]
@@ -53,13 +53,13 @@ indicators[1,]
 ```
 
 
-Each call to a DHS endpoint returns a `data.frame` by default with all the results available by default. If you wish to return a `data.table` then you can change the default behaviour by setting the following system environment variable using `Sys.setenv("rdhs_DATA_TABLE" = TRUE)`. 
+Each call to a DHS endpoint returns a `data.frame` by default with all the results available by default. 
 
 The DHS has a unique *IndicatorId* for each of the statistics it calculates. The definition and specific string for each indicator is included within the *IndicatorId* and *Definition* variable:
 
 ```{r inddata defs}
 # grab the first 5 alphabetically
-dplyr::group_by(indicators,IndicatorId) %>% dplyr::summarise(Definition = Definition) %>% head(5)
+indicators[order(indicators$IndicatorId),][1:5,c("IndicatorId", "Definition")]
 
 ```
 
@@ -124,7 +124,7 @@ To start our extraction we'll query the *surveyCharacteristics* endpoint using `
 
 ```{r sc}
 ## make a call with no arguments
-sc <- dhs_surveyCharacteristics()
+sc <- dhs_survey_characteristics()
 sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 ```
@@ -153,38 +153,25 @@ We can now use this to download our datasets for further analysis.
 
 We can now go ahead and download our datasets. To do this we need to first create a `client`. The client is an R6 class (similar to R's built in reference classes and make caching survey and API queries more reproducible) and will be used to log in to your DHS account, download datasets for you, and help query those datasets for the question you are interested in. The client will also cache all of these processes, which really helps increase the reproducibility of your analysis. 
 
-To create our client we use the `client_dhs()` function and you *need to specify your log in credentials for the DHS website*. This is best provided, for security reasons, by giving a path to a file that contains your email, password and project title that you used when setting up your account with the DHS website. This should take the form of a file that contains 3 lines, something like this:
+In order to set up our credentials we use the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. 
 
-* email=<dummy\@gmail.com>
-* password=<dummypass>
-* project=<Dummy Project>
+You can also specify a directory for datasets and API calls to be cached to using `cache_path`. If you do not provide an argument for `cache_path` you will be prompted to provide permission to `rdhs` to save your datasets and API calls within your user cache directory for your operating system. This is to comply with CRAN's requests for permission to be granted before writing to system files. If you do not grant permission, these will be written within your R temporary directory (as we saw above when we first used one of the functions to query the API). Similarly if you do not also provide an argument for `config_path`, this will be saved within your temp directory unless permission is granted. Your config files will always be called "rdhs.json", so that `rdhs` can find them easily.
 
-For example, create a file on your desktop called "credentials.txt". In this file type your email, password and project as described above, remembering to use a new line for each, and save the file. Then you would use `client_dhs(credentials="C:/Users/A/Desktop/credentials.txt")` to create your client.  
-
-It also takes an argument for its `root`, which is the directory path where the client and associated caches will be stored. If left bank, a suitable directory will be created within your user cache directory for your operating system.
-
-```{r client}
+```{r client, R.options=list("rappdir_permission"=TRUE), message = FALSE}
 ## create a client
-client <- client_dhs(credentials = "credentials")
+## set up your credentials
+config <- set_rdhs_config(email = "rdhs.tester@gmail.com",
+                project = "Testing Malaria Investigations")
+
+client <- client_dhs(config)
 client
 
 ```
 
 
-Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests:
+Before we use our client to download our datasets, it is worth mentioning that the client can be passed as an argument to any of the API functions we have just seen. This will then cache the results for you, so that if you are working remotely or without a good internet connection you can still return your previous API requests. This is what is happening behind the scenes anyway, as `rdhs` will create a client for you when you call an API function (if one does not already exist).
 
-```{r client_api_cache}
-# before it's cached we provide the client so the results is cached within our client
-s <- dhs_surveys(client = client)
-
-# with it cached it will be returned much quicker with the client argument
-microbenchmark::microbenchmark(dhs_surveys(client = client), times = 1)
-
-# without it cached again for comparison
-microbenchmark::microbenchmark(dhs_surveys(),times = 1)
-
-```
-
+---
 
 Now back to our dataset downloads. If we have a look back at our datasets object, we'll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the [DHS Recodes](https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm), and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we'll demonstrate here as it also demonstrates more of the package's functionality:
 
@@ -195,8 +182,7 @@ So first we will download all these datasets:
 downloads <- client$get_datasets(datasets$FileName)
 ```
 
-The function returns a list with a file path to where the downloaded datasets have been saved to.  By default the files will download quietly, i.e. no progress is shown. However, if you want to see the progress then set `Sys.setenv("rdhs_LOUD_DOWNLOAD" = TRUE)`.
-
+The function returns a list with a file path to where the downloaded datasets have been saved to. By default the files will download quietly, i.e. no progress is shown. However, if you want to see the progress then you can control this by setting this in your config using the `verbose_download` argument.
 
 ## 4. Load datasets and associated metadata into R.
 
@@ -384,7 +370,7 @@ api <- api[order(apply(api[,4:3],1,paste,collapse="")),]
 comparison <- cbind(results[,c(1,3,7)],api[])
 names(comparison) <- c("Region","Survey_RDT_Prev","Survey_RDT_Denom","API_RDT_Prev","API_RDT_Denom","API_Regions","SurveyID")
 
-head(comparison[,c(1,2,4,3,5,6,7)])
+head(comparison[,c(1,2,4,3,5,7)])
 ```
 
 

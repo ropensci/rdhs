@@ -1,5 +1,5 @@
 #' @noRd
-handle_api_response <- function(res, to_json = TRUE) {
+handle_api_response <- function(res, to_json = TRUE, stop = TRUE) {
   code <- httr::status_code(res)
   if (code >= 400 && code < 600) {
     if (response_is_json(res)) {
@@ -9,7 +9,11 @@ handle_api_response <- function(res, to_json = TRUE) {
       errors <- NULL
       text <- trimws(httr::content(res, "text", encoding = "UTF-8"))
     }
-    stop ((handle_api_error(code, text, errors)))
+    if (stop) {
+      stop ((handle_api_error(code, text, errors)))
+    } else {
+      return(message((handle_api_error(code, text, errors))))
+    }
   }
   if (to_json) {
     res <- response_to_json(res)
@@ -19,6 +23,7 @@ handle_api_response <- function(res, to_json = TRUE) {
 
 #' @noRd
 handle_api_error <- function(code, text, errors) {
+
   if (!nzchar(text)) {
     text <- httr::http_status(code)$message
   }
@@ -38,6 +43,8 @@ handle_api_error <- function(code, text, errors) {
     "dhs_unknown_error"
   )
 
-  err <- (paste0("DHS API Request Failed [", code, "] Error Type: ", type))
+  err <- (paste0("\n   -> DHS API Request Failed [", code, "]",
+                 " \n   -> Error Type: ", type)
+          )
   err
 }

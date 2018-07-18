@@ -158,7 +158,7 @@
 ##'   Returns information about a dataset's survey variables and definitions.
 ##'
 ##'   \emph{Usage:}
-##'   \code{get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL)}
+##'   \code{get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)}
 ##'
 ##'   \emph{Arguments:}
 ##'   \itemize{
@@ -166,6 +166,9 @@
 ##'     }
 ##'
 ##'     \item{\code{dataset_paths}:   Vector of dataset file paths to where datasets have been saved to
+##'     }
+##'
+##'     \item{\code{rm_na}:   Should variables and labels with NAs be removed. Default = FALSE
 ##'     }
 ##'   }
 ##'
@@ -189,6 +192,15 @@
 ##'
 ##'   \emph{Value}:
 ##'   Character string file path
+##' }
+##' \item{\code{get_config}}{
+##'   Returns the client's configuration
+##'
+##'   \emph{Usage:}
+##'   \code{get_config()}
+##'
+##'   \emph{Value}:
+##'   Config data.frame
 ##' }
 ##' \item{\code{get_downloaded_datasets}}{
 ##'   Returns a named list of all downloaded datasets and their file paths

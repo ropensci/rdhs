@@ -5,8 +5,7 @@
 \title{Get Datasets}
 \usage{
 get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
-  all_lower = TRUE, output_dir_root = file.path(.rdhs$client$get_root(),
-  "datasets"), clear_cache = FALSE, ...)
+  all_lower = TRUE, output_dir_root = NULL, clear_cache = FALSE, ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be

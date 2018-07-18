@@ -37,12 +37,14 @@ These indicators can be accessed directly from R via the DHS API with the functi
 
 Query the API for a list of all StatCompiler indicators, and then search the indicators for those
 that have `"anemia"` in the indicator name. API calls return `data.frame` objects, so if you prefer
-to use `data.table` objects then convert afterwards
+to use `data.table` objects then convert afterwards, or we can set this up within our config using
+`set_rdhs_config`.
 
-```{r }
+```{r, R.options=list("rappdir_permission"=TRUE) , message = FALSE}
 library(rdhs)
+set_rdhs_config(data_frame = "data.table::as.data.table")
 
-indicators <- as.data.table(dhs_indicators())
+indicators <- dhs_indicators()
 tail(indicators[grepl("anemia", Label), .(IndicatorId, ShortName, Label)])
 ```
 
@@ -52,7 +54,7 @@ for our three countries of interest. First, use `dhs_countries()` to query the
 list of DHS countries to identify the DHS country code for each country.
 
 ```{r }
-countries <- as.data.table(dhs_countries())
+countries <- dhs_countries()
 dhscc <- countries[CountryName %in% c("Armenia", "Cambodia", "Lesotho"), DHS_CountryCode]
 dhscc
 ```
@@ -60,7 +62,7 @@ dhscc
 Now query the indicators dataset for the women with any anemia indicator for these three countries.
 
 ```{r ,fig.height=2.5, fig.width=4, fig.align="center"}
-statcomp <- as.data.table(dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc))
+statcomp <- dhs_data(indicatorIds = "AN_ANEM_W_ANY", countryIds = dhscc)
 statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]
 
 ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
@@ -78,7 +80,7 @@ for the full list of survey characteristics, and the second uses `grepl()` to se
 `SurveyCharacteristicName`s that include the word 'anemia'.
 
 ```{r }
-surveychar <- as.data.table(dhs_surveyCharacteristics())
+surveychar <- dhs_survey_characteristics()
 surveychar[grepl("anemia", SurveyCharacteristicName, ignore.case=TRUE)]
 ```
 
@@ -87,36 +89,27 @@ query the API to identify the surveys that have this characteristic and were con
 in our countries of interest.
 
 ```{r }
-surveys <- as.data.table(dhs_surveys(surveyCharacteristicIds = 41, countryIds = dhscc))
+surveys <- dhs_surveys(surveyCharacteristicIds = 41, countryIds = dhscc)
 surveys[,.(SurveyId, CountryName, SurveyYear, NumberOfWomen, SurveyNum, FieldworkEnd)]
 ```
 
 Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys
 
 ```{r }
-datasets <- as.data.table(dhs_datasets(surveyIds = surveys$SurveyId, fileType = "IR", fileFormat="flat"))
+datasets <- dhs_datasets(surveyIds = surveys$SurveyId, fileType = "IR", fileFormat="flat")
 datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 ```
 
 ## Download datasets
 
-To get datasets, we set up our log in credentials by providing the file path to a text file where our credentials are saved. `rdhs` will then create a cache in a specified location to save downloaded datasets and metadata. Credentials should be stored in a text file with three lines:
+To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
 
-```
-email=dummy@gmail.com
-password=dummypass
-project=Dummy Project Name
-```
+```{r , R.options=list("rappdir_permission"=TRUE) }
 
-The file path to to this credentials file and the desired location for the cache are passed to the `set_dhs_credentials()` function: 
+## set up your credentials
+set_rdhs_config(email = "jeffrey.eaton@imperial.ac.uk",
+                project = "Joint estimation of HIV epidemic trends and adult mortality")
 
-```{r }
-
-# we will give our permission here so that we don't have to provide a prompt within the README.
-Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
-
-set_dhs_credentials(credentials = "credentials_file",
-                     root = file.path(path.expand('~'),'rdhs_cache'))
 ```
 
 After this the function `get_datasets()` returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, `rdhs` will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository. 
