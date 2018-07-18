@@ -4,7 +4,10 @@
 \alias{last_api_update}
 \title{Pull last DHS API database update time}
 \usage{
-last_api_update()
+last_api_update(timeout = 30)
+}
+\arguments{
+\item{timeout}{Numeric for API timeout. Default = 30}
 }
 \description{
 Pull last DHS API database update time

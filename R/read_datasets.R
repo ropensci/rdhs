@@ -13,7 +13,7 @@ read_dhs_dataset <- function(file, dataset,
                              reformat = FALSE, all_lower = TRUE, ...) {
 
   # open the zip and grab the file endings
-  zip_contents <- unzip_warn_fails(file, list = TRUE)
+  zip_contents <- suppressWarnings(unzip(file, list = TRUE))
   filetype <- strsplit(zip_contents$Name, ".", fixed = TRUE) %>%
     lapply(function(x) tail(x, 1)) %>%
     unlist()
@@ -77,7 +77,7 @@ read_dhs_dataset <- function(file, dataset,
 
     # dbf is a bit different due to the arguments of readOGR
     # so we have to unzip here and handle
-    unzipped_files <- unzip_warn_fails(file, exdir = tempfile())
+    unzipped_files <- suppressWarnings(unzip(file, exdir = tempfile()))
     file <- unzipped_files[which(toupper(filetype) %in% toupper(file_types))]
     res <- list(
       "dataset" = rgdal::readOGR(dsn = dirname(file),
@@ -256,7 +256,7 @@ data_and_labels <- function(dataset) {
       )
     }
   }
-  variable_names <- get_var_labels(dataset)
+  variable_names <- get_variable_labels(dataset)
   res <- list("dataset" = dataset, "variable_names" = variable_names)
   return(res)
 }
@@ -294,7 +294,7 @@ read_zipdata <- function(zfile, pattern=".dta$",
                    file[1], "'."))
   }
 
-  return(readfn(unzip(zfile, file[1], exdir = tmp), ...))
+  return(readfn(unzip_special(zfile, file[1], exdir = tmp), ...))
 }
 
 

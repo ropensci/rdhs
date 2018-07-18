@@ -4,23 +4,14 @@
 \alias{client_dhs}
 \title{Make a dhs client}
 \usage{
-client_dhs(credentials = NULL, root = rappdirs::user_cache_dir("rdhs",
-  Sys.info()["user"]), api_key = "ICLSPH-527168")
+client_dhs(config = NULL, root = rappdirs_rdhs(),
+  api_key = "ICLSPH-527168")
 }
 \arguments{
-\item{credentials}{File path to where log in credentials are stored
-(preferred as no
-secrets are typed into an R session). File format should be (each bullet
-is a new line):
-\itemize{
-    \item email=dummy@gmail.com
-    \item password=dummypass
-    \item project=Dummy Project
-    }}
+\item{config}{config object, as created using \code{read_rdhs_config}}
 
 \item{root}{Character for root directory to where client, caches,
-surveys etc. will be stored.
-Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}}
+surveys etc. will be stored. Default = \code{rappdirs_rdhs()}}
 
 \item{api_key}{Character for DHS API KEY}
 }
@@ -184,11 +175,11 @@ Make a DHS API client
     }
   }
 }
-\item{\code{get_var_labels}}{
+\item{\code{get_variable_labels}}{
   Returns information about a dataset's survey variables and definitions.
 
   \emph{Usage:}
-  \code{get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)}
+  \code{get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)}
 
   \emph{Arguments:}
   \itemize{
@@ -196,6 +187,9 @@ Make a DHS API client
     }
 
     \item{\code{dataset_paths}:   Vector of dataset file paths to where datasets have been saved to
+    }
+
+    \item{\code{rm_na}:   Should variables and labels with NAs be removed. Default = FALSE
     }
   }
 
@@ -219,6 +213,15 @@ Make a DHS API client
 
   \emph{Value}:
   Character string file path
+}
+\item{\code{get_config}}{
+  Returns the client's configuration
+
+  \emph{Usage:}
+  \code{get_config()}
+
+  \emph{Value}:
+  Config data.frame
 }
 \item{\code{get_downloaded_datasets}}{
   Returns a named list of all downloaded datasets and their file paths

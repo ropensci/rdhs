@@ -1,13 +1,64 @@
-# check to see if the package client exists
+# check for the client and create if needed
 #' @noRd
 check_for_client <- function() {
 
+  # have we done setup before
   if (is.null(.rdhs$client)) {
-    stop("Please set up your DHS credentials first using set_dhs_credentials()")
+    client <- rdhs_setup()
+    if (is_r_tempdir(client$get_root())) {
+      rdhs_setup_message(
+        verbose = client$get_config()$verbose_setup,
+        "You have not granted permision to rdhs to write outside of \n",
+        "your temporary directory. As a result any datasets or API  \n",
+        "calls will not be saved after you close this R sessiton. \n",
+        "To cache your results please use set_rdhs_config()"
+      )
+    } else {
+      rdhs_setup_message(
+        verbose = client$get_config()$verbose_setup,
+        "Your datasets and API calls will be cached here: \n",
+        "   -> ", client$get_root(),"\n",
+        "Your datasets will be downloaded using the following config:\n"
+        )
+      print_rdhs_config(client$get_config())
+    }
+  } else {
+    client <- .rdhs$client
   }
 
-  return(invisible(TRUE))
+  return(invisible(client))
+
 }
+
+#' @noRd
+rdhs_package_client_exists <- function() {
+  is.null(.rdhs$client)
+}
+
+#' Get rdhs config
+#'
+#' Gets the rdhs config being used
+#'
+#' @rdname get_rdhs_config
+#'
+#' @details Returns the config being used by rdhs at the moment. This will
+#'   either be a `data.frame` with class `rdhs_config` or will be NULL if
+#'   this has not been set up yet
+#'
+#' @return A \code{data.frame} containing your rdhs config
+#' @export
+#'
+
+get_rdhs_config <- function() {
+
+  client <- .rdhs$client
+  if (is.null(client)) {
+    return(NULL)
+  } else {
+    return(client$get_config())
+  }
+}
+
 
 #' Get Datasets
 #'
@@ -58,19 +109,21 @@ get_datasets <- function(dataset_filenames,
                          download_option="rds",
                          reformat=FALSE,
                          all_lower=TRUE,
-                         output_dir_root=file.path(.rdhs$client$get_root(),
-                                                   "datasets"),
+                         output_dir_root=NULL,
                          clear_cache=FALSE,
                          ...) {
 
-  check_for_client()
-  .rdhs$client$get_datasets(dataset_filenames,
-                            download_option = download_option,
-                            reformat = reformat,
-                            all_lower = all_lower,
-                            output_dir_root = output_dir_root,
-                            clear_cache = clear_cache,
-                            ...
+  client <- check_for_client()
+  if (is.null(output_dir_root)) {
+    output_dir_root <- file.path(client$get_root(),"datasets")
+  }
+  client$get_datasets(dataset_filenames,
+                      download_option = download_option,
+                      reformat = reformat,
+                      all_lower = all_lower,
+                      output_dir_root = output_dir_root,
+                      clear_cache = clear_cache,
+                      ...
   )
 }
 
@@ -86,16 +139,15 @@ get_datasets <- function(dataset_filenames,
 #'   an interent connection and wish to know which saved
 #'   dataset files in your root diretory correspond to which dataset
 #'
-#' @return Data.frame of downlaoded datasets
+#' @return A \code{data.frame} of downlaoded datasets
 #' @export
 #'
 
 get_downloaded_datasets <- function() {
 
-  check_for_client()
-  .rdhs$client$get_downloaded_datasets()
+  client <- check_for_client()
+  client$get_downloaded_datasets()
 }
-
 
 #' Get Available Datasets
 #'
@@ -115,7 +167,7 @@ get_downloaded_datasets <- function() {
 #'   cached available datasets first. The default is set to FALSE. This option
 #'   is available so that you can make sure your client fetches any new datasets
 #'   that you have recently been given access to.
-#' @return Data.frame object with 14 variables that detail the surveys you can
+#' @return A \code{data.frame} with 14 variables that detail the surveys you can
 #'   download, their url download links and the country, survey, year etc info
 #'   for that link.
 #' @export
@@ -123,8 +175,8 @@ get_downloaded_datasets <- function() {
 
 get_available_datasets <- function(clear_cache = FALSE) {
 
-  check_for_client()
-  .rdhs$client$available_datasets(clear_cache)
+  client <- check_for_client()
+  client$available_datasets(clear_cache)
 }
 
 #' Extract Data
@@ -141,13 +193,15 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #' @param questions Questions to be queried, in the format from
 #'   \code{\link{search_variables}} or \code{\link{search_variable_labels}}
 #' @param add_geo Add geograpic information to the extract. Defaut = `TRUE`
+#'
+#' @return A \code{list} of `data.frames` for each survey data extracted.
 #' @export
 #'
 
 extract_dhs <- function(questions, add_geo=FALSE) {
 
-  check_for_client()
-  .rdhs$client$extract(questions, add_geo = add_geo)
+  client <- check_for_client()
+  client$extract(questions, add_geo = add_geo)
 }
 
 #' Search Survey Variables
@@ -172,8 +226,8 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #' @param ... Any other arguments to be passed to
 #'   \code{\link{download_datasets}}
 #'
-#' @return Data frame of the surveys where matches were found and then all
-#'   the resultant codes and descriptions.
+#' @return A \code{data.frame} of the surveys where matches were
+#' found and then all the resultant codes and descriptions.
 #' @export
 #'
 
@@ -182,11 +236,11 @@ search_variables <- function(dataset_filenames,
                              essential_variables = NULL,
                              ...) {
 
-  check_for_client()
-  .rdhs$client$survey_variables(dataset_filenames = dataset_filenames,
-                                variables = variables,
-                                essential_variables = essential_variables,
-                                ...)
+  client <- check_for_client()
+  client$survey_variables(dataset_filenames = dataset_filenames,
+                          variables = variables,
+                          essential_variables = essential_variables,
+                          ...)
 }
 
 #' Search Survey Variable Definitions
@@ -219,8 +273,8 @@ search_variables <- function(dataset_filenames,
 #' @param ... Any other arguments to be passed to
 #'   \code{\link{download_datasets}}
 #'
-#' @return Data frame of the surveys where matches were found and then all
-#'   the resultant codes and descriptions.
+#' @return A \code{data.frame} of the surveys where matches were found
+#'   and then all the resultant codes and descriptions.
 #' @export
 #'
 
@@ -229,19 +283,19 @@ search_variable_labels <- function(dataset_filenames,
                                    essential_terms = NULL,
                                    regex = NULL,
                                    ...) {
-  check_for_client()
-  .rdhs$client$survey_questions(dataset_filenames,
-                                search_terms = search_terms,
-                                essential_terms = essential_terms,
-                                regex = regex,
-                                ...)
+  client <- check_for_client()
+  client$survey_questions(dataset_filenames,
+                          search_terms = search_terms,
+                          essential_terms = essential_terms,
+                          regex = regex,
+                          ...)
 }
 
 #' Get Survey Variable Labels
 #'
 #' Return variable labels from a dataset
 #'
-#' @rdname get_var_labels
+#' @rdname get_variable_labels
 #'
 #' @details Returns variable names and their labels from a dataset.
 #'   You can pass for the `data` argument any of
@@ -263,22 +317,24 @@ search_variable_labels <- function(dataset_filenames,
 #'   or only those with labels.
 #'
 #' @return A \code{data.frame} consisting of the variable name and labels.
-#'
 #' @export
-get_var_labels <- function(dataset, return_all=TRUE) {
+
+get_variable_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a data.frame then we try to read the labels from that
   if (is.data.frame(dataset)) {
     res <- get_labels_from_dataset(dataset, return_all)
   } else if (is.character(dataset)) {
 
+    client <- check_for_client()
+
     # if the file exists we'll pass them through as dataset_paths,
     # otherise as filenames
     if (any(file.exists(dataset))) {
       paths <- dataset[file.exists(dataset)]
-      res <- .rdhs$client$get_var_labels(dataset_paths = paths)
+      res <- client$get_variable_labels(dataset_paths = paths)
     } else {
-      res <- .rdhs$client$get_var_labels(dataset_filenames = dataset)
+      res <- client$get_variable_labels(dataset_filenames = dataset)
     }
   } else if (class(dataset)[1] == "SpatialPointsDataFrame") {
     stop(

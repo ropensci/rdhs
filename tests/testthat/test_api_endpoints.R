@@ -1,5 +1,5 @@
 ## TESTING LOGIC:
-# test most the examples in the endpoints but combine the larger results into fewer
+# test most the examples in the endpoints but combine the larger results to few
 # test the specific nuances with passing the format and client caches
 
 context("API endpoints")
@@ -9,21 +9,12 @@ test_that("format catches and al_results tests", {
   testthat::skip_on_cran()
 
   # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
+  cli <- new_rand_client()
 
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
-
-  dat <- dhs_dataUpdates(
+  dat <- dhs_data_updates(
     client = cli, lastUpdate = "20150901", all_results = FALSE
   )
-  dat2 <- dhs_dataUpdates(
+  dat2 <- dhs_data_updates(
     client = cli, lastUpdate = "20150901", all_results = FALSE
   )
   expect_identical(dat, dat2)
@@ -51,7 +42,7 @@ test_that("format catches and al_results tests", {
   datasets <- dhs_datasets()
 
   # test for data.table extension
-  Sys.setenv("rdhs_DATA_TABLE" = TRUE)
+  set_rdhs_config(data_frame = "data.table::as.data.table",prompt = FALSE)
   library(data.table)
   dat <- dhs_countries(
     countryIds = "TZ", surveyYearStart = "2010", all_results = FALSE
@@ -62,6 +53,8 @@ test_that("format catches and al_results tests", {
 })
 
 test_that("geojson works", {
+  testthat::skip_on_cran()
+  testthat::skip_on_travis()
 
 # one that has to paginate
   d <- dhs_data(countryIds = "SN",
@@ -136,9 +129,9 @@ test_that("dhs_data works", {
 test_that("dhs_dataUpdates works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_dataUpdates(lastUpdate = "20150901", all_results = FALSE)
+  dat <- dhs_data_updates(lastUpdate = "20150901", all_results = FALSE)
   expect_true(any(dat$SurveyId %in% "TL2016DHS"))
-  dat <- dhs_dataUpdates(f = "html", all_results = FALSE)
+  dat <- dhs_data_updates(f = "html", all_results = FALSE)
   expect_true(class(dat) == "response")
 })
 
@@ -204,10 +197,10 @@ test_that("dhs_publications works", {
   expect_true(any(dat$PublicationTitle %in% "Final Report"))
 })
 
-test_that("dhs_surveyCharacteristics works", {
+test_that("dhs_survey_characteristics works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_surveyCharacteristics(
+  dat <- dhs_survey_characteristics(
     countryIds = "EG",
     surveyYearStart = 2000, surveyYearEnd = 2016,
     surveyType = "DHS", all_results = FALSE
@@ -215,7 +208,7 @@ test_that("dhs_surveyCharacteristics works", {
   alc <- which(dat$SurveyCharacteristicID == 16)
   expect_equal(dat$SurveyCharacteristicID[alc], 16)
   expect_equal(dat$SurveyCharacteristicName[alc], "Abortion")
-  dat <- dhs_surveyCharacteristics(surveyYearStart = "1991", surveyType = "DHS")
+  dat <- dhs_survey_characteristics(surveyYearStart = "1991", surveyType = "DHS")
   expect_true(any(dat$SurveyCharacteristicName %in% "Abortion"))
 })
 
@@ -245,6 +238,6 @@ test_that("dhs_tags works", {
 test_that("dhs_uiUpdates works", {
   testthat::skip_on_cran()
 
-  dat <- dhs_uiUpdates(lastUpdate = "20150901", all_results = FALSE)
+  dat <- dhs_ui_updates(lastUpdate = "20150901", all_results = FALSE)
   expect_true(any(dat$Interface %in% "Surveys"))
 })

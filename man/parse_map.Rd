@@ -33,7 +33,7 @@ paste0(
 mrdt_zip, mode="wb"
 )
 
-map <- rdhs:::read_zipdata(mrdt_zip, "\\\\.MAP", readLines)
+map <- rdhs::read_zipdata(mrdt_zip, "\\\\.MAP", readLines)
 dct <- rdhs:::parse_map(map)
 
 }

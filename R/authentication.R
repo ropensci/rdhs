@@ -233,11 +233,12 @@ download_datasets <- function(desired_dataset,
   zip_path <- file.path(dataset_dir, desired_dataset$FileName)
 
   # download our zip and parse the response for any errors
-  message("Downloading: \n", paste(desired_dataset$CountryName,
-                                   desired_dataset$SurveyYear,
-                                   desired_dataset$SurveyType,
-                                   desired_dataset$FileType,
-                                   desired_dataset$FileFormat,
+  message("Downloading: \n", paste0(desired_dataset$CountryName, " ",
+                                   desired_dataset$SurveyYear, " ",
+                                   desired_dataset$SurveyType, " ",
+                                   desired_dataset$FileType, " ",
+                                   desired_dataset$FileFormat, " ",
+                                   "[", desired_dataset$FileName, "]",
                                    collapse = ", "))
 
   # set up temp file for unpacking bins
@@ -246,9 +247,8 @@ download_datasets <- function(desired_dataset,
   # so they can not be unzipped to the same directory.
   # Thus we bounce unzips between these two dirs.
   tf <- tempfile()
-  tdir1 <- tempfile()
-  tdir2 <- tempfile()
-  on.exit(unlink(c(tf, tdir1, tdir2), recursive = TRUE, force = TRUE))
+  tdir <- tempfile()
+  on.exit(unlink(c(tf, tdir), recursive = TRUE, force = TRUE))
 
   # create a simple while loop on file size check and carry this
   # out three times befoe stopping
@@ -296,32 +296,19 @@ download_datasets <- function(desired_dataset,
   }
 
 
-  # check that the zip doesn't contain nested zips and if does keep
-  # extracting till the correct zip is found
-  # this is slightly ugly but works
-  # so far only one case of a zip being inside one zip. Maximum nesting
-  # so far = 1, but the extra step here puts
-  # cataches if it is greater than 1
-  unzipped_files <- unzip_warn_fails(tf, list = TRUE)
-  unzip_round <- 1
-  while (sum(!is.na(
-    grep("\\.zip", unzipped_files$Name, ignore.case = TRUE))) > 0) {
-    if (unzip_round == 1) {
-      unzipped_files <- unzip_warn_fails(tf, exdir = tdir1, overwrite = TRUE)
-      unzip_round <- 2
-    } else {
-      unzipped_files <- unzip_warn_fails(tf, exdir = tdir2, overwrite = TRUE)
-      unzip_round <- 1
-    }
-    unzipped <- unzipped_files[grep(desired_dataset$FileName,
-                                    unzipped_files, ignore.case = TRUE)]
-    unzipped_files <- unzip_warn_fails(unzipped, list = TRUE)
-    tf <- unzipped
-    if (unzip_round == 1) {
-      suppressWarnings(file.remove(list.files(tdir1, full.names = TRUE)))
-    } else {
-      suppressWarnings(file.remove(list.files(tdir2, full.names = TRUE)))
-    }
+  ## If the zip contains a nested zip file of the same name as the desired file,
+  ## unzip and replace the file with the nested zip.
+
+  nest_zf <- grep(desired_dataset$FileName,
+                  unzip(tf, list = TRUE)$Name,
+                  ignore.case = TRUE,
+                  value=TRUE)
+  while(length(nest_zf)){
+    tf <- unzip(tf, nest_zf[1], exdir = tdir)
+    nest_zf <- grep(desired_dataset$FileName,
+                    unzip(tf, list = TRUE)$Name,
+                    ignore.case = TRUE,
+                    value=TRUE)
   }
 
   ## DOWNLOAD OPTIONS HANDLING:
@@ -467,28 +454,27 @@ authenticate_dhs <- function(your_email, your_password, your_project) {
 
       # if they have more than one project that is similar
       # then have they encoutnereed this before:
-      pl <- Sys.getenv("rdhs_PROJECT_CHOICE")
+      pl <- config$project_choice
 
       # if nothing is set then ask them which one:
-      if (pl == "") {
+      if (is.null(pl)) {
 
         # get the names of the projects
-        projs <- qdapRegex::ex_between(project_lines, ">", "<") %>% unlist()
-
+        projs <- unlist(qdapRegex::ex_between(project_lines, ">", "<"))
+        nums <- unlist(qdapRegex::ex_between(project_lines, "value=\"", "\">"))
+        nums <- as.numeric(nums)
+        oldest <- sort.int(nums,index.return = TRUE)$ix
         # prompt for an option until they give is a good one
         valid_prompt <- FALSE
         while (!valid_prompt) {
           pl <- readline(
             prompt = cat(
-              "You have multiple projects that have similar names.",
-              "Which one did you want to use?",
-              "(enter the correct number for your project)\n",
-              paste(seq_len(length(project_lines)), projs, sep = ": "),
+              "You have multiple projects that have similar names. Which one",
+              "did you want to use? The oldest project is number 1.",
+              "(Enter the correct number for your project)\n",
+              paste(seq_len(length(project_lines)), projs[oldest], sep = ": "),
               "\nYour choice will be remembered within this R session,",
               "but will need to be entered each time you load a new R session.",
-              "To set it permanently, use the following command:",
-              "   -> rdhs:::set_renviron(\"rdhs_PROJECT_CHOICE\",n)",
-              "where n is the number of the project chosen",
               sep = "\n"
             )) %>% as.integer()
 
@@ -498,13 +484,16 @@ authenticate_dhs <- function(your_email, your_password, your_project) {
         }
 
         # set the option for the future
-        Sys.setenv("rdhs_PROJECT_CHOICE" = pl)
+        pl <- as.numeric(pl)
+        config$project_choice <- nums[oldest][pl]
+        write_rdhs_config_file(config, config$cred_path)
+
       }
-      project_lines <- project_lines[as.numeric(pl)]
+      project_lines <- project_lines[oldest[pl]]
     } else {
       stop(
         "Your log in credentials were not recognised by the DHS website.\n",
-        "Please check the format of your credentials argument (?client_dhs), ",
+        "Please check your credentials are right (?get_rdhs_config), ",
         "and your internet connection for possible error."
       )
     }

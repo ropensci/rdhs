@@ -47,14 +47,13 @@ library(rdhs)
 
 * An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
 
-
 ## Basic Functionality
 
 ### Query the [DHS API](https://api.dhsprogram.com/).
 
 Obtain survey esimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).
 
-```{r }
+```{r api, message = FALSE}
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
 dhs_data(countryIds = c("CD","TZ"), indicatorIds = "ML_PMAL_C_RDT", surveyYearStart = 2013,
        returnFields=c("Indicator", "SurveyId", "Value", "SurveyYearLabel", "CountryName"))
@@ -66,7 +65,7 @@ Now, obtain survey microdatasets to analyze these same indicators. Query the *su
 
 ```{r sc}
 ## call with no arguments to return all characterstics
-sc <- dhs_surveyCharacteristics()
+sc <- dhs_survey_characteristics()
 sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 ```
 
@@ -80,7 +79,7 @@ ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), surveyYearStart = 2013)
 ```
 
-Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
+Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two very old datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
 
 ```{r }
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
@@ -89,27 +88,25 @@ str(datasets)
 
 ### Download datasets
 
-To download datasets we need to first log in to our DHS account using `set_dhs_credentials()`. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials). Once you have set this up your API results will also be cached within this directory. 
+To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
 
-This function will also ask you for your permission to write to files outside your temporary directory. This will then allow your API results and any datasets you have donwloaded to be saved between your R sessions. If you have not given permission to *rdhs* then all datasets downloaded and any cached API results will be deleted after your R session. 
-
-```{r client}
-
-# we will give our permission here so that we don't have to provide a prompt within the README.
-Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+```{r client , R.options = list("rappdir_permission" = TRUE)}
 
 ## login
-set_dhs_credentials(credentials = "credentials", root="~/Downloads/rdhs_cache")
+set_rdhs_config(email = "rdhs.tester@gmail.com",
+                project = "Testing Malaria Investigations",
+                config_path = "rdhs.json",
+                global=FALSE)
 ```
 
-The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.
+The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
 
 ```{r client_api_cache}
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1970),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1972),times = 1)
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1970),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1972),times = 1)
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
@@ -160,13 +157,13 @@ vars <- search_variables(datasets$FileName, variables = c("hv024","hml35"))
 extract <- extract_dhs(vars, add_geo = FALSE)
 ```
 
-Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "NegativeTest" and "PositiveTest".
+Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "Neg" and "Pos".
 
 ```{r rbind_labelled}
 # now let's try our second extraction
 extract <- rbind_labelled(extract,
-                                 labels = list("hv024" = "concatenate",
-                                               "hml35" = c("NegativeTest"=0, "PositiveTest"=1)))
+                          labels = list("hv024" = "concatenate",
+                                        "hml35" = c("Neg"=0, "Pos"=1)))
 ```
 
 

@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -132,28 +132,20 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>client_dhs</span>(<span class='kw'>credentials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw pkg'>rappdirs</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>user_cache_dir</a></span>(<span class='st'>"rdhs"</span>,
-  <span class='fu'>Sys.info</span>()[<span class='st'>"user"</span>]), <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>)</pre>
+    <pre class="usage"><span class='fu'>client_dhs</span>(<span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='fu'>rappdirs_rdhs</span>(),
+  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>credentials</th>
-      <td><p>File path to where log in credentials are stored
-(preferred as no
-secrets are typed into an R session). File format should be (each bullet
-is a new line):</p><ul>
-<li><p>email=dummy@gmail.com</p></li>
-<li><p>password=dummypass</p></li>
-<li><p>project=Dummy Project</p></li>
-</ul></td>
+      <th>config</th>
+      <td><p>config object, as created using <code>read_rdhs_config</code></p></td>
     </tr>
     <tr>
       <th>root</th>
       <td><p>Character for root directory to where client, caches,
-surveys etc. will be stored.
-Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>rappdirs::user_cache_dir("rdhs", Sys.info()["user"])</a></code></p></td>
+surveys etc. will be stored. Default = <code>rappdirs_rdhs()</code></p></td>
     </tr>
     <tr>
       <th>api_key</th>
@@ -209,13 +201,14 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <dt><code>survey_questions</code></dt><dd><p>Use this function after download_survey to query downloaded surveys for what questions they asked. This function will look for the downloaded and imported survey datasets from the cache, and will download them if not previously downloaded.
     <em>Usage:</em>
   <code>survey_questions(dataset_filenames, search_terms = NULL, essential_terms = NULL,
-      regex = NULL, ...)</code>
+      regex = NULL, rm_na = TRUE, ...)</code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
 <li><p><code>search_terms</code>:   Character vector of search terms. If any of these terms are found within the surveys question descriptions, the corresponding code and description will be returned.</p></li>
 <li><p><code>essential_terms</code>:   Character pattern that has to be in the description of survey questions. I.e. the function will first find all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions that did not contain your essential_terms. Default = NULL.</p></li>
 <li><p><code>regex</code>:   Regex character pattern for matching. If you want to specify your regex search pattern, then specify this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.</p></li>
+<li><p><code>rm_na</code>:   Should NAs be removed. Default is `TRUE`</p></li>
 <li><p><code>...</code>:   Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></li>
 </ul>
     <em>Value</em>:
@@ -223,12 +216,13 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <dt><code>survey_variables</code></dt><dd><p>Use this function after download_survey to look up all the surveys that have the provided codes.
     <em>Usage:</em>
   <code>survey_variables(dataset_filenames, variables, essential_variables = NULL,
-      ...)</code>
+      rm_na = TRUE, ...)</code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
 <li><p><code>variables</code>:   Character vector of survey variables to be looked up</p></li>
 <li><p><code>essential_variables</code>:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this functon. Default = NULL.</p></li>
+<li><p><code>rm_na</code>:   Should NAs be removed. Default is `TRUE`</p></li>
 <li><p><code>...</code>:   Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></li>
 </ul>
     <em>Value</em>:
@@ -241,13 +235,14 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <li><p><code>questions</code>:   Questions to be queried, in the format from <code>survey_questions</code></p></li>
 <li><p><code>add_geo</code>:   Add geograpic information to the extract. Defaut = TRUE</p></li>
 </ul></p></dd>
-<dt><code>get_var_labels</code></dt><dd><p>Returns information about a dataset's survey variables and definitions.
+<dt><code>get_variable_labels</code></dt><dd><p>Returns information about a dataset's survey variables and definitions.
     <em>Usage:</em>
-  <code><a href='get_var_labels.html'>get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)</a></code>
+  <code><a href='get_variable_labels.html'>get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)</a></code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   Vector of dataset filenames to look up</p></li>
 <li><p><code>dataset_paths</code>:   Vector of dataset file paths to where datasets have been saved to</p></li>
+<li><p><code>rm_na</code>:   Should variables and labels with NAs be removed. Default = FALSE</p></li>
 </ul>
     <em>Value</em>:
   Data frame of survey variable names and definitions</p></dd>
@@ -261,6 +256,11 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
   <code>get_root()</code>
     <em>Value</em>:
   Character string file path</p></dd>
+<dt><code>get_config</code></dt><dd><p>Returns the client's configuration
+    <em>Usage:</em>
+  <code>get_config()</code>
+    <em>Value</em>:
+  Config data.frame</p></dd>
 <dt><code>get_downloaded_datasets</code></dt><dd><p>Returns a named list of all downloaded datasets and their file paths
     <em>Usage:</em>
   <code><a href='get_downloaded_datasets.html'>get_downloaded_datasets()</a></code>

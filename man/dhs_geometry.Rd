@@ -4,21 +4,12 @@
 \alias{dhs_geometry}
 \title{API request of DHS Geometry}
 \usage{
-dhs_geometry(client = NULL, force = FALSE, all_results = TRUE,
-  countryIds = NULL, surveyIds = NULL, surveyYear = NULL,
+dhs_geometry(countryIds = NULL, surveyIds = NULL, surveyYear = NULL,
   surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL)
+  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
+  client = NULL, force = FALSE, all_results = TRUE)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client
-object created by \code{\link{client_dhs}}}
-
-\item{force}{Should we force fetching the API results, and ignore any
-cached results we have. Default = FALSE}
-
-\item{all_results}{Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE.}
-
 \item{countryIds}{Specify a comma separated list of country ids to filter
 by. For a list of countries use
 \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
@@ -52,6 +43,15 @@ default the API will return 100 results.}
 
 \item{page}{Allows specifying a page number to obtain for the recordset.
 By default the API will return page 1.}
+
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
+
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
+
+\item{all_results}{Boolean for if all results should be returned. If FALSE
+then the specifed page only will be returned. Default = TRUE.}
 }
 \value{
 Returns a `data.table` of 7 (or less if `returnFields` is provided)

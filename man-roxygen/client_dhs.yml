@@ -137,7 +137,7 @@ extract:
     add_geo: >-
       Add geograpic information to the extract. Defaut = TRUE
 
-get_var_labels:
+get_variable_labels:
   short: >-
       Returns information about a dataset's survey variables and definitions.
   params:
@@ -145,6 +145,8 @@ get_var_labels:
       Vector of dataset filenames to look up
     dataset_paths: >-
       Vector of dataset file paths to where datasets have been saved to
+    rm_na: >-
+      Should variables and labels with NAs be removed. Default = FALSE
   value: >-
       Data frame of survey variable names and definitions
 
@@ -160,6 +162,12 @@ get_root:
       Returns the file path to the client's root directory
   value: >-
       Character string file path
+
+get_config:
+  short: >-
+      Returns the client's configuration
+  value: >-
+      Config data.frame
 
 get_downloaded_datasets:
   short: >-

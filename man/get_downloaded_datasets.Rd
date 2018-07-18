@@ -7,7 +7,7 @@
 get_downloaded_datasets()
 }
 \value{
-Data.frame of downlaoded datasets
+A \code{data.frame} of downlaoded datasets
 }
 \description{
 Detail the datasets that you have already downloaded
