@@ -6,6 +6,13 @@ rdhs
 
 ![](https://github.com/OJWatson/rdhs/raw/master/tools/logo.png)
 
+Motivation
+----------
+
+The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.
+
+------------------------------------------------------------------------
+
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
 1.  Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
@@ -13,13 +20,6 @@ rdhs
 3.  Download survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
 4.  Load datasets and associated metadata into R.
 5.  Extract variables and combining datasets for pooled multi-survey analyses.
-
-------------------------------------------------------------------------
-
-Motivation
-----------
-
-The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.
 
 Installation
 ------------
@@ -30,14 +30,6 @@ Install `rdhs` from github with `devtools`. If you have not got a working develo
 # install.packages("devtools")
 # devtools::install_github("OJWatson/rdhs")
 library(rdhs)
-#> 
-#> Welcome back :) 
-#> -------------------------
-#> rdhs will be using the login credentials you set last time, which it will read from:
-#>    -> C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/credentials
-#> It will also save any datasets you download inside this directory:
-#>    -> C:/Users/Oliver/Documents/Downloads/rdhs_cache
-#> If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()
 ```
 
 Getting started
@@ -56,16 +48,17 @@ Obtain survey esimates for Malaria prevalence among children from the Democratic
 
 ``` r
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
-#>                              ShortName   IndicatorId
-#> 1: Malaria prevalence according to RDT ML_PMAL_C_RDT
+#>                             ShortName   IndicatorId
+#> 1 Malaria prevalence according to RDT ML_PMAL_C_RDT
+
 dhs_data(countryIds = c("CD","TZ"), indicatorIds = "ML_PMAL_C_RDT", surveyYearStart = 2013,
        returnFields=c("Indicator", "SurveyId", "Value", "SurveyYearLabel", "CountryName"))
-#>                              Indicator  SurveyId SurveyYearLabel Value
-#> 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8
-#> 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4
-#>                  CountryName
-#> 1: Congo Democratic Republic
-#> 2:                  Tanzania
+#>                             Indicator  SurveyId SurveyYearLabel Value
+#> 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8
+#> 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4
+#>                 CountryName
+#> 1 Congo Democratic Republic
+#> 2                  Tanzania
 ```
 
 ### Identify survey datasets
@@ -74,14 +67,14 @@ Now, obtain survey microdatasets to analyze these same indicators. Query the *su
 
 ``` r
 ## call with no arguments to return all characterstics
-sc <- dhs_surveyCharacteristics()
+sc <- dhs_survey_characteristics()
 sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 #>    SurveyCharacteristicID SurveyCharacteristicName
-#> 1:                     96            Malaria - DBS
-#> 2:                     90     Malaria - Microscopy
-#> 3:                     89            Malaria - RDT
-#> 4:                     57          Malaria module 
-#> 5:                      8 Malaria/bednet questions
+#> 57                     96            Malaria - DBS
+#> 58                     90     Malaria - Microscopy
+#> 59                     89            Malaria - RDT
+#> 60                     57          Malaria module 
+#> 61                      8 Malaria/bednet questions
 ```
 
 Use `dhs_surveys()` identify surveys for the countries and years of interest.
@@ -94,12 +87,12 @@ ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), surveyYearStart = 2013)
 ```
 
-Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
+Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two very old datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
 
 ``` r
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 str(datasets)
-#> Classes 'data.table' and 'data.frame':   2 obs. of  13 variables:
+#> 'data.frame':    2 obs. of  13 variables:
 #>  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"
 #>  $ FileSize            : int  6595349 6622108
 #>  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets"
@@ -113,36 +106,42 @@ str(datasets)
 #>  $ DHS_CountryCode     : chr  "CD" "TZ"
 #>  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7HFL.ZIP"
 #>  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"
-#>  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 ### Download datasets
 
-To download datasets we need to first log in to our DHS account using `set_dhs_credentials()`. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for credentials).
+To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
 
 ``` r
 ## login
-set_dhs_credentials(credentials = "credentials", root="~/Downloads/rdhs_cache")
+set_rdhs_config(email = "rdhs.tester@gmail.com",
+                project = "Testing Malaria Investigations",
+                config_path = "rdhs.json",
+                global=FALSE)
+#> Please enter password in TK window (Alt+Tab)
+#> Writing your configuration to:
+#>    -> rdhs.json
+#> If you are using git, be sure to add this to your .gitignore
 ```
 
-The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.
+The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
 
 ``` r
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1987),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
 #> Unit: seconds
-#>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1987) 4.720333 4.720333 4.720333 4.720333
-#>        uq      max neval
-#>  4.720333 4.720333     1
+#>                                  expr     min      lq    mean  median
+#>  dhs_datasets(surveyYearStart = 1973) 4.87256 4.87256 4.87256 4.87256
+#>       uq     max neval
+#>  4.87256 4.87256     1
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1987),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1987) 7.180762 7.180762 7.180762 7.180762
+#>  dhs_datasets(surveyYearStart = 1973) 3.369217 3.369217 3.369217 3.369217
 #>        uq      max neval
-#>  7.180762 7.180762     1
+#>  3.369217 3.369217     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
@@ -153,8 +152,8 @@ downloads <- get_datasets(datasets$FileName)
 
 str(downloads)
 #> List of 2
-#>  $ CDPR61FL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/CDPR61FL.rds"
-#>  $ TZPR7HFL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/TZPR7HFL.rds"
+#>  $ CDPR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61FL.rds"
+#>  $ TZPR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7HFL.rds"
 #>  - attr(*, "reformat")= logi FALSE
 ```
 
@@ -201,13 +200,13 @@ extract <- extract_dhs(vars, add_geo = FALSE)
 #> Starting Survey 2 out of 2 surveys:TZPR7HFL
 ```
 
-Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "NegativeTest" and "PositiveTest".
+Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "Neg" and "Pos".
 
 ``` r
 # now let's try our second extraction
 extract <- rbind_labelled(extract,
-                                 labels = list("hv024" = "concatenate",
-                                               "hml35" = c("NegativeTest"=0, "PositiveTest"=1)))
+                          labels = list("hv024" = "concatenate",
+                                        "hml35" = c("Neg"=0, "Pos"=1)))
 ```
 
 There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specifed by the argument `reformat=TRUE`.
@@ -227,10 +226,11 @@ extract <- rbind_labelled(extract)
 
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
 str(extract)
-#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  3 variables:
-#>  $ hv024   : atomic  equateur equateur equateur equateur ...
+#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:
+#>  $ hv024   : chr  "equateur" "equateur" "equateur" "equateur" ...
 #>   ..- attr(*, "label")= chr "Province"
-#>  $ hml35   : atomic  NA NA NA NA ...
+#>  $ hml35   : chr  NA NA NA NA ...
 #>   ..- attr(*, "label")= chr "Result of malaria rapid test"
 #>  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
+#>  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...
 ```

@@ -55,6 +55,7 @@ Obtain survey esimates for Malaria prevalence among children from the Democratic
 
 ```{r api, message = FALSE}
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
+
 dhs_data(countryIds = c("CD","TZ"), indicatorIds = "ML_PMAL_C_RDT", surveyYearStart = 2013,
        returnFields=c("Indicator", "SurveyId", "Value", "SurveyYearLabel", "CountryName"))
 ```
@@ -91,7 +92,6 @@ str(datasets)
 To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
 
 ```{r client , R.options = list("rappdir_permission" = TRUE)}
-
 ## login
 set_rdhs_config(email = "rdhs.tester@gmail.com",
                 project = "Testing Malaria Investigations",
@@ -103,10 +103,10 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```{r client_api_cache}
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1972),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1972),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
