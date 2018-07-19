@@ -148,33 +148,6 @@ mdy_hms <- function(dates) {
   strptime(dates, format = "%B, %d %Y %H:%M:%S")
 }
 
-# find Renviron file
-#' @noRd
-
-find_renviron <- function(){
-
-  pathnames <- c(Sys.getenv("R_ENVIRON_USER"),
-                 "./.Renviron",
-                 "~/.Renviron")
-
-  pathnames <- pathnames[file.exists(pathnames)]
-  pathnames <- pathnames[!file.info(pathnames)$isdir]
-
-  pathnames <- if (length(pathnames) == 0) {
-    character(0L)
-  } else {
-    pathnames[1]
-  }
-
-  if (length(pathnames) == 0) {
-    pathnames <- normalizePath("~/.Renviron", winslash = "/", mustWork = FALSE)
-    file.create(pathnames)
-  }
-
-  file.path(normalizePath(pathnames, winslash = "/"))
-
-}
-
 
 # check if uppercase
 # Credit: R package lettercase

@@ -307,9 +307,7 @@ R6_client_dhs <- R6::R6Class(
 
         # Get downloadable datasets
         resp <- available_datasets(
-          your_email = private$config$email,
-          your_password = private$config$password,
-          your_project = private$config$project,
+          config = private$config,
           datasets_api_results = self$dhs_api_request("datasets",
                                                       num_results = "ALL"),
           surveys_api_results = self$dhs_api_request("surveys",
@@ -387,9 +385,7 @@ R6_client_dhs <- R6::R6Class(
 
             # Download dataset
             resp <- download_datasets(
-              your_email = private$config$email,
-              your_password = private$config$password,
-              your_project = private$config$project,
+              config = private$config,
               desired_dataset = datasets[i, ],
               output_dir_root = output_dir_root,
               download_option = download_option,

@@ -1,3 +1,21 @@
+## rdhs 0.5.0
+
+* The way in which people provide their login details and set up their preferences
+has substantialy changed. `set_dhs_credentials` is now `set_rdhs_config`. This
+function requires your email and project to be provided as argument, and will then
+prompt you for your password. You also provide as arguments `cache_path` that will
+specify where your API calls and datasets are to be cached. You can also control
+where the config is saved using `config_path`. For more details, see the documentation
+for `?set_rdhs_config` or within the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
+
+* How this impacts how you use the API functions
+
+* get_rdhs_config
+
+* internal changes
+
+* 
+
 ## rdhs 0.4.0
 
 * The user has to now give permission for `rdhs` to write to files outside of 

@@ -132,13 +132,17 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>download_datasets</span>(<span class='no'>desired_dataset</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
-  <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>your_email</span>,
-  <span class='no'>your_password</span>, <span class='no'>your_project</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>download_datasets</span>(<span class='no'>config</span>, <span class='no'>desired_dataset</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"both"</span>,
+  <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>config</th>
+      <td><p>Object of class `rdhs_config` as produced by `read_rdhs_config`
+that must contain a valid `email`, `project` and `password`.</p></td>
+    </tr>
     <tr>
       <th>desired_dataset</th>
       <td><p>Row from <code>available_datasets</code></p></td>
@@ -167,19 +171,6 @@ lower case. Default to `TRUE`.</p></td>
     <tr>
       <th>output_dir_root</th>
       <td><p>Directory where files are to be downloaded to</p></td>
-    </tr>
-    <tr>
-      <th>your_email</th>
-      <td><p>Character for email address for DHS website</p></td>
-    </tr>
-    <tr>
-      <th>your_password</th>
-      <td><p>Character for password for DHS website</p></td>
-    </tr>
-    <tr>
-      <th>your_project</th>
-      <td><p>Character string for the name of your project that gives
-you access to the DHS database</p></td>
     </tr>
     <tr>
       <th>...</th>

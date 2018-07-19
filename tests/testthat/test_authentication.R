@@ -6,27 +6,17 @@ test_that("authenticate_dhs works", {
 
   config <- read_rdhs_config_file("rdhs.json")
 
-  expect_equal(rdhs:::authenticate_dhs(
-    your_email = config$email,
-    your_password = config$password,
-    your_project = config$project
-  )$proj_id, "111616")
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
 
   # catch if your project has a short name that won't be ellipsis cocnerned
-  expect_equal(rdhs:::authenticate_dhs(
-    your_email = config$email,
-    your_password = config$password,
-    your_project = paste0(
-      strsplit(config$project, "")[[1]][1:10],
-      collapse = ""
-    )
-  )$proj_id, "111616")
+  proj <- config$project
+  config$project <- paste0(strsplit(config$project, "")[[1]][1:10],
+                           collapse = ""
+                           )
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
 
-  expect_error(rdhs:::authenticate_dhs(
-    your_email = config$email,
-    your_password = config$password,
-    your_project = "twaddle_for_days"
-  ))
+  config$project <- "twaddle_for_days"
+  expect_error(rdhs:::authenticate_dhs(config))
 })
 
 test_that("available_surveys works", {
@@ -40,11 +30,7 @@ test_that("available_surveys works", {
 
   # do it without the client check for poor formed internal api_request
   config <- cli$get_config()
-  survs <- available_datasets(
-    your_email = config$email,
-    your_password = config$password,
-    your_project = config$project
-  )
+  survs <- available_datasets(config)
 
   # check the names
   expect_identical(names(survs), c(
