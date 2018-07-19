@@ -66,8 +66,7 @@ test_that("different locales", {
 
   # our function catches for any locale issues
   expect_true(!is.na(mdy_hms(date)))
-  # unlike wthout
-  expect_true(is.na(strptime(date,format = "%B, %d %Y %H:%M:%S")))
+
 
 
 })

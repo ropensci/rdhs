@@ -6,7 +6,7 @@ test_that("authenticate_dhs works", {
 
   config <- read_rdhs_config_file("rdhs.json")
 
-  expect_equal(rdhs::authenticate_dhs(
+  expect_equal(rdhs:::authenticate_dhs(
     your_email = config$email,
     your_password = config$password,
     your_project = config$project
@@ -22,7 +22,7 @@ test_that("authenticate_dhs works", {
     )
   )$proj_id, "111616")
 
-  expect_error(rdhs::authenticate_dhs(
+  expect_error(rdhs:::authenticate_dhs(
     your_email = config$email,
     your_password = config$password,
     your_project = "twaddle_for_days"

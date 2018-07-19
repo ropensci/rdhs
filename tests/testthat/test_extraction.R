@@ -66,7 +66,7 @@ test_that("query codes having downloaded surveys", {
   extract <- cli$extract(quest, add_geo = T)
 
   # extract the qeustions
-  extract_neat <- rdhs::extract_codes_to_descriptions(extract, quest)
+  extract_neat <- rdhs:::extract_codes_to_descriptions(extract, quest)
 
   ## and repeat for sruveys that have no geo
 

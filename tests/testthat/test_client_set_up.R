@@ -32,7 +32,7 @@ test_that("new updates are recognised", {
   # Create new client
   cli <- new_rand_client()
 
-  cli$.__enclos_env__$private$cache_date <- rdhs::last_api_update() - 1
+  cli$.__enclos_env__$private$cache_date <- rdhs:::last_api_update() - 1
   saveRDS(cli, file.path(cli$get_root(), rdhs::client_file_name()))
 
   # create again
