@@ -33,7 +33,7 @@ test_that("new updates are recognised", {
   cli <- new_rand_client()
 
   cli$.__enclos_env__$private$cache_date <- rdhs:::last_api_update() - 1
-  saveRDS(cli, file.path(cli$get_root(), rdhs::client_file_name()))
+  saveRDS(cli, file.path(cli$get_root(), rdhs:::client_file_name()))
 
   # create again
   expect_message(cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",

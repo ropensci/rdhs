@@ -38,8 +38,8 @@ parse_map <- function(map, all_lower=TRUE) {
   var <- dat[var_idx]
 
   ## Identify column breaks based on white space in header.
-  ## Then check that white spaces also occur in variable rows
-  ## (>0.7 arbitrarily) to exclude white spaces
+  ## Then check that white spaces also occur in variable
+  ## rows (>0.7 arbitrarily) to exclude white spaces
   ## in header variable names.
 
   hspaces <- vapply(
@@ -205,7 +205,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #'
 #' * `mode="raw"`: use `foreign::read.dta(..., convert.factors=FALSE)`,
 #' which simply loads underlying value coding. Variable labels and value
-#' lables are still available through dataset attributes (see examples).
+#' labels are still available through dataset attributes (see examples).
 #'
 #' @seealso \code{\link[foreign]{read.dta}}, \code{\link[haven]{labelled}},
 #'   \code{\link[haven]{read_dta}}.
@@ -277,7 +277,8 @@ read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
   if (mode == "map") {
     dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta,
                         convert.factors = FALSE, ...)
-    map <- read_zipdata(zfile, "\\.MAP$", readLines, encoding = "latin1", warn=FALSE)
+    map <- read_zipdata(zfile, "\\.MAP$", readLines,
+                        encoding = "latin1", warn = FALSE)
     dct <- parse_map(map, all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
     haslbl <- unlist(lapply(dct$labels, length)) > 0

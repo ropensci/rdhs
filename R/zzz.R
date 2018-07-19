@@ -40,7 +40,7 @@ rdhs_setup <- function() {
 #' @noRd
 .onLoad <- function(...) {
 
-  # just in case clear the pacakge environment
+  # just in case clear the package environment
   rdhs_reset()
 
 }
@@ -82,4 +82,3 @@ ask_user_permission <- function(){
   }
 
 }
-

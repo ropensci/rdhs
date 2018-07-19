@@ -19,7 +19,7 @@ Output of \code{R6_client_dhs$public_methods$available_datasets}}
 }
 \value{
 Returns `data.frame` with variables corresponding to
-  the reqested variables in the questions object. Will also have
+  the requested variables in the questions object. Will also have
   geographic data related columns if `add_geo=TRUE` is set.
   Lastly a SurveyId variable will also be appended corresponding to
   \code{\link{dhs_datasets}}$SurveyId

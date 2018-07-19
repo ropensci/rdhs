@@ -28,7 +28,7 @@ test_that("check_for_client", {
   td <- file.path(tempdir(), as.integer(Sys.time()))
   .rdhs$client <- client_dhs(config = config, root = td)
 
-  expect_true(identical(check_for_client(),.rdhs$client))
+  expect_true(identical(check_for_client(), .rdhs$client))
   write_rdhs_config_from_client_config(.rdhs$client)
 })
 

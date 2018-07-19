@@ -186,7 +186,7 @@ The function returns a list with a file path to where the downloaded datasets ha
 
 ## 4. Load datasets and associated metadata into R.
 
-We can now examine what it is we have actually downloadsed, by reading in one of these datasets:
+We can now examine what it is we have actually downloaded, by reading in one of these datasets:
 
 ```{r read a dataset}
 # read in our dataset
@@ -303,7 +303,7 @@ head(better_bound$hml35)
 ```
 
 
-The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the obect returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_variable_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
+The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument `reformat=TRUE`. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the object returned by `client$get_datasets()` no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using `get_variable_labels()`, which will take any dataset output by `get_datasets()` and return a data.frame describing the survey question variables and definitions.  
 
 ```{r reformat, message=FALSE}
 # download the datasets with the reformat arguments
@@ -374,9 +374,9 @@ head(comparison[,c(1,2,4,3,5,7)])
 ```
 
 
-It's a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how thye have grouped the primary sampling units. We are hoping to get this information from the DHfor each survey so we can make this process more streamline again.
+It's a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline again.
 
-And lastly we will construct a logistic regression to investigat the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`v025`) and fixed effects for each survey.
+And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`v025`) and fixed effects for each survey.
 
 ```{r altitutde glm}
 # contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35
@@ -385,12 +385,12 @@ summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="quasibinomia
 ```
 
 
-What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticial net (*hml20* that we converted to net) was not significant.  
+What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticidal net (*hml20* that we converted to net) was not significant.  
 
 ---
 
 ## Summary and further thoughts
 
-Hopefully the above tutorial has shown how the `rdhs` package can facilitate both querying the DHS API and hopefully make downloadeding and interacting with the raw datasets a smoother, more reprodcuable process. It is worth bearing in mind thogh, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, wich is hopefully when the `survey_questions` functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid. 
+Hopefully the above tutorial has shown how the `rdhs` package can facilitate both querying the DHS API and hopefully make downloading and interacting with the raw datasets a smoother, more reproducible process. It is worth bearing in mind though, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, which is hopefully when the `survey_questions` functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid. 
 
-Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at "o.watson15@imperial.ac.uk". And if there is any further functionality that you think you wouldbe useful, then also let me know. :)
+Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at "o.watson15@imperial.ac.uk". And if there is any further functionality that you think you would be useful, then also let me know. :)

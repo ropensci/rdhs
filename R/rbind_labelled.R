@@ -98,7 +98,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
 
     # check to see if variables are labelled
     islab <- vapply(dfs, function(x){
-        vapply(x, haven::is.labelled ,logical(1))
+        vapply(x, haven::is.labelled, logical(1))
       }, logical(length(dfs[[1]])))
 
     ## let's catch for one variable dataframes

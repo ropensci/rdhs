@@ -94,7 +94,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-07-18</h4>
+            <h4 class="date">2018-07-19</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -307,25 +307,23 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
 <pre><code>## If you are using git, be sure to add this to your .gitignore</code></pre>
-</div>
-<div id="to-see-what-the-config-that-is-being-used-by-rdhs-at-any-point-then-use-get_rdhs_config-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#to-see-what-the-config-that-is-being-used-by-rdhs-at-any-point-then-use-get_rdhs_config-" class="anchor"></a>To see what the config that is being used by <code>rdhs</code> at any point, then use <code><a href="../reference/get_rdhs_config.html">get_rdhs_config()</a></code>.</h2>
+<p>To see what config that is being used by <code>rdhs</code> at any point, then use <code><a href="../reference/get_rdhs_config.html">get_rdhs_config()</a></code> to view the config settings.</p>
+<hr>
 <p>Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the cache directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests. If you do not, API requests will still be cached within the temp directory, so will be quick to be returned a second time, but they will then be deleted when you start a new R session.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time we call this function, rdhs will make the API request</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 5.281487 5.281487 5.281487 5.281487
+##  dhs_surveys(surveyYear = 1991) 4.327918 4.327918 4.327918 4.327918
 ##        uq      max neval
-##  5.281487 5.281487     1</code></pre>
+##  4.327918 4.327918     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
-##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 5.996665 5.996665 5.996665 5.996665
-##        uq      max neval
-##  5.996665 5.996665     1</code></pre>
+##                            expr     min      lq    mean  median      uq
+##  dhs_surveys(surveyYear = 1991) 2.70769 2.70769 2.70769 2.70769 2.70769
+##      max neval
+##  2.70769     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
@@ -587,7 +585,7 @@ comparison &lt;-<span class="st"> </span><span class="kw">cbind</span>(results[,
 ## Kasai-Occidental.CDPR61FL         604.6050           612 CD2013DHS
 ## Kasai-Oriental.CDPR61FL           892.6006           894 CD2013DHS
 ## Katanga.CDPR61FL                  861.2030           844 CD2013DHS</code></pre>
-<p>It’s a little off, with the mean values differing due to maybe the specifc cut off they used in terms of which ages were included within between 5 and 69. The variance could also be off due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user.</p>
+<p>It’s a little off, with the mean values differing due to maybe the specific cut off they used in terms of which ages were included within between 5 and 69. The variance could also be off due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user.</p>
 <p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>hv025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span>
 <span class="kw">summary</span>(<span class="kw">svyglm</span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</code></pre></div>
@@ -633,7 +631,6 @@ comparison &lt;-<span class="st"> </span><span class="kw">cbind</span>(results[,
       <li><a href="#access-standard-indicator-data-via-the-api">1. Access standard indicator data via the API</a></li>
       <li><a href="#identify-surveys-relevant-for-further-analysis">2. Identify surveys relevant for further analysis</a></li>
       <li><a href="#download-survey-datasets">3. Download survey datasets</a></li>
-      <li><a href="#to-see-what-the-config-that-is-being-used-by-rdhs-at-any-point-then-use-get_rdhs_config-">To see what the config that is being used by <code>rdhs</code> at any point, then use <code><a href="--/reference/get_rdhs_config-html">get_rdhs_config()</a></code>.</a></li>
       <li><a href="#load-datasets-and-associated-metadata-into-r-">4. Load datasets and associated metadata into R.</a></li>
       <li><a href="#extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-">5. Extract variables and combining datasets for pooled multi-survey analyses.</a></li>
       <li><a href="#summary-and-further-thoughts">Summary and further thoughts</a></li>

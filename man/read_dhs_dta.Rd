@@ -72,7 +72,7 @@ if labelling is incomplete in Stata datasets.
 
 * `mode="raw"`: use `foreign::read.dta(..., convert.factors=FALSE)`,
 which simply loads underlying value coding. Variable labels and value
-lables are still available through dataset attributes (see examples).
+labels are still available through dataset attributes (see examples).
 }
 \examples{
 mrdt_zip <- tempfile()

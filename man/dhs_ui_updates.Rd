@@ -10,7 +10,7 @@ dhs_ui_updates(lastUpdate = NULL, f = NULL, returnFields = NULL,
 }
 \arguments{
 \item{lastUpdate}{Specify a date or Unix time to filter the updates by. Only
-results for interfaces that has been updated on or after the sepcified
+results for interfaces that has been updated on or after the specified
 date will be returned.}
 
 \item{f}{You can specify the format of the data returned from the query as
@@ -22,7 +22,7 @@ is JSON.}
 \item{perPage}{Specify the number of results to be returned per page. By
 default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset. By
+\item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
 \item{client}{If the api request should be cached, then provide a client
@@ -32,7 +32,7 @@ object created by \code{\link{client_dhs}}}
 cached results we have. Default = FALSE}
 
 \item{all_results}{Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE.}
+then the specified page only will be returned. Default = TRUE.}
 }
 \value{
 Returns a `data.table` of 3 (or less if `returnFields` is provided)

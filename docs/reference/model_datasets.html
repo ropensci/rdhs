@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Survey Variable Labels — get_variable_labels • rdhs</title>
+<title>DHS model datasets — model_datasets • rdhs</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,10 @@
 
 
 
-<meta property="og:title" content="Get Survey Variable Labels — get_variable_labels" />
+<meta property="og:title" content="DHS model datasets — model_datasets" />
 
-<meta property="og:description" content="Return variable labels from a dataset" />
+<meta property="og:description" content="The model datasets from the DHS website in a `data.frame` that is analogous
+to those returned by `get_available_datasets()`" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,51 +122,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Survey Variable Labels</h1>
+    <h1>DHS model datasets</h1>
     
-    <div class="hidden name"><code>get_variable_labels.Rd</code></div>
+    <div class="hidden name"><code>model_datasets.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Return variable labels from a dataset</p>
+    <p>The model datasets from the DHS website in a `data.frame` that is analogous
+to those returned by `get_available_datasets()`</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_variable_labels</span>(<span class='no'>dataset</span>, <span class='kw'>return_all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dataset</th>
-      <td><p>Can be either the file path to a dataset, the dataset as a
-`data.frame` or the filenames of datasets. See details for more information</p></td>
-    </tr>
-    <tr>
-      <th>return_all</th>
-      <td><p>Logical whether to return all variables (<code>TRUE</code>)
-or only those with labels.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'>data</span>(<span class='no'>model_datasets</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A <code>data.frame</code> consisting of the variable name and labels.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Returns variable names and their labels from a dataset.
-  You can pass for the `data` argument any of
-  the following:</p><ul>
-<li><p>The file path to a saved dataset. This would be the direct
-      output of <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
-<li><p>A read in dataset, i.e. produced by using <code>readRDS</code>
-      to load a dataset from
-      a file path produced by <code><a href='get_datasets.html'>get_datasets</a></code></p></li>
-<li><p>Dataset filenames. These can be found as one of the returned
-      fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>. If these datasets have not been
-      downloaded before this will download them for you.</p></li>
+    <p>A dataframe of 36 observations of 14 variables:</p>
+<p><code>model_datasets</code>: A dataframe of model datasets</p><ul>
+<li><p>"FileFormat"</p></li>
+<li><p>"FileSize"</p></li>
+<li><p>"DatasetType"</p></li>
+<li><p>"SurveyNum"</p></li>
+<li><p>"SurveyId"</p></li>
+<li><p>"FileType"</p></li>
+<li><p>"FileDateLastModified"</p></li>
+<li><p>"SurveyYearLabel"</p></li>
+<li><p>"SurveyType"</p></li>
+<li><p>"SurveyYear"</p></li>
+<li><p>"DHS_CountryCode"</p></li>
+<li><p>"FileName"</p></li>
+<li><p>"CountryName"</p></li>
+<li><p>"URLS"</p></li>
 </ul>
     
 
@@ -173,11 +161,8 @@ or only those with labels.</p></td>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
+      <li><a href="#format">Format</a></li>
           </ul>
 
   </div>

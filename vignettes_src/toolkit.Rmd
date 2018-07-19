@@ -14,7 +14,7 @@ The following is no longer needed as the CRAN version of haven is working. This 
 
 ---
 
-In order to install `rdhs` you wil require a working development environment. The following guide details how to do this across different operating systems. Please note this is only temporary while we wait for a development version of haven to make it to CRAN. 
+In order to install `rdhs` you will require a working development environment. The following guide details how to do this across different operating systems. Please note this is only temporary while we wait for a development version of haven to make it to CRAN. 
 Apologies for the inconvenience
 
 1. **Windows**: Install **[Rtools](https://cran.r-project.org/bin/windows/Rtools/)**. For help on how to install **Rtools** please see the following [guide](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows), paying particular attention to the section about adding Rtools to your system `PATH`. 

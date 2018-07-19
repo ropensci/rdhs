@@ -70,4 +70,3 @@ test_that("different locales", {
 
 
 })
-

@@ -11,7 +11,7 @@ download_datasets(desired_dataset, download_option = "both",
 \arguments{
 \item{desired_dataset}{Row from \code{available_datasets}}
 
-\item{download_option}{Character dictating how the durvey is stored when
+\item{download_option}{Character dictating how the survey is stored when
 downloaded. Must be one of:
 \itemize{
     \item{"zip"} - Just the zip. "z", "i", "p" or "zip" will match

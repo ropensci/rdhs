@@ -198,7 +198,8 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 
 
-To see what the config that is being used by `rdhs` at any point, then use `get_rdhs_config()`.
+To see what config that is being used by `rdhs` at any point, then use `get_rdhs_config()` to view the config settings.
+
 ---
 
 Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the cache directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests. If you do not, API requests will still be cached within the temp directory, so will be quick to be returned a second time, but they will then be deleted when you start a new R session.
@@ -416,7 +417,7 @@ head(comparison[,c(1,2,4,3,5,7)])
 ```
 
 
-It's a little off, with the mean values differing due to maybe the specifc cut off they used in terms of which ages were included within between 5 and 69. The variance could also be off due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user. 
+It's a little off, with the mean values differing due to maybe the specific cut off they used in terms of which ages were included within between 5 and 69. The variance could also be off due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user. 
 
 And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual's house were made of bricks or similar, while adjusting for urban/rural (`hv025`) and fixed effects for each survey.
 

@@ -183,7 +183,7 @@ available_datasets <- function(your_email, your_password, your_project,
 #'
 #' Download datasets specified using output of \code{available_datasets}.
 #' @param desired_dataset Row from \code{available_datasets}
-#' @param download_option Character dictating how the durvey is stored when
+#' @param download_option Character dictating how the survey is stored when
 #'   downloaded. Must be one of:
 #'   \itemize{
 #'       \item{"zip"} - Just the zip. "z", "i", "p" or "zip" will match
@@ -302,13 +302,13 @@ download_datasets <- function(desired_dataset,
   nest_zf <- grep(desired_dataset$FileName,
                   unzip(tf, list = TRUE)$Name,
                   ignore.case = TRUE,
-                  value=TRUE)
-  while(length(nest_zf)){
+                  value = TRUE)
+  while (length(nest_zf)){
     tf <- unzip(tf, nest_zf[1], exdir = tdir)
     nest_zf <- grep(desired_dataset$FileName,
                     unzip(tf, list = TRUE)$Name,
                     ignore.case = TRUE,
-                    value=TRUE)
+                    value = TRUE)
   }
 
   ## DOWNLOAD OPTIONS HANDLING:
@@ -321,7 +321,7 @@ download_datasets <- function(desired_dataset,
   res <- if (res) {
     zip_path
   } else {
-    stop("Failed to donwload zip to where client root is")
+    stop("Failed to download zip to where client root is")
   }
 
   # 2/3. rds or both
@@ -373,7 +373,7 @@ download_datasets <- function(desired_dataset,
 
 #' Authenticate Users for DHS website
 #'
-#' @title DHS Wesbite Authentication
+#' @title DHS Website Authentication
 #' @param your_email Character for email address for DHS website
 #' @param your_password Character for password for DHS website
 #' @param your_project Character string for the name of your
@@ -390,7 +390,7 @@ download_datasets <- function(desired_dataset,
 #' @return Returns list of length 3:
 #'   \itemize{
 #'       \item{"user_name"}{ your email usually }
-#'       \item{"user_pass"}{ your pasword you provided }
+#'       \item{"user_pass"}{ your password you provided }
 #'       \item{"proj_id"}{ your project number }
 #'       }
 #'
@@ -463,7 +463,7 @@ authenticate_dhs <- function(your_email, your_password, your_project) {
         projs <- unlist(qdapRegex::ex_between(project_lines, ">", "<"))
         nums <- unlist(qdapRegex::ex_between(project_lines, "value=\"", "\">"))
         nums <- as.numeric(nums)
-        oldest <- sort.int(nums,index.return = TRUE)$ix
+        oldest <- sort.int(nums, index.return = TRUE)$ix
         # prompt for an option until they give is a good one
         valid_prompt <- FALSE
         while (!valid_prompt) {

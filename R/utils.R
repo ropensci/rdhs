@@ -31,11 +31,11 @@ unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,
   if (file.size(zipfile) > 4e9) {
     unzip_file <- Sys.which("unzip")
     if (nzchar(unzip_file)) {
-      #system2("unzip", args=c(zfile, files, paste("-d", exdir)), stdout=FALSE)
+      # j system2("unzip", args=c(zfile,files,paste("-d", exdir)),stdout=FALSE)
       unzip(zipfile, files, overwrite, junkpaths, exdir,
              unzip = unzip_file, setTimes)
     } else {
-      stop (basename(zipfile) ," is too large to unzip and a suitable unzip ",
+      stop (basename(zipfile), " is too large to unzip and a suitable unzip ",
             "can not be found on your system." )
     }
   } else {
@@ -143,7 +143,7 @@ mdy_hms <- function(dates) {
   locale_lc_time <- Sys.getlocale("LC_TIME")
   on.exit(Sys.setlocale("LC_TIME", locale_lc_time))
 
-  Sys.setlocale("LC_TIME","C")
+  Sys.setlocale("LC_TIME", "C")
 
   strptime(dates, format = "%B, %d %Y %H:%M:%S")
 }
@@ -193,7 +193,7 @@ is_uppercase <- function(string) {
 # check if is R temp directory
 #' @noRd
 is_r_tempdir <- function(dir){
-  grepl("(\\\\|/|\\\\\\\\)Rtmp.*(\\\\|/|\\\\\\\\)",dir)
+  grepl("(\\\\|/|\\\\\\\\)Rtmp.*(\\\\|/|\\\\\\\\)", dir)
 }
 
 

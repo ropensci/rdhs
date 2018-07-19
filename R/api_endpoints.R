@@ -6,7 +6,7 @@
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE
+#'   then the specified page only will be returned. Default = TRUE
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -68,7 +68,7 @@
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 27 (or less if `returnFields` is provided)
@@ -145,7 +145,7 @@ dhs_data <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -178,7 +178,7 @@ dhs_data <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 18 (or less if `returnFields` is provided)
@@ -240,9 +240,9 @@ dhs_indicators <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by. Only
-#'   results for interfaces that has been updated on or after the sepcified
+#'   results for interfaces that has been updated on or after the specified
 #'   date will be returned.
 #' @param f You can specify the format of the data returned from the query as
 #'   HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
@@ -250,7 +250,7 @@ dhs_indicators <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 3 (or less if `returnFields` is provided)
@@ -295,7 +295,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param infoType Specify a type of info to obtain the information requested.
 #'   Default is version. `infoType="version"`` (default) Provides the version
 #'   of the API.
@@ -309,7 +309,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
@@ -355,7 +355,7 @@ dhs_info <- function(infoType=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -388,7 +388,7 @@ dhs_info <- function(infoType=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 12 (or less if `returnFields` is provided)
@@ -450,7 +450,7 @@ dhs_countries <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to
 #'  filter by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -493,7 +493,7 @@ dhs_countries <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #' default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #' default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 28 (or less if `returnFields` is provided)
@@ -562,7 +562,7 @@ dhs_surveys <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -588,11 +588,11 @@ dhs_surveys <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
-#'   survey characteristics. A survey can be labeled with one or more of these
+#'   survey characteristics. A survey can be labelled with one or more of these
 #'   survey characteristics. A description of all the attributes returned is
 #'   provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields}
@@ -648,7 +648,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -686,7 +686,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 10 (or less if `returnFields` is provided)
@@ -750,7 +750,7 @@ dhs_publications <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -784,7 +784,7 @@ dhs_publications <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 13 (or less if `returnFields` is provided)
@@ -847,7 +847,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -870,7 +870,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 7 (or less if `returnFields` is provided)
@@ -927,7 +927,7 @@ dhs_geometry <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#' then the specifed page only will be returned. Default = TRUE.
+#' then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -953,12 +953,12 @@ dhs_geometry <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 4 (or less if `returnFields` is provided)
 #'   tags with detailed information. An indicators can be tagged with one or
-#'   more tags to help identify certain topics an indicator can be indentified
+#'   more tags to help identify certain topics an indicator can be identified
 #'   by. A description of the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/tags/fields}
 #'
@@ -1012,7 +1012,7 @@ dhs_tags <- function(countryIds=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by.
 #'   Only results for data that have been updated on or after the specified
 #'   date will be returned.
@@ -1022,7 +1022,7 @@ dhs_tags <- function(countryIds=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 9 (or less if `returnFields` is provided)

@@ -10,9 +10,9 @@ handle_api_response <- function(res, to_json = TRUE, stop = TRUE) {
       text <- trimws(httr::content(res, "text", encoding = "UTF-8"))
     }
     if (stop) {
-      stop ((handle_api_error(code, text, errors)))
+      stop (handle_api_error(code, text, errors))
     } else {
-      return(message((handle_api_error(code, text, errors))))
+      return (message(handle_api_error(code, text, errors)))
     }
   }
   if (to_json) {

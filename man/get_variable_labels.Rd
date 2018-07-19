@@ -8,7 +8,7 @@ get_variable_labels(dataset, return_all = TRUE)
 }
 \arguments{
 \item{dataset}{Can be either the file path to a dataset, the dataset as a
-`data.frame` or the filenaes of datasets. See details for more information}
+`data.frame` or the filenames of datasets. See details for more information}
 
 \item{return_all}{Logical whether to return all variables (\code{TRUE})
 or only those with labels.}

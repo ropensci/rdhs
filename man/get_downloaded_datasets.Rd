@@ -7,7 +7,7 @@
 get_downloaded_datasets()
 }
 \value{
-A \code{data.frame} of downlaoded datasets
+A \code{data.frame} of downloaded datasets
 }
 \description{
 Detail the datasets that you have already downloaded
@@ -15,6 +15,6 @@ Detail the datasets that you have already downloaded
 \details{
 Returns a \code{data.frame} of the datasets that have been
   downloaded within this client. This could be useful if you are without
-  an interent connection and wish to know which saved
-  dataset files in your root diretory correspond to which dataset
+  an internet connection and wish to know which saved
+  dataset files in your root directory correspond to which dataset
 }

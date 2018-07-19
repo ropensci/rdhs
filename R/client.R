@@ -153,7 +153,7 @@ R6_client_dhs <- R6::R6Class(
       # catch this and standardise
       if (is.element(num_results, c("ALL", "all", "a", "al", "aL", "Al",
                                     "A", "AL", "ALl", "All", "AlL", "aLL",
-                                    "aLl","alL"))) {
+                                    "aLl", "alL"))) {
         query$perPage <- 100
         num_results <- "ALL"
       } else {
@@ -275,7 +275,7 @@ R6_client_dhs <- R6::R6Class(
     },
 
     # AVAILABLE DATASETS
-    # Creates data.frame of avaialble datasets using \code{available_datasets}
+    # Creates data.frame of available datasets using \code{available_datasets}
     # and caches it
     available_datasets = function(clear_cache_first = FALSE) {
 
@@ -459,15 +459,18 @@ R6_client_dhs <- R6::R6Class(
       } else {
         pattern <- paste0(search_terms, essential_terms, collapse = "|")
         if (!is.null(regex)) {
-          message(paste0("Both regex and search_terms were provided.",
-                         "search_terms will be used.",
-                         "To use regex for searching, do not specify search_terms"))
+          message(paste0(
+            "Both regex and search_terms were provided.",
+            "search_terms will be used.",
+            "To use regex for searching, do not specify search_terms"
+            ))
         }
       }
 
       # results storage
       df <- data.frame("code" = character(0), "description" = character(0),
-                       "dataset_filename" = character(0), "dataset_path" = character(0),
+                       "dataset_filename" = character(0),
+                       "dataset_path" = character(0),
                        "survey_id" = character(0))
 
       res <- list()
@@ -720,14 +723,18 @@ R6_client_dhs <- R6::R6Class(
 
         # stop if all poor file paths
         if (all(!file.exists(dataset_paths))) {
-          stop("All dataset file paths were not found:\n   ",
-               paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
+          stop(
+            "All dataset file paths were not found:\n   ",
+            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n ")
+          )
         }
 
         # message any poor file paths first
         if (any(!file.exists(dataset_paths))) {
-          message("Following dataset file paths were not found:\n   ",
-                  paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
+          message(
+            "Following dataset file paths were not found:\n   ",
+            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n ")
+          )
         }
 
         # what have we downloaded
@@ -736,7 +743,7 @@ R6_client_dhs <- R6::R6Class(
         # which file paths are these
         mats <- match(dataset_paths[file.exists(dataset_paths)], downs)
 
-        # what keys do these belong to and what were the donwloaded options
+        # what keys do these belong to and what were the downloaded options
         # (so we don't download extra files)
         keys <- private$storr$list("downloaded_datasets")[mats]
         options <- strsplit(keys, "_") %>% lapply(function(x) x[c(2, 4)])
@@ -842,7 +849,7 @@ R6_client_dhs <- R6::R6Class(
       # fetch all the datasets so we can catch for the India matches by
       # using the country code catch
       datasets <- dhs_datasets(client = self)
-      datasets <-  rbind(datasets,model_datasets[,-14])
+      datasets <-  rbind(datasets, model_datasets[, -14])
 
       # create new filename argument that takes into account the india
       # difficiulties where needed

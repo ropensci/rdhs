@@ -1,7 +1,7 @@
 #' DHS model datasets
 #'
-#' The model datasets from the DHS website in a `data.frame` that is analagous
-#' to those returned bu `get_available_datasets()`
+#' The model datasets from the DHS website in a `data.frame` that is analogous
+#' to those returned by `get_available_datasets()`
 #'
 #' @docType data
 #' @usage data(model_datasets)

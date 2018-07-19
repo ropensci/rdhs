@@ -2,7 +2,7 @@
 % Please edit documentation in R/authentication.R
 \name{authenticate_dhs}
 \alias{authenticate_dhs}
-\title{DHS Wesbite Authentication}
+\title{DHS Website Authentication}
 \usage{
 authenticate_dhs(your_email, your_password, your_project)
 }
@@ -18,7 +18,7 @@ project that gives you access to the DHS database}
 Returns list of length 3:
   \itemize{
       \item{"user_name"}{ your email usually }
-      \item{"user_pass"}{ your pasword you provided }
+      \item{"user_pass"}{ your password you provided }
       \item{"proj_id"}{ your project number }
       }
 }

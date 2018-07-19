@@ -198,7 +198,7 @@ default the API will return 100 results.</p></td>
     </tr>
     <tr>
       <th>page</th>
-      <td><p>Allows specifying a page number to obtain for the recordset. By
+      <td><p>Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.</p></td>
     </tr>
     <tr>
@@ -214,14 +214,14 @@ cached results we have. Default = FALSE</p></td>
     <tr>
       <th>all_results</th>
       <td><p>Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE.</p></td>
+then the specified page only will be returned. Default = TRUE.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a `data.table` of 2 (or less if `returnFields` is provided)
-  survey characteristics. A survey can be labeled with one or more of these
+  survey characteristics. A survey can be labelled with one or more of these
   survey characteristics. A description of all the attributes returned is
   provided at
   <a href='https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields'>https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields</a></p>

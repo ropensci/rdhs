@@ -42,7 +42,7 @@ test_that("format catches and al_results tests", {
   datasets <- dhs_datasets()
 
   # test for data.table extension
-  set_rdhs_config(data_frame = "data.table::as.data.table",prompt = FALSE)
+  set_rdhs_config(data_frame = "data.table::as.data.table", prompt = FALSE)
   library(data.table)
   dat <- dhs_countries(
     countryIds = "TZ", surveyYearStart = "2010", all_results = FALSE
@@ -208,7 +208,8 @@ test_that("dhs_survey_characteristics works", {
   alc <- which(dat$SurveyCharacteristicID == 16)
   expect_equal(dat$SurveyCharacteristicID[alc], 16)
   expect_equal(dat$SurveyCharacteristicName[alc], "Abortion")
-  dat <- dhs_survey_characteristics(surveyYearStart = "1991", surveyType = "DHS")
+  dat <- dhs_survey_characteristics(surveyYearStart = "1991",
+                                    surveyType = "DHS")
   expect_true(any(dat$SurveyCharacteristicName %in% "Abortion"))
 })
 

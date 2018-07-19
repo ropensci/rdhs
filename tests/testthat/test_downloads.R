@@ -1,6 +1,6 @@
 context("Downloads")
 
-test_that("avaialble surveys and download work", {
+test_that("available surveys and download work", {
   skip_if_no_auth()
   testthat::skip_on_cran()
 

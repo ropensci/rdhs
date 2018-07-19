@@ -209,17 +209,17 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 50.86342 50.86342 50.86342 50.86342</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 48.80746 48.80746 48.80746 48.80746</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  50.86342 50.86342     1</span>
+<span class="co">#&gt;  48.80746 48.80746     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 2.640977 2.640977 2.640977 2.640977</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 4.240212 4.240212 4.240212 4.240212</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  2.640977 2.640977     1</span></code></pre></div>
+<span class="co">#&gt;  4.240212 4.240212     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)

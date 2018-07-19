@@ -1,7 +1,7 @@
 ---
 title: "Anemia prevalence: an `rdhs` example"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-07-18"
+date: "2018-07-19"
 output: 
   rmarkdown::html_vignette:
     keep_md: TRUE
@@ -103,7 +103,7 @@ ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 # Analyse DHS microdata
 
@@ -182,15 +182,6 @@ To download datasets we need to first log in to our DHS account, by providing ou
 ## set up your credentials
 set_rdhs_config(email = "jeffrey.eaton@imperial.ac.uk",
                 project = "Joint estimation of HIV epidemic trends and adult mortality")
-```
-
-```
-## Writing your configuration to:
-##    -> C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json
-```
-
-```
-## If you are using git, be sure to add this to your .gitignore
 ```
 
 After this the function `get_datasets()` returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, `rdhs` will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository. 
@@ -561,7 +552,7 @@ ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 # Regression analysis: relationship between education and anemia

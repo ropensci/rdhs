@@ -10,7 +10,7 @@ last_api_update <- function(timeout = 30) {
     error = function(e) NULL
   )
 
-  if (inherits(updates,"response") && updates$status_code == 200) {
+  if (inherits(updates, "response") && updates$status_code == 200) {
 
       updates <- rbind_list_base(handle_api_response(updates)$Data)
       date <- updates$UpdateDate %>%
@@ -26,12 +26,12 @@ last_api_update <- function(timeout = 30) {
             "To check if the API is down please head to:\n",
             "https://api.dhsprogram.com/rest/dhs/dataupdates\n")
 
-  } else if (inherits(updates,"response")) {
+  } else if (inherits(updates, "response")) {
 
     date <- 0.5
     message("While rdhs was setting up your cache directory, it noticed \n",
             "the DHS API has failed and has returned the following error:")
-    handle_api_response(updates,stop = FALSE)
+    handle_api_response(updates, stop = FALSE)
     message("\nAs a result some of the functionality of rdhs may not work.\n",
             "To confirm if the API is down please head to:\n\n   -> ",
             "https://api.dhsprogram.com/rest/dhs/dataupdates\n")
@@ -86,4 +86,3 @@ rappdirs_rdhs <- function() rappdirs::user_cache_dir("rdhs", Sys.info()["user"])
 # file name for config file
 #' @noRd
 config_file_name <- function() "rdhs.json"
-

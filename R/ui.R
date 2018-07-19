@@ -17,7 +17,7 @@ check_for_client <- function() {
       rdhs_setup_message(
         verbose = client$get_config()$verbose_setup,
         "Your datasets and API calls will be cached here: \n",
-        "   -> ", client$get_root(),"\n",
+        "   -> ", client$get_root(), "\n",
         "Your datasets will be downloaded using the following config:\n"
         )
       print_rdhs_config(client$get_config())
@@ -85,10 +85,10 @@ get_rdhs_config <- function() {
 #'
 #' @rdname get_datasets
 #'
-#' @details Gets datasets from your cache or dwonlaods from the DHS website.
+#' @details Gets datasets from your cache or downloads from the DHS website.
 #'   By providing the filenames, as specified in one of the returned fields from
 #'   \code{\link{dhs_datasets}}, the client will log in for you and download all
-#'   the files you hae requested. If any of the requested files are unavailable
+#'   the files you have requested. If any of the requested files are unavailable
 #'   for your log in, these will be flagged up first as a message so you can
 #'   make a note and request them through the DHS website. You also have the
 #'   option to control whether the downloaded zip file is then extracted and
@@ -115,7 +115,7 @@ get_datasets <- function(dataset_filenames,
 
   client <- check_for_client()
   if (is.null(output_dir_root)) {
-    output_dir_root <- file.path(client$get_root(),"datasets")
+    output_dir_root <- file.path(client$get_root(), "datasets")
   }
   client$get_datasets(dataset_filenames,
                       download_option = download_option,
@@ -136,10 +136,10 @@ get_datasets <- function(dataset_filenames,
 #'
 #' @details Returns a \code{data.frame} of the datasets that have been
 #'   downloaded within this client. This could be useful if you are without
-#'   an interent connection and wish to know which saved
-#'   dataset files in your root diretory correspond to which dataset
+#'   an internet connection and wish to know which saved
+#'   dataset files in your root directory correspond to which dataset
 #'
-#' @return A \code{data.frame} of downlaoded datasets
+#' @return A \code{data.frame} of downloaded datasets
 #' @export
 #'
 
@@ -155,10 +155,10 @@ get_downloaded_datasets <- function() {
 #'
 #' @rdname get_available_datasets
 #'
-#' @details Searches the DHS website for all the datasets that you can donwload.
+#' @details Searches the DHS website for all the datasets that you can download.
 #'   The results of this function are cached in the client. If you have recently
-#'   reqeusted new datasets from the DHS website then you can specify to clear
-#'   the cache first so that you get the new set of datasets avaialble to you.
+#'   requested new datasets from the DHS website then you can specify to clear
+#'   the cache first so that you get the new set of datasets available to you.
 #'   This function is used by \code{\link{get_datasets}} and should thus be
 #'   used with `clear_cache_first = TRUE` before using `get_datasets` if you
 #'   have recently requested new datasets.
@@ -312,7 +312,7 @@ search_variable_labels <- function(dataset_filenames,
 #'       }
 #'
 #' @param dataset Can be either the file path to a dataset, the dataset as a
-#'   `data.frame` or the filenaes of datasets. See details for more information
+#'   `data.frame` or the filenames of datasets. See details for more information
 #' @param return_all Logical whether to return all variables (\code{TRUE})
 #'   or only those with labels.
 #'

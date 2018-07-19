@@ -90,14 +90,14 @@ handle_config <- function(config_path) {
 #'   cached. To enable results to be cached you have to either provide a valid
 #'   `cache_path` argument, or allow rdhs to write to the user cache directory
 #'   for your operating system. To do the later, leave the `cache_path` argument
-#'   blacnk and you will be explicitly prompted to give permission to `rdhs` to
+#'   blank and you will be explicitly prompted to give permission to `rdhs` to
 #'   save your results in this directory. If you do not then your API calls and
 #'   any downloaded datasets will be saved in the temp directory and deleted
 #'   after your R session closes. To allow `rdhs` to download datasets from the
 #'   DHS website, you have to provide both an `email` and `project` argument.
 #'   You will then be prompted to type in your login password securely.
 #'   Your provided config (email, project, password, cache_path etc) will be
-#'   saved at the location provided by `config_path`. If no arguemnt is provided
+#'   saved at the location provided by `config_path`. If no argument is provided
 #'   `config_path` will be either set to within your user cache directory if you
 #'   have given permission to do so, otherwise it will be placed within your
 #'   temp directory.
@@ -194,8 +194,8 @@ set_rdhs_config <- function(email = NULL,
       ask_user_permission()
     }
     if (!(options("rappdir_permission") == TRUE)){
-      cache_path <- file.path(tempdir(TRUE),"rdhs")
-      dir.create(file.path(tempdir(),"rdhs"), showWarnings = FALSE)
+      cache_path <- file.path(tempdir(TRUE), "rdhs")
+      dir.create(file.path(tempdir(), "rdhs"), showWarnings = FALSE)
     } else {
       cache_path <- rappdirs_rdhs()
       dir.create(cache_path, showWarnings = FALSE)
@@ -227,7 +227,7 @@ set_rdhs_config <- function(email = NULL,
   config <- write_rdhs_config_file(dat, config_path)
 
   # and then create the package internal client if we are meant to
-  if(.rdhs$internal_client_update) {
+  if (.rdhs$internal_client_update) {
   .rdhs$client <- client_dhs(config = config, root = config$cache_path)
   }
 
@@ -242,7 +242,7 @@ write_rdhs_config_file <- function(dat, config_path) {
 
   rdhs_setup_message(
     verbose = dat$verbose_setup,
-    "Writing your configuration to:\n   -> ", config_path,"\n"
+    "Writing your configuration to:\n   -> ", config_path, "\n"
     )
   rdhs_setup_message(
     verbose = dat$verbose_setup,
@@ -260,10 +260,11 @@ write_rdhs_config_from_client_config <- function(client) {
   config <- client$get_config()
   config$data_frame <- config$data_frame_nice
   config$data_frame_nice <- NULL
-  str <- jsonlite::toJSON(unclass(config), auto_unbox = TRUE, pretty = TRUE, null = "null")
+  str <- jsonlite::toJSON(unclass(config), auto_unbox = TRUE,
+                          pretty = TRUE, null = "null")
   rdhs_setup_message(
     verbose = config$verbose_setup,
-    "Writing your configuration to:\n   -> ", config$config_path,"\n"
+    "Writing your configuration to:\n   -> ", config$config_path, "\n"
   )
   rdhs_setup_message(
     verbose = config$verbose_setup,
@@ -323,6 +324,6 @@ print_rdhs_config <- function(config) {
 
   config$data_frame <- config$data_frame_nice
   config$data_frame_nice <- NULL
-  message(paste0(capture.output(str(config)),collapse = "\n"))
+  message(paste0(capture.output(str(config)), collapse = "\n"))
 
 }

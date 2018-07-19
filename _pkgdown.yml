@@ -27,6 +27,7 @@ reference:
       downloading datasets, querying survey variables and extracting data."
     contents:
       - set_rdhs_config
+      - get_rdhs_config
       - client_dhs
 
   - title: "User Interface"
