@@ -4,23 +4,14 @@
 \alias{client_dhs}
 \title{Make a dhs client}
 \usage{
-client_dhs(credentials = NULL, root = rappdirs::user_cache_dir("rdhs",
-  Sys.info()["user"]), api_key = "ICLSPH-527168")
+client_dhs(config = NULL, root = rappdirs_rdhs(),
+  api_key = "ICLSPH-527168")
 }
 \arguments{
-\item{credentials}{File path to where log in credentials are stored
-(preferred as no
-secrets are typed into an R session). File format should be (each bullet
-is a new line):
-\itemize{
-    \item email=dummy@gmail.com
-    \item password=dummypass
-    \item project=Dummy Project
-    }}
+\item{config}{config object, as created using \code{read_rdhs_config}}
 
 \item{root}{Character for root directory to where client, caches,
-surveys etc. will be stored.
-Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}}
+surveys etc. will be stored. Default = \code{rappdirs_rdhs()}}
 
 \item{api_key}{Character for DHS API KEY}
 }
@@ -32,7 +23,7 @@ Make a DHS API client
 
 \describe{
 \item{\code{dhs_api_request}}{
-  Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see \code{vignette(rdhs)} for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default paramters will return all of the results, and will format it nicely into a data.frame for you.
+  Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see \code{vignette(rdhs)} for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default parameters will return all of the results, and will format it nicely into a data.frame for you.
   N.B. This is easier to now do by using the bespoke functions that are included within the package. These take the form dhs_<endpoint>, e.g. \code{\link{dhs_data}}. These functions can also take your client as an argument that will cache the response for you
 
   \emph{Usage:}
@@ -53,15 +44,15 @@ Make a DHS API client
     \item{\code{num_results}:   The Number of results to return. Default = "ALL" which will loop through all the api search results pages for you if there are more results than their API will allow you to fetch in one page. If you specify a number this many results will be returned (but probably best to just leave default).
     }
 
-    \item{\code{just_results}:   Boolean whetehr to return just the results or all the http API response. Default = TRUE (probably best again to leave as this.)
+    \item{\code{just_results}:   Boolean whether to return just the results or all the http API response. Default = TRUE (probably best again to leave as this.)
     }
   }
 
   \emph{Value}:
-  Data.frame with search results if just_results=TRUE, otherwsie a nested list with all the API responses for each page required.
+  Data.frame with search results if just_results=TRUE, otherwise a nested list with all the API responses for each page required.
 }
 \item{\code{available_datasets}}{
-  Searches the DHS website for all the datasets that you can donwload. The results of this function are cached in the client. If you have recently reqeusted new datasets from the DHS website then you can specify to clear the cache first so that you get the new set of datasets avaialble to you.
+  Searches the DHS website for all the datasets that you can download. The results of this function are cached in the client. If you have recently requested new datasets from the DHS website then you can specify to clear the cache first so that you get the new set of datasets available to you.
 
   \emph{Usage:}
   \code{available_datasets(clear_cache_first = FALSE)}
@@ -76,7 +67,7 @@ Make a DHS API client
   Data.frame object with 14 variables that detail the surveys you can download, their url download links and the country, survey, year etc info for that link.
 }
 \item{\code{get_datasets}}{
-  Gets datasets from your cache or dwonlaods from the DHS website. By providing the filenames, as specified in one of the returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R \code{data.frame}. This coverted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when neaded with \code{readRDS}. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
+  Gets datasets from your cache or downloads from the DHS website. By providing the filenames, as specified in one of the returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R \code{data.frame}. This converted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when needed with \code{readRDS}. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
 
   \emph{Usage:}
   \code{get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
@@ -156,7 +147,7 @@ Make a DHS API client
     \item{\code{variables}:   Character vector of survey variables to be looked up
     }
 
-    \item{\code{essential_variables}:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this functon. Default = NULL.
+    \item{\code{essential_variables}:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this function. Default = NULL.
     }
 
     \item{\code{rm_na}:   Should NAs be removed. Default is `TRUE`
@@ -184,11 +175,11 @@ Make a DHS API client
     }
   }
 }
-\item{\code{get_var_labels}}{
+\item{\code{get_variable_labels}}{
   Returns information about a dataset's survey variables and definitions.
 
   \emph{Usage:}
-  \code{get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)}
+  \code{get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)}
 
   \emph{Arguments:}
   \itemize{
@@ -197,13 +188,16 @@ Make a DHS API client
 
     \item{\code{dataset_paths}:   Vector of dataset file paths to where datasets have been saved to
     }
+
+    \item{\code{rm_na}:   Should variables and labels with NAs be removed. Default = FALSE
+    }
   }
 
   \emph{Value}:
   Data frame of survey variable names and definitions
 }
 \item{\code{get_cache_date}}{
-  Returns the private member variable cache-date, which is the date the client was last created/valiated against the DHS API.
+  Returns the private member variable cache-date, which is the date the client was last created/validated against the DHS API.
 
   \emph{Usage:}
   \code{get_cache_date()}
@@ -220,6 +214,15 @@ Make a DHS API client
   \emph{Value}:
   Character string file path
 }
+\item{\code{get_config}}{
+  Returns the client's configuration
+
+  \emph{Usage:}
+  \code{get_config()}
+
+  \emph{Value}:
+  Config data.frame
+}
 \item{\code{get_downloaded_datasets}}{
   Returns a named list of all downloaded datasets and their file paths
 
@@ -230,7 +233,7 @@ Make a DHS API client
   List of dataset names and file paths.
 }
 \item{\code{set_cache_date}}{
-  Sets the private member variable cache-date, which is the date the client was last created/valiated against the DHS API. This should never really be needed but is icluded to demonstrate the cache clearing properties of the client in the vignette.
+  Sets the private member variable cache-date, which is the date the client was last created/validated against the DHS API. This should never really be needed but is included to demonstrate the cache clearing properties of the client in the vignette.
 
   \emph{Usage:}
   \code{set_cache_date(date)}

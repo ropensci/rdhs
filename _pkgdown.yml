@@ -10,23 +10,24 @@ reference:
     contents:
       - dhs_countries
       - dhs_data
-      - dhs_dataUpdates
+      - dhs_data_updates
       - dhs_datasets
       - dhs_geometry
       - dhs_indicators
       - dhs_info
       - dhs_publications
-      - dhs_surveyCharacteristics
+      - dhs_survey_characteristics
       - dhs_surveys
       - dhs_tags
-      - dhs_uiUpdates
+      - dhs_ui_updates
 
   - title: "Set up DHS login credentials"
     desc: >
       "Set our credentials for logging into the DHS website. This creates in the backend a rdhs client for
       downloading datasets, querying survey variables and extracting data."
     contents:
-      - set_dhs_credentials
+      - set_rdhs_config
+      - get_rdhs_config
       - client_dhs
 
   - title: "User Interface"
@@ -43,7 +44,7 @@ reference:
     desc: Tools to help combine extracted datasets, as well as extract and apend dataset variable names and definitions
     contents:
       - rbind_labelled
-      - get_var_labels
+      - get_variable_labels
       - data_and_labels
 
   - title: "DHS Dataset Parsers"

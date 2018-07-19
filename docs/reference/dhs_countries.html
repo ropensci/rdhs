@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -132,30 +132,15 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>dhs_countries</span>(<span class='kw'>client</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>all_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>countryIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>indicatorIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>dhs_countries</span>(<span class='kw'>countryIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>indicatorIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>surveyYear</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyYearStart</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyYearEnd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>surveyType</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>surveyCharacteristicIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tagIds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>f</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>returnFields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>perPage</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>page</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>f</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>returnFields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>perPage</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>page</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>client</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>all_results</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>client</th>
-      <td><p>If the api request should be cached, then provide a client
-object created by <code><a href='client_dhs.html'>client_dhs</a></code></p></td>
-    </tr>
-    <tr>
-      <th>force</th>
-      <td><p>Should we force fetching the API results, and ignore any
-cached results we have. Default = FALSE</p></td>
-    </tr>
-    <tr>
-      <th>all_results</th>
-      <td><p>Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE.</p></td>
-    </tr>
     <tr>
       <th>countryIds</th>
       <td><p>Specify a comma separated list of country ids to filter
@@ -226,8 +211,23 @@ default the API will return 100 results.</p></td>
     </tr>
     <tr>
       <th>page</th>
-      <td><p>Allows specifying a page number to obtain for the recordset. By
+      <td><p>Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.</p></td>
+    </tr>
+    <tr>
+      <th>client</th>
+      <td><p>If the api request should be cached, then provide a client
+object created by <code><a href='client_dhs.html'>client_dhs</a></code></p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p>Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE</p></td>
+    </tr>
+    <tr>
+      <th>all_results</th>
+      <td><p>Boolean for if all results should be returned. If FALSE
+then the specified page only will be returned. Default = TRUE.</p></td>
     </tr>
     </table>
     

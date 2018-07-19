@@ -2,23 +2,19 @@
 % Please edit documentation in R/authentication.R
 \name{authenticate_dhs}
 \alias{authenticate_dhs}
-\title{DHS Wesbite Authentication}
+\title{DHS Website Authentication}
 \usage{
-authenticate_dhs(your_email, your_password, your_project)
+authenticate_dhs(config)
 }
 \arguments{
-\item{your_email}{Character for email address for DHS website}
-
-\item{your_password}{Character for password for DHS website}
-
-\item{your_project}{Character string for the name of your
-project that gives you access to the DHS database}
+\item{config}{Object of class `rdhs_config` as produced by `read_rdhs_config`
+that must contain a valid `email`, `project` and `password`.}
 }
 \value{
 Returns list of length 3:
   \itemize{
       \item{"user_name"}{ your email usually }
-      \item{"user_pass"}{ your pasword you provided }
+      \item{"user_pass"}{ your password you provided }
       \item{"proj_id"}{ your project number }
       }
 }

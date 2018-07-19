@@ -17,24 +17,21 @@
 #' mrfl_zip, mode="wb"
 #' )
 #'
-#' dcf <- rdhs:::read_zipdata(mrfl_zip, "\\.DCF", readLines)
+#' dcf <- rdhs::read_zipdata(mrfl_zip, "\\.DCF", readLines)
 #' dct <- rdhs:::parse_dcf(dcf)
 #'
-#' sps <- rdhs:::read_zipdata(mrfl_zip, "\\.SPS", readLines)
-#' dct <- parse_sps(sps)
+#' sps <- rdhs::read_zipdata(mrfl_zip, "\\.SPS", readLines)
+#' dct <- rdhs:::parse_sps(sps)
 #'
-#' do <- rdhs:::read_zipdata(mrfl_zip, "\\.DO", readLines)
-#' dctin <- rdhs:::read_zipdata(mrfl_zip, "\\.DCT", readLines)
-#' dct <- parse_do(do, dctin)
+#' do <- rdhs::read_zipdata(mrfl_zip, "\\.DO", readLines)
+#' dctin <- rdhs::read_zipdata(mrfl_zip, "\\.DCT", readLines)
+#' dct <- rdhs:::parse_do(do, dctin)
 #'
 #' @name parse_meta
 NULL
 
 #' @rdname parse_meta
-#' @export
-
 parse_dcf <- function(dcf, all_lower=TRUE) {
-  Sys.setlocale("LC_ALL", "C") ## !!! TODO
 
   item.start <- which(dcf == "[Item]")
   item.len <- diff(c(item.start, length(dcf) + 1L))
@@ -79,7 +76,7 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
   }
 
   values <- Map("names<-", values, labels)
-  values <- lapply(values, function(x) x[!is.na(x) & nchar(names(x)) > 0])
+  values <- lapply(values, function(x) x[!is.na(x) & nzchar(names(x))])
 
   dcf$labels[hasvs] <- values
 
@@ -111,8 +108,10 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
 
 #' @rdname parse_meta
 #' @param sps .SPS file as character vector (e.g. from readLines)
-#' @export
 parse_sps <- function(sps, all_lower=TRUE) {
+
+  sps <- iconv(sps, to = "UTF-8", sub = "") # drop unrecognized multibyte characters
+
   endblock <- grep("^ *\\.", sps)
 
   ## Parse variable list
@@ -144,10 +143,11 @@ parse_sps <- function(sps, all_lower=TRUE) {
   varlbl <- sps[(varlbl_idx + 1):(min(endblock[endblock > varlbl_idx ]) - 1)]
   varlbl <- grep("[a-zA-Z]", varlbl, value = TRUE) # remove rows without alpha
 
-  varlabels <- sub("^[^a-zA-Z]*([a-zA-Z][^ ]+) +['\\\"]([^\\\"]+)['\\\"].*",
-                   "\\2", varlbl)
-  names_vars <- sub("^[^a-zA-Z]*([a-zA-Z][^ ]+) +['\\\"]([^\\\"]+)['\\\"].*",
-                    "\\1", varlbl)
+  pattern <- "^[^a-zA-Z]*([a-zA-Z][^ ]+) +(('[^']*')|(\\\"[^\\\"]*\\\")).*"
+  varlabels <- sub(pattern, "\\2", varlbl)
+  varlabels <- sub("^['\\\"] *([^ ].*?) *['\\\"]$", "\\1", varlabels)
+
+  names_vars <- sub(pattern, "\\1", varlbl)
   names(varlabels) <- tolower(names_vars)
   names(varlabels) <- sub("\\$", "_", names(varlabels))
 
@@ -162,16 +162,20 @@ parse_sps <- function(sps, all_lower=TRUE) {
   itidx <- Map(":", validx + 1, c(validx[-1] - 1, length(vallbl)))
   items <- lapply(itidx, function(idx) vallbl[idx])
 
-  values <- lapply(items, sub,
-    pattern = " *([0-9]+) +['\\\"]([^\\\"]+)['\\\"].*",
-    replacement = "\\1"
-  )
-  values <- suppressWarnings(lapply(values, as.integer))
+  pattern <- "^ *((' *[^ ].*?')|([0-9]+)) *(('[^']*')|(\\\"[^\\\"]*\\\")).*"
 
-  labels <- lapply(items, sub,
-    pattern = " *([0-9]+) +['\\\"]([^\\\"]+)['\\\"].*",
-    replacement = "\\2"
-  )
+  values <- lapply(items, sub, pattern = pattern, replacement = "\\1")
+  values <- lapply(values,
+                   sub,
+                   pattern = "' *([^ ].*?) *'",
+                   replacement = "\\1")
+
+  labels <- lapply(items, sub, pattern = pattern, replacement = "\\4")
+  labels <- lapply(labels,
+                   sub,
+                   pattern = "^['\\\"] *([^ ].*?) *['\\\"]$",
+                   replacement = "\\1")
+
   if (all_lower) {
     labels <- lapply(labels, tolower)
   }
@@ -179,6 +183,13 @@ parse_sps <- function(sps, all_lower=TRUE) {
 
   names(values) <- tolower(sub(".*?([a-zA-Z][^ ]*).*", "\\1", vallbl[validx]))
   names(values) <- sub("\\$", "_", names(values))
+
+  val_nam_match <- match(names(values), dct$name)
+  numericvar <- dct$datatype[val_nam_match] %in% c("Numeric", "Decimal")
+  valnum <- values[!is.na(numericvar) & numericvar]
+  valnum <- lapply(valnum, gsub, pattern = "[^0-9]", replacement = "")
+  valnum <- lapply(valnum, "storage.mode<-", "integer")
+  values[!is.na(numericvar) & numericvar] <- valnum
 
   dct$labels <- values[dct$name]
 
@@ -188,11 +199,10 @@ parse_sps <- function(sps, all_lower=TRUE) {
 #' @rdname parse_meta
 #' @param do .DO file as character vector (e.g. from readLines)
 #' @param dct .DCT file as character vector (e.g. from readLines)
-#' @export
 parse_do <- function(do, dct, all_lower=TRUE) {
-  Sys.setlocale("LC_ALL", "C") ## !!! TODO
 
-  ## parse fixed-width
+
+  # fixed width parse
   dct <- dct[-c(1:2, length(dct))]
 
   pattern <- "^ *([^ ]+) +([^ ]+) +([0-9]+): *([0-9]+)-([0-9]+).*"
@@ -226,7 +236,6 @@ parse_do <- function(do, dct, all_lower=TRUE) {
   varlabels <- gsub("\"", "", varlabels)
   names(varlabels) <- tolower(sub("^label variable ([^ ]+) +?([^ ].*)",
                                   "\\1", varlbl))
-
 
   ## parse value labels
   lbldef <- grep("^ *label define", x, value = TRUE)
@@ -271,7 +280,7 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #' @param all_lower Logical indicating whether all value labels should be
 #'   lower case. Default to `TRUE`.
 #' @param meta_source character string indicating metadata source file for data
-#'   dictionary. Default \code{NULL} first trieds to use \code{.DCF} and then
+#'   dictionary. Default \code{NULL} first tried to use \code{.DCF} and then
 #'   {.SPS} if not found.
 #' @return A data frame. Value labels for each variable are stored as the
 #'   `labelled` class from `haven`.
@@ -298,26 +307,29 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #' table(mr$mv213)
 #' table(haven::as_factor(mr$mv213))
 #'
-#' @export
 read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   null_meta <- is.null(meta_source)
 
   if ( (null_meta || tolower(meta_source) == "dcf") &&
     any(grepl("\\.DCF$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    dcf <- read_zipdata(zfile, "\\.DCF$", readLines)
+    dcf <- read_zipdata(zfile, "\\.DCF$", readLines,
+                        encoding = "UTF-8", warn = FALSE)
     dct <- parse_dcf(dcf, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) == "sps") &&
     any(grepl("\\.SPS$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    sps <- read_zipdata(zfile, "\\.SPS$", readLines)
+    sps <- read_zipdata(zfile, "\\.SPS$", readLines,
+                        encoding = "UTF-8", warn = FALSE)
     dct <- parse_sps(sps, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) %in% c("do", "dct")) &&
     any(grepl("\\.DO$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE)) &&
     any(grepl("\\.DCT$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    do <- read_zipdata(zfile, "\\.DO$", readLines)
-    dct <- read_zipdata(zfile, "\\.DCT$", readLines)
+    do <- read_zipdata(zfile, "\\.DO$", readLines,
+                       encoding = "UTF-8", warn = FALSE)
+    dct <- read_zipdata(zfile, "\\.DCT$", readLines,
+                        encoding = "UTF-8", warn = FALSE)
     dct <- parse_do(do, dct, all_lower)
   }
   else {

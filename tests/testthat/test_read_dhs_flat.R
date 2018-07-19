@@ -38,7 +38,7 @@ test_that("datasets parse", {
   # check for misssin metadata by first extracting it removing all the meta data
   # and then zipping
   tf <- tempfile()
-  unzip_warn_fails(mrfl_zip, exdir = tf)
+  suppressWarnings(unzip(mrfl_zip, exdir = tf))
   file.remove(list.files(tf, full.names = TRUE)[-grep(".DAT$", list.files(tf))])
   zip("dumyzip", files = list.files(tf, full.names = TRUE))
   expect_error(read_dhs_flat("dumyzip.zip"), "metadata file not found")
@@ -54,19 +54,19 @@ test_that("data dictionaries FWF lengths match file width", {
     "Filename=ZZAR61FL.ZIP&Tp=4&Ctry_Code=zz&survey_id=0&doctype=hiv"
   ), arfl_zip, mode = "wb")
 
-  dcf <- rdhs:::read_zipdata(arfl_zip, "\\.DCF", readLines)
-  sps <- rdhs:::read_zipdata(arfl_zip, "\\.SPS", readLines)
-  do <- rdhs:::read_zipdata(arfl_zip, "\\.DO", readLines)
-  dct <- rdhs:::read_zipdata(arfl_zip, "\\.DCT", readLines)
+  dcf <- rdhs::read_zipdata(arfl_zip, "\\.DCF", readLines)
+  sps <- rdhs::read_zipdata(arfl_zip, "\\.SPS", readLines)
+  do <- rdhs::read_zipdata(arfl_zip, "\\.DO", readLines)
+  dct <- rdhs::read_zipdata(arfl_zip, "\\.DCT", readLines)
 
-  dat <- rdhs:::read_zipdata(arfl_zip, "\\.DAT$", iotools::input.file)
+  dat <- rdhs::read_zipdata(arfl_zip, "\\.DAT$", iotools::input.file)
 
   expect_equal(sum(parse_dcf(dcf)$len), nchar(dat[1]))
   expect_equal(sum(parse_sps(sps)$len), nchar(dat[1]))
   expect_equal(sum(parse_do(do, dct)$len), nchar(dat[1]))
 
   # check for incorrect pattern
-  expect_warning(rdhs:::read_zipdata(arfl_zip, "\\.notachance", readLines))
+  expect_warning(rdhs::read_zipdata(arfl_zip, "\\.notachance", readLines))
 })
 
 
@@ -77,13 +77,9 @@ test_that("lower case flat file check", {
   # Create new directory
   td <- file.path(tempdir(), as.integer(Sys.time()))
 
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
-                            credentials = "credentials", root = td)
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  # create
+    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td,
+                            config = read_rdhs_config_file("rdhs.json"))
 
   dat <- cli$get_datasets("ngcr4afl.zip")
 })

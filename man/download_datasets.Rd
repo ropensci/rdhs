@@ -4,14 +4,16 @@
 \alias{download_datasets}
 \title{Create a data frame of datasets that your log in can download}
 \usage{
-download_datasets(desired_dataset, download_option = "both",
-  reformat = TRUE, all_lower = TRUE, output_dir_root = NULL, your_email,
-  your_password, your_project, ...)
+download_datasets(config, desired_dataset, download_option = "both",
+  reformat = TRUE, all_lower = TRUE, output_dir_root = NULL, ...)
 }
 \arguments{
+\item{config}{Object of class `rdhs_config` as produced by `read_rdhs_config`
+that must contain a valid `email`, `project` and `password`.}
+
 \item{desired_dataset}{Row from \code{available_datasets}}
 
-\item{download_option}{Character dictating how the durvey is stored when
+\item{download_option}{Character dictating how the survey is stored when
 downloaded. Must be one of:
 \itemize{
     \item{"zip"} - Just the zip. "z", "i", "p" or "zip" will match
@@ -28,13 +30,6 @@ reformatted for ease of use later. Default = TRUE}
 lower case. Default to `TRUE`.}
 
 \item{output_dir_root}{Directory where files are to be downloaded to}
-
-\item{your_email}{Character for email address for DHS website}
-
-\item{your_password}{Character for password for DHS website}
-
-\item{your_project}{Character string for the name of your project that gives
-you access to the DHS database}
 
 \item{...}{Any other arguments to be passed to
 \code{\link{read_dhs_dataset}}}

@@ -19,7 +19,7 @@
 #' mrdt_zip, mode="wb"
 #' )
 #'
-#' map <- rdhs:::read_zipdata(mrdt_zip, "\\.MAP", readLines)
+#' map <- rdhs::read_zipdata(mrdt_zip, "\\.MAP", readLines)
 #' dct <- rdhs:::parse_map(map)
 #'
 parse_map <- function(map, all_lower=TRUE) {
@@ -38,8 +38,8 @@ parse_map <- function(map, all_lower=TRUE) {
   var <- dat[var_idx]
 
   ## Identify column breaks based on white space in header.
-  ## Then check that white spaces also occur in variable rows
-  ## (>0.7 arbitrarily) to exclude white spaces
+  ## Then check that white spaces also occur in variable
+  ## rows (>0.7 arbitrarily) to exclude white spaces
   ## in header variable names.
 
   hspaces <- vapply(
@@ -49,7 +49,6 @@ parse_map <- function(map, all_lower=TRUE) {
   hspaces <- which(apply(hspaces, 1, all))
   hspaces <- setdiff(hspaces + 1, hspaces) - 1
 
-  Sys.setlocale("LC_ALL", "C") ## !!! TODO
   vspaces <- lapply(strsplit(var, NULL), "==", " ")
   vspaces <- vapply(
     vspaces, "[", logical(length(vspaces[[1]])), seq_along(vspaces[[1]])
@@ -206,7 +205,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #'
 #' * `mode="raw"`: use `foreign::read.dta(..., convert.factors=FALSE)`,
 #' which simply loads underlying value coding. Variable labels and value
-#' lables are still available through dataset attributes (see examples).
+#' labels are still available through dataset attributes (see examples).
 #'
 #' @seealso \code{\link[foreign]{read.dta}}, \code{\link[haven]{labelled}},
 #'   \code{\link[haven]{read_dta}}.
@@ -224,7 +223,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #' mrdt_zip, mode="wb"
 #' )
 #'
-#' mr <- rdhs:::read_dhs_dta(mrdt_zip,mode="map")
+#' mr <- rdhs::read_dhs_dta(mrdt_zip,mode="map")
 #' attr(mr$mv213, "label")
 #' class(mr$mv213)
 #' head(mr$mv213)
@@ -233,7 +232,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #'
 #' ## If Stata file codebook is complete, `mode="map"` and `"haven"`
 #' ## should be the same.
-#' mr_hav <- rdhs:::read_dhs_dta(mrdt_zip, mode="haven")
+#' mr_hav <- rdhs::read_dhs_dta(mrdt_zip, mode="haven")
 #' attr(mr_hav$mv213, "label")
 #' class(mr_hav$mv213)
 #' head(mr_hav$mv213)  # "9=missing" omitted from .dta codebook
@@ -245,11 +244,11 @@ parse_map <- function(map, all_lower=TRUE) {
 #' # Specifying foreignNA can help but often will not as below.
 #' # Thus we would recommend either using mode = "haven" or mode = "raw"
 #' \dontrun{
-#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode="foreign")
-#' mr_for <- rdhs:::read_dhs_dta(mrdt_zip, mode = "foreignNA")
+#' mr_for <- rdhs::read_dhs_dta(mrdt_zip, mode="foreign")
+#' mr_for <- rdhs::read_dhs_dta(mrdt_zip, mode = "foreignNA")
 #' }
 #' ## Don't convert factors
-#' mr_raw <- rdhs:::read_dhs_dta(mrdt_zip, mode="raw")
+#' mr_raw <- rdhs::read_dhs_dta(mrdt_zip, mode="raw")
 #' table(mr_raw$mv213)
 #'
 read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
@@ -278,7 +277,8 @@ read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
   if (mode == "map") {
     dat <- read_zipdata(zfile, "\\.dta$", foreign::read.dta,
                         convert.factors = FALSE, ...)
-    map <- read_zipdata(zfile, "\\.MAP$", readLines)
+    map <- read_zipdata(zfile, "\\.MAP$", readLines,
+                        encoding = "latin1", warn = FALSE)
     dct <- parse_map(map, all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
     haslbl <- unlist(lapply(dct$labels, length)) > 0

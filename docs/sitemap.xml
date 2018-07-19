@@ -31,7 +31,7 @@
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_datasets.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_dataUpdates.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_data_updates.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_geometry.html</loc>
@@ -46,16 +46,16 @@
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_publications.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_surveyCharacteristics.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_surveys.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_surveys.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_survey_characteristics.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_tags.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_uiUpdates.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_ui_updates.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/download_datasets.html</loc>
@@ -85,10 +85,16 @@
     <loc>https://ojwatson.github.io/rdhs//reference/get_labels_from_dataset.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/get_var_labels.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_rdhs_config.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/get_variable_labels.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/last_api_update.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/model_datasets.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/parse_map.html</loc>
@@ -133,7 +139,10 @@
     <loc>https://ojwatson.github.io/rdhs//reference/search_variable_labels.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/set_dhs_credentials.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/set_rdhs_config.html</loc>
+  </url>
+  <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/unzip_special.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//articles/anemia.html</loc>

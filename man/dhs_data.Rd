@@ -4,24 +4,15 @@
 \alias{dhs_data}
 \title{API request of DHS Indicator Data}
 \usage{
-dhs_data(client = NULL, force = FALSE, all_results = TRUE,
-  countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
+dhs_data(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
   selectSurveys = NULL, surveyYear = NULL, surveyYearStart = NULL,
   surveyYearEnd = NULL, surveyType = NULL, surveyCharacteristicIds = NULL,
   characteristicCategory = NULL, characteristicLabel = NULL,
   tagIds = NULL, breakdown = NULL, returnGeometry = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL)
+  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
+  force = FALSE, all_results = TRUE)
 }
 \arguments{
-\item{client}{If the api request should be cached, then provide a client
-object created by \code{\link{client_dhs}}}
-
-\item{force}{Should we force fetching the API results, and ignore any
-cached results we have. Default = FALSE}
-
-\item{all_results}{Boolean for if all results should be returned. If FALSE
-then the specifed page only will be returned. Default = TRUE}
-
 \item{countryIds}{Specify a comma separated list of country ids to filter
   by. For a list of countries use
 \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}}
@@ -100,8 +91,17 @@ JSON.}
 \item{perPage}{Specify the number of results to be returned per page. By
 default the API will return 100 results.}
 
-\item{page}{Allows specifying a page number to obtain for the recordset.
+\item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
+
+\item{client}{If the api request should be cached, then provide a client
+object created by \code{\link{client_dhs}}}
+
+\item{force}{Should we force fetching the API results, and ignore any
+cached results we have. Default = FALSE}
+
+\item{all_results}{Boolean for if all results should be returned. If FALSE
+then the specified page only will be returned. Default = TRUE}
 }
 \value{
 Returns a `data.table` of 27 (or less if `returnFields` is provided)

@@ -4,16 +4,12 @@
 \alias{available_datasets}
 \title{Create a data frame of datasets that your log in can download}
 \usage{
-available_datasets(your_email, your_password, your_project,
-  datasets_api_results = NULL, surveys_api_results = NULL)
+available_datasets(config, datasets_api_results = NULL,
+  surveys_api_results = NULL)
 }
 \arguments{
-\item{your_email}{Character for email address for DHS website}
-
-\item{your_password}{Character for password for DHS website}
-
-\item{your_project}{Character string for the name of your project that
-gives you access to the DHS database}
+\item{config}{Object of class `rdhs_config` as produced by `read_rdhs_config`
+that must contain a valid `email`, `project` and `password`.}
 
 \item{datasets_api_results}{Data.table for the api results for the datasets
   endpoint. Default = NULL and

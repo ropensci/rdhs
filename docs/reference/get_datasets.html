@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -133,8 +133,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>get_datasets</span>(<span class='no'>dataset_filenames</span>, <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"rds"</span>, <span class='kw'>reformat</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='fu'>file.path</span>(<span class='no'>.rdhs</span>$<span class='no'>client</span>$<span class='fu'>get_root</span>(),
-  <span class='st'>"datasets"</span>), <span class='kw'>clear_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>all_lower</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>output_dir_root</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clear_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,10 +187,10 @@ This will allow newly accessed datasets to be available. Default = `TRUE`</p></t
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Gets datasets from your cache or dwonlaods from the DHS website.
+    <p>Gets datasets from your cache or downloads from the DHS website.
   By providing the filenames, as specified in one of the returned fields from
   <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all
-  the files you hae requested. If any of the requested files are unavailable
+  the files you have requested. If any of the requested files are unavailable
   for your log in, these will be flagged up first as a message so you can
   make a note and request them through the DHS website. You also have the
   option to control whether the downloaded zip file is then extracted and

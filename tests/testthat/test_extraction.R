@@ -4,17 +4,7 @@ test_that("query codes having downloaded surveys", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
-
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  cli <- new_rand_client()
 
   # create availbale surveys
   survs <- cli$available_datasets()
@@ -111,7 +101,7 @@ test_that("query codes having downloaded surveys", {
     search_terms = "malaria", reformat = TRUE
   )
   extract <- cli$extract(quest, add_geo = T)
-  unlink(td)
+  unlink(cli$get_root())
 })
 
 test_that("surveyId in extract", {
@@ -125,6 +115,7 @@ test_that("surveyId in extract", {
   expect_identical(names(dat)[5], "survey_id")
 
   extract <- cli$extract(dat)
+  unlink(cli$get_root())
 })
 
 
@@ -133,17 +124,8 @@ test_that("rbind_labelled", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
-
   # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  cli <- new_rand_client()
 
   # get some datasets
   d <- cli$get_datasets(c("AOBR62FL.ZIP", "BJBR41FL.ZIP"))
@@ -194,4 +176,5 @@ test_that("rbind_labelled", {
       table(extract$BJBR41FL$v024)
     )))
   )
+  unlink(cli$get_root())
 })

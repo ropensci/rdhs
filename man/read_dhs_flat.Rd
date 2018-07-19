@@ -14,7 +14,7 @@ ending in filename `XXXXXXFL.zip`}
 lower case. Default to `TRUE`.}
 
 \item{meta_source}{character string indicating metadata source file for data
-dictionary. Default \code{NULL} first trieds to use \code{.DCF} and then
+dictionary. Default \code{NULL} first tried to use \code{.DCF} and then
 {.SPS} if not found.}
 }
 \value{

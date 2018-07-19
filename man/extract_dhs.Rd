@@ -12,6 +12,9 @@ extract_dhs(questions, add_geo = FALSE)
 
 \item{add_geo}{Add geograpic information to the extract. Defaut = `TRUE`}
 }
+\value{
+A \code{list} of `data.frames` for each survey data extracted.
+}
 \description{
 Extracts data from your downloaded datasets according to a data.frame of
 requested survey variables or survey definitions

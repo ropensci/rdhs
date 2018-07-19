@@ -4,54 +4,33 @@ test_that("authenticate_dhs works", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  expect_equal(rdhs:::authenticate_dhs(
-    your_email = Sys.getenv("rdhs_USER_EMAIL"),
-    your_password = Sys.getenv("rdhs_USER_PASS"),
-    your_project = Sys.getenv("rdhs_USER_PROJECT")
-  )$proj_id, "111616")
+  config <- read_rdhs_config_file("rdhs.json")
+
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
 
   # catch if your project has a short name that won't be ellipsis cocnerned
-  expect_equal(rdhs:::authenticate_dhs(
-    your_email = Sys.getenv("rdhs_USER_EMAIL"),
-    your_password = Sys.getenv("rdhs_USER_PASS"),
-    your_project = paste0(
-      strsplit(Sys.getenv("rdhs_USER_PROJECT"), "")[[1]][1:10],
-      collapse = ""
-    )
-  )$proj_id, "111616")
+  proj <- config$project
+  config$project <- paste0(strsplit(config$project, "")[[1]][1:10],
+                           collapse = ""
+                           )
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
 
-  expect_error(rdhs:::authenticate_dhs(
-    your_email = Sys.getenv("rdhs_USER_EMAIL"),
-    your_password = Sys.getenv("rdhs_USER_PASS"),
-    your_project = "twaddle_for_days"
-  ))
+  config$project <- "twaddle_for_days"
+  expect_error(rdhs:::authenticate_dhs(config))
 })
 
 test_that("available_surveys works", {
   testthat::skip_on_cran()
   skip_if_no_auth()
 
-  # Create new directory
-  td <- file.path(tempdir(), as.integer(Sys.time()))
-
-  # create auth through whichever route is valid for the environment
-  if (file.exists("credentials")) {
-    cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168", credentials = "credentials", root = td
-    )
-  } else {
-    cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", root = td)
-  }
+  cli <- new_rand_client()
 
   # create availbale datasets
   survs <- cli$available_datasets()
 
   # do it without the client check for poor formed internal api_request
-  survs <- available_datasets(
-    your_email = Sys.getenv("rdhs_USER_EMAIL"),
-    your_password = Sys.getenv("rdhs_USER_PASS"),
-    your_project = Sys.getenv("rdhs_USER_PROJECT")
-  )
+  config <- cli$get_config()
+  survs <- available_datasets(config)
 
   # check the names
   expect_identical(names(survs), c(
@@ -63,5 +42,5 @@ test_that("available_surveys works", {
   # there should definitely be more than this many urls
   expect_true(dim(survs)[1] > 5000)
 
-  unlink(td)
+  unlink(cli$get_root())
 })

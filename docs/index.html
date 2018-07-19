@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -125,15 +125,7 @@
 <p>Install <code>rdhs</code> from github with <code>devtools</code>. If you have not got a working development environment then please see the <a href="https://ojwatson.github.io/rdhs/articles/toolkit.html">toolkit vignette</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
-<span class="kw">library</span>(rdhs)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Welcome back :) </span>
-<span class="co">#&gt; -------------------------</span>
-<span class="co">#&gt; rdhs will be using the login credentials you set last time, which it will read from:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/credentials</span>
-<span class="co">#&gt; It will also save any datasets you download in this directory:</span>
-<span class="co">#&gt;    -&gt; C:/Users/Oliver/AppData/Local/Oliver/rdhs/Cache</span>
-<span class="co">#&gt; If you wish to change your credentials or where your datasets are saved, please use set_dhs_credentials()</span></code></pre></div>
+<span class="kw">library</span>(rdhs)</code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -151,42 +143,40 @@
 <a href="#query-the-dhs-api-" class="anchor"></a>Query the <a href="https://api.dhsprogram.com/">DHS API</a>.</h3>
 <p>Obtain survey esimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
-<span class="co">#&gt;                              ShortName   IndicatorId</span>
-<span class="co">#&gt; 1: Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
+<span class="co">#&gt;                             ShortName   IndicatorId</span>
+<span class="co">#&gt; 1 Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
 <span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
        <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
-<span class="co">#&gt;                              Indicator  SurveyId SurveyYearLabel Value</span>
-<span class="co">#&gt; 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
-<span class="co">#&gt; 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
-<span class="co">#&gt; 3: Malaria prevalence according to RDT TZ2017MIS            2017   7.3</span>
-<span class="co">#&gt;                  CountryName</span>
-<span class="co">#&gt; 1: Congo Democratic Republic</span>
-<span class="co">#&gt; 2:                  Tanzania</span>
-<span class="co">#&gt; 3:                  Tanzania</span></code></pre></div>
+<span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
+<span class="co">#&gt; 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
+<span class="co">#&gt; 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
+<span class="co">#&gt;                 CountryName</span>
+<span class="co">#&gt; 1 Congo Democratic Republic</span>
+<span class="co">#&gt; 2                  Tanzania</span></code></pre></div>
 </div>
 <div id="identify-survey-datasets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#identify-survey-datasets" class="anchor"></a>Identify survey datasets</h3>
 <p>Now, obtain survey microdatasets to analyze these same indicators. Query the <em>surveyCharacteristics</em> endpoint to identify the survey characteristic ID for malaria RDT testing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## call with no arguments to return all characterstics
-sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveyCharacteristics.html">dhs_surveyCharacteristics</a></span>()
-sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc$SurveyCharacteristicName), ]
+sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()
+sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]
 <span class="co">#&gt;    SurveyCharacteristicID SurveyCharacteristicName</span>
-<span class="co">#&gt; 1:                     96            Malaria - DBS</span>
-<span class="co">#&gt; 2:                     90     Malaria - Microscopy</span>
-<span class="co">#&gt; 3:                     89            Malaria - RDT</span>
-<span class="co">#&gt; 4:                     57          Malaria module </span>
-<span class="co">#&gt; 5:                      8 Malaria/bednet questions</span></code></pre></div>
+<span class="co">#&gt; 57                     96            Malaria - DBS</span>
+<span class="co">#&gt; 58                     90     Malaria - Microscopy</span>
+<span class="co">#&gt; 59                     89            Malaria - RDT</span>
+<span class="co">#&gt; 60                     57          Malaria module </span>
+<span class="co">#&gt; 61                      8 Malaria/bednet questions</span></code></pre></div>
 <p>Use <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code> identify surveys for the countries and years of interest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds - we can find that using this API request
 ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
 
 ## find all the surveys that match the search criteria
 survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>, <span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</code></pre></div>
-<p>Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs$SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
+<p>Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two very old datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
 <span class="kw">str</span>(datasets)
-<span class="co">#&gt; Classes 'data.table' and 'data.frame':   2 obs. of  13 variables:</span>
+<span class="co">#&gt; 'data.frame':    2 obs. of  13 variables:</span>
 <span class="co">#&gt;  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"</span>
 <span class="co">#&gt;  $ FileSize            : int  6595349 6622108</span>
 <span class="co">#&gt;  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets"</span>
@@ -199,44 +189,45 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="co">#&gt;  $ SurveyYear          : int  2013 2015</span>
 <span class="co">#&gt;  $ DHS_CountryCode     : chr  "CD" "TZ"</span>
 <span class="co">#&gt;  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7HFL.ZIP"</span>
-<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"</span>
-<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
+<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania"</span></code></pre></div>
 </div>
 <div id="download-datasets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-datasets" class="anchor"></a>Download datasets</h3>
-<p>To download datasets we need to first log in to our DHS account using <code><a href="reference/set_dhs_credentials.html">set_dhs_credentials()</a></code>. This will require providing as an argument the path to a text file that contains your login credentials for the DHS website (email, password, and project name) and a directory to store cached datasets. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for credentials). Once you have set this up your API results will also be cached within this directory.</p>
-<p>This function will also ask you for your permission to write to files outside your temporary directory. This will then allow your API results and any datasets you have donwloaded to be saved between your R sessions. If you have not given permission to <em>rdhs</em> then all datasets downloaded and any cached API results will be deleted after your R session.</p>
+<p>To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using <code><a href="reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># we will give our permission here so that we don't have to provide a prompt within the README.</span>
-<span class="kw">Sys.setenv</span>(<span class="st">"rdhs_RENVIRON_PERMISSION"</span>=<span class="dv">1</span>)
-
 ## login
-<span class="kw"><a href="reference/set_dhs_credentials.html">set_dhs_credentials</a></span>(<span class="dt">credentials =</span> <span class="st">"credentials"</span>, <span class="dt">root=</span><span class="st">"~/Downloads/rdhs_cache"</span>)</code></pre></div>
-<p>The path to your credentials is saved between sessions so you only have to set this once. With our credentials set, all API requests will be cached within the root direcetory provided so that these can be returned when working remotely or with a poor internet connection.</p>
+<span class="kw"><a href="reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
+                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,
+                <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,
+                <span class="dt">global=</span><span class="ot">FALSE</span>)
+<span class="co">#&gt; Writing your configuration to:</span>
+<span class="co">#&gt;    -&gt; rdhs.json</span>
+<span class="co">#&gt; If you are using git, be sure to add this to your .gitignore</span></code></pre></div>
+<p>The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the <code>cache_path</code> directory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1970</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1970) 61.72974 61.72974 61.72974 61.72974</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 48.80746 48.80746 48.80746 48.80746</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  61.72974 61.72974     1</span>
+<span class="co">#&gt;  48.80746 48.80746     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark::<span class="kw">microbenchmark</span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1970</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1970) 3.985995 3.985995 3.985995 3.985995</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 4.240212 4.240212 4.240212 4.240212</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  3.985995 3.985995     1</span></code></pre></div>
+<span class="co">#&gt;  4.240212 4.240212     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
-downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets$FileName)
+downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
 
 <span class="kw">str</span>(downloads)
 <span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ CDPR61FL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/CDPR61FL.rds"</span>
-<span class="co">#&gt;  $ TZPR7HFL: chr "C:/Users/Oliver/Documents/Downloads/rdhs_cache/datasets/TZPR7HFL.rds"</span>
+<span class="co">#&gt;  $ CDPR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61FL.rds"</span>
+<span class="co">#&gt;  $ TZPR7HFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7HFL.rds"</span>
 <span class="co">#&gt;  - attr(*, "reformat")= logi FALSE</span></code></pre></div>
 </div>
 <div id="load-datasets-into-r" class="section level3">
@@ -244,7 +235,7 @@ downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_
 <a href="#load-datasets-into-r" class="anchor"></a>Load datasets into R</h3>
 <p>The <code><a href="reference/get_datasets.html">get_datasets()</a></code> function returns a vector with a file path to the saved location of the downloaded datasets. These are read using <code>readRDS()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in first dataset</span>
-cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDPR61FL)</code></pre></div>
+cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads<span class="op">$</span>CDPR61FL)</code></pre></div>
 <p>Value labels are stored as attributes to each of the columns of the data frame using the <code>labelled</code> class (see <code><a href="http://www.rdocumentation.org/packages/haven/topics/labelled">haven::labelled</a></code> or our introduction vignette for more details). Variable labels are stored in the <code>label</code> attribute.</p>
 </div>
 <div id="extract-variables-and-pool-datasets" class="section level3">
@@ -252,7 +243,7 @@ cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads$CDP
 <a href="#extract-variables-and-pool-datasets" class="anchor"></a>Extract variables and pool datasets</h3>
 <p>The client also caches all variable labels to quickly query variables in each survey <em>without</em> loading the datasets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rapid diagnostic test search</span>
-vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variable_labels.html">search_variable_labels</a></span>(datasets$FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</code></pre></div>
+vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</code></pre></div>
 <p>Then extract these variables from the datasets. Optionally, geographic data may be added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and now extract the data</span>
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extract_dhs.html">extract_dhs</a></span>(vars, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)
@@ -261,20 +252,20 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extrac
 <p>The returned object is a list of extracted datasets.</p>
 <p>Dataset extracts can alternate be specified by providing a vector of surveys and vector of variable names:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and grab the questions from this now utilising the survey variables</span>
-vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets$FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
+vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
 
 <span class="co"># and now extract the data</span>
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extract_dhs.html">extract_dhs</a></span>(vars, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; Starting Survey 1 out of 2 surveys:CDPR61FL</span>
 <span class="co">#&gt; Starting Survey 2 out of 2 surveys:TZPR7HFL</span></code></pre></div>
-<p>Finally, the two datasets are pooled using the function <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled <code>data.frame</code>s. Labels are specified for each variable: for <code>hv024</code> all labels are retained (concatenate) but for <code>hml35</code> labels across both datasets to be “NegativeTest” and “PositiveTest”.</p>
+<p>Finally, the two datasets are pooled using the function <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled <code>data.frame</code>s. Labels are specified for each variable: for <code>hv024</code> all labels are retained (concatenate) but for <code>hml35</code> labels across both datasets to be “Neg” and “Pos”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now let's try our second extraction</span>
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract,
-                                 <span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span> =<span class="st"> "concatenate"</span>,
-                                               <span class="st">"hml35"</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>)))</code></pre></div>
+                          <span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span> =<span class="st"> "concatenate"</span>,
+                                        <span class="st">"hml35"</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">"Neg"</span>=<span class="dv">0</span>, <span class="st">"Pos"</span>=<span class="dv">1</span>)))</code></pre></div>
 <p>There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specifed by the argument <code>reformat=TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># identify questions but specifying the reformat argument</span>
-questions &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets$FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),
+questions &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),
                                      <span class="dt">reformat=</span><span class="ot">TRUE</span>)
 
 <span class="co"># and now extract the data</span>

@@ -6,7 +6,7 @@
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE
+#'   then the specified page only will be returned. Default = TRUE
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -68,7 +68,7 @@
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 27 (or less if `returnFields` is provided)
@@ -103,10 +103,7 @@
 #' dat <- dhs_data(f="geojson", returnGeometry="true",all_results=FALSE)
 #' }
 
-dhs_data <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     countryIds=NULL,
+dhs_data <- function(countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
                      selectSurveys=NULL,
@@ -123,12 +120,13 @@ dhs_data <- function(client=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/data"
@@ -147,7 +145,7 @@ dhs_data <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -180,7 +178,7 @@ dhs_data <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 18 (or less if `returnFields` is provided)
@@ -205,10 +203,7 @@ dhs_data <- function(client=NULL,
 #' dat <- dhs_indicators(f="html",all_results=FALSE)
 #' }
 
-dhs_indicators <- function(client=NULL,
-                           force=FALSE,
-                           all_results=TRUE,
-                           countryIds=NULL,
+dhs_indicators <- function(countryIds=NULL,
                            indicatorIds=NULL,
                            surveyIds=NULL,
                            surveyYear=NULL,
@@ -220,12 +215,13 @@ dhs_indicators <- function(client=NULL,
                            f=NULL,
                            returnFields=NULL,
                            perPage=NULL,
-                           page=NULL) {
+                           page=NULL,
+                           client=NULL,
+                           force=FALSE,
+                           all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/indicators"
@@ -244,9 +240,9 @@ dhs_indicators <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by. Only
-#'   results for interfaces that has been updated on or after the sepcified
+#'   results for interfaces that has been updated on or after the specified
 #'   date will be returned.
 #' @param f You can specify the format of the data returned from the query as
 #'   HTML, JSON, PJSON, geoJSON, JSONP, XML or CSV. The default data format
@@ -254,7 +250,7 @@ dhs_indicators <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 3 (or less if `returnFields` is provided)
@@ -266,23 +262,21 @@ dhs_indicators <- function(client=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_uiUpdates(lastUpdate="20150901",all_results=FALSE)
-#' dat <- dhs_uiUpdates(f="html",all_results=FALSE)
+#' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
+#' dat <- dhs_ui_updates(f="html",all_results=FALSE)
 #' }
 
-dhs_uiUpdates <- function(client=NULL,
-                          force=FALSE,
-                          all_results=TRUE,
-                          lastUpdate=NULL,
+dhs_ui_updates <- function(lastUpdate=NULL,
                           f=NULL,
                           returnFields=NULL,
                           perPage=NULL,
-                          page=NULL) {
+                          page=NULL,
+                          client=NULL,
+                          force=FALSE,
+                          all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/uiupdates"
@@ -301,7 +295,7 @@ dhs_uiUpdates <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param infoType Specify a type of info to obtain the information requested.
 #'   Default is version. `infoType="version"`` (default) Provides the version
 #'   of the API.
@@ -315,7 +309,7 @@ dhs_uiUpdates <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
@@ -332,19 +326,17 @@ dhs_uiUpdates <- function(client=NULL,
 #' dat <- dhs_info(f="html",all_results=FALSE)
 #' }
 
-dhs_info <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     infoType=NULL,
+dhs_info <- function(infoType=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/info"
@@ -363,7 +355,7 @@ dhs_info <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #' \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -396,7 +388,7 @@ dhs_info <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 12 (or less if `returnFields` is provided)
@@ -421,10 +413,7 @@ dhs_info <- function(client=NULL,
 #' dat <- dhs_countries(f="html",all_results=FALSE)
 #' }
 
-dhs_countries <- function(client=NULL,
-                          force=FALSE,
-                          all_results=TRUE,
-                          countryIds=NULL,
+dhs_countries <- function(countryIds=NULL,
                           indicatorIds=NULL,
                           surveyIds=NULL,
                           surveyYear=NULL,
@@ -436,12 +425,13 @@ dhs_countries <- function(client=NULL,
                           f=NULL,
                           returnFields=NULL,
                           perPage=NULL,
-                          page=NULL) {
+                          page=NULL,
+                          client=NULL,
+                          force=FALSE,
+                          all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/countries"
@@ -460,7 +450,7 @@ dhs_countries <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to
 #'  filter by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -503,7 +493,7 @@ dhs_countries <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #' default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #' default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 28 (or less if `returnFields` is provided)
@@ -533,10 +523,7 @@ dhs_countries <- function(client=NULL,
 #' dat <- dhs_surveys(f="html",all_results=FALSE)
 #' }
 
-dhs_surveys <- function(client=NULL,
-                        force=FALSE,
-                        all_results=TRUE,
-                        countryIds=NULL,
+dhs_surveys <- function(countryIds=NULL,
                         indicatorIds=NULL,
                         selectSurveys=NULL,
                         surveyIds=NULL,
@@ -550,12 +537,13 @@ dhs_surveys <- function(client=NULL,
                         f=NULL,
                         returnFields=NULL,
                         perPage=NULL,
-                        page=NULL) {
+                        page=NULL,
+                        client=NULL,
+                        force=FALSE,
+                        all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveys"
@@ -574,7 +562,7 @@ dhs_surveys <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -600,11 +588,11 @@ dhs_surveys <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
-#'   survey characteristics. A survey can be labeled with one or more of these
+#'   survey characteristics. A survey can be labelled with one or more of these
 #'   survey characteristics. A description of all the attributes returned is
 #'   provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/surveycharacteristics/fields}
@@ -613,22 +601,19 @@ dhs_surveys <- function(client=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_surveyCharacteristics(countryIds="EG",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(indicatorIds="FE_FRTR_W_TFR",
+#' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
 #' all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyIds="SN2010DHS,all_results=FALSE")
-#' dat <- dhs_surveyCharacteristics(surveyYear="2010,all_results=FALSE")
-#' dat <- dhs_surveyCharacteristics(surveyYearStart="2006",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyYearStart="1991",
+#' dat <- dhs_survey_characteristics(surveyIds="SN2010DHS,all_results=FALSE")
+#' dat <- dhs_survey_characteristics(surveyYear="2010,all_results=FALSE")
+#' dat <- dhs_survey_characteristics(surveyYearStart="2006",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(surveyYearStart="1991",
 #' surveyYearEnd="2006",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(surveyType="DHS",all_results=FALSE)
-#' dat <- dhs_surveyCharacteristics(f="html",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(surveyType="DHS",all_results=FALSE)
+#' dat <- dhs_survey_characteristics(f="html",all_results=FALSE)
 #' }
 
-dhs_surveyCharacteristics <- function(client=NULL,
-                                      force=FALSE,
-                                      all_results=TRUE,
-                                      countryIds=NULL,
+dhs_survey_characteristics <- function(countryIds=NULL,
                                       indicatorIds=NULL,
                                       surveyIds=NULL,
                                       surveyYear=NULL,
@@ -638,12 +623,13 @@ dhs_surveyCharacteristics <- function(client=NULL,
                                       f=NULL,
                                       returnFields=NULL,
                                       perPage=NULL,
-                                      page=NULL) {
+                                      page=NULL,
+                                      client=NULL,
+                                      force=FALSE,
+                                      all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/surveycharacteristics"
@@ -662,7 +648,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -700,7 +686,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 10 (or less if `returnFields` is provided)
@@ -726,10 +712,7 @@ dhs_surveyCharacteristics <- function(client=NULL,
 #' dat <- dhs_publications(f="html",all_results=FALSE)
 #' }
 
-dhs_publications <- function(client=NULL,
-                             force=FALSE,
-                             all_results=TRUE,
-                             countryIds=NULL,
+dhs_publications <- function(countryIds=NULL,
                              selectSurveys=NULL,
                              indicatorIds=NULL,
                              surveyIds=NULL,
@@ -742,12 +725,13 @@ dhs_publications <- function(client=NULL,
                              f=NULL,
                              returnFields=NULL,
                              perPage=NULL,
-                             page=NULL) {
+                             page=NULL,
+                             client=NULL,
+                             force=FALSE,
+                             all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/publications"
@@ -766,7 +750,7 @@ dhs_publications <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -800,7 +784,7 @@ dhs_publications <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 13 (or less if `returnFields` is provided)
@@ -826,10 +810,7 @@ dhs_publications <- function(client=NULL,
 #' dat <- dhs_datasets(f="geojson",all_results=FALSE)
 #' }
 
-dhs_datasets <- function(client=NULL,
-                         force=FALSE,
-                         all_results=TRUE,
-                         countryIds=NULL,
+dhs_datasets <- function(countryIds=NULL,
                          selectSurveys=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
@@ -841,12 +822,13 @@ dhs_datasets <- function(client=NULL,
                          f=NULL,
                          returnFields=NULL,
                          perPage=NULL,
-                         page=NULL) {
+                         page=NULL,
+                         client=NULL,
+                         force=FALSE,
+                         all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/datasets"
@@ -865,7 +847,7 @@ dhs_datasets <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -888,7 +870,7 @@ dhs_datasets <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 7 (or less if `returnFields` is provided)
@@ -911,10 +893,7 @@ dhs_datasets <- function(client=NULL,
 #' }
 
 
-dhs_geometry <- function(client=NULL,
-                         force=FALSE,
-                         all_results=TRUE,
-                         countryIds=NULL,
+dhs_geometry <- function(countryIds=NULL,
                          surveyIds=NULL,
                          surveyYear=NULL,
                          surveyYearStart=NULL,
@@ -923,12 +902,13 @@ dhs_geometry <- function(client=NULL,
                          f=NULL,
                          returnFields=NULL,
                          perPage=NULL,
-                         page=NULL) {
+                         page=NULL,
+                         client=NULL,
+                         force=FALSE,
+                         all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/geometry"
@@ -947,7 +927,7 @@ dhs_geometry <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#' then the specifed page only will be returned. Default = TRUE.
+#' then the specified page only will be returned. Default = TRUE.
 #' @param countryIds Specify a comma separated list of country ids to filter
 #'   by. For a list of countries use
 #'   \code{dhs_countries(returnFields=c("CountryName","DHS_CountryCode"))}
@@ -973,12 +953,12 @@ dhs_geometry <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset. By
+#' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 4 (or less if `returnFields` is provided)
 #'   tags with detailed information. An indicators can be tagged with one or
-#'   more tags to help identify certain topics an indicator can be indentified
+#'   more tags to help identify certain topics an indicator can be identified
 #'   by. A description of the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/tags/fields}
 #'
@@ -997,10 +977,7 @@ dhs_geometry <- function(client=NULL,
 #' dat <- dhs_tags(f="html",all_results=FALSE)
 #' }
 
-dhs_tags <- function(client=NULL,
-                     force=FALSE,
-                     all_results=TRUE,
-                     countryIds=NULL,
+dhs_tags <- function(countryIds=NULL,
                      indicatorIds=NULL,
                      surveyIds=NULL,
                      surveyYear=NULL,
@@ -1010,12 +987,13 @@ dhs_tags <- function(client=NULL,
                      f=NULL,
                      returnFields=NULL,
                      perPage=NULL,
-                     page=NULL) {
+                     page=NULL,
+                     client=NULL,
+                     force=FALSE,
+                     all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/tags"
@@ -1034,7 +1012,7 @@ dhs_tags <- function(client=NULL,
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
 #' @param all_results Boolean for if all results should be returned. If FALSE
-#'   then the specifed page only will be returned. Default = TRUE.
+#'   then the specified page only will be returned. Default = TRUE.
 #' @param lastUpdate Specify a date or Unix time to filter the updates by.
 #'   Only results for data that have been updated on or after the specified
 #'   date will be returned.
@@ -1044,7 +1022,7 @@ dhs_tags <- function(client=NULL,
 #' @param returnFields Specify a list of attributes to be returned.
 #' @param perPage Specify the number of results to be returned per page. By
 #'   default the API will return 100 results.
-#' @param page Allows specifying a page number to obtain for the recordset.
+#' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
 #' @return Returns a `data.table` of 9 (or less if `returnFields` is provided)
@@ -1056,23 +1034,21 @@ dhs_tags <- function(client=NULL,
 #' @examples
 #' ## not run only because they take a very long time and interact with an API
 #' \dontrun{
-#' dat <- dhs_dataUpdates(lastUpdate="20150901",all_results=FALSE)
-#' dat <- dhs_dataUpdates(f="html",all_results=FALSE)
+#' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
+#' dat <- dhs_data_updates(f="html",all_results=FALSE)
 #' }
 
-dhs_dataUpdates <- function(client=NULL,
-                            force=FALSE,
-                            all_results=TRUE,
-                            lastUpdate=NULL,
+dhs_data_updates <- function(lastUpdate=NULL,
                             f=NULL,
                             returnFields=NULL,
                             perPage=NULL,
-                            page=NULL) {
+                            page=NULL,
+                            client=NULL,
+                            force=FALSE,
+                            all_results=TRUE) {
 
   # create query with all provided arguments
-  args <- ls()
-  query <- lapply(args, function(x) eval(parse(text = x)))
-  names(query) <- args
+  query <- args_to_query(environment())
 
   # specific endpoint for each function
   endpoint <- "https://api.dhsprogram.com/rest/dhs/dataupdates"

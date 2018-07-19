@@ -34,19 +34,39 @@ test_that("rbind_list_base", {
 
 # test slow api
 test_that("slow api response", {
+  testthat::skip_on_cran()
+  skip_if_no_auth()
 
   # if the response hasn't timed out without our doing then should be time
-  resp <- last_api_update()
+  resp <- last_api_update(30)
   if (resp != 0) {
   expect_true(inherits(resp, "POSIXlt"))
   }
 
   # now set the timeout super low, to try and mimic a slow cache
-  Sys.setenv("rdhs_TIMEOUT" = 0)
-  resp <- last_api_update()
+  resp <- last_api_update(0)
   expect_equal(resp, -0.5)
 
-  # set back to normal
-  Sys.setenv("rdhs_TIMEOUT" = 30)
-
   })
+
+test_that("type_convert_df", {
+  df <- data.frame("huh" = c("apple", "apple", "orange"))
+  df <- type_convert_df(df)
+  expect_null(levels(df$huh))
+})
+
+test_that("different locales", {
+
+  locale_lc_time <- Sys.getlocale("LC_TIME")
+  on.exit(Sys.setlocale("LC_TIME", locale_lc_time))
+
+
+  Sys.setlocale("LC_TIME","French_Belgium.1252")
+  date <- "July, 15 2016 19:17:14"
+
+  # our function catches for any locale issues
+  expect_true(!is.na(mdy_hms(date)))
+
+
+
+})

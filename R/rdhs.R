@@ -10,7 +10,7 @@
 #' @name rdhs
 #'
 #' @importFrom stats setNames
-#' @importFrom utils tail type.convert packageVersion unzip
+#' @importFrom utils tail type.convert packageVersion unzip str capture.output
 #' @importFrom rappdirs user_cache_dir
 #' @importFrom R6 R6Class
 #' @importFrom storr storr_rds

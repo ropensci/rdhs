@@ -30,8 +30,8 @@ be ignored.}
 \code{\link{download_datasets}}}
 }
 \value{
-Data frame of the surveys where matches were found and then all
-  the resultant codes and descriptions.
+A \code{data.frame} of the surveys where matches were found
+  and then all the resultant codes and descriptions.
 }
 \description{
 Searches across datasets specified for requested survey variable definitions.

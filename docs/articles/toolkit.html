@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
       <h1>Toolkit</h1>
                         <h4 class="author">OJ Watson</h4>
             
-            <h4 class="date">2018-05-04</h4>
+            <h4 class="date">2018-07-19</h4>
       
       
       <div class="hidden name"><code>toolkit.Rmd</code></div>
@@ -106,24 +106,26 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>In order to install <code>rdhs</code> you wil require a working development environment. The following guide details how to do this across different operating systems. Please note this is only temporary while we wait for the development version of haven (1.1.1.9000) to make it to CRAN. Apologies for the inconvenience</p>
+<p>The following is no longer needed as the CRAN version of haven is working. This vignette is still here though in case we need a non-CRAN pacakge in the future.</p>
+<hr>
+<p>In order to install <code>rdhs</code> you will require a working development environment. The following guide details how to do this across different operating systems. Please note this is only temporary while we wait for a development version of haven to make it to CRAN. Apologies for the inconvenience</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Windows</strong>: Install <strong><a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a></strong>. For help on how to install <strong>Rtools</strong> please see the following <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">guide</a>, paying particular attention to the section about adding Rtools to your system <code>PATH</code>.</li>
 </ol>
 <p>In order to find out which version of <strong>Rtools</strong> you will need to check which version of R you are running. This can be be found out using the <code>sessionInfo()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">sessionInfo</span>()
-R version <span class="fl">3.4.4</span> (<span class="dv">2016-06-21</span>)
-Platform:<span class="st"> </span>x86_64-w64-mingw32/<span class="kw">x64</span> (<span class="dv">64</span>-bit)
-Running under:<span class="st"> </span>Windows <span class="dv">7</span> <span class="kw">x64</span> (build <span class="dv">7601</span>) Service Pack <span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()
+R version <span class="fl">3.4</span>.<span class="dv">4</span> (<span class="dv">2016</span><span class="op">-</span><span class="dv">06</span><span class="op">-</span><span class="dv">21</span>)
+Platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>w64<span class="op">-</span>mingw32<span class="op">/</span><span class="kw">x64</span> (<span class="dv">64</span><span class="op">-</span>bit)
+Running under<span class="op">:</span><span class="st"> </span>Windows <span class="dv">7</span> <span class="kw">x64</span> (build <span class="dv">7601</span>) Service Pack <span class="dv">1</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><p><strong>Mac</strong>: Install Xcode from the Mac App Store.</p></li>
 <li><p><strong>Linux</strong>: Install a compiler and various development libraries (details vary across different flavors of Linux).</p></li>
 </ol>
 <p>Once a working development environment is ready then the following should work for you:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools::<span class="kw">install_github</span>(<span class="st">"OJWatson/rdhs"</span>)
-<span class="kw">library</span>(rdhs)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
+<span class="co"># devtools::install_github("OJWatson/rdhs")</span>
+<span class="co"># library(rdhs)</span></code></pre></div>
 </div>
   </div>
 

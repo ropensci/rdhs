@@ -13,7 +13,7 @@ is available so that you can make sure your client fetches any new datasets
 that you have recently been given access to.}
 }
 \value{
-Data.frame object with 14 variables that detail the surveys you can
+A \code{data.frame} with 14 variables that detail the surveys you can
   download, their url download links and the country, survey, year etc info
   for that link.
 }
@@ -21,10 +21,10 @@ Data.frame object with 14 variables that detail the surveys you can
 Details the datasets that your login credentials have access to
 }
 \details{
-Searches the DHS website for all the datasets that you can donwload.
+Searches the DHS website for all the datasets that you can download.
   The results of this function are cached in the client. If you have recently
-  reqeusted new datasets from the DHS website then you can specify to clear
-  the cache first so that you get the new set of datasets avaialble to you.
+  requested new datasets from the DHS website then you can specify to clear
+  the cache first so that you get the new set of datasets available to you.
   This function is used by \code{\link{get_datasets}} and should thus be
   used with `clear_cache_first = TRUE` before using `get_datasets` if you
   have recently requested new datasets.

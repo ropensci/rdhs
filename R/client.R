@@ -2,34 +2,31 @@
 #'
 #' @title Make a dhs client
 #'
-#' @param credentials File path to where log in credentials are stored
-#'   (preferred as no
-#'   secrets are typed into an R session). File format should be (each bullet
-#'   is a new line):
-#'   \itemize{
-#'       \item email=dummy@gmail.com
-#'       \item password=dummypass
-#'       \item project=Dummy Project
-#'       }
+#' @param config config object, as created using \code{read_rdhs_config}
 #' @param root Character for root directory to where client, caches,
-#'   surveys etc. will be stored.
-#'   Default = \code{rappdirs::user_cache_dir("rdhs", Sys.info()["user"])}
+#'   surveys etc. will be stored. Default = \code{rappdirs_rdhs()}
 #' @param api_key Character for DHS API KEY
 #'
 #' @template client_dhs_methods
 #' @export
 #'
-client_dhs <- function(credentials=NULL,
-                       root = rappdirs::user_cache_dir(
-                         "rdhs", Sys.info()["user"]),
+client_dhs <- function(config=NULL,
+                       root=rappdirs_rdhs(),
                        api_key="ICLSPH-527168") {
+
+  # we need to have a config, so we  create the temp one if not provided
+  if (is.null(config)) {
+    .rdhs$internal_client_update <- FALSE
+    config <- set_rdhs_config(prompt = FALSE)
+    .rdhs$internal_client_update <- TRUE
+  }
 
   # check rdhs against api last update time
   cache_date <- client_cache_date(root = root)
-  if (last_api_update() > cache_date) {
+  if (last_api_update(config$timeout) > cache_date) {
 
     # create new client if DHS database has been updated
-    client <- R6_client_dhs$new(api_key, root, credentials)
+    client <- R6_client_dhs$new(config, api_key, root)
 
     # If there was already a client in your root (i.e. there was a DHS update)
     # then empty the api_call cache namespace and check package version
@@ -76,17 +73,14 @@ client_dhs <- function(credentials=NULL,
       }
     }
 
-    # handle credentials now
-    handle_credentials(credentials)
-
     return(client)
 
     # if no api updates have occurred then get the cached api client
   } else {
 
     # create client in the location rather than readRDS so that we
-    # are using new credentials etc
-    client <- R6_client_dhs$new(api_key, root, credentials)
+    # are using new config etc
+    client <- R6_client_dhs$new(config, api_key, root)
 
     # load cached client
     private <- client$.__enclos_env__$private
@@ -97,9 +91,6 @@ client_dhs <- function(credentials=NULL,
       message("New version of rdhs detected.",
               "Your saved client will be updated.")
     }
-
-    # now handle the credentials accordingly
-    handle_credentials(credentials)
 
     return(client)
   }
@@ -113,15 +104,19 @@ R6_client_dhs <- R6::R6Class(
   public = list(
 
     # INITIALISATION
-    initialize = function(api_key = NULL, root = NULL, credentials=NULL) {
+    initialize = function(config,
+                          api_key = "ICLSPH-527168",
+                          root = rappdirs_rdhs()) {
+
+      if (!inherits(config, "rdhs_config")) {
+        stop ("config provided for client is not of class rdhs_config")
+      }
       private$api_key <- api_key
       private$root <- root
-      if (!is.null(credentials)) {
-        private$credentials_path <- normalizePath(credentials, winslash = "/")
-      }
       private$storr <- storr::storr_rds(file.path(root, "db"))
       private$cache_date <- Sys.time()
-      saveRDS(self, file.path(root, client_file_name()))
+      saveRDS(self, file.path(root, client_file_name())) # save before config
+      private$config <- config
     },
 
     # API REQUESTS
@@ -156,8 +151,9 @@ R6_client_dhs <- R6::R6Class(
 
       # then build in pages. If they have asked for all results
       # catch this and standardise
-      if (is.element(num_results, c("ALL", "all", "a", "al",
-                                    "A", "AL", "ALl", "All", "AlL"))) {
+      if (is.element(num_results, c("ALL", "all", "a", "al", "aL", "Al",
+                                    "A", "AL", "ALl", "All", "AlL", "aLL",
+                                    "aLl", "alL"))) {
         query$perPage <- 100
         num_results <- "ALL"
       } else {
@@ -172,7 +168,7 @@ R6_client_dhs <- R6::R6Class(
       key <- paste0(api_endpoint, "_",
                     paste0(
                       names(query)[-pp], unlist(query)[-pp], collapse = ","
-                      ),
+                    ),
                     ",num_results", num_results, ",just_results", just_results)
 
       key <- digest::digest(key)
@@ -279,13 +275,13 @@ R6_client_dhs <- R6::R6Class(
     },
 
     # AVAILABLE DATASETS
-    # Creates data.frame of avaialble datasets using \code{available_datasets}
+    # Creates data.frame of available datasets using \code{available_datasets}
     # and caches it
     available_datasets = function(clear_cache_first = FALSE) {
 
-      # check credentials are good
-      if (credentials_not_present()) {
-        handle_credentials(private$credentials_path)
+      # check config are good
+      if (config_not_present(private$config)) {
+        handle_config(private$config$config_path)
       }
 
       # clear the cache for this if set to do so. This is only included
@@ -297,7 +293,7 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # create key for this
-      key <- digest::digest(paste0(Sys.getenv("rdhs_USER_PROJECT"), ","))
+      key <- digest::digest(paste0(private$config$project, ","))
 
       # first check against cache
       out <- tryCatch(private$storr$get(key, "available_datasets_calls"),
@@ -311,9 +307,7 @@ R6_client_dhs <- R6::R6Class(
 
         # Get downloadable datasets
         resp <- available_datasets(
-          your_email = Sys.getenv("rdhs_USER_EMAIL"),
-          your_password = Sys.getenv("rdhs_USER_PASS"),
-          your_project = Sys.getenv("rdhs_USER_PROJECT"),
+          config = private$config,
           datasets_api_results = self$dhs_api_request("datasets",
                                                       num_results = "ALL"),
           surveys_api_results = self$dhs_api_request("surveys",
@@ -337,9 +331,9 @@ R6_client_dhs <- R6::R6Class(
                             clear_cache = FALSE,
                             ...) {
 
-      # check credentials are good
-      if (credentials_not_present()) {
-        handle_credentials(private$credentials_path)
+      # check config are good
+      if (config_not_present(private$config)) {
+        handle_config(private$config$config_path)
       }
 
       # if cache needs clearing
@@ -391,9 +385,7 @@ R6_client_dhs <- R6::R6Class(
 
             # Download dataset
             resp <- download_datasets(
-              your_email = Sys.getenv("rdhs_USER_EMAIL"),
-              your_password = Sys.getenv("rdhs_USER_PASS"),
-              your_project = Sys.getenv("rdhs_USER_PROJECT"),
+              config = private$config,
               desired_dataset = datasets[i, ],
               output_dir_root = output_dir_root,
               download_option = download_option,
@@ -442,9 +434,9 @@ R6_client_dhs <- R6::R6Class(
                                 rm_na = TRUE,
                                 ...) {
 
-      # check credentials are good
-      if (credentials_not_present()) {
-        handle_credentials(private$credentials_path)
+      # check config are good
+      if (config_not_present(private$config)) {
+        handle_config(private$config$config_path)
       }
 
       # fetch which datasets you can download from your login
@@ -463,16 +455,19 @@ R6_client_dhs <- R6::R6Class(
       } else {
         pattern <- paste0(search_terms, essential_terms, collapse = "|")
         if (!is.null(regex)) {
-          message(paste0("Both regex and search_terms were provided.",
+          message(paste0(
+            "Both regex and search_terms were provided.",
             "search_terms will be used.",
-            "To use regex for searching, do not specify search_terms"))
+            "To use regex for searching, do not specify search_terms"
+            ))
         }
       }
 
       # results storage
       df <- data.frame("code" = character(0), "description" = character(0),
-        "dataset_filename" = character(0), "dataset_path" = character(0),
-        "survey_id" = character(0))
+                       "dataset_filename" = character(0),
+                       "dataset_path" = character(0),
+                       "survey_id" = character(0))
 
       res <- list()
       download_iteration <- length(res) <- dim(datasets)[1]
@@ -515,7 +510,7 @@ R6_client_dhs <- R6::R6Class(
               private$na_s,
               out_desc$description[matched_rows],
               ignore.case = TRUE
-              )]
+            )]
           }
 
         }
@@ -556,9 +551,9 @@ R6_client_dhs <- R6::R6Class(
                                 ...) {
 
 
-      # check credentials are good
-      if (credentials_not_present()) {
-        handle_credentials(private$credentials_path)
+      # check config are good
+      if (config_not_present(private$config)) {
+        handle_config(private$config$config_path)
       }
 
       # fetch which datasets you can download from your login
@@ -697,11 +692,12 @@ R6_client_dhs <- R6::R6Class(
     # GETTERS
     get_cache_date = function() private$cache_date,
     get_root = function() private$root,
+    get_config = function() private$config,
 
     # get a dataset's var labels
-    get_var_labels = function(dataset_filenames=NULL,
-                              dataset_paths=NULL,
-                              rm_na = FALSE) {
+    get_variable_labels = function(dataset_filenames=NULL,
+                                   dataset_paths=NULL,
+                                   rm_na = FALSE) {
 
       # catch if both null
       if (is.null(dataset_filenames) && is.null(dataset_paths)) {
@@ -723,14 +719,18 @@ R6_client_dhs <- R6::R6Class(
 
         # stop if all poor file paths
         if (all(!file.exists(dataset_paths))) {
-          stop("All dataset file paths were not found:\n   ",
-               paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
+          stop(
+            "All dataset file paths were not found:\n   ",
+            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n ")
+          )
         }
 
         # message any poor file paths first
         if (any(!file.exists(dataset_paths))) {
-          message("Following dataset file paths were not found:\n   ",
-            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n "))
+          message(
+            "Following dataset file paths were not found:\n   ",
+            paste0(dataset_paths[!file.exists(dataset_paths)], sep = "\n ")
+          )
         }
 
         # what have we downloaded
@@ -739,7 +739,7 @@ R6_client_dhs <- R6::R6Class(
         # which file paths are these
         mats <- match(dataset_paths[file.exists(dataset_paths)], downs)
 
-        # what keys do these belong to and what were the donwloaded options
+        # what keys do these belong to and what were the downloaded options
         # (so we don't download extra files)
         keys <- private$storr$list("downloaded_datasets")[mats]
         options <- strsplit(keys, "_") %>% lapply(function(x) x[c(2, 4)])
@@ -796,7 +796,7 @@ R6_client_dhs <- R6::R6Class(
       downloads <- private$storr$mget(keys, namespace = "downloaded_datasets")
       names(downloads) <- strsplit(
         basename(unlist(downloads)), ".rds", fixed = TRUE
-        ) %>% lapply(function(x) x[1]) %>% unlist()
+      ) %>% lapply(function(x) x[1]) %>% unlist()
 
       return(downloads)
     },
@@ -821,7 +821,7 @@ R6_client_dhs <- R6::R6Class(
     api_key = NULL,
     root = NULL,
     user_declared_root = NULL,
-    credentials_path = NULL,
+    config = NULL,
     cache_date = Sys.time(),
     package_version = packageVersion("rdhs"),
     url = "https://api.dhsprogram.com/rest/dhs/",
@@ -839,10 +839,13 @@ R6_client_dhs <- R6::R6Class(
 
       # fetch which datasets you can download from your login
       avs <- self$available_datasets()
+      model_datasets <- model_datasets
+      avs <- rbind(avs, model_datasets)
 
       # fetch all the datasets so we can catch for the India matches by
       # using the country code catch
       datasets <- dhs_datasets(client = self)
+      datasets <-  rbind(datasets, model_datasets[, -14])
 
       # create new filename argument that takes into account the india
       # difficiulties where needed
@@ -894,7 +897,7 @@ R6_client_dhs <- R6::R6Class(
           fil_match <- paste0(toupper(substr(filenames, 1, 2)),
                               toupper(filenames))
           dat_match <- paste0(toupper(datasets$DHS_CountryCode),
-                                     toupper(datasets$FileName))
+                              toupper(datasets$FileName))
           avs_match <- paste0(toupper(avs$DHS_CountryCode),
                               toupper(avs$FileName))
 
@@ -910,7 +913,7 @@ R6_client_dhs <- R6::R6Class(
 
         # unique match strings
         fil_match <- paste0(toupper(filenames$DHS_CountryCode),
-                             toupper(filenames$FileName))
+                            toupper(filenames$FileName))
         dat_match <- paste0(toupper(datasets$DHS_CountryCode),
                             toupper(datasets$FileName))
         avs_match <- paste0(toupper(avs$DHS_CountryCode),

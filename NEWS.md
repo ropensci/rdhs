@@ -1,3 +1,27 @@
+## rdhs 0.5.0
+
+* The way in which people provide their login details and set up their preferences
+has substantially changed. `set_dhs_credentials` is now `set_rdhs_config`. This
+function requires your email and project to be provided as argument, and will then
+prompt you for your password. You also provide as arguments `cache_path` that will
+specify where your API calls and datasets are to be cached. You can also control
+where the config is saved using `config_path`. For more details, see the documentation
+for `?set_rdhs_config` or within the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
+
+* This change means now that when you use any of the API functions without setting
+up a config, your API calls are cached within a temporary directory. After you have
+set up a config, rdhs will look for your config location. This will happen by first
+checking to see if you created a local config (`global = FALSE` within `set_rdhs_config`), 
+which will be a file called "rdhs.json" in your current directory. If not there then it
+will look for a global one (`global = TRUE` (the default)), which will be a file 
+called "~/.rdhs.json". If that is not there it will check in your user cache directory
+for your operating system. To see what config `rdhs` is using at any point just use
+`get_rdhs_config`.
+
+* These changes also affect a lot of internal changes, and have removed system 
+environment variables being used as much. As such "rdhs_STARTUP_LOUD" and
+"rdhs_TIMEOUT" are now controlled by arguments you set via `set_rdhs_config`. 
+
 ## rdhs 0.4.0
 
 * The user has to now give permission for `rdhs` to write to files outside of 

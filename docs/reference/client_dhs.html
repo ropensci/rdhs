@@ -58,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.5.0</span>
       </span>
     </div>
 
@@ -132,28 +132,20 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>client_dhs</span>(<span class='kw'>credentials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='kw pkg'>rappdirs</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>user_cache_dir</a></span>(<span class='st'>"rdhs"</span>,
-  <span class='fu'>Sys.info</span>()[<span class='st'>"user"</span>]), <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>)</pre>
+    <pre class="usage"><span class='fu'>client_dhs</span>(<span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='fu'>rappdirs_rdhs</span>(),
+  <span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>credentials</th>
-      <td><p>File path to where log in credentials are stored
-(preferred as no
-secrets are typed into an R session). File format should be (each bullet
-is a new line):</p><ul>
-<li><p>email=dummy@gmail.com</p></li>
-<li><p>password=dummypass</p></li>
-<li><p>project=Dummy Project</p></li>
-</ul></td>
+      <th>config</th>
+      <td><p>config object, as created using <code>read_rdhs_config</code></p></td>
     </tr>
     <tr>
       <th>root</th>
       <td><p>Character for root directory to where client, caches,
-surveys etc. will be stored.
-Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/user_cache_dir'>rappdirs::user_cache_dir("rdhs", Sys.info()["user"])</a></code></p></td>
+surveys etc. will be stored. Default = <code>rappdirs_rdhs()</code></p></td>
     </tr>
     <tr>
       <th>api_key</th>
@@ -165,7 +157,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 
     
     <dl class='dl-horizontal'>
-<dt><code>dhs_api_request</code></dt><dd><p>Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see <code>vignette(rdhs)</code> for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default paramters will return all of the results, and will format it nicely into a data.frame for you.
+<dt><code>dhs_api_request</code></dt><dd><p>Makes a call to the DHS websites API. You can make requests to any of their declared api endpoints (see <code>vignette(rdhs)</code> for more on these). API queries can be filtered by providing query terms, and you can control how many search results you want returned. The default parameters will return all of the results, and will format it nicely into a data.frame for you.
   N.B. This is easier to now do by using the bespoke functions that are included within the package. These take the form dhs_&lt;endpoint&gt;, e.g. <code><a href='dhs_data.html'>dhs_data</a></code>. These functions can also take your client as an argument that will cache the response for you
     <em>Usage:</em>
   <code>dhs_api_request(api_endpoint, query = list(), api_key = private$api_key,
@@ -176,11 +168,11 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <li><p><code>query</code>:   List of query filters. To see possible query filter terms for each endpoint then head to the DHS api website.</p></li>
 <li><p><code>api_key</code>:   DHS API key. Default will grab the key provided when the client was created.</p></li>
 <li><p><code>num_results</code>:   The Number of results to return. Default = "ALL" which will loop through all the api search results pages for you if there are more results than their API will allow you to fetch in one page. If you specify a number this many results will be returned (but probably best to just leave default).</p></li>
-<li><p><code>just_results</code>:   Boolean whetehr to return just the results or all the http API response. Default = TRUE (probably best again to leave as this.)</p></li>
+<li><p><code>just_results</code>:   Boolean whether to return just the results or all the http API response. Default = TRUE (probably best again to leave as this.)</p></li>
 </ul>
     <em>Value</em>:
-  Data.frame with search results if just_results=TRUE, otherwsie a nested list with all the API responses for each page required.</p></dd>
-<dt><code>available_datasets</code></dt><dd><p>Searches the DHS website for all the datasets that you can donwload. The results of this function are cached in the client. If you have recently reqeusted new datasets from the DHS website then you can specify to clear the cache first so that you get the new set of datasets avaialble to you.
+  Data.frame with search results if just_results=TRUE, otherwise a nested list with all the API responses for each page required.</p></dd>
+<dt><code>available_datasets</code></dt><dd><p>Searches the DHS website for all the datasets that you can download. The results of this function are cached in the client. If you have recently requested new datasets from the DHS website then you can specify to clear the cache first so that you get the new set of datasets available to you.
     <em>Usage:</em>
   <code><a href='available_datasets.html'>available_datasets(clear_cache_first = FALSE)</a></code>
     <em>Arguments:</em>
@@ -189,7 +181,7 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 </ul>
     <em>Value</em>:
   Data.frame object with 14 variables that detail the surveys you can download, their url download links and the country, survey, year etc info for that link.</p></dd>
-<dt><code>get_datasets</code></dt><dd><p>Gets datasets from your cache or dwonlaods from the DHS website. By providing the filenames, as specified in one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R <code>data.frame</code>. This coverted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when neaded with <code>readRDS</code>. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
+<dt><code>get_datasets</code></dt><dd><p>Gets datasets from your cache or downloads from the DHS website. By providing the filenames, as specified in one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R <code>data.frame</code>. This converted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when needed with <code>readRDS</code>. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
     <em>Usage:</em>
   <code><a href='get_datasets.html'>get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
       all_lower = TRUE, output_dir_root = file.path(private$root,
@@ -209,13 +201,14 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <dt><code>survey_questions</code></dt><dd><p>Use this function after download_survey to query downloaded surveys for what questions they asked. This function will look for the downloaded and imported survey datasets from the cache, and will download them if not previously downloaded.
     <em>Usage:</em>
   <code>survey_questions(dataset_filenames, search_terms = NULL, essential_terms = NULL,
-      regex = NULL, ...)</code>
+      regex = NULL, rm_na = TRUE, ...)</code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
 <li><p><code>search_terms</code>:   Character vector of search terms. If any of these terms are found within the surveys question descriptions, the corresponding code and description will be returned.</p></li>
 <li><p><code>essential_terms</code>:   Character pattern that has to be in the description of survey questions. I.e. the function will first find all survey_questions that contain your search terms (or regex) OR essential_terms. It will then remove any questions that did not contain your essential_terms. Default = NULL.</p></li>
 <li><p><code>regex</code>:   Regex character pattern for matching. If you want to specify your regex search pattern, then specify this argument. N.B. If both search_terms and regex are supplied as arguments then regex will be ignored.</p></li>
+<li><p><code>rm_na</code>:   Should NAs be removed. Default is `TRUE`</p></li>
 <li><p><code>...</code>:   Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></li>
 </ul>
     <em>Value</em>:
@@ -223,12 +216,13 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <dt><code>survey_variables</code></dt><dd><p>Use this function after download_survey to look up all the surveys that have the provided codes.
     <em>Usage:</em>
   <code>survey_variables(dataset_filenames, variables, essential_variables = NULL,
-      ...)</code>
+      rm_na = TRUE, ...)</code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   The desired filenames to be downloaded. These can be found as one of the returned fields from <code><a href='dhs_datasets.html'>dhs_datasets</a></code>.</p></li>
 <li><p><code>variables</code>:   Character vector of survey variables to be looked up</p></li>
-<li><p><code>essential_variables</code>:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this functon. Default = NULL.</p></li>
+<li><p><code>essential_variables</code>:   Character vector of variables that need to present. If any of the codes are not present in that survey, the survey will not be returned by this function. Default = NULL.</p></li>
+<li><p><code>rm_na</code>:   Should NAs be removed. Default is `TRUE`</p></li>
 <li><p><code>...</code>:   Any other arguments to be passed to <code><a href='download_datasets.html'>download_datasets</a></code></p></li>
 </ul>
     <em>Value</em>:
@@ -241,17 +235,18 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
 <li><p><code>questions</code>:   Questions to be queried, in the format from <code>survey_questions</code></p></li>
 <li><p><code>add_geo</code>:   Add geograpic information to the extract. Defaut = TRUE</p></li>
 </ul></p></dd>
-<dt><code>get_var_labels</code></dt><dd><p>Returns information about a dataset's survey variables and definitions.
+<dt><code>get_variable_labels</code></dt><dd><p>Returns information about a dataset's survey variables and definitions.
     <em>Usage:</em>
-  <code><a href='get_var_labels.html'>get_var_labels(dataset_filenames = NULL, dataset_paths = NULL)</a></code>
+  <code><a href='get_variable_labels.html'>get_variable_labels(dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)</a></code>
     <em>Arguments:</em>
   <ul>
 <li><p><code>dataset_filenames</code>:   Vector of dataset filenames to look up</p></li>
 <li><p><code>dataset_paths</code>:   Vector of dataset file paths to where datasets have been saved to</p></li>
+<li><p><code>rm_na</code>:   Should variables and labels with NAs be removed. Default = FALSE</p></li>
 </ul>
     <em>Value</em>:
   Data frame of survey variable names and definitions</p></dd>
-<dt><code>get_cache_date</code></dt><dd><p>Returns the private member variable cache-date, which is the date the client was last created/valiated against the DHS API.
+<dt><code>get_cache_date</code></dt><dd><p>Returns the private member variable cache-date, which is the date the client was last created/validated against the DHS API.
     <em>Usage:</em>
   <code>get_cache_date()</code>
     <em>Value</em>:
@@ -261,12 +256,17 @@ Default = <code><a href='http://www.rdocumentation.org/packages/rappdirs/topics/
   <code>get_root()</code>
     <em>Value</em>:
   Character string file path</p></dd>
+<dt><code>get_config</code></dt><dd><p>Returns the client's configuration
+    <em>Usage:</em>
+  <code>get_config()</code>
+    <em>Value</em>:
+  Config data.frame</p></dd>
 <dt><code>get_downloaded_datasets</code></dt><dd><p>Returns a named list of all downloaded datasets and their file paths
     <em>Usage:</em>
   <code><a href='get_downloaded_datasets.html'>get_downloaded_datasets()</a></code>
     <em>Value</em>:
   List of dataset names and file paths.</p></dd>
-<dt><code>set_cache_date</code></dt><dd><p>Sets the private member variable cache-date, which is the date the client was last created/valiated against the DHS API. This should never really be needed but is icluded to demonstrate the cache clearing properties of the client in the vignette.
+<dt><code>set_cache_date</code></dt><dd><p>Sets the private member variable cache-date, which is the date the client was last created/validated against the DHS API. This should never really be needed but is included to demonstrate the cache clearing properties of the client in the vignette.
     <em>Usage:</em>
   <code>set_cache_date(date)</code>
     <em>Arguments:</em>
