@@ -52,6 +52,9 @@ test_that("format catches and all_results tests", {
 })
 
 test_that("geojson works", {
+  testthat::skip(paste0("Automatically skipping geojson tests as API is too ",
+                 "slow to return these objects. Will test when their ",
+                 "API improves."))
   testthat::skip_on_cran()
   testthat::skip_on_travis()
 
