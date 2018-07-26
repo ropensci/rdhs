@@ -4,7 +4,7 @@ find_rdhs_config <- function() {
   file_local <- "rdhs.json"
   file_global <- "~/.rdhs.json"
   file_rapp <- file.path(rappdirs_rdhs(), "rdhs.json")
-  file_temp <- file.path(tempdir(TRUE), "rdhs/rdhs.json")
+  file_temp <- file.path(tempdir_check(), "rdhs/rdhs.json")
 
   if (file.exists(file_local)) {
     return(file_local)
@@ -175,8 +175,8 @@ set_rdhs_config <- function(email = NULL,
       ask_user_permission()
     }
     if (!(options("rappdir_permission") == TRUE)){
-      config_path <- file.path(tempdir(TRUE), "rdhs/rdhs.json")
-      dir.create(file.path(tempdir(), "rdhs"), showWarnings = FALSE)
+      config_path <- file.path(tempdir_check(), "rdhs/rdhs.json")
+      dir.create(file.path(tempdir_check(), "rdhs"), showWarnings = FALSE)
     } else {
       config_path <- file.path(rappdirs_rdhs(), "rdhs.json")
       dir.create(rappdirs_rdhs(), showWarnings = FALSE)
@@ -194,8 +194,8 @@ set_rdhs_config <- function(email = NULL,
       ask_user_permission()
     }
     if (!(options("rappdir_permission") == TRUE)){
-      cache_path <- file.path(tempdir(TRUE), "rdhs")
-      dir.create(file.path(tempdir(), "rdhs"), showWarnings = FALSE)
+      cache_path <- file.path(tempdir_check(), "rdhs")
+      dir.create(cache_path, showWarnings = FALSE)
     } else {
       cache_path <- rappdirs_rdhs()
       dir.create(cache_path, showWarnings = FALSE)
@@ -228,7 +228,7 @@ set_rdhs_config <- function(email = NULL,
 
   # and then create the package internal client if we are meant to
   if (.rdhs$internal_client_update) {
-  .rdhs$client <- client_dhs(config = config, root = config$cache_path)
+    .rdhs$client <- client_dhs(config = config, root = config$cache_path)
   }
 
   invisible(config)
@@ -243,11 +243,11 @@ write_rdhs_config_file <- function(dat, config_path) {
   rdhs_setup_message(
     verbose = dat$verbose_setup,
     "Writing your configuration to:\n   -> ", config_path, "\n"
-    )
+  )
   rdhs_setup_message(
     verbose = dat$verbose_setup,
     "If you are using git, be sure to add this to your .gitignore\n"
-    )
+  )
 
   writeLines(str, config_path)
   invisible(read_rdhs_config_file(config_path))

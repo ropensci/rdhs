@@ -95,6 +95,21 @@ file_dataset_format <- function(file_format) {
   file_endings[match(file_format, dhs_file_formats)]
 }
 
+# NO markdown from here #
+
+# tempdir get and check
+#' @noRd
+tempdir_check <- function() {
+
+  if (getRversion() < '3.5.0') {
+    temp <- tempdir()
+  } else {
+    temp <- tempdir(TRUE)
+  }
+
+  return(temp)
+}
+
 # refresh client
 #' @noRd
 client_refresh <- function(cli) {
@@ -169,13 +184,14 @@ is_r_tempdir <- function(dir){
   grepl("(\\\\|/|\\\\\\\\)Rtmp.*(\\\\|/|\\\\\\\\)", dir)
 }
 
-
+#' @noRd
 assert_null_and_func <- function(x, func){
   if (!is.null(x)) {
     func(x)
   }
 }
 
+#' @noRd
 assert_scalar_character <- function(x, name = deparse(substitute(x))) {
   if (!(is.character(x) && length(x) == 1L && !is.na(x))) {
     stop(sprintf("'%s' must be a scalar character", name))
@@ -183,7 +199,7 @@ assert_scalar_character <- function(x, name = deparse(substitute(x))) {
   invisible(x)
 }
 
-
+#' @noRd
 assert_scalar_logical <- function(x, name = deparse(substitute(x))) {
   if (!(is.logical(x) && length(x) == 1L && !is.na(x))) {
     stop(sprintf("'%s' must be a scalar logical", name))
@@ -191,7 +207,7 @@ assert_scalar_logical <- function(x, name = deparse(substitute(x))) {
   invisible(x)
 }
 
-
+#' @noRd
 assert_scalar_numeric <- function(x, name = deparse(substitute(x))) {
   if (!(is.numeric(x) && length(x) == 1L && !is.na(x))) {
     stop(sprintf("'%s' must be a scalar numeric", name))
@@ -199,11 +215,12 @@ assert_scalar_numeric <- function(x, name = deparse(substitute(x))) {
   invisible(x)
 }
 
+#' @noRd
 is_absolute_path <- function(path) {
   grepl("^(/|[A-Za-z]:[/\\]|//|\\\\\\\\)", path)
 }
 
-
+#' @noRd
 squote <- function(x) {
   sprintf("'%s'", x)
 }
