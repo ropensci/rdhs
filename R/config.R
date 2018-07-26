@@ -279,7 +279,8 @@ write_rdhs_config_from_client_config <- function(client) {
 
 #' @noRd
 read_rdhs_config_file <- function(config_path) {
-  dat <- jsonlite::fromJSON(readChar(config_path, file.size(config_path)), FALSE)
+  fsize <- file.size(config_path)
+  dat <- jsonlite::fromJSON(readChar(config_path, fsize), FALSE)
   ## Expected fields:
   expected <- c("email",
                 "project",

@@ -110,7 +110,7 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
 #' @param sps .SPS file as character vector (e.g. from readLines)
 parse_sps <- function(sps, all_lower=TRUE) {
 
-  sps <- iconv(sps, to = "UTF-8", sub = "") # drop unrecognized multibyte characters
+  sps <- iconv(sps, to = "UTF-8", sub = "") # drop unrecognized multibytes
 
   endblock <- grep("^ *\\.", sps)
 
