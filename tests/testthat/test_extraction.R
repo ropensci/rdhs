@@ -105,6 +105,7 @@ test_that("query codes having downloaded surveys", {
 })
 
 test_that("surveyId in extract", {
+  skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
 

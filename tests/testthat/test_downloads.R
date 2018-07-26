@@ -135,6 +135,7 @@ test_that("available surveys and download work", {
 })
 
 test_that("ETAR71FL.ZIP test", {
+  skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
@@ -144,6 +145,7 @@ test_that("ETAR71FL.ZIP test", {
 })
 
 test_that("ugir41fl.zip test", {
+  skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
@@ -153,6 +155,7 @@ test_that("ugir41fl.zip test", {
 })
 
 test_that("zip file ending test", {
+  skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
@@ -164,6 +167,7 @@ test_that("zip file ending test", {
 })
 
 test_that("Hierarchal and sas7bdat dataset test", {
+  skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
@@ -206,20 +210,4 @@ test_that("Geo dataset test", {
   )
 
   unlink(cli$get_root())
-})
-
-
-test_that("Large India Files", {
-  testthat::skip_on_cran()
-  cli <- new_rand_client()
-
-
-
-})
-
-
-test_that("Odd nesting India", {
-  testthat::skip_on_cran()
-  cli <- new_rand_client()
-
 })

@@ -4,8 +4,7 @@
 
 context("API endpoints")
 
-test_that("format catches and al_results tests", {
-  skip_if_no_auth()
+test_that("format catches and all_results tests", {
   testthat::skip_on_cran()
 
   # Create new directory

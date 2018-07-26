@@ -17,9 +17,6 @@ rdhs_setup_message <- function(verbose = TRUE, ...) {
   }
 }
 
-
-
-
 #' @noRd
 rdhs_setup <- function() {
 
