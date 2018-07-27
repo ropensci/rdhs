@@ -288,7 +288,7 @@ test_that("dhs_survey_characteristics works", {
     dhs_survey_characteristics(surveyYearStart = "1991",
                                surveyType = "DHS")
   )
-)
+
 expect_true(any(dat$SurveyCharacteristicName %in% "Abortion"))
 })
 
