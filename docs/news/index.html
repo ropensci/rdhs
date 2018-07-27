@@ -92,6 +92,9 @@
     <li>
       <a href="../articles/toolkit.html">Installation</a>
     </li>
+    <li>
+      <a href="../articles/testing.html">Testing</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -122,6 +125,15 @@
       
     </div>
 
+    <div id="rdhs-0-5-0" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rdhs-0-5-0" class="anchor"></a>rdhs 0.5.0</h2>
+<ul>
+<li><p>The way in which people provide their login details and set up their preferences has substantially changed. <code>set_dhs_credentials</code> is now <code>set_rdhs_config</code>. This function requires your email and project to be provided as argument, and will then prompt you for your password. You also provide as arguments <code>cache_path</code> that will specify where your API calls and datasets are to be cached. You can also control where the config is saved using <code>config_path</code>. For more details, see the documentation for <code><a href="../reference/set_rdhs_config.html">?set_rdhs_config</a></code> or within the tutorial <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">here</a>.</p></li>
+<li><p>This change means now that when you use any of the API functions without setting up a config, your API calls are cached within a temporary directory. After you have set up a config, rdhs will look for your config location. This will happen by first checking to see if you created a local config (<code>global = FALSE</code> within <code>set_rdhs_config</code>), which will be a file called “rdhs.json” in your current directory. If not there then it will look for a global one (<code>global = TRUE</code> (the default)), which will be a file called “~/.rdhs.json”. If that is not there it will check in your user cache directory for your operating system. To see what config <code>rdhs</code> is using at any point just use <code>get_rdhs_config</code>.</p></li>
+<li><p>These changes also affect a lot of internal changes, and have removed system environment variables being used as much. As such “rdhs_STARTUP_LOUD” and “rdhs_TIMEOUT” are now controlled by arguments you set via <code>set_rdhs_config</code>.</p></li>
+</ul>
+</div>
     <div id="rdhs-0-4-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-4-0" class="anchor"></a>rdhs 0.4.0</h2>
@@ -182,6 +194,7 @@ sp &lt;- geojsonio::as.json(d) %&gt;% geojsonio::geojson_sp
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#rdhs-0-5-0">0.5.0</a></li>
         <li><a href="#rdhs-0-4-0">0.4.0</a></li>
         <li><a href="#rdhs-0-3-0">0.3.0</a></li>
         <li><a href="#rdhs-0-2-1">0.2.1</a></li>

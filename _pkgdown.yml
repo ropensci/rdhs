@@ -75,6 +75,8 @@ navbar:
         href: articles/client.html
       - text: Installation
         href: articles/toolkit.html
+      - text: Testing
+        href: articles/testing.html
     - text: News
       href: news/index.html
   right:

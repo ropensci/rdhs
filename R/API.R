@@ -44,8 +44,11 @@ handle_api_request <- function(endpoint, query, all_results, client,
     resp <- out
   } else {
 
+    # grab timeout
+    timeout <- client$get_config()$timeout
+
     # create generic request
-    resp <- api_request(endpoint, query, all_results)
+    resp <- api_request(endpoint, query, all_results, timeout)
 
     ## then cache the resp and return the parsed resp
     client$.__enclos_env__$private$storr$set(key, resp, "api_calls")
@@ -60,7 +63,30 @@ handle_api_request <- function(endpoint, query, all_results, client,
 }
 
 #' @noRd
-api_request <- function(endpoint, query, all_results) {
+timeout_safe_request <- function(url, timeout, encode = "json") {
+
+  # Make the request
+  resp <- tryCatch(
+    httr::GET(url,
+              httr::user_agent("https://github.com/OJWatson/rdhs"),
+              httr::timeout(timeout),
+              encode = encode
+    ), error = function(e) NULL
+  )
+
+  if (is.null(resp)) {
+    stop("API Timeout Error: No response after ", timeout, " seconds.\n",
+        " Either increase timeout using set_rdhs_config(timeout = ...)\n",
+        " or check if the API is down by checking:\n",
+        " https://api.dhsprogram.com/rest/dhs/dataupdates\n")
+  }
+
+  return(resp)
+
+}
+
+#' @noRd
+api_request <- function(endpoint, query, all_results, timeout) {
 
   # if they have specified other than json
   if (!is.element(query$f, c("json", "geojson"))) {
@@ -69,7 +95,7 @@ api_request <- function(endpoint, query, all_results) {
     url <- httr::modify_url(endpoint, query = query)
 
     # Make the request
-    resp <- httr::GET(url, httr::user_agent("https://github.com/OJWatson/rdhs"))
+    resp <- timeout_safe_request(url, timeout)
 
     # if they have all_results still as TRUE then let them now
     # that not all results will be returned
@@ -90,26 +116,25 @@ api_request <- function(endpoint, query, all_results) {
 
   # if not then let's make paginated requests
   if (query$f == "json") {
-    parsed_resp <- handle_pagination_json(endpoint, query, all_results)
+    parsed_resp <- handle_pagination_json(endpoint, query,
+                                          all_results, timeout)
   } else if (query$f == "geojson") {
-    parsed_resp <- handle_pagination_geojson(endpoint, query, all_results)
+    parsed_resp <- handle_pagination_geojson(endpoint, query,
+                                             all_results, timeout)
   }
 
   return(parsed_resp)
 }
 
 #' @noRd
-handle_pagination_json <- function(endpoint, query, all_results) {
+handle_pagination_json <- function(endpoint, query, all_results, timeout) {
 
 
   # make url for request
   url <- httr::modify_url(endpoint, query = query)
 
   # make the request
-  resp <- httr::GET(url, httr::accept_json(),
-                    httr::user_agent("https://github.com/OJWatson/rdhs"),
-                    encode = "json"
-  )
+  resp <- timeout_safe_request(url, timeout, encode = "json")
 
   ## pass to response parse and if its json then grab the data
   parsed_resp <- handle_api_response(resp, TRUE)
@@ -143,11 +168,7 @@ handle_pagination_json <- function(endpoint, query, all_results) {
 
       # Create new request and parse this
       url <- httr::modify_url(endpoint, query = query)
-      resp <- httr::GET(
-        url, httr::user_agent("https://github.com/OJWatson/rdhs"),
-        httr::accept_json(),
-        encode = "json"
-      )
+      resp <- timeout_safe_request(url, timeout, encode = "json")
       parsed_resp <- handle_api_response(resp, TRUE)
 
       # if this larger page query has returned all the results
@@ -165,11 +186,7 @@ handle_pagination_json <- function(endpoint, query, all_results) {
         for (i in 2:length(parsed_resp)) {
           query$page <- i
           url <- httr::modify_url(endpoint, query = query)
-          resp <- httr::GET(
-            url, httr::user_agent("https://github.com/OJWatson/rdhs"),
-            httr::accept_json(),
-            encode = "json"
-          )
+          resp <- timeout_safe_request(url, timeout, encode = "json")
           temp_parsed_resp <- handle_api_response(resp, TRUE)
           parsed_resp[[i]] <- temp_parsed_resp
         }
@@ -185,16 +202,13 @@ handle_pagination_json <- function(endpoint, query, all_results) {
 }
 
 #' @noRd
-handle_pagination_geojson <- function(endpoint, query, all_results) {
+handle_pagination_geojson <- function(endpoint, query, all_results, timeout) {
 
   # make url for request
   url <- httr::modify_url(endpoint, query = query)
 
   # make the request
-  resp <- httr::GET(url, httr::accept_json(),
-                    httr::user_agent("https://github.com/OJWatson/rdhs"),
-                    encode = "json"
-  )
+  resp <- timeout_safe_request(url, timeout, encode = "json")
 
   ## pass to response parse and if its json then grab the data
   parsed_resp <- handle_api_response(resp, TRUE)
@@ -225,11 +239,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results) {
 
       # Create new request and parse this
       url <- httr::modify_url(endpoint, query = query)
-      resp <- httr::GET(
-        url, httr::user_agent("https://github.com/OJWatson/rdhs"),
-        httr::accept_json(),
-        encode = "json"
-      )
+      resp <- timeout_safe_request(url, timeout, encode = "json")
       parsed_resp <- handle_api_response(resp, TRUE)
 
       # if this larger page query has not returned all the results
@@ -245,11 +255,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results) {
         for (i in 2:length(loop_resp)) {
           query$page <- i
           url <- httr::modify_url(endpoint, query = query)
-          resp <- httr::GET(
-            url, httr::user_agent("https://github.com/OJWatson/rdhs"),
-            httr::accept_json(),
-            encode = "json"
-          )
+          resp <- timeout_safe_request(url, timeout, encode = "json")
           temp_parsed_resp <- handle_api_response(resp, TRUE)
           loop_resp[[i]] <- temp_parsed_resp$features
         }

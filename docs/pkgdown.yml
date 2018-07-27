@@ -5,6 +5,7 @@ articles:
   anemia: anemia.html
   client: client.html
   introduction: introduction.html
+  testing: testing.html
   toolkit: toolkit.html
 urls:
   reference: https://ojwatson.github.io/rdhs//reference

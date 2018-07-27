@@ -1,0 +1,39 @@
+---
+title: "Running test suite locally"
+author: "OJ Watson"
+date: "2018-07-27"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Toolkit}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+## Overview
+
+The following is a guide describing how to be able to run the full test suite locally.
+
+---
+
+## 1. Creating an account with the DHS website
+
+In order to run all the tests in the *rdhs* package you need to have created an account with the DHS website. This requires about 5 mins to fill in their form and then a few days for them to approve your account creation. To start this head to the DHS website and go to the Data tab [here](https://dhsprogram.com/data/dataset_admin/login_main.cfm). A full rationale for this procss can be found on their website [her](https://dhsprogram.com/data/Access-Instructions.cfm). In short you provide your contact information and then describe the stuy you are conducting that requires the DHS survey datasets.
+
+Importantly, when filling in their form describing the description of your study be sure to include some mention of needing geographic datasets as a number of the tests download geographic datasets. After you have filled this in you need to specify which countries and datasets you need. In order for the full test suite to work you must request every country and dataset type possible. After you have done this the DHS programme will take a few days to approve you request and will then email you to let you know at the email address you have provided. 
+
+## 2. Setting up your rdhs config
+
+Having now created your account, you can set up your *rdhs* configuration, which will allow you to download datasets from their website. This will also enable the tests included in "test_downloads.R", "test_extraction.R" and "test_ui.R" to run, as these tests first check for an rdhs confing file ("rdhs.json") within the testing directory.
+
+After having cloned/downloaded the repository, you will need to set up your rdhs config file within the testing directory, after which you should be able to run the test suite in full.
+
+
+```r
+pkg_dir <- "C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs"
+setwd(file.path(pkg_dir,"tests/testthat/"))
+rdhs::set_rdhs_config(email = "rdhs.tester@gmail.com",
+                      project = "Testing Malaria Investigations", 
+                      config_path = "rdhs.json", 
+                      global = FALSE)
+
+# devtools::test(pkg_dir)
+```

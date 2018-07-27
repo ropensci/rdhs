@@ -20,18 +20,9 @@ test_that("available surveys and download work", {
   sen <- cli$get_datasets("SNGE71FL.ZIP", download_option = "z")
 
   ## for teh unpacking make sure to pick dta or spss
-  hhs_dta <- which(survs$FileFormat %in% c(
-    "Stata dataset (.dta)",
-    "SPSS dataset (.sav)"
-  ) &
-    survs$FileType %in% c("Household Member Recode"))
-
-  # check rds only for 1
-  sample_survs <- sample(length(hhs_dta), 1, replace = FALSE)
-
   # check rds only
   downloads <- cli$get_datasets(
-    dataset_filenames = survs[hhs_dta[sample_survs], ]$FileName,
+    dataset_filenames = "AOPR51dt.zip",
     download_option = "r"
   )
 
@@ -91,7 +82,6 @@ test_that("available surveys and download work", {
     mode = "map", reformat = TRUE
   )
 
-
   # check FL with allLowr default
   downloads <- cli$get_datasets(
     dataset_filenames = "AOBR62FL.ZIP", download_option = "r"
@@ -100,11 +90,13 @@ test_that("available surveys and download work", {
   # check the irritating shared filename case
   downloads <- cli$get_datasets("KEKR42FL.ZIP")
   datasets <- dhs_datasets()
-  downloads <- cli$get_datasets(datasets[6047, ])
+  india_match <- which(datasets$FileName=="KEKR42FL.ZIP" &
+                         datasets$CountryName == "India")
+  downloads <- cli$get_datasets(datasets[india_match, ])
 
   # check both
   downloads <- cli$get_datasets(
-    dataset_filenames = survs[hhs_dta[sample_survs], ]$FileName,
+    dataset_filenames = "AOPR51sv.zip",
     download_option = "b"
   )
 
@@ -201,11 +193,7 @@ test_that("Geo dataset test", {
   hhs_geo <- which(survs$FileType %in% c("Geographic Data"))
 
   # check rds only
-  downloads <- cli$get_datasets(
-    dataset_filenames = survs[hhs_geo[sample(length(hhs_geo),
-      2,
-      replace = FALSE
-    )], ]$FileName,
+  downloads <- cli$get_datasets("AOGE52FL.zip",
     download_option = "r"
   )
 

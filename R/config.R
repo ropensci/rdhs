@@ -326,5 +326,6 @@ print_rdhs_config <- function(config) {
   config$data_frame <- config$data_frame_nice
   config$data_frame_nice <- NULL
   message(paste0(capture.output(str(config)), collapse = "\n"))
+  message("\n")
 
 }

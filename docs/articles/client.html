@@ -66,6 +66,9 @@
     <li>
       <a href="../articles/toolkit.html">Installation</a>
     </li>
+    <li>
+      <a href="../articles/testing.html">Testing</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -300,7 +303,7 @@ client</code></pre></div>
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ICLSPH-527168
-##     cache_date: 2018-07-19 11:36:41
+##     cache_date: 2018-07-19 11:44:39
 ##     check_available_datasets: function (filenames) 
 ##     config: rdhs_config
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$|.* NA$|.*NA$
@@ -602,7 +605,7 @@ comparison &lt;-<span class="st"> </span><span class="kw">cbind</span>(results[,
 <div id="summary-and-further-thoughts" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-and-further-thoughts" class="anchor"></a>Summary and further thoughts</h2>
-<p>Hopefully the above tutorial has shown how the <code>rdhs</code> package can facilitate both querying the DHS API and hopefully make downloading and interacting with the raw datasets a smoother, more reproducable process. It is worth bearing in mind though, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, which is hopefully when the <code>survey_questions</code> functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid.</p>
+<p>Hopefully the above tutorial has shown how the <code>rdhs</code> package can facilitate both querying the DHS API and hopefully make downloading and interacting with the raw datasets a smoother, more reproducible process. It is worth bearing in mind though, that creating a harmonised dataset is not always as easy as the example above - a lot of the time survey variables differ across years and surveys, which is hopefully when the <code>survey_questions</code> functionality will make it easier to first filter down to those that include the relevant questions before having to decide which survey questions are valid.</p>
 <p>Any suggestions or comments/corrections/errors/ideas please let me know either in the issues or send me an email at “<a href="mailto:o.watson15@imperial.ac.uk">o.watson15@imperial.ac.uk</a>”. And if there is any further functionality that you think you would be useful, then also let me know. :)</p>
 </div>
   </div>

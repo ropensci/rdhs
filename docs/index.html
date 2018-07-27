@@ -70,6 +70,9 @@
     <li>
       <a href="articles/toolkit.html">Installation</a>
     </li>
+    <li>
+      <a href="articles/testing.html">Testing</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -133,6 +136,7 @@
 <ul>
 <li><p>Full functionality is described in the tutorial <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">here</a>.</p></li>
 <li><p>An example workflow using <code>rdhs</code> to calculate trends in anemia prevalence is available <a href="https://ojwatson.github.io/rdhs/articles/anemia.html">here</a>.</p></li>
+<li><p>To run the full test suite (including tests for downloading datasets) see tutorial <a href="https://ojwatson.github.io/rdhs/articles/testing.html">here</a>.</p></li>
 </ul>
 </div>
 <div id="basic-functionality" class="section level2">
@@ -145,6 +149,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
 <span class="co">#&gt;                             ShortName   IndicatorId</span>
 <span class="co">#&gt; 1 Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
+
 <span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
        <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
 <span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
@@ -195,8 +200,7 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <h3 class="hasAnchor">
 <a href="#download-datasets" class="anchor"></a>Download datasets</h3>
 <p>To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using <code><a href="reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-## login
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## login
 <span class="kw"><a href="reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
                 <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,
                 <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,
@@ -206,20 +210,20 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="co">#&gt; If you are using git, be sure to add this to your .gitignore</span></code></pre></div>
 <p>The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the <code>cache_path</code> directory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1973</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 48.80746 48.80746 48.80746 48.80746</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1973) 51.29308 51.29308 51.29308 51.29308</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  48.80746 48.80746     1</span>
+<span class="co">#&gt;  51.29308 51.29308     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1972</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1973</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1972) 4.240212 4.240212 4.240212 4.240212</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1973) 2.281756 2.281756 2.281756 2.281756</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  4.240212 4.240212     1</span></code></pre></div>
+<span class="co">#&gt;  2.281756 2.281756     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
