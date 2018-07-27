@@ -39,6 +39,8 @@ Getting started
 
 -   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
 
+-   To run the full test suite (including tests for downloading datasets) see tutorial [here](https://ojwatson.github.io/rdhs/articles/testing.html).
+
 Basic Functionality
 -------------------
 
