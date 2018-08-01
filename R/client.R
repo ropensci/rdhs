@@ -439,11 +439,12 @@ R6_client_dhs <- R6::R6Class(
         handle_config(private$config$config_path)
       }
 
+      # download any datasets that need to be downloaded
+      download <- self$get_datasets(dataset_filenames, ...)
+
       # fetch which datasets you can download from your login
       datasets <- private$check_available_datasets(dataset_filenames)
-
-      # download any datasets that need to be downloaded
-      download <- self$get_datasets(datasets$FileName, ...)
+      datasets <- datasets[!is.na(datasets$URLS), ]
 
       # handle the search terms
       if (is.null(regex) & is.null(search_terms)) {
@@ -556,11 +557,12 @@ R6_client_dhs <- R6::R6Class(
         handle_config(private$config$config_path)
       }
 
+      # first download any datasets needed
+      download <- self$get_datasets(dataset_filenames, ...)
+
       # fetch which datasets you can download from your login
       datasets <- private$check_available_datasets(dataset_filenames)
-
-      # first download any datasets needed
-      download <- self$get_datasets(datasets$FileName, ...)
+      datasets <- datasets[!is.na(datasets$URLS), ]
 
       # results storage
       df <- data.frame(
