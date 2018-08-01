@@ -17,6 +17,16 @@ last_api_update <- function(timeout = 30) {
         mdy_hms() %>%
         max()
 
+      # also check the datasets as this gets updated first, and updates is not
+      # always up to date
+      dats <- dhs_datasets(returnFields = "FileDateLastModified", force = TRUE)
+      datasets_date <- dats$FileDateLastModified %>%
+            mdy_hms() %>%
+            max(na.rm = TRUE)
+
+      # take the greatest date
+      date <- max(date, datasets_date)
+
   } else if (is.null(updates)) {
 
     date <- -0.5
