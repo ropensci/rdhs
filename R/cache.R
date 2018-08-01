@@ -12,20 +12,20 @@ last_api_update <- function(timeout = 30) {
 
   if (inherits(updates, "response") && updates$status_code == 200) {
 
-      updates <- rbind_list_base(handle_api_response(updates)$Data)
-      date <- updates$UpdateDate %>%
-        mdy_hms() %>%
-        max()
+    updates <- rbind_list_base(handle_api_response(updates)$Data)
+    date <- updates$UpdateDate %>%
+      mdy_hms() %>%
+      max()
 
-      # also check the datasets as this gets updated first, and updates is not
-      # always up to date
-      dats <- dhs_datasets(returnFields = "FileDateLastModified", force = TRUE)
-      datasets_date <- dats$FileDateLastModified %>%
-            mdy_hms() %>%
-            max(na.rm = TRUE)
+    # also check the datasets as this gets updated first, and updates is not
+    # always up to date
+    dats <- datasets_forced_no_client()
+    datasets_date <- dats$FileDateLastModified %>%
+      mdy_hms() %>%
+      max(na.rm = TRUE)
 
-      # take the greatest date
-      date <- max(date, datasets_date)
+    # take the greatest date
+    date <- max(date, datasets_date)
 
   } else if (is.null(updates)) {
 
@@ -49,6 +49,19 @@ last_api_update <- function(timeout = 30) {
   }
 
   date
+}
+
+# file name for where client is saved between sessions
+#' @noRd
+datasets_forced_no_client <- function(){
+
+  l <- formals(dhs_datasets)[-c(14:16)]
+  l$returnFields <- "FileDateLastModified"
+  l$f <- "json"
+  l$apiKey <- "ICLSPH-527168"
+  dats <- api_request("https://api.dhsprogram.com/rest/dhs/datasets",
+                      query = l, all_results = TRUE, timeout = 30)
+  return(dats)
 }
 
 #' Pull last cache date
