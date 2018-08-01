@@ -852,9 +852,16 @@ R6_client_dhs <- R6::R6Class(
       avs <- create_new_filenames(avs)
       datasets <- create_new_filenames(datasets)
 
+      # catch of the filenames requested are with or without the zip
+      if (any(grepl("zip", filenames, ignore.case = TRUE))) {
+        nm_type <- "FileName"
+      } else {
+        nm_type <- "file"
+      }
+
       # find all the duplicate filenames and what datasets they belong to
-      duplicates <- datasets[duplicated(datasets$FileName), ]$FileName
-      duplicate_data <- datasets[which(datasets$FileName %in% duplicates), ]
+      duplicates <- datasets[duplicated(datasets$FileName), nm_type]
+      duplicate_data <- datasets[which(datasets[,nm_type] %in% duplicates), ]
 
       # because there are duplicate filenames in the API we allow/recommend
       # users to provide as the datasets argument the output of dhs_datasets
@@ -871,10 +878,10 @@ R6_client_dhs <- R6::R6Class(
 
           # what is the full set of datasets they have asked for
           potential <- datasets[match(toupper(filenames),
-                                      toupper(datasets$FileName)), ]
+                                      toupper(datasets[,nm_type])), ]
 
           # now match the requested filenames are available
-          found_datasets <- match(toupper(filenames), toupper(avs$FileName))
+          found_datasets <- match(toupper(filenames), toupper(avs[,nm_type]))
         } else {
 
           # let the user know there are duplicate matches and suggest that
@@ -897,9 +904,9 @@ R6_client_dhs <- R6::R6Class(
           fil_match <- paste0(toupper(substr(filenames, 1, 2)),
                               toupper(filenames))
           dat_match <- paste0(toupper(datasets$DHS_CountryCode),
-                              toupper(datasets$FileName))
+                              toupper(datasets[,nm_type]))
           avs_match <- paste0(toupper(avs$DHS_CountryCode),
-                              toupper(avs$FileName))
+                              toupper(avs[,nm_type]))
 
           # what is the full set of datasets they have asked for based on
           # the countrycode assumpotion
@@ -913,11 +920,11 @@ R6_client_dhs <- R6::R6Class(
 
         # unique match strings
         fil_match <- paste0(toupper(filenames$DHS_CountryCode),
-                            toupper(filenames$FileName))
+                            toupper(filenames[,nm_type]))
         dat_match <- paste0(toupper(datasets$DHS_CountryCode),
-                            toupper(datasets$FileName))
+                            toupper(datasets[,nm_type]))
         avs_match <- paste0(toupper(avs$DHS_CountryCode),
-                            toupper(avs$FileName))
+                            toupper(avs[,nm_type]))
 
         # what is the full set of datasets they have asked for
         potential <- datasets[match(fil_match, dat_match), ]
@@ -939,7 +946,7 @@ R6_client_dhs <- R6::R6Class(
         # which filenames have failed
         fail_names <- filenames
         if (is.data.frame(fail_names)) {
-          fail_names <- filenames$FileName
+          fail_names <- filenames[,nm_type]
         }
 
         message(
