@@ -321,11 +321,13 @@ read_rdhs_config_file <- function(config_path) {
 
 
 #' @noRd
-print_rdhs_config <- function(config) {
+print_rdhs_config <- function(config, give.attr = FALSE) {
 
+  ga <- give.attr
   config$data_frame <- config$data_frame_nice
   config$data_frame_nice <- NULL
-  message(paste0(capture.output(str(config)), collapse = "\n"))
+  config$password <- paste0(rep("*", nchar(config$password)),collapse="")
+  message(paste0(capture.output(str(config, give.attr = ga)), collapse = "\n"))
   message("\n")
 
 }
