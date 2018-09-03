@@ -129,46 +129,42 @@
 <h2 class="hasAnchor">
 <a href="#rdhs-0-5-0" class="anchor"></a>rdhs 0.5.0</h2>
 <ul>
-<li><p>The way in which people provide their login details and set up their preferences has substantially changed. <code>set_dhs_credentials</code> is now <code>set_rdhs_config</code>. This function requires your email and project to be provided as argument, and will then prompt you for your password. You also provide as arguments <code>cache_path</code> that will specify where your API calls and datasets are to be cached. You can also control where the config is saved using <code>config_path</code>. For more details, see the documentation for <code><a href="../reference/set_rdhs_config.html">?set_rdhs_config</a></code> or within the tutorial <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">here</a>.</p></li>
-<li><p>This change means now that when you use any of the API functions without setting up a config, your API calls are cached within a temporary directory. After you have set up a config, rdhs will look for your config location. This will happen by first checking to see if you created a local config (<code>global = FALSE</code> within <code>set_rdhs_config</code>), which will be a file called “rdhs.json” in your current directory. If not there then it will look for a global one (<code>global = TRUE</code> (the default)), which will be a file called “~/.rdhs.json”. If that is not there it will check in your user cache directory for your operating system. To see what config <code>rdhs</code> is using at any point just use <code>get_rdhs_config</code>.</p></li>
-<li><p>These changes also affect a lot of internal changes, and have removed system environment variables being used as much. As such “rdhs_STARTUP_LOUD” and “rdhs_TIMEOUT” are now controlled by arguments you set via <code>set_rdhs_config</code>.</p></li>
+<li><p>New <code>set_rdhs_config</code> for providing login credentials. This deprecates <code>set_dhs_credentials</code>.</p></li>
+<li><p>New <code>get_rdhs_config</code> shows the credentials currently used by <code>rdhs</code></p></li>
 </ul>
 </div>
     <div id="rdhs-0-4-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-4-0" class="anchor"></a>rdhs 0.4.0</h2>
 <ul>
-<li><p>The user has to now give permission for <code>rdhs</code> to write to files outside of your R temporary directory. This will be prompted the first time access any functionality that requires this, and then stored in you .Renviron file.</p></li>
-<li><p>Startup messages are silent by default now. They can be made loud using: <code>Sys.setenv("rdhs_STARTUP_LOUD" = TRUE)</code>.</p></li>
-<li><p>The initial check against the API’s last update date is now set to timeout after 30 seconds. This is because the package will access the dataUpdates endpoint when it is attached. Therefore if the API is frozen you will still be able to load the package. If 30 seconds is too long, this can be changed using: <code>Sys.setenv("rdhs_TIMEOUT" = 30)</code></p></li>
-<li><p>API requests will return a <code>data.frame</code> by default, but this can be changed now using: <code>Sys.setenv("rdhs_DATA_TABLE" = TRUE)</code></p></li>
-<li><p>API requests and datasets can now be made ignoring any cached responses. API requests using the <code>force = TRUE</code> argument (#23) will ignore any cached responses. <code><a href="../reference/get_datasets.html">get_datasets(clear_cache = TRUE)</a></code> will now download datasets after clearing the cached available datasets. This allows you to be able to donwload new datasets that you have recently requested (#29 <a href='http://github.com/kaisero'>@kaisero</a>).</p></li>
-<li><p>geojson objects can now be requested from the API (#28) so that you can return geojson objects for mapping purposes (#28) e.g. :</p></li>
+<li><p>Permissionn from user now required for file saving.</p></li>
+<li><p>API requests can now ignore any cached responses (<code>force = TRUE</code>) argument (#23):</p></li>
 </ul>
-<pre><code>d &lt;- dhs_data(countryIds = "SN", surveyYearStart = 2014, 
-              breakdown = "subnational", returnGeometry = TRUE,
-              f = "geojson")
-              
-# convert to spatial object
-sp &lt;- geojsonio::as.json(d) %&gt;% geojsonio::geojson_sp
-</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">force =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <ul>
-<li>Large amount of style standardisation.</li>
+<li><p><code><a href="../reference/get_datasets.html">get_datasets(clear_cache = TRUE)</a></code> will clear the cached available datasets, enabling newly requested datasets to be downloaded (<a href='http://github.com/kaisero'>@kaisero</a>, #29).</p></li>
+<li><p>geojson objects can now be requested from the API so that you can return geojson objects for mapping purposes (#28) e.g. :</p></li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="st">"SN"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2014</span>, 
+              <span class="dt">breakdown =</span> <span class="st">"subnational"</span>, <span class="dt">returnGeometry =</span> <span class="ot">TRUE</span>,
+              <span class="dt">f =</span> <span class="st">"geojson"</span>)
+              
+<span class="co"># convert to spatial object</span>
+sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/geojsonio/topics/as.json">as.json</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span>geojson_sp</code></pre></div>
 </div>
     <div id="rdhs-0-3-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-3-0" class="anchor"></a>rdhs 0.3.0</h2>
 <ul>
-<li><p>Change to the UI - end user interaction is now through normal functions, as opposed to <code>client_dhs</code> methods</p></li>
-<li><p>These are faciliated through the package internal environment, which means you now call <code>set_dhs_credentials()</code> once with your credentials and the package handles everything else in the backend.</p></li>
+<li>New <code><a href="../reference/dhs_data.html">dhs_data()</a></code>, <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> and other API functions (<code>dhs_x()</code>).</li>
 </ul>
 </div>
     <div id="rdhs-0-2-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-2-1" class="anchor"></a>rdhs 0.2.1</h2>
 <ul>
-<li>Patch to authenticate_dhs. failed to connect before if project names were very short. Fixed in 7e4ef81.</li>
+<li>
+<code><a href="../reference/authenticate_dhs.html">authenticate_dhs()</a></code> now works with short project names.</li>
 </ul>
 </div>
     <div id="rdhs-0-2-0" class="section level2">
@@ -176,16 +172,14 @@ sp &lt;- geojsonio::as.json(d) %&gt;% geojsonio::geojson_sp
 <a href="#rdhs-0-2-0" class="anchor"></a>rdhs 0.2.0</h2>
 <ul>
 <li><p>New vignettes: <code>anemia</code></p></li>
-<li><p>Substantial change to API interaction. All endpoints can now be queried using bespoke functions taking the form <code>dhs_&lt;endpoint&gt;()</code>.</p></li>
-<li><p>As a result of API changes, the DHS client is called with rdhs::client_dhs() now.</p></li>
-<li><p>Flat datasets can now be read in with a variety of download read in options</p></li>
+<li><p>New <code><a href="../reference/read_dhs_flat.html">read_dhs_flat()</a></code> for reading flat datasets.</p></li>
 </ul>
 </div>
     <div id="rdhs-0-1-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rdhs-0-1-0" class="anchor"></a>rdhs 0.1.0</h2>
 <ul>
-<li>Initial share on Feb, 24th 2018 to colleagues at UNC</li>
+<li>Initial share on Feb, 24th 2018 to colleagues at UNC.</li>
 </ul>
 </div>
   </div>
