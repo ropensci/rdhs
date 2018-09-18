@@ -192,7 +192,7 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #'
 #' @param questions Questions to be queried, in the format from
 #'   \code{\link{search_variables}} or \code{\link{search_variable_labels}}
-#' @param add_geo Add geograpic information to the extract. Defaut = `TRUE`
+#' @param add_geo Add geographic information to the extract. Defaut = `TRUE`
 #'
 #' @return A \code{list} of `data.frames` for each survey data extracted.
 #' @export
@@ -222,7 +222,7 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #' @param variables Character vector of survey variables to be looked up
 #' @param essential_variables Character vector of variables that need to
 #'   present. If any of the codes are not present in that survey,
-#'   the survey will not be returned by this functon. Default = `NULL`.
+#'   the survey will not be returned by this function. Default = `NULL`.
 #' @param ... Any other arguments to be passed to
 #'   \code{\link{download_datasets}}
 #'
