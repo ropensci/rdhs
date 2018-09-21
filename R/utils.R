@@ -184,6 +184,25 @@ is_r_tempdir <- function(dir){
   grepl("(\\\\|/|\\\\\\\\)Rtmp.*(\\\\|/|\\\\\\\\)", dir)
 }
 
+# add line to a file
+#' @noRd
+add_line <- function(path, line, quiet = FALSE) {
+  if (file.exists(path)) {
+    lines <- readLines(path, warn = FALSE)
+    lines <- lines[lines != ""]
+  } else {
+    lines <- character()
+  }
+
+  if (line %in% lines) return(TRUE)
+  if (!quiet) message("Adding ", line, " to ", path)
+
+  lines <- c(lines, line)
+  writeLines(lines, path)
+  TRUE
+}
+
+
 #' @noRd
 assert_null_and_func <- function(x, func){
   if (!is.null(x)) {
