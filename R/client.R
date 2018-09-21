@@ -10,7 +10,7 @@
 #' @template client_dhs_methods
 #' @export
 #'
-#' @example
+#' @examples
 #'
 #' #Create new directory
 #' td <- file.path(tempdir(), as.integer(Sys.time()))

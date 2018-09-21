@@ -244,7 +244,7 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 #'   been read using \code{readRDS}
 #' @export
 #'
-#' @example
+#' @examples
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'

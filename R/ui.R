@@ -104,6 +104,12 @@ get_rdhs_config <- function() {
 #'   it accordingly.
 #' @export
 #'
+#' @examples
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
 
 get_datasets <- function(dataset_filenames,
                          download_option="rds",
@@ -142,6 +148,18 @@ get_datasets <- function(dataset_filenames,
 #' @return A \code{data.frame} of downloaded datasets
 #' @export
 #'
+#' @examples
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#'
+#' # these will then be stored so that we know what datasets we have downloaded
+#' d <- get_downloaded_datasets()
+#'
+#' # which returns a names list of file paths to the datasets
+#' h[1]
 
 get_downloaded_datasets <- function() {
 
@@ -172,11 +190,18 @@ get_downloaded_datasets <- function() {
 #'   for that link.
 #' @export
 #'
+#' @examples
+#' # grab the datasets
+#' datasets <- get_available_datasets()
+#'
+#' # and if we look at the last one it will be the model datasets from DHS
+#' tail(datasets, 1)
 
 get_available_datasets <- function(clear_cache = FALSE) {
 
   client <- check_for_client()
-  client$available_datasets(clear_cache)
+  avs <- client$available_datasets(clear_cache)
+  return(rbind(avs, model_datasets))
 }
 
 #' Extract Data
@@ -197,7 +222,7 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #' @return A \code{list} of `data.frames` for each survey data extracted.
 #' @export
 #'
-#' @example
+#' @examples
 #'
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
