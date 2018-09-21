@@ -146,7 +146,9 @@ We can now use this to download our datasets for further analysis.
 
 ## 3. Download survey datasets
 
-We can now go ahead and download our datasets. To do this we need to first set our login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. 
+We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
+
+Once we have created an account, we need to set up our credentials using the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password.
 
 You can also specify a directory for datasets and API calls to be cached to using `cache_path`. If you do not provide an argument for `cache_path` you will be prompted to provide permission to `rdhs` to save your datasets and API calls within your user cache directory for your operating system. This is to comply with CRAN's requests for permission to be granted before writing to system files. If you do not grant permission, these will be written within your R temporary directory (as we saw above when we first used one of the functions to query the API). Similarly if you do not also provide an argument for `config_path`, this will be saved within your temp directory unless permission is granted. Your config files will always be called "rdhs.json", so that `rdhs` can find them easily.
 
