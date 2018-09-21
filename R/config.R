@@ -236,21 +236,28 @@ set_rdhs_config <- function(email = NULL,
 
 
 #' @noRd
-write_rdhs_config_file <- function(dat, config_path) {
+write_rdhs_config_file <- function(dat, path) {
 
   str <- jsonlite::toJSON(dat, auto_unbox = TRUE, pretty = TRUE, null = "null")
 
   rdhs_setup_message(
     verbose = dat$verbose_setup,
-    "Writing your configuration to:\n   -> ", config_path, "\n"
-  )
-  rdhs_setup_message(
-    verbose = dat$verbose_setup,
-    "If you are using git, be sure to add this to your .gitignore\n"
+    "Writing your configuration to:\n   -> ", path, "\n"
   )
 
-  writeLines(str, config_path)
-  invisible(read_rdhs_config_file(config_path))
+  # and add this to the build and gitignore if there
+  if (file.exists("DESCRIPTION")) {
+    add_line(".Rbuildignore", paste0("^", gsub("\\.", "\\\\.", path), "$"))
+  }
+  add_line(".gitignore", path)
+
+  rdhs_setup_message(
+    verbose = dat$verbose_setup,
+    path, "has been added to your .gitignore\n"
+  )
+
+  writeLines(str, path)
+  invisible(read_rdhs_config_file(path))
 
 }
 
