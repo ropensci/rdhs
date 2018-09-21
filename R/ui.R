@@ -197,6 +197,20 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #' @return A \code{list} of `data.frames` for each survey data extracted.
 #' @export
 #'
+#' @example
+#'
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#' dl <- data_and_labels(g$zzbr62dt)
+#'
+#' # create some terms of data me may want to extrac
+#' st <- search_variable_labels(names(g), "bed net")
+#'
+#' # and now extract it
+#' ex <- extract_dhs(st)
 
 extract_dhs <- function(questions, add_geo=FALSE) {
 
