@@ -57,7 +57,7 @@
 #'   parameter. By default national data is returned and provides totals on a
 #'   national level. `breakdown="subnational"` data provides values on a
 #'   subnational level. `breakdown="background"` provides totals on categorized
-#'   basis. Examples are urban/rural,education and wealth level.
+#'   basis. Examples are urban/rural, education and wealth level.
 #'   `breakdown="all"` provides all the data including disaggregated data.
 #' @param returnGeometry Coordinates can be requested from the API by including
 #'   `returnGeometry=TRUE` in your request. The default for this value is
@@ -216,7 +216,7 @@ dhs_data <- function(countryIds=NULL,
 #' # A list of the different `surveyCharacteristicIds` can be found
 #' # [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
 #'
-#' # A complete list of examples for how each argument to the indicator api
+#' # A complete list of examples for how each argument to the indicator API
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #' \url{https://api.dhsprogram.com/#/api-indicators.cfm}

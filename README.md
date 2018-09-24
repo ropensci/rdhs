@@ -1,56 +1,55 @@
+# rdhs
 
-rdhs
-====
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+[![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs)
+[![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
+[![Documentation via pkgdown](https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png)](https://ojwatson.github.io/rdhs)
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs) [![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master) [![Documentation via pkgdown](https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png)](https://ojwatson.github.io/rdhs)
+![](https://github.com/OJWatson/rdhs/raw/master/tools/logo.png)  
 
-![](https://github.com/OJWatson/rdhs/raw/master/tools/logo.png)
-
-Motivation
-----------
+## Motivation
 
 The Demographic and Health Surveys (DHS) Program has collected population survey data from over 90 countries for over 30 years. In many countries, DHS provide the key data that mark progress towards targets such as the Sustainable Development Goals (SDGs) and inform health policy. Though standard health indicators are routinely published in survey final reports, much of the value of DHS is derived from the ability to download and analyse standardized microdata datasets for subgroup analysis, pooled multi-country analysis, and extended research studies. The suite of tools within `rdhs` improves the accessibility of these datasets for statistical analysis with R, with aim to support reproducible global health research and simplify common analytical pipelines.
 
-To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets.
+To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
 
-------------------------------------------------------------------------
+---
 
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](www.dhsprogram.com) data. This includes functionality to:
 
-1.  Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
-2.  Identify surveys and datasets relevant to a particular analysis.
-3.  Download survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
-4.  Load datasets and associated metadata into R.
-5.  Extract variables and combining datasets for pooled multi-survey analyses.
+1. Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
+1. Identify surveys and datasets relevant to a particular analysis.
+1. Download survey datasets from the [DHS website](https://dhsprogram.com/data/available-datasets.cfm).
+1. Load datasets and associated metadata into R.
+1. Extract variables and combining datasets for pooled multi-survey analyses.
 
-Installation
-------------
+## Installation
 
 Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ojwatson.github.io/rdhs/articles/toolkit.html)
 
-``` r
+
+```r
 # install.packages("devtools")
 # devtools::install_github("OJWatson/rdhs")
 library(rdhs)
 ```
 
-Getting started
----------------
+## Getting started
 
--   Full functionality is described in the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
+* Full functionality is described in the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
 
--   An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
+* An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
 
--   To run the full test suite (including tests for downloading datasets) see tutorial [here](https://ojwatson.github.io/rdhs/articles/testing.html).
+* To run the full test suite (including tests for downloading datasets) see tutorial [here](https://ojwatson.github.io/rdhs/articles/testing.html).
 
-Basic Functionality
--------------------
+## Basic Functionality
 
 ### Query the [DHS API](https://api.dhsprogram.com/).
 
 Obtain survey estimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).
 
-``` r
+
+```r
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
 #>                             ShortName   IndicatorId
 #> 1 Malaria prevalence according to RDT ML_PMAL_C_RDT
@@ -69,7 +68,8 @@ dhs_data(countryIds = c("CD","TZ"), indicatorIds = "ML_PMAL_C_RDT", surveyYearSt
 
 Now, obtain survey microdatasets to analyze these same indicators. Query the *surveyCharacteristics* endpoint to identify the survey characteristic ID for malaria RDT testing.
 
-``` r
+
+```r
 ## call with no arguments to return all characterstics
 sc <- dhs_survey_characteristics()
 sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
@@ -83,7 +83,8 @@ sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 Use `dhs_surveys()` identify surveys for the countries and years of interest.
 
-``` r
+
+```r
 ## what are the countryIds - we can find that using this API request
 ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 
@@ -93,10 +94,11 @@ survs <- dhs_surveys(surveyCharacteristicIds = 89, countryIds = c("CD","TZ"), su
 
 Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two very old datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly. The household member recode (`PR`) reports the RDT status for children under five.
 
-``` r
+
+```r
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 str(datasets)
-#> 'data.frame':    2 obs. of  13 variables:
+#> 'data.frame':	2 obs. of  13 variables:
 #>  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"
 #>  $ FileSize            : int  6595349 6622102
 #>  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets"
@@ -114,47 +116,49 @@ str(datasets)
 
 ### Download datasets
 
-We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets.
+We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
 
 Once we have created an account, we need to set up our credentials using the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password.
 
-You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
+You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
 
-``` r
+
+```r
 ## login
 set_rdhs_config(email = "rdhs.tester@gmail.com",
                 project = "Testing Malaria Investigations",
                 config_path = "rdhs.json",
                 global=FALSE)
-#> Please enter password in TK window (Alt+Tab)
 #> Writing your configuration to:
 #>    -> rdhs.json
-#> If you are using git, be sure to add this to your .gitignore
+#> rdhs.json has been added to your .gitignore
 ```
 
 The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
 
-``` r
+
+```r
 # the first time this will take a few seconds 
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
-#> Unit: seconds
-#>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1973) 5.112303 5.112303 5.112303 5.112303
-#>        uq      max neval
-#>  5.112303 5.112303     1
+#> Unit: milliseconds
+#>                                  expr     min      lq    mean  median
+#>  dhs_datasets(surveyYearStart = 1973) 59.3755 59.3755 59.3755 59.3755
+#>       uq     max neval
+#>  59.3755 59.3755     1
 
 # after caching, results will be available instantly
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1973),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1973) 2.105858 2.105858 2.105858 2.105858
+#>  dhs_datasets(surveyYearStart = 1973) 2.147379 2.147379 2.147379 2.147379
 #>        uq      max neval
-#>  2.105858 2.105858     1
+#>  2.147379 2.147379     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
 
-``` r
+
+```r
 # download datasets
 downloads <- get_datasets(datasets$FileName)
 
@@ -169,7 +173,8 @@ str(downloads)
 
 The `get_datasets()` function returns a vector with a file path to the saved location of the downloaded datasets. These are read using `readRDS()`:
 
-``` r
+
+```r
 # read in first dataset
 cdpr <- readRDS(downloads$CDPR61FL)
 ```
@@ -180,14 +185,16 @@ Value labels are stored as attributes to each of the columns of the data frame u
 
 The client also caches all variable labels to quickly query variables in each survey *without* loading the datasets.
 
-``` r
+
+```r
 # rapid diagnostic test search
 vars <- search_variable_labels(datasets$FileName, search_terms = "malaria rapid test")
 ```
 
 Then extract these variables from the datasets. Optionally, geographic data may be added.
 
-``` r
+
+```r
 # and now extract the data
 extract <- extract_dhs(vars, add_geo = FALSE)
 #> Starting Survey 1 out of 2 surveys:CDPR61FL
@@ -198,7 +205,8 @@ The returned object is a list of extracted datasets.
 
 Dataset extracts can alternate be specified by providing a vector of surveys and vector of variable names:
 
-``` r
+
+```r
 # and grab the questions from this now utilising the survey variables
 vars <- search_variables(datasets$FileName, variables = c("hv024","hml35"))
 
@@ -210,16 +218,19 @@ extract <- extract_dhs(vars, add_geo = FALSE)
 
 Finally, the two datasets are pooled using the function `rbind_labelled()`. This function works specifically with our lists of labelled `data.frame`s. Labels are specified for each variable: for `hv024` all labels are retained (concatenate) but for `hml35` labels across both datasets to be "Neg" and "Pos".
 
-``` r
+
+```r
 # now let's try our second extraction
 extract <- rbind_labelled(extract,
                           labels = list("hv024" = "concatenate",
                                         "hml35" = c("Neg"=0, "Pos"=1)))
 ```
 
+
 There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specified by the argument `reformat=TRUE`.
 
-``` r
+
+```r
 # identify questions but specifying the reformat argument
 questions <- search_variables(datasets$FileName, variables = c("hv024", "hml35"),
                                      reformat=TRUE)
@@ -234,7 +245,7 @@ extract <- rbind_labelled(extract)
 
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
 str(extract)
-#> Classes 'dhs_dataset' and 'data.frame':  160829 obs. of  4 variables:
+#> Classes 'dhs_dataset' and 'data.frame':	160829 obs. of  4 variables:
 #>  $ hv024   : chr  "equateur" "equateur" "equateur" "equateur" ...
 #>   ..- attr(*, "label")= chr "Province"
 #>  $ hml35   : chr  NA NA NA NA ...

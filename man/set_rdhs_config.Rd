@@ -82,7 +82,10 @@ Setting up a configuration will enable API results to be cached, as
   `FALSE` the config file will be saved within the current directory. This
   can be useful if you create a new DHS project for each new piece of work,
   and want to keep the datasets you download for this project separate to
-  another.
+  another. If you want to have your config file saved in a different
+  directory, then you must create a file "rdhs.json" first in that directory
+  before specifying the full path to it, as well as setting `global` equal to
+  `FALSE`.
 
   As an aside, it is useful for the DHS program to see how the surveys they
   conducted are being used, and thus it is helpful for them if you do create

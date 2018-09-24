@@ -4,8 +4,8 @@
 \alias{search_variables}
 \title{Search Survey Variables}
 \usage{
-search_variables(dataset_filenames, variables, essential_variables = NULL,
-  ...)
+search_variables(dataset_filenames, variables,
+  essential_variables = NULL, ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded.

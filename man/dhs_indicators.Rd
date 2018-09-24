@@ -4,11 +4,12 @@
 \alias{dhs_indicators}
 \title{API request of DHS Indicators}
 \usage{
-dhs_indicators(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
-  client = NULL, force = FALSE, all_results = TRUE)
+dhs_indicators(countryIds = NULL, indicatorIds = NULL,
+  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL,
+  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
+  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
+  force = FALSE, all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -88,7 +89,7 @@ dat <- dhs_indicators(surveyCharacteristicIds="90")
 # A list of the different `surveyCharacteristicIds` can be found
 # [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
 
-# A complete list of examples for how each argument to the indicator api
+# A complete list of examples for how each argument to the indicator API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 \\url{https://api.dhsprogram.com/#/api-indicators.cfm}

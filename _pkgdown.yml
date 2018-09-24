@@ -71,8 +71,12 @@ navbar:
         href: articles/introduction.html
       - text: An example use case looking at trends in anemia
         href: articles/anemia.html
+      - text: -------
       - text: How to use the client
         href: articles/client.html
+      - text: How to use geojson API results
+        href: articles/geojson.html
+      - text: -------
       - text: Installation
         href: articles/toolkit.html
       - text: Testing

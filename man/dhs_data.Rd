@@ -6,11 +6,12 @@
 \usage{
 dhs_data(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
   selectSurveys = NULL, surveyYear = NULL, surveyYearStart = NULL,
-  surveyYearEnd = NULL, surveyType = NULL, surveyCharacteristicIds = NULL,
-  characteristicCategory = NULL, characteristicLabel = NULL,
-  tagIds = NULL, breakdown = NULL, returnGeometry = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
-  force = FALSE, all_results = TRUE)
+  surveyYearEnd = NULL, surveyType = NULL,
+  surveyCharacteristicIds = NULL, characteristicCategory = NULL,
+  characteristicLabel = NULL, tagIds = NULL, breakdown = NULL,
+  returnGeometry = NULL, f = NULL, returnFields = NULL,
+  perPage = NULL, page = NULL, client = NULL, force = FALSE,
+  all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -75,7 +76,7 @@ specified tag. For a list of tags use \code{dhs_tags()}}
 parameter. By default national data is returned and provides totals on a
 national level. `breakdown="subnational"` data provides values on a
 subnational level. `breakdown="background"` provides totals on categorized
-basis. Examples are urban/rural,education and wealth level.
+basis. Examples are urban/rural, education and wealth level.
 `breakdown="all"` provides all the data including disaggregated data.}
 
 \item{returnGeometry}{Coordinates can be requested from the API by including
