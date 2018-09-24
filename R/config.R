@@ -141,6 +141,7 @@ handle_config <- function(config_path) {
 #' # otherwise we can do this by specifying prompt to FALSE
 #' set_rdhs_config(
 #' config_path = "rdhs.json", global = FALSE, prompt = FALSE
+#' )
 #'
 #' # you can look at what you have set these to using \code{get_rdhs_config}
 #' get_rdhs_config()
