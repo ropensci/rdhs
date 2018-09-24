@@ -25,25 +25,8 @@ In this demonstration we will be using 2 other packages, `leaflet` and `geojson`
 library(rdhs)
 
 # install other packages
- install.packages("geojson")
-```
-
-```
-## package 'geojson' successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-## 	C:\Users\Oliver\AppData\Local\Temp\RtmpIVHfK7\downloaded_packages
-```
-
-```r
- install.packages("leaflet")
-```
-
-```
-## package 'leaflet' successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-## 	C:\Users\Oliver\AppData\Local\Temp\RtmpIVHfK7\downloaded_packages
+# install.packages("geojson")
+# install.packages("leaflet")
 ```
 
 ```r
