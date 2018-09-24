@@ -12,23 +12,19 @@
 #'
 #' @examples
 #'
-#' #Create new directory
-#' td <- file.path(tempdir(), as.integer(Sys.time()))
-#'
+#' \dontrun{
 #' # create an rdhs config file at "rdhs.json
 #' set_rdhs_config(
-#' config_path = "rdhs.json", global = FALSE, password_prompt = FALSE
+#' config_path = "rdhs.json", global = FALSE, prompt = FALSE
 #' )
 #'
 #' # create your client, specifying your config
 #' cli <- client_dhs(
 #' api_key = "ICLSPH-527168",
 #' config = read_rdhs_config_file("rdhs.json"),
-#' root = tempdir()
+#' root = td
 #' )
-
-
-return(cli)
+#' }
 client_dhs <- function(config=NULL,
                        root=rappdirs_rdhs(),
                        api_key="ICLSPH-527168") {
@@ -734,6 +730,7 @@ R6_client_dhs <- R6::R6Class(
 
       # grab these now
       filenames <- dhs_datasets(client = self)$FileName
+      filenames <- c(filenames, model_datasets$FileName)
 
       # get vars from dataset_paths
       if (!is.null(dataset_paths)) {
