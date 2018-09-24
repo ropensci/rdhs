@@ -38,6 +38,8 @@ Suggests:
     ggplot2,
     survey,
     data.table,
+    leaflet,
+    geojson,
     microbenchmark
 License: MIT + file LICENSE
 RoxygenNote: 6.1.0

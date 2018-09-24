@@ -25,8 +25,8 @@ In this demonstration we will be using 2 other packages, `leaflet` and `geojson`
 library(rdhs)
 
 # install other packages
- install.packages("geojson")
- install.packages("leaflet")
+install.packages("geojson")
+install.packages("leaflet")
 
 # make request
 d <- dhs_data(countryIds = "SN",
