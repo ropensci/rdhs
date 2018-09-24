@@ -94,7 +94,7 @@ dat <- dhs_publications()
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-publications.cfm
+# https://api.dhsprogram.com/#/api-publications.cfm
 
 \dontrun{
 dat <- dhs_publications(countryIds="EG",all_results=FALSE)

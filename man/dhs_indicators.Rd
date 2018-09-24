@@ -93,7 +93,7 @@ dat <- dhs_indicators(surveyCharacteristicIds="90")
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-indicators.cfm
+# https://api.dhsprogram.com/#/api-indicators.cfm
 
 \dontrun{
 dat <- dhs_indicators(countryIds="EG",all_results=FALSE)

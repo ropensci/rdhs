@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -270,33 +270,29 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# A common use for the surveys API endpoint is to query which countries
-# have conducted surveys since a given year, e.g. since 2010
+<span class='co'># A common use for the surveys API endpoint is to query which countries</span>
+<span class='co'># have conducted surveys since a given year, e.g. since 2010</span>
 
-dat <- dhs_surveys(surveyYearStart="2010")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>surveyYearStart</span><span class='kw'>=</span><span class='st'>"2010"</span>)
 
-# Additionally, some countries conduct non DHS surveys, but the data for
-# thse is also available within the DHS website/API. To query these:
+<span class='co'># Additionally, some countries conduct non DHS surveys, but the data for</span>
+<span class='co'># thse is also available within the DHS website/API. To query these:</span>
 
-dat <- dhs_surveys(surveyType="MIS")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>surveyType</span><span class='kw'>=</span><span class='st'>"MIS"</span>)
 
-# Lastly, you may be interested to know about anything peculiar about a
-# particular survey's implementation. This can be found by looking within
-# the footnotes variable within the data frame returned. For example, the
-# Madagascar 2013 MIS:
+<span class='co'># Lastly, you may be interested to know about anything peculiar about a</span>
+<span class='co'># particular survey's implementation. This can be found by looking within</span>
+<span class='co'># the footnotes variable within the data frame returned. For example, the</span>
+<span class='co'># Madagascar 2013 MIS:</span>
 
-dat$Footnotes[dat$SurveyId == "MD2013MIS"]
-
+<span class='no'>dat</span>$<span class='no'>Footnotes</span>[<span class='no'>dat</span>$<span class='no'>SurveyId</span> <span class='kw'>==</span> <span class='st'>"MD2013MIS"</span>]</div><div class='output co'>#&gt; [1] "Areas without Malaria have been excluded"</div><div class='input'>
 # A complete list of examples for how each argument to the surveys API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-surveys.cfm
+# https://api.dhsprogram.com/#/api-surveys.cfm
 
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:23:7: unexpected '/'</span>
-#&gt; <span class='error'>22: </span>
-#&gt; <span class='error'>23: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+</div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

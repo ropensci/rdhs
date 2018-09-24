@@ -94,7 +94,7 @@
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-data.cfm
+#' # https://api.dhsprogram.com/#/api-data.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_data(countryIds="EG",all_results=FALSE)
@@ -221,7 +221,7 @@ dhs_data <- function(countryIds=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-indicators.cfm
+#' # https://api.dhsprogram.com/#/api-indicators.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
@@ -305,7 +305,7 @@ dhs_indicators <- function(countryIds=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-uiupdates.cfm
+#' # https://api.dhsprogram.com/#/api-uiupdates.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
@@ -375,7 +375,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-info.cfm
+#' # https://api.dhsprogram.com/#/api-info.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_info(infoType="version",all_results=FALSE)
@@ -471,7 +471,7 @@ dhs_info <- function(infoType=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-countries.cfm
+#' # https://api.dhsprogram.com/#/api-countries.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_countries(countryIds="EG",all_results=FALSE)
@@ -599,7 +599,7 @@ dhs_countries <- function(countryIds=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-surveys.cfm
+#' # https://api.dhsprogram.com/#/api-surveys.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
@@ -712,7 +712,7 @@ dhs_surveys <- function(countryIds=NULL,
 #' # characteristics API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
+#' # https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
@@ -820,7 +820,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-publications.cfm
+#' # https://api.dhsprogram.com/#/api-publications.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_publications(countryIds="EG",all_results=FALSE)
@@ -936,7 +936,7 @@ dhs_publications <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-datasets.cfm
+#' # https://api.dhsprogram.com/#/api-datasets.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
@@ -1038,7 +1038,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-geometry.cfm
+#' # https://api.dhsprogram.com/#/api-geometry.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
@@ -1139,7 +1139,7 @@ dhs_geometry <- function(countryIds=NULL,
 #' # tags API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-tags.cfm
+#' # https://api.dhsprogram.com/#/api-tags.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_tags(countryIds="EG",all_results=FALSE)
@@ -1220,7 +1220,7 @@ dhs_tags <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' https://api.dhsprogram.com/#/api-dataupdates.cfm
+#' # https://api.dhsprogram.com/#/api-dataupdates.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)

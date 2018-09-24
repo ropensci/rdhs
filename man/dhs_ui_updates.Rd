@@ -55,7 +55,7 @@ dat <- dhs_ui_updates(lastUpdate="20180101")
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-uiupdates.cfm
+# https://api.dhsprogram.com/#/api-uiupdates.cfm
 
 \dontrun{
 dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)

@@ -112,7 +112,7 @@ dat$Footnotes[dat$SurveyId == "MD2013MIS"]
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-surveys.cfm
+# https://api.dhsprogram.com/#/api-surveys.cfm
 
 \dontrun{
 dat <- dhs_surveys(countryIds="EG",all_results=FALSE)

@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -204,23 +204,18 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# The API endpoint for the data updates available within the DHS
-# is a very useful endpoint, which is used a lot within `rdhs`. For example,
-# we use it to keep the end user's cache up to date. For example to find all
-# updates that have occurred in 2018:
+<span class='co'># The API endpoint for the data updates available within the DHS</span>
+<span class='co'># is a very useful endpoint, which is used a lot within `rdhs`. For example,</span>
+<span class='co'># we use it to keep the end user's cache up to date. For example to find all</span>
+<span class='co'># updates that have occurred in 2018:</span>
 
-dat <- dhs_data_updates(lastUpdate="20180101")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_data_updates</span>(<span class='kw'>lastUpdate</span><span class='kw'>=</span><span class='st'>"20180101"</span>)
 
-# A complete list of examples for how each argument to the data updates
-# API endpoint can be provided is given below, which is a
-# copy of each of the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the data updates</span>
+<span class='co'># API endpoint can be provided is given below, which is a</span>
+<span class='co'># copy of each of the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-dataupdates.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:13:7: unexpected '/'</span>
-#&gt; <span class='error'>12: </span>
-#&gt; <span class='error'>13: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-dataupdates.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_data_updates</span>(<span class='kw'>lastUpdate</span><span class='kw'>=</span><span class='st'>"20150901"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_data_updates</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='co'># }</span></pre>

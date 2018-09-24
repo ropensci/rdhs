@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -240,27 +240,22 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# A good use for the tags API endpoint is to query what the
-# IDs are for each tag. These are useful for passing as
-# arguments to other API endpoints.For example to show all the ids:
+<span class='co'># A good use for the tags API endpoint is to query what the</span>
+<span class='co'># IDs are for each tag. These are useful for passing as</span>
+<span class='co'># arguments to other API endpoints.For example to show all the ids:</span>
 
-dat <- dhs_tags()
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>()
 
-# Or if your analysis is foucssed on a particular country, and you want to
-# see all the characteristics surveyed for e.g. Senegal
+<span class='co'># Or if your analysis is foucssed on a particular country, and you want to</span>
+<span class='co'># see all the characteristics surveyed for e.g. Senegal</span>
 
-dat <- dhs_tags(countryIds="SN")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"SN"</span>)
 
-# A complete list of examples for how each argument to the survey
-# tags API endpoint can be provided is given below, which is a
-# copy of each of the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the survey</span>
+<span class='co'># tags API endpoint can be provided is given below, which is a</span>
+<span class='co'># copy of each of the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-tags.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:17:7: unexpected '/'</span>
-#&gt; <span class='error'>16: </span>
-#&gt; <span class='error'>17: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-tags.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

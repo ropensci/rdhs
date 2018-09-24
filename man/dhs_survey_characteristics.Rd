@@ -85,7 +85,7 @@ dat <- dhs_countries(countryIds="SN")
 # characteristics API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
+# https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
 
 \dontrun{
 dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)

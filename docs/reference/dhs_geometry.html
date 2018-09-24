@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -233,26 +233,21 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# The geometry API endpoint returns the spatial geometry for countries, and
-# can then be used to recreate the spatial polygon for a given country. For
-# example to return the coordinates for the Senegal 2010 DHS survey:
+<span class='co'># The geometry API endpoint returns the spatial geometry for countries, and</span>
+<span class='co'># can then be used to recreate the spatial polygon for a given country. For</span>
+<span class='co'># example to return the coordinates for the Senegal 2010 DHS survey:</span>
 
-dat <- dhs_geometry(surveyIds="SN2010DHS")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>)
 
-# At the moment there is no function to convert the coordinates returned by
-# the API but this will be in the next version of rdhs. For those interested
-# look at the geojson vignette for an alternative way to produce plots.
+<span class='co'># At the moment there is no function to convert the coordinates returned by</span>
+<span class='co'># the API but this will be in the next version of rdhs. For those interested</span>
+<span class='co'># look at the geojson vignette for an alternative way to produce plots.</span>
 
-# A complete list of examples for how each argument to the geometry
-# API endpoint can be provided is given below, which is a
-# copy of each of the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the geometry</span>
+<span class='co'># API endpoint can be provided is given below, which is a</span>
+<span class='co'># copy of each of the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-geometry.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:16:7: unexpected '/'</span>
-#&gt; <span class='error'>15: </span>
-#&gt; <span class='error'>16: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-geometry.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyYear</span><span class='kw'>=</span><span class='st'>"2010"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

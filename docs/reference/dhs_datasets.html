@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -254,28 +254,23 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# The API endpoint for the datasets available within the DHS website
-# is a very useful endpoint, which is used a lot within `rdhs`. For example,
-# it is used to find the file names and size of the dataset files, as well
-# as when they were last modified. This enables us to see which datasets
-# have been updated and may thus be out of date. For example to find all
-# datasets that have been modified in 2018:
+<span class='co'># The API endpoint for the datasets available within the DHS website</span>
+<span class='co'># is a very useful endpoint, which is used a lot within `rdhs`. For example,</span>
+<span class='co'># it is used to find the file names and size of the dataset files, as well</span>
+<span class='co'># as when they were last modified. This enables us to see which datasets</span>
+<span class='co'># have been updated and may thus be out of date. For example to find all</span>
+<span class='co'># datasets that have been modified in 2018:</span>
 
-dat <- dhs_datasets()
-dates <- rdhs:::mdy_hms(dat$FileDateLastModified)
-years <- as.POSIXlt(dates, tz = tz(dates))$year + 1900
-modified_in_2018 <- which(years == 2018)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_datasets</span>()
+<span class='no'>dates</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'>mdy_hms</span>(<span class='no'>dat</span>$<span class='no'>FileDateLastModified</span>)
+<span class='no'>years</span> <span class='kw'>&lt;-</span> <span class='fu'>as.POSIXlt</span>(<span class='no'>dates</span>, <span class='kw'>tz</span> <span class='kw'>=</span> <span class='fu'>tz</span>(<span class='no'>dates</span>))$<span class='no'>year</span> + <span class='fl'>1900</span>
+<span class='no'>modified_in_2018</span> <span class='kw'>&lt;-</span> <span class='fu'>which</span>(<span class='no'>years</span> <span class='kw'>==</span> <span class='fl'>2018</span>)
 
-# A complete list of examples for how each argument to the datasets
-# API endpoint can be provided is given below, which is a
-# copy of each of the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the datasets</span>
+<span class='co'># API endpoint can be provided is given below, which is a</span>
+<span class='co'># copy of each of the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-datasets.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:18:7: unexpected '/'</span>
-#&gt; <span class='error'>17: </span>
-#&gt; <span class='error'>18: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-datasets.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_datasets</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_datasets</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_datasets</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

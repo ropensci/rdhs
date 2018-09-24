@@ -84,7 +84,7 @@ dat <- dhs_tags(countryIds="SN")
 # tags API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-tags.cfm
+# https://api.dhsprogram.com/#/api-tags.cfm
 
 \dontrun{
 dat <- dhs_tags(countryIds="EG",all_results=FALSE)

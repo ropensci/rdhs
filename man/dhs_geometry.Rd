@@ -78,7 +78,7 @@ dat <- dhs_geometry(surveyIds="SN2010DHS")
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-https://api.dhsprogram.com/#/api-geometry.cfm
+# https://api.dhsprogram.com/#/api-geometry.cfm
 
 \dontrun{
 dat <- dhs_geometry(countryIds="EG",all_results=FALSE)

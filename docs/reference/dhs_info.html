@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -208,21 +208,16 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# The main use for the info API  will be to confirm the version of the API
-# being used to providing the most current citation for the data.
+<span class='co'># The main use for the info API  will be to confirm the version of the API</span>
+<span class='co'># being used to providing the most current citation for the data.</span>
 
-dat <- dhs_info(infoType="version")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>infoType</span><span class='kw'>=</span><span class='st'>"version"</span>)
 
-# A complete list of examples for how each argument to the info API
-# endpoint can be provided is given below, which is a copy of each of
-# the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the info API</span>
+<span class='co'># endpoint can be provided is given below, which is a copy of each of</span>
+<span class='co'># the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-info.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:11:7: unexpected '/'</span>
-#&gt; <span class='error'>10: </span>
-#&gt; <span class='error'>11: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-info.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>infoType</span><span class='kw'>=</span><span class='st'>"version"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>infoType</span><span class='kw'>=</span><span class='st'>"citation"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -254,26 +254,21 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# A common use for the indicators data API will be to search for a list of
-# health indicators within a given characteristic category, such as anemia
-# testing, HIV prevalence, micronutrients etc. For example to return all the
-# indicators relating to malaria testing by RDTs:
+<span class='co'># A common use for the indicators data API will be to search for a list of</span>
+<span class='co'># health indicators within a given characteristic category, such as anemia</span>
+<span class='co'># testing, HIV prevalence, micronutrients etc. For example to return all the</span>
+<span class='co'># indicators relating to malaria testing by RDTs:</span>
 
-dat <- dhs_indicators(surveyCharacteristicIds="90")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_indicators</span>(<span class='kw'>surveyCharacteristicIds</span><span class='kw'>=</span><span class='st'>"90"</span>)
 
-# A list of the different `surveyCharacteristicIds` can be found
-# [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
+<span class='co'># A list of the different `surveyCharacteristicIds` can be found</span>
+<span class='co'># [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)</span>
 
-# A complete list of examples for how each argument to the indicator API
-# endpoint can be provided is given below, which is a copy of each of
-# the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the indicator API</span>
+<span class='co'># endpoint can be provided is given below, which is a copy of each of</span>
+<span class='co'># the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-indicators.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:16:7: unexpected '/'</span>
-#&gt; <span class='error'>15: </span>
-#&gt; <span class='error'>16: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-indicators.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_indicators</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_indicators</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_indicators</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

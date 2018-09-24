@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -204,22 +204,17 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# The main use for the ui updates API will be to search for the last time
-# there was a change to the UI. For example to return all the
-# changes since 2018:
+<span class='co'># The main use for the ui updates API will be to search for the last time</span>
+<span class='co'># there was a change to the UI. For example to return all the</span>
+<span class='co'># changes since 2018:</span>
 
-dat <- dhs_ui_updates(lastUpdate="20180101")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_ui_updates</span>(<span class='kw'>lastUpdate</span><span class='kw'>=</span><span class='st'>"20180101"</span>)
 
-# A complete list of examples for how each argument to the ui updates API
-# endpoint can be provided is given below, which is a copy of each of
-# the examples listed in the API at:
+<span class='co'># A complete list of examples for how each argument to the ui updates API</span>
+<span class='co'># endpoint can be provided is given below, which is a copy of each of</span>
+<span class='co'># the examples listed in the API at:</span>
 
-https://api.dhsprogram.com/#/api-uiupdates.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:12:7: unexpected '/'</span>
-#&gt; <span class='error'>11: </span>
-#&gt; <span class='error'>12: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-uiupdates.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_ui_updates</span>(<span class='kw'>lastUpdate</span><span class='kw'>=</span><span class='st'>"20150901"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_ui_updates</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='co'># }</span></pre>

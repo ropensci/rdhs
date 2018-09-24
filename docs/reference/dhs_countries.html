@@ -62,7 +62,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -254,27 +254,34 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-# A common use for the countries API endpoint is to query which countries
-# ask questions about a given topic. For example to find all countries that
-# record data on malaria prevalence by RDT:
+<span class='co'># A common use for the countries API endpoint is to query which countries</span>
+<span class='co'># ask questions about a given topic. For example to find all countries that</span>
+<span class='co'># record data on malaria prevalence by RDT:</span>
 
-dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>indicatorIds</span> <span class='kw'>=</span> <span class='st'>"ML_PMAL_C_RDT"</span>)</div><div class='output co'>#&gt; <span class='message'>Your datasets and API calls will be cached here: </span>
+#&gt; <span class='message'>   -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache</span>
+#&gt; <span class='message'>Your datasets will be downloaded using the following config:</span></div><div class='output co'>#&gt; <span class='message'>List of 11</span>
+#&gt; <span class='message'> $ email           : chr "rdhs.tester@gmail.com"</span>
+#&gt; <span class='message'> $ project         : chr "Testing Malaria Investigations"</span>
+#&gt; <span class='message'> $ password        : chr "********"</span>
+#&gt; <span class='message'> $ cache_path      : chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache"</span>
+#&gt; <span class='message'> $ config_path     : chr "~/.rdhs.json"</span>
+#&gt; <span class='message'> $ global          : logi TRUE</span>
+#&gt; <span class='message'> $ verbose_download: logi FALSE</span>
+#&gt; <span class='message'> $ verbose_setup   : logi TRUE</span>
+#&gt; <span class='message'> $ timeout         : int 30</span>
+#&gt; <span class='message'> $ data_frame      : chr "data.table::as.data.table"</span>
+#&gt; <span class='message'> $ project_choice  : NULL</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'>
+<span class='co'># Additionally you may want to know all the countries that have conducted</span>
+<span class='co'># MIS (malaria indicator surveys):</span>
 
-# Additionally you may want to know all the countries that have conducted
-# MIS (malaria indicator surveys):
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>surveyType</span><span class='kw'>=</span><span class='st'>"MIS"</span>)
 
-dat <- dhs_countries(surveyType="MIS")
+<span class='co'># A complete list of examples for how each argument to the countries API</span>
+<span class='co'># endpoint can be provided is given below, which is a copy of each of</span>
+<span class='co'># the examples listed in the API at:</span>
 
-# A complete list of examples for how each argument to the countries API
-# endpoint can be provided is given below, which is a copy of each of
-# the examples listed in the API at:
-
-https://api.dhsprogram.com/#/api-countries.cfm
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:17:7: unexpected '/'</span>
-#&gt; <span class='error'>16: </span>
-#&gt; <span class='error'>17: https:/</span>
-#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-countries.cfm</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
