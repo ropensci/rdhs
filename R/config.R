@@ -126,20 +126,25 @@ handle_config <- function(config_path) {
 #' @return Invisibly returns the rdhs config object
 #' @export
 #'
-#' @example
+#' @examples
 #'
 #' \dontrun{
 #' # normal set up we would prvide the email and project, and be prompted for
 #' # the password. (not run as it requires a prompt)
 #' set_rdhs_config(email = "blah@gmail.com", project = "Blahs",
 #' config_path = "rdhs.json", global = FALSE)
+#' }
+#'
+#' # otherwise we can do this by specifying prompt to FALSE
+#' set_rdhs_config(
+#' config_path = "rdhs.json", global = FALSE, prompt = FALSE
 #'
 #' # you can look at what you have set these to using \code{get_rdhs_config}
 #' get_rdhs_config()
 #'
 #' # and you can view it prettily using \code{print_rdhs_config}
 #' print_rdhs_config(get_rdhs_config())
-#' }
+#'
 #'
 set_rdhs_config <- function(email = NULL,
                             project = NULL,
@@ -268,7 +273,7 @@ write_rdhs_config_file <- function(dat, path) {
 
   rdhs_setup_message(
     verbose = dat$verbose_setup,
-    path, "has been added to your .gitignore\n"
+    path, " has been added to your .gitignore\n"
   )
 
   writeLines(str, path)

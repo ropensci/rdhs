@@ -286,6 +286,28 @@ data_and_labels <- function(dataset) {
 #' @param ...  additional arguments to readfn
 #' @export
 #'
+#' @examples
+#'
+#' # get the model datasets included in the package
+#' model_datasets <- model_datasets
+#'
+#' # download just the zip
+#' g <- get_datasets(
+#' dataset_filenames = model_datasets$FileName[1],
+#' download_option = "zip"
+#' )
+#'
+#' # and then read from the zip. This function is used internally by rdhs
+#' # when using `get_datasets` with `download_option = .rds` (default)
+#' r <- read_zipdata(
+#' g[[1]], pattern = ".dta"
+#' )
+#'
+#' # and we can pass a function to read the file and any other args with ...
+#' r <- read_zipdata(
+#' g[[1]], pattern = ".dta", readfn = haven::read_dta, encoding = "UTF-8"
+#' )
+#'
 read_zipdata <- function(zfile, pattern=".dta$",
                          readfn=foreign::read.dta, ...) {
 
