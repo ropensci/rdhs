@@ -59,7 +59,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -78,7 +78,24 @@ Returns a `data.table` of 13 (or less if `returnFields` is provided)
 API request of DHS Datasets
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# The API endpoint for the datasets available within the DHS website
+# is a very useful endpoint, which is used a lot within `rdhs`. For example,
+# it is used to find the file names and size of the dataset files, as well
+# as when they were last modified. This enables us to see which datasets
+# have been updated and may thus be out of date. For example to find all
+# datasets that have been modified in 2018:
+
+dat <- dhs_datasets()
+dates <- rdhs:::mdy_hms(dat$FileDateLastModified)
+years <- as.POSIXlt(dates, tz = tz(dates))$year + 1900
+modified_in_2018 <- which(years == 2018)
+
+# A complete list of examples for how each argument to the datasets
+# API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+\\url{https://api.dhsprogram.com/#/api-datasets.cfm}
 \dontrun{
 dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)

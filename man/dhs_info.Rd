@@ -28,7 +28,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -47,7 +47,17 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided)
 API request of DHS Info
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# The main use for the info API  will be to confirm the version of the API
+# being used to providing the most current citation for the data.
+
+dat <- dhs_info(infoType="version")
+
+# A complete list of examples for how each argument to the info API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+\\url{https://api.dhsprogram.com/#/api-info.cfm}
+
 \dontrun{
 dat <- dhs_info(infoType="version",all_results=FALSE)
 dat <- dhs_info(infoType="citation",all_results=FALSE)

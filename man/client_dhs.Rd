@@ -267,9 +267,7 @@ Make a DHS API client
 
 \examples{
 
-#Create new directory
-td <- file.path(tempdir(), as.integer(Sys.time()))
-
+\dontrun{
 # create an rdhs config file at "rdhs.json
 set_rdhs_config(
 config_path = "rdhs.json", global = FALSE, prompt = FALSE
@@ -281,5 +279,5 @@ api_key = "ICLSPH-527168",
 config = read_rdhs_config_file("rdhs.json"),
 root = td
 )
-
+}
 }

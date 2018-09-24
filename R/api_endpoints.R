@@ -1,7 +1,7 @@
 #' API request of DHS Indicator Data
 #'
 #' @title API request of DHS Indicator Data
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -78,7 +78,23 @@
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A common use for the indicator data API will be to search for a specific
+#' # health indicator for a given country. For example to return the total
+#' # malaria prevalence according to RDT, given by the indicator ML_PMAL_C_RDT,
+#' # in Senegal since 2010:
+#'
+#' dat <- dhs_data(
+#' indicatorIds="ML_PMAL_C_RDT",
+#' countryIds="SN",
+#' surveyYearStart="2006"
+#' )
+#'
+#' # A complete list of examples for how each argument to the data api
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#' \url{https://api.dhsprogram.com/#/api-data.cfm}
+#'
 #' \dontrun{
 #' dat <- dhs_data(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -140,7 +156,7 @@ dhs_data <- function(countryIds=NULL,
 #' API request of DHS Indicators
 #'
 #' @title API request of DHS Indicators
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -187,8 +203,24 @@ dhs_data <- function(countryIds=NULL,
 #'   \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
 #'
 #' @export
+#'
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A common use for the indicators data API will be to search for a list of
+#' # health indicators within a given characteristic category, such as anemia
+#' # testing, HIV prevalence, micronutrients etc. For example to return all the
+#' # indicators relating to malaria testing by RDTs:
+#'
+#' dat <- dhs_indicators(surveyCharacteristicIds="90")
+#'
+#' # A list of the different `surveyCharacteristicIds` can be found
+#' # [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
+#'
+#' # A complete list of examples for how each argument to the indicator api
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#' \url{https://api.dhsprogram.com/#/api-indicators.cfm}
+#'
 #' \dontrun{
 #' dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -235,7 +267,7 @@ dhs_indicators <- function(countryIds=NULL,
 #' API request of DHS UI Updates
 #'
 #' @title API request of DHS UI Updates
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -260,7 +292,18 @@ dhs_indicators <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # The main use for the ui updates API will be to search for the last time
+#' # there was a change to the UI. For example to return all the
+#' # changes since 2018:
+#'
+#' dat <- dhs_ui_updates(lastUpdate="20180101")
+#'
+#' # A complete list of examples for how each argument to the ui updates API
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#' \url{https://api.dhsprogram.com/#/api-uiupdates.cfm}
+#'
 #' \dontrun{
 #' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
 #' dat <- dhs_ui_updates(f="html",all_results=FALSE)
@@ -290,7 +333,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' API request of DHS Info
 #'
 #' @title API request of DHS Info
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -319,7 +362,17 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # The main use for the info API  will be to confirm the version of the API
+#' # being used to providing the most current citation for the data.
+#'
+#' dat <- dhs_info(infoType="version")
+#'
+#' # A complete list of examples for how each argument to the info API
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#' \url{https://api.dhsprogram.com/#/api-info.cfm}
+#'
 #' \dontrun{
 #' dat <- dhs_info(infoType="version",all_results=FALSE)
 #' dat <- dhs_info(infoType="citation",all_results=FALSE)
@@ -350,7 +403,7 @@ dhs_info <- function(infoType=NULL,
 #' API request of DHS Countries
 #'
 #' @title API request of DHS Countries
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -398,7 +451,24 @@ dhs_info <- function(infoType=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A common use for the countries API endpoint is to query which countries
+#' # ask questions about a given topic. For example to find all countries that
+#' # record data on malaria prevalence by RDT:
+#'
+#' dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
+#'
+#' # Additionally you may want to know all the countries that have conducted
+#' MIS (malaria indicator surveys):
+#'
+#' dat <- dhs_countries(surveyType="MIS")
+#'
+#' # A complete list of examples for how each argument to the countries API
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-countries.cfm}
+#'
 #' \dontrun{
 #' dat <- dhs_countries(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -445,7 +515,7 @@ dhs_countries <- function(countryIds=NULL,
 #' API request of DHS Surveys
 #'
 #' @title API request of DHS Surveys
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -503,7 +573,29 @@ dhs_countries <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A common use for the surveys API endpoint is to query which countries
+#' # have conducted surveys since a given year, e.g. since 2010
+#'
+#' dat <- dhs_surveys(surveyYearStart="2010")
+#'
+#' # Additionally, some countries conduct non DHS surveys, but the data for
+#' thse is also available within the DHS website/API. To query these:
+#'
+#' dat <- dhs_surveys(surveyType="MIS")
+#'
+#' # Lastly, you may be interested to know about anything peculiar about a
+#' # particular survey's implementation. This can be found by looking within
+#' # the footnotes variable within the data frame returned. For example, the
+#' # Madagascar 2013 MIS:
+#'
+#' dat$Footnotes[dat$SurveyId == "MD2013MIS"]
+#'
+#' # A complete list of examples for how each argument to the surveys API
+#' # endpoint can be provided is given below, which is a copy of each of
+#' # the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-surveys.cfm}
 #' \dontrun{
 #' dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -557,7 +649,7 @@ dhs_surveys <- function(countryIds=NULL,
 #' API request of DHS Survey Characteristics
 #'
 #' @title API request of DHS Survey Characteristics
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -599,7 +691,23 @@ dhs_surveys <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A good use for the survey characteristics API endpoint is to query what the
+#' # IDs are for each survey characteristic. These are useful for passing as
+#' # arguments to other API endpoints.For example to show all the ids:
+#'
+#' dat <- dhs_survey_characteristics()
+#'
+#' # Or if your analysis is foucssed on a particular country, and you want to
+#' # see all the characteristics surveyed for e.g. Senegal
+#'
+#' dat <- dhs_countries(countryIds="SN")
+#'
+#' # A complete list of examples for how each argument to the survey
+#' # characteristics API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-surveycharacteristics.cfm}
 #' \dontrun{
 #' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
@@ -643,7 +751,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' API request of DHS Publications
 #'
 #' @title API request of DHS Publications
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -696,7 +804,17 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A main use for the publications API endpoint is to find which surveys have
+#' # a published report resulting from the conducted survey:
+#'
+#' dat <- dhs_publications()
+#'
+#' # A complete list of examples for how each argument to the publications
+#' # API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-publications.cfm}
 #' \dontrun{
 #' dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
@@ -745,7 +863,7 @@ dhs_publications <- function(countryIds=NULL,
 #' API request of DHS Datasets
 #'
 #' @title API request of DHS Datasets
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -794,7 +912,24 @@ dhs_publications <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # The API endpoint for the datasets available within the DHS website
+#' # is a very useful endpoint, which is used a lot within `rdhs`. For example,
+#' # it is used to find the file names and size of the dataset files, as well
+#' # as when they were last modified. This enables us to see which datasets
+#' # have been updated and may thus be out of date. For example to find all
+#' # datasets that have been modified in 2018:
+#'
+#' dat <- dhs_datasets()
+#' dates <- rdhs:::mdy_hms(dat$FileDateLastModified)
+#' years <- as.POSIXlt(dates, tz = tz(dates))$year + 1900
+#' modified_in_2018 <- which(years == 2018)
+#'
+#' # A complete list of examples for how each argument to the datasets
+#' # API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-datasets.cfm}
 #' \dontrun{
 #' dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
@@ -842,7 +977,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' API request of DHS Geometry
 #'
 #' @title API request of DHS Geometry
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -880,7 +1015,22 @@ dhs_datasets <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # The geometry API endpoint returns the spatial geometry for countries, and
+#' # can then be used to recreate the spatial polygon for a given country. For
+#' # example to return the coordinates for the Senegal 2010 DHS survey:
+#'
+#' dat <- dhs_geometry(surveyIds="SN2010DHS")
+#'
+#' # At the moment there is no function to convert the coordinates returned by
+#' # the API but this will be in the next version of rdhs. For those interested
+#' # look at the geojson vignette for an alternative way to produce plots.
+#'
+#' # A complete list of examples for how each argument to the geometry
+#' # API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-geometry.cfm}
 #' \dontrun{
 #' dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)
@@ -922,7 +1072,7 @@ dhs_geometry <- function(countryIds=NULL,
 #' API request of DHS Tags
 #'
 #' @title API request of DHS Tags
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -964,7 +1114,23 @@ dhs_geometry <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # A good use for the tags API endpoint is to query what the
+#' # IDs are for each tag. These are useful for passing as
+#' # arguments to other API endpoints.For example to show all the ids:
+#'
+#' dat <- dhs_tags()
+#'
+#' # Or if your analysis is foucssed on a particular country, and you want to
+#' # see all the characteristics surveyed for e.g. Senegal
+#'
+#' dat <- dhs_tags(countryIds="SN")
+#'
+#' # A complete list of examples for how each argument to the survey
+#' # tags API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-tags.cfm}
 #' \dontrun{
 #' dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -1007,7 +1173,7 @@ dhs_tags <- function(countryIds=NULL,
 #' API request of DHS Data Updates
 #'
 #' @title API request of DHS Data Updates
-#' @param client If the api request should be cached, then provide a client
+#' @param client If the API request should be cached, then provide a client
 #'   object created by \code{\link{client_dhs}}
 #' @param force Should we force fetching the API results, and ignore any
 #'   cached results we have. Default = FALSE
@@ -1032,7 +1198,19 @@ dhs_tags <- function(countryIds=NULL,
 #'
 #' @export
 #' @examples
-#' ## not run only because they take a very long time and interact with an API
+#'
+#' # The API endpoint for the data updates available within the DHS
+#' # is a very useful endpoint, which is used a lot within `rdhs`. For example,
+#' # we use it to keep the end user's cache up to date. For example to find all
+#' # updates that have occurred in 2018:
+#'
+#' dat <- dhs_data_updates(lastUpdate="20180101")
+#'
+#' # A complete list of examples for how each argument to the data updates
+#' # API endpoint can be provided is given below, which is a
+#' # copy of each of the examples listed in the API at:
+#'
+#' \url{https://api.dhsprogram.com/#/api-dataupdates.cfm}
 #' \dontrun{
 #' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
 #' dat <- dhs_data_updates(f="html",all_results=FALSE)

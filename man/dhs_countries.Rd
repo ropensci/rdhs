@@ -58,7 +58,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -77,7 +77,24 @@ Returns a `data.table` of 12 (or less if `returnFields` is provided)
 API request of DHS Countries
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# A common use for the countries API endpoint is to query which countries
+# ask questions about a given topic. For example to find all countries that
+# record data on malaria prevalence by RDT:
+
+dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
+
+# Additionally you may want to know all the countries that have conducted
+MIS (malaria indicator surveys):
+
+dat <- dhs_countries(surveyType="MIS")
+
+# A complete list of examples for how each argument to the countries API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+\\url{https://api.dhsprogram.com/#/api-countries.cfm}
+
 \dontrun{
 dat <- dhs_countries(countryIds="EG",all_results=FALSE)
 dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

@@ -58,7 +58,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -77,7 +77,22 @@ Returns a `data.table` of 18 (or less if `returnFields` is provided)
 API request of DHS Indicators
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# A common use for the indicators data API will be to search for a list of
+# health indicators within a given characteristic category, such as anemia
+# testing, HIV prevalence, micronutrients etc. For example to return all the
+# indicators relating to malaria testing by RDTs:
+
+dat <- dhs_indicators(surveyCharacteristicIds="90")
+
+# A list of the different `surveyCharacteristicIds` can be found
+# [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
+
+# A complete list of examples for how each argument to the indicator api
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+\\url{https://api.dhsprogram.com/#/api-indicators.cfm}
+
 \dontrun{
 dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
 dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

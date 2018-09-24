@@ -48,7 +48,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -68,7 +68,23 @@ Returns a `data.table` of 4 (or less if `returnFields` is provided)
 API request of DHS Tags
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# A good use for the tags API endpoint is to query what the
+# IDs are for each tag. These are useful for passing as
+# arguments to other API endpoints.For example to show all the ids:
+
+dat <- dhs_tags()
+
+# Or if your analysis is foucssed on a particular country, and you want to
+# see all the characteristics surveyed for e.g. Senegal
+
+dat <- dhs_tags(countryIds="SN")
+
+# A complete list of examples for how each argument to the survey
+# tags API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+\\url{https://api.dhsprogram.com/#/api-tags.cfm}
 \dontrun{
 dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

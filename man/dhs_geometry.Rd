@@ -44,7 +44,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -63,7 +63,22 @@ Returns a `data.table` of 7 (or less if `returnFields` is provided)
 API request of DHS Geometry
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# The geometry API endpoint returns the spatial geometry for countries, and
+# can then be used to recreate the spatial polygon for a given country. For
+# example to return the coordinates for the Senegal 2010 DHS survey:
+
+dat <- dhs_geometry(surveyIds="SN2010DHS")
+
+# At the moment there is no function to convert the coordinates returned by
+# the API but this will be in the next version of rdhs. For those interested
+# look at the geojson vignette for an alternative way to produce plots.
+
+# A complete list of examples for how each argument to the geometry
+# API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+\\url{https://api.dhsprogram.com/#/api-geometry.cfm}
 \dontrun{
 dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)

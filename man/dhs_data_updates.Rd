@@ -25,7 +25,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -44,7 +44,19 @@ Returns a `data.table` of 9 (or less if `returnFields` is provided)
 API request of DHS Data Updates
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# The API endpoint for the data updates available within the DHS
+# is a very useful endpoint, which is used a lot within `rdhs`. For example,
+# we use it to keep the end user's cache up to date. For example to find all
+# updates that have occurred in 2018:
+
+dat <- dhs_data_updates(lastUpdate="20180101")
+
+# A complete list of examples for how each argument to the data updates
+# API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+\\url{https://api.dhsprogram.com/#/api-dataupdates.cfm}
 \dontrun{
 dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
 dat <- dhs_data_updates(f="html",all_results=FALSE)

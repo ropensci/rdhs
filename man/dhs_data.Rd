@@ -94,7 +94,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -113,7 +113,23 @@ Returns a `data.table` of 27 (or less if `returnFields` is provided)
 API request of DHS Indicator Data
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
+# A common use for the indicator data API will be to search for a specific
+# health indicator for a given country. For example to return the total
+# malaria prevalence according to RDT, given by the indicator ML_PMAL_C_RDT,
+# in Senegal since 2010:
+
+dat <- dhs_data(
+indicatorIds="ML_PMAL_C_RDT",
+countryIds="SN",
+surveyYearStart="2006"
+)
+
+# A complete list of examples for how each argument to the data api
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+\\url{https://api.dhsprogram.com/#/api-data.cfm}
+
 \dontrun{
 dat <- dhs_data(countryIds="EG",all_results=FALSE)
 dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
