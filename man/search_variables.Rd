@@ -45,14 +45,14 @@ g <- get_datasets(dataset_filenames = model_datasets$FileName[1:2])
 
 # and now seearch within these for survey variables
 search_variables(
-dataset_filenames = names(g), search_terms = c("v002","v102","ml13"),
+dataset_filenames = names(g), variables = c("v002","v102","ml13"),
 )
 
 # if we specify an essential variable then that dataset has to have that
 # variable or else no variables will be returned for that datasets
 search_variables(
 dataset_filenames = names(g),
-search_terms = c("v002","v102","ml13"),
+variables = c("v002","v102","ml13"),
 essential_variables = "ml13"
 )
 

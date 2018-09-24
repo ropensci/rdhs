@@ -49,16 +49,7 @@ rdhs_package_client_exists <- function() {
 #' @export
 #'
 #' @examples
-#'
-#' # first create a config
-#' set_rdhs_config(
-#' config_path = "rdhs.json", global = FALSE, prompt = FALSE
-#' )
-#' # you can look at what you have set these to using \code{get_rdhs_config}
-#' get_rdhs_config()
-#'
-#' # and you can view it prettily using \code{print_rdhs_config}
-#' print_rdhs_config(get_rdhs_config())
+#' config <- get_rdhs_config()
 #'
 get_rdhs_config <- function() {
 
@@ -170,7 +161,7 @@ get_datasets <- function(dataset_filenames,
 #' d <- get_downloaded_datasets()
 #'
 #' # which returns a names list of file paths to the datasets
-#' h[1]
+#' d[1]
 
 get_downloaded_datasets <- function() {
 
@@ -290,14 +281,14 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #'
 #' # and now seearch within these for survey variables
 #' search_variables(
-#' dataset_filenames = names(g), search_terms = c("v002","v102","ml13"),
+#' dataset_filenames = names(g), variables = c("v002","v102","ml13"),
 #' )
 #'
 #' # if we specify an essential variable then that dataset has to have that
 #' # variable or else no variables will be returned for that datasets
 #' search_variables(
 #' dataset_filenames = names(g),
-#' search_terms = c("v002","v102","ml13"),
+#' variables = c("v002","v102","ml13"),
 #' essential_variables = "ml13"
 #' )
 #'
@@ -435,8 +426,14 @@ get_variable_labels <- function(dataset, return_all=TRUE) {
   # if it is a data.frame then we try to read the labels from that
   if (is.data.frame(dataset)) {
     res <- get_labels_from_dataset(dataset, return_all)
-  } else if (is.character(dataset)) {
+  } else if (is.character(dataset) || is.list(dataset)) {
 
+    # get the file paths if it is in list form
+    if (is.list(dataset)) {
+      dataset <- unlist(dataset)
+    }
+
+    # grab our client
     client <- check_for_client()
 
     # if the file exists we'll pass them through as dataset_paths,

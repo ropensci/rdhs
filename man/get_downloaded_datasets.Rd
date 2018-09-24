@@ -29,5 +29,5 @@ g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
 d <- get_downloaded_datasets()
 
 # which returns a names list of file paths to the datasets
-h[1]
+d[1]
 }
