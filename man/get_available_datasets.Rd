@@ -29,3 +29,10 @@ Searches the DHS website for all the datasets that you can download.
   used with `clear_cache_first = TRUE` before using `get_datasets` if you
   have recently requested new datasets.
 }
+\examples{
+# grab the datasets
+datasets <- get_available_datasets()
+
+# and if we look at the last one it will be the model datasets from DHS
+tail(datasets, 1)
+}

@@ -17,3 +17,16 @@ Returns the config being used by rdhs at the moment. This will
   either be a `data.frame` with class `rdhs_config` or will be NULL if
   this has not been set up yet
 }
+\examples{
+
+# first create a config
+set_rdhs_config(
+config_path = "rdhs.json", global = FALSE, prompt = FALSE
+
+# you can look at what you have set these to using \\code{get_rdhs_config}
+get_rdhs_config()
+
+# and you can view it prettily using \\code{print_rdhs_config}
+print_rdhs_config(get_rdhs_config())
+
+}

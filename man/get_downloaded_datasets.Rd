@@ -18,3 +18,16 @@ Returns a \code{data.frame} of the datasets that have been
   an internet connection and wish to know which saved
   dataset files in your root directory correspond to which dataset
 }
+\examples{
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download one of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+
+# these will then be stored so that we know what datasets we have downloaded
+d <- get_downloaded_datasets()
+
+# which returns a names list of file paths to the datasets
+h[1]
+}

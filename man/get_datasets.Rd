@@ -56,3 +56,10 @@ Gets datasets from your cache or downloads from the DHS website.
   dataset, which will ensure that the datasets returned are encoded simply
   as character strings, i.e. there are no factors or labels.
 }
+\examples{
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download one of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+}
