@@ -39,7 +39,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
   fields describing the type of information that was requested and a value
   corresponding to the information requested.
   \url{https://api.dhsprogram.com/rest/dhs/info/fields}
@@ -57,7 +57,8 @@ dat <- dhs_info(infoType="version")
 # A complete list of examples for how each argument to the info API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\\url{https://api.dhsprogram.com/#/api-info.cfm}
+
+https://api.dhsprogram.com/#/api-info.cfm
 
 \dontrun{
 dat <- dhs_info(infoType="version",all_results=FALSE)

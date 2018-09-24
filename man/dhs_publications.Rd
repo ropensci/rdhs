@@ -75,7 +75,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 10 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 10 (or less if \code{returnFields} is provided)
   publications with detailed information for each publication. A detailed
   description of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/publications/fields}
@@ -94,7 +94,8 @@ dat <- dhs_publications()
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-publications.cfm}
+https://api.dhsprogram.com/#/api-publications.cfm
+
 \dontrun{
 dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)

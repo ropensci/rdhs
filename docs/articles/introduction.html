@@ -103,7 +103,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-07-19</h4>
+            <h4 class="date">2018-09-24</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -185,8 +185,8 @@ tags[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, tags<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and now let's then grab this data by specifying the countryIds and the survey year starts</span>
 data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)
 data[<span class="dv">1</span>,]</code></pre></div>
-<pre><code>##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 2582633 Malaria prevalence according to RDT CD2013DHS           1  17.1
+<pre><code>##   DataId                           Indicator  SurveyId IsPreferred Value
+## 1 941297 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -217,7 +217,7 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> .<span class="dv">5</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(resp<span class="op">$</span>Indicator[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make an api request</span>
 resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,
@@ -260,7 +260,7 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 <span class="kw">str</span>(datasets)</code></pre></div>
 <pre><code>## 'data.frame':    19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
-##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 394824 ...
+##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
 ##  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...
 ##  $ SurveyNum           : int  421 421 421 421 421 421 421 421 421 421 ...
 ##  $ SurveyId            : chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
@@ -278,14 +278,15 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
 <div id="download-survey-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download-survey-datasets" class="anchor"></a>3. Download survey datasets</h2>
-<p>We can now go ahead and download our datasets. To do this we need to first set our login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function <code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password.</p>
+<p>We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. The email, password, and project name that were used to create the account will then need to be provided to <code>rdhs</code> when attempting to download datasets.</p>
+<p>Once we have created an account, we need to set up our credentials using the function <code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password.</p>
 <p>You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. If you do not provide an argument for <code>cache_path</code> you will be prompted to provide permission to <code>rdhs</code> to save your datasets and API calls within your user cache directory for your operating system. This is to comply with CRAN’s requests for permission to be granted before writing to system files. If you do not grant permission, these will be written within your R temporary directory (as we saw above when we first used one of the functions to query the API). Similarly if you do not also provide an argument for <code>config_path</code>, this will be saved within your temp directory unless permission is granted. Your config files will always be called “rdhs.json”, so that <code>rdhs</code> can find them easily.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
 <span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
                 <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json</code></pre>
-<pre><code>## If you are using git, be sure to add this to your .gitignore</code></pre>
+<pre><code>## C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json has been added to your .gitignore</code></pre>
 <p>Because you may have more than one project set up with the DHS website, you may want to have a separate directory for each set of datasets, and thus you will need to set up a different config file. To do this you need to set up a local config file. This can be achieved by setting the <code>global</code> param to <code>FALSE</code> (i.e. not global). You will also now need to provide the <code>config_path</code> argument, which MUST be <strong>“rdhs.json”</strong>. In order to comply with CRAN, you have to type this in (rather than have it as the default option).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
 <span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
@@ -295,7 +296,8 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; rdhs.json</code></pre>
-<pre><code>## If you are using git, be sure to add this to your .gitignore</code></pre>
+<pre><code>## Adding rdhs.json to .gitignore</code></pre>
+<pre><code>## rdhs.json has been added to your .gitignore</code></pre>
 <p>You may, however, not have different projects with the DHS website, in which case you may prefer to set up one global config file. If you do not want this to be saved in your user cache directory, you can set <code>global</code> to <code>TRUE</code> (the default) and this will save it in your R default launch directory. This MUST be <strong>~/.rdhs.json</strong>. (There is not really any difference between saving it at <code>~/.rdhs.json</code> vs the user cache directory, but you might want to have it somewhere easy to find etc).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
 <span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
@@ -304,7 +306,8 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
-<pre><code>## If you are using git, be sure to add this to your .gitignore</code></pre>
+<pre><code>## Adding ~/.rdhs.json to .gitignore</code></pre>
+<pre><code>## ~/.rdhs.json has been added to your .gitignore</code></pre>
 <p>After you have used <code>set_rdhs_config</code>, <code>rdhs</code> will try and find your config file when you next use <code>rdhs</code> in a different R session. It will do so by first looking locally for “rdhs.json”, then globally for “~/.rdhs.json”, then into your user cache directory, before lastly creating one in your temp directory. This is what was happening when you first used one of the API functions, and as such the config that is created to query the API initially will not be able to download datasets.</p>
 <p>Lastly, if you wish to return a <code>data.table</code> from your API requests, rather than a <code>data.frame</code> then you can change the default behaviour using the <code>data_frame</code> argument. You could also use this to convert them to <code>tibbles</code> and so on:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
@@ -315,24 +318,24 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
-<pre><code>## If you are using git, be sure to add this to your .gitignore</code></pre>
+<pre><code>## ~/.rdhs.json has been added to your .gitignore</code></pre>
 <p>To see what config that is being used by <code>rdhs</code> at any point, then use <code><a href="../reference/get_rdhs_config.html">get_rdhs_config()</a></code> to view the config settings.</p>
 <hr>
 <p>Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the cache directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests. If you do not, API requests will still be cached within the temp directory, so will be quick to be returned a second time, but they will then be deleted when you start a new R session.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time we call this function, rdhs will make the API request</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
-##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 4.327918 4.327918 4.327918 4.327918
-##        uq      max neval
-##  4.327918 4.327918     1</code></pre>
+##                            expr     min      lq    mean  median      uq
+##  dhs_surveys(surveyYear = 1991) 110.775 110.775 110.775 110.775 110.775
+##      max neval
+##  110.775     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
-##                            expr     min      lq    mean  median      uq
-##  dhs_surveys(surveyYear = 1991) 2.70769 2.70769 2.70769 2.70769 2.70769
-##      max neval
-##  2.70769     1</code></pre>
+##                            expr      min       lq     mean   median
+##  dhs_surveys(surveyYear = 1991) 2.340517 2.340517 2.340517 2.340517
+##        uq      max neval
+##  2.340517 2.340517     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
@@ -373,8 +376,8 @@ questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/s
 
 <span class="kw">table</span>(questions<span class="op">$</span>dataset_filename)</code></pre></div>
 <pre><code>## 
-## CDHR61FL CDPR61FL TZGC7AFL TZIR7HFL 
-##       24        1        1       48</code></pre>
+## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL 
+##       24        1       48        1</code></pre>
 <p>What we see from the questions is that the question “Result of malaria rapid test” appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes.</p>
 </div>
 <div id="extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-" class="section level2">
@@ -400,7 +403,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ext
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:95949] "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
-##  $ TZPR7HFL:Classes 'dhs_dataset' and 'data.frame':  64880 obs. of  2 variables:
+##  $ TZPR7AFL:Classes 'dhs_dataset' and 'data.frame':  64880 obs. of  2 variables:
 ##   ..$ hml35   : 'labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
@@ -424,13 +427,7 @@ extract2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ex
 ## 5     4    NA CD2013DHS
 ## 6     4    NA CD2013DHS</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(extract2<span class="op">$</span>TZPR7HFL)</code></pre></div>
-<pre><code>##   hv024 hml35  SurveyId
-## 1     1    NA TZ2015DHS
-## 2     1    NA TZ2015DHS
-## 3     1    NA TZ2015DHS
-## 4     1    NA TZ2015DHS
-## 5     1    NA TZ2015DHS
-## 6     1    NA TZ2015DHS</code></pre>
+<pre><code>## NULL</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and just to prove that hml35 did actually read in okay (there are just lots of NA)</span>
 <span class="kw">table</span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</code></pre></div>
 <pre><code>## 
@@ -609,7 +606,7 @@ comparison &lt;-<span class="st"> </span><span class="kw">cbind</span>(results[,
 ## Coefficients:
 ##                 Estimate Std. Error t value Pr(&gt;|t|)    
 ## (Intercept)     -1.65528    0.23267  -7.114 3.20e-12 ***
-## DATASETTZPR7HFL -0.95553    0.12901  -7.406 4.39e-13 ***
+## DATASETTZPR7AFL -0.95553    0.12901  -7.406 4.39e-13 ***
 ## hv025            0.52558    0.13009   4.040 6.03e-05 ***
 ## netTRUE          0.06529    0.07163   0.911    0.362    
 ## bricksTRUE      -0.72109    0.13517  -5.335 1.36e-07 ***

@@ -225,7 +225,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 7 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 7 (or less if <code>returnFields</code> is provided)
   geometry with their corresponding details. A detailed description of all
   the attributes returned is provided at
   <a href='https://api.dhsprogram.com/rest/dhs/geometry/fields'>https://api.dhsprogram.com/rest/dhs/geometry/fields</a></p>
@@ -247,11 +247,12 @@ dat <- dhs_geometry(surveyIds="SN2010DHS")
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\url{https://api.dhsprogram.com/#/api-geometry.cfm}
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:16:1: unexpected input</span>
+https://api.dhsprogram.com/#/api-geometry.cfm
+
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:16:7: unexpected '/'</span>
 #&gt; <span class='error'>15: </span>
-#&gt; <span class='error'>16: \</span>
-#&gt; <span class='error'>    ^</span></div><span class='co'># NOT RUN {</span>
+#&gt; <span class='error'>16: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyYear</span><span class='kw'>=</span><span class='st'>"2010"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

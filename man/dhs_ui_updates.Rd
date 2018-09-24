@@ -35,7 +35,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 3 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 3 (or less if \code{returnFields} is provided)
   interfaces that have been added/updated or removed. A detailed description
   of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/uiupdates/fields}
@@ -54,7 +54,8 @@ dat <- dhs_ui_updates(lastUpdate="20180101")
 # A complete list of examples for how each argument to the ui updates API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\\url{https://api.dhsprogram.com/#/api-uiupdates.cfm}
+
+https://api.dhsprogram.com/#/api-uiupdates.cfm
 
 \dontrun{
 dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)

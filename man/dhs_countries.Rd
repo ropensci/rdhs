@@ -69,7 +69,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 12 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 12 (or less if \code{returnFields} is provided)
   countries with their corresponding details. A detailed description of all
   the attributes returned is provided at
  \url{https://api.dhsprogram.com/rest/dhs/countries/fields}
@@ -86,7 +86,7 @@ API request of DHS Countries
 dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
 
 # Additionally you may want to know all the countries that have conducted
-MIS (malaria indicator surveys):
+# MIS (malaria indicator surveys):
 
 dat <- dhs_countries(surveyType="MIS")
 
@@ -94,7 +94,7 @@ dat <- dhs_countries(surveyType="MIS")
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-countries.cfm}
+https://api.dhsprogram.com/#/api-countries.cfm
 
 \dontrun{
 dat <- dhs_countries(countryIds="EG",all_results=FALSE)

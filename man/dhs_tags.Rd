@@ -58,7 +58,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 4 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 4 (or less if \code{returnFields} is provided)
   tags with detailed information. An indicators can be tagged with one or
   more tags to help identify certain topics an indicator can be identified
   by. A description of the attributes returned is provided at
@@ -84,7 +84,8 @@ dat <- dhs_tags(countryIds="SN")
 # tags API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-tags.cfm}
+https://api.dhsprogram.com/#/api-tags.cfm
+
 \dontrun{
 dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

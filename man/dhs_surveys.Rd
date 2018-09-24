@@ -81,7 +81,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 28 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 28 (or less if \code{returnFields} is provided)
   surveys with detailed information for each survey. A detailed description
   of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/surveys/fields}
@@ -97,7 +97,7 @@ API request of DHS Surveys
 dat <- dhs_surveys(surveyYearStart="2010")
 
 # Additionally, some countries conduct non DHS surveys, but the data for
-thse is also available within the DHS website/API. To query these:
+# thse is also available within the DHS website/API. To query these:
 
 dat <- dhs_surveys(surveyType="MIS")
 
@@ -112,7 +112,8 @@ dat$Footnotes[dat$SurveyId == "MD2013MIS"]
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-surveys.cfm}
+https://api.dhsprogram.com/#/api-surveys.cfm
+
 \dontrun{
 dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

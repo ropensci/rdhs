@@ -105,7 +105,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE}
 }
 \value{
-Returns a `data.table` of 27 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 27 (or less if \code{returnFields} is provided)
   data for your particular query. Details of properties returned with each
   row of data are provided at
 \url{https://api.dhsprogram.com/rest/dhs/data/fields}
@@ -129,7 +129,8 @@ surveyYearStart="2006"
 # A complete list of examples for how each argument to the data api
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\\url{https://api.dhsprogram.com/#/api-data.cfm}
+
+https://api.dhsprogram.com/#/api-data.cfm
 
 \dontrun{
 dat <- dhs_data(countryIds="EG",all_results=FALSE)

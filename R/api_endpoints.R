@@ -71,7 +71,7 @@
 #' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 27 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 27 (or less if \code{returnFields} is provided)
 #'   data for your particular query. Details of properties returned with each
 #'   row of data are provided at
 #' \url{https://api.dhsprogram.com/rest/dhs/data/fields}
@@ -93,7 +93,8 @@
 #' # A complete list of examples for how each argument to the data api
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
-#' \url{https://api.dhsprogram.com/#/api-data.cfm}
+#'
+#' https://api.dhsprogram.com/#/api-data.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_data(countryIds="EG",all_results=FALSE)
@@ -197,7 +198,7 @@ dhs_data <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 18 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 18 (or less if \code{returnFields} is provided)
 #'   indicators with attributes for each indicator. A detailed description of
 #'   all the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
@@ -219,7 +220,8 @@ dhs_data <- function(countryIds=NULL,
 #' # A complete list of examples for how each argument to the indicator API
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
-#' \url{https://api.dhsprogram.com/#/api-indicators.cfm}
+#'
+#' https://api.dhsprogram.com/#/api-indicators.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
@@ -285,7 +287,7 @@ dhs_indicators <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 3 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 3 (or less if \code{returnFields} is provided)
 #'   interfaces that have been added/updated or removed. A detailed description
 #'   of all the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/uiupdates/fields}
@@ -302,7 +304,8 @@ dhs_indicators <- function(countryIds=NULL,
 #' # A complete list of examples for how each argument to the ui updates API
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
-#' \url{https://api.dhsprogram.com/#/api-uiupdates.cfm}
+#'
+#' https://api.dhsprogram.com/#/api-uiupdates.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
@@ -355,7 +358,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
 #'   fields describing the type of information that was requested and a value
 #'   corresponding to the information requested.
 #'   \url{https://api.dhsprogram.com/rest/dhs/info/fields}
@@ -371,7 +374,8 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' # A complete list of examples for how each argument to the info API
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
-#' \url{https://api.dhsprogram.com/#/api-info.cfm}
+#'
+#' https://api.dhsprogram.com/#/api-info.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_info(infoType="version",all_results=FALSE)
@@ -444,7 +448,7 @@ dhs_info <- function(infoType=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 12 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 12 (or less if \code{returnFields} is provided)
 #'   countries with their corresponding details. A detailed description of all
 #'   the attributes returned is provided at
 #'  \url{https://api.dhsprogram.com/rest/dhs/countries/fields}
@@ -459,7 +463,7 @@ dhs_info <- function(infoType=NULL,
 #' dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
 #'
 #' # Additionally you may want to know all the countries that have conducted
-#' MIS (malaria indicator surveys):
+#' # MIS (malaria indicator surveys):
 #'
 #' dat <- dhs_countries(surveyType="MIS")
 #'
@@ -467,7 +471,7 @@ dhs_info <- function(infoType=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-countries.cfm}
+#' https://api.dhsprogram.com/#/api-countries.cfm
 #'
 #' \dontrun{
 #' dat <- dhs_countries(countryIds="EG",all_results=FALSE)
@@ -566,7 +570,7 @@ dhs_countries <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #' default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 28 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 28 (or less if \code{returnFields} is provided)
 #'   surveys with detailed information for each survey. A detailed description
 #'   of all the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/surveys/fields}
@@ -580,7 +584,7 @@ dhs_countries <- function(countryIds=NULL,
 #' dat <- dhs_surveys(surveyYearStart="2010")
 #'
 #' # Additionally, some countries conduct non DHS surveys, but the data for
-#' thse is also available within the DHS website/API. To query these:
+#' # thse is also available within the DHS website/API. To query these:
 #'
 #' dat <- dhs_surveys(surveyType="MIS")
 #'
@@ -595,7 +599,8 @@ dhs_countries <- function(countryIds=NULL,
 #' # endpoint can be provided is given below, which is a copy of each of
 #' # the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-surveys.cfm}
+#' https://api.dhsprogram.com/#/api-surveys.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -683,7 +688,7 @@ dhs_surveys <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 2 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
 #'   survey characteristics. A survey can be labelled with one or more of these
 #'   survey characteristics. A description of all the attributes returned is
 #'   provided at
@@ -707,7 +712,8 @@ dhs_surveys <- function(countryIds=NULL,
 #' # characteristics API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-surveycharacteristics.cfm}
+#' https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
@@ -797,7 +803,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 10 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 10 (or less if \code{returnFields} is provided)
 #'   publications with detailed information for each publication. A detailed
 #'   description of all the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/publications/fields}
@@ -814,7 +820,8 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-publications.cfm}
+#' https://api.dhsprogram.com/#/api-publications.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
@@ -905,7 +912,7 @@ dhs_publications <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 13 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 13 (or less if \code{returnFields} is provided)
 #'   datasets with their corresponding details. A detailed description of all
 #'   the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/datasets/fields}
@@ -929,7 +936,8 @@ dhs_publications <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-datasets.cfm}
+#' https://api.dhsprogram.com/#/api-datasets.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
@@ -1008,7 +1016,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 7 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 7 (or less if \code{returnFields} is provided)
 #'   geometry with their corresponding details. A detailed description of all
 #'   the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/geometry/fields}
@@ -1030,7 +1038,8 @@ dhs_datasets <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-geometry.cfm}
+#' https://api.dhsprogram.com/#/api-geometry.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)
@@ -1106,7 +1115,7 @@ dhs_geometry <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request. By
 #'   default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 4 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 4 (or less if \code{returnFields} is provided)
 #'   tags with detailed information. An indicators can be tagged with one or
 #'   more tags to help identify certain topics an indicator can be identified
 #'   by. A description of the attributes returned is provided at
@@ -1130,7 +1139,8 @@ dhs_geometry <- function(countryIds=NULL,
 #' # tags API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-tags.cfm}
+#' https://api.dhsprogram.com/#/api-tags.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -1191,7 +1201,7 @@ dhs_tags <- function(countryIds=NULL,
 #' @param page Allows specifying a page number to obtain for the API request.
 #'   By default the API will return page 1.
 #'
-#' @return Returns a `data.table` of 9 (or less if `returnFields` is provided)
+#' @return Returns a \code{data.table} of 9 (or less if \code{returnFields} is provided)
 #'   indicators or surveys that have been added/updated or removed. A detailed
 #'   description of all the attributes returned is provided at
 #'   \url{https://api.dhsprogram.com/rest/dhs/dataupdates/fields}
@@ -1210,7 +1220,8 @@ dhs_tags <- function(countryIds=NULL,
 #' # API endpoint can be provided is given below, which is a
 #' # copy of each of the examples listed in the API at:
 #'
-#' \url{https://api.dhsprogram.com/#/api-dataupdates.cfm}
+#' https://api.dhsprogram.com/#/api-dataupdates.cfm
+#'
 #' \dontrun{
 #' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
 #' dat <- dhs_data_updates(f="html",all_results=FALSE)

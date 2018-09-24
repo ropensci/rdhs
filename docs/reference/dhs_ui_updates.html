@@ -196,7 +196,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 3 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 3 (or less if <code>returnFields</code> is provided)
   interfaces that have been added/updated or removed. A detailed description
   of all the attributes returned is provided at
   <a href='https://api.dhsprogram.com/rest/dhs/uiupdates/fields'>https://api.dhsprogram.com/rest/dhs/uiupdates/fields</a></p>
@@ -213,12 +213,13 @@ dat <- dhs_ui_updates(lastUpdate="20180101")
 # A complete list of examples for how each argument to the ui updates API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\url{https://api.dhsprogram.com/#/api-uiupdates.cfm}
 
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:11:1: unexpected input</span>
-#&gt; <span class='error'>10: # the examples listed in the API at:</span>
-#&gt; <span class='error'>11: \</span>
-#&gt; <span class='error'>    ^</span></div><span class='co'># NOT RUN {</span>
+https://api.dhsprogram.com/#/api-uiupdates.cfm
+
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:12:7: unexpected '/'</span>
+#&gt; <span class='error'>11: </span>
+#&gt; <span class='error'>12: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_ui_updates</span>(<span class='kw'>lastUpdate</span><span class='kw'>=</span><span class='st'>"20150901"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_ui_updates</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='co'># }</span></pre>

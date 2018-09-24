@@ -179,8 +179,20 @@ requested survey variables or survey definitions</p>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download one of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])
-<span class='no'>dl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='data_and_labels.html'>data_and_labels</a></span>(<span class='no'>g</span>$<span class='no'>zzbr62dt</span>)
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Your datasets and API calls will be cached here: </span>
+#&gt; <span class='message'>   -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache</span>
+#&gt; <span class='message'>Your datasets will be downloaded using the following config:</span></div><div class='output co'>#&gt; <span class='message'>List of 11</span>
+#&gt; <span class='message'> $ email           : chr "rdhs.tester@gmail.com"</span>
+#&gt; <span class='message'> $ project         : chr "Testing Malaria Investigations"</span>
+#&gt; <span class='message'> $ password        : chr "********"</span>
+#&gt; <span class='message'> $ cache_path      : chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache"</span>
+#&gt; <span class='message'> $ config_path     : chr "~/.rdhs.json"</span>
+#&gt; <span class='message'> $ global          : logi TRUE</span>
+#&gt; <span class='message'> $ verbose_download: logi FALSE</span>
+#&gt; <span class='message'> $ verbose_setup   : logi TRUE</span>
+#&gt; <span class='message'> $ timeout         : int 30</span>
+#&gt; <span class='message'> $ data_frame      : chr "data.table::as.data.table"</span>
+#&gt; <span class='message'> $ project_choice  : NULL</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'><span class='no'>dl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='data_and_labels.html'>data_and_labels</a></span>(<span class='no'>g</span>$<span class='no'>zzbr62dt</span>)
 
 <span class='co'># create some terms of data me may want to extrac</span>
 <span class='no'>st</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='search_variable_labels.html'>search_variable_labels</a></span>(<span class='fu'>names</span>(<span class='no'>g</span>), <span class='st'>"bed net"</span>)

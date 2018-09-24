@@ -103,7 +103,7 @@ ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
 
-<img src="C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 # Analyse DHS microdata
 
@@ -560,7 +560,7 @@ ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 ```
 
-<img src="C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 # Regression analysis: relationship between education and anemia

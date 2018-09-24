@@ -231,7 +231,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 4 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 4 (or less if <code>returnFields</code> is provided)
   tags with detailed information. An indicators can be tagged with one or
   more tags to help identify certain topics an indicator can be identified
   by. A description of the attributes returned is provided at
@@ -255,11 +255,12 @@ dat <- dhs_tags(countryIds="SN")
 # tags API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\url{https://api.dhsprogram.com/#/api-tags.cfm}
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:17:1: unexpected input</span>
+https://api.dhsprogram.com/#/api-tags.cfm
+
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:17:7: unexpected '/'</span>
 #&gt; <span class='error'>16: </span>
-#&gt; <span class='error'>17: \</span>
-#&gt; <span class='error'>    ^</span></div><span class='co'># NOT RUN {</span>
+#&gt; <span class='error'>17: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_tags</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

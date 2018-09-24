@@ -246,7 +246,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 12 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 12 (or less if <code>returnFields</code> is provided)
   countries with their corresponding details. A detailed description of all
   the attributes returned is provided at
  <a href='https://api.dhsprogram.com/rest/dhs/countries/fields'>https://api.dhsprogram.com/rest/dhs/countries/fields</a></p>
@@ -261,7 +261,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
 
 # Additionally you may want to know all the countries that have conducted
-MIS (malaria indicator surveys):
+# MIS (malaria indicator surveys):
 
 dat <- dhs_countries(surveyType="MIS")
 
@@ -269,12 +269,12 @@ dat <- dhs_countries(surveyType="MIS")
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-\url{https://api.dhsprogram.com/#/api-countries.cfm}
+https://api.dhsprogram.com/#/api-countries.cfm
 
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:9:14: unexpected symbol</span>
-#&gt; <span class='error'>8: # Additionally you may want to know all the countries that have conducted</span>
-#&gt; <span class='error'>9: MIS (malaria indicator</span>
-#&gt; <span class='error'>                ^</span></div><span class='co'># NOT RUN {</span>
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:17:7: unexpected '/'</span>
+#&gt; <span class='error'>16: </span>
+#&gt; <span class='error'>17: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_countries</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

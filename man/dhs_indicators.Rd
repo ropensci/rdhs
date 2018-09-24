@@ -69,7 +69,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 18 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 18 (or less if \code{returnFields} is provided)
   indicators with attributes for each indicator. A detailed description of
   all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
@@ -92,7 +92,8 @@ dat <- dhs_indicators(surveyCharacteristicIds="90")
 # A complete list of examples for how each argument to the indicator API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\\url{https://api.dhsprogram.com/#/api-indicators.cfm}
+
+https://api.dhsprogram.com/#/api-indicators.cfm
 
 \dontrun{
 dat <- dhs_indicators(countryIds="EG",all_results=FALSE)

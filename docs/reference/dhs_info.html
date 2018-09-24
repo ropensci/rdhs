@@ -200,7 +200,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 2 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 2 (or less if <code>returnFields</code> is provided)
   fields describing the type of information that was requested and a value
   corresponding to the information requested.
   <a href='https://api.dhsprogram.com/rest/dhs/info/fields'>https://api.dhsprogram.com/rest/dhs/info/fields</a></p>
@@ -216,12 +216,13 @@ dat <- dhs_info(infoType="version")
 # A complete list of examples for how each argument to the info API
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
-\url{https://api.dhsprogram.com/#/api-info.cfm}
 
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:10:1: unexpected input</span>
-#&gt; <span class='error'>9: # the examples listed in the API at:</span>
-#&gt; <span class='error'>10: \</span>
-#&gt; <span class='error'>    ^</span></div><span class='co'># NOT RUN {</span>
+https://api.dhsprogram.com/#/api-info.cfm
+
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:11:7: unexpected '/'</span>
+#&gt; <span class='error'>10: </span>
+#&gt; <span class='error'>11: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>infoType</span><span class='kw'>=</span><span class='st'>"version"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>infoType</span><span class='kw'>=</span><span class='st'>"citation"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_info</span>(<span class='kw'>f</span><span class='kw'>=</span><span class='st'>"html"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

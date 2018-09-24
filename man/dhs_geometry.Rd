@@ -54,7 +54,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 7 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 7 (or less if \code{returnFields} is provided)
   geometry with their corresponding details. A detailed description of all
   the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/geometry/fields}
@@ -78,7 +78,8 @@ dat <- dhs_geometry(surveyIds="SN2010DHS")
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-geometry.cfm}
+https://api.dhsprogram.com/#/api-geometry.cfm
+
 \dontrun{
 dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)

@@ -69,7 +69,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 13 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 13 (or less if \code{returnFields} is provided)
   datasets with their corresponding details. A detailed description of all
   the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/datasets/fields}
@@ -95,7 +95,8 @@ modified_in_2018 <- which(years == 2018)
 # API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-datasets.cfm}
+https://api.dhsprogram.com/#/api-datasets.cfm
+
 \dontrun{
 dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)

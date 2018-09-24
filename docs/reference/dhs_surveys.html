@@ -262,7 +262,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a `data.table` of 28 (or less if `returnFields` is provided)
+    <p>Returns a <code>data.table</code> of 28 (or less if <code>returnFields</code> is provided)
   surveys with detailed information for each survey. A detailed description
   of all the attributes returned is provided at
   <a href='https://api.dhsprogram.com/rest/dhs/surveys/fields'>https://api.dhsprogram.com/rest/dhs/surveys/fields</a></p>
@@ -276,7 +276,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 dat <- dhs_surveys(surveyYearStart="2010")
 
 # Additionally, some countries conduct non DHS surveys, but the data for
-thse is also available within the DHS website/API. To query these:
+# thse is also available within the DHS website/API. To query these:
 
 dat <- dhs_surveys(surveyType="MIS")
 
@@ -291,11 +291,12 @@ dat$Footnotes[dat$SurveyId == "MD2013MIS"]
 # endpoint can be provided is given below, which is a copy of each of
 # the examples listed in the API at:
 
-\url{https://api.dhsprogram.com/#/api-surveys.cfm}
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:8:6: unexpected symbol</span>
-#&gt; <span class='error'>7: # Additionally, some countries conduct non DHS surveys, but the data for</span>
-#&gt; <span class='error'>8: thse is</span>
-#&gt; <span class='error'>        ^</span></div><span class='co'># NOT RUN {</span>
+https://api.dhsprogram.com/#/api-surveys.cfm
+
+</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:23:7: unexpected '/'</span>
+#&gt; <span class='error'>22: </span>
+#&gt; <span class='error'>23: https:/</span>
+#&gt; <span class='error'>          ^</span></div><span class='co'># NOT RUN {</span>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

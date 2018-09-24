@@ -59,7 +59,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
   survey characteristics. A survey can be labelled with one or more of these
   survey characteristics. A description of all the attributes returned is
   provided at
@@ -85,7 +85,8 @@ dat <- dhs_countries(countryIds="SN")
 # characteristics API endpoint can be provided is given below, which is a
 # copy of each of the examples listed in the API at:
 
-\\url{https://api.dhsprogram.com/#/api-surveycharacteristics.cfm}
+https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
+
 \dontrun{
 dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",

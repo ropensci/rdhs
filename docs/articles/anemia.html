@@ -103,7 +103,7 @@
       <h1>Anemia prevalence: an <code>rdhs</code> example</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-07-19</h4>
+            <h4 class="date">2018-09-24</h4>
       
       
       <div class="hidden name"><code>anemia.Rmd</code></div>
@@ -162,7 +162,7 @@ statcomp[,.(Indicator, CountryName, SurveyYear, Value, DenominatorWeighted)]</co
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(statcomp, <span class="kw">aes</span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
 <h1 class="hasAnchor">
@@ -214,6 +214,8 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]</code></pre><
                 <span class="dt">project =</span> <span class="st">"Joint estimation of HIV epidemic trends and adult mortality"</span>)</code></pre></div>
 <p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets<span class="op">$</span>path &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName))</code></pre></div>
+<pre><code>## Logging into DHS website...</code></pre>
+<pre><code>## Creating Download url list from DHS website...</code></pre>
 </div>
 <div id="identify-survey-variables" class="section level2">
 <h2 class="hasAnchor">
@@ -533,7 +535,7 @@ res<span class="op">$</span>anemia_denom0 &lt;-<span class="st"> </span><span cl
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,
                 <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="regression-analysis-relationship-between-education-and-anemia" class="section level1">
