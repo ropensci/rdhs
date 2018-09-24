@@ -124,8 +124,8 @@ test_that("dhs_countries works", {
   )
   expect_identical(dat$ISO3_CountryCode[1:2], c("EGY", "SEN"))
   dat <- api_timeout_safe_test(
-    dhs_countries(tagIds = "1", all_results = FALSE)
-  ), cli
+    dhs_countries(tagIds = "1", all_results = FALSE), cli
+  )
   expect_true(any(dat$SubregionName %in% "South Asia"))
 })
 

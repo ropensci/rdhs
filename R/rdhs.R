@@ -17,4 +17,4 @@
 #'
 "_PACKAGE"
 
-globalVariables(c("x"))
+globalVariables(c("x","model_datasets"))
