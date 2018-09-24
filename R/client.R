@@ -12,19 +12,18 @@
 #'
 #' @examples
 #'
-#' \dontrun{
-#' # create an rdhs config file at "rdhs.json
-#' set_rdhs_config(
-#' config_path = "rdhs.json", global = FALSE, prompt = FALSE
-#' )
+#' # create an rdhs config file at "rdhs.json"
+#' # if we have already created our config then let's read that instead
 #'
-#' # create your client, specifying your config
-#' cli <- client_dhs(
-#' api_key = "ICLSPH-527168",
+#' if (!file.exists("rdhs.json")) {
+#' set_rdhs_config(config_path = "rdhs.json", global = FALSE,
+#' password_prompt = FALSE)
+#' } else {
+#' cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
 #' config = read_rdhs_config_file("rdhs.json"),
-#' root = td
-#' )
+#' root = tempdir())
 #' }
+#'
 client_dhs <- function(config=NULL,
                        root=rappdirs_rdhs(),
                        api_key="ICLSPH-527168") {
