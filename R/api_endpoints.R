@@ -79,6 +79,7 @@
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A common use for the indicator data API will be to search for a specific
 #' # health indicator for a given country. For example to return the total
 #' # malaria prevalence according to RDT, given by the indicator ML_PMAL_C_RDT,
@@ -96,7 +97,7 @@
 #'
 #' # https://api.dhsprogram.com/#/api-data.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_data(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 #' dat <- dhs_data(surveyIds="SN2010DHS",all_results=FALSE)
@@ -206,7 +207,7 @@ dhs_data <- function(countryIds=NULL,
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # A common use for the indicators data API will be to search for a list of
 #' # health indicators within a given characteristic category, such as anemia
 #' # testing, HIV prevalence, micronutrients etc. For example to return all the
@@ -223,7 +224,7 @@ dhs_data <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-indicators.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 #' dat <- dhs_indicators(surveyIds="SN2010DHS",all_results=FALSE)
@@ -295,6 +296,7 @@ dhs_indicators <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # The main use for the ui updates API will be to search for the last time
 #' # there was a change to the UI. For example to return all the
 #' # changes since 2018:
@@ -307,7 +309,7 @@ dhs_indicators <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-uiupdates.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
 #' dat <- dhs_ui_updates(f="html",all_results=FALSE)
 #' }
@@ -366,6 +368,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # The main use for the info API  will be to confirm the version of the API
 #' # being used to providing the most current citation for the data.
 #'
@@ -377,7 +380,7 @@ dhs_ui_updates <- function(lastUpdate=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-info.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_info(infoType="version",all_results=FALSE)
 #' dat <- dhs_info(infoType="citation",all_results=FALSE)
 #' dat <- dhs_info(f="html",all_results=FALSE)
@@ -456,6 +459,7 @@ dhs_info <- function(infoType=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A common use for the countries API endpoint is to query which countries
 #' # ask questions about a given topic. For example to find all countries that
 #' # record data on malaria prevalence by RDT:
@@ -473,7 +477,7 @@ dhs_info <- function(infoType=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-countries.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_countries(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 #' dat <- dhs_countries(surveyIds="SN2010DHS",all_results=FALSE)
@@ -578,6 +582,7 @@ dhs_countries <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A common use for the surveys API endpoint is to query which countries
 #' # have conducted surveys since a given year, e.g. since 2010
 #'
@@ -601,7 +606,7 @@ dhs_countries <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-surveys.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 #' dat <- dhs_surveys(selectSurveys="latest",all_results=FALSE)
@@ -697,6 +702,7 @@ dhs_surveys <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A good use for the survey characteristics API endpoint is to query what the
 #' # IDs are for each survey characteristic. These are useful for passing as
 #' # arguments to other API endpoints.For example to show all the ids:
@@ -714,7 +720,7 @@ dhs_surveys <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
 #' all_results=FALSE)
@@ -811,6 +817,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A main use for the publications API endpoint is to find which surveys have
 #' # a published report resulting from the conducted survey:
 #'
@@ -822,7 +829,7 @@ dhs_survey_characteristics <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-publications.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
 #' dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
@@ -920,6 +927,7 @@ dhs_publications <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # The API endpoint for the datasets available within the DHS website
 #' # is a very useful endpoint, which is used a lot within `rdhs`. For example,
 #' # it is used to find the file names and size of the dataset files, as well
@@ -938,7 +946,7 @@ dhs_publications <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-datasets.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
 #' dat <- dhs_datasets(surveyIds="SN2010DHS",all_results=FALSE)
@@ -1024,6 +1032,7 @@ dhs_datasets <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # The geometry API endpoint returns the spatial geometry for countries, and
 #' # can then be used to recreate the spatial polygon for a given country. For
 #' # example to return the coordinates for the Senegal 2010 DHS survey:
@@ -1040,7 +1049,7 @@ dhs_datasets <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-geometry.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)
 #' dat <- dhs_geometry(surveyYear="2010",all_results=FALSE)
@@ -1124,6 +1133,7 @@ dhs_geometry <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # A good use for the tags API endpoint is to query what the
 #' # IDs are for each tag. These are useful for passing as
 #' # arguments to other API endpoints.For example to show all the ids:
@@ -1141,7 +1151,7 @@ dhs_geometry <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-tags.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 #' dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 #' dat <- dhs_tags(surveyIds="SN2010DHS",all_results=FALSE)
@@ -1209,6 +1219,7 @@ dhs_tags <- function(countryIds=NULL,
 #' @export
 #' @examples
 #'
+#' \dontrun{
 #' # The API endpoint for the data updates available within the DHS
 #' # is a very useful endpoint, which is used a lot within `rdhs`. For example,
 #' # we use it to keep the end user's cache up to date. For example to find all
@@ -1222,7 +1233,7 @@ dhs_tags <- function(countryIds=NULL,
 #'
 #' # https://api.dhsprogram.com/#/api-dataupdates.cfm
 #'
-#' \dontrun{
+#'
 #' dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
 #' dat <- dhs_data_updates(f="html",all_results=FALSE)
 #' }

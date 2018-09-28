@@ -48,9 +48,7 @@ rdhs_package_client_exists <- function() {
 #' @return A \code{data.frame} containing your rdhs config
 #' @export
 #'
-#' @examples
-#' config <- get_rdhs_config()
-#'
+
 get_rdhs_config <- function() {
 
   client <- .rdhs$client
@@ -107,11 +105,13 @@ get_rdhs_config <- function() {
 #' @export
 #'
 #' @examples
+#'  \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
 #' # download one of them
 #' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#' }
 
 get_datasets <- function(dataset_filenames,
                          download_option="rds",
@@ -193,11 +193,14 @@ get_downloaded_datasets <- function() {
 #' @export
 #'
 #' @examples
+#'
+#' \dontrun{
 #' # grab the datasets
 #' datasets <- get_available_datasets()
 #'
 #' # and if we look at the last one it will be the model datasets from DHS
 #' tail(datasets, 1)
+#' }
 
 get_available_datasets <- function(clear_cache = FALSE) {
 
@@ -231,7 +234,6 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #'
 #' # download one of them
 #' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
-#' dl <- data_and_labels(g$zzbr62dt)
 #'
 #' # create some terms of data me may want to extrac
 #' st <- search_variable_labels(names(g), "bed net")
