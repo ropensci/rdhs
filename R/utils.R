@@ -28,12 +28,14 @@ unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,
                           junkpaths = FALSE, exdir = ".", unzip = "internal",
                           setTimes = FALSE){
 
-  if (max(unzip(zip_file, list = TRUE)$Length) > 4e9) {
+  if (max(unzip(zip_file, list = TRUE)$Length) > 4e10) {
     unzip_file <- Sys.which("unzip")
     if (nzchar(unzip_file)) {
       # j system2("unzip", args=c(zfile,files,paste("-d", exdir)),stdout=FALSE)
-      unzip(zipfile, files, overwrite, junkpaths, exdir,
-             unzip = unzip_file, setTimes)
+      unzip(zipfile, files = files, overwrite = overwrite,
+            junkpaths = junkpaths, exdir = exdir,
+            unzip = unzip_file, setTimes = setTimes)
+      return(grep(files, list.files(exdir, full.names = TRUE), value = TRUE))
     } else {
       stop (basename(zipfile), " is too large to unzip and a suitable unzip ",
             "can not be found on your system." )
