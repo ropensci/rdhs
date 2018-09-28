@@ -71,7 +71,8 @@ handle_config <- function(config_path) {
 #' @param verbose_download Logical for dataset download progress bars to be
 #'   shown. Default = FALSE.
 #' @param data_frame Function with which to convert API calls into. If left
-#'   blank \code{data_frame} objects are returned. Examples could be:
+#'   blank \code{data_frame} objects are returned. Must be passed as a
+#'   character. Examples could be:
 #'   \code{data.table::as.data.table}
 #'   \code{tibble::as.tibble}
 #' @param timeout Numeric for how long in seconds to wait for the DHS API to
@@ -271,14 +272,9 @@ write_rdhs_config_file <- function(dat, path) {
 
   # and add this to the build and gitignore if there
   if (file.exists("DESCRIPTION")) {
-    add_line(".Rbuildignore", paste0("^", gsub("\\.", "\\\\.", path), "$"))
+    add_line(".Rbuildignore", gsub("\\.", "\\\\.", path))
   }
   add_line(".gitignore", path)
-
-  rdhs_setup_message(
-    verbose = dat$verbose_setup,
-    path, " has been added to your .gitignore\n"
-  )
 
   writeLines(str, path)
   invisible(read_rdhs_config_file(path))
@@ -348,6 +344,57 @@ read_rdhs_config_file <- function(config_path) {
   ## can be done later.  The other thing that's not handled here is
   ## the "choice" functionality
   dat
+}
+
+#' @noRd
+update_rdhs_config <- function(updates){
+
+  expected <- c("email",
+                "project",
+                "password",
+                "cache_path",
+                "config_path",
+                "global",
+                "verbose_download",
+                "verbose_setup",
+                "timeout",
+                "data_frame",
+                "project_choice")
+
+  config <- get_rdhs_config()
+
+  if (all(names(updates) %in% expected)) {
+
+    if (any(names(updates) == "data_frame")){
+      config$data_frame_nice <- NULL
+    } else {
+      config$data_frame <- config$data_frame_nice
+      config$data_frame_nice <- NULL
+    }
+
+
+    ms <- match(names(updates), names(config))
+    for(m in seq_len(length(ms))) {
+      config[[ms[m]]] <- updates[m]
+    }
+
+    if (config$config_path != "rdhs.json" &&
+        (!file.exists(config$config_path) ||
+         basename(config$config_path) == "rdhs/json")) {
+      stop("For a local configuration, 'config_path' must be 'rdhs.json' ",
+           "or 'config_path' must already exist and end 'rdhs.json'")
+    }
+    class(config) <- NULL
+    config <- write_rdhs_config_file(config, config$config_path)
+
+  } else {
+
+    wrong <- which(!c(names(updates) %in% expected))
+    stop("'updates' has incorrectly named elements:\n",
+         paste0(names(updates[wrong]), collapse="\n"))
+
+  }
+
 }
 
 

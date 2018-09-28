@@ -35,7 +35,8 @@ shown. Default = FALSE.}
 Default = TRUE.}
 
 \item{data_frame}{Function with which to convert API calls into. If left
-blank \code{data_frame} objects are returned. Examples could be:
+blank \code{data_frame} objects are returned. Must be passed as a
+character. Examples could be:
 \code{data.table::as.data.table}
 \code{tibble::as.tibble}}
 
