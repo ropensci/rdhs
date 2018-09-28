@@ -45,6 +45,7 @@ API request of DHS UI Updates
 }
 \examples{
 
+\dontrun{
 # The main use for the ui updates API will be to search for the last time
 # there was a change to the UI. For example to return all the
 # changes since 2018:
@@ -57,7 +58,7 @@ dat <- dhs_ui_updates(lastUpdate="20180101")
 
 # https://api.dhsprogram.com/#/api-uiupdates.cfm
 
-\dontrun{
+
 dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
 dat <- dhs_ui_updates(f="html",all_results=FALSE)
 }

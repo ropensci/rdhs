@@ -189,7 +189,27 @@ or only those with labels.</p></td>
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])
 
 <span class='co'># we can pass the list of filepaths to the function</span>
-<span class='fu'>head</span>(<span class='fu'>get_variable_labels</span>(<span class='no'>g</span>))</div><div class='output co'>#&gt; <span class='error'>Error in get_variable_labels(g): object 'res' not found</span></div><div class='input'>
+<span class='fu'>head</span>(<span class='fu'>get_variable_labels</span>(<span class='no'>g</span>))</div><div class='output co'>#&gt;   variable              description dataset_filename
+#&gt; 1   caseid      case identification         zzbr62dt
+#&gt; 2     bidx      birth column number         zzbr62dt
+#&gt; 3     v000   country code and phase         zzbr62dt
+#&gt; 4     v001           cluster number         zzbr62dt
+#&gt; 5     v002         household number         zzbr62dt
+#&gt; 6     v003 respondent's line number         zzbr62dt
+#&gt;                                                                     dataset_path
+#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 5 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 6 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt;   survey_id
+#&gt; 1        NA
+#&gt; 2        NA
+#&gt; 3        NA
+#&gt; 4        NA
+#&gt; 5        NA
+#&gt; 6        NA</div><div class='input'>
 <span class='co'># or we can pass the full dataset</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>readRDS</span>(<span class='no'>g</span><span class='kw'>[[</span><span class='fl'>1</span>]])
 <span class='fu'>head</span>(<span class='fu'>get_variable_labels</span>(<span class='no'>r</span>))</div><div class='output co'>#&gt;   variable              description

@@ -299,19 +299,13 @@ surveys etc. will be stored. Default = <code>rappdirs_rdhs()</code></p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='co'># create an rdhs config file at "rdhs.json</span>
-<span class='fu'><a href='set_rdhs_config.html'>set_rdhs_config</a></span>(
-<span class='kw'>config_path</span> <span class='kw'>=</span> <span class='st'>"rdhs.json"</span>, <span class='kw'>global</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># create an rdhs config file at "rdhs.json"</span>
+<span class='no'>conf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_rdhs_config.html'>set_rdhs_config</a></span>(
+<span class='kw'>config_path</span> <span class='kw'>=</span> <span class='st'>"rdhs.json"</span>,<span class='kw'>global</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
-
-<span class='co'># create your client, specifying your config</span>
-<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='fu'>client_dhs</span>(
-<span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>,
-<span class='kw'>config</span> <span class='kw'>=</span> <span class='fu'>read_rdhs_config_file</span>(<span class='st'>"rdhs.json"</span>),
-<span class='kw'>root</span> <span class='kw'>=</span> <span class='no'>td</span>
-)
+<span class='no'>td</span> <span class='kw'>&lt;-</span> <span class='fu'>tempdir</span>()
+<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/client_dhs.html'>client_dhs</a></span>(<span class='kw'>api_key</span> <span class='kw'>=</span> <span class='st'>"ICLSPH-527168"</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='no'>conf</span>, <span class='kw'>root</span> <span class='kw'>=</span> <span class='no'>td</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

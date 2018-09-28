@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -121,13 +121,13 @@
 <div id="creating-an-account-with-the-dhs-website" class="section level2">
 <h2 class="hasAnchor">
 <a href="#creating-an-account-with-the-dhs-website" class="anchor"></a>1. Creating an account with the DHS website</h2>
-<p>In order to run all the tests in the <em>rdhs</em> package you need to have created an account with the DHS website. This requires about 5 mins to fill in their form and then a few days for them to approve your account creation. To start this head to the DHS website and go to the Data tab <a href="https://dhsprogram.com/data/dataset_admin/login_main.cfm">here</a>. A full rationale for this procss can be found on their website <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. In short you provide your contact information and then describe the study you are conducting that requires the DHS survey datasets.</p>
+<p>In order to run all the tests in the <em>rdhs</em> package you need to have created an account with the DHS website. This requires about 5 mins to fill in their form and then a few days for them to approve your account creation. To start this head to the DHS website and go to the Data tab <a href="https://dhsprogram.com/data/dataset_admin/login_main.cfm">here</a>. A full rationale for this process can be found on their website <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. In short you provide your contact information and then describe the study you are conducting that requires the DHS survey datasets.</p>
 <p>Importantly, when filling in their form describing the description of your study be sure to include some mention of needing geographic datasets as a number of the tests download geographic datasets. After you have filled this in you need to specify which countries and datasets you need. In order for the full test suite to work you must request every country and dataset type possible. After you have done this the DHS programme will take a few days to approve you request and will then email you to let you know at the email address you have provided.</p>
 </div>
 <div id="setting-up-your-rdhs-config" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-up-your-rdhs-config" class="anchor"></a>2. Setting up your rdhs config</h2>
-<p>Having now created your account, you can set up your <em>rdhs</em> configuration, which will allow you to download datasets from their website. This will also enable the tests included in “test_downloads.R”, “test_extraction.R” and “test_ui.R” to run, as these tests first check for an rdhs confing file (“rdhs.json”) within the testing directory.</p>
+<p>Having now created your account, you can set up your <em>rdhs</em> configuration, which will allow you to download datasets from their website. This will also enable the tests included in “test_downloads.R”, “test_extraction.R” and “test_ui.R” to run, as these tests first check for an rdhs config file (“rdhs.json”) within the testing directory.</p>
 <p>After having cloned/downloaded the repository, you will need to set up your rdhs config file within the testing directory, after which you should be able to run the test suite in full.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkg_dir &lt;-<span class="st"> "C:/Users/Oliver/GoogleDrive/AcademicWork/Imperial/git/rdhs"</span>
 <span class="kw">setwd</span>(<span class="kw">file.path</span>(pkg_dir,<span class="st">"tests/testthat/"</span>))

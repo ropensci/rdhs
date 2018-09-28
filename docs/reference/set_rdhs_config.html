@@ -269,22 +269,18 @@ changed by the user. Default = TRUE.</p></td>
 <span class='co'># the password. (not run as it requires a prompt)</span>
 <span class='fu'>set_rdhs_config</span>(<span class='kw'>email</span> <span class='kw'>=</span> <span class='st'>"blah@gmail.com"</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='st'>"Blahs"</span>,
 <span class='kw'>config_path</span> <span class='kw'>=</span> <span class='st'>"rdhs.json"</span>, <span class='kw'>global</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+
+<span class='co'># otherwise we can do this by specifying prompt to FALSE</span>
+<span class='fu'>set_rdhs_config</span>(
+<span class='kw'>config_path</span> <span class='kw'>=</span> <span class='st'>"rdhs.json"</span>, <span class='kw'>global</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='co'># you can look at what you have set these to using \code{get_rdhs_config}</span>
+<span class='no'>config</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_rdhs_config.html'>get_rdhs_config</a></span>()
 <span class='co'># }</span><div class='input'>
-# otherwise we can do this by specifying prompt to FALSE
-set_rdhs_config(
-config_path = "rdhs.json", global = FALSE, prompt = FALSE
 
-# you can look at what you have set these to using \code{get_rdhs_config}
-get_rdhs_config()
-
-# and you can view it prettily using \code{print_rdhs_config}
-print_rdhs_config(get_rdhs_config())
-
-
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:7:1: unexpected symbol</span>
-#&gt; <span class='error'>6: # you can look at what you have set these to using \code{get_rdhs_config}</span>
-#&gt; <span class='error'>7: get_rdhs_config</span>
-#&gt; <span class='error'>   ^</span></div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

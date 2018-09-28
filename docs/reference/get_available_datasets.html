@@ -176,18 +176,14 @@ that you have recently been given access to.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># grab the datasets</span>
+    <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># grab the datasets</span>
 <span class='no'>datasets</span> <span class='kw'>&lt;-</span> <span class='fu'>get_available_datasets</span>()
 
 <span class='co'># and if we look at the last one it will be the model datasets from DHS</span>
-<span class='fu'>tail</span>(<span class='no'>datasets</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt;                FileFormat FileSize     DatasetType SurveyNum SurveyId
-#&gt; 36100 SPSS dataset (.sav)    91665 Survey Datasets      &lt;NA&gt;     &lt;NA&gt;
-#&gt;                      FileType FileDateLastModified SurveyYearLabel SurveyType
-#&gt; 36100 HIV Test Results Recode                 &lt;NA&gt;            &lt;NA&gt;        DHS
-#&gt;                   SurveyYear DHS_CountryCode     FileName         CountryName
-#&gt; 36100 ModelDatasetSurveyYear              ZZ zzar61sv.zip ModelDatasetCountry
-#&gt;                                                                                                                                          URLS
-#&gt; 36100 https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?Filename=ZZAR61SV.ZIP&amp;Tp=4&amp;Ctry_Code=zz&amp;survey_id=0&amp;doctype=hiv</div></pre>
+<span class='fu'>tail</span>(<span class='no'>datasets</span>, <span class='fl'>1</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

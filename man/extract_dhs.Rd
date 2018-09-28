@@ -31,7 +31,6 @@ model_datasets <- model_datasets
 
 # download one of them
 g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
-dl <- data_and_labels(g$zzbr62dt)
 
 # create some terms of data me may want to extrac
 st <- search_variable_labels(names(g), "bed net")

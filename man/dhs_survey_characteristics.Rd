@@ -70,6 +70,7 @@ API request of DHS Survey Characteristics
 }
 \examples{
 
+\dontrun{
 # A good use for the survey characteristics API endpoint is to query what the
 # IDs are for each survey characteristic. These are useful for passing as
 # arguments to other API endpoints.For example to show all the ids:
@@ -87,7 +88,7 @@ dat <- dhs_countries(countryIds="SN")
 
 # https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
 
-\dontrun{
+
 dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
 all_results=FALSE)

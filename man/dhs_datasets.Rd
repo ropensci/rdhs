@@ -79,6 +79,7 @@ API request of DHS Datasets
 }
 \examples{
 
+\dontrun{
 # The API endpoint for the datasets available within the DHS website
 # is a very useful endpoint, which is used a lot within `rdhs`. For example,
 # it is used to find the file names and size of the dataset files, as well
@@ -97,7 +98,7 @@ modified_in_2018 <- which(years == 2018)
 
 # https://api.dhsprogram.com/#/api-datasets.cfm
 
-\dontrun{
+
 dat <- dhs_datasets(countryIds="EG",all_results=FALSE)
 dat <- dhs_datasets(selectSurveys="latest",all_results=FALSE)
 dat <- dhs_datasets(surveyIds="SN2010DHS",all_results=FALSE)

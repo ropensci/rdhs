@@ -91,6 +91,7 @@ API request of DHS Surveys
 }
 \examples{
 
+\dontrun{
 # A common use for the surveys API endpoint is to query which countries
 # have conducted surveys since a given year, e.g. since 2010
 
@@ -114,7 +115,7 @@ dat$Footnotes[dat$SurveyId == "MD2013MIS"]
 
 # https://api.dhsprogram.com/#/api-surveys.cfm
 
-\dontrun{
+
 dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_surveys(selectSurveys="latest",all_results=FALSE)

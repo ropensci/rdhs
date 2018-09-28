@@ -115,6 +115,7 @@ API request of DHS Indicator Data
 }
 \examples{
 
+\dontrun{
 # A common use for the indicator data API will be to search for a specific
 # health indicator for a given country. For example to return the total
 # malaria prevalence according to RDT, given by the indicator ML_PMAL_C_RDT,
@@ -132,7 +133,7 @@ surveyYearStart="2006"
 
 # https://api.dhsprogram.com/#/api-data.cfm
 
-\dontrun{
+
 dat <- dhs_data(countryIds="EG",all_results=FALSE)
 dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_data(surveyIds="SN2010DHS",all_results=FALSE)

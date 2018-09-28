@@ -270,6 +270,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># A common use for the surveys API endpoint is to query which countries</span>
 <span class='co'># have conducted surveys since a given year, e.g. since 2010</span>
 
@@ -285,14 +286,15 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 <span class='co'># the footnotes variable within the data frame returned. For example, the</span>
 <span class='co'># Madagascar 2013 MIS:</span>
 
-<span class='no'>dat</span>$<span class='no'>Footnotes</span>[<span class='no'>dat</span>$<span class='no'>SurveyId</span> <span class='kw'>==</span> <span class='st'>"MD2013MIS"</span>]</div><div class='output co'>#&gt; [1] "Areas without Malaria have been excluded"</div><div class='input'>
-# A complete list of examples for how each argument to the surveys API
-# endpoint can be provided is given below, which is a copy of each of
-# the examples listed in the API at:
+<span class='no'>dat</span>$<span class='no'>Footnotes</span>[<span class='no'>dat</span>$<span class='no'>SurveyId</span> <span class='kw'>==</span> <span class='st'>"MD2013MIS"</span>]
 
-# https://api.dhsprogram.com/#/api-surveys.cfm
+<span class='co'># A complete list of examples for how each argument to the surveys API</span>
+<span class='co'># endpoint can be provided is given below, which is a copy of each of</span>
+<span class='co'># the examples listed in the API at:</span>
 
-</div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-surveys.cfm</span>
+
+
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_surveys</span>(<span class='kw'>selectSurveys</span><span class='kw'>=</span><span class='st'>"latest"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

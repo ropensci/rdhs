@@ -69,6 +69,7 @@ API request of DHS Tags
 }
 \examples{
 
+\dontrun{
 # A good use for the tags API endpoint is to query what the
 # IDs are for each tag. These are useful for passing as
 # arguments to other API endpoints.For example to show all the ids:
@@ -86,7 +87,7 @@ dat <- dhs_tags(countryIds="SN")
 
 # https://api.dhsprogram.com/#/api-tags.cfm
 
-\dontrun{
+
 dat <- dhs_tags(countryIds="EG",all_results=FALSE)
 dat <- dhs_tags(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_tags(surveyIds="SN2010DHS",all_results=FALSE)

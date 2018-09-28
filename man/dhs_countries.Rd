@@ -79,6 +79,7 @@ API request of DHS Countries
 }
 \examples{
 
+\dontrun{
 # A common use for the countries API endpoint is to query which countries
 # ask questions about a given topic. For example to find all countries that
 # record data on malaria prevalence by RDT:
@@ -96,7 +97,7 @@ dat <- dhs_countries(surveyType="MIS")
 
 # https://api.dhsprogram.com/#/api-countries.cfm
 
-\dontrun{
+
 dat <- dhs_countries(countryIds="EG",all_results=FALSE)
 dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_countries(surveyIds="SN2010DHS",all_results=FALSE)

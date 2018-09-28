@@ -241,6 +241,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># A good use for the survey characteristics API endpoint is to query what the</span>
 <span class='co'># IDs are for each survey characteristic. These are useful for passing as</span>
 <span class='co'># arguments to other API endpoints.For example to show all the ids:</span>
@@ -256,7 +257,9 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 <span class='co'># characteristics API endpoint can be provided is given below, which is a</span>
 <span class='co'># copy of each of the examples listed in the API at:</span>
 
-<span class='co'># https://api.dhsprogram.com/#/api-surveycharacteristics.cfm</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-surveycharacteristics.cfm</span>
+
+
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_survey_characteristics</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_survey_characteristics</span>(<span class='kw'>indicatorIds</span><span class='kw'>=</span><span class='st'>"FE_FRTR_W_TFR"</span>,
 <span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

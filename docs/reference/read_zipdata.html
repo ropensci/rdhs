@@ -180,8 +180,8 @@ identified file within the zip. Default = `foreign::read.dta`</p></td>
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(
 <span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>],
 <span class='kw'>download_option</span> <span class='kw'>=</span> <span class='st'>"zip"</span>
-)
-
+)</div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
+#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Births Recode Stata dataset (.dta) [zzbr62dt.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'>
 <span class='co'># and then read from the zip. This function is used internally by rdhs</span>
 <span class='co'># when using `get_datasets` with `download_option = .rds` (default)</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>read_zipdata</span>(

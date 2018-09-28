@@ -45,6 +45,7 @@ API request of DHS Data Updates
 }
 \examples{
 
+\dontrun{
 # The API endpoint for the data updates available within the DHS
 # is a very useful endpoint, which is used a lot within `rdhs`. For example,
 # we use it to keep the end user's cache up to date. For example to find all
@@ -58,7 +59,7 @@ dat <- dhs_data_updates(lastUpdate="20180101")
 
 # https://api.dhsprogram.com/#/api-dataupdates.cfm
 
-\dontrun{
+
 dat <- dhs_data_updates(lastUpdate="20150901",all_results=FALSE)
 dat <- dhs_data_updates(f="html",all_results=FALSE)
 }

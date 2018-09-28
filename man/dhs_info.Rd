@@ -49,6 +49,7 @@ API request of DHS Info
 }
 \examples{
 
+\dontrun{
 # The main use for the info API  will be to confirm the version of the API
 # being used to providing the most current citation for the data.
 
@@ -60,7 +61,7 @@ dat <- dhs_info(infoType="version")
 
 # https://api.dhsprogram.com/#/api-info.cfm
 
-\dontrun{
+
 dat <- dhs_info(infoType="version",all_results=FALSE)
 dat <- dhs_info(infoType="citation",all_results=FALSE)
 dat <- dhs_info(f="html",all_results=FALSE)

@@ -78,7 +78,7 @@ Returns a \code{data.table} of 18 (or less if \code{returnFields} is provided)
 API request of DHS Indicators
 }
 \examples{
-
+\dontrun{
 # A common use for the indicators data API will be to search for a list of
 # health indicators within a given characteristic category, such as anemia
 # testing, HIV prevalence, micronutrients etc. For example to return all the
@@ -95,7 +95,7 @@ dat <- dhs_indicators(surveyCharacteristicIds="90")
 
 # https://api.dhsprogram.com/#/api-indicators.cfm
 
-\dontrun{
+
 dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
 dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_indicators(surveyIds="SN2010DHS",all_results=FALSE)

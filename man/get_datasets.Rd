@@ -58,9 +58,11 @@ Gets datasets from your cache or downloads from the DHS website.
   as character strings, i.e. there are no factors or labels.
 }
 \examples{
+ \dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
 # download one of them
 g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+}
 }

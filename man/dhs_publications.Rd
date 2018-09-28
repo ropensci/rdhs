@@ -85,6 +85,7 @@ API request of DHS Publications
 }
 \examples{
 
+\dontrun{
 # A main use for the publications API endpoint is to find which surveys have
 # a published report resulting from the conducted survey:
 
@@ -96,7 +97,7 @@ dat <- dhs_publications()
 
 # https://api.dhsprogram.com/#/api-publications.cfm
 
-\dontrun{
+
 dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
 dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

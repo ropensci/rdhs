@@ -30,9 +30,12 @@ Searches the DHS website for all the datasets that you can download.
   have recently requested new datasets.
 }
 \examples{
+
+\dontrun{
 # grab the datasets
 datasets <- get_available_datasets()
 
 # and if we look at the last one it will be the model datasets from DHS
 tail(datasets, 1)
+}
 }

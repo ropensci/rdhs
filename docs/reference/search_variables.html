@@ -196,19 +196,35 @@ found and then all the resultant codes and descriptions.</p>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download two of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])
-
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
+#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Couples' Recode Flat ASCII data (.dat) [zzbr62fl.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'>
 <span class='co'># and now seearch within these for survey variables</span>
 <span class='fu'>search_variables</span>(
-<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>g</span>), <span class='kw'>search_terms</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span>),
-)</div><div class='output co'>#&gt; <span class='error'>Error in tolower(variables): argument "variables" is missing, with no default</span></div><div class='input'>
+<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>g</span>), <span class='kw'>variables</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span>),
+)</div><div class='output co'>#&gt;   variable                description dataset_filename
+#&gt; 1     v002           household number         zzbr62dt
+#&gt; 2     v102 type of place of residence         zzbr62dt
+#&gt; 3     v002           Household number         zzbr62fl
+#&gt; 4     v102 Type of place of residence         zzbr62fl
+#&gt;                                                                     dataset_path
+#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62dt.rds
+#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62fl.rds
+#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmp235odz/rdhs/datasets/zzbr62fl.rds
+#&gt;   survey_id
+#&gt; 1        NA
+#&gt; 2        NA
+#&gt; 3        NA
+#&gt; 4        NA</div><div class='input'>
 <span class='co'># if we specify an essential variable then that dataset has to have that</span>
 <span class='co'># variable or else no variables will be returned for that datasets</span>
 <span class='fu'>search_variables</span>(
 <span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>g</span>),
-<span class='kw'>search_terms</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span>),
+<span class='kw'>variables</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span>),
 <span class='kw'>essential_variables</span> <span class='kw'>=</span> <span class='st'>"ml13"</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in tolower(variables): argument "variables" is missing, with no default</span></div><div class='input'>
+)</div><div class='output co'>#&gt; [1] variable         description      dataset_filename dataset_path    
+#&gt; [5] survey_id       
+#&gt; &lt;0 rows&gt; (or 0-length row.names)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

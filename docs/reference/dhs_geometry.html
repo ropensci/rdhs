@@ -233,6 +233,7 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># The geometry API endpoint returns the spatial geometry for countries, and</span>
 <span class='co'># can then be used to recreate the spatial polygon for a given country. For</span>
 <span class='co'># example to return the coordinates for the Senegal 2010 DHS survey:</span>
@@ -247,7 +248,9 @@ then the specified page only will be returned. Default = TRUE.</p></td>
 <span class='co'># API endpoint can be provided is given below, which is a</span>
 <span class='co'># copy of each of the examples listed in the API at:</span>
 
-<span class='co'># https://api.dhsprogram.com/#/api-geometry.cfm</span></div><span class='co'># NOT RUN {</span>
+<span class='co'># https://api.dhsprogram.com/#/api-geometry.cfm</span>
+
+
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>countryIds</span><span class='kw'>=</span><span class='st'>"EG"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyIds</span><span class='kw'>=</span><span class='st'>"SN2010DHS"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>dhs_geometry</span>(<span class='kw'>surveyYear</span><span class='kw'>=</span><span class='st'>"2010"</span>,<span class='kw'>all_results</span><span class='kw'>=</span><span class='fl'>FALSE</span>)

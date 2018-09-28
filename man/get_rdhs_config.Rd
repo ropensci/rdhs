@@ -17,7 +17,3 @@ Returns the config being used by rdhs at the moment. This will
   either be a `data.frame` with class `rdhs_config` or will be NULL if
   this has not been set up yet
 }
-\examples{
-config <- get_rdhs_config()
-
-}

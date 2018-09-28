@@ -10,7 +10,8 @@ TODO.txt
 *.csv
 *~
 credentials_file
-credentials.tar
-rdhs.json
-rdhs.json.tar
+credentials\.tar
+rdhs\.json
+rdhs\.json\.tar
 project_one
+*\.gitignore

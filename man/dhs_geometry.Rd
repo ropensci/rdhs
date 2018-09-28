@@ -64,6 +64,7 @@ API request of DHS Geometry
 }
 \examples{
 
+\dontrun{
 # The geometry API endpoint returns the spatial geometry for countries, and
 # can then be used to recreate the spatial polygon for a given country. For
 # example to return the coordinates for the Senegal 2010 DHS survey:
@@ -80,7 +81,7 @@ dat <- dhs_geometry(surveyIds="SN2010DHS")
 
 # https://api.dhsprogram.com/#/api-geometry.cfm
 
-\dontrun{
+
 dat <- dhs_geometry(countryIds="EG",all_results=FALSE)
 dat <- dhs_geometry(surveyIds="SN2010DHS",all_results=FALSE)
 dat <- dhs_geometry(surveyYear="2010",all_results=FALSE)
