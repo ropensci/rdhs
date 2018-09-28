@@ -65,7 +65,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -75,7 +75,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 10 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 10 (or less if \code{returnFields} is provided)
   publications with detailed information for each publication. A detailed
   description of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/publications/fields}
@@ -84,8 +84,20 @@ Returns a `data.table` of 10 (or less if `returnFields` is provided)
 API request of DHS Publications
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# A main use for the publications API endpoint is to find which surveys have
+# a published report resulting from the conducted survey:
+
+dat <- dhs_publications()
+
+# A complete list of examples for how each argument to the publications
+# API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-publications.cfm
+
+
 dat <- dhs_publications(countryIds="EG",all_results=FALSE)
 dat <- dhs_publications(selectSurveys="latest",all_results=FALSE)
 dat <- dhs_publications(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)

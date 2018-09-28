@@ -4,8 +4,9 @@
 \alias{unzip_special}
 \title{unzip special that catches for 4GB+}
 \usage{
-unzip_special(zipfile, files = NULL, overwrite = TRUE, junkpaths = FALSE,
-  exdir = ".", unzip = "internal", setTimes = FALSE)
+unzip_special(zipfile, files = NULL, overwrite = TRUE,
+  junkpaths = FALSE, exdir = ".", unzip = "internal",
+  setTimes = FALSE)
 }
 \arguments{
 \item{zipfile}{The pathname of the zip file: tilde expansion (see

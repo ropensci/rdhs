@@ -44,3 +44,31 @@ Use this function after \code{\link{get_datasets}} to query
   This function will look for your downloaded and imported survey datasets
   from your cached files, and will download them if not downloaded.
 }
+\examples{
+
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download two of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1:2])
+
+# and now seearch within these for survey variable labels of interest
+vars <- search_variable_labels(
+dataset_filenames = names(g), search_terms = "fever"
+)
+
+head(vars)
+
+# if we specify an essential term then no results will be returned from
+# a dataset if it does not have any results from the search with this term
+search_variable_labels(
+dataset_filenames = names(g),
+search_terms = "fever",
+essential_terms = "primaquine",
+)
+
+# we can also use regex queries if we prefer, by passing `regex = TRUE`
+vars <- search_variable_labels(
+dataset_filenames = names(g), search_terms = "fever|net", regex = TRUE
+)
+}

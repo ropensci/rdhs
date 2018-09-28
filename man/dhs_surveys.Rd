@@ -4,12 +4,12 @@
 \alias{dhs_surveys}
 \title{API request of DHS Surveys}
 \usage{
-dhs_surveys(countryIds = NULL, indicatorIds = NULL, selectSurveys = NULL,
-  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
-  surveyYearEnd = NULL, surveyType = NULL, surveyStatus = NULL,
-  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
-  force = FALSE, all_results = TRUE)
+dhs_surveys(countryIds = NULL, indicatorIds = NULL,
+  selectSurveys = NULL, surveyIds = NULL, surveyYear = NULL,
+  surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
+  surveyStatus = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
+  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
+  client = NULL, force = FALSE, all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to
@@ -71,7 +71,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -81,7 +81,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 28 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 28 (or less if \code{returnFields} is provided)
   surveys with detailed information for each survey. A detailed description
   of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/surveys/fields}
@@ -90,8 +90,32 @@ Returns a `data.table` of 28 (or less if `returnFields` is provided)
 API request of DHS Surveys
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# A common use for the surveys API endpoint is to query which countries
+# have conducted surveys since a given year, e.g. since 2010
+
+dat <- dhs_surveys(surveyYearStart="2010")
+
+# Additionally, some countries conduct non DHS surveys, but the data for
+# thse is also available within the DHS website/API. To query these:
+
+dat <- dhs_surveys(surveyType="MIS")
+
+# Lastly, you may be interested to know about anything peculiar about a
+# particular survey's implementation. This can be found by looking within
+# the footnotes variable within the data frame returned. For example, the
+# Madagascar 2013 MIS:
+
+dat$Footnotes[dat$SurveyId == "MD2013MIS"]
+
+# A complete list of examples for how each argument to the surveys API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-surveys.cfm
+
+
 dat <- dhs_surveys(countryIds="EG",all_results=FALSE)
 dat <- dhs_surveys(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_surveys(selectSurveys="latest",all_results=FALSE)

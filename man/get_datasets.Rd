@@ -4,8 +4,9 @@
 \alias{get_datasets}
 \title{Get Datasets}
 \usage{
-get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
-  all_lower = TRUE, output_dir_root = NULL, clear_cache = FALSE, ...)
+get_datasets(dataset_filenames, download_option = "rds",
+  reformat = FALSE, all_lower = TRUE, output_dir_root = NULL,
+  clear_cache = FALSE, ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be
@@ -55,4 +56,13 @@ Gets datasets from your cache or downloads from the DHS website.
   needed with \code{readRDS}. You also have the option to reformat the
   dataset, which will ensure that the datasets returned are encoded simply
   as character strings, i.e. there are no factors or labels.
+}
+\examples{
+ \dontrun{
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download one of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+}
 }

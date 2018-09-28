@@ -34,3 +34,18 @@ Returns variable names and their labels from a dataset.
       downloaded before this will download them for you.
       }
 }
+\examples{
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download one of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+
+# we can pass the list of filepaths to the function
+head(get_variable_labels(g))
+
+# or we can pass the full dataset
+r <- readRDS(g[[1]])
+head(get_variable_labels(r))
+
+}

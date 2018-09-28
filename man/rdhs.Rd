@@ -4,7 +4,6 @@
 \name{rdhs}
 \alias{rdhs}
 \alias{rdhs-package}
-\alias{rdhs-package}
 \title{\pkg{rdhs} DHS database through R}
 \description{
 Provides a client for (1) querying the DHS API for survey indicators

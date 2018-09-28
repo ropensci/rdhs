@@ -4,8 +4,8 @@
 \alias{search_variables}
 \title{Search Survey Variables}
 \usage{
-search_variables(dataset_filenames, variables, essential_variables = NULL,
-  ...)
+search_variables(dataset_filenames, variables,
+  essential_variables = NULL, ...)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded.
@@ -16,7 +16,7 @@ These can be found as one of the returned fields from
 
 \item{essential_variables}{Character vector of variables that need to
 present. If any of the codes are not present in that survey,
-the survey will not be returned by this functon. Default = `NULL`.}
+the survey will not be returned by this function. Default = `NULL`.}
 
 \item{...}{Any other arguments to be passed to
 \code{\link{download_datasets}}}
@@ -34,4 +34,26 @@ for \code{\link{extract_dhs}}.
 \details{
 Use this function after \code{\link{get_datasets}} to look up all
   the survey variables that have the required variable.
+}
+\examples{
+
+# get the model datasets included with the package
+model_datasets <- model_datasets
+
+# download two of them
+g <- get_datasets(dataset_filenames = model_datasets$FileName[1:2])
+
+# and now seearch within these for survey variables
+search_variables(
+dataset_filenames = names(g), variables = c("v002","v102","ml13"),
+)
+
+# if we specify an essential variable then that dataset has to have that
+# variable or else no variables will be returned for that datasets
+search_variables(
+dataset_filenames = names(g),
+variables = c("v002","v102","ml13"),
+essential_variables = "ml13"
+)
+
 }

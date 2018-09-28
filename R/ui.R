@@ -104,6 +104,14 @@ get_rdhs_config <- function() {
 #'   it accordingly.
 #' @export
 #'
+#' @examples
+#'  \dontrun{
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#' }
 
 get_datasets <- function(dataset_filenames,
                          download_option="rds",
@@ -142,6 +150,18 @@ get_datasets <- function(dataset_filenames,
 #' @return A \code{data.frame} of downloaded datasets
 #' @export
 #'
+#' @examples
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#'
+#' # these will then be stored so that we know what datasets we have downloaded
+#' d <- get_downloaded_datasets()
+#'
+#' # which returns a names list of file paths to the datasets
+#' d[1]
 
 get_downloaded_datasets <- function() {
 
@@ -172,11 +192,21 @@ get_downloaded_datasets <- function() {
 #'   for that link.
 #' @export
 #'
+#' @examples
+#'
+#' \dontrun{
+#' # grab the datasets
+#' datasets <- get_available_datasets()
+#'
+#' # and if we look at the last one it will be the model datasets from DHS
+#' tail(datasets, 1)
+#' }
 
 get_available_datasets <- function(clear_cache = FALSE) {
 
   client <- check_for_client()
-  client$available_datasets(clear_cache)
+  avs <- client$available_datasets(clear_cache)
+  return(rbind(avs, model_datasets))
 }
 
 #' Extract Data
@@ -197,6 +227,19 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #' @return A \code{list} of `data.frames` for each survey data extracted.
 #' @export
 #'
+#' @examples
+#'
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#'
+#' # create some terms of data me may want to extrac
+#' st <- search_variable_labels(names(g), "bed net")
+#'
+#' # and now extract it
+#' ex <- extract_dhs(st)
 
 extract_dhs <- function(questions, add_geo=FALSE) {
 
@@ -230,7 +273,27 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #' found and then all the resultant codes and descriptions.
 #' @export
 #'
-
+#' @examples
+#'
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download two of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1:2])
+#'
+#' # and now seearch within these for survey variables
+#' search_variables(
+#' dataset_filenames = names(g), variables = c("v002","v102","ml13"),
+#' )
+#'
+#' # if we specify an essential variable then that dataset has to have that
+#' # variable or else no variables will be returned for that datasets
+#' search_variables(
+#' dataset_filenames = names(g),
+#' variables = c("v002","v102","ml13"),
+#' essential_variables = "ml13"
+#' )
+#'
 search_variables <- function(dataset_filenames,
                              variables,
                              essential_variables = NULL,
@@ -277,6 +340,33 @@ search_variables <- function(dataset_filenames,
 #'   and then all the resultant codes and descriptions.
 #' @export
 #'
+#' @examples
+#'
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download two of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1:2])
+#'
+#' # and now seearch within these for survey variable labels of interest
+#' vars <- search_variable_labels(
+#' dataset_filenames = names(g), search_terms = "fever"
+#' )
+#'
+#' head(vars)
+#'
+#' # if we specify an essential term then no results will be returned from
+#' # a dataset if it does not have any results from the search with this term
+#' search_variable_labels(
+#' dataset_filenames = names(g),
+#' search_terms = "fever",
+#' essential_terms = "primaquine",
+#' )
+#'
+#' # we can also use regex queries if we prefer, by passing `regex = TRUE`
+#' vars <- search_variable_labels(
+#' dataset_filenames = names(g), search_terms = "fever|net", regex = TRUE
+#' )
 
 search_variable_labels <- function(dataset_filenames,
                                    search_terms = NULL,
@@ -318,14 +408,34 @@ search_variable_labels <- function(dataset_filenames,
 #'
 #' @return A \code{data.frame} consisting of the variable name and labels.
 #' @export
-
+#'
+#' @examples
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#'
+#' # we can pass the list of filepaths to the function
+#' head(get_variable_labels(g))
+#'
+#' # or we can pass the full dataset
+#' r <- readRDS(g[[1]])
+#' head(get_variable_labels(r))
+#'
 get_variable_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a data.frame then we try to read the labels from that
   if (is.data.frame(dataset)) {
     res <- get_labels_from_dataset(dataset, return_all)
-  } else if (is.character(dataset)) {
+  } else if (is.character(dataset) || is.list(dataset)) {
 
+    # get the file paths if it is in list form
+    if (is.list(dataset)) {
+      dataset <- unlist(dataset)
+    }
+
+    # grab our client
     client <- check_for_client()
 
     # if the file exists we'll pass them through as dataset_paths,

@@ -20,7 +20,7 @@ skip_if_slow_API <- function() {
 }
 
 
-api_timeout_safe_test <- function(expr) {
+api_timeout_safe_test <- function(expr, cli) {
 
   # one that has to paginate
   d <- tryCatch(eval(substitute(expr)), error = function(e) NULL )
@@ -40,8 +40,12 @@ new_rand_client <- function() {
   # Create new directory
   td <- file.path(tempdir(), as.integer(Sys.time()))
 
-  # create auth through whichever route is valid for the environment
+  # create auth using rdhs.json
 
+  # to enable the test suite to work without the encoded rdhs.json we'll create
+  if (!file.exists("rdhs.json")) {
+    set_rdhs_config(config_path = "rdhs.json", global = FALSE, password_prompt = FALSE)
+  }
     cli <- rdhs::client_dhs(
       api_key = "ICLSPH-527168",
       config = read_rdhs_config_file("rdhs.json"),

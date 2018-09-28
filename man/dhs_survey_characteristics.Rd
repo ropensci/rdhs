@@ -49,7 +49,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -59,7 +59,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
   survey characteristics. A survey can be labelled with one or more of these
   survey characteristics. A description of all the attributes returned is
   provided at
@@ -69,8 +69,26 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided)
 API request of DHS Survey Characteristics
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# A good use for the survey characteristics API endpoint is to query what the
+# IDs are for each survey characteristic. These are useful for passing as
+# arguments to other API endpoints.For example to show all the ids:
+
+dat <- dhs_survey_characteristics()
+
+# Or if your analysis is foucssed on a particular country, and you want to
+# see all the characteristics surveyed for e.g. Senegal
+
+dat <- dhs_countries(countryIds="SN")
+
+# A complete list of examples for how each argument to the survey
+# characteristics API endpoint can be provided is given below, which is a
+# copy of each of the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-surveycharacteristics.cfm
+
+
 dat <- dhs_survey_characteristics(countryIds="EG",all_results=FALSE)
 dat <- dhs_survey_characteristics(indicatorIds="FE_FRTR_W_TFR",
 all_results=FALSE)

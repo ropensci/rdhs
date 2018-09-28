@@ -67,7 +67,7 @@ Make a DHS API client
   Data.frame object with 14 variables that detail the surveys you can download, their url download links and the country, survey, year etc info for that link.
 }
 \item{\code{get_datasets}}{
-  Gets datasets from your cache or downloads from the DHS website. By providing the filenames, as specified in one of the returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all the files you hae requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R \code{data.frame}. This converted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when needed with \code{readRDS}. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
+  Gets datasets from your cache or downloads from the DHS website. By providing the filenames, as specified in one of the returned fields from \code{\link{dhs_datasets}}, the client will log in for you and download all the files you have requested. If any of the requested files are unavailable for your log in, these will be flagged up first as a message so you can make a note and request them through the DHS website. You also have the option to control whether the downloaded zip file is then extracted and converted into a more convenient R \code{data.frame}. This converted object will then be subsequently saved as a ".rds" object within the client root directory datasets folder, which can then be more quickly loaded when needed with \code{readRDS}. You also have the option to reformat the dataset, which will ensure that a suitable parser is used to preserve the meta information in your dataset, such as what different survey response codes mean.
 
   \emph{Usage:}
   \code{get_datasets(dataset_filenames, download_option = "rds", reformat = FALSE,
@@ -171,7 +171,7 @@ Make a DHS API client
     \item{\code{questions}:   Questions to be queried, in the format from \code{survey_questions}
     }
 
-    \item{\code{add_geo}:   Add geograpic information to the extract. Defaut = TRUE
+    \item{\code{add_geo}:   Add geographic information to the extract. Default = TRUE
     }
   }
 }
@@ -265,3 +265,13 @@ Make a DHS API client
 }
 }
 
+\examples{
+\dontrun{
+# create an rdhs config file at "rdhs.json"
+conf <- set_rdhs_config(
+config_path = "rdhs.json",global = FALSE, prompt = FALSE
+)
+td <- tempdir()
+cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", config = conf, root = td)
+}
+}

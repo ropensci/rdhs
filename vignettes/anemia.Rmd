@@ -1,7 +1,7 @@
 ---
 title: "Anemia prevalence: an `rdhs` example"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-07-19"
+date: "2018-09-24"
 output: 
   rmarkdown::html_vignette:
     keep_md: TRUE
@@ -103,7 +103,7 @@ ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 # Analyse DHS microdata
 
@@ -189,6 +189,14 @@ After this the function `get_datasets()` returns a list of file paths where the 
 
 ```r
 datasets$path <- unlist(get_datasets(datasets$FileName))
+```
+
+```
+## Logging into DHS website...
+```
+
+```
+## Creating Download url list from DHS website...
 ```
 
 ## Identify survey variables
@@ -552,7 +560,7 @@ ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 # Regression analysis: relationship between education and anemia

@@ -42,6 +42,7 @@ df <- data.frame("FileFormat" = files,
                  stringsAsFactors = FALSE)
 model_datasets <- df
 
+
 devtools::use_data(model_datasets,overwrite=TRUE)
 
 

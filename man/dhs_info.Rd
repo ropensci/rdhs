@@ -4,8 +4,9 @@
 \alias{dhs_info}
 \title{API request of DHS Info}
 \usage{
-dhs_info(infoType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL, client = NULL, force = FALSE, all_results = TRUE)
+dhs_info(infoType = NULL, f = NULL, returnFields = NULL,
+  perPage = NULL, page = NULL, client = NULL, force = FALSE,
+  all_results = TRUE)
 }
 \arguments{
 \item{infoType}{Specify a type of info to obtain the information requested.
@@ -28,7 +29,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -38,7 +39,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 2 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 2 (or less if \code{returnFields} is provided)
   fields describing the type of information that was requested and a value
   corresponding to the information requested.
   \url{https://api.dhsprogram.com/rest/dhs/info/fields}
@@ -47,8 +48,20 @@ Returns a `data.table` of 2 (or less if `returnFields` is provided)
 API request of DHS Info
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# The main use for the info API  will be to confirm the version of the API
+# being used to providing the most current citation for the data.
+
+dat <- dhs_info(infoType="version")
+
+# A complete list of examples for how each argument to the info API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-info.cfm
+
+
 dat <- dhs_info(infoType="version",all_results=FALSE)
 dat <- dhs_info(infoType="citation",all_results=FALSE)
 dat <- dhs_info(f="html",all_results=FALSE)

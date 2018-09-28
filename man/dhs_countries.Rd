@@ -4,11 +4,12 @@
 \alias{dhs_countries}
 \title{API request of DHS Countries}
 \usage{
-dhs_countries(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
-  client = NULL, force = FALSE, all_results = TRUE)
+dhs_countries(countryIds = NULL, indicatorIds = NULL,
+  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL,
+  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
+  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
+  force = FALSE, all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -58,7 +59,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -68,7 +69,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 12 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 12 (or less if \code{returnFields} is provided)
   countries with their corresponding details. A detailed description of all
   the attributes returned is provided at
  \url{https://api.dhsprogram.com/rest/dhs/countries/fields}
@@ -77,8 +78,26 @@ Returns a `data.table` of 12 (or less if `returnFields` is provided)
 API request of DHS Countries
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# A common use for the countries API endpoint is to query which countries
+# ask questions about a given topic. For example to find all countries that
+# record data on malaria prevalence by RDT:
+
+dat <- dhs_countries(indicatorIds = "ML_PMAL_C_RDT")
+
+# Additionally you may want to know all the countries that have conducted
+# MIS (malaria indicator surveys):
+
+dat <- dhs_countries(surveyType="MIS")
+
+# A complete list of examples for how each argument to the countries API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-countries.cfm
+
+
 dat <- dhs_countries(countryIds="EG",all_results=FALSE)
 dat <- dhs_countries(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_countries(surveyIds="SN2010DHS",all_results=FALSE)

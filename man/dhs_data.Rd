@@ -6,11 +6,12 @@
 \usage{
 dhs_data(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
   selectSurveys = NULL, surveyYear = NULL, surveyYearStart = NULL,
-  surveyYearEnd = NULL, surveyType = NULL, surveyCharacteristicIds = NULL,
-  characteristicCategory = NULL, characteristicLabel = NULL,
-  tagIds = NULL, breakdown = NULL, returnGeometry = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
-  force = FALSE, all_results = TRUE)
+  surveyYearEnd = NULL, surveyType = NULL,
+  surveyCharacteristicIds = NULL, characteristicCategory = NULL,
+  characteristicLabel = NULL, tagIds = NULL, breakdown = NULL,
+  returnGeometry = NULL, f = NULL, returnFields = NULL,
+  perPage = NULL, page = NULL, client = NULL, force = FALSE,
+  all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -75,7 +76,7 @@ specified tag. For a list of tags use \code{dhs_tags()}}
 parameter. By default national data is returned and provides totals on a
 national level. `breakdown="subnational"` data provides values on a
 subnational level. `breakdown="background"` provides totals on categorized
-basis. Examples are urban/rural,education and wealth level.
+basis. Examples are urban/rural, education and wealth level.
 `breakdown="all"` provides all the data including disaggregated data.}
 
 \item{returnGeometry}{Coordinates can be requested from the API by including
@@ -94,7 +95,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request.
 By default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -104,7 +105,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE}
 }
 \value{
-Returns a `data.table` of 27 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 27 (or less if \code{returnFields} is provided)
   data for your particular query. Details of properties returned with each
   row of data are provided at
 \url{https://api.dhsprogram.com/rest/dhs/data/fields}
@@ -113,8 +114,26 @@ Returns a `data.table` of 27 (or less if `returnFields` is provided)
 API request of DHS Indicator Data
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# A common use for the indicator data API will be to search for a specific
+# health indicator for a given country. For example to return the total
+# malaria prevalence according to RDT, given by the indicator ML_PMAL_C_RDT,
+# in Senegal since 2010:
+
+dat <- dhs_data(
+indicatorIds="ML_PMAL_C_RDT",
+countryIds="SN",
+surveyYearStart="2006"
+)
+
+# A complete list of examples for how each argument to the data api
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-data.cfm
+
+
 dat <- dhs_data(countryIds="EG",all_results=FALSE)
 dat <- dhs_data(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_data(surveyIds="SN2010DHS",all_results=FALSE)

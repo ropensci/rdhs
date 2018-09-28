@@ -243,6 +243,18 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 #'   either as the file path or after having
 #'   been read using \code{readRDS}
 #' @export
+#'
+#' @examples
+#' # get the model datasets included with the package
+#' model_datasets <- model_datasets
+#'
+#' # download one of them
+#' g <- get_datasets(dataset_filenames = model_datasets$FileName[1])
+#' dl <- data_and_labels(g$zzbr62dt)
+#'
+#' # now we easily have our survey question labels easily accessible
+#' grep("bed net", dl$variable_names$description, value = TRUE)
+#'
 data_and_labels <- function(dataset) {
 
   if (class(dataset)[1] == "character") {
@@ -273,6 +285,28 @@ data_and_labels <- function(dataset) {
 #'   identified file within the zip. Default = `foreign::read.dta`
 #' @param ...  additional arguments to readfn
 #' @export
+#'
+#' @examples
+#'
+#' # get the model datasets included in the package
+#' model_datasets <- model_datasets
+#'
+#' # download just the zip
+#' g <- get_datasets(
+#' dataset_filenames = model_datasets$FileName[1],
+#' download_option = "zip"
+#' )
+#'
+#' # and then read from the zip. This function is used internally by rdhs
+#' # when using `get_datasets` with `download_option = .rds` (default)
+#' r <- read_zipdata(
+#' g[[1]], pattern = ".dta"
+#' )
+#'
+#' # and we can pass a function to read the file and any other args with ...
+#' r <- read_zipdata(
+#' g[[1]], pattern = ".dta", readfn = haven::read_dta, encoding = "UTF-8"
+#' )
 #'
 read_zipdata <- function(zfile, pattern=".dta$",
                          readfn=foreign::read.dta, ...) {

@@ -4,7 +4,8 @@
 \alias{read_dhs_dataset}
 \title{read in dhs standard file types}
 \usage{
-read_dhs_dataset(file, dataset, reformat = FALSE, all_lower = TRUE, ...)
+read_dhs_dataset(file, dataset, reformat = FALSE, all_lower = TRUE,
+  ...)
 }
 \arguments{
 \item{file}{path to zip file to be read}

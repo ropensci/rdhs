@@ -4,11 +4,12 @@
 \alias{dhs_indicators}
 \title{API request of DHS Indicators}
 \usage{
-dhs_indicators(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
-  client = NULL, force = FALSE, all_results = TRUE)
+dhs_indicators(countryIds = NULL, indicatorIds = NULL,
+  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
+  surveyYearEnd = NULL, surveyType = NULL,
+  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
+  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
+  force = FALSE, all_results = TRUE)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter
@@ -58,7 +59,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -68,7 +69,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 18 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 18 (or less if \code{returnFields} is provided)
   indicators with attributes for each indicator. A detailed description of
   all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/indicators/fields}
@@ -77,8 +78,24 @@ Returns a `data.table` of 18 (or less if `returnFields` is provided)
 API request of DHS Indicators
 }
 \examples{
-## not run only because they take a very long time and interact with an API
 \dontrun{
+# A common use for the indicators data API will be to search for a list of
+# health indicators within a given characteristic category, such as anemia
+# testing, HIV prevalence, micronutrients etc. For example to return all the
+# indicators relating to malaria testing by RDTs:
+
+dat <- dhs_indicators(surveyCharacteristicIds="90")
+
+# A list of the different `surveyCharacteristicIds` can be found
+# [here](https://api.dhsprogram.com/rest/dhs/surveycharacteristics?f=html)
+
+# A complete list of examples for how each argument to the indicator API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-indicators.cfm
+
+
 dat <- dhs_indicators(countryIds="EG",all_results=FALSE)
 dat <- dhs_indicators(indicatorIds="FE_FRTR_W_TFR",all_results=FALSE)
 dat <- dhs_indicators(surveyIds="SN2010DHS",all_results=FALSE)

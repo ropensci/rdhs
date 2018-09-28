@@ -10,6 +10,15 @@
 #' @template client_dhs_methods
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' # create an rdhs config file at "rdhs.json"
+#' conf <- set_rdhs_config(
+#' config_path = "rdhs.json",global = FALSE, prompt = FALSE
+#' )
+#' td <- tempdir()
+#' cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", config = conf, root = td)
+#' }
 client_dhs <- function(config=NULL,
                        root=rappdirs_rdhs(),
                        api_key="ICLSPH-527168") {
@@ -664,8 +673,14 @@ R6_client_dhs <- R6::R6Class(
              survey_questions/variables terms?")
       }
 
-      # append the filename as survey to the datasets for easier matching later
+      # are the questions relating to the model datasets
+      if (all(substr(unique(questions$dataset_filename), 1, 2) == "zz")) {
+        datasets <- model_datasets
+      } else {
       datasets <- self$available_datasets()
+      }
+
+      # append the filename as survey to the datasets for easier matching later
       datasets$Survey <- strsplit(datasets$FileName, ".", fixed = TRUE) %>%
         lapply(function(x) x[1]) %>%
         unlist()
@@ -715,6 +730,7 @@ R6_client_dhs <- R6::R6Class(
 
       # grab these now
       filenames <- dhs_datasets(client = self)$FileName
+      filenames <- c(filenames, model_datasets$FileName)
 
       # get vars from dataset_paths
       if (!is.null(dataset_paths)) {
@@ -839,27 +855,34 @@ R6_client_dhs <- R6::R6Class(
     # CHECK_AVAIALABLE_DATASETS
     check_available_datasets = function(filenames) {
 
-      # fetch which datasets you can download from your login
-      avs <- self$available_datasets()
-      model_datasets <- model_datasets
-      avs <- rbind(avs, model_datasets)
-
-      # fetch all the datasets so we can catch for the India matches by
-      # using the country code catch
-      datasets <- dhs_datasets(client = self)
-      datasets <-  rbind(datasets, model_datasets[, -14])
-
-      # create new filename argument that takes into account the india
-      # difficiulties where needed
-      avs <- create_new_filenames(avs)
-      datasets <- create_new_filenames(datasets)
-
       # catch of the filenames requested are with or without the zip
       if (any(grepl("zip", filenames, ignore.case = TRUE))) {
         nm_type <- "FileName"
       } else {
         nm_type <- "file"
       }
+
+      # ammend our model_datasets first
+      model_datasets <- create_new_filenames(model_datasets)
+
+      # if they have only asked for model datasets then return those
+      if (all(filenames %in% model_datasets[[nm_type]])){
+        return(model_datasets[match(filenames, model_datasets[[nm_type]]), ])
+      }
+
+      # fetch which datasets you can download from your login
+      avs <- self$available_datasets()
+      avs <- create_new_filenames(avs)
+      avs <- rbind(avs, model_datasets)
+
+      # fetch all the datasets so we can catch for the India matches by
+      # using the country code catch
+      datasets <- dhs_datasets(client = self)
+      datasets <-  rbind(datasets, model_datasets[, -c(14:15)])
+
+      # create new filename argument that takes into account the india
+      # difficiulties where needed
+      datasets <- create_new_filenames(datasets)
 
       # find all the duplicate filenames and what datasets they belong to
       duplicates <- datasets[duplicated(datasets$FileName), nm_type]

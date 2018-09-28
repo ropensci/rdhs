@@ -1,7 +1,7 @@
 ---
 title: "How to use rdhs?"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-07-19"
+date: "2018-09-24"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to use rdhs?}
@@ -115,8 +115,8 @@ data[1,]
 ```
 
 ```
-##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 2582633 Malaria prevalence according to RDT CD2013DHS           1  17.1
+##   DataId                           Indicator  SurveyId IsPreferred Value
+## 1 941297 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -155,7 +155,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/patching/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
@@ -230,7 +230,7 @@ str(datasets)
 ```
 ## 'data.frame':	19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
-##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 394824 ...
+##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
 ##  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...
 ##  $ SurveyNum           : int  421 421 421 421 421 421 421 421 421 421 ...
 ##  $ SurveyId            : chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
@@ -250,7 +250,9 @@ We can now use this to download our datasets for further analysis.
 
 ## 3. Download survey datasets
 
-We can now go ahead and download our datasets. To do this we need to first set our login credentials for the DHS website. Once this is set you will be able to download the datasets that you have access to. In order to set up our credentials we use the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. 
+We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
+
+Once we have created an account, we need to set up our credentials using the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password.
 
 You can also specify a directory for datasets and API calls to be cached to using `cache_path`. If you do not provide an argument for `cache_path` you will be prompted to provide permission to `rdhs` to save your datasets and API calls within your user cache directory for your operating system. This is to comply with CRAN's requests for permission to be granted before writing to system files. If you do not grant permission, these will be written within your R temporary directory (as we saw above when we first used one of the functions to query the API). Similarly if you do not also provide an argument for `config_path`, this will be saved within your temp directory unless permission is granted. Your config files will always be called "rdhs.json", so that `rdhs` can find them easily.
 
@@ -267,7 +269,7 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 
 ```
-## If you are using git, be sure to add this to your .gitignore
+## C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json has been added to your .gitignore
 ```
 
 
@@ -289,7 +291,11 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 
 ```
-## If you are using git, be sure to add this to your .gitignore
+## Adding rdhs.json to .gitignore
+```
+
+```
+## rdhs.json has been added to your .gitignore
 ```
 
 You may, however, not have different projects with the DHS website, in which case you may prefer to set up one global config file. If you do not want this to be saved in your user cache directory, you can set `global` to `TRUE` (the default) and this will save it in your R default launch directory. This MUST be **~/.rdhs.json**. (There is not really any difference between saving it at `~/.rdhs.json` vs the user cache directory, but you might want to have it somewhere easy to find etc).
@@ -309,7 +315,11 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 
 ```
-## If you are using git, be sure to add this to your .gitignore
+## Adding ~/.rdhs.json to .gitignore
+```
+
+```
+## ~/.rdhs.json has been added to your .gitignore
 ```
 
 
@@ -333,7 +343,7 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 
 ```
-## If you are using git, be sure to add this to your .gitignore
+## ~/.rdhs.json has been added to your .gitignore
 ```
 
 
@@ -351,10 +361,10 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1991),times = 1)
 
 ```
 ## Unit: milliseconds
-##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 4.327918 4.327918 4.327918 4.327918
-##        uq      max neval
-##  4.327918 4.327918     1
+##                            expr     min      lq    mean  median      uq
+##  dhs_surveys(surveyYear = 1991) 110.775 110.775 110.775 110.775 110.775
+##      max neval
+##  110.775     1
 ```
 
 ```r
@@ -364,10 +374,10 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1991), times = 1)
 
 ```
 ## Unit: milliseconds
-##                            expr     min      lq    mean  median      uq
-##  dhs_surveys(surveyYear = 1991) 2.70769 2.70769 2.70769 2.70769 2.70769
-##      max neval
-##  2.70769     1
+##                            expr      min       lq     mean   median
+##  dhs_surveys(surveyYear = 1991) 2.340517 2.340517 2.340517 2.340517
+##        uq      max neval
+##  2.340517 2.340517     1
 ```
 
 
@@ -441,8 +451,8 @@ table(questions$dataset_filename)
 
 ```
 ## 
-## CDHR61FL CDPR61FL TZGC7AFL TZIR7HFL 
-##       24        1        1       48
+## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL 
+##       24        1       48        1
 ```
 
 
@@ -476,7 +486,7 @@ str(extract)
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:95949] "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
-##  $ TZPR7HFL:Classes 'dhs_dataset' and 'data.frame':	64880 obs. of  2 variables:
+##  $ TZPR7AFL:Classes 'dhs_dataset' and 'data.frame':	64880 obs. of  2 variables:
 ##   ..$ hml35   : 'labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
@@ -516,13 +526,7 @@ head(extract2$TZPR7HFL)
 ```
 
 ```
-##   hv024 hml35  SurveyId
-## 1     1    NA TZ2015DHS
-## 2     1    NA TZ2015DHS
-## 3     1    NA TZ2015DHS
-## 4     1    NA TZ2015DHS
-## 5     1    NA TZ2015DHS
-## 6     1    NA TZ2015DHS
+## NULL
 ```
 
 ```r
@@ -770,7 +774,7 @@ summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="quasibinomia
 ## Coefficients:
 ##                 Estimate Std. Error t value Pr(>|t|)    
 ## (Intercept)     -1.65528    0.23267  -7.114 3.20e-12 ***
-## DATASETTZPR7HFL -0.95553    0.12901  -7.406 4.39e-13 ***
+## DATASETTZPR7AFL -0.95553    0.12901  -7.406 4.39e-13 ***
 ## hv025            0.52558    0.13009   4.040 6.03e-05 ***
 ## netTRUE          0.06529    0.07163   0.911    0.362    
 ## bricksTRUE      -0.72109    0.13517  -5.335 1.36e-07 ***

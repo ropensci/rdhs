@@ -78,11 +78,14 @@ Setting up a configuration will enable API results to be cached, as
   `config_path` provided should be used as a local configuration or a global
   one. This is controlled using the `global` argument, which by default is
   set equal to `TRUE`. A global config is saved within your R root directory
-  (the directoy that a new R session will start in). If you set `global` to
+  (the directory that a new R session will start in). If you set `global` to
   `FALSE` the config file will be saved within the current directory. This
   can be useful if you create a new DHS project for each new piece of work,
   and want to keep the datasets you download for this project separate to
-  another.
+  another. If you want to have your config file saved in a different
+  directory, then you must create a file "rdhs.json" first in that directory
+  before specifying the full path to it, as well as setting `global` equal to
+  `FALSE`.
 
   As an aside, it is useful for the DHS program to see how the surveys they
   conducted are being used, and thus it is helpful for them if you do create
@@ -95,4 +98,24 @@ Setting up a configuration will enable API results to be cached, as
   providing an argument for `data_frame`. If left blank API calls will be
   returned as `data.frame` objects, however, you could return API calls as
   `data.table` objects using `data.table::as.data.table`.
+}
+\examples{
+
+\dontrun{
+# normal set up we would prvide the email and project, and be prompted for
+# the password. (not run as it requires a prompt)
+set_rdhs_config(email = "blah@gmail.com", project = "Blahs",
+config_path = "rdhs.json", global = FALSE)
+
+
+# otherwise we can do this by specifying prompt to FALSE
+set_rdhs_config(
+config_path = "rdhs.json", global = FALSE, prompt = FALSE
+)
+
+# you can look at what you have set these to using \\code{get_rdhs_config}
+config <- get_rdhs_config()
+}
+
+
 }

@@ -25,7 +25,7 @@ default the API will return 100 results.}
 \item{page}{Allows specifying a page number to obtain for the API request. By
 default the API will return page 1.}
 
-\item{client}{If the api request should be cached, then provide a client
+\item{client}{If the API request should be cached, then provide a client
 object created by \code{\link{client_dhs}}}
 
 \item{force}{Should we force fetching the API results, and ignore any
@@ -35,7 +35,7 @@ cached results we have. Default = FALSE}
 then the specified page only will be returned. Default = TRUE.}
 }
 \value{
-Returns a `data.table` of 3 (or less if `returnFields` is provided)
+Returns a \code{data.table} of 3 (or less if \code{returnFields} is provided)
   interfaces that have been added/updated or removed. A detailed description
   of all the attributes returned is provided at
   \url{https://api.dhsprogram.com/rest/dhs/uiupdates/fields}
@@ -44,8 +44,21 @@ Returns a `data.table` of 3 (or less if `returnFields` is provided)
 API request of DHS UI Updates
 }
 \examples{
-## not run only because they take a very long time and interact with an API
+
 \dontrun{
+# The main use for the ui updates API will be to search for the last time
+# there was a change to the UI. For example to return all the
+# changes since 2018:
+
+dat <- dhs_ui_updates(lastUpdate="20180101")
+
+# A complete list of examples for how each argument to the ui updates API
+# endpoint can be provided is given below, which is a copy of each of
+# the examples listed in the API at:
+
+# https://api.dhsprogram.com/#/api-uiupdates.cfm
+
+
 dat <- dhs_ui_updates(lastUpdate="20150901",all_results=FALSE)
 dat <- dhs_ui_updates(f="html",all_results=FALSE)
 }
