@@ -28,7 +28,7 @@ unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,
                           junkpaths = FALSE, exdir = ".", unzip = "internal",
                           setTimes = FALSE){
 
-  if (max(unzip(zip_file, list = TRUE)$Length) > 4e10) {
+  if (max(unzip(zipfile, list = TRUE)$Length) > 4e10) {
     unzip_file <- Sys.which("unzip")
     if (nzchar(unzip_file)) {
       # j system2("unzip", args=c(zfile,files,paste("-d", exdir)),stdout=FALSE)
