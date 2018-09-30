@@ -77,6 +77,8 @@ navbar:
       - text: How to use geojson API results
         href: articles/geojson.html
       - text: -------
+      - text: Contributing
+        href: CONTRIBUTING.html
       - text: Installation
         href: articles/toolkit.html
       - text: Testing

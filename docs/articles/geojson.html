@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -51,7 +51,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -69,6 +69,9 @@
       <a href="../articles/geojson.html">How to use geojson API results</a>
     </li>
     <li class="divider">
+          <li>
+      <a href="../CONTRIBUTING.html">Contributing</a>
+    </li>
     <li>
       <a href="../articles/toolkit.html">Installation</a>
     </li>
@@ -85,7 +88,7 @@
 <li>
   <a href="https://github.com/OJWatson/rdhs">
     <span class="fa fa-github"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -96,7 +99,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
       </header><script src="geojson_files/htmlwidgets-1.2/htmlwidgets.js"></script><script src="geojson_files/jquery-1.12.4/jquery.min.js"></script><link href="geojson_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="geojson_files/leaflet-1.3.1/leaflet.js"></script><link href="geojson_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="geojson_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script><script src="geojson_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="geojson_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
@@ -105,16 +108,16 @@
     <div class="page-header toc-ignore">
       <h1>Interacting with geojson API returns</h1>
                         <h4 class="author">OJ Watson</h4>
-            
+
             <h4 class="date">2018-09-24</h4>
-      
-      
+
+
       <div class="hidden name"><code>geojson.Rmd</code></div>
 
     </div>
 
-    
-    
+
+
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
@@ -138,7 +141,7 @@ d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.
 
 <span class="co"># convert to sp</span>
 m &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/geojsonio/topics/as.json">as.json</a></span>(d)
-nc &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/geojsonio/topics/geojson_sp">geojson_sp</a></span>(m) 
+nc &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/geojsonio/topics/geojson_sp">geojson_sp</a></span>(m)
 
 <span class="co"># plot using leaflet</span>
 pal &lt;-<span class="st"> </span>leaflet<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/leaflet/topics/colorNumeric">colorNumeric</a></span>(<span class="st">"viridis"</span>, <span class="ot">NULL</span>)
@@ -179,7 +182,7 @@ leaflet<span class="op">::</span><span class="kw"><a href="http://www.rdocumenta
       </footer>
 </div>
 
-  
+
 
   </body>
 </html>

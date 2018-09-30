@@ -1,3 +1,4 @@
+^\.github$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
@@ -12,7 +13,6 @@
 ^man-roxygen$
 ^_pkgdown\.yml$
 ^scripts
-^credentials$
 ^credentials_file$
 ^\.httr-oauth$
 ^README\.Rmd$
@@ -27,3 +27,4 @@ vignettes_src
 ^data-raw$
 project_one
 C:/Users/Oliver/Desktop/rdhs\.json
+rdhs\.json
