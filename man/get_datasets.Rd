@@ -30,7 +30,7 @@ within. The default will download
 datasets to a subfolder of the client root called "datasets"}
 
 \item{clear_cache}{Should your available datasets cache be cleared first.
-This will allow newly accessed datasets to be available. Default = `TRUE`}
+This will allow newly accessed datasets to be available. Default = `FALSE`}
 
 \item{...}{Any other arguments to be passed to \code{\link{read_dhs_dataset}}}
 }
