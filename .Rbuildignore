@@ -26,5 +26,3 @@ vignettes_src
 ^paper
 ^data-raw$
 project_one
-~/\.rdhs\.json
-rdhs\.json

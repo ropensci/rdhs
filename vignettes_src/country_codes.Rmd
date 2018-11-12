@@ -4,7 +4,7 @@ author: "OJ Watson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Toolkit}
+  %\VignetteIndexEntry{Country Codes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,7 @@ DHS country code. This is a useful reference table when you want to pass in
 country IDs to a number of the API functions, e.g. `dhs_data(countryIds = "BJ")`
 
 
-``` {r set config, R.options=list("rappdir_permission"=TRUE), message = FALSE}
+``` {r set config, message = FALSE}
 
 library(rdhs)
 
