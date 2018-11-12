@@ -27,3 +27,4 @@ vignettes_src
 ^data-raw$
 project_one
 ~/\.rdhs\.json
+rdhs\.json

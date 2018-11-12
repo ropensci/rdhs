@@ -1,3 +1,9 @@
+## rdhs 0.5.2
+
+* New vignettes: `country_codes`
+
+* Documentation typos corrected (#55)
+
 ## rdhs 0.5.0
 
 * New `set_rdhs_config` for providing login credentials. This deprecates

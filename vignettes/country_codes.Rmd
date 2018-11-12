@@ -15,11 +15,107 @@ The following shows how to return a table of the country names and 2 letter code
 We can get this information by querying the API using `dhs_countries`, and
 specifying the `returnFields` argument to just return the country name and 
 DHS country code. This is a useful reference table when you want to pass in 
-country IDs to a number of the API functions, e.g. `dhs_data(countryIds = )`
+country IDs to a number of the API functions, e.g. `dhs_data(countryIds = "BJ")`
 
 
 
 ```r
 ## what are the countryIds
 ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
+ids
+```
+
+```
+##    DHS_CountryCode                      CountryName
+## 1               AF                      Afghanistan
+## 2               AL                          Albania
+## 3               AO                           Angola
+## 4               AM                          Armenia
+## 5               AZ                       Azerbaijan
+## 6               BD                       Bangladesh
+## 7               BJ                            Benin
+## 8               BO                          Bolivia
+## 9               BT                         Botswana
+## 10              BR                           Brazil
+## 11              BF                     Burkina Faso
+## 12              BU                          Burundi
+## 13              KH                         Cambodia
+## 14              CM                         Cameroon
+## 15              CV                       Cape Verde
+## 16              CF         Central African Republic
+## 17              TD                             Chad
+## 18              CO                         Colombia
+## 19              KM                          Comoros
+## 20              CG                            Congo
+## 21              CD        Congo Democratic Republic
+## 22              CI                    Cote d'Ivoire
+## 23              DR               Dominican Republic
+## 24              EC                          Ecuador
+## 25              EG                            Egypt
+## 26              ES                      El Salvador
+## 27              EK                Equatorial Guinea
+## 28              ER                          Eritrea
+## 29              ET                         Ethiopia
+## 30              GA                            Gabon
+## 31              GM                           Gambia
+## 32              GH                            Ghana
+## 33              GU                        Guatemala
+## 34              GN                           Guinea
+## 35              GY                           Guyana
+## 36              HT                            Haiti
+## 37              HN                         Honduras
+## 38              IA                            India
+## 39              ID                        Indonesia
+## 40              JO                           Jordan
+## 41              KK                       Kazakhstan
+## 42              KE                            Kenya
+## 43              KY                  Kyrgyz Republic
+## 44              LA Lao People's Democratic Republic
+## 45              LS                          Lesotho
+## 46              LB                          Liberia
+## 47              MD                       Madagascar
+## 48              MW                           Malawi
+## 49              MV                         Maldives
+## 50              ML                             Mali
+## 51              MR                       Mauritania
+## 52              MX                           Mexico
+## 53              MB                          Moldova
+## 54              MA                          Morocco
+## 55              MZ                       Mozambique
+## 56              MM                          Myanmar
+## 57              NM                          Namibia
+## 58              NP                            Nepal
+## 59              NC                        Nicaragua
+## 60              NI                            Niger
+## 61              NG                          Nigeria
+## 62              PK                         Pakistan
+## 63              PG                 Papua New Guinea
+## 64              PY                         Paraguay
+## 65              PE                             Peru
+## 66              PH                      Philippines
+## 67              RW                           Rwanda
+## 68              WS                            Samoa
+## 69              ST            Sao Tome and Principe
+## 70              SN                          Senegal
+## 71              SL                     Sierra Leone
+## 72              ZA                     South Africa
+## 73              LK                        Sri Lanka
+## 74              SD                            Sudan
+## 75              SZ                        Swaziland
+## 76              TJ                       Tajikistan
+## 77              TZ                         Tanzania
+## 78              TH                         Thailand
+## 79              TL                      Timor-Leste
+## 80              TG                             Togo
+## 81              TT              Trinidad and Tobago
+## 82              TN                          Tunisia
+## 83              TR                           Turkey
+## 84              TM                     Turkmenistan
+## 85              UG                           Uganda
+## 86              UA                          Ukraine
+## 87              UZ                       Uzbekistan
+## 88              VN                          Vietnam
+## 89              YE                            Yemen
+## 90              ZM                           Zambia
+## 91              ZW                         Zimbabwe
 ```

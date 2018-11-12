@@ -65,7 +65,7 @@ for extract_dhs." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -102,6 +102,9 @@ for extract_dhs." />
     </li>
     <li>
       <a href="../articles/geojson.html">How to use geojson API results</a>
+    </li>
+    <li>
+      <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -199,8 +202,8 @@ found and then all the resultant codes and descriptions.</p>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download two of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
-#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Couples' Recode Flat ASCII data (.dat) [zzbr62fl.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'>
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])
+
 <span class='co'># and now seearch within these for survey variables</span>
 <span class='fu'>search_variables</span>(
 <span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>g</span>), <span class='kw'>variables</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span>),
@@ -209,11 +212,11 @@ found and then all the resultant codes and descriptions.</p>
 #&gt; 2     v102 type of place of residence         zzbr62dt
 #&gt; 3     v002           Household number         zzbr62fl
 #&gt; 4     v102 Type of place of residence         zzbr62fl
-#&gt;                                                                     dataset_path
-#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmpc7cK3g/rdhs/datasets/zzbr62dt.rds
-#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmpc7cK3g/rdhs/datasets/zzbr62dt.rds
-#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmpc7cK3g/rdhs/datasets/zzbr62fl.rds
-#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Temp\\Rtmpc7cK3g/rdhs/datasets/zzbr62fl.rds
+#&gt;                                                                   dataset_path
+#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
+#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
+#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62fl.rds
+#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62fl.rds
 #&gt;   survey_id
 #&gt; 1        NA
 #&gt; 2        NA

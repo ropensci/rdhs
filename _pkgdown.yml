@@ -76,6 +76,8 @@ navbar:
         href: articles/client.html
       - text: How to use geojson API results
         href: articles/geojson.html
+      - text: Country Codes
+        href: articles/country_codes.html
       - text: -------
       - text: Contributing
         href: CONTRIBUTING.html

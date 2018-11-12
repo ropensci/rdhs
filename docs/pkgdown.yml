@@ -4,6 +4,7 @@ pkgdown_sha: b62fef53d0a5633adea58b9c503d35e465a9af43
 articles:
   anemia: anemia.html
   client: client.html
+  country_codes: country_codes.html
   geojson: geojson.html
   introduction: introduction.html
   testing: testing.html
