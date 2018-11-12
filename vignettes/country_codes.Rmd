@@ -17,6 +17,8 @@ specifying the `returnFields` argument to just return the country name and
 DHS country code. This is a useful reference table when you want to pass in 
 country IDs to a number of the API functions, e.g. `dhs_data(countryIds = )`
 
+
+
 ```r
 ## what are the countryIds
 ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
