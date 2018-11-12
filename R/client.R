@@ -40,10 +40,10 @@ client_dhs <- function(config=NULL,
     # If there was already a client in your root (i.e. there was a DHS update)
     # then empty the api_call cache namespace and check package version
     if (cache_date > 0) {
-      message("DHS API has been updated since you last created a DHS client",
+      message("\nDHS API has been updated since you last set up a DHS client\n",
               "in this root directory.")
-      message("Previous API / dataset requests will subsequently be rerun in",
-              "order to ensure your results are up to date. :)")
+      message("Previous API / dataset requests will subsequently be rerun in\n",
+              "order to ensure your results are up to date.\n")
       client$clear_namespace(namespace = "api_calls")
       client$clear_namespace(namespace = "available_datasets_calls")
 
