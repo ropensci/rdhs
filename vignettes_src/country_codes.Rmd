@@ -1,0 +1,28 @@
+---
+title: "Country Names and Codes"
+author: "OJ Watson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Country Codes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+## Overview
+
+The following shows how to return a table of the country names and 2 letter codes. 
+
+We can get this information by querying the API using `dhs_countries`, and
+specifying the `returnFields` argument to just return the country name and 
+DHS country code. This is a useful reference table when you want to pass in 
+country IDs to a number of the API functions, e.g. `dhs_data(countryIds = "BJ")`
+
+
+``` {r set config, message = FALSE}
+
+library(rdhs)
+
+## what are the countryIds
+ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
+ids
+```

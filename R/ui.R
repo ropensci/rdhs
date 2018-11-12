@@ -80,7 +80,7 @@ get_rdhs_config <- function() {
 #'   within. The default will download
 #'   datasets to a subfolder of the client root called "datasets"
 #' @param clear_cache Should your available datasets cache be cleared first.
-#'   This will allow newly accessed datasets to be available. Default = `TRUE`
+#'   This will allow newly accessed datasets to be available. Default = `FALSE`
 #' @param ... Any other arguments to be passed to \code{\link{read_dhs_dataset}}
 #'
 #' @rdname get_datasets

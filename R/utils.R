@@ -162,7 +162,7 @@ mdy_hms <- function(dates) {
 
   Sys.setlocale("LC_TIME", "C")
 
-  strptime(dates, format = "%B, %d %Y %H:%M:%S")
+  suppressWarnings(strptime(dates, format = "%B, %d %Y %H:%M:%S"))
 }
 
 

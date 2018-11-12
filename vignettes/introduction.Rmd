@@ -1,7 +1,7 @@
 ---
 title: "How to use rdhs?"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-09-24"
+date: "2018-11-12"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to use rdhs?}
@@ -32,12 +32,17 @@ Install rdhs from github with `devtools`:
 library(rdhs)
 ```
 
+---
+
+ > Before starting the tutorial, if you wish to download survey datasets from the DHS website, you will need to set up an account with the DHS website, which will enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. You can still interact with the DHS API in section 1-2 below without having an account with the DHS website, however, you will need to create an account if you wish to go through steps 3-5. 
+
+---
 
 ## 1. Access standard indicator data via the API
 
-The DHS API has many *endpoints* that can be accessed using anyone of `dhs_<endpoint>()` functions. All exported functions within `rdhs` that start *dhs_* interact with a different with a different endpoint of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.
+The DHS programme has published an API that gives access to a number of different data sets, which each represent one of the DHS API endpoints (e.g.  https://api.dhsprogram.com/rest/tags, or https://api.dhsprogram.com/rest/dhs/surveys). These data sets include the standard health indicators that are available within [DHS STATcompiler](https://www.statcompiler.com/) as well as a series of meta data sets that describe the types of surveys that have been conducted as well as which raw dataset files are available from which surveys. Each of these data sets are described within the [DHS API website](https://api.dhsprogram.com/), and there are currently 12 different data sets available from the API. Each of these data sets can be accessed using anyone of `dhs_<>()` functions.  All exported functions within `rdhs` that start *dhs_* interact with a different data set of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function. Each of these data sets
 
-One of those endpoints, `dhs_data()`, interacts with the the published set of standard health indicator data calculated by the DHS. This endpoint allows use to retrieve a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the `dhs_data()` endpoint, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
+One of those functions, `dhs_data()`, interacts with the the published set of standard health indicator data calculated by the DHS. This data set contains a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the `dhs_data()` function, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
 
 
 ```r
@@ -65,7 +70,7 @@ indicators[1,]
 ## 1
 ```
 
-Each call to a DHS endpoint returns a `data.frame` by default with all the results available by default. 
+Each call to the DHS API returns a `data.frame` by default with all the results available by default. 
 
 The DHS has a unique *IndicatorId* for each of the statistics it calculates. The definition and specific string for each indicator is included within the *IndicatorId* and *Definition* variable:
 
@@ -91,7 +96,7 @@ indicators[order(indicators$IndicatorId),][1:5,c("IndicatorId", "Definition")]
 ```
 
 
-Since there are quite a lot of indicators, it might be easier to first query by tags. The DHS tags their indicators by what areas of demography and health they relate to, e.g. anaemia, literacy, malaria parasitaemia are all specific tags. First let's look at what the tags are, by interacting with the `dhs_tags()` endpoint, before grabbing data that related to malaria parasitaemia in the DRC and Tanzania since 2010:
+Since there are quite a lot of indicators, it might be easier to first query by tags. The DHS tags their indicators by what areas of demography and health they relate to, e.g. anaemia, literacy, malaria parasitaemia are all specific tags. First let's look at what the tags are, by interacting with the `dhs_tags()` function, before grabbing data that related to malaria parasitaemia in the DRC and Tanzania since 2010:
 
 
 ```r
@@ -115,8 +120,8 @@ data[1,]
 ```
 
 ```
-##   DataId                           Indicator  SurveyId IsPreferred Value
-## 1 941297 Malaria prevalence according to RDT CD2013DHS           1  17.1
+##    DataId                           Indicator  SurveyId IsPreferred Value
+## 1 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -146,6 +151,13 @@ countries  <- c("Angola","Ghana","Kenya","Liberia",
 
 # and plot the results
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 3.5.1
+```
+
+```r
 ggplot(resp[resp$CountryName %in% countries,],
        aes(x=SurveyYear,y=Value,colour=CountryName)) +
   geom_point() +
@@ -177,11 +189,11 @@ resp <- dhs_data(indicatorIds="ML_FEVT_C_AMasfafasfL",
 
 ## 2. Identify surveys relevant for further analysis
 
-You may, however, wish to do more nuanced analysis than the API allows. The following 4 section detail a very basic example of how to quickly identify, download and extract datasets you are interested in.
+You may, however, wish to do more nuanced analysis than the API allows. The following 4 sections detail a very basic example of how to quickly identify, download and extract datasets you are interested in.
 
-Let's say we want to get all the survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we'll interact with the DHS API to identify our datasets.
+Let's say we want to get all DHS survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we'll interact with the DHS API to identify our datasets.
 
-To start our extraction we'll query the *surveyCharacteristics* endpoint using `dhs_survey_characteristics()`:
+To start our extraction we'll query the *surveyCharacteristics* data set using `dhs_survey_characteristics()` function:
 
 
 ```r
@@ -200,7 +212,7 @@ sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 ```
 
 
-There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their *countryIds*, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API endpoints first:
+There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We'll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their *countryIds*, which is one of the arguments in `dhs_surveys()`. To have a look at what each countries countryId is we can use another of the API functions:
 
 
 ```r
@@ -219,6 +231,7 @@ str(ids)
 # lets find all the surveys that fit our search criteria
 survs <- dhs_surveys(surveyCharacteristicIds = 89,
                      countryIds = c("CD","TZ"),
+                     surveyType = "DHS",
                      surveyYearStart = 2013)
 
 # and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)
@@ -268,10 +281,6 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ##    -> C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json
 ```
 
-```
-## C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json has been added to your .gitignore
-```
-
 
 Because you may have more than one project set up with the DHS website, you may want to have a separate directory for each set of datasets, and thus you will need to set up a different config file. To do this you need to set up a local config file. This can be achieved by setting the `global` param to `FALSE` (i.e. not global). You will also now need to provide the `config_path` argument, which MUST be **"rdhs.json"**. In order to comply with CRAN, you have to type this in (rather than have it as the default option).
 
@@ -290,14 +299,6 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ##    -> rdhs.json
 ```
 
-```
-## Adding rdhs.json to .gitignore
-```
-
-```
-## rdhs.json has been added to your .gitignore
-```
-
 You may, however, not have different projects with the DHS website, in which case you may prefer to set up one global config file. If you do not want this to be saved in your user cache directory, you can set `global` to `TRUE` (the default) and this will save it in your R default launch directory. This MUST be **~/.rdhs.json**. (There is not really any difference between saving it at `~/.rdhs.json` vs the user cache directory, but you might want to have it somewhere easy to find etc).
 
 
@@ -312,14 +313,6 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ```
 ## Writing your configuration to:
 ##    -> ~/.rdhs.json
-```
-
-```
-## Adding ~/.rdhs.json to .gitignore
-```
-
-```
-## ~/.rdhs.json has been added to your .gitignore
 ```
 
 
@@ -342,10 +335,6 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 ##    -> ~/.rdhs.json
 ```
 
-```
-## ~/.rdhs.json has been added to your .gitignore
-```
-
 
 To see what config that is being used by `rdhs` at any point, then use `get_rdhs_config()` to view the config settings.
 
@@ -356,28 +345,28 @@ Before we download our datasets, it is worth mentioning that once you have set u
 
 ```r
 # the first time we call this function, rdhs will make the API request
-microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1991),times = 1)
-```
-
-```
-## Unit: milliseconds
-##                            expr     min      lq    mean  median      uq
-##  dhs_surveys(surveyYear = 1991) 110.775 110.775 110.775 110.775 110.775
-##      max neval
-##  110.775     1
-```
-
-```r
-# with it cached it will be returned much quicker
-microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1991), times = 1)
+microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992),times = 1)
 ```
 
 ```
 ## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 2.340517 2.340517 2.340517 2.340517
+##  dhs_surveys(surveyYear = 1992) 4.934442 4.934442 4.934442 4.934442
 ##        uq      max neval
-##  2.340517 2.340517     1
+##  4.934442 4.934442     1
+```
+
+```r
+# with it cached it will be returned much quicker
+microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992), times = 1)
+```
+
+```
+## Unit: milliseconds
+##                            expr      min       lq     mean   median
+##  dhs_surveys(surveyYear = 1992) 2.308836 2.308836 2.308836 2.308836
+##        uq      max neval
+##  2.308836 2.308836     1
 ```
 
 
@@ -404,8 +393,44 @@ We can now examine what it is we have actually downloaded, by reading in one of 
 cdpr <- readRDS(downloads$CDPR61FL)
 ```
 
+The dataset returned here contains all the survey questions within the dataset.  The dataset is by default stored as a *labelled* class from the [haven package](https://github.com/tidyverse/haven). This class preserves the original semantics and can easily be coerced to factors with `haven::as_factor()`. Special missing values are also preserved. For more info on the *labelled* class have a look at their github.
 
-The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:
+So if we have a look at what is returned for the variable *hv024*:
+
+
+```r
+head(cdpr$hv024)
+```
+
+```
+## <Labelled integer>
+## [1] 4 4 4 4 4 4
+## 
+## Labels:
+##  value            label
+##      1         kinshasa
+##      2         bandundu
+##      3        bas-congo
+##      4         equateur
+##      5 kasai-occidental
+##      6   kasai-oriental
+##      7          katanga
+##      8          maniema
+##      9        nord-kivu
+##     10        orientale
+##     11         sud-kivu
+```
+
+```r
+# and then the dataset
+class(cdpr$hv024)
+```
+
+```
+## [1] "labelled"
+```
+
+If we want to get the data dictionary for this dataset, we can use the function `get_variable_labels`, which will return what question each of the variables in our dataset refer to:
 
 
 ```r
@@ -423,23 +448,17 @@ head(get_variable_labels(cdpr))
 ## 6    hv003 Respondent's line number (answering Household questionnaire)
 ```
 
-```r
-# and then the dataset
-class(cdpr$hv024)
-```
+For many of the survey responses this will give enough information for us to understand what the data is. However, for some questions it may be less clear exactly what the question means and how it may differ to other similar questions. If this is the case, then the DHS website publishes a lot of infrmation about the survey protocols and the surveys. We strongly advise for people to have a look through the [DHS website's documentation about using their datasets for analysis section](https://www.dhsprogram.com/data/Using-Datasets-for-Analysis.cfm), as well as the [recode files](https://www.dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm) to understand how the surveys are carried out.
 
-```
-## [1] "labelled"
-```
+---
 
-
-This is the default behaviour for the function `get_datasets` - it will download the datasets for you, and then by default save them in your root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the root directory. You can control this behaviour using the `download_option` argument as such:
+Above we saw that the default behaviour for the function `get_datasets` was to download the datasets, read them in, and save the resultant data.frame as a .rds object within the cache directory. You can control this behaviour using the `download_option` argument as such:
 
 * `get_datasets(download_option = "zip")` - Just the downloaded zip will be saved
 * `get_datasets(download_option = "rds")` - Just the read in rds will be saved
 * `get_datasets(download_option = "both")` - The zip is downloaded and saved as well as the read in rds
 
-The other main reason for reading the dataset in straight away as the default option is that `rdhs` will also create a table of all the survey variables and their labels (definitions) and cached them for you, which then allows us to quickly query for particular search terms or survey variables:
+The other main reason for reading the dataset in straight away as the default option is that `rdhs` will also create a table of all the survey variables and their labels (definitions) and cache them for you, which then allows us to quickly query for particular search terms or survey variables:
 
 
 ```r
@@ -495,7 +514,7 @@ str(extract)
 ```
 
 
-The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a *labelled* class from the [haven package](https://github.com/tidyverse/haven). This class preserves the original semantics and can easily be coerced to factors with `haven::as_factor()`. Special missing values are also preserved. For more info on the *labelled* class have a look at their github.
+The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a *labelled* class from the [haven package](https://github.com/tidyverse/haven). 
 
 We can also query our datasets for the survey question variables. In the example above the survey variable label was *Result of malaria rapid test* and the variable was *hml35*. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the *variable_names* included in the datasets) then we could search against these. So let's grab the regions using *hv024* using the client function `search_variables()`:
 

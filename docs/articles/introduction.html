@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -67,6 +67,9 @@
     </li>
     <li>
       <a href="../articles/geojson.html">How to use geojson API results</a>
+    </li>
+    <li>
+      <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider">
     <li>
@@ -106,7 +109,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-09-24</h4>
+            <h4 class="date">2018-11-12</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -135,12 +138,17 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
 <span class="kw">library</span>(rdhs)</code></pre></div>
+<hr>
+<blockquote>
+<p>Before starting the tutorial, if you wish to download survey datasets from the DHS website, you will need to set up an account with the DHS website, which will enable you to request access to the datasets. Instructions on how to do this can be found <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. The email, password, and project name that were used to create the account will then need to be provided to <code>rdhs</code> when attempting to download datasets. You can still interact with the DHS API in section 1-2 below without having an account with the DHS website, however, you will need to create an account if you wish to go through steps 3-5.</p>
+</blockquote>
+<hr>
 </div>
 <div id="access-standard-indicator-data-via-the-api" class="section level2">
 <h2 class="hasAnchor">
 <a href="#access-standard-indicator-data-via-the-api" class="anchor"></a>1. Access standard indicator data via the API</h2>
-<p>The DHS API has many <em>endpoints</em> that can be accessed using anyone of <code>dhs_&lt;endpoint&gt;()</code> functions. All exported functions within <code>rdhs</code> that start <em>dhs_</em> interact with a different with a different endpoint of the <a href="https://api.dhsprogram.com/">DHS API</a>. Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.</p>
-<p>One of those endpoints, <code><a href="../reference/dhs_data.html">dhs_data()</a></code>, interacts with the the published set of standard health indicator data calculated by the DHS. This endpoint allows use to retrieve a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the <code><a href="../reference/dhs_data.html">dhs_data()</a></code> endpoint, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.</p>
+<p>The DHS programme has published an API that gives access to a number of different data sets, which each represent one of the DHS API endpoints (e.g. <a href="https://api.dhsprogram.com/rest/tags" class="uri">https://api.dhsprogram.com/rest/tags</a>, or <a href="https://api.dhsprogram.com/rest/dhs/surveys" class="uri">https://api.dhsprogram.com/rest/dhs/surveys</a>). These data sets include the standard health indicators that are available within <a href="https://www.statcompiler.com/">DHS STATcompiler</a> as well as a series of meta data sets that describe the types of surveys that have been conducted as well as which raw dataset files are available from which surveys. Each of these data sets are described within the <a href="https://api.dhsprogram.com/">DHS API website</a>, and there are currently 12 different data sets available from the API. Each of these data sets can be accessed using anyone of <code>dhs_&lt;&gt;()</code> functions. All exported functions within <code>rdhs</code> that start <em>dhs_</em> interact with a different data set of the <a href="https://api.dhsprogram.com/">DHS API</a>. Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function. Each of these data sets</p>
+<p>One of those functions, <code><a href="../reference/dhs_data.html">dhs_data()</a></code>, interacts with the the published set of standard health indicator data calculated by the DHS. This data set contains a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the <code><a href="../reference/dhs_data.html">dhs_data()</a></code> function, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the indicators
 indicators &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span>()
 indicators[<span class="dv">1</span>,]</code></pre></div>
@@ -160,7 +168,7 @@ indicators[<span class="dv">1</span>,]</code></pre></div>
 ## 1                                                           
 ##   IndicatorSpecial2Id
 ## 1</code></pre>
-<p>Each call to a DHS endpoint returns a <code>data.frame</code> by default with all the results available by default.</p>
+<p>Each call to the DHS API returns a <code>data.frame</code> by default with all the results available by default.</p>
 <p>The DHS has a unique <em>IndicatorId</em> for each of the statistics it calculates. The definition and specific string for each indicator is included within the <em>IndicatorId</em> and <em>Definition</em> variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grab the first 5 alphabetically</span>
 indicators[<span class="kw">order</span>(indicators<span class="op">$</span>IndicatorId),][<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"Definition"</span>)]</code></pre></div>
@@ -176,7 +184,7 @@ indicators[<span class="kw">order</span>(indicators<span class="op">$</span>Indi
 ## 2023 Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
 ## 2024 Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
 ## 2025 Percentage of women who smoked 6-9 cigarettes in preceding 24 hours</code></pre>
-<p>Since there are quite a lot of indicators, it might be easier to first query by tags. The DHS tags their indicators by what areas of demography and health they relate to, e.g. anaemia, literacy, malaria parasitaemia are all specific tags. First let’s look at what the tags are, by interacting with the <code><a href="../reference/dhs_tags.html">dhs_tags()</a></code> endpoint, before grabbing data that related to malaria parasitaemia in the DRC and Tanzania since 2010:</p>
+<p>Since there are quite a lot of indicators, it might be easier to first query by tags. The DHS tags their indicators by what areas of demography and health they relate to, e.g. anaemia, literacy, malaria parasitaemia are all specific tags. First let’s look at what the tags are, by interacting with the <code><a href="../reference/dhs_tags.html">dhs_tags()</a></code> function, before grabbing data that related to malaria parasitaemia in the DRC and Tanzania since 2010:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># What are the tags</span>
 tags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_tags.html">dhs_tags</a></span>()
 
@@ -188,8 +196,8 @@ tags[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, tags<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and now let's then grab this data by specifying the countryIds and the survey year starts</span>
 data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)
 data[<span class="dv">1</span>,]</code></pre></div>
-<pre><code>##   DataId                           Indicator  SurveyId IsPreferred Value
-## 1 941297 Malaria prevalence according to RDT CD2013DHS           1  17.1
+<pre><code>##    DataId                           Indicator  SurveyId IsPreferred Value
+## 1 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
@@ -212,8 +220,9 @@ countries  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
                 <span class="st">"Rwanda"</span>,<span class="st">"Sierra Leone"</span>,<span class="st">"Senegal"</span>,<span class="st">"Tanzania"</span>)
 
 <span class="co"># and plot the results</span>
-<span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(resp[resp<span class="op">$</span>CountryName <span class="op">%in%</span><span class="st"> </span>countries,],
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(resp[resp<span class="op">$</span>CountryName <span class="op">%in%</span><span class="st"> </span>countries,],
        <span class="kw">aes</span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"glm"</span>) <span class="op">+</span><span class="st"> </span>
@@ -233,9 +242,9 @@ resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_da
 <div id="identify-surveys-relevant-for-further-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-surveys-relevant-for-further-analysis" class="anchor"></a>2. Identify surveys relevant for further analysis</h2>
-<p>You may, however, wish to do more nuanced analysis than the API allows. The following 4 section detail a very basic example of how to quickly identify, download and extract datasets you are interested in.</p>
-<p>Let’s say we want to get all the survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we’ll interact with the DHS API to identify our datasets.</p>
-<p>To start our extraction we’ll query the <em>surveyCharacteristics</em> endpoint using <code><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics()</a></code>:</p>
+<p>You may, however, wish to do more nuanced analysis than the API allows. The following 4 sections detail a very basic example of how to quickly identify, download and extract datasets you are interested in.</p>
+<p>Let’s say we want to get all DHS survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we’ll interact with the DHS API to identify our datasets.</p>
+<p>To start our extraction we’ll query the <em>surveyCharacteristics</em> data set using <code><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics()</a></code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## make a call with no arguments
 sc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()
 sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]</code></pre></div>
@@ -245,7 +254,7 @@ sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc<span clas
 ## 59                     89            Malaria - RDT
 ## 60                     57          Malaria module 
 ## 61                      8 Malaria/bednet questions</code></pre>
-<p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="../reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API endpoints first:</p>
+<p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="../reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds
 ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
 <span class="kw">str</span>(ids)</code></pre></div>
@@ -255,6 +264,7 @@ ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_cou
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets find all the surveys that fit our search criteria</span>
 survs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,
                      <span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),
+                     <span class="dt">surveyType =</span> <span class="st">"DHS"</span>,
                      <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)
 
 <span class="co"># and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)</span>
@@ -289,7 +299,6 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json</code></pre>
-<pre><code>## C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json has been added to your .gitignore</code></pre>
 <p>Because you may have more than one project set up with the DHS website, you may want to have a separate directory for each set of datasets, and thus you will need to set up a different config file. To do this you need to set up a local config file. This can be achieved by setting the <code>global</code> param to <code>FALSE</code> (i.e. not global). You will also now need to provide the <code>config_path</code> argument, which MUST be <strong>“rdhs.json”</strong>. In order to comply with CRAN, you have to type this in (rather than have it as the default option).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
 <span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
@@ -299,8 +308,6 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; rdhs.json</code></pre>
-<pre><code>## Adding rdhs.json to .gitignore</code></pre>
-<pre><code>## rdhs.json has been added to your .gitignore</code></pre>
 <p>You may, however, not have different projects with the DHS website, in which case you may prefer to set up one global config file. If you do not want this to be saved in your user cache directory, you can set <code>global</code> to <code>TRUE</code> (the default) and this will save it in your R default launch directory. This MUST be <strong>~/.rdhs.json</strong>. (There is not really any difference between saving it at <code>~/.rdhs.json</code> vs the user cache directory, but you might want to have it somewhere easy to find etc).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
 <span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
@@ -309,8 +316,6 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
-<pre><code>## Adding ~/.rdhs.json to .gitignore</code></pre>
-<pre><code>## ~/.rdhs.json has been added to your .gitignore</code></pre>
 <p>After you have used <code>set_rdhs_config</code>, <code>rdhs</code> will try and find your config file when you next use <code>rdhs</code> in a different R session. It will do so by first looking locally for “rdhs.json”, then globally for “~/.rdhs.json”, then into your user cache directory, before lastly creating one in your temp directory. This is what was happening when you first used one of the API functions, and as such the config that is created to query the API initially will not be able to download datasets.</p>
 <p>Lastly, if you wish to return a <code>data.table</code> from your API requests, rather than a <code>data.frame</code> then you can change the default behaviour using the <code>data_frame</code> argument. You could also use this to convert them to <code>tibbles</code> and so on:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set up your credentials
@@ -321,24 +326,23 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dh
                 <span class="dt">global =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
-<pre><code>## ~/.rdhs.json has been added to your .gitignore</code></pre>
 <p>To see what config that is being used by <code>rdhs</code> at any point, then use <code><a href="../reference/get_rdhs_config.html">get_rdhs_config()</a></code> to view the config settings.</p>
 <hr>
 <p>Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the cache directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests. If you do not, API requests will still be cached within the temp directory, so will be quick to be returned a second time, but they will then be deleted when you start a new R session.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time we call this function, rdhs will make the API request</span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## Unit: milliseconds
-##                            expr     min      lq    mean  median      uq
-##  dhs_surveys(surveyYear = 1991) 110.775 110.775 110.775 110.775 110.775
-##      max neval
-##  110.775     1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1991</span>), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>),<span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1991) 2.340517 2.340517 2.340517 2.340517
+##  dhs_surveys(surveyYear = 1992) 4.934442 4.934442 4.934442 4.934442
 ##        uq      max neval
-##  2.340517 2.340517     1</code></pre>
+##  4.934442 4.934442     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># with it cached it will be returned much quicker</span>
+microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>), <span class="dt">times =</span> <span class="dv">1</span>)</code></pre></div>
+<pre><code>## Unit: milliseconds
+##                            expr      min       lq     mean   median
+##  dhs_surveys(surveyYear = 1992) 2.308836 2.308836 2.308836 2.308836
+##        uq      max neval
+##  2.308836 2.308836     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
@@ -351,7 +355,29 @@ downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/g
 <p>We can now examine what it is we have actually downloaded, by reading in one of these datasets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in our dataset</span>
 cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads<span class="op">$</span>CDPR61FL)</code></pre></div>
-<p>The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:</p>
+<p>The dataset returned here contains all the survey questions within the dataset. The dataset is by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="http://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
+<p>So if we have a look at what is returned for the variable <em>hv024</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cdpr<span class="op">$</span>hv024)</code></pre></div>
+<pre><code>## &lt;Labelled integer&gt;
+## [1] 4 4 4 4 4 4
+## 
+## Labels:
+##  value            label
+##      1         kinshasa
+##      2         bandundu
+##      3        bas-congo
+##      4         equateur
+##      5 kasai-occidental
+##      6   kasai-oriental
+##      7          katanga
+##      8          maniema
+##      9        nord-kivu
+##     10        orientale
+##     11         sud-kivu</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and then the dataset</span>
+<span class="kw">class</span>(cdpr<span class="op">$</span>hv024)</code></pre></div>
+<pre><code>## [1] "labelled"</code></pre>
+<p>If we want to get the data dictionary for this dataset, we can use the function <code>get_variable_labels</code>, which will return what question each of the variables in our dataset refer to:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's look at the variable_names</span>
 <span class="kw">head</span>(<span class="kw"><a href="../reference/get_variable_labels.html">get_variable_labels</a></span>(cdpr))</code></pre></div>
 <pre><code>##   variable                                                  description
@@ -361,10 +387,9 @@ cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads<spa
 ## 4    hv001                                               Cluster number
 ## 5    hv002                                             Household number
 ## 6    hv003 Respondent's line number (answering Household questionnaire)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and then the dataset</span>
-<span class="kw">class</span>(cdpr<span class="op">$</span>hv024)</code></pre></div>
-<pre><code>## [1] "labelled"</code></pre>
-<p>This is the default behaviour for the function <code>get_datasets</code> - it will download the datasets for you, and then by default save them in your root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the root directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
+<p>For many of the survey responses this will give enough information for us to understand what the data is. However, for some questions it may be less clear exactly what the question means and how it may differ to other similar questions. If this is the case, then the DHS website publishes a lot of infrmation about the survey protocols and the surveys. We strongly advise for people to have a look through the <a href="https://www.dhsprogram.com/data/Using-Datasets-for-Analysis.cfm">DHS website’s documentation about using their datasets for analysis section</a>, as well as the <a href="https://www.dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">recode files</a> to understand how the surveys are carried out.</p>
+<hr>
+<p>Above we saw that the default behaviour for the function <code>get_datasets</code> was to download the datasets, read them in, and save the resultant data.frame as a .rds object within the cache directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
 <ul>
 <li>
 <code><a href="../reference/get_datasets.html">get_datasets(download_option = "zip")</a></code> - Just the downloaded zip will be saved</li>
@@ -373,7 +398,7 @@ cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads<spa
 <li>
 <code><a href="../reference/get_datasets.html">get_datasets(download_option = "both")</a></code> - The zip is downloaded and saved as well as the read in rds</li>
 </ul>
-<p>The other main reason for reading the dataset in straight away as the default option is that <code>rdhs</code> will also create a table of all the survey variables and their labels (definitions) and cached them for you, which then allows us to quickly query for particular search terms or survey variables:</p>
+<p>The other main reason for reading the dataset in straight away as the default option is that <code>rdhs</code> will also create a table of all the survey variables and their labels (definitions) and cache them for you, which then allows us to quickly query for particular search terms or survey variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rapid diagnostic test search</span>
 questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)
 
@@ -412,7 +437,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ext
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:64880] "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" ...</code></pre>
-<p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="http://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
+<p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>.</p>
 <p>We can also query our datasets for the survey question variables. In the example above the survey variable label was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code><a href="../reference/search_variables.html">search_variables()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and grab the questions from this now utilising the survey variables</span>
 questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
