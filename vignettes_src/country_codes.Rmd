@@ -1,7 +1,7 @@
 ---
 title: "Country Names and Codes"
 author: "OJ Watson"
-date: "2018-11-12"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Toolkit}
@@ -17,7 +17,10 @@ specifying the `returnFields` argument to just return the country name and
 DHS country code. This is a useful reference table when you want to pass in 
 country IDs to a number of the API functions, e.g. `dhs_data(countryIds = )`
 
-```r
+
+``` {r set config, R.options=list("rappdir_permission"=TRUE), message = FALSE}
+
 ## what are the countryIds
 ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
+
 ```
