@@ -123,7 +123,9 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The following shows how to return a table of the country names and 2 letter codes.</p>
 <p>We can get this information by querying the API using <code>dhs_countries</code>, and specifying the <code>returnFields</code> argument to just return the country name and DHS country code. This is a useful reference table when you want to pass in country IDs to a number of the API functions, e.g. <code><a href="../reference/dhs_data.html">dhs_data(countryIds = "BJ")</a></code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rdhs)
+
+## what are the countryIds
 ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
 ids</code></pre></div>
 <pre><code>##    DHS_CountryCode                      CountryName

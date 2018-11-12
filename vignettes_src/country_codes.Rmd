@@ -20,6 +20,8 @@ country IDs to a number of the API functions, e.g. `dhs_data(countryIds = "BJ")`
 
 ``` {r set config, R.options=list("rappdir_permission"=TRUE), message = FALSE}
 
+library(rdhs)
+
 ## what are the countryIds
 ids <- dhs_countries(returnFields=c("CountryName", "DHS_CountryCode"))
 ids

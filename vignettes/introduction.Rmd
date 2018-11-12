@@ -40,7 +40,7 @@ library(rdhs)
 
 ## 1. Access standard indicator data via the API
 
-The DHS programme has published an API that gives access to a number of different data sets. These data sets include the standard health indicators that are available within [DHS STATcompiler](https://www.statcompiler.com/) as well as a series of meta data sets that describe the types of surveys that have been conducted as well as which raw dataset files are available from which surveys. Each of these data sets are described within the [DHS API website](https://api.dhsprogram.com/), and there are currently 12 different data sets available from the API. Each of these data sets can be accessed using anyone of `dhs_<>()` functions.  All exported functions within `rdhs` that start *dhs_* interact with a different with a different data set of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function.
+The DHS programme has published an API that gives access to a number of different data sets, which each represent one of the DHS API endpoints (e.g.  https://api.dhsprogram.com/rest/tags, or https://api.dhsprogram.com/rest/dhs/surveys). These data sets include the standard health indicators that are available within [DHS STATcompiler](https://www.statcompiler.com/) as well as a series of meta data sets that describe the types of surveys that have been conducted as well as which raw dataset files are available from which surveys. Each of these data sets are described within the [DHS API website](https://api.dhsprogram.com/), and there are currently 12 different data sets available from the API. Each of these data sets can be accessed using anyone of `dhs_<>()` functions.  All exported functions within `rdhs` that start *dhs_* interact with a different data set of the [DHS API](https://api.dhsprogram.com/). Their website gives great information about the different search terms and filters that can be used, and we have tried to include all of this within the documentation of each function. Each of these data sets
 
 One of those functions, `dhs_data()`, interacts with the the published set of standard health indicator data calculated by the DHS. This data set contains a set of health indicators that have been sample weighted to give country, subnational estimates that can be further refined by education and wealth brackets. To do this we use the `dhs_data()` function, which we can then either search for specific indicators, or by querying for indicators that have been tagged within specific areas.
 
@@ -52,22 +52,22 @@ indicators[1,]
 ```
 
 ```
-##                                                                                                            Definition
-## 1: Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
-##    NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
-## 1:           0             I            Rate           0 ASFR 10-14
-##      IndicatorId    Level1 IndicatorTotalId          Level2 Level3
-## 1: FE_FRTR_W_A10 Fertility                  Fertility rates  Women
-##         SDRID IndicatorOldId TagIds DenominatorWeightedId
-## 1: FEFRTRWA10                                            
-##                                 Label IndicatorOrder
-## 1: Age specific fertility rate: 10-14       11763005
-##                                                                      Denominator
-## 1: Per thousand women years exposed in the period 1-36 months prior to interview
-##    QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
-## 1:                                                           
-##    IndicatorSpecial2Id
-## 1:
+##                                                                                                           Definition
+## 1 Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
+##   NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
+## 1           0             I            Rate           0 ASFR 10-14
+##     IndicatorId    Level1 IndicatorTotalId          Level2 Level3
+## 1 FE_FRTR_W_A10 Fertility                  Fertility rates  Women
+##        SDRID IndicatorOldId TagIds DenominatorWeightedId
+## 1 FEFRTRWA10                                            
+##                                Label IndicatorOrder
+## 1 Age specific fertility rate: 10-14       11763005
+##                                                                     Denominator
+## 1 Per thousand women years exposed in the period 1-36 months prior to interview
+##   QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
+## 1                                                           
+##   IndicatorSpecial2Id
+## 1
 ```
 
 Each call to the DHS API returns a `data.frame` by default with all the results available by default. 
@@ -81,18 +81,18 @@ indicators[order(indicators$IndicatorId),][1:5,c("IndicatorId", "Definition")]
 ```
 
 ```
-##      IndicatorId
-## 1: AH_CIGA_M_UNW
-## 2: AH_CIGA_W_10P
-## 3: AH_CIGA_W_12C
-## 4: AH_CIGA_W_35C
-## 5: AH_CIGA_W_69C
-##                                                             Definition
-## 1:                     Number of men who smoke cigarettes (unweighted)
-## 2: Percentage of women who smoked 10+ cigarettes in preceding 24 hours
-## 3: Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
-## 4: Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
-## 5: Percentage of women who smoked 6-9 cigarettes in preceding 24 hours
+##        IndicatorId
+## 2031 AH_CIGA_M_UNW
+## 2026 AH_CIGA_W_10P
+## 2023 AH_CIGA_W_12C
+## 2024 AH_CIGA_W_35C
+## 2025 AH_CIGA_W_69C
+##                                                               Definition
+## 2031                     Number of men who smoke cigarettes (unweighted)
+## 2026 Percentage of women who smoked 10+ cigarettes in preceding 24 hours
+## 2023 Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
+## 2024 Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
+## 2025 Percentage of women who smoked 6-9 cigarettes in preceding 24 hours
 ```
 
 
@@ -109,8 +109,8 @@ tags[grepl("Malaria", tags$TagName), ]
 
 ```
 ##    TagType                   TagName TagID TagOrder
-## 1:       0       Malaria Parasitemia    36      540
-## 2:       2 Select Malaria Indicators    79     1000
+## 31       0       Malaria Parasitemia    36      540
+## 43       2 Select Malaria Indicators    79     1000
 ```
 
 ```r
@@ -120,20 +120,20 @@ data[1,]
 ```
 
 ```
-##     DataId                           Indicator  SurveyId IsPreferred Value
-## 1: 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
-##         SDRID Precision        RegionId SurveyYearLabel SurveyType
-## 1: MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
-##    SurveyYear IndicatorOrder DHS_CountryCode CILow
-## 1:       2013      125136010              CD      
-##                  CountryName IndicatorType CharacteristicId
-## 1: Congo Democratic Republic             I           503010
-##    CharacteristicCategory   IndicatorId CharacteristicOrder
-## 1:                 Region ML_PMAL_C_RDT             1503010
-##    CharacteristicLabel ByVariableLabel DenominatorUnweighted
-## 1:            Kinshasa                                   406
-##    DenominatorWeighted CIHigh IsTotal ByVariableId
-## 1:                 532              0            0
+##    DataId                           Indicator  SurveyId IsPreferred Value
+## 1 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
+##        SDRID Precision        RegionId SurveyYearLabel SurveyType
+## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
+##   SurveyYear IndicatorOrder DHS_CountryCode CILow
+## 1       2013      125136010              CD      
+##                 CountryName IndicatorType CharacteristicId
+## 1 Congo Democratic Republic             I           503010
+##   CharacteristicCategory   IndicatorId CharacteristicOrder
+## 1                 Region ML_PMAL_C_RDT             1503010
+##   CharacteristicLabel ByVariableLabel DenominatorUnweighted
+## 1            Kinshasa                                   406
+##   DenominatorWeighted CIHigh IsTotal ByVariableId
+## 1                 532              0            0
 ```
 
 
@@ -151,6 +151,13 @@ countries  <- c("Angola","Ghana","Kenya","Liberia",
 
 # and plot the results
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 3.5.1
+```
+
+```r
 ggplot(resp[resp$CountryName %in% countries,],
        aes(x=SurveyYear,y=Value,colour=CountryName)) +
   geom_point() +
@@ -197,11 +204,11 @@ sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 ```
 ##    SurveyCharacteristicID SurveyCharacteristicName
-## 1:                     96            Malaria - DBS
-## 2:                     90     Malaria - Microscopy
-## 3:                     89            Malaria - RDT
-## 4:                     57          Malaria module 
-## 5:                      8 Malaria/bednet questions
+## 57                     96            Malaria - DBS
+## 58                     90     Malaria - Microscopy
+## 59                     89            Malaria - RDT
+## 60                     57          Malaria module 
+## 61                      8 Malaria/bednet questions
 ```
 
 
@@ -215,10 +222,9 @@ str(ids)
 ```
 
 ```
-## Classes 'data.table' and 'data.frame':	91 obs. of  2 variables:
+## 'data.frame':	91 obs. of  2 variables:
 ##  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...
 ##  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...
-##  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 ```r
@@ -235,7 +241,7 @@ str(datasets)
 ```
 
 ```
-## Classes 'data.table' and 'data.frame':	19 obs. of  13 variables:
+## 'data.frame':	19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
 ##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
 ##  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...
@@ -249,7 +255,6 @@ str(datasets)
 ##  $ DHS_CountryCode     : chr  "CD" "CD" "CD" "CD" ...
 ##  $ FileName            : chr  "CDAR61FL.ZIP" "CDBR61FL.ZIP" "CDCR61FL.ZIP" "CDHR61FL.ZIP" ...
 ##  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...
-##  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 Lastly, we recommended to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly.
@@ -346,9 +351,9 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992),times = 1)
 ```
 ## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 4.311164 4.311164 4.311164 4.311164
+##  dhs_surveys(surveyYear = 1992) 4.934442 4.934442 4.934442 4.934442
 ##        uq      max neval
-##  4.311164 4.311164     1
+##  4.934442 4.934442     1
 ```
 
 ```r
@@ -359,9 +364,9 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992), times = 1)
 ```
 ## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 2.394677 2.394677 2.394677 2.394677
+##  dhs_surveys(surveyYear = 1992) 2.308836 2.308836 2.308836 2.308836
 ##        uq      max neval
-##  2.394677 2.394677     1
+##  2.308836 2.308836     1
 ```
 
 
