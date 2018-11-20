@@ -270,10 +270,7 @@ write_rdhs_config_file <- function(dat, path) {
     "Writing your configuration to:\n   -> ", path, "\n"
   )
 
-  # and add this to the build and gitignore if there
-  if (file.exists("DESCRIPTION")) {
-    add_line(".Rbuildignore", gsub("\\.", "\\\\.", path))
-  }
+  # and add this to gitignore if there
   add_line(".gitignore", path)
 
   writeLines(str, path)
@@ -404,7 +401,11 @@ print_rdhs_config <- function(config, give.attr = FALSE) {
   ga <- give.attr
   config$data_frame <- config$data_frame_nice
   config$data_frame_nice <- NULL
+
+  # if there is a password in the config then let's not print it
+  if (!is.null(config$password)) {
   config$password <- paste0(rep("*", nchar(config$password)),collapse="")
+  }
   message(paste0(capture.output(str(config, give.attr = ga)), collapse = "\n"))
   message("\n")
 
