@@ -44,7 +44,8 @@ new_rand_client <- function() {
 
   # to enable the test suite to work without the encoded rdhs.json we'll create
   if (!file.exists("rdhs.json")) {
-    set_rdhs_config(config_path = "rdhs.json", global = FALSE, password_prompt = FALSE)
+    options("rappdir_permission" = TRUE)
+    set_rdhs_config(config_path = "rdhs.json", global = FALSE, prompt = FALSE)
   }
     cli <- rdhs::client_dhs(
       api_key = "ICLSPH-527168",

@@ -8,6 +8,7 @@ test_that("format catches and all_results tests", {
   testthat::skip_on_cran()
 
   # Create new directory
+  old_config <- if(file.exists("rdhs.json")) "rdhs.json" else NULL
   cli <- new_rand_client()
 
   dat <- api_timeout_safe_test(
@@ -64,12 +65,18 @@ test_that("format catches and all_results tests", {
     ), cli
   )
   expect_true(inherits(dat, "data.table"))
-
   Sys.setenv("rdhs_DATA_TABLE" = FALSE)
+
+  # if we created a config for these tests then remove it
+  if(is.null(old_config)){
+    file.remove("rdhs.json")
+  }
+
 })
 
 test_that("geojson works", {
 
+  testthat::skip("geojson test too heavy an API test")
   testthat::skip_on_cran()
   testthat::skip_on_travis()
   skip_if_slow_API()
@@ -333,4 +340,19 @@ test_that("dhs_uiUpdates works", {
     dhs_ui_updates(lastUpdate = "20150901", all_results = FALSE), cli
   )
   expect_true(any(dat$Interface %in% "Surveys"))
+
+})
+
+test_that("post api tidy", {
+
+  if (file.exists("rdhs.json")) {
+  conf <- read_rdhs_config_file("rdhs.json")
+  } else {
+    expect_true(TRUE)
+  }
+
+  if (is.null(conf$email)){
+    expect_true(file.remove("rdhs.json"))
+  }
+
 })

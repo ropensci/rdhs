@@ -74,10 +74,13 @@ test_that("different locales", {
 test_that("password obscure", {
 
   # what is the config
+  if (file.exists("rdhs.json")) {
   config <- read_rdhs_config_file("rdhs.json")
 
   # the message should have * in
   mes <- paste0(rep("*", nchar(config$password)), collapse="")
   expect_message(print_rdhs_config(config), regexp = mes, fixed = TRUE)
-
+  } else {
+  skip("No authentication available for password test")
+}
 })
