@@ -104,7 +104,11 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
   # what kind of dataset is it we are working with
   if (is.element("label.table", attributes(res) %>% names())) {
     type <- "foreign"
-  } else if (any(lapply(res, class) %>% unlist() == "haven_labelled")) {
+  } else if (any(lapply(res, class) %>% unlist() == "haven_labelled") &&
+             packageVersion("haven") > "1.1.2") {
+    type <- "labelled"
+  } else if (any(lapply(res, class) %>% unlist() == "labelled") &&
+             packageVersion("haven") <= "1.1.2") {
     type <- "labelled"
   } else {
     stop("Dataset does not have a label.table attribute or any ",
