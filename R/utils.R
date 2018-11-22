@@ -106,7 +106,7 @@ tempdir_check <- function() {
   if (getRversion() < '3.5.0') {
     temp <- tempdir()
   } else {
-    temp <- tempdir(check = TRUE)
+    temp <- tempdir(TRUE)
   }
 
   return(temp)
