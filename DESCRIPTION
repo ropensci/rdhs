@@ -40,7 +40,7 @@ Suggests:
     data.table,
     microbenchmark
 License: MIT + file LICENSE
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Language: en-GB
 Encoding: UTF-8
