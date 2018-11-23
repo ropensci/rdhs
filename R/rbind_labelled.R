@@ -73,11 +73,12 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
   # what kind of dataset is it we are working with
   if (is.element("label.table", attributes(dfs[[1]]) %>% names())) {
     type <- "foreign"
-  } else if (any(lapply(dfs[[1]], class) %>% unlist() == "labelled")) {
+  } else if (any(lapply(dfs[[1]], class) %>% unlist() == "haven_labelled") &&
+             packageVersion("haven") > "1.1.2") {
     type <- "labelled"
-  } else if (any(lapply(dfs[[1]], attributes) %>%
-                 lapply(names) %>% unlist() == "label")) {
-    type <- "reformat"
+  } else if (any(lapply(dfs[[1]], class) %>% unlist() == "labelled") &&
+             packageVersion("haven") <= "1.1.2") {
+    type <- "labelled"
   } else {
     type <- "reformat"
   }
@@ -98,8 +99,8 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
 
     # check to see if variables are labelled
     islab <- vapply(dfs, function(x){
-        vapply(x, haven::is.labelled, logical(1))
-      }, logical(length(dfs[[1]])))
+      vapply(x, haven::is.labelled, logical(1))
+    }, logical(length(dfs[[1]])))
 
     ## let's catch for one variable dataframes
     islab_vec_catch <- function(islab_obj) {
@@ -180,13 +181,29 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     ## rbind data frames
     df <- do.call(rbind, dfs)
 
-    ## Add labels
-    df[names(labels)] <- Map(haven::labelled, df[names(labels)], labels)
-
     ## Convert concatenated variables back to labelled
     df[catvar] <- lapply(df[catvar], factor)
-    df[catvar] <- lapply(df[catvar], function(x)
-      haven::labelled(as.integer(x), setNames(seq_along(levels(x)), levels(x))))
+
+    # match on haven package version
+    if (packageVersion("haven") > "1.1.2") {
+
+      ## Get the label attribute
+      labl <- lapply(df[names(labels)], attr, "label")
+
+      ## Create labelled class with the label attributes sved
+      df[names(labels)] <- Map(haven::labelled, df[names(labels)], labels, labl)
+      df[catvar] <- lapply(df[catvar], function(x) {
+        haven::labelled(as.integer(x),
+                        setNames(seq_along(levels(x)), levels(x)),
+                        attr(x, "label"))})
+    } else {
+
+      ## Create labelled class
+      df[names(labels)] <- Map(haven::labelled, df[names(labels)], labels)
+      df[catvar] <- lapply(df[catvar], function(x) {
+        haven::labelled(as.integer(x),
+                        setNames(seq_along(levels(x)), levels(x)))})
+    }
 
   } else {
 
