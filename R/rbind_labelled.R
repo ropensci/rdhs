@@ -71,7 +71,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
   }
 
   # what kind of dataset is it we are working with
-  type <- dataset_label_type(dfs[[1]])
+  type <- dataset_label_type(dfs[[1]], stop = FALSE)
 
   # if the data has names let's grab that and append it
   if (!is.null(names(dfs))) {

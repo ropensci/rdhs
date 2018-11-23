@@ -102,7 +102,7 @@ read_dhs_dataset <- function(file, dataset,
 factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
 
   # what kind of dataset is it we are working with
-  type <- dataset_label_type(res)
+  type <- dataset_label_type(res, stop = TRUE)
 
   if (type == "labelled") {
 
@@ -193,7 +193,7 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
 get_labels_from_dataset <- function(data, return_all=TRUE) {
 
   # what kind of dataset is it we are working with
-  type <- dataset_label_type(data)
+  type <- dataset_label_type(data, stop = TRUE)
 
   if (type == "labelled") {
 
@@ -334,7 +334,7 @@ create_new_filenames <- function(data) {
 
 ## what dataset labelling type is it
 #' @noRd
-dataset_label_type <- function(data) {
+dataset_label_type <- function(data, stop = TRUE) {
 
   # what kind of dataset is it we are working with
   if (is.element("label.table", attributes(data) %>% names())) {
@@ -345,9 +345,11 @@ dataset_label_type <- function(data) {
   } else if (any(lapply(data, class) %>% unlist() == "labelled") &&
              packageVersion("haven") <= "1.1.2") {
     type <- "labelled"
-  } else {
+  } else if (stop) {
     stop("Dataset does not have a label.table attribute or any ",
-         "labelled vaiable classes")
+         "labelled variable classes")
+  } else {
+    type <- "reformat"
   }
 
   return(type)
