@@ -71,17 +71,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
   }
 
   # what kind of dataset is it we are working with
-  if (is.element("label.table", attributes(dfs[[1]]) %>% names())) {
-    type <- "foreign"
-  } else if (any(lapply(dfs[[1]], class) %>% unlist() == "haven_labelled") &&
-             packageVersion("haven") > "1.1.2") {
-    type <- "labelled"
-  } else if (any(lapply(dfs[[1]], class) %>% unlist() == "labelled") &&
-             packageVersion("haven") <= "1.1.2") {
-    type <- "labelled"
-  } else {
-    type <- "reformat"
-  }
+  type <- dataset_label_type(dfs[[1]])
 
   # if the data has names let's grab that and append it
   if (!is.null(names(dfs))) {
@@ -145,7 +135,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
       }
 
       lablist <- lapply(dfs, "[", intersect(anylab, needslab))
-      lablist <- lapply(lablist, lapply, attr, "labels")
+      lablist <- lapply(lablist, lapply, attr, "labels", exact = TRUE)
       lablist <- do.call(Map, c(f = list, lablist))
 
       allequal <- lapply(lablist, function(x) {
@@ -171,7 +161,8 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
                         function(x) min(which(x)))
       if (length(whichlab)) {
         inherlab <- setNames(
-          lapply(Map("[[", dfs[whichlab], names(whichlab)), attr, "labels"),
+          lapply(Map("[[", dfs[whichlab], names(whichlab)),
+                 attr, "labels", exact = TRUE),
           names(whichlab)
         )
         labels <- c(labels, inherlab)
@@ -188,14 +179,14 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     if (packageVersion("haven") > "1.1.2") {
 
       ## Get the label attribute
-      labl <- lapply(df[names(labels)], attr, "label")
+      labl <- lapply(df[names(labels)], attr, "label", exact = TRUE)
 
       ## Create labelled class with the label attributes sved
       df[names(labels)] <- Map(haven::labelled, df[names(labels)], labels, labl)
       df[catvar] <- lapply(df[catvar], function(x) {
         haven::labelled(as.integer(x),
                         setNames(seq_along(levels(x)), levels(x)),
-                        attr(x, "label"))})
+                        attr(x, "label", exact = TRUE))})
     } else {
 
       ## Create labelled class
