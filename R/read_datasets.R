@@ -337,12 +337,12 @@ create_new_filenames <- function(data) {
 dataset_label_type <- function(data) {
 
   # what kind of dataset is it we are working with
-  if (is.element("label.table", attributes(res) %>% names())) {
+  if (is.element("label.table", attributes(data) %>% names())) {
     type <- "foreign"
-  } else if (any(lapply(res, class) %>% unlist() == "haven_labelled") &&
+  } else if (any(lapply(data, class) %>% unlist() == "haven_labelled") &&
              packageVersion("haven") > "1.1.2") {
     type <- "labelled"
-  } else if (any(lapply(res, class) %>% unlist() == "labelled") &&
+  } else if (any(lapply(data, class) %>% unlist() == "labelled") &&
              packageVersion("haven") <= "1.1.2") {
     type <- "labelled"
   } else {
