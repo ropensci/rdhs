@@ -345,6 +345,9 @@ dataset_label_type <- function(data, stop = TRUE) {
   } else if (any(lapply(data, class) %>% unlist() == "labelled") &&
              packageVersion("haven") <= "1.1.2") {
     type <- "labelled"
+  } else if (any(lapply(data,attributes) %>%
+                 vapply(names,character(1)) =="label")) {
+    type <- "labelled"
   } else if (stop) {
     stop("Dataset does not have a label.table attribute or any ",
          "labelled variable classes")
