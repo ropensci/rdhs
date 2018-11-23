@@ -82,7 +82,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
   }
 
   # if its a foregin or reformatted dataset list then skip over the labelling
-  if (!is.element(type, c("foreign", "reformat"))) {
+  if (type == "labelled") {
 
     ## Ensure same column ordering for all dfs
     dfs <- lapply(dfs, "[", names(dfs[[1]]))
@@ -204,4 +204,26 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
   }
 
   return(df)
+}
+
+
+
+#' Archived dataset capable as_factor
+#'
+#' @description
+#' Changes in `haven` have meant that `labelled` class are now referred to as
+#' `haven_labelled` classes. If `haven::as_factor` is used on old datasets they
+#' will fail to find the suitable method. rdhs::as_factor.labelled will work on
+#' old archived datasets that have a `labelled` class.
+#'
+#' @inheritParams haven::as_factor
+#' @inheritDotParams haven::as_factor
+#'
+#' @export
+
+as_factor.labelled <- function(x,
+                               levels = c("default", "labels", "values", "both"),
+                               ordered = FALSE, ...) {
+
+  haven:::as_factor.haven_labelled(x, levels, ordered, ...)
 }
