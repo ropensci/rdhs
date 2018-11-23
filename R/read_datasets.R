@@ -195,7 +195,7 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
   # what kind of dataset is it we are working with
   type <- dataset_label_type(data, stop = TRUE)
 
-  if (type == "labelled") {
+  if (type == "labelled" || type == "label_only") {
 
     # and for labelled it's the the label attribute
     description <- lapply(data, attr, "label", exact = TRUE)
@@ -347,7 +347,7 @@ dataset_label_type <- function(data, stop = TRUE) {
     type <- "labelled"
   } else if (any(lapply(data,attributes) %>%
                  lapply(names) %>% unlist() =="label")) {
-    type <- "labelled"
+    type <- "label_only"
   } else if (stop) {
     stop("Dataset does not have a label.table attribute or any ",
          "labelled variable classes")
