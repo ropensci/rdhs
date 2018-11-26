@@ -15,7 +15,7 @@ addons:
     packages:
       - libsodium-dev
       - libssl-dev
-      - libgdal-dev
+      - libgdal1-dev
       - libproj-dev
       - gdal-bin
 
