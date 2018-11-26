@@ -1,7 +1,4 @@
-language: r
-r:
-  - oldrel
-  - release
+language: R
 cache: packages
 
 r_packages:
