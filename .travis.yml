@@ -2,7 +2,6 @@ language: r
 r:
   - oldrel
 
-
 cache: packages
 
 sudo: required
@@ -16,6 +15,7 @@ addons:
   apt:
     sources:
       - sourceline: 'ppa:chris-lea/libsodium'
+      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
       - libsodium-dev
       - libssl-dev
