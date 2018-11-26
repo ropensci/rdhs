@@ -53,8 +53,6 @@ Obtain survey estimates for Malaria prevalence among children from the Democrati
 
 ```r
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
-#> Warning in strptime(x, fmt, tz = "GMT"): unable to identify current timezone 'C':
-#> please set environment variable 'TZ'
 #>                             ShortName   IndicatorId
 #> 1 Malaria prevalence according to RDT ML_PMAL_C_RDT
 
@@ -137,6 +135,7 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
                 global=FALSE)
 #> Writing your configuration to:
 #>    -> rdhs.json
+#> New version of rdhs detected.Your saved client will be updated.
 ```
 
 The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
@@ -144,20 +143,20 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```r
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1979),times = 1)
-#> Unit: milliseconds
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1981),times = 1)
+#> Unit: seconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1979) 55.48109 55.48109 55.48109 55.48109
+#>  dhs_datasets(surveyYearStart = 1981) 5.039439 5.039439 5.039439 5.039439
 #>        uq      max neval
-#>  55.48109 55.48109     1
+#>  5.039439 5.039439     1
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1979),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1981),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1979) 2.219263 2.219263 2.219263 2.219263
+#>  dhs_datasets(surveyYearStart = 1981) 1.314122 1.314122 1.314122 1.314122
 #>        uq      max neval
-#>  2.219263 2.219263     1
+#>  1.314122 1.314122     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
@@ -169,9 +168,9 @@ downloads <- get_datasets(datasets$FileName)
 
 str(downloads)
 #> List of 3
-#>  $ CDPR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61FL.rds"
-#>  $ TZPR7AFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7AFL.rds"
-#>  $ TZPR7QFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7QFL.rds"
+#>  $ CDPR61FL: chr "/home/oj/.cache/rdhs/datasets/CDPR61FL.rds"
+#>  $ TZPR7AFL: chr "/home/oj/.cache/rdhs/datasets/TZPR7AFL.rds"
+#>  $ TZPR7QFL: chr "/home/oj/.cache/rdhs/datasets/TZPR7QFL.rds"
 #>  - attr(*, "reformat")= logi FALSE
 ```
 

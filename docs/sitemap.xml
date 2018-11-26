@@ -4,6 +4,9 @@
     <loc>https://ojwatson.github.io/rdhs//index.html</loc>
   </url>
   <url>
+    <loc>https://ojwatson.github.io/rdhs//reference/as_factor.labelled.html</loc>
+  </url>
+  <url>
     <loc>https://ojwatson.github.io/rdhs//reference/authenticate_dhs.html</loc>
   </url>
   <url>
@@ -28,10 +31,10 @@
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_data.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_datasets.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_data_updates.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_data_updates.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_datasets.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_geometry.html</loc>
@@ -46,10 +49,10 @@
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_publications.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_surveys.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_survey_characteristics.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/dhs_survey_characteristics.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/dhs_surveys.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/dhs_tags.html</loc>
@@ -61,10 +64,10 @@
     <loc>https://ojwatson.github.io/rdhs//reference/download_datasets.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/extraction.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/extract_dhs.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/extract_dhs.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/extraction.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/factor_format.html</loc>
@@ -133,10 +136,10 @@
     <loc>https://ojwatson.github.io/rdhs//reference/response_to_json.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/search_variables.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/search_variable_labels.html</loc>
   </url>
   <url>
-    <loc>https://ojwatson.github.io/rdhs//reference/search_variable_labels.html</loc>
+    <loc>https://ojwatson.github.io/rdhs//reference/search_variables.html</loc>
   </url>
   <url>
     <loc>https://ojwatson.github.io/rdhs//reference/set_rdhs_config.html</loc>

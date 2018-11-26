@@ -6,9 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>API Client and Dataset Management for the Demographic and Health Survey (DHS) Data • rdhs</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="API Client and Dataset Management for the Demographic and Health Survey (DHS) Data">
 <meta property="og:description" content="Provides a client for (1) querying the DHS API for survey indicators
   and metadata (https://api.dhsprogram.com/#/index.html), (2) identifying surveys
@@ -16,13 +16,13 @@
   (4) loading datasets and associate metadata into R, and (5) extracting variables
   and combining datasets for pooled analysis.">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -110,11 +110,7 @@
 
       
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
+  <div class="contents col-md-9">
 <div id="rdhs" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rdhs" class="anchor"></a>rdhs</h1></div>
@@ -146,7 +142,7 @@
 <p>Install <code>rdhs</code> from github with <code>devtools</code>. If you have not got a working development environment then please see the <a href="https://ojwatson.github.io/rdhs/articles/toolkit.html">toolkit vignette</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
 <span class="co"># devtools::install_github("OJWatson/rdhs")</span>
-<span class="kw">library</span>(rdhs)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdhs)</code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -164,14 +160,12 @@
 <h3 class="hasAnchor">
 <a href="#query-the-dhs-api-" class="anchor"></a>Query the <a href="https://api.dhsprogram.com/">DHS API</a>.</h3>
 <p>Obtain survey estimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
-<span class="co">#&gt; Warning in strptime(x, fmt, tz = "GMT"): unable to identify current timezone 'C':</span>
-<span class="co">#&gt; please set environment variable 'TZ'</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
 <span class="co">#&gt;                             ShortName   IndicatorId</span>
 <span class="co">#&gt; 1 Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
 
-<span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
-       <span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
+<span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
+       <span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
 <span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
 <span class="co">#&gt; 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
 <span class="co">#&gt; 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
@@ -187,7 +181,7 @@
 <p>Now, obtain survey microdatasets to analyze these same indicators. Query the <em>surveyCharacteristics</em> endpoint to identify the survey characteristic ID for malaria RDT testing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## call with no arguments to return all characterstics
 sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()
-sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]
+sc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]
 <span class="co">#&gt;    SurveyCharacteristicID SurveyCharacteristicName</span>
 <span class="co">#&gt; 57                     96            Malaria - DBS</span>
 <span class="co">#&gt; 58                     90     Malaria - Microscopy</span>
@@ -196,13 +190,13 @@ sc[<span class="kw">grepl</span>(<span class="st">"Malaria"</span>, sc<span clas
 <span class="co">#&gt; 61                      8 Malaria/bednet questions</span></code></pre></div>
 <p>Use <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code> identify surveys for the countries and years of interest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds - we can find that using this API request
-ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw">c</span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
+ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
 
 ## find all the surveys that match the search criteria
-survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>, <span class="dt">countryIds =</span> <span class="kw">c</span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</code></pre></div>
+survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>, <span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</code></pre></div>
 <p>Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two very old datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
-<span class="kw">str</span>(datasets)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasets)
 <span class="co">#&gt; 'data.frame':    3 obs. of  13 variables:</span>
 <span class="co">#&gt;  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"</span>
 <span class="co">#&gt;  $ FileSize            : int  6595349 6622102 2172102</span>
@@ -233,38 +227,38 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="co">#&gt;    -&gt; rdhs.json</span></code></pre></div>
 <p>The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the <code>cache_path</code> directory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1979</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1981</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1979) 54.05353 54.05353 54.05353 54.05353</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1981) 35.09821 35.09821 35.09821 35.09821</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  54.05353 54.05353     1</span>
+<span class="co">#&gt;  35.09821 35.09821     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1979</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1981</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1979) 3.946341 3.946341 3.946341 3.946341</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1981) 1.299876 1.299876 1.299876 1.299876</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  3.946341 3.946341     1</span></code></pre></div>
+<span class="co">#&gt;  1.299876 1.299876     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
 
-<span class="kw">str</span>(downloads)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(downloads)
 <span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ CDPR61FL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/CDPR61FL.rds"</span>
-<span class="co">#&gt;  $ TZPR7AFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7AFL.rds"</span>
-<span class="co">#&gt;  $ TZPR7QFL: chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/TZPR7QFL.rds"</span>
+<span class="co">#&gt;  $ CDPR61FL: chr "/home/oj/.cache/rdhs/datasets/CDPR61FL.rds"</span>
+<span class="co">#&gt;  $ TZPR7AFL: chr "/home/oj/.cache/rdhs/datasets/TZPR7AFL.rds"</span>
+<span class="co">#&gt;  $ TZPR7QFL: chr "/home/oj/.cache/rdhs/datasets/TZPR7QFL.rds"</span>
 <span class="co">#&gt;  - attr(*, "reformat")= logi FALSE</span></code></pre></div>
 </div>
 <div id="load-datasets-into-r" class="section level3">
 <h3 class="hasAnchor">
 <a href="#load-datasets-into-r" class="anchor"></a>Load datasets into R</h3>
-<p>The <code><a href="reference/get_datasets.html">get_datasets()</a></code> function returns a vector with a file path to the saved location of the downloaded datasets. These are read using <code>readRDS()</code>:</p>
+<p>The <code><a href="reference/get_datasets.html">get_datasets()</a></code> function returns a vector with a file path to the saved location of the downloaded datasets. These are read using <code><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS()</a></code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in first dataset</span>
-cdpr &lt;-<span class="st"> </span><span class="kw">readRDS</span>(downloads<span class="op">$</span>CDPR61FL)</code></pre></div>
-<p>Value labels are stored as attributes to each of the columns of the data frame using the <code>labelled</code> class (see <code><a href="http://www.rdocumentation.org/packages/haven/topics/labelled">haven::labelled</a></code> or our introduction vignette for more details). Variable labels are stored in the <code>label</code> attribute.</p>
+cdpr &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(downloads<span class="op">$</span>CDPR61FL)</code></pre></div>
+<p>Value labels are stored as attributes to each of the columns of the data frame using the <code>labelled</code> class (see <code><a href="https://www.rdocumentation.org/packages/haven/topics/labelled">haven::labelled</a></code> or our introduction vignette for more details). Variable labels are stored in the <code>label</code> attribute.</p>
 </div>
 <div id="extract-variables-and-pool-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -281,7 +275,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extrac
 <p>The returned object is a list of extracted datasets.</p>
 <p>Dataset extracts can alternate be specified by providing a vector of surveys and vector of variable names:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and grab the questions from this now utilising the survey variables</span>
-vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
+vars &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))
 
 <span class="co"># and now extract the data</span>
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extract_dhs.html">extract_dhs</a></span>(vars, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)
@@ -291,11 +285,11 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extrac
 <p>Finally, the two datasets are pooled using the function <code><a href="reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled <code>data.frame</code>s. Labels are specified for each variable: for <code>hv024</code> all labels are retained (concatenate) but for <code>hml35</code> labels across both datasets to be “Neg” and “Pos”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now let's try our second extraction</span>
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract,
-                          <span class="dt">labels =</span> <span class="kw">list</span>(<span class="st">"hv024"</span> =<span class="st"> "concatenate"</span>,
-                                        <span class="st">"hml35"</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">"Neg"</span>=<span class="dv">0</span>, <span class="st">"Pos"</span>=<span class="dv">1</span>)))</code></pre></div>
+                          <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span> =<span class="st"> "concatenate"</span>,
+                                        <span class="st">"hml35"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Neg"</span>=<span class="dv">0</span>, <span class="st">"Pos"</span>=<span class="dv">1</span>)))</code></pre></div>
 <p>There is also an option to process downloaded datasets with labelled variables coded as strings, rather than labelled variables. This is specified by the argument <code>reformat=TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># identify questions but specifying the reformat argument</span>
-questions &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw">c</span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),
+questions &lt;-<span class="st"> </span><span class="kw"><a href="reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),
                                      <span class="dt">reformat=</span><span class="ot">TRUE</span>)
 
 <span class="co"># and now extract the data</span>
@@ -308,7 +302,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/extrac
 extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_labelled.html">rbind_labelled</a></span>(extract)
 
 <span class="co"># our hv024 variable is now just character strings, so you can decide when/how to factor/label it later</span>
-<span class="kw">str</span>(extract)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(extract)
 <span class="co">#&gt; Classes 'dhs_dataset' and 'data.frame':  208595 obs. of  4 variables:</span>
 <span class="co">#&gt;  $ hv024   : chr  "equateur" "equateur" "equateur" "equateur" ...</span>
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Province"</span>
@@ -321,7 +315,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -345,7 +339,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
@@ -355,7 +349,6 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -364,9 +357,8 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
 </div>
-
       </footer>
 </div>
 
