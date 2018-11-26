@@ -4,7 +4,7 @@
 \alias{read_zipdata}
 \title{Read filetype from a zipped folder based on the file ending}
 \usage{
-read_zipdata(zfile, pattern = ".dta$", readfn = foreign::read.dta, ...)
+read_zipdata(zfile, pattern = ".dta$", readfn = haven::read_dta, ...)
 }
 \arguments{
 \item{zfile}{Path to `.zip` file containing flat file dataset,
@@ -14,7 +14,7 @@ usually ending in filename `XXXXXXFL.zip`}
 from within the zip by means of a grep. Default = ".dta$"}
 
 \item{readfn}{Function object to be used for reading in the
-identified file within the zip. Default = `foreign::read.dta`}
+identified file within the zip. Default = `haven::read_dta`}
 
 \item{...}{additional arguments to readfn}
 }
