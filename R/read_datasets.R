@@ -268,7 +268,7 @@ data_and_labels <- function(dataset) {
 #' @param pattern String detailing which filetype is to be read
 #'   from within the zip by means of a grep. Default = ".dta$"
 #' @param readfn Function object to be used for reading in the
-#'   identified file within the zip. Default = `foreign::read.dta`
+#'   identified file within the zip. Default = `haven::read_dta`
 #' @param ...  additional arguments to readfn
 #' @export
 #'
@@ -295,7 +295,7 @@ data_and_labels <- function(dataset) {
 #' )
 #'
 read_zipdata <- function(zfile, pattern=".dta$",
-                         readfn=foreign::read.dta, ...) {
+                         readfn=haven::read_dta, ...) {
 
   tmp <- tempfile()
   on.exit(unlink(tmp))
