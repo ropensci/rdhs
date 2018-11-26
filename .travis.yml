@@ -1,8 +1,12 @@
 language: r
 r:
   - oldrel
-  - release
+
+
 cache: packages
+
+sudo: required
+dist: trusty
 
 r_packages:
 - covr
@@ -15,7 +19,7 @@ addons:
     packages:
       - libsodium-dev
       - libssl-dev
-      - libgdal1-dev
+      - libgdal-dev
       - libproj-dev
       - gdal-bin
 
