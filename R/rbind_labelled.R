@@ -253,7 +253,7 @@ as_factor.labelled <- function(x,
     if (!any(tagged)) {
       return(out)
     }
-    matches <- match(na_tag(x), na_tag(from), incomparables = NA)
+    matches <- match(haven::na_tag(x), haven::na_tag(from), incomparables = NA)
     out[!is.na(matches)] <- to[matches[!is.na(matches)]]
     out
   }
