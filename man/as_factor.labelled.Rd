@@ -23,15 +23,31 @@ Labels are sorted by value.
 \code{FALSE} (the default) create a regular (nominal) factor.}
 
 \item{...}{Other arguments passed down to method.}
-
-\item{...}{Arguments passed on to \code{haven::as_factor}
-\describe{
-  \item{x}{Object to coerce to a factor.}
-}}
 }
 \description{
 Changes in `haven` have meant that `labelled` class are now referred to as
 `haven_labelled` classes. If `haven::as_factor` is used on old datasets they
 will fail to find the suitable method. rdhs::as_factor.labelled will work on
 old archived datasets that have a `labelled` class.
+}
+\details{
+For more details see \code{haven::as_factor}
+}
+\examples{
+
+# create a data.frame using the new haven_labelled class
+df1 <- data.frame(
+area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+)
+
+# manually change it to the old style
+class(df1$area) <- "labelled"
+class(df1$climate) <- "labelled"
+
+# with rdhs attached, i.e. library(rdhs), we can now do the following
+haven::as_factor(df1$area)
+
+# we can also use this on the data.frame by using the only_labelled argument
+haven::as_factor(df1, only_labelled = TRUE)
 }

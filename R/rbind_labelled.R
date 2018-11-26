@@ -216,14 +216,68 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
 #' will fail to find the suitable method. rdhs::as_factor.labelled will work on
 #' old archived datasets that have a `labelled` class.
 #'
-#' @inheritParams haven::as_factor
-#' @inheritDotParams haven::as_factor
+#' @details
+#' For more details see \code{haven::as_factor}
 #'
+#' @inheritParams haven::as_factor
 #' @export
+#'
+#' @examples
+#'
+#' # create a data.frame using the new haven_labelled class
+#' df1 <- data.frame(
+#' area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+#' climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+#' )
+#'
+#' # manually change it to the old style
+#' class(df1$area) <- "labelled"
+#' class(df1$climate) <- "labelled"
+#'
+#' # with rdhs attached, i.e. library(rdhs), we can now do the following
+#' haven::as_factor(df1$area)
+#'
+#' # we can also use this on the data.frame by using the only_labelled argument
+#' haven::as_factor(df1, only_labelled = TRUE)
 
 as_factor.labelled <- function(x,
                                levels = c("default", "labels", "values", "both"),
                                ordered = FALSE, ...) {
 
-  haven:::as_factor.haven_labelled(x, levels, ordered, ...)
+  replace_with <- function(x, from, to) {
+    stopifnot(length(from) == length(to))
+    out <- x
+    matches <- match(x, from, incomparables = NA)
+    out[!is.na(matches)] <- to[matches[!is.na(matches)]]
+    tagged <- haven::is_tagged_na(x)
+    if (!any(tagged)) {
+      return(out)
+    }
+    matches <- match(na_tag(x), na_tag(from), incomparables = NA)
+    out[!is.na(matches)] <- to[matches[!is.na(matches)]]
+    out
+  }
+
+  levels <- match.arg(levels)
+  label <- attr(x, "label", exact = TRUE)
+  labels <- attr(x, "labels")
+  if (levels == "default" || levels == "both") {
+    if (levels == "both") {
+      names(labels) <- paste0("[", labels, "] ", names(labels))
+    }
+    vals <- unique(x)
+    levs <- replace_with(vals, unname(labels), names(labels))
+    levs <- sort(c(stats::setNames(vals, levs), labels),
+                 na.last = TRUE)
+    levs <- unique(names(levs))
+    x <- replace_with(x, unname(labels), names(labels))
+    x <- factor(x, levels = levs, ordered = ordered)
+  }
+  else {
+    levs <- unname(labels)
+    labs <- switch(levels, labels = names(labels), values = levs)
+    x <- replace_with(x, levs, labs)
+    x <- factor(x, labs, ordered = ordered)
+  }
+  structure(x, label = label)
 }

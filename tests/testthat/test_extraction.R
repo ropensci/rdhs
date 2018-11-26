@@ -179,3 +179,19 @@ test_that("rbind_labelled", {
   )
   unlink(cli$get_root())
 })
+
+test_that("as_factor.labelled", {
+
+  df1 <- data.frame(
+    area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+    climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+  )
+
+  # manually change it to the old style
+  class(df1$area) <- "labelled"
+  class(df1$climate) <- "labelled"
+
+  # rdhs as_factor.labelled check
+  expect_true(class(as_factor.labelled(df1$area)) == "factor")
+
+})
