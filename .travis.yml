@@ -5,9 +5,6 @@ r:
 
 cache: packages
 
-sudo: required
-dist: trusty
-
 r_packages:
 - covr
 - sodium
