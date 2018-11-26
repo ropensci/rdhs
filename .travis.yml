@@ -1,27 +1,46 @@
 language: r
-r:
-  - release
-  - oldrel
 
 cache: packages
 
-r_packages:
-- covr
-- sodium
+matrix:
+  include:
+    r: oldrel
 
-addons:
-  apt:
-    sources:
-      - sourceline: 'ppa:chris-lea/libsodium'
-      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
-    packages:
-      - libsodium-dev
-      - libssl-dev
-      - libgdal-dev
-      - libproj-dev
-      - gdal-bin
+    r_packages:
+    - covr
+    - sodium
+
+    addons:
+      apt:
+        sources:
+          - sourceline: 'ppa:chris-lea/libsodium'
+          - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
+        packages:
+          - libsodium-dev
+          - libssl-dev
+          - libgdal-dev
+          - libproj-dev
+          - gdal-bin
+
+    r: release
+
+    r_packages:
+    - covr
+    - sodium
+
+    addons:
+      apt:
+        sources:
+          - sourceline: 'ppa:chris-lea/libsodium'
+        packages:
+          - libsodium-dev
+          - libssl-dev
+          - libgdal-dev
+          - libproj-dev
+          - gdal-bin
 
 before_script:
+- if [ "${TRAVIS_OS_NAME}" = "osx" ]; then R -e "install.packages('rgdal', type = 'source')"; fi
 - Rscript -e 'writeBin(sodium::data_decrypt(readRDS("rdhs.json.tar.enc"), sodium::hash(charToRaw(Sys.getenv("key")))),"rdhs.json.tar") ; unzip("rdhs.json.tar") ; Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)'
 
 after_success:
