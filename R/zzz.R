@@ -40,12 +40,6 @@ rdhs_setup <- function() {
   # just in case clear the package environment
   rdhs_reset()
 
-  # this wi
-  data("model_datasets", "model_datasets",
-       package="rdhs",
-       envir=parent.env(environment()))
-
-
 }
 
 # ask for user permission to write to Renviron
