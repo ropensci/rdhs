@@ -1,10 +1,9 @@
 language: r
-
 cache: packages
 
 matrix:
   include:
-    r: oldrel
+  - r: oldrel
 
     r_packages:
     - covr
@@ -22,7 +21,7 @@ matrix:
           - libproj-dev
           - gdal-bin
 
-    r: release
+  - r: release
 
     r_packages:
     - covr
