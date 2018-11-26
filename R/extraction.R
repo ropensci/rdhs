@@ -59,10 +59,10 @@ extraction <- function(questions, available_datasets,
       geos <- which(dats$FileType == "Geographic Data")
 
       # add the cluster info
-      cluster_quest <- grep("cluster$|cluster number$",
-                            vapply(r, attr, character(1), "label"),
-                            ignore.case = TRUE)
-      results$CLUSTER <- r[[cluster_quest]]
+      cluster_q <- grep("cluster$|cluster number$",
+                        vapply(r, attr, character(1), "label", exact = TRUE),
+                        ignore.case = TRUE)
+      results$CLUSTER <- r[[cluster_q]]
 
       # where is the geo survey we want
       file_m <- match(questions$dataset_filename[quest_rows_i[1]], dats$Survey)

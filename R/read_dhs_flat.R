@@ -345,8 +345,16 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
   names(dat) <- dct$name
   dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
   haslbl <- unlist(lapply(dct$labels, length)) > 0
+
+  # match on haven package version
+  if (packageVersion("haven") > "1.1.2") {
   dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
-                               dct$labels[haslbl])
+                               dct$labels[haslbl],
+                               dct$label[haslbl])
+  } else {
+    dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
+                                 dct$labels[haslbl])
+  }
 
   return(dat)
 }

@@ -84,3 +84,11 @@ test_that("password obscure", {
   skip("No authentication available for password test")
 }
 })
+
+test_that("model datasets onAttach", {
+
+  ## remove the dataset so that it is pseudo us not having rdhs loaded
+  rm(model_datasets, envir = parent.env(environment()))
+  ar <- rdhs::get_datasets("MWAR7ASV.ZIP")
+  expect_true(is.list(ar))
+})

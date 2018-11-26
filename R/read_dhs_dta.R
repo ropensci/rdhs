@@ -282,8 +282,18 @@ read_dhs_dta <- function(zfile, mode="haven", all_lower=TRUE, ...) {
     dct <- parse_map(map, all_lower)
     dat[dct$name] <- Map("attr<-", dat[dct$name], "label", dct$label)
     haslbl <- unlist(lapply(dct$labels, length)) > 0
-    dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
-                                 dct$labels[haslbl])
+
+    # match on haven package version
+    if (packageVersion("haven") > "1.1.2") {
+      dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
+                                   dct$labels[haslbl],
+                                   dct$label[haslbl])
+    } else {
+      dat[dct$name[haslbl]] <- Map(haven::labelled, dat[dct$name[haslbl]],
+                                   dct$labels[haslbl])
+    }
+
+
   }
 
   # lower the names if needed

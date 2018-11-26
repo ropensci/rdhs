@@ -102,19 +102,12 @@ read_dhs_dataset <- function(file, dataset,
 factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
 
   # what kind of dataset is it we are working with
-  if (is.element("label.table", attributes(res) %>% names())) {
-    type <- "foreign"
-  } else if (any(lapply(res, class) %>% unlist() == "labelled")) {
-    type <- "labelled"
-  } else {
-    stop("Dataset does not have a label.table attribute or any",
-         "labelled vaiable classes")
-  }
+  type <- dataset_label_type(res, stop = TRUE)
 
   if (type == "labelled") {
 
     # grab the labels from attributes
-    lab <- lapply(res, function(x) attr(x, "labels"))
+    lab <- lapply(res, function(x) attr(x, "labels", exact = TRUE))
     lab <- lab[!lapply(lab, is.null) %>% unlist()]
 
     # make all one case for match purposes
@@ -127,7 +120,7 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
     }
 
     # create the description table
-    description <- lapply(res, attr, "label")
+    description <- lapply(res, attr, "label", exact = TRUE)
     description_table <- data.frame(
       "variable" = names(res), "description" = as.character(description),
       stringsAsFactors = FALSE
@@ -200,19 +193,12 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
 get_labels_from_dataset <- function(data, return_all=TRUE) {
 
   # what kind of dataset is it we are working with
-  if (is.element("label.table", attributes(data) %>% names())) {
-    type <- "foreign"
-  } else if (any(lapply(data, class) %>% unlist() == "labelled")) {
-    type <- "labelled"
-  } else if (any(lapply(data, attributes) %>% lapply(names) %>%
-                 unlist() == "label")) {
-    type <- "labelled"
-  }
+  type <- dataset_label_type(data, stop = TRUE)
 
-  if (type == "labelled") {
+  if (type == "labelled" || type == "label_only") {
 
     # and for labelled it's the the label attribute
-    description <- lapply(data, attr, "label")
+    description <- lapply(data, attr, "label", exact = TRUE)
   } else if (type == "foreign") {
 
     # for the foreign extracts we grab the var.labels attributes
@@ -282,7 +268,7 @@ data_and_labels <- function(dataset) {
 #' @param pattern String detailing which filetype is to be read
 #'   from within the zip by means of a grep. Default = ".dta$"
 #' @param readfn Function object to be used for reading in the
-#'   identified file within the zip. Default = `foreign::read.dta`
+#'   identified file within the zip. Default = `haven::read_dta`
 #' @param ...  additional arguments to readfn
 #' @export
 #'
@@ -309,7 +295,7 @@ data_and_labels <- function(dataset) {
 #' )
 #'
 read_zipdata <- function(zfile, pattern=".dta$",
-                         readfn=foreign::read.dta, ...) {
+                         readfn=haven::read_dta, ...) {
 
   tmp <- tempfile()
   on.exit(unlink(tmp))
@@ -344,4 +330,31 @@ create_new_filenames <- function(data) {
   issues <- which(!(tolower(filename_stems) == tolower(data$DHS_CountryCode)))
   data$file[issues] <- paste0(data$file[issues], "_", data$CountryName[issues])
   data
+}
+
+## what dataset labelling type is it
+#' @noRd
+dataset_label_type <- function(data, stop = TRUE) {
+
+  # what kind of dataset is it we are working with
+  if (is.element("label.table", attributes(data) %>% names())) {
+    type <- "foreign"
+  } else if (any(lapply(data, class) %>% unlist() == "haven_labelled") &&
+             packageVersion("haven") > "1.1.2") {
+    type <- "labelled"
+  } else if (any(lapply(data, class) %>% unlist() == "labelled") &&
+             packageVersion("haven") <= "1.1.2") {
+    type <- "labelled"
+  } else if (any(lapply(data,attributes) %>%
+                 lapply(names) %>% unlist() =="label")) {
+    type <- "label_only"
+  } else if (stop) {
+    stop("Dataset does not have a label.table attribute or any ",
+         "labelled variable classes")
+  } else {
+    type <- "reformat"
+  }
+
+  return(type)
+
 }

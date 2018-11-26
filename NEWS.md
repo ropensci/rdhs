@@ -1,3 +1,11 @@
+## rdhs 0.6.0
+
+* New `as_factor.labelled` for backward compatibility with `haven <2.0.0` 
+`labelled` classes.
+
+* `model_datasets` now internal and exported dataset (#60).
+
+
 ## rdhs 0.5.2
 
 * New vignettes: `country_codes`

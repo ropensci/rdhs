@@ -725,7 +725,7 @@ R6_client_dhs <- R6::R6Class(
       if (!is.null(dataset_filenames) && !is.null(dataset_paths)) {
         message("Both of dataset_filenames and dataset_paths are provided.
                 The filenames will be used")
-        dataset <- NULL
+        dataset_paths <- NULL
       }
 
       # grab these now
