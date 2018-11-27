@@ -424,6 +424,11 @@ update_rdhs_config <- function(password = FALSE,
   config$data_frame_nice <- NULL
   config <- write_rdhs_config_file(config, config$config_path)
 
+  # and then create the package internal client if we are meant to
+  if (.rdhs$internal_client_update) {
+    .rdhs$client <- client_dhs(config = config, root = config$cache_path)
+  }
+
 }
 
 
