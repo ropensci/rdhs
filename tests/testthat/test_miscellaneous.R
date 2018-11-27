@@ -85,6 +85,29 @@ test_that("password obscure", {
 }
 })
 
+test_that("update_rdhs_config", {
+
+  # what is the config
+  if (file.exists("rdhs.json")) {
+    config <- read_rdhs_config_file("rdhs.json")
+
+    update_rdhs_config(cache_path = "demo")
+    expect_true(dir.exists("demo"))
+    unlink("demo", force = TRUE)
+
+    expect_error(update_rdhs_config(config_path = "twaddle"))
+
+    # set it back to previous
+    class(config) <- NULL
+    config$data_frame <- config$data_frame_nice
+    config$data_frame_nice <- NULL
+    config <- write_rdhs_config_file(config, config$config_path)
+
+  } else {
+    skip("No authentication available for update_rdhs_config test")
+  }
+})
+
 test_that("model datasets onAttach", {
 
   ## remove the dataset so that it is pseudo us not having rdhs loaded

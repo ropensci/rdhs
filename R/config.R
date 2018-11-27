@@ -343,54 +343,85 @@ read_rdhs_config_file <- function(config_path) {
   dat
 }
 
-#' @noRd
-update_rdhs_config <- function(updates){
+#' Update your current rdhs config
+#'
+#' @inheritParams set_rdhs_config
+#' @param password Logical for updating your password securely. Default = FALSE
+#'
+#' @description
+#' \code{update_rdhs_config} allows you to update elements of your
+#' rdhs config, without having to set it completely via \code{set_rdhs_config}.
+#' For each config element, provide the new changes required. To update your
+#' password, set \code{password = TRUE} and you will be asked securely for your
+#' new password.
+#'
+#' @export
+#'
+update_rdhs_config <- function(password = FALSE,
+                               email = NULL,
+                               project = NULL,
+                               cache_path = NULL,
+                               config_path = NULL,
+                               global = NULL,
+                               verbose_download = NULL,
+                               verbose_setup = NULL,
+                               timeout = NULL,
+                               data_frame = NULL,
+                               project_choice = NULL) {
 
-  expected <- c("email",
-                "project",
-                "password",
-                "cache_path",
-                "config_path",
-                "global",
-                "verbose_download",
-                "verbose_setup",
-                "timeout",
-                "data_frame",
-                "project_choice")
+  # get the arguments
+  args <- as.list(environment())
 
+  assert_null_and_func(email, assert_scalar_character)
+  assert_null_and_func(project, assert_scalar_character)
+  assert_null_and_func(config_path, assert_scalar_character)
+  assert_null_and_func(cache_path, assert_scalar_character)
+  assert_null_and_func(data_frame, assert_scalar_character)
+  assert_null_and_func(timeout, assert_scalar_numeric)
+  assert_null_and_func(global, assert_scalar_logical)
+  assert_null_and_func(verbose_download, assert_scalar_logical)
+  assert_null_and_func(verbose_setup, assert_scalar_logical)
+  assert_null_and_func(project_choice, assert_scalar_logical)
+  assert_scalar_logical(password)
+
+  # get current config
   config <- get_rdhs_config()
-
-  if (all(names(updates) %in% expected)) {
-
-    if (any(names(updates) == "data_frame")){
-      config$data_frame_nice <- NULL
-    } else {
-      config$data_frame <- config$data_frame_nice
-      config$data_frame_nice <- NULL
-    }
-
-
-    ms <- match(names(updates), names(config))
-    for(m in seq_len(length(ms))) {
-      config[[ms[m]]] <- updates[m]
-    }
-
-    if (config$config_path != "rdhs.json" &&
-        (!file.exists(config$config_path) ||
-         basename(config$config_path) == "rdhs/json")) {
-      stop("For a local configuration, 'config_path' must be 'rdhs.json' ",
-           "or 'config_path' must already exist and end 'rdhs.json'")
-    }
-    class(config) <- NULL
-    config <- write_rdhs_config_file(config, config$config_path)
-
-  } else {
-
-    wrong <- which(!c(names(updates) %in% expected))
-    stop("'updates' has incorrectly named elements:\n",
-         paste0(names(updates[wrong]), collapse="\n"))
-
+  if (is.null(config)) {
+    stop("No config found. Please create one first using set_rdhs_config()")
   }
+
+  # get password if required
+  if (args$password) {
+    args$password <- trimws(getPass::getPass("DHS Password: ", TRUE, TRUE))
+    Sys.setenv("RDHS_USER_PASS" = args$password)
+  } else {
+    args$password <- NULL
+  }
+
+  # loop through config args
+  for (m in seq_len(length(args))){
+    if (!is.null(args[[m]])) {
+      config[[names(args[m])]] <- args[[m]]
+    }
+  }
+
+  # check that the config_path is not invalid
+  if (config$config_path != "rdhs.json" &&
+      (!file.exists(config$config_path) ||
+       basename(config$config_path) == "rdhs/json")) {
+    stop("For a local configuration, 'config_path' must be 'rdhs.json' ",
+         "or 'config_path' must already exist and end 'rdhs.json'")
+  }
+
+  # make cache directory if needed
+  if (!file.exists(config$cache_path)) {
+    dir.create(config$cache_path, recursive = TRUE, showWarnings = FALSE)
+  }
+
+  class(config) <- NULL
+  config$data_frame <- config$data_frame_nice
+  config$data_frame_nice <- NULL
+  config <- write_rdhs_config_file(config, config$config_path)
 
 }
 
