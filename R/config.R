@@ -347,7 +347,8 @@ read_rdhs_config_file <- function(config_path) {
 #'
 #' @inheritParams set_rdhs_config
 #' @param password Logical for updating your password securely. Default = FALSE
-#'
+#' @param project_choice Numeric for project choice. See \code{authenticate_dhs}
+#'   for more info.
 #' @description
 #' \code{update_rdhs_config} allows you to update elements of your
 #' rdhs config, without having to set it completely via \code{set_rdhs_config}.

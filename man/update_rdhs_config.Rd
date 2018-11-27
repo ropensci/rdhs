@@ -44,6 +44,9 @@ blank \code{data_frame} objects are returned. Must be passed as a
 character. Examples could be:
 \code{data.table::as.data.table}
 \code{tibble::as.tibble}}
+
+\item{project_choice}{Numeric for project choice. See \code{authenticate_dhs}
+for more info.}
 }
 \description{
 \code{update_rdhs_config} allows you to update elements of your
