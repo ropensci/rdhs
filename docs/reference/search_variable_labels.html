@@ -213,8 +213,8 @@ be ignored.</p></td>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download two of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])
-
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
+#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Couples' Recode Flat ASCII data (.dat) [zzbr62fl.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'>
 <span class='co'># and now seearch within these for survey variable labels of interest</span>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>search_variable_labels</span>(
 <span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>g</span>), <span class='kw'>search_terms</span> <span class='kw'>=</span> <span class='st'>"fever"</span>

@@ -28,6 +28,7 @@ reference:
     contents:
       - set_rdhs_config
       - get_rdhs_config
+      - update_rdhs_config
       - client_dhs
 
   - title: "User Interface"
