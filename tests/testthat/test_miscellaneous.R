@@ -123,10 +123,10 @@ test_that("model datasets onAttach", {
   md <- model_datasets
 
   ## remove the dataset so that it is pseudo us not having rdhs loaded
-  rm(model_datasets, envir = as.environment("package:rdhs"))
+  rm(model_datasets, envir = parent.env(environment()))
   ar <- rdhs::get_datasets("MWAR7ASV.ZIP")
   expect_true(is.list(ar))
 
-  assign("model_datasets", md, as.environment("package:rdhs"))
+  assign("model_datasets",md,parent.env(environment()))
 
   })
