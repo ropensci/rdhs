@@ -94,6 +94,7 @@ test_that("update_rdhs_config", {
   # what is the config
   if (file.exists("rdhs.json")) {
     config <- read_rdhs_config_file("rdhs.json")
+    d <- dhs_data_updates()
 
     update_rdhs_config(cache_path = "demo")
     expect_true(dir.exists("demo"))
