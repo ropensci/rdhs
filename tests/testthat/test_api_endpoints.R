@@ -346,13 +346,13 @@ test_that("dhs_uiUpdates works", {
 test_that("post api tidy", {
 
   if (file.exists("rdhs.json")) {
-  conf <- read_rdhs_config_file("rdhs.json")
+    conf <- read_rdhs_config_file("rdhs.json")
+    if (is.null(conf$email)){
+      expect_true(file.remove("rdhs.json"))
+    }
+
   } else {
     expect_true(TRUE)
-  }
-
-  if (is.null(conf$email)){
-    expect_true(file.remove("rdhs.json"))
   }
 
 })
