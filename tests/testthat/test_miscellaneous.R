@@ -60,8 +60,12 @@ test_that("different locales", {
   locale_lc_time <- Sys.getlocale("LC_TIME")
   on.exit(Sys.setlocale("LC_TIME", locale_lc_time))
 
+  tryCatch({
+    Sys.setlocale("LC_TIME","French_Belgium.1252")
+    }, warning = function(w) {
+      skip("OS can't test different locale test")
+    })
 
-  Sys.setlocale("LC_TIME","French_Belgium.1252")
   date <- "July, 15 2016 19:17:14"
 
   # our function catches for any locale issues
@@ -110,8 +114,19 @@ test_that("update_rdhs_config", {
 
 test_that("model datasets onAttach", {
 
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+  if(!exists("model_datasets")) {
+    skip("No model datasets found")
+  }
+
+  md <- model_datasets
+
   ## remove the dataset so that it is pseudo us not having rdhs loaded
-  rm(model_datasets, envir = parent.env(environment()))
+  rm(model_datasets, envir = as.environment("package:rdhs"))
   ar <- rdhs::get_datasets("MWAR7ASV.ZIP")
   expect_true(is.list(ar))
-})
+
+  assign("model_datasets", md, as.environment("package:rdhs"))
+
+  })
