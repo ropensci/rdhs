@@ -19,7 +19,7 @@ read_dhs_dataset <- function(file, dataset,
     unlist()
 
   # now let's check the file endings against those we expect to see
-  file_types <- c("dta", "sav", "dat", "sas7bdat", "dbf")
+  file_types <- c("dta", "sav", "dat", "sas7bdat", "dbf", "csv")
   format_expected <- file_dataset_format(dataset$FileFormat)
 
   # we'll check the file format we are expecting is actually in the zip
@@ -28,7 +28,11 @@ read_dhs_dataset <- function(file, dataset,
   # if there is no match it is probably because it is a geographic file
   if (!format_match && dataset$FileType %in%
       c("Geographic Data", "Geospatial Covariates")) {
+    if (dataset$FileType == "Geospatial Covariates") {
+      file_match <- 6
+    } else {
     file_match <- 5
+    }
   } else if (format_match) {
     file_match <- which(tolower(file_types) == tolower(format_expected))
   } else {
@@ -84,6 +88,13 @@ read_dhs_dataset <- function(file, dataset,
                                  layer = strsplit(basename(file),
                                                   ".", fixed = TRUE)[[1]][1])
     )
+    # 6. Geospatial Covariate files (csv)
+  } else if (file_match == 6) {
+
+    # csv geo is again different
+    unzipped_files <- suppressWarnings(unzip(file, exdir = tempfile()))
+    file <- unzipped_files[which(toupper(filetype) %in% toupper(file_types))]
+    res <- read.csv(file)
   }
 
   return(res)
