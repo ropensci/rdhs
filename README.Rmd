@@ -23,10 +23,6 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 ---
 
- > To be able to download survey datasets from the DHS website, you will need to set up an account with the DHS website, which will enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
-
----
-
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](https://www.dhsprogram.com) data. This includes functionality to:
 
 1. Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
@@ -46,6 +42,10 @@ library(rdhs)
 ```
 
 ## Getting started
+
+To be able to **download survey datasets from the DHS website**, you will need to **set up an account with the DHS website**, which will enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
+
+---
 
 * Request dataset access from the DHS website [here](https://dhsprogram.com/data/Access-Instructions.cfm).
 
