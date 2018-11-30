@@ -13,10 +13,6 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 ---
 
- > To be able to download survey datasets from the DHS website, you will need to set up an account with the DHS website, which will enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
-
----
-
 `rdhs` is a package for management and analysis of [Demographic and Health Survey (DHS)](https://www.dhsprogram.com) data. This includes functionality to:
 
 1. Access standard indicator data (i.e. [DHS STATcompiler](https://www.statcompiler.com/)) in R via the [DHS API](https://api.dhsprogram.com/).
@@ -37,6 +33,10 @@ library(rdhs)
 ```
 
 ## Getting started
+
+To be able to **download survey datasets from the DHS website**, you will need to **set up an account with the DHS website**, which will enable you to request access to the datasets. Instructions on how to do this can be found [here](https://dhsprogram.com/data/Access-Instructions.cfm). The email, password, and project name that were used to create the account will then need to be provided to `rdhs` when attempting to download datasets. 
+
+---
 
 * Request dataset access from the DHS website [here](https://dhsprogram.com/data/Access-Instructions.cfm).
 
@@ -142,20 +142,20 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```r
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1982),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
 #> Unit: seconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1982) 4.849053 4.849053 4.849053 4.849053
+#>  dhs_datasets(surveyYearStart = 1983) 2.440506 2.440506 2.440506 2.440506
 #>        uq      max neval
-#>  4.849053 4.849053     1
+#>  2.440506 2.440506     1
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1982),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1982) 1.092787 1.092787 1.092787 1.092787
+#>  dhs_datasets(surveyYearStart = 1983) 2.228286 2.228286 2.228286 2.228286
 #>        uq      max neval
-#>  1.092787 1.092787     1
+#>  2.228286 2.228286     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.

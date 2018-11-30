@@ -213,8 +213,8 @@ be ignored.</p></td>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download two of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])</div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
-#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Couples' Recode Flat ASCII data (.dat) [zzbr62fl.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'>
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>:<span class='fl'>2</span>])
+
 <span class='co'># and now seearch within these for survey variable labels of interest</span>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>search_variable_labels</span>(
 <span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>g</span>), <span class='kw'>search_terms</span> <span class='kw'>=</span> <span class='st'>"fever"</span>
@@ -227,27 +227,13 @@ be ignored.</p></td>
 #&gt; 4     h32a                         fever/cough: government hospital
 #&gt; 5     h32b                    fever/cough: government health center
 #&gt; 6     h32c                      fever/cough: government health post
-#&gt;   dataset_filename
-#&gt; 1         zzbr62dt
-#&gt; 2         zzbr62dt
-#&gt; 3         zzbr62dt
-#&gt; 4         zzbr62dt
-#&gt; 5         zzbr62dt
-#&gt; 6         zzbr62dt
-#&gt;                                                                   dataset_path
-#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 5 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 6 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt;   survey_id
-#&gt; 1        NA
-#&gt; 2        NA
-#&gt; 3        NA
-#&gt; 4        NA
-#&gt; 5        NA
-#&gt; 6        NA</div><div class='input'>
+#&gt;   dataset_filename                               dataset_path survey_id
+#&gt; 1         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 2         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 3         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 4         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 5         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 6         zzbr62dt /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA</div><div class='input'>
 <span class='co'># if we specify an essential term then no results will be returned from</span>
 <span class='co'># a dataset if it does not have any results from the search with this term</span>
 <span class='fu'>search_variable_labels</span>(

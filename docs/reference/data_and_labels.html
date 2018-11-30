@@ -173,20 +173,19 @@ been read using <code>readRDS</code></p></td>
 
 <span class='co'># download one of them</span>
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])</div><div class='output co'>#&gt; <span class='message'>Your datasets and API calls will be cached here: </span>
-#&gt; <span class='message'>   -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache</span>
+#&gt; <span class='message'>   -&gt; /home/oj/.cache/rdhs</span>
 #&gt; <span class='message'>Your datasets will be downloaded using the following config:</span></div><div class='output co'>#&gt; <span class='message'>List of 11</span>
-#&gt; <span class='message'> $ email           : chr "rdhs.tester@gmail.com"</span>
-#&gt; <span class='message'> $ project         : chr "Testing Malaria Investigations"</span>
-#&gt; <span class='message'> $ password        : chr "************"</span>
-#&gt; <span class='message'> $ cache_path      : chr "C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache"</span>
-#&gt; <span class='message'> $ config_path     : chr "rdhs.json"</span>
-#&gt; <span class='message'> $ global          : logi FALSE</span>
+#&gt; <span class='message'> $ email           : chr "o.watson15@imperial.ac.uk"</span>
+#&gt; <span class='message'> $ project         : chr "Investigating drivers of selection for false negative RDTs"</span>
+#&gt; <span class='message'> $ password        : chr "**********"</span>
+#&gt; <span class='message'> $ cache_path      : chr "/home/oj/.cache/rdhs"</span>
+#&gt; <span class='message'> $ config_path     : chr "~/.rdhs.json"</span>
+#&gt; <span class='message'> $ global          : logi TRUE</span>
 #&gt; <span class='message'> $ verbose_download: logi FALSE</span>
 #&gt; <span class='message'> $ verbose_setup   : logi TRUE</span>
 #&gt; <span class='message'> $ timeout         : int 30</span>
 #&gt; <span class='message'> $ data_frame      : chr "as.data.frame"</span>
-#&gt; <span class='message'> $ project_choice  : NULL</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>Downloading: </span>
-#&gt; <span class='message'>ModelDatasetCountry ModelDatasetSurveyYear DHS Births Recode Stata dataset (.dta) [zzbr62dt.zip]</span></div><div class='output co'>#&gt; <span class='message'>Dataset download finished</span></div><div class='input'><span class='no'>dl</span> <span class='kw'>&lt;-</span> <span class='fu'>data_and_labels</span>(<span class='no'>g</span>$<span class='no'>zzbr62dt</span>)
+#&gt; <span class='message'> $ project_choice  : NULL</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='input'><span class='no'>dl</span> <span class='kw'>&lt;-</span> <span class='fu'>data_and_labels</span>(<span class='no'>g</span>$<span class='no'>zzbr62dt</span>)
 
 <span class='co'># now we easily have our survey question labels easily accessible</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grep</a></span>(<span class='st'>"bed net"</span>, <span class='no'>dl</span>$<span class='no'>variable_names</span>$<span class='no'>description</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "type of mosquito bed net(s) slept under last night"                              

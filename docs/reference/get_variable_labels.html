@@ -203,20 +203,13 @@ or only those with labels.</p></td>
 #&gt; 4     v001           cluster number         zzbr62dt
 #&gt; 5     v002         household number         zzbr62dt
 #&gt; 6     v003 respondent's line number         zzbr62dt
-#&gt;                                                                   dataset_path
-#&gt; 1 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 2 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 3 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 4 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 5 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt; 6 C:\\Users\\Oliver\\AppData\\Local\\Oliver\\rdhs\\Cache/datasets/zzbr62dt.rds
-#&gt;   survey_id
-#&gt; 1        NA
-#&gt; 2        NA
-#&gt; 3        NA
-#&gt; 4        NA
-#&gt; 5        NA
-#&gt; 6        NA</div><div class='input'>
+#&gt;                                 dataset_path survey_id
+#&gt; 1 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 2 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 3 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 4 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 5 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
+#&gt; 6 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA</div><div class='input'>
 <span class='co'># or we can pass the full dataset</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span>(<span class='no'>g</span><span class='kw'>[[</span><span class='fl'>1</span>]])
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>get_variable_labels</span>(<span class='no'>r</span>))</div><div class='output co'>#&gt;   variable              description

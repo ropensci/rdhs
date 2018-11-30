@@ -113,10 +113,10 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```{r client_api_cache}
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1982),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1982),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
