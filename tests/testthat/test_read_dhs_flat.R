@@ -78,7 +78,7 @@ test_that("lower case flat file check", {
   td <- file.path(tempdir(), as.integer(Sys.time()))
 
   # create
-    cli <- rdhs::client_dhs(api_key = api_key_intenal, root = td,
+    cli <- rdhs::client_dhs(api_key = api_key_internal, root = td,
                             config = read_rdhs_config_file("rdhs.json"))
 
   dat <- cli$get_datasets("ngcr4afl.zip")
