@@ -116,7 +116,7 @@
 <a href="#rdhs" class="anchor"></a>rdhs</h1></div>
 
 <div class="figure">
-<img src="tools/logo.png">
+<img src="https://github.com/OJWatson/rdhs/raw/master/tools/logo.png">
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
@@ -221,6 +221,7 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
                 <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,
                 <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,
                 <span class="dt">global=</span><span class="ot">FALSE</span>)
+<span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span>
 <span class="co">#&gt; Writing your configuration to:</span>
 <span class="co">#&gt;    -&gt; rdhs.json</span></code></pre></div>
 <p>The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the <code>cache_path</code> directory provided so that these can be returned when working remotely or with a poor internet connection.</p>
@@ -228,17 +229,17 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1983</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 33.15475 33.15475 33.15475 33.15475</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 66.64912 66.64912 66.64912 66.64912</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  33.15475 33.15475     1</span>
+<span class="co">#&gt;  66.64912 66.64912     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1983</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 1.181509 1.181509 1.181509 1.181509</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 2.235549 2.235549 2.235549 2.235549</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  1.181509 1.181509     1</span></code></pre></div>
+<span class="co">#&gt;  2.235549 2.235549     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
@@ -343,7 +344,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 <li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
 <li><a href="https://travis-ci.org/OJWatson/rdhs"><img src="https://travis-ci.org/OJWatson/rdhs.png?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://codecov.io/github/OJWatson/rdhs?branch=master"><img src="https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="tools/pkgdownshield.png" alt="Documentation via pkgdown"></a></li>
+<li><a href="https://ojwatson.github.io/rdhs"><img src="https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png" alt="Documentation via pkgdown"></a></li>
 </ul>
 </div>
 </div>

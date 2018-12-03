@@ -4,8 +4,7 @@
 \alias{client_dhs}
 \title{Make a dhs client}
 \usage{
-client_dhs(config = NULL, root = rappdirs_rdhs(),
-  api_key = "ICLSPH-527168")
+client_dhs(config = NULL, root = rappdirs_rdhs(), api_key = NULL)
 }
 \arguments{
 \item{config}{config object, as created using \code{read_rdhs_config}}
@@ -13,7 +12,7 @@ client_dhs(config = NULL, root = rappdirs_rdhs(),
 \item{root}{Character for root directory to where client, caches,
 surveys etc. will be stored. Default = \code{rappdirs_rdhs()}}
 
-\item{api_key}{Character for DHS API KEY}
+\item{api_key}{Character for DHS API KEY. Default = NULL}
 }
 \description{
 Make a DHS API client
@@ -272,6 +271,6 @@ conf <- set_rdhs_config(
 config_path = "rdhs.json",global = FALSE, prompt = FALSE
 )
 td <- tempdir()
-cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", config = conf, root = td)
+cli <- rdhs::client_dhs(api_key = "DEMO_1234", config = conf, root = td)
 }
 }

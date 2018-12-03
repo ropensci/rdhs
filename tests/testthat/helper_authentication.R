@@ -48,7 +48,7 @@ new_rand_client <- function() {
     set_rdhs_config(config_path = "rdhs.json", global = FALSE, prompt = FALSE)
   }
     cli <- rdhs::client_dhs(
-      api_key = "ICLSPH-527168",
+      api_key = api_key_internal,
       config = read_rdhs_config_file("rdhs.json"),
       root = td
     )

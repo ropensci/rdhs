@@ -5,9 +5,6 @@ query_creation <- function(query) {
   j <- lengths(query) > 1
   query[j] <- lapply(query[j], paste0, collapse = ",")
 
-  # add the api key
-  query$apiKey <- "ICLSPH-527168"
-
   return(query)
 }
 
@@ -25,6 +22,11 @@ handle_api_request <- function(endpoint, query, all_results, client,
   # the package environment client by default
   if (is.null(client)) {
     client <-  check_for_client()
+  }
+
+  # add the api key if not provided
+  if (is.null(query$api_key)) {
+    query$apiKey <- client$.__enclos_env__$private$api_key
   }
 
   # create url for api request

@@ -5,7 +5,7 @@
 #' @param config config object, as created using \code{read_rdhs_config}
 #' @param root Character for root directory to where client, caches,
 #'   surveys etc. will be stored. Default = \code{rappdirs_rdhs()}
-#' @param api_key Character for DHS API KEY
+#' @param api_key Character for DHS API KEY. Default = NULL
 #'
 #' @template client_dhs_methods
 #' @export
@@ -17,11 +17,16 @@
 #' config_path = "rdhs.json",global = FALSE, prompt = FALSE
 #' )
 #' td <- tempdir()
-#' cli <- rdhs::client_dhs(api_key = "ICLSPH-527168", config = conf, root = td)
+#' cli <- rdhs::client_dhs(api_key = "DEMO_1234", config = conf, root = td)
 #' }
 client_dhs <- function(config=NULL,
                        root=rappdirs_rdhs(),
-                       api_key="ICLSPH-527168") {
+                       api_key=NULL) {
+
+  # if api_key is NULL then set it to the default
+  if (is.null(api_key)) {
+    api_key <- api_key_internal
+  }
 
   # we need to have a config, so we  create the temp one if not provided
   if (is.null(config)) {
@@ -114,7 +119,7 @@ R6_client_dhs <- R6::R6Class(
 
     # INITIALISATION
     initialize = function(config,
-                          api_key = "ICLSPH-527168",
+                          api_key,
                           root = rappdirs_rdhs()) {
 
       if (!inherits(config, "rdhs_config")) {

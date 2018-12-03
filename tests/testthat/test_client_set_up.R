@@ -36,7 +36,7 @@ test_that("new updates are recognised", {
   saveRDS(cli, file.path(cli$get_root(), rdhs:::client_file_name()))
 
   # create again
-  expect_message(cli <- rdhs::client_dhs(api_key = "ICLSPH-527168",
+  expect_message(cli <- rdhs::client_dhs(api_key = api_key_internal,
                             root = cli$get_root(),
                             cli$get_config()),
                  "DHS API has been updated since")

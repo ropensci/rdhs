@@ -58,7 +58,7 @@ datasets_forced_no_client <- function(){
   l <- formals(dhs_datasets)[-c(14:16)]
   l$returnFields <- "FileDateLastModified"
   l$f <- "json"
-  l$apiKey <- "ICLSPH-527168"
+  l$apiKey <- api_key_internal
   dats <- api_request("https://api.dhsprogram.com/rest/dhs/datasets",
                       query = l, all_results = TRUE, timeout = 30)
   return(dats)

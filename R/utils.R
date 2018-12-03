@@ -118,13 +118,13 @@ client_refresh <- function(cli) {
   if (!is.null(cli$.__enclos_env__$private$config$config_path)) {
     if (file.exists(cli$.__enclos_env__$private$config$config_path)) {
       cli <- client_dhs(
-        api_key = "ICLSPH-527168",
+        api_key = api_key_internal,
         config = config,
         root = root
       )
     }
   } else {
-    cli <- client_dhs(api_key = "ICLSPH-527168", root = root)
+    cli <- client_dhs(api_key = api_key_internal, root = root)
   }
 
   return(cli)
