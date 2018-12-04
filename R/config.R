@@ -421,7 +421,7 @@ update_rdhs_config <- function(password = FALSE,
 
   # handle the function for data.frame and the class issue
   class(config) <- NULL
-  if (is.null(config$data_frame)) {
+  if (is.null(data_frame)) {
   config$data_frame <- config$data_frame_nice
   }
   config$data_frame_nice <- NULL
