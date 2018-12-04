@@ -95,7 +95,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/OJWatson/rdhs">
+  <a href="https://github.com/ropensci/rdhs">
     <span class="fa fa-github"></span>
      
   </a>
@@ -116,7 +116,7 @@
 <a href="#rdhs" class="anchor"></a>rdhs</h1></div>
 
 <div class="figure">
-<img src="https://github.com/OJWatson/rdhs/raw/master/tools/logo.png">
+<img src="tools/logo.png">
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
@@ -135,9 +135,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install <code>rdhs</code> from github with <code>devtools</code>. If you have not got a working development environment then please see the <a href="https://ojwatson.github.io/rdhs/articles/toolkit.html">toolkit vignette</a></p>
+<p>Install <code>rdhs</code> from github with <code>devtools</code>. If you have not got a working development environment then please see the <a href="https://ropensci.github.io/rdhs/articles/toolkit.html">toolkit vignette</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-<span class="co"># devtools::install_github("OJWatson/rdhs")</span>
+<span class="co"># devtools::install_github("ropensci/rdhs")</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdhs)</code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
@@ -147,8 +147,8 @@
 <hr>
 <ul>
 <li><p>Request dataset access from the DHS website <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>.</p></li>
-<li><p>Full functionality is described in the tutorial <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">here</a>.</p></li>
-<li><p>An example workflow using <code>rdhs</code> to calculate trends in anemia prevalence is available <a href="https://ojwatson.github.io/rdhs/articles/anemia.html">here</a>.</p></li>
+<li><p>Full functionality is described in the tutorial <a href="https://ropensci.github.io/rdhs/articles/introduction.html">here</a>.</p></li>
+<li><p>An example workflow using <code>rdhs</code> to calculate trends in anemia prevalence is available <a href="https://ropensci.github.io/rdhs/articles/anemia.html">here</a>.</p></li>
 </ul>
 </div>
 <div id="basic-functionality" class="section level2">
@@ -215,31 +215,30 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <a href="#download-datasets" class="anchor"></a>Download datasets</h3>
 <p>We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. The email, password, and project name that were used to create the account will then need to be provided to <code>rdhs</code> when attempting to download datasets.</p>
 <p>Once we have created an account, we need to set up our credentials using the function <code><a href="reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password.</p>
-<p>You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://ojwatson.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
+<p>You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://ropensci.github.io/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## login
 <span class="kw"><a href="reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,
                 <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,
                 <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,
                 <span class="dt">global=</span><span class="ot">FALSE</span>)
-<span class="co">#&gt; Please enter password in TK window (Alt+Tab)</span>
 <span class="co">#&gt; Writing your configuration to:</span>
 <span class="co">#&gt;    -&gt; rdhs.json</span></code></pre></div>
 <p>The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the <code>cache_path</code> directory provided so that these can be returned when working remotely or with a poor internet connection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1983</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 66.64912 66.64912 66.64912 66.64912</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 33.65776 33.65776 33.65776 33.65776</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  66.64912 66.64912     1</span>
+<span class="co">#&gt;  33.65776 33.65776     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
-microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1983</span>),<span class="dt">times =</span> <span class="dv">1</span>)
+microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1983) 2.235549 2.235549 2.235549 2.235549</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 1.118359 1.118359 1.118359 1.118359</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  2.235549 2.235549     1</span></code></pre></div>
+<span class="co">#&gt;  1.118359 1.118359     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
@@ -309,6 +308,8 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 <span class="co">#&gt;   ..- attr(*, "label")= chr "Result of malaria rapid test"</span>
 <span class="co">#&gt;  $ SurveyId: chr  "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...</span>
 <span class="co">#&gt;  $ DATASET : chr  "CDPR61FL" "CDPR61FL" "CDPR61FL" "CDPR61FL" ...</span></code></pre></div>
+<hr>
+<p><a href="tools/ropensci_footer.png" alt="ropensci_footer"></a></p>
 </div>
 </div>
 </div>
@@ -318,7 +319,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Report a bug at <br><a href="https://github.com/OJWatson/rdhs/issues">https://​github.com/​OJWatson/​rdhs/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/ropensci/rdhs/issues">https://​github.com/​ropensci/​rdhs/​issues</a>
 </li>
 </ul>
 </div>
@@ -341,10 +342,10 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active - The project has reached a stable, usable state and is being actively developed."></a></li>
-<li><a href="https://travis-ci.org/OJWatson/rdhs"><img src="https://travis-ci.org/OJWatson/rdhs.png?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://codecov.io/github/OJWatson/rdhs?branch=master"><img src="https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://ojwatson.github.io/rdhs"><img src="https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png" alt="Documentation via pkgdown"></a></li>
+<li><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
+<li><a href="https://travis-ci.org/ropensci/rdhs"><img src="https://travis-ci.org/ropensci/rdhs.png?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://codecov.io/github/ropensci/rdhs?branch=master"><img src="https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="tools/pkgdownshield.png" alt="Documentation via pkgdown"></a></li>
 </ul>
 </div>
 </div>

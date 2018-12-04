@@ -123,7 +123,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/OJWatson/rdhs">
+  <a href="https://github.com/ropensci/rdhs">
     <span class="fa fa-github"></span>
      
   </a>
@@ -197,15 +197,15 @@ lower case. Defaults to `TRUE`.</p></td>
 <span class='no'>mrfl_zip</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>"wb"</span>
 )
 
-<span class='no'>dcf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCF"</span>, <span class='no'>readLines</span>)
-<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_meta.html'>parse_dcf</a></span>(<span class='no'>dcf</span>)
+<span class='no'>dcf</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCF"</span>, <span class='no'>readLines</span>)
+<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/parse_meta'>parse_dcf</a></span>(<span class='no'>dcf</span>)
 
-<span class='no'>sps</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.SPS"</span>, <span class='no'>readLines</span>)
-<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_meta.html'>parse_sps</a></span>(<span class='no'>sps</span>)
+<span class='no'>sps</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.SPS"</span>, <span class='no'>readLines</span>)
+<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/parse_meta'>parse_sps</a></span>(<span class='no'>sps</span>)
 
-<span class='no'>do</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DO"</span>, <span class='no'>readLines</span>)
-<span class='no'>dctin</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/read_zipdata.html'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCT"</span>, <span class='no'>readLines</span>)
-<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://ojwatson.github.io/rdhs//reference/parse_meta.html'>parse_do</a></span>(<span class='no'>do</span>, <span class='no'>dctin</span>)</div></pre>
+<span class='no'>do</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DO"</span>, <span class='no'>readLines</span>)
+<span class='no'>dctin</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/read_zipdata'>read_zipdata</a></span>(<span class='no'>mrfl_zip</span>, <span class='st'>"\\.DCT"</span>, <span class='no'>readLines</span>)
+<span class='no'>dct</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rdhs/topics/parse_meta'>parse_do</a></span>(<span class='no'>do</span>, <span class='no'>dctin</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

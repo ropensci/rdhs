@@ -36,9 +36,9 @@ GitHub username, and links to relevant issue(s)/PR(s).
 
 In order to check your contribution passes all tests, you will needt be able to
 run the full test suite. Instructions for how to do this can be found 
-[here](https://ojwatson.github.io/rdhs/articles/testing.html). 
+[here](https://ropensci.github.io/rdhs/articles/testing.html). 
 
-Alternatively, you can use the package's CI with [travis](https://travis-ci.org/OJWatson/rdhs),
+Alternatively, you can use the package's CI with [travis](https://travis-ci.org/ropensci/rdhs),
 to see if the test suite has passed. This test suite uses the encrypted 
 "rdhs.json" config within the package root to download datasets. The datasets
 that are available to download with this config can be viewed within the

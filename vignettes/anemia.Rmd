@@ -23,7 +23,7 @@ Load the `rdhs` package and other useful packages for analysing data.
 
 
 ```r
-## devtools::install_github("OJWatson/rdhs")
+## devtools::install_github("ropensci/rdhs")
 library(rdhs)
 library(data.table)
 library(ggplot2)
@@ -103,7 +103,7 @@ ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 # Analyse DHS microdata
 
@@ -175,7 +175,7 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 
 ## Download datasets
 
-To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
+To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ropensci.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
 
 
 ```r
@@ -560,7 +560,7 @@ ggplot(res, aes(x=SurveyYear, y=anemia, ymin=ci_l, ymax=ci_u,
   geom_ribbon(alpha=0.4, linetype="blank") + geom_point() + geom_line()
 ```
 
-<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
 
 
 # Regression analysis: relationship between education and anemia

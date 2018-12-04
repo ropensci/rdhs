@@ -9,10 +9,5 @@
 4. Additional functionality for statistical analysis of survey data, e.. wrapping in prevR, the above indicators, plotting etc
 
 
-#### Next major version
-
-7. write discordance paper
-
-
 
 

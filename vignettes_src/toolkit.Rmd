@@ -36,6 +36,6 @@ Once a working development environment is ready then the following should work f
 
 ```r
 # install.packages("devtools")
-# devtools::install_github("OJWatson/rdhs")
+# devtools::install_github("ropensci/rdhs")
 # library(rdhs)
 ```

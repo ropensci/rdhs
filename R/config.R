@@ -419,9 +419,14 @@ update_rdhs_config <- function(password = FALSE,
     dir.create(config$cache_path, recursive = TRUE, showWarnings = FALSE)
   }
 
+  # handle the function for data.frame and the class issue
   class(config) <- NULL
+  if (is.null(data_frame)) {
   config$data_frame <- config$data_frame_nice
+  }
   config$data_frame_nice <- NULL
+
+  # now write this config out
   config <- write_rdhs_config_file(config, config$config_path)
 
   # and then create the package internal client if we are meant to

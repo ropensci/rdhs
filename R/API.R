@@ -70,7 +70,7 @@ timeout_safe_request <- function(url, timeout, encode = "json") {
   # Make the request
   resp <- tryCatch(
     httr::GET(url,
-              httr::user_agent("https://github.com/OJWatson/rdhs"),
+              httr::user_agent("https://github.com/ropensci/rdhs"),
               httr::timeout(timeout),
               encode = encode
     ), error = function(e) NULL

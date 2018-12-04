@@ -198,7 +198,7 @@ R6_client_dhs <- R6::R6Class(
 
         # Get request
         resp <- httr::GET(url, httr::accept_json(),
-                          httr::user_agent("https://github.com/OJWatson/rdhs"),
+                          httr::user_agent("https://github.com/ropensci/rdhs"),
                           encode = "json")
 
         ## pass to response parse
@@ -238,7 +238,7 @@ R6_client_dhs <- R6::R6Class(
 
           resp <- httr::GET(
             url, httr::accept_json(),
-            httr::user_agent("https://github.com/OJWatson/rdhs"),
+            httr::user_agent("https://github.com/ropensci/rdhs"),
             encode = "json"
           )
 
@@ -266,7 +266,7 @@ R6_client_dhs <- R6::R6Class(
 
               resp <- httr::GET(
                 url, httr::accept_json(),
-                httr::user_agent("https://github.com/OJWatson/rdhs"),
+                httr::user_agent("https://github.com/ropensci/rdhs"),
                 encode = "json"
               )
 

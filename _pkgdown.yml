@@ -1,4 +1,4 @@
-url: https://ojwatson.github.io/rdhs/
+url: https://ropensci.github.io/rdhs/
 
 template:
   params:
@@ -90,4 +90,4 @@ navbar:
       href: news/index.html
   right:
     - icon: fa-github
-      href: https://github.com/OJWatson/rdhs
+      href: https://github.com/ropensci/rdhs

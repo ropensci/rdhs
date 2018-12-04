@@ -27,7 +27,7 @@ Install rdhs from github with `devtools`:
 
 ```{r gh-installation, warnings = FALSE, message = FALSE}
 # install.packages("devtools")
-# devtools::install_github("OJWatson/rdhs")
+# devtools::install_github("ropensci/rdhs")
 library(rdhs)
 ```
 

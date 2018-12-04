@@ -11,11 +11,11 @@ knitr::opts_chunk$set(
 # rdhs
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Travis-CI Build Status](https://travis-ci.org/OJWatson/rdhs.png?branch=master)](https://travis-ci.org/OJWatson/rdhs)
-[![codecov.io](https://codecov.io/github/OJWatson/rdhs/coverage.svg?branch=master)](https://codecov.io/github/OJWatson/rdhs?branch=master)
-[![Documentation via pkgdown](https://github.com/OJWatson/rdhs/raw/master/tools/pkgdownshield.png)](https://ojwatson.github.io/rdhs)
+[![Travis-CI Build Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
+[![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
+[![Documentation via pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://ropensci.github.io/rdhs)
 
-![](https://github.com/OJWatson/rdhs/raw/master/tools/logo.png)  
+![](https://github.com/ropensci/rdhs/raw/master/tools/logo.png)  
 
 ## Motivation
 
@@ -33,11 +33,11 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 ## Installation
 
-Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ojwatson.github.io/rdhs/articles/toolkit.html)
+Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ropensci.github.io/rdhs/articles/toolkit.html)
 
 ```{r gh-installation}
 # install.packages("devtools")
-# devtools::install_github("OJWatson/rdhs")
+# devtools::install_github("ropensci/rdhs")
 library(rdhs)
 ```
 
@@ -49,9 +49,9 @@ To be able to **download survey datasets from the DHS website**, you will need t
 
 * Request dataset access from the DHS website [here](https://dhsprogram.com/data/Access-Instructions.cfm).
 
-* Full functionality is described in the tutorial [here](https://ojwatson.github.io/rdhs/articles/introduction.html).
+* Full functionality is described in the tutorial [here](https://ropensci.github.io/rdhs/articles/introduction.html).
 
-* An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ojwatson.github.io/rdhs/articles/anemia.html).
+* An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ropensci.github.io/rdhs/articles/anemia.html).
 
 ## Basic Functionality
 
@@ -99,7 +99,7 @@ We can now go ahead and download our datasets. To be able to download survey dat
 
 Once we have created an account, we need to set up our credentials using the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password.
 
-You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ojwatson.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
+You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ropensci.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
 
 ```{r client , R.options = list("rappdir_permission" = TRUE)}
 ## login
@@ -113,10 +113,10 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```{r client_api_cache}
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1984),times = 1)
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1983),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1984),times = 1)
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
@@ -193,3 +193,7 @@ extract <- rbind_labelled(extract)
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
 str(extract)
 ```
+
+---
+
+ [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
