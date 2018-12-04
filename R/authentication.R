@@ -133,7 +133,7 @@ available_datasets <- function(config,
   ))
 
   httr::GET(
-    url_link, httr::user_agent("https://github.com/OJWatson/rdhs"),
+    url_link, httr::user_agent("https://github.com/ropensci/rdhs"),
     destfile = tf, httr::write_disk(tf, overwrite = TRUE)
   )
 
@@ -259,14 +259,14 @@ download_datasets <- function(config,
     if (Sys.getenv("rdhs_LOUD_DOWNLOAD") == TRUE) {
       resp <- httr::GET(desired_dataset$URLS[1],
                         destfile = tf,
-                        httr::user_agent("https://github.com/OJWatson/rdhs"),
+                        httr::user_agent("https://github.com/ropensci/rdhs"),
                         httr::write_disk(tf, overwrite = TRUE),
                         httr::progress()
       ) %>% handle_api_response(to_json = FALSE)
     } else {
       resp <- httr::GET(desired_dataset$URLS[1],
                         destfile = tf,
-                        httr::user_agent("https://github.com/OJWatson/rdhs"),
+                        httr::user_agent("https://github.com/ropensci/rdhs"),
                         httr::write_disk(tf, overwrite = TRUE)
       ) %>% handle_api_response(to_json = FALSE)
     }

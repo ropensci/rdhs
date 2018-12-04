@@ -19,7 +19,7 @@ for(i in 1:length(sizes)){
   message(i)
   resp <- httr::GET(urls[i],
                     destfile = tf,
-                    httr::user_agent("https://github.com/OJWatson/rdhs"),
+                    httr::user_agent("https://github.com/ropensci/rdhs"),
                     httr::write_disk(tf, overwrite = TRUE)
   )
   sizes[i] <- file.size(tf)

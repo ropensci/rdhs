@@ -10,6 +10,6 @@ articles:
   testing: testing.html
   toolkit: toolkit.html
 urls:
-  reference: https://ojwatson.github.io/rdhs//reference
-  article: https://ojwatson.github.io/rdhs//articles
+  reference: https://ropensci.github.io/rdhs//reference
+  article: https://ropensci.github.io/rdhs//articles
 
