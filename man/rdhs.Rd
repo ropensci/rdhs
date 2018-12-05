@@ -21,11 +21,17 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk}
+\strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk} (0000-0003-2374-0741)
 
 Authors:
 \itemize{
-  \item Jeff Eaton
+  \item Jeff Eaton (0000-0001-7728-728X)
+}
+
+Other contributors:
+\itemize{
+  \item Lucy D'Agostino McGowan (0000-0001-7297-9359) [reviewer]
+  \item Duncan Gillespie [reviewer]
 }
 
 }
