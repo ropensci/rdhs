@@ -2,11 +2,24 @@ Package: rdhs
 Type: Package
 Title: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data
 Version: 0.6.0
-Authors@R: c(
-  person("OJ", "Watson", role=c("aut", "cre"),
-         email="o.watson15@imperial.ac.uk"),
-  person("Jeff", "Eaton", role="aut"))
-Maintainer: OJ Watson <o.watson15@imperial.ac.uk>
+Authors@R: 
+    c(person(given = "OJ",
+             family = "Watson",
+             role = c("aut", "cre"),
+             email = "o.watson15@imperial.ac.uk",
+             comment = c(ORCID = "0000-0003-2374-0741")),
+      person(given = "Jeff",
+             family = "Eaton",
+             role = "aut",
+             comment = c(ORCID = "0000-0001-7728-728X")),
+      person(given = "Lucy",
+             family = "D'Agostino McGowan",
+             role = "rev",
+             comment = c(ORCID = "0000-0001-7297-9359")),
+      person(given = "Duncan",
+             family = "Gillespie",
+             role = "rev"))
+Maintainer: OJ Watson <oj.watson@hotmail.co.uk>
 URL: https://ropensci.github.io/rdhs/
 BugReports: https://github.com/ropensci/rdhs/issues
 Description: Provides a client for (1) querying the DHS API for survey indicators
