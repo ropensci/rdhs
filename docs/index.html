@@ -159,19 +159,19 @@
 <a href="#query-the-dhs-api-" class="anchor"></a>Query the <a href="https://api.dhsprogram.com/">DHS API</a>.</h3>
 <p>Obtain survey estimates for Malaria prevalence among children from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013) that included rapid diagnostic tests (RDTs).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/dhs_indicators.html">dhs_indicators</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"IndicatorId"</span>, <span class="st">"ShortName"</span>))
-<span class="co">#&gt;                             ShortName   IndicatorId</span>
-<span class="co">#&gt; 1 Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
+<span class="co">#&gt;                              ShortName   IndicatorId</span>
+<span class="co">#&gt; 1: Malaria prevalence according to RDT ML_PMAL_C_RDT</span>
 
 <span class="kw"><a href="reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>), <span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>,
        <span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Indicator"</span>, <span class="st">"SurveyId"</span>, <span class="st">"Value"</span>, <span class="st">"SurveyYearLabel"</span>, <span class="st">"CountryName"</span>))
-<span class="co">#&gt;                             Indicator  SurveyId SurveyYearLabel Value</span>
-<span class="co">#&gt; 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
-<span class="co">#&gt; 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
-<span class="co">#&gt; 3 Malaria prevalence according to RDT TZ2017MIS            2017   7.3</span>
-<span class="co">#&gt;                 CountryName</span>
-<span class="co">#&gt; 1 Congo Democratic Republic</span>
-<span class="co">#&gt; 2                  Tanzania</span>
-<span class="co">#&gt; 3                  Tanzania</span></code></pre></div>
+<span class="co">#&gt;                              Indicator  SurveyId SurveyYearLabel Value</span>
+<span class="co">#&gt; 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8</span>
+<span class="co">#&gt; 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4</span>
+<span class="co">#&gt; 3: Malaria prevalence according to RDT TZ2017MIS            2017   7.3</span>
+<span class="co">#&gt;                  CountryName</span>
+<span class="co">#&gt; 1: Congo Democratic Republic</span>
+<span class="co">#&gt; 2:                  Tanzania</span>
+<span class="co">#&gt; 3:                  Tanzania</span></code></pre></div>
 </div>
 <div id="identify-survey-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -181,11 +181,11 @@
 sc &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()
 sc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]
 <span class="co">#&gt;    SurveyCharacteristicID SurveyCharacteristicName</span>
-<span class="co">#&gt; 57                     96            Malaria - DBS</span>
-<span class="co">#&gt; 58                     90     Malaria - Microscopy</span>
-<span class="co">#&gt; 59                     89            Malaria - RDT</span>
-<span class="co">#&gt; 60                     57          Malaria module </span>
-<span class="co">#&gt; 61                      8 Malaria/bednet questions</span></code></pre></div>
+<span class="co">#&gt; 1:                     96            Malaria - DBS</span>
+<span class="co">#&gt; 2:                     90     Malaria - Microscopy</span>
+<span class="co">#&gt; 3:                     89            Malaria - RDT</span>
+<span class="co">#&gt; 4:                     57          Malaria module </span>
+<span class="co">#&gt; 5:                      8 Malaria/bednet questions</span></code></pre></div>
 <p>Use <code><a href="reference/dhs_surveys.html">dhs_surveys()</a></code> identify surveys for the countries and years of interest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## what are the countryIds - we can find that using this API request
 ids &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))
@@ -195,7 +195,7 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <p>Lastly, identify the datasets required for download. By default, the recommended option is to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two very old datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly. The household member recode (<code>PR</code>) reports the RDT status for children under five.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">datasets &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasets)
-<span class="co">#&gt; 'data.frame':    3 obs. of  13 variables:</span>
+<span class="co">#&gt; Classes 'data.table' and 'data.frame':   3 obs. of  13 variables:</span>
 <span class="co">#&gt;  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"</span>
 <span class="co">#&gt;  $ FileSize            : int  6595349 6622102 2172102</span>
 <span class="co">#&gt;  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets" "Survey Datasets"</span>
@@ -208,7 +208,8 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <span class="co">#&gt;  $ SurveyYear          : int  2013 2015 2017</span>
 <span class="co">#&gt;  $ DHS_CountryCode     : chr  "CD" "TZ" "TZ"</span>
 <span class="co">#&gt;  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7AFL.ZIP" "TZPR7QFL.ZIP"</span>
-<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania" "Tanzania"</span></code></pre></div>
+<span class="co">#&gt;  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania" "Tanzania"</span>
+<span class="co">#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</span></code></pre></div>
 </div>
 <div id="download-datasets" class="section level3">
 <h3 class="hasAnchor">
@@ -228,18 +229,18 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 41.24414 41.24414 41.24414 41.24414</span>
-<span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  41.24414 41.24414     1</span>
+<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 38.3775 38.3775 38.3775 38.3775</span>
+<span class="co">#&gt;       uq     max neval</span>
+<span class="co">#&gt;  38.3775 38.3775     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 1.548944 1.548944 1.548944 1.548944</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 1.624252 1.624252 1.624252 1.624252</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  1.548944 1.548944     1</span></code></pre></div>
+<span class="co">#&gt;  1.624252 1.624252     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
@@ -335,8 +336,9 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>OJ Watson <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Jeff Eaton <br><small class="roles"> Author </small>  </li>
+<li>OJ Watson <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2374-0741" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Jeff Eaton <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7728-728X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 

@@ -21,7 +21,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk} (0000-0003-2374-0741)
+\strong{Maintainer}: OJ Watson \email{oj.watson@hotmail.co.uk} (0000-0003-2374-0741)
 
 Authors:
 \itemize{

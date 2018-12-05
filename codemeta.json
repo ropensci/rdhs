@@ -1,8 +1,11 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "rdhs",
-  "description": "Provides a client for (1) querying the DHS API for survey indicators\n  and metadata (https://api.dhsprogram.com/#/index.html), (2) identifying surveys\n  and datasets for analysis, (3) downloading survey datasets from the DHS website,\n  (4) loading datasets and associate metadata into R, and (5) extracting variables\n  and combining datasets for pooled analysis.",
+  "description": "Provides a client for (1) querying the DHS API for survey indicators\n  and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys\n  and datasets for analysis, (3) downloading survey datasets from the DHS website,\n  (4) loading datasets and associate metadata into R, and (5) extracting variables\n  and combining datasets for pooled analysis.",
   "name": "rdhs: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data",
   "codeRepository": "https://ropensci.github.io/rdhs/",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
@@ -20,7 +23,7 @@
       "@type": "Person",
       "givenName": "OJ",
       "familyName": "Watson",
-      "email": "o.watson15@imperial.ac.uk",
+      "email": "oj.watson@hotmail.co.uk",
       "@id": "https://orcid.org/0000-0003-2374-0741"
     },
     {
@@ -35,7 +38,7 @@
       "@type": "Person",
       "givenName": "OJ",
       "familyName": "Watson",
-      "email": "o.watson15@imperial.ac.uk",
+      "email": "oj.watson@hotmail.co.uk",
       "@id": "https://orcid.org/0000-0003-2374-0741"
     }
   ],
@@ -303,7 +306,10 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "388.909KB",
-  "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
+  "fileSize": "388.903KB",
+  "contIntegration": [
+    "https://travis-ci.org/ropensci/rdhs",
+    "https://codecov.io/github/ropensci/rdhs?branch=master"
+  ],
   "developmentStatus": "https://www.repostatus.org/#active"
 }
