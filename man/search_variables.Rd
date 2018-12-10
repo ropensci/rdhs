@@ -36,7 +36,7 @@ Use this function after \code{\link{get_datasets}} to look up all
   the survey variables that have the required variable.
 }
 \examples{
-
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -55,5 +55,5 @@ dataset_filenames = names(g),
 variables = c("v002","v102","ml13"),
 essential_variables = "ml13"
 )
-
+}
 }

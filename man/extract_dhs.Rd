@@ -25,7 +25,7 @@ Function to extract datasets using a set of survey questions as
   or \code{\link{search_variable_labels}}
 }
 \examples{
-
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -37,4 +37,5 @@ st <- search_variable_labels(names(g), "bed net")
 
 # and now extract it
 ex <- extract_dhs(st)
+}
 }

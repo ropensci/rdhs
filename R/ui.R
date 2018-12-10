@@ -228,7 +228,7 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -240,6 +240,7 @@ get_available_datasets <- function(clear_cache = FALSE) {
 #'
 #' # and now extract it
 #' ex <- extract_dhs(st)
+#' }
 
 extract_dhs <- function(questions, add_geo=FALSE) {
 
@@ -274,7 +275,7 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -293,7 +294,7 @@ extract_dhs <- function(questions, add_geo=FALSE) {
 #' variables = c("v002","v102","ml13"),
 #' essential_variables = "ml13"
 #' )
-#'
+#' }
 search_variables <- function(dataset_filenames,
                              variables,
                              essential_variables = NULL,
