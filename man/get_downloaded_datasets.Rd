@@ -19,6 +19,7 @@ Returns a \code{data.frame} of the datasets that have been
   dataset files in your root directory correspond to which dataset
 }
 \examples{
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -30,4 +31,5 @@ d <- get_downloaded_datasets()
 
 # which returns a names list of file paths to the datasets
 d[1]
+}
 }

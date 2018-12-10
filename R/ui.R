@@ -151,6 +151,7 @@ get_datasets <- function(dataset_filenames,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -162,6 +163,7 @@ get_datasets <- function(dataset_filenames,
 #'
 #' # which returns a names list of file paths to the datasets
 #' d[1]
+#' }
 
 get_downloaded_datasets <- function() {
 
