@@ -341,7 +341,7 @@ search_variables <- function(dataset_filenames,
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -367,6 +367,7 @@ search_variables <- function(dataset_filenames,
 #' vars <- search_variable_labels(
 #' dataset_filenames = names(g), search_terms = "fever|net", regex = TRUE
 #' )
+#' }
 
 search_variable_labels <- function(dataset_filenames,
                                    search_terms = NULL,

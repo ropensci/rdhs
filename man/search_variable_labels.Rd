@@ -45,7 +45,7 @@ Use this function after \code{\link{get_datasets}} to query
   from your cached files, and will download them if not downloaded.
 }
 \examples{
-
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -71,4 +71,5 @@ essential_terms = "primaquine",
 vars <- search_variable_labels(
 dataset_filenames = names(g), search_terms = "fever|net", regex = TRUE
 )
+}
 }

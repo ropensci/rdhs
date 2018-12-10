@@ -16,6 +16,7 @@ Function to give the former output of get_datasets as it can be nice to have
 both the definitions and the dataset attached together
 }
 \examples{
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -25,5 +26,5 @@ dl <- data_and_labels(g$zzbr62dt)
 
 # now we easily have our survey question labels easily accessible
 grep("bed net", dl$variable_names$description, value = TRUE)
-
+}
 }

@@ -22,7 +22,7 @@ identified file within the zip. Default = `haven::read_dta`}
 Read filetype from a zipped folder based on the file ending
 }
 \examples{
-
+\dontrun{
 # get the model datasets included in the package
 model_datasets <- model_datasets
 
@@ -42,5 +42,5 @@ g[[1]], pattern = ".dta"
 r <- read_zipdata(
 g[[1]], pattern = ".dta", readfn = haven::read_dta, encoding = "UTF-8"
 )
-
+}
 }
