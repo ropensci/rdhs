@@ -11,7 +11,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="API Client and Dataset Management for the Demographic and Health Survey (DHS) Data">
 <meta property="og:description" content="Provides a client for (1) querying the DHS API for survey indicators
-  and metadata (https://api.dhsprogram.com/#/index.html), (2) identifying surveys
+  and metadata (&lt;https://api.dhsprogram.com/#/index.html&gt;), (2) identifying surveys
   and datasets for analysis, (3) downloading survey datasets from the DHS website,
   (4) loading datasets and associate metadata into R, and (5) extracting variables
   and combining datasets for pooled analysis.">
@@ -229,18 +229,18 @@ survs &lt;-<span class="st"> </span><span class="kw"><a href="reference/dhs_surv
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># the first time this will take a few seconds </span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                                  expr     min      lq    mean  median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 38.3775 38.3775 38.3775 38.3775</span>
-<span class="co">#&gt;       uq     max neval</span>
-<span class="co">#&gt;  38.3775 38.3775     1</span>
+<span class="co">#&gt;                                  expr      min       lq     mean   median</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 39.49325 39.49325 39.49325 39.49325</span>
+<span class="co">#&gt;        uq      max neval</span>
+<span class="co">#&gt;  39.49325 39.49325     1</span>
 
 <span class="co"># after caching, results will be available instantly</span>
 microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1984</span>),<span class="dt">times =</span> <span class="dv">1</span>)
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                                  expr      min       lq     mean   median</span>
-<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 1.624252 1.624252 1.624252 1.624252</span>
+<span class="co">#&gt;  dhs_datasets(surveyYearStart = 1984) 1.269944 1.269944 1.269944 1.269944</span>
 <span class="co">#&gt;        uq      max neval</span>
-<span class="co">#&gt;  1.624252 1.624252     1</span></code></pre></div>
+<span class="co">#&gt;  1.269944 1.269944     1</span></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download datasets</span>
 downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)
@@ -349,6 +349,7 @@ extract &lt;-<span class="st"> </span><span class="kw"><a href="reference/rbind_
 <li><a href="https://travis-ci.org/ropensci/rdhs"><img src="https://travis-ci.org/ropensci/rdhs.png?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://codecov.io/github/ropensci/rdhs?branch=master"><img src="https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master" alt="codecov.io"></a></li>
 <li><a href="https://ropensci.github.io/rdhs"><img src="https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png" alt="Documentation via pkgdown"></a></li>
+<li><a href="https://github.com/ropensci/software-review/issues/238"><img src="https://badges.ropensci.org/238_status.svg" alt="rOpenSci"></a></li>
 </ul>
 </div>
 </div>

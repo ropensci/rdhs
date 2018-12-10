@@ -4,6 +4,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
 [![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
 [![Documentation via pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://ropensci.github.io/rdhs)
+[![rOpenSci](https://badges.ropensci.org/238_status.svg)](https://github.com/ropensci/software-review/issues/238)
 
 ![](https://github.com/ropensci/rdhs/raw/master/tools/logo.png)  
 
