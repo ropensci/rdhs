@@ -414,6 +414,7 @@ search_variable_labels <- function(dataset_filenames,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -426,7 +427,7 @@ search_variable_labels <- function(dataset_filenames,
 #' # or we can pass the full dataset
 #' r <- readRDS(g[[1]])
 #' head(get_variable_labels(r))
-#'
+#' }
 get_variable_labels <- function(dataset, return_all=TRUE) {
 
   # if it is a data.frame then we try to read the labels from that

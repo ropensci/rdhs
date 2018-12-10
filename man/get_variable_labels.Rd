@@ -35,6 +35,7 @@ Returns variable names and their labels from a dataset.
       }
 }
 \examples{
+\dontrun{
 # get the model datasets included with the package
 model_datasets <- model_datasets
 
@@ -47,5 +48,5 @@ head(get_variable_labels(g))
 # or we can pass the full dataset
 r <- readRDS(g[[1]])
 head(get_variable_labels(r))
-
+}
 }
