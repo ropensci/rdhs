@@ -223,7 +223,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # create a data.frame using the new haven_labelled class
 #' df1 <- data.frame(
 #' area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
@@ -239,6 +239,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
 #'
 #' # we can also use this on the data.frame by using the only_labelled argument
 #' haven::as_factor(df1, only_labelled = TRUE)
+#' }
 
 as_factor.labelled <- function(x,
                                levels = c("default", "labels", "values", "both"),

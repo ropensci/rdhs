@@ -242,6 +242,7 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # get the model datasets included with the package
 #' model_datasets <- model_datasets
 #'
@@ -251,7 +252,7 @@ get_labels_from_dataset <- function(data, return_all=TRUE) {
 #'
 #' # now we easily have our survey question labels easily accessible
 #' grep("bed net", dl$variable_names$description, value = TRUE)
-#'
+#' }
 data_and_labels <- function(dataset) {
 
   if (class(dataset)[1] == "character") {
@@ -284,7 +285,7 @@ data_and_labels <- function(dataset) {
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # get the model datasets included in the package
 #' model_datasets <- model_datasets
 #'
@@ -304,7 +305,7 @@ data_and_labels <- function(dataset) {
 #' r <- read_zipdata(
 #' g[[1]], pattern = ".dta", readfn = haven::read_dta, encoding = "UTF-8"
 #' )
-#'
+#' }
 read_zipdata <- function(zfile, pattern=".dta$",
                          readfn=haven::read_dta, ...) {
 
