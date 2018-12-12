@@ -195,3 +195,18 @@ test_that("as_factor.labelled", {
   expect_true(class(as_factor.labelled(df1$area)) == "factor")
 
 })
+
+test_that("add_geo issue for Kenya", {
+  skip_if_no_auth()
+  testthat::skip_on_cran()
+  cli <- new_rand_client()
+
+  dat <- cli$survey_variables(
+    dataset_filenames = "KEBR71FL.ZIP",
+    variables = "v024"
+  )
+
+  extract <- cli$extract(dat, add_geo = TRUE)
+  expect_true(length(unique(extract$KEBR71FL$DHSREGNA))>1)
+  unlink(cli$get_root())
+})

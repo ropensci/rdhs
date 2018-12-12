@@ -59,7 +59,7 @@ extraction <- function(questions, available_datasets,
       geos <- which(dats$FileType == "Geographic Data")
 
       # add the cluster info
-      cluster_q <- grep("cluster$|cluster number$",
+      cluster_q <- grep("^cluster$|^cluster number$",
                         vapply(r, attr, character(1), "label", exact = TRUE),
                         ignore.case = TRUE)
       results$CLUSTER <- r[[cluster_q]]
