@@ -162,17 +162,17 @@ The path to your config is saved between sessions so you only have to set this o
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 39.30435 39.30435 39.30435 39.30435
+#>  dhs_datasets(surveyYearStart = 1986) 50.01202 50.01202 50.01202 50.01202
 #>        uq      max neval
-#>  39.30435 39.30435     1
+#>  50.01202 50.01202     1
 
 # after caching, results will be available instantly
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 1.100536 1.100536 1.100536 1.100536
+#>  dhs_datasets(surveyYearStart = 1986) 1.143255 1.143255 1.143255 1.143255
 #>        uq      max neval
-#>  1.100536 1.100536     1
+#>  1.143255 1.143255     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
