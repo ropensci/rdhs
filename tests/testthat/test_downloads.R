@@ -127,6 +127,7 @@ test_that("available surveys and download work", {
 })
 
 test_that("ETAR71FL.ZIP test", {
+  skip("DHS has removed this file (possibly because of what it tested")
   skip_if_no_auth()
   testthat::skip_on_cran()
   cli <- new_rand_client()
@@ -151,8 +152,8 @@ test_that("zip file ending test", {
   testthat::skip_on_cran()
   cli <- new_rand_client()
 
-  dat <- cli$get_datasets("ETAR71FL.ZIP", download_option = "zip")
-  extension <- strsplit(dat$ETAR71FL, ".", fixed = TRUE) %>%
+  dat <- cli$get_datasets("ETAR61FL.ZIP", download_option = "zip")
+  extension <- strsplit(dat$ETAR61FL, ".", fixed = TRUE) %>%
     lapply(function(x) x[length(x)]) %>%
     unlist()
   expect_identical(toupper(extension), "ZIP")

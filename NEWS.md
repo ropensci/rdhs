@@ -1,3 +1,7 @@
+## rdhs 0.6.1
+
+* `extraction(add_geo=TRUE)` correction for Kenya 2014 surveys (#67)
+
 ## rdhs 0.6.0
 
 * New `as_factor.labelled` for backward compatibility with `haven <2.0.0` 
