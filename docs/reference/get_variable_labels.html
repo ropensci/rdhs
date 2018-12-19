@@ -189,37 +189,20 @@ or only those with labels.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># get the model datasets included with the package</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># get the model datasets included with the package</span>
 <span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
 
 <span class='co'># download one of them</span>
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])
 
 <span class='co'># we can pass the list of filepaths to the function</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>get_variable_labels</span>(<span class='no'>g</span>))</div><div class='output co'>#&gt;   variable              description dataset_filename
-#&gt; 1   caseid      case identification         zzbr62dt
-#&gt; 2     bidx      birth column number         zzbr62dt
-#&gt; 3     v000   country code and phase         zzbr62dt
-#&gt; 4     v001           cluster number         zzbr62dt
-#&gt; 5     v002         household number         zzbr62dt
-#&gt; 6     v003 respondent's line number         zzbr62dt
-#&gt;                                 dataset_path survey_id
-#&gt; 1 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
-#&gt; 2 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
-#&gt; 3 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
-#&gt; 4 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
-#&gt; 5 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA
-#&gt; 6 /home/oj/.cache/rdhs/datasets/zzbr62dt.rds        NA</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>get_variable_labels</span>(<span class='no'>g</span>))
+
 <span class='co'># or we can pass the full dataset</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span>(<span class='no'>g</span><span class='kw'>[[</span><span class='fl'>1</span>]])
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>get_variable_labels</span>(<span class='no'>r</span>))</div><div class='output co'>#&gt;   variable              description
-#&gt; 1   caseid      case identification
-#&gt; 2     bidx      birth column number
-#&gt; 3     v000   country code and phase
-#&gt; 4     v001           cluster number
-#&gt; 5     v002         household number
-#&gt; 6     v003 respondent's line number</div><div class='input'>
-</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>get_variable_labels</span>(<span class='no'>r</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -242,7 +225,7 @@ or only those with labels.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

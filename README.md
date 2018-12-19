@@ -4,7 +4,11 @@
 [![Travis-CI Build Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
 [![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
 [![Documentation via pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://ropensci.github.io/rdhs)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/rdhs)](https://cran.r-project.org/package=rdhs)
+[![Downloads from Rstudio mirror](https://cranlogs.r-pkg.org/badges/grand-total/rdhs)](http://www.r-pkg.org/pkg/rdhs)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdhs)](https://cran.r-project.org/package=rdhs)
 [![rOpenSci](https://badges.ropensci.org/238_status.svg)](https://github.com/ropensci/software-review/issues/238)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2423635.svg)](https://doi.org/10.5281/zenodo.2423635)
 
 ![](https://github.com/ropensci/rdhs/raw/master/tools/logo.png)  
 
@@ -24,12 +28,24 @@ The Demographic and Health Surveys (DHS) Program has collected population survey
 
 ## Installation
 
-Install `rdhs` from github with `devtools`. If you have not got a working development environment then please see the [toolkit vignette](https://ropensci.github.io/rdhs/articles/toolkit.html)
+You can install the latest version from [`CRAN`](https://cran.r-project.org/package=rdhs) using:
 
 
 ```r
-# install.packages("devtools")
-# devtools::install_github("ropensci/rdhs")
+install.packages("rdhs")
+```
+
+You can also install the development version of `rdhs` with the latest patches from github with:
+
+
+```r
+#install.packages("devtools")
+devtools::install_github("ropensci/rdhs")
+```
+
+
+```r
+# Load the package
 library(rdhs)
 ```
 
@@ -143,20 +159,20 @@ The path to your config is saved between sessions so you only have to set this o
 
 ```r
 # the first time this will take a few seconds 
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1984),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1984) 35.94074 35.94074 35.94074 35.94074
+#>  dhs_datasets(surveyYearStart = 1986) 39.30435 39.30435 39.30435 39.30435
 #>        uq      max neval
-#>  35.94074 35.94074     1
+#>  39.30435 39.30435     1
 
 # after caching, results will be available instantly
-microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1984),times = 1)
+microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1984) 1.041135 1.041135 1.041135 1.041135
+#>  dhs_datasets(surveyYearStart = 1986) 1.100536 1.100536 1.100536 1.100536
 #>        uq      max neval
-#>  1.041135 1.041135     1
+#>  1.100536 1.100536     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.
