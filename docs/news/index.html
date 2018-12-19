@@ -172,17 +172,17 @@
 <li><p>Permissionn from user now required for file saving.</p></li>
 <li><p>API requests can now ignore any cached responses (<code>force = TRUE</code>) argument (#23):</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">force =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">force =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <ul>
 <li><p><code><a href="../reference/get_datasets.html">get_datasets(clear_cache = TRUE)</a></code> will clear the cached available datasets, enabling newly requested datasets to be downloaded (<a href='https://github.com/kaisero'>@kaisero</a>, #29).</p></li>
 <li><p>geojson objects can now be requested from the API so that you can return geojson objects for mapping purposes (#28) e.g. :</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="st">"SN"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2014</span>, 
-              <span class="dt">breakdown =</span> <span class="st">"subnational"</span>, <span class="dt">returnGeometry =</span> <span class="ot">TRUE</span>,
-              <span class="dt">f =</span> <span class="st">"geojson"</span>)
-              
-<span class="co"># convert to spatial object</span>
-sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">as.json</span>(d) <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span>geojson_sp</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="st">"SN"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2014</span>, </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">              <span class="dt">breakdown =</span> <span class="st">"subnational"</span>, <span class="dt">returnGeometry =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">              <span class="dt">f =</span> <span class="st">"geojson"</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">              </a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># convert to spatial object</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">as.json</span>(d) <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span>geojson_sp</a></code></pre></div>
 </div>
     <div id="rdhs-0-3-0" class="section level2">
 <h2 class="hasAnchor">
@@ -240,7 +240,7 @@ sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class=
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
