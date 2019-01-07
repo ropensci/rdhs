@@ -51,7 +51,7 @@ last_api_update <- function(timeout = 30) {
   date
 }
 
-# file name for where client is saved between sessions
+# make a request for all DHS datasets without the client
 #' @noRd
 datasets_forced_no_client <- function(){
 
