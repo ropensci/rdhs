@@ -200,3 +200,19 @@ test_that("Geo dataset test", {
 
   unlink(cli$get_root())
 })
+
+test_that("Geospatial coviarates", {
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+
+  cli <- new_rand_client()
+
+  # check gc file
+  downloads <- cli$get_datasets("CDGC62FL.ZIP")
+  d <- readRDS(downloads$CDGC62FL$dataset)
+
+  expect_true(d$DHSCLUST[1] == 1)
+  unlink(cli$get_root())
+
+})
+

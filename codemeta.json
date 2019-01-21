@@ -14,10 +14,10 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.1",
+    "version": "3.5.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.1 (2018-07-02)",
+  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
   "author": [
     {
       "@type": "Person",
@@ -306,7 +306,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "389.147KB",
+  "fileSize": "389.562KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/rdhs",
     "https://codecov.io/github/ropensci/rdhs?branch=master"
