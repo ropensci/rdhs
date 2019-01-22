@@ -160,7 +160,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="/home/oj/GoogleDrive/AcademicWork/Imperial/git/rdhs/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
