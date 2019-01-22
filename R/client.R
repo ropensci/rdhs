@@ -474,7 +474,7 @@ R6_client_dhs <- R6::R6Class(
             "Both regex and search_terms were provided.",
             "search_terms will be used.",
             "To use regex for searching, do not specify search_terms"
-            ))
+          ))
         }
       }
 
@@ -613,60 +613,61 @@ R6_client_dhs <- R6::R6Class(
 
         res[[i]] <- out
 
-        # handle for case mismatches - we'll do this rather than allow people to
-        # cache agianst the case they have specified with all_lower as that is
-        # ridiculous memory wastage.
+        if (!is.null(out_desc)) {
+          # handle for case mismatches - we'll do this rather than allow people to
+          # cache agianst the case they have specified with all_lower as that is
+          # ridiculous memory wastage.
 
-        # if the description first variable is upper then they all are and we'll
-        # force the variables and essential variables to be the same for for
-        # matching. If not then all lower and do the same
-        if (is_uppercase(out_desc$variable[1])) {
-          variables <- toupper(variables)
-          if (!is.null(essential_variables)) {
-            essential_variables <- toupper(essential_variables)
-          }
-        } else {
-          variables <- tolower(variables)
-          if (!is.null(essential_variables)) {
-            essential_variables <- tolower(essential_variables)
-          }
-        }
-
-        # now let's match
-        matched_rows <- na.omit(match(variables, out_desc$variable))
-
-        if (rm_na) {
-
-          # remove na results
-          na_from_match <- grep(private$na_s,
-                                out_desc$description[matched_rows],
-                                ignore.case = TRUE)
-
-          if (length(na_from_match) > 0) {
-            matched_rows <- matched_rows[-grep(
-              private$na_s,
-              out_desc$description[matched_rows],
-              ignore.case = TRUE
-            )]
+          # if the description first variable is upper then they all are and we'll
+          # force the variables and essential variables to be the same for for
+          # matching. If not then all lower and do the same
+          if (is_uppercase(out_desc$variable[1])) {
+            variables <- toupper(variables)
+            if (!is.null(essential_variables)) {
+              essential_variables <- toupper(essential_variables)
+            }
+          } else {
+            variables <- tolower(variables)
+            if (!is.null(essential_variables)) {
+              essential_variables <- tolower(essential_variables)
+            }
           }
 
-        }
+          # now let's match
+          matched_rows <- na.omit(match(variables, out_desc$variable))
 
-        # only add if we have found any questions that match
-        if (length(matched_rows) > 0) {
+          if (rm_na) {
 
-          # add the descriptions to the df object
-          df <- rbind(df, data.frame(
-            "variable" = out_desc$variable[matched_rows],
-            "description" = out_desc$description[matched_rows],
-            "dataset_filename" = rep(names(res[i]), length(matched_rows)),
-            "dataset_path" = rep(res[[i]], length(matched_rows)),
-            "survey_id" = rep(datasets[i, ]$SurveyId, length(matched_rows)),
-            stringsAsFactors = FALSE
-          ))
+            # remove na results
+            na_from_match <- grep(private$na_s,
+                                  out_desc$description[matched_rows],
+                                  ignore.case = TRUE)
+
+            if (length(na_from_match) > 0) {
+              matched_rows <- matched_rows[-grep(
+                private$na_s,
+                out_desc$description[matched_rows],
+                ignore.case = TRUE
+              )]
+            }
+
+          }
+
+          # only add if we have found any questions that match
+          if (length(matched_rows) > 0) {
+
+            # add the descriptions to the df object
+            df <- rbind(df, data.frame(
+              "variable" = out_desc$variable[matched_rows],
+              "description" = out_desc$description[matched_rows],
+              "dataset_filename" = rep(names(res[i]), length(matched_rows)),
+              "dataset_path" = rep(res[[i]], length(matched_rows)),
+              "survey_id" = rep(datasets[i, ]$SurveyId, length(matched_rows)),
+              stringsAsFactors = FALSE
+            ))
+          }
         }
       }
-
 
       # now remove datasets that do not have essential codes:
       if (!is.null(essential_variables)) {
@@ -693,7 +694,7 @@ R6_client_dhs <- R6::R6Class(
       if (all(substr(unique(questions$dataset_filename), 1, 2) == "zz")) {
         datasets <- model_datasets
       } else {
-      datasets <- self$available_datasets()
+        datasets <- self$available_datasets()
       }
 
       # append the filename as survey to the datasets for easier matching later

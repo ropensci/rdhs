@@ -306,7 +306,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "389.562KB",
+  "fileSize": "536.983KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/rdhs",
     "https://codecov.io/github/ropensci/rdhs?branch=master"
