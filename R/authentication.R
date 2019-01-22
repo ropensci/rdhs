@@ -344,9 +344,10 @@ download_datasets <- function(config,
 
 
 
-      # if the class of the object is from a geo file then we
+      # if the class of the object is from a geo or geo_covariates file then we
       # will just return the rds path
-      if (class(res$dataset)[1] == "SpatialPointsDataFrame") {
+      if (class(res$dataset)[1] == "SpatialPointsDataFrame" ||
+          desired_dataset$FileType == "Geospatial Covariates") {
         res <- rds_path
       } else {
         # if its a dataset then we return the path and the

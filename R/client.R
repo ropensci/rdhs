@@ -592,15 +592,26 @@ R6_client_dhs <- R6::R6Class(
       for (i in 1:download_iteration) {
 
         # create key for this
-        key <- paste0(
-          datasets[i, ]$SurveyId, "_", datasets[i, ]$FileName, "_", "rds",
-          "_", attr(download, which = "reformat")
-        )
+        key <- paste0(datasets[i, ]$SurveyId, "_",
+                      datasets[i, ]$FileName, "_",
+                      "rds", "_",
+                      attr(download, which = "reformat"))
 
         # Get description and dataset path and find the matched_rows for
         # the requested variables
-        out_desc <- private$storr$get(key, "downloaded_dataset_variable_names")
-        res[[i]] <- private$storr$get(key, "downloaded_datasets")
+
+        # first check against cache
+        out <- tryCatch(
+          private$storr$get(key, "downloaded_datasets"),
+          KeyError = function(e) NULL
+        )
+
+        out_desc <- tryCatch(
+          private$storr$get(key, "downloaded_dataset_variable_names"),
+          KeyError = function(e) NULL
+        )
+
+        res[[i]] <- out
 
         # handle for case mismatches - we'll do this rather than allow people to
         # cache agianst the case they have specified with all_lower as that is
