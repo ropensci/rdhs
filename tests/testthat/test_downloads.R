@@ -209,7 +209,7 @@ test_that("Geospatial coviarates", {
 
   # check gc file
   downloads <- cli$get_datasets("CDGC62FL.ZIP")
-  d <- readRDS(downloads$CDGC62FL$dataset)
+  d <- readRDS(downloads$CDGC62FL)
 
   expect_true(d$DHSCLUST[1] == 1)
   unlink(cli$get_root())
