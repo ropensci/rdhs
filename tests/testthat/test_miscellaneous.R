@@ -122,12 +122,6 @@ test_that("model datasets correct", {
           ignore.case = TRUE)
     )
 
-  expect_true(
-    grepl("ar",
-          md$FileName[which(md$FileType == "HIV Test Results Recode")[1]],
-          ignore.case = TRUE)
-  )
-
 })
 
 test_that("model datasets onAttach", {
