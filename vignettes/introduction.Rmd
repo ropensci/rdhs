@@ -1,7 +1,7 @@
 ---
 title: "How to use rdhs?"
 author: "OJ Watson, Jeff Eaton"
-date: "2018-11-12"
+date: "2019-01-22"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to use rdhs?}
@@ -52,22 +52,22 @@ indicators[1,]
 ```
 
 ```
-##                                                                                                           Definition
-## 1 Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
-##   NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
-## 1           0             I            Rate           0 ASFR 10-14
-##     IndicatorId    Level1 IndicatorTotalId          Level2 Level3
-## 1 FE_FRTR_W_A10 Fertility                  Fertility rates  Women
-##        SDRID IndicatorOldId TagIds DenominatorWeightedId
-## 1 FEFRTRWA10                                            
-##                                Label IndicatorOrder
-## 1 Age specific fertility rate: 10-14       11763005
-##                                                                     Denominator
-## 1 Per thousand women years exposed in the period 1-36 months prior to interview
-##   QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
-## 1                                                           
-##   IndicatorSpecial2Id
-## 1
+##                                                                                                            Definition
+## 1: Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
+##    NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
+## 1:           0             I            Rate           0 ASFR 10-14
+##      IndicatorId    Level1 IndicatorTotalId          Level2 Level3
+## 1: FE_FRTR_W_A10 Fertility                  Fertility rates  Women
+##         SDRID IndicatorOldId TagIds DenominatorWeightedId
+## 1: FEFRTRWA10                                            
+##                                 Label IndicatorOrder
+## 1: Age specific fertility rate: 10-14       11763005
+##                                                                      Denominator
+## 1: Per thousand women years exposed in the period 1-36 months prior to interview
+##    QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
+## 1:                                                           
+##    IndicatorSpecial2Id
+## 1:
 ```
 
 Each call to the DHS API returns a `data.frame` by default with all the results available by default. 
@@ -81,18 +81,18 @@ indicators[order(indicators$IndicatorId),][1:5,c("IndicatorId", "Definition")]
 ```
 
 ```
-##        IndicatorId
-## 2031 AH_CIGA_M_UNW
-## 2026 AH_CIGA_W_10P
-## 2023 AH_CIGA_W_12C
-## 2024 AH_CIGA_W_35C
-## 2025 AH_CIGA_W_69C
-##                                                               Definition
-## 2031                     Number of men who smoke cigarettes (unweighted)
-## 2026 Percentage of women who smoked 10+ cigarettes in preceding 24 hours
-## 2023 Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
-## 2024 Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
-## 2025 Percentage of women who smoked 6-9 cigarettes in preceding 24 hours
+##      IndicatorId
+## 1: AH_CIGA_M_UNW
+## 2: AH_CIGA_W_10P
+## 3: AH_CIGA_W_12C
+## 4: AH_CIGA_W_35C
+## 5: AH_CIGA_W_69C
+##                                                             Definition
+## 1:                     Number of men who smoke cigarettes (unweighted)
+## 2: Percentage of women who smoked 10+ cigarettes in preceding 24 hours
+## 3: Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
+## 4: Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
+## 5: Percentage of women who smoked 6-9 cigarettes in preceding 24 hours
 ```
 
 
@@ -109,8 +109,8 @@ tags[grepl("Malaria", tags$TagName), ]
 
 ```
 ##    TagType                   TagName TagID TagOrder
-## 31       0       Malaria Parasitemia    36      540
-## 43       2 Select Malaria Indicators    79     1000
+## 1:       0       Malaria Parasitemia    36      540
+## 2:       2 Select Malaria Indicators    79     1000
 ```
 
 ```r
@@ -120,20 +120,20 @@ data[1,]
 ```
 
 ```
-##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
-##        SDRID Precision        RegionId SurveyYearLabel SurveyType
-## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
-##   SurveyYear IndicatorOrder DHS_CountryCode CILow
-## 1       2013      125136010              CD      
-##                 CountryName IndicatorType CharacteristicId
-## 1 Congo Democratic Republic             I           503010
-##   CharacteristicCategory   IndicatorId CharacteristicOrder
-## 1                 Region ML_PMAL_C_RDT             1503010
-##   CharacteristicLabel ByVariableLabel DenominatorUnweighted
-## 1            Kinshasa                                   406
-##   DenominatorWeighted CIHigh IsTotal ByVariableId
-## 1                 532              0            0
+##     DataId                           Indicator  SurveyId IsPreferred Value
+## 1: 1945295 Malaria prevalence according to RDT CD2013DHS           1  17.1
+##         SDRID Precision        RegionId SurveyYearLabel SurveyType
+## 1: MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
+##    SurveyYear IndicatorOrder DHS_CountryCode CILow
+## 1:       2013      125136010              CD      
+##                  CountryName IndicatorType CharacteristicId
+## 1: Congo Democratic Republic             I           503010
+##    CharacteristicCategory   IndicatorId CharacteristicOrder
+## 1:                 Region ML_PMAL_C_RDT             1503010
+##    CharacteristicLabel ByVariableLabel DenominatorUnweighted
+## 1:            Kinshasa                                   406
+##    DenominatorWeighted CIHigh IsTotal ByVariableId
+## 1:                 532              0            0
 ```
 
 
@@ -151,13 +151,6 @@ countries  <- c("Angola","Ghana","Kenya","Liberia",
 
 # and plot the results
 library(ggplot2)
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.5.1
-```
-
-```r
 ggplot(resp[resp$CountryName %in% countries,],
        aes(x=SurveyYear,y=Value,colour=CountryName)) +
   geom_point() +
@@ -167,7 +160,7 @@ ggplot(resp[resp$CountryName %in% countries,],
   facet_wrap(~CountryName,ncol = 6) 
 ```
 
-<img src="https://github.com/ropensci/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 
 If we incorrectly entered a filter query (very possible), `rdhs` will let us know our request was invalid:
@@ -181,9 +174,10 @@ resp <- dhs_data(indicatorIds="ML_FEVT_C_AMasfafasfL",
 ```
 
 ```
-## Error in handle_api_response(resp, TRUE): 
-##    -> DHS API Request Failed [500] 
-##    -> Error Type: dhs_internal_server_error
+## Error in timeout_safe_request(url, timeout, encode = "json"): API Timeout Error: No response after 30 seconds.
+##  Either increase timeout using set_rdhs_config(timeout = ...)
+##  or check if the API is down by checking:
+##  https://api.dhsprogram.com/rest/dhs/dataupdates
 ```
 
 
@@ -204,11 +198,11 @@ sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 
 ```
 ##    SurveyCharacteristicID SurveyCharacteristicName
-## 57                     96            Malaria - DBS
-## 58                     90     Malaria - Microscopy
-## 59                     89            Malaria - RDT
-## 60                     57          Malaria module 
-## 61                      8 Malaria/bednet questions
+## 1:                     96            Malaria - DBS
+## 2:                     90     Malaria - Microscopy
+## 3:                     89            Malaria - RDT
+## 4:                     57          Malaria module 
+## 5:                      8 Malaria/bednet questions
 ```
 
 
@@ -222,9 +216,10 @@ str(ids)
 ```
 
 ```
-## 'data.frame':	91 obs. of  2 variables:
+## Classes 'data.table' and 'data.frame':	91 obs. of  2 variables:
 ##  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...
 ##  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...
+##  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 ```r
@@ -241,7 +236,7 @@ str(datasets)
 ```
 
 ```
-## 'data.frame':	19 obs. of  13 variables:
+## Classes 'data.table' and 'data.frame':	19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
 ##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
 ##  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...
@@ -255,6 +250,7 @@ str(datasets)
 ##  $ DHS_CountryCode     : chr  "CD" "CD" "CD" "CD" ...
 ##  $ FileName            : chr  "CDAR61FL.ZIP" "CDBR61FL.ZIP" "CDCR61FL.ZIP" "CDHR61FL.ZIP" ...
 ##  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...
+##  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 Lastly, we recommended to download either the spss (.sav), `fileFormat = "SV"`, or the flat file (.dat), `fileFormat = "FL"` datasets. The flat is quicker, but there are still one or two datasets that don't read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don't read in correctly.
@@ -278,7 +274,11 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
 
 ```
 ## Writing your configuration to:
-##    -> C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json
+##    -> /home/oj/.cache/rdhs/rdhs.json
+```
+
+```
+## Adding /home/oj/.cache/rdhs/rdhs.json to .gitignore
 ```
 
 
@@ -351,9 +351,9 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992),times = 1)
 ```
 ## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 4.934442 4.934442 4.934442 4.934442
+##  dhs_surveys(surveyYear = 1992) 13.83736 13.83736 13.83736 13.83736
 ##        uq      max neval
-##  4.934442 4.934442     1
+##  13.83736 13.83736     1
 ```
 
 ```r
@@ -364,9 +364,9 @@ microbenchmark::microbenchmark(dhs_surveys(surveyYear = 1992), times = 1)
 ```
 ## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 2.308836 2.308836 2.308836 2.308836
+##  dhs_surveys(surveyYear = 1992) 4.307866 4.307866 4.307866 4.307866
 ##        uq      max neval
-##  2.308836 2.308836     1
+##  4.307866 4.307866     1
 ```
 
 
@@ -403,7 +403,7 @@ head(cdpr$hv024)
 ```
 
 ```
-## <Labelled integer>
+## <Labelled integer>: Province
 ## [1] 4 4 4 4 4 4
 ## 
 ## Labels:
@@ -427,7 +427,7 @@ class(cdpr$hv024)
 ```
 
 ```
-## [1] "labelled"
+## [1] "haven_labelled"
 ```
 
 If we want to get the data dictionary for this dataset, we can use the function `get_variable_labels`, which will return what question each of the variables in our dataset refer to:
@@ -475,7 +475,7 @@ table(questions$dataset_filename)
 ```
 
 
-What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. 
+What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7ASV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7ASV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. 
 
 ## 5. Extract variables and combining datasets for pooled multi-survey analyses.
 
@@ -500,13 +500,13 @@ str(extract)
 ```
 ## List of 2
 ##  $ CDPR61FL:Classes 'dhs_dataset' and 'data.frame':	95949 obs. of  2 variables:
-##   ..$ hml35   : 'labelled' int [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
+##   ..$ hml35   : 'haven_labelled' int [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:95949] "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
 ##  $ TZPR7AFL:Classes 'dhs_dataset' and 'data.frame':	64880 obs. of  2 variables:
-##   ..$ hml35   : 'labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
+##   ..$ hml35   : 'haven_labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
@@ -541,11 +541,17 @@ head(extract2$CDPR61FL)
 ```
 
 ```r
-head(extract2$TZPR7HFL)
+head(extract2$TZPR7AFL)
 ```
 
 ```
-## NULL
+##   hv024 hml35  SurveyId
+## 1     1    NA TZ2015DHS
+## 2     1    NA TZ2015DHS
+## 3     1    NA TZ2015DHS
+## 4     1    NA TZ2015DHS
+## 5     1    NA TZ2015DHS
+## 6     1    NA TZ2015DHS
 ```
 
 ```r
@@ -669,7 +675,7 @@ head(better_bound$hml35)
 ```
 
 ```
-## <Labelled integer>
+## <Labelled integer>: Result of malaria rapid test
 ## [1] NA NA NA NA NA NA
 ## 
 ## Labels:
@@ -784,7 +790,7 @@ summary(svyglm(hml35 ~ DATASET + hv025 + net + bricks, des, family="quasibinomia
 ```
 ## 
 ## Call:
-## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, des, 
+## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, design = des, 
 ##     family = "quasibinomial")
 ## 
 ## Survey design:

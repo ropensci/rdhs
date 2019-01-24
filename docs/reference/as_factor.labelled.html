@@ -66,7 +66,7 @@ old archived datasets that have a `labelled` class." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -190,15 +190,15 @@ Labels are sorted by value.</p></li>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For more details see <code><a href='https://www.rdocumentation.org/packages/haven/topics/as_factor'>haven::as_factor</a></code></p>
+    <p>For more details see <code><a href='https://haven.tidyverse.org/reference/as_factor.html'>haven::as_factor</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># create a data.frame using the new haven_labelled class</span>
 <span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/labelled'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"reg 1"</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='st'>"reg 2"</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='st'>"reg 3"</span><span class='kw'>=</span><span class='fl'>3</span>)),
-<span class='kw'>climate</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/labelled'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cold"</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='st'>"hot"</span><span class='kw'>=</span><span class='fl'>1</span>))
+<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"reg 1"</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='st'>"reg 2"</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='st'>"reg 3"</span><span class='kw'>=</span><span class='fl'>3</span>)),
+<span class='kw'>climate</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cold"</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='st'>"hot"</span><span class='kw'>=</span><span class='fl'>1</span>))
 )
 
 <span class='co'># manually change it to the old style</span>
@@ -206,10 +206,10 @@ Labels are sorted by value.</p></li>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/class'>class</a></span>(<span class='no'>df1</span>$<span class='no'>climate</span>) <span class='kw'>&lt;-</span> <span class='st'>"labelled"</span>
 
 <span class='co'># with rdhs attached, i.e. library(rdhs), we can now do the following</span>
-<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/as_factor'>as_factor</a></span>(<span class='no'>df1</span>$<span class='no'>area</span>)
+<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span>(<span class='no'>df1</span>$<span class='no'>area</span>)
 
 <span class='co'># we can also use this on the data.frame by using the only_labelled argument</span>
-<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/as_factor'>as_factor</a></span>(<span class='no'>df1</span>, <span class='kw'>only_labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span>(<span class='no'>df1</span>, <span class='kw'>only_labelled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

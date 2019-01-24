@@ -10,14 +10,14 @@
   "codeRepository": "https://ropensci.github.io/rdhs/",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.6.0.900",
+  "version": "0.6.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.1",
+    "version": "3.5.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.1 (2018-07-02)",
+  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
   "author": [
     {
       "@type": "Person",
@@ -306,7 +306,11 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
+<<<<<<< HEAD
   "fileSize": "389.177KB",
+=======
+  "fileSize": "537.004KB",
+>>>>>>> master
   "contIntegration": [
     "https://travis-ci.org/ropensci/rdhs",
     "https://codecov.io/github/ropensci/rdhs?branch=master"

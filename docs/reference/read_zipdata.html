@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -151,7 +151,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>read_zipdata</span>(<span class='no'>zfile</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>".dta$"</span>, <span class='kw'>readfn</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_zipdata</span>(<span class='no'>zfile</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>".dta$"</span>, <span class='kw'>readfn</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='no'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,7 +197,7 @@ identified file within the zip. Default = `haven::read_dta`</p></td>
 
 <span class='co'># and we can pass a function to read the file and any other args with ...</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>read_zipdata</span>(
-<span class='no'>g</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>".dta"</span>, <span class='kw'>readfn</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>
+<span class='no'>g</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>".dta"</span>, <span class='kw'>readfn</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='no'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>
 )
 <span class='co'># }</span></pre>
   </div>
