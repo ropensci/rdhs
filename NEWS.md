@@ -1,6 +1,7 @@
 ## rdhs 0.6.1
 
 * `extraction(add_geo=TRUE)` correction for Kenya 2014 surveys (#67)
+* Geospatial covariate data sets now supported correctly (#64)
 
 ## rdhs 0.6.0
 
@@ -8,7 +9,6 @@
 `labelled` classes.
 
 * `model_datasets` now internal and exported dataset (#60).
-
 
 ## rdhs 0.5.2
 

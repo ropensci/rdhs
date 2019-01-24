@@ -113,6 +113,17 @@ test_that("update_rdhs_config", {
   }
 })
 
+test_that("model datasets correct", {
+
+  md <- model_datasets
+  expect_true(
+    grepl("br",
+          md$FileName[which(md$FileType == "Births Recode")[1]],
+          ignore.case = TRUE)
+    )
+
+})
+
 test_that("model datasets onAttach", {
 
   testthat::skip_on_cran()
@@ -131,3 +142,4 @@ test_that("model datasets onAttach", {
   assign("model_datasets",md,parent.env(environment()))
 
   })
+

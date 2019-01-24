@@ -151,7 +151,7 @@ read_dta" />
     
     <p>This function reads a DHS recode dataset from the zipped Stata dataset.
 By default (`mode = "haven"`), it reads in the stata data set using
-<code><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></code></p>
+<code><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></code></p>
     
     </div>
 
@@ -178,7 +178,7 @@ case. Default to `TRUE`.</p></td>
     <tr>
       <th>...</th>
       <td><p>Other arguments to be passed to <code><a href='read_zipdata.html'>read_zipdata</a></code>.
-Here this will be arguments to pass to either <code><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></code>
+Here this will be arguments to pass to either <code><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></code>
 or <code><a href='https://www.rdocumentation.org/packages/foreign/topics/read.dta'>read.dta</a></code> depending on the mode provided</p></td>
     </tr>
     </table>
@@ -190,7 +190,7 @@ or <code><a href='https://www.rdocumentation.org/packages/foreign/topics/read.dt
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The default `mode="haven"` uses  <code><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></code>
+    <p>The default `mode="haven"` uses  <code><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></code>
 to read in the dataset. We have chosen this option as it is more consistent
 with respect to variable labels and descriptions than others.
 The other options either use use <code><a href='https://www.rdocumentation.org/packages/foreign/topics/read.dta'>read.dta</a></code>
@@ -229,8 +229,8 @@ labels are still available through dataset attributes (see examples).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/foreign/topics/read.dta'>read.dta</a></code>, <code><a href='https://www.rdocumentation.org/packages/haven/topics/labelled'>labelled</a></code>,
-  <code><a href='https://www.rdocumentation.org/packages/haven/topics/read_dta'>read_dta</a></code>.</p>
+    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/foreign/topics/read.dta'>read.dta</a></code>, <code><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></code>,
+  <code><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></code>.</p>
 <p>For more information on the DHS filetypes and contents of
 distributed dataset .ZIP files, see
 <a href='https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334'>https://dhsprogram.com/data/File-Types-and-Names.cfm#CP_JUMP_10334</a>.</p></div>
@@ -256,7 +256,7 @@ distributed dataset .ZIP files, see
 #&gt;      8  unsure
 #&gt;      9 missing</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>mr</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; 
 #&gt;    0    1    8 
-#&gt; 1766  239   57 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/as_factor'>as_factor</a></span>(<span class='no'>mr</span>$<span class='no'>mv213</span>))</div><div class='output co'>#&gt; 
+#&gt; 1766  239   57 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span>(<span class='no'>mr</span>$<span class='no'>mv213</span>))</div><div class='output co'>#&gt; 
 #&gt;      no     yes  unsure missing 
 #&gt;    1766     239      57       0 </div><div class='input'>
 <span class='co'>## If Stata file codebook is complete, `mode="map"` and `"haven"`</span>
@@ -271,7 +271,7 @@ distributed dataset .ZIP files, see
 #&gt;      1    yes
 #&gt;      8 unsure</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>)</div><div class='output co'>#&gt; 
 #&gt;    0    1    8 
-#&gt; 1766  239   57 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/haven/topics/as_factor'>as_factor</a></span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>))</div><div class='output co'>#&gt; 
+#&gt; 1766  239   57 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span>(<span class='no'>mr_hav</span>$<span class='no'>mv213</span>))</div><div class='output co'>#&gt; 
 #&gt;     no    yes unsure 
 #&gt;   1766    239     57 </div><div class='input'>
 ## Parsing codebook when using foreign::read.dta()

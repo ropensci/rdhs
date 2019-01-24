@@ -6,6 +6,7 @@ urls <- paste0(
   "https://dhsprogram.com",
   rvest::html_attr(rvest::html_nodes(base_xml,"form a"), name = "href")
 )
+extract_dataset_type_code <- function(file) basename(file) %>% substr(start=3, stop=4)
 
 file_names <- rvest::html_text(rvest::html_nodes(base_xml,"form a"))
 file_types <- rvest::html_text(rvest::html_nodes(base_xml,".td_style32 strong"))
@@ -25,20 +26,21 @@ for(i in 1:length(sizes)){
   sizes[i] <- file.size(tf)
 }
 
-df <- data.frame("FileFormat" = files,
-                 "FileSize" = sizes,
+# remove first row to remove
+df <- data.frame("FileFormat" = files[-1],
+                 "FileSize" = sizes[-1],
                  "DatasetType" = "Survey Datasets",
                  "SurveyNum" = NA,
                  "SurveyId" = NA,
-                 "FileType" = file_types,
+                 "FileType" = file_types[-1],
                  "FileDateLastModified" = NA,
                  "SurveyYearLabel" = NA,
                  "SurveyType" = "DHS",
                  "SurveyYear" = "ModelDatasetSurveyYear",
                  "DHS_CountryCode" = "ZZ",
-                 "FileName" = file_names,
+                 "FileName" = file_names[-1],
                  "CountryName" = "ModelDatasetCountry",
-                 "URLS" = urls,
+                 "URLS" = urls[-1],
                  stringsAsFactors = FALSE)
 model_datasets <- df
 

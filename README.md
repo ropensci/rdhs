@@ -70,19 +70,19 @@ Obtain survey estimates for Malaria prevalence among children from the Democrati
 
 ```r
 dhs_indicators(indicatorIds = "ML_PMAL_C_RDT", returnFields=c("IndicatorId", "ShortName"))
-#>                             ShortName   IndicatorId
-#> 1 Malaria prevalence according to RDT ML_PMAL_C_RDT
+#>                              ShortName   IndicatorId
+#> 1: Malaria prevalence according to RDT ML_PMAL_C_RDT
 
 dhs_data(countryIds = c("CD","TZ"), indicatorIds = "ML_PMAL_C_RDT", surveyYearStart = 2013,
        returnFields=c("Indicator", "SurveyId", "Value", "SurveyYearLabel", "CountryName"))
-#>                             Indicator  SurveyId SurveyYearLabel Value
-#> 1 Malaria prevalence according to RDT CD2013DHS         2013-14  30.8
-#> 2 Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4
-#> 3 Malaria prevalence according to RDT TZ2017MIS            2017   7.3
-#>                 CountryName
-#> 1 Congo Democratic Republic
-#> 2                  Tanzania
-#> 3                  Tanzania
+#>                              Indicator  SurveyId SurveyYearLabel Value
+#> 1: Malaria prevalence according to RDT CD2013DHS         2013-14  30.8
+#> 2: Malaria prevalence according to RDT TZ2015DHS         2015-16  14.4
+#> 3: Malaria prevalence according to RDT TZ2017MIS            2017   7.3
+#>                  CountryName
+#> 1: Congo Democratic Republic
+#> 2:                  Tanzania
+#> 3:                  Tanzania
 ```
 
 ### Identify survey datasets
@@ -95,11 +95,11 @@ Now, obtain survey microdatasets to analyze these same indicators. Query the *su
 sc <- dhs_survey_characteristics()
 sc[grepl("Malaria", sc$SurveyCharacteristicName), ]
 #>    SurveyCharacteristicID SurveyCharacteristicName
-#> 57                     96            Malaria - DBS
-#> 58                     90     Malaria - Microscopy
-#> 59                     89            Malaria - RDT
-#> 60                     57          Malaria module 
-#> 61                      8 Malaria/bednet questions
+#> 1:                     96            Malaria - DBS
+#> 2:                     90     Malaria - Microscopy
+#> 3:                     89            Malaria - RDT
+#> 4:                     57          Malaria module 
+#> 5:                      8 Malaria/bednet questions
 ```
 
 Use `dhs_surveys()` identify surveys for the countries and years of interest.
@@ -119,7 +119,7 @@ Lastly, identify the datasets required for download. By default, the recommended
 ```r
 datasets <- dhs_datasets(surveyIds = survs$SurveyId, fileFormat = "FL", fileType = "PR")
 str(datasets)
-#> 'data.frame':	3 obs. of  13 variables:
+#> Classes 'data.table' and 'data.frame':	3 obs. of  13 variables:
 #>  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)"
 #>  $ FileSize            : int  6595349 6622102 2172102
 #>  $ DatasetType         : chr  "Survey Datasets" "Survey Datasets" "Survey Datasets"
@@ -133,6 +133,7 @@ str(datasets)
 #>  $ DHS_CountryCode     : chr  "CD" "TZ" "TZ"
 #>  $ FileName            : chr  "CDPR61FL.ZIP" "TZPR7AFL.ZIP" "TZPR7QFL.ZIP"
 #>  $ CountryName         : chr  "Congo Democratic Republic" "Tanzania" "Tanzania"
+#>  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 ### Download datasets
@@ -160,19 +161,19 @@ The path to your config is saved between sessions so you only have to set this o
 ```r
 # the first time this will take a few seconds 
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
-#> Unit: milliseconds
+#> Unit: seconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 50.01202 50.01202 50.01202 50.01202
+#>  dhs_datasets(surveyYearStart = 1986) 2.077998 2.077998 2.077998 2.077998
 #>        uq      max neval
-#>  50.01202 50.01202     1
+#>  2.077998 2.077998     1
 
 # after caching, results will be available instantly
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 1.143255 1.143255 1.143255 1.143255
+#>  dhs_datasets(surveyYearStart = 1986) 1.684018 1.684018 1.684018 1.684018
 #>        uq      max neval
-#>  1.143255 1.143255     1
+#>  1.684018 1.684018     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.

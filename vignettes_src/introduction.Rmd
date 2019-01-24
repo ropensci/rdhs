@@ -282,7 +282,7 @@ table(questions$dataset_filename)
 ```
 
 
-What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. 
+What we see from the questions is that the question "Result of malaria rapid test" appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7ASV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7ASV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes. 
 
 ## 5. Extract variables and combining datasets for pooled multi-survey analyses.
 
@@ -317,7 +317,7 @@ extract2 <- extract_dhs(questions, add_geo = FALSE)
 
 # quick check 
 head(extract2$CDPR61FL)
-head(extract2$TZPR7HFL)
+head(extract2$TZPR7AFL)
 
 # and just to prove that hml35 did actually read in okay (there are just lots of NA)
 table(extract2$CDPR61FL$hml35,useNA = "always")

@@ -95,6 +95,7 @@ read_dhs_dataset <- function(file, dataset,
     unzipped_files <- suppressWarnings(unzip(file, exdir = tempfile()))
     file <- unzipped_files[which(toupper(filetype) %in% toupper(file_types))]
     res <- read.csv(file)
+    res <- list("dataset"=res)
   }
 
   return(res)

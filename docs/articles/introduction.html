@@ -109,7 +109,7 @@
       <h1>How to use rdhs?</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
             
-            <h4 class="date">2018-11-12</h4>
+            <h4 class="date">2019-01-22</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -152,38 +152,38 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">## what are the indicators</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">indicators &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span>()</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">indicators[<span class="dv">1</span>,]</a></code></pre></div>
-<pre><code>##                                                                                                           Definition
-## 1 Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
-##   NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
-## 1           0             I            Rate           0 ASFR 10-14
-##     IndicatorId    Level1 IndicatorTotalId          Level2 Level3
-## 1 FE_FRTR_W_A10 Fertility                  Fertility rates  Women
-##        SDRID IndicatorOldId TagIds DenominatorWeightedId
-## 1 FEFRTRWA10                                            
-##                                Label IndicatorOrder
-## 1 Age specific fertility rate: 10-14       11763005
-##                                                                     Denominator
-## 1 Per thousand women years exposed in the period 1-36 months prior to interview
-##   QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
-## 1                                                           
-##   IndicatorSpecial2Id
-## 1</code></pre>
+<pre><code>##                                                                                                            Definition
+## 1: Age-specific fertility rate for the three years preceding the survey for age group 10-14 expressed per 1,000 women
+##    NumberScale IndicatorType MeasurementType IsQuickStat  ShortName
+## 1:           0             I            Rate           0 ASFR 10-14
+##      IndicatorId    Level1 IndicatorTotalId          Level2 Level3
+## 1: FE_FRTR_W_A10 Fertility                  Fertility rates  Women
+##         SDRID IndicatorOldId TagIds DenominatorWeightedId
+## 1: FEFRTRWA10                                            
+##                                 Label IndicatorOrder
+## 1: Age specific fertility rate: 10-14       11763005
+##                                                                      Denominator
+## 1: Per thousand women years exposed in the period 1-36 months prior to interview
+##    QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
+## 1:                                                           
+##    IndicatorSpecial2Id
+## 1:</code></pre>
 <p>Each call to the DHS API returns a <code>data.frame</code> by default with all the results available by default.</p>
 <p>The DHS has a unique <em>IndicatorId</em> for each of the statistics it calculates. The definition and specific string for each indicator is included within the <em>IndicatorId</em> and <em>Definition</em> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># grab the first 5 alphabetically</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">indicators[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(indicators<span class="op">$</span>IndicatorId),][<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"IndicatorId"</span>, <span class="st">"Definition"</span>)]</a></code></pre></div>
-<pre><code>##        IndicatorId
-## 2031 AH_CIGA_M_UNW
-## 2026 AH_CIGA_W_10P
-## 2023 AH_CIGA_W_12C
-## 2024 AH_CIGA_W_35C
-## 2025 AH_CIGA_W_69C
-##                                                               Definition
-## 2031                     Number of men who smoke cigarettes (unweighted)
-## 2026 Percentage of women who smoked 10+ cigarettes in preceding 24 hours
-## 2023 Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
-## 2024 Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
-## 2025 Percentage of women who smoked 6-9 cigarettes in preceding 24 hours</code></pre>
+<pre><code>##      IndicatorId
+## 1: AH_CIGA_M_UNW
+## 2: AH_CIGA_W_10P
+## 3: AH_CIGA_W_12C
+## 4: AH_CIGA_W_35C
+## 5: AH_CIGA_W_69C
+##                                                             Definition
+## 1:                     Number of men who smoke cigarettes (unweighted)
+## 2: Percentage of women who smoked 10+ cigarettes in preceding 24 hours
+## 3: Percentage of women who smoked 1-2 cigarettes in preceding 24 hours
+## 4: Percentage of women who smoked 3-5 cigarettes in preceding 24 hours
+## 5: Percentage of women who smoked 6-9 cigarettes in preceding 24 hours</code></pre>
 <p>Since there are quite a lot of indicators, it might be easier to first query by tags. The DHS tags their indicators by what areas of demography and health they relate to, e.g. anaemia, literacy, malaria parasitaemia are all specific tags. First let’s look at what the tags are, by interacting with the <code><a href="../reference/dhs_tags.html">dhs_tags()</a></code> function, before grabbing data that related to malaria parasitaemia in the DRC and Tanzania since 2010:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># What are the tags</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">tags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_tags.html">dhs_tags</a></span>()</a>
@@ -191,25 +191,25 @@
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Let's say we want to view the tags that relate to malaria</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">tags[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, tags<span class="op">$</span>TagName), ]</a></code></pre></div>
 <pre><code>##    TagType                   TagName TagID TagOrder
-## 31       0       Malaria Parasitemia    36      540
-## 43       2 Select Malaria Indicators    79     1000</code></pre>
+## 1:       0       Malaria Parasitemia    36      540
+## 2:       2 Select Malaria Indicators    79     1000</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># and now let's then grab this data by specifying the countryIds and the survey year starts</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">data[<span class="dv">1</span>,]</a></code></pre></div>
-<pre><code>##    DataId                           Indicator  SurveyId IsPreferred Value
-## 1 3376663 Malaria prevalence according to RDT CD2013DHS           1  17.1
-##        SDRID Precision        RegionId SurveyYearLabel SurveyType
-## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
-##   SurveyYear IndicatorOrder DHS_CountryCode CILow
-## 1       2013      125136010              CD      
-##                 CountryName IndicatorType CharacteristicId
-## 1 Congo Democratic Republic             I           503010
-##   CharacteristicCategory   IndicatorId CharacteristicOrder
-## 1                 Region ML_PMAL_C_RDT             1503010
-##   CharacteristicLabel ByVariableLabel DenominatorUnweighted
-## 1            Kinshasa                                   406
-##   DenominatorWeighted CIHigh IsTotal ByVariableId
-## 1                 532              0            0</code></pre>
+<pre><code>##     DataId                           Indicator  SurveyId IsPreferred Value
+## 1: 1945295 Malaria prevalence according to RDT CD2013DHS           1  17.1
+##         SDRID Precision        RegionId SurveyYearLabel SurveyType
+## 1: MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
+##    SurveyYear IndicatorOrder DHS_CountryCode CILow
+## 1:       2013      125136010              CD      
+##                  CountryName IndicatorType CharacteristicId
+## 1: Congo Democratic Republic             I           503010
+##    CharacteristicCategory   IndicatorId CharacteristicOrder
+## 1:                 Region ML_PMAL_C_RDT             1503010
+##    CharacteristicLabel ByVariableLabel DenominatorUnweighted
+## 1:            Kinshasa                                   406
+##    DenominatorWeighted CIHigh IsTotal ByVariableId
+## 1:                 532              0            0</code></pre>
 <p>Depending on your analysis this maybe more than enough detail. It is also worth mentioning that this data can also be accessed via <a href="https://www.statcompiler.com/">DHS STATcompiler</a> if you prefer a click and collect version. However, hopefully one can see that selecting a lot of different indicators for multiple countries and breakdowns should be a lot easier using the <code>rdhs</code> API interaction. For example we can very quickly find out the trends in antimalarial use in Africa, and see if perhaps antimalarial prescription has decreased after RDTs were introduced (assumed 2010).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Make an api request</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_FEVT_C_AML"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2010</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>)</a>
@@ -220,24 +220,24 @@
 <a class="sourceLine" id="cb10-7" data-line-number="7">                <span class="st">"Rwanda"</span>,<span class="st">"Sierra Leone"</span>,<span class="st">"Senegal"</span>,<span class="st">"Tanzania"</span>)</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co"># and plot the results</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a></code></pre></div>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.1</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(resp[resp<span class="op">$</span>CountryName <span class="op">%in%</span><span class="st"> </span>countries,],</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">       <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span>(<span class="dt">method =</span> <span class="st">"glm"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">.5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(resp<span class="op">$</span>Indicator[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span>CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </a></code></pre></div>
-<p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(resp[resp<span class="op">$</span>CountryName <span class="op">%in%</span><span class="st"> </span>countries,],</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">       <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span>(<span class="dt">method =</span> <span class="st">"glm"</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(resp<span class="op">$</span>Indicator[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span>CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </a></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Make an api request</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">                 <span class="dt">surveyYearStart=</span><span class="dv">202231231306</span>,</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">                 <span class="dt">breakdown=</span><span class="st">"subParTyping"</span>)</a></code></pre></div>
-<pre><code>## Error in handle_api_response(resp, TRUE): 
-##    -&gt; DHS API Request Failed [500] 
-##    -&gt; Error Type: dhs_internal_server_error</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Make an api request</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">                 <span class="dt">surveyYearStart=</span><span class="dv">202231231306</span>,</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">                 <span class="dt">breakdown=</span><span class="st">"subParTyping"</span>)</a></code></pre></div>
+<pre><code>## Error in timeout_safe_request(url, timeout, encode = "json"): API Timeout Error: No response after 30 seconds.
+##  Either increase timeout using set_rdhs_config(timeout = ...)
+##  or check if the API is down by checking:
+##  https://api.dhsprogram.com/rest/dhs/dataupdates</code></pre>
 </div>
 <div id="identify-surveys-relevant-for-further-analysis" class="section level2">
 <h2 class="hasAnchor">
@@ -245,33 +245,34 @@
 <p>You may, however, wish to do more nuanced analysis than the API allows. The following 4 sections detail a very basic example of how to quickly identify, download and extract datasets you are interested in.</p>
 <p>Let’s say we want to get all DHS survey data from the Democratic Republic of Congo and Tanzania in the last 5 years (since 2013), which covers the use of rapid diagnostic tests (RDTs) for malaria. To begin we’ll interact with the DHS API to identify our datasets.</p>
 <p>To start our extraction we’ll query the <em>surveyCharacteristics</em> data set using <code><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics()</a></code> function:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## make a call with no arguments</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">sc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">sc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## make a call with no arguments</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">sc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">sc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]</a></code></pre></div>
 <pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
-## 57                     96            Malaria - DBS
-## 58                     90     Malaria - Microscopy
-## 59                     89            Malaria - RDT
-## 60                     57          Malaria module 
-## 61                      8 Malaria/bednet questions</code></pre>
+## 1:                     96            Malaria - DBS
+## 2:                     90     Malaria - Microscopy
+## 3:                     89            Malaria - RDT
+## 4:                     57          Malaria module 
+## 5:                      8 Malaria/bednet questions</code></pre>
 <p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="../reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API functions:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co">## what are the countryIds</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ids)</a></code></pre></div>
-<pre><code>## 'data.frame':    91 obs. of  2 variables:
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## what are the countryIds</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ids)</a></code></pre></div>
+<pre><code>## Classes 'data.table' and 'data.frame':   91 obs. of  2 variables:
 ##  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...
-##  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># lets find all the surveys that fit our search criteria</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">survs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3">                     <span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4">                     <span class="dt">surveyType =</span> <span class="st">"DHS"</span>,</a>
-<a class="sourceLine" id="cb19-5" data-line-number="5">                     <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co"># and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, </a>
-<a class="sourceLine" id="cb19-9" data-line-number="9">                         <span class="dt">fileFormat =</span> <span class="st">"flat"</span>)</a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasets)</a></code></pre></div>
-<pre><code>## 'data.frame':    19 obs. of  13 variables:
+##  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...
+##  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># lets find all the surveys that fit our search criteria</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">survs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">                     <span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">                     <span class="dt">surveyType =</span> <span class="st">"DHS"</span>,</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">                     <span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co"># and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, </a>
+<a class="sourceLine" id="cb17-9" data-line-number="9">                         <span class="dt">fileFormat =</span> <span class="st">"flat"</span>)</a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasets)</a></code></pre></div>
+<pre><code>## Classes 'data.table' and 'data.frame':   19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
 ##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
 ##  $ DatasetType         : chr  "HIV Datasets" "Survey Datasets" "Survey Datasets" "Survey Datasets" ...
@@ -284,7 +285,8 @@
 ##  $ SurveyYear          : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
 ##  $ DHS_CountryCode     : chr  "CD" "CD" "CD" "CD" ...
 ##  $ FileName            : chr  "CDAR61FL.ZIP" "CDBR61FL.ZIP" "CDCR61FL.ZIP" "CDHR61FL.ZIP" ...
-##  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...</code></pre>
+##  $ CountryName         : chr  "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" "Congo Democratic Republic" ...
+##  - attr(*, ".internal.selfref")=&lt;externalptr&gt;</code></pre>
 <p>Lastly, we recommended to download either the spss (.sav), <code>fileFormat = "SV"</code>, or the flat file (.dat), <code>fileFormat = "FL"</code> datasets. The flat is quicker, but there are still one or two datasets that don’t read correctly, whereas the .sav files are slower to read in but so far no datasets have been found that don’t read in correctly.</p>
 <p>We can now use this to download our datasets for further analysis.</p>
 </div>
@@ -294,71 +296,72 @@
 <p>We can now go ahead and download our datasets. To be able to download survey datasets from the DHS website, you will need to set up an account with them to enable you to request access to the datasets. Instructions on how to do this can be found <a href="https://dhsprogram.com/data/Access-Instructions.cfm">here</a>. The email, password, and project name that were used to create the account will then need to be provided to <code>rdhs</code> when attempting to download datasets.</p>
 <p>Once we have created an account, we need to set up our credentials using the function <code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password.</p>
 <p>You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. If you do not provide an argument for <code>cache_path</code> you will be prompted to provide permission to <code>rdhs</code> to save your datasets and API calls within your user cache directory for your operating system. This is to comply with CRAN’s requests for permission to be granted before writing to system files. If you do not grant permission, these will be written within your R temporary directory (as we saw above when we first used one of the functions to query the API). Similarly if you do not also provide an argument for <code>config_path</code>, this will be saved within your temp directory unless permission is granted. Your config files will always be called “rdhs.json”, so that <code>rdhs</code> can find them easily.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>)</a></code></pre></div>
 <pre><code>## Writing your configuration to:
-##    -&gt; C:\Users\Oliver\AppData\Local\Oliver\rdhs\Cache/rdhs.json</code></pre>
+##    -&gt; /home/oj/.cache/rdhs/rdhs.json</code></pre>
+<pre><code>## Adding /home/oj/.cache/rdhs/rdhs.json to .gitignore</code></pre>
 <p>Because you may have more than one project set up with the DHS website, you may want to have a separate directory for each set of datasets, and thus you will need to set up a different config file. To do this you need to set up a local config file. This can be achieved by setting the <code>global</code> param to <code>FALSE</code> (i.e. not global). You will also now need to provide the <code>config_path</code> argument, which MUST be <strong>“rdhs.json”</strong>. In order to comply with CRAN, you have to type this in (rather than have it as the default option).</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">                <span class="dt">cache_path =</span> <span class="st">"project_one"</span>,</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">                <span class="dt">global =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"rdhs.json"</span>,</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">                <span class="dt">cache_path =</span> <span class="st">"project_one"</span>,</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">                <span class="dt">global =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; rdhs.json</code></pre>
 <p>You may, however, not have different projects with the DHS website, in which case you may prefer to set up one global config file. If you do not want this to be saved in your user cache directory, you can set <code>global</code> to <code>TRUE</code> (the default) and this will save it in your R default launch directory. This MUST be <strong>~/.rdhs.json</strong>. (There is not really any difference between saving it at <code>~/.rdhs.json</code> vs the user cache directory, but you might want to have it somewhere easy to find etc).</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"~/.rdhs.json"</span>,</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">                <span class="dt">global =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"~/.rdhs.json"</span>,</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">                <span class="dt">global =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
 <p>After you have used <code>set_rdhs_config</code>, <code>rdhs</code> will try and find your config file when you next use <code>rdhs</code> in a different R session. It will do so by first looking locally for “rdhs.json”, then globally for “~/.rdhs.json”, then into your user cache directory, before lastly creating one in your temp directory. This is what was happening when you first used one of the API functions, and as such the config that is created to query the API initially will not be able to download datasets.</p>
 <p>Lastly, if you wish to return a <code>data.table</code> from your API requests, rather than a <code>data.frame</code> then you can change the default behaviour using the <code>data_frame</code> argument. You could also use this to convert them to <code>tibbles</code> and so on:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"~/.rdhs.json"</span>,</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">                <span class="dt">data_frame =</span> <span class="st">"data.table::as.data.table"</span>,</a>
-<a class="sourceLine" id="cb27-6" data-line-number="6">                <span class="dt">global =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co">## set up your credentials</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"rdhs.tester@gmail.com"</span>,</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Testing Malaria Investigations"</span>,</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">                <span class="dt">config_path =</span> <span class="st">"~/.rdhs.json"</span>,</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">                <span class="dt">data_frame =</span> <span class="st">"data.table::as.data.table"</span>,</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">                <span class="dt">global =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Writing your configuration to:
 ##    -&gt; ~/.rdhs.json</code></pre>
 <p>To see what config that is being used by <code>rdhs</code> at any point, then use <code><a href="../reference/get_rdhs_config.html">get_rdhs_config()</a></code> to view the config settings.</p>
 <hr>
 <p>Before we download our datasets, it is worth mentioning that once you have set up your login credentials, your API calls will be cached for your within the cache directory used. This will allow those working remotely or without a good internet connection to be able to still return previous API requests. If you do not, API requests will still be cached within the temp directory, so will be quick to be returned a second time, but they will then be deleted when you start a new R session.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># the first time we call this function, rdhs will make the API request</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>),<span class="dt">times =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># the first time we call this function, rdhs will make the API request</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>),<span class="dt">times =</span> <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 4.934442 4.934442 4.934442 4.934442
+##  dhs_surveys(surveyYear = 1992) 13.83736 13.83736 13.83736 13.83736
 ##        uq      max neval
-##  4.934442 4.934442     1</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># with it cached it will be returned much quicker</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>), <span class="dt">times =</span> <span class="dv">1</span>)</a></code></pre></div>
+##  13.83736 13.83736     1</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># with it cached it will be returned much quicker</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyYear =</span> <span class="dv">1992</span>), <span class="dt">times =</span> <span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##                            expr      min       lq     mean   median
-##  dhs_surveys(surveyYear = 1992) 2.308836 2.308836 2.308836 2.308836
+##  dhs_surveys(surveyYear = 1992) 4.307866 4.307866 4.307866 4.307866
 ##        uq      max neval
-##  2.308836 2.308836     1</code></pre>
+##  4.307866 4.307866     1</code></pre>
 <p>Now back to our dataset downloads. If we have a look back at our datasets object, we’ll see there are 19 datasets listed. However, not all of them will be relevant to our malaria RDT questions. One approach is to head to the DHS website and have a look at the <a href="https://dhsprogram.com/publications/publication-dhsg4-dhs-questionnaires-and-manuals.cfm">DHS Recodes</a>, and look at the recodes that relate to the surveys. The other alternative is to download all the surveys and then query the variables within them. This is what we’ll demonstrate here as it also demonstrates more of the package’s functionality:</p>
 <p>So first we will download all these datasets:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># download datasets</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># download datasets</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a></code></pre></div>
 <p>The function returns a list with a file path to where the downloaded datasets have been saved to. By default the files will download quietly, i.e. no progress is shown. However, if you want to see the progress then you can control this by setting this in your config using the <code>verbose_download</code> argument.</p>
 </div>
 <div id="load-datasets-and-associated-metadata-into-r-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-datasets-and-associated-metadata-into-r-" class="anchor"></a>4. Load datasets and associated metadata into R.</h2>
 <p>We can now examine what it is we have actually downloaded, by reading in one of these datasets:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># read in our dataset</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">cdpr &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(downloads<span class="op">$</span>CDPR61FL)</a></code></pre></div>
-<p>The dataset returned here contains all the survey questions within the dataset. The dataset is by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="https://www.rdocumentation.org/packages/haven/topics/as_factor">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># read in our dataset</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">cdpr &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(downloads<span class="op">$</span>CDPR61FL)</a></code></pre></div>
+<p>The dataset returned here contains all the survey questions within the dataset. The dataset is by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="https://haven.tidyverse.org/reference/as_factor.html">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
 <p>So if we have a look at what is returned for the variable <em>hv024</em>:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
-<pre><code>## &lt;Labelled integer&gt;
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
+<pre><code>## &lt;Labelled integer&gt;: Province
 ## [1] 4 4 4 4 4 4
 ## 
 ## Labels:
@@ -374,12 +377,12 @@
 ##      9        nord-kivu
 ##     10        orientale
 ##     11         sud-kivu</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># and then the dataset</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
-<pre><code>## [1] "labelled"</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># and then the dataset</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
+<pre><code>## [1] "haven_labelled"</code></pre>
 <p>If we want to get the data dictionary for this dataset, we can use the function <code>get_variable_labels</code>, which will return what question each of the variables in our dataset refer to:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># let's look at the variable_names</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/get_variable_labels.html">get_variable_labels</a></span>(cdpr))</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># let's look at the variable_names</span></a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/get_variable_labels.html">get_variable_labels</a></span>(cdpr))</a></code></pre></div>
 <pre><code>##   variable                                                  description
 ## 1     hhid                                          Case Identification
 ## 2    hvidx                                                  Line number
@@ -399,54 +402,54 @@
 <code><a href="../reference/get_datasets.html">get_datasets(download_option = "both")</a></code> - The zip is downloaded and saved as well as the read in rds</li>
 </ul>
 <p>The other main reason for reading the dataset in straight away as the default option is that <code>rdhs</code> will also create a table of all the survey variables and their labels (definitions) and cache them for you, which then allows us to quickly query for particular search terms or survey variables:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># rapid diagnostic test search</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(questions<span class="op">$</span>dataset_filename)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># rapid diagnostic test search</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(questions<span class="op">$</span>dataset_filename)</a></code></pre></div>
 <pre><code>## 
 ## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL 
 ##       24        1       48        1</code></pre>
-<p>What we see from the questions is that the question “Result of malaria rapid test” appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes.</p>
+<p>What we see from the questions is that the question “Result of malaria rapid test” appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7ASV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7ASV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes.</p>
 </div>
 <div id="extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-variables-and-combining-datasets-for-pooled-multi-survey-analyses-" class="anchor"></a>5. Extract variables and combining datasets for pooled multi-survey analyses.</h2>
 <p>To extract our data we pass our questions object to the function <code>extract_dhs</code>, which will create a list with each dataset and its extracted data as a <code>data.frame</code>. We also have the option to add any geographic data available, which will download the geographic data files for you and add this data to you resultant extract:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># let's just use the PR files thus</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co"># and grab the questions from this again along with also questions detailing the province</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"malaria rapid test"</span>))</a>
-<a class="sourceLine" id="cb43-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb43-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
-<a class="sourceLine" id="cb43-9" data-line-number="9">extract &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb43-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb43-11" data-line-number="11"><span class="co"># what does our extract look like</span></a>
-<a class="sourceLine" id="cb43-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(extract)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># let's just use the PR files thus</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"FL"</span>, <span class="dt">fileType =</span> <span class="st">"PR"</span>)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co"># and grab the questions from this again along with also questions detailing the province</span></a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"malaria rapid test"</span>))</a>
+<a class="sourceLine" id="cb42-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb42-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
+<a class="sourceLine" id="cb42-9" data-line-number="9">extract &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb42-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb42-11" data-line-number="11"><span class="co"># what does our extract look like</span></a>
+<a class="sourceLine" id="cb42-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(extract)</a></code></pre></div>
 <pre><code>## List of 2
 ##  $ CDPR61FL:Classes 'dhs_dataset' and 'data.frame':  95949 obs. of  2 variables:
-##   ..$ hml35   : 'labelled' int [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
+##   ..$ hml35   : 'haven_labelled' int [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:95949] "CD2013DHS" "CD2013DHS" "CD2013DHS" "CD2013DHS" ...
 ##  $ TZPR7AFL:Classes 'dhs_dataset' and 'data.frame':  64880 obs. of  2 variables:
-##   ..$ hml35   : 'labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
+##   ..$ hml35   : 'haven_labelled' int [1:64880] NA NA NA NA NA NA NA 0 NA NA ...
 ##   .. ..- attr(*, "label")= chr "Result of malaria rapid test"
 ##   .. ..- attr(*, "labels")= Named int [1:3] 0 1 9
 ##   .. .. ..- attr(*, "names")= chr [1:3] "negative" "positive" "missing"
 ##   ..$ SurveyId: chr [1:64880] "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" "TZ2015DHS" ...</code></pre>
 <p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>.</p>
 <p>We can also query our datasets for the survey question variables. In the example above the survey variable label was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code><a href="../reference/search_variables.html">search_variables()</a></code>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># and grab the questions from this now utilising the survey variables</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))</a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"><span class="co"># and now extract the data</span></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">extract2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb45-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="co"># quick check </span></a>
-<a class="sourceLine" id="cb45-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>CDPR61FL)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># and grab the questions from this now utilising the survey variables</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="co"># and now extract the data</span></a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">extract2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb44-7" data-line-number="7"><span class="co"># quick check </span></a>
+<a class="sourceLine" id="cb44-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>CDPR61FL)</a></code></pre></div>
 <pre><code>##   hv024 hml35  SurveyId
 ## 1     4    NA CD2013DHS
 ## 2     4    NA CD2013DHS
@@ -454,18 +457,24 @@
 ## 4     4    NA CD2013DHS
 ## 5     4    NA CD2013DHS
 ## 6     4    NA CD2013DHS</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>TZPR7HFL)</a></code></pre></div>
-<pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># and just to prove that hml35 did actually read in okay (there are just lots of NA)</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>TZPR7AFL)</a></code></pre></div>
+<pre><code>##   hv024 hml35  SurveyId
+## 1     1    NA TZ2015DHS
+## 2     1    NA TZ2015DHS
+## 3     1    NA TZ2015DHS
+## 4     1    NA TZ2015DHS
+## 5     1    NA TZ2015DHS
+## 6     1    NA TZ2015DHS</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># and just to prove that hml35 did actually read in okay (there are just lots of NA)</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</a></code></pre></div>
 <pre><code>## 
 ##     0     1     9  &lt;NA&gt; 
 ##  5260  2959     8 87722</code></pre>
 <p>We can now combine our two dataframes for further analysis using the <code>rdhs</code> package function <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled data.frames:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># first let's bind our first extraction, without the hv024</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">extract_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract)</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract_bound)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># first let's bind our first extraction, without the hv024</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2">extract_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract)</a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract_bound)</a></code></pre></div>
 <pre><code>##            hml35  SurveyId  DATASET
 ## CDPR61FL.1    NA CD2013DHS CDPR61FL
 ## CDPR61FL.2    NA CD2013DHS CDPR61FL
@@ -473,16 +482,16 @@
 ## CDPR61FL.4    NA CD2013DHS CDPR61FL
 ## CDPR61FL.5    NA CD2013DHS CDPR61FL
 ## CDPR61FL.6    NA CD2013DHS CDPR61FL</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># now let's try our second extraction</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">extract2_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># now let's try our second extraction</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">extract2_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2)</a></code></pre></div>
 <pre><code>## Warning in rbind_labelled(extract2): Some variables have non-matching value labels: hv024.
 ## Inheriting labels from first data frame with labels.</code></pre>
 <p>This hasn’t quite done what we might want in the second instance. The <em>hv024</em> variable stores the regions for these 2 countries, which will not be the same and thus the labels will be different between the two of them. Without specifying any additional arguments <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> will simply use the first data.frames labelling as the default, which will mean that some of the Tanzanian provinces will have been encoded as DRC provinces - not good! (This is a similar problem in nature to say trying to add new character strings to a factored data.frame).</p>
 <p>There are a few work arounds. Firstly, we can specify a <em>labels</em> argument to the function which will detail how we should handle different variables. <em>labels</em> is a names list that specifies how to handle each variable. If we simply want to keep all the labels then we us the string “concatenate”:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># lets try concatenating the hv024</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2, <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hv024)</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="co"># lets try concatenating the hv024</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2, <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hv024)</a></code></pre></div>
 <pre><code>## &lt;Labelled integer&gt;
 ## [1] 6 6 6 6 6 6
 ## 
@@ -530,16 +539,16 @@
 ##     40           tabora
 ##     41            tanga</code></pre>
 <p>We could also specify new labels for a variable. For example, imagine the two datasets encoded their RDT responses differently, with the first one as <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("No","Yes")</a></code> and the other as <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("Negative","Positive")</a></code>. These would be for our purposes the same response, and so we could either leave it and all our results would use the <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("No","Yes")</a></code> labelling. But we may want to use the latter as it’s more informative/correct, or we may want to be crystal clear and use <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("NegativeTest","PositiveTest")</a></code>. we can do that like this:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># lets try concatenating the hv024 and providing new labels</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(</a>
-<a class="sourceLine" id="cb57-3" data-line-number="3">  extract2,</a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">  <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,</a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">                <span class="st">"hml35"</span>=<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb57-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb57-8" data-line-number="8"><span class="co"># and our new label</span></a>
-<a class="sourceLine" id="cb57-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hml35)</a></code></pre></div>
-<pre><code>## &lt;Labelled integer&gt;
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="co"># lets try concatenating the hv024 and providing new labels</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(</a>
+<a class="sourceLine" id="cb56-3" data-line-number="3">  extract2,</a>
+<a class="sourceLine" id="cb56-4" data-line-number="4">  <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,</a>
+<a class="sourceLine" id="cb56-5" data-line-number="5">                <span class="st">"hml35"</span>=<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb56-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb56-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb56-8" data-line-number="8"><span class="co"># and our new label</span></a>
+<a class="sourceLine" id="cb56-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hml35)</a></code></pre></div>
+<pre><code>## &lt;Labelled integer&gt;: Result of malaria rapid test
 ## [1] NA NA NA NA NA NA
 ## 
 ## Labels:
@@ -547,64 +556,64 @@
 ##      0 NegativeTest
 ##      1 PositiveTest</code></pre>
 <p>The other option is to not use the labelled class at all. We can control this when we download our datasets, using the argument <code>reformat=TRUE</code>. This will ensure that no factors or labels are used and it is just the raw data. When this option is set the object returned by <code><a href="../reference/get_datasets.html">get_datasets()</a></code> no longer has any labelled classes or factors. However, we can still recover the variable table for a dataset using <code><a href="../reference/get_variable_labels.html">get_variable_labels()</a></code>, which will take any dataset output by <code><a href="../reference/get_datasets.html">get_datasets()</a></code> and return a data.frame describing the survey question variables and definitions.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="co"># download the datasets with the reformat arguments</span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb59-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="co"># grab the questions but specifying the reformat argument</span></a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),</a>
-<a class="sourceLine" id="cb59-6" data-line-number="6">                                     <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb59-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
-<a class="sourceLine" id="cb59-9" data-line-number="9">extract3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb59-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb59-11" data-line-number="11"><span class="co"># group our results</span></a>
-<a class="sourceLine" id="cb59-12" data-line-number="12">bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract3)</a>
-<a class="sourceLine" id="cb59-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb59-14" data-line-number="14"><span class="co"># what does our hv024 look like now</span></a>
-<a class="sourceLine" id="cb59-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(bound_no_labels<span class="op">$</span>hv024[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># download the datasets with the reformat arguments</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">downloads &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="co"># grab the questions but specifying the reformat argument</span></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),</a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">                                     <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb58-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb58-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
+<a class="sourceLine" id="cb58-9" data-line-number="9">extract3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb58-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb58-11" data-line-number="11"><span class="co"># group our results</span></a>
+<a class="sourceLine" id="cb58-12" data-line-number="12">bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract3)</a>
+<a class="sourceLine" id="cb58-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb58-14" data-line-number="14"><span class="co"># what does our hv024 look like now</span></a>
+<a class="sourceLine" id="cb58-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(bound_no_labels<span class="op">$</span>hv024[<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] "character"</code></pre>
 <p>The <em>hv024</em> column is now just characters, which is possibly the best option depending on your downstream analysis/preferences. It’s for this reason that the geographic data that is added is never turned into factors or labels.</p>
 <p>Lastly, we can now use our extract dataset to carry out some regression analysis, to investigate the relationship between malaria prevalence and the quality of wall materials. To do this we will need to first grab the sample weights and stratification from the surveys, along with the extra variables and we will then check the RDT prevalence calculated using the raw data versus the API:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="co"># grab the additional variable hv023 and hv024 which have the strata and weights respectively, and hc1 which is the age</span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName,<span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv005"</span>,<span class="st">"hv021"</span>,<span class="st">"hv022"</span>,<span class="st">"hv023"</span>,<span class="st">"hv024"</span>,</a>
-<a class="sourceLine" id="cb61-3" data-line-number="3">                                                              <span class="st">"hv025"</span>,<span class="st">"hv214"</span>,<span class="st">"hml20"</span>, <span class="st">"hc1"</span>,<span class="st">"hml35"</span>))</a>
-<a class="sourceLine" id="cb61-4" data-line-number="4">extraction &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions,<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb61-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb61-6" data-line-number="6"><span class="co"># now concatenate the provinces as before and remove missing responses</span></a>
-<a class="sourceLine" id="cb61-7" data-line-number="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extraction,<span class="dt">labels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,<span class="st">"hv214"</span>=<span class="st">"concatenate"</span>))</a>
-<a class="sourceLine" id="cb61-8" data-line-number="8">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(dat<span class="op">$</span>hml35<span class="op">==</span><span class="dv">9</span>),] <span class="co"># remove missing responses</span></a>
-<a class="sourceLine" id="cb61-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb61-10" data-line-number="10"><span class="co"># and we are going to compare our extract to the API malaria prevalence by RDT, which is for those between 6 and 59 months</span></a>
-<a class="sourceLine" id="cb61-11" data-line-number="11">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="op">!</span>dat<span class="op">$</span>hc1<span class="op">&gt;</span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>dat<span class="op">$</span>hc1<span class="op">&lt;=</span><span class="dv">60</span>),]</a>
-<a class="sourceLine" id="cb61-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb61-13" data-line-number="13"><span class="co"># create a denominator response for hml35</span></a>
-<a class="sourceLine" id="cb61-14" data-line-number="14">dat<span class="op">$</span>hml35denom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(dat<span class="op">$</span>hml35))</a>
-<a class="sourceLine" id="cb61-15" data-line-number="15">dat<span class="op">$</span>bricks &lt;-<span class="st"> </span>dat<span class="op">$</span>hv214 <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>,<span class="dv">18</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb61-16" data-line-number="16">dat<span class="op">$</span>net &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/logical">as.logical</a></span>(dat<span class="op">$</span>hml20)</a>
-<a class="sourceLine" id="cb61-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb61-18" data-line-number="18"><span class="co"># specify the strata and sample weights</span></a>
-<a class="sourceLine" id="cb61-19" data-line-number="19">dat<span class="op">$</span>strata &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(dat<span class="op">$</span>hv023,dat<span class="op">$</span>DATASET)</a>
-<a class="sourceLine" id="cb61-20" data-line-number="20">dat<span class="op">$</span>hv005 &lt;-<span class="st"> </span>dat<span class="op">$</span>hv005<span class="op">/</span><span class="fl">1e6</span></a>
-<a class="sourceLine" id="cb61-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb61-22" data-line-number="22"><span class="co"># construct a survey design using the survey pacakge</span></a>
-<a class="sourceLine" id="cb61-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(survey)</a>
-<a class="sourceLine" id="cb61-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb61-25" data-line-number="25"><span class="co"># construct the sample design and calculate the mean and totals </span></a>
-<a class="sourceLine" id="cb61-26" data-line-number="26">des &lt;-<span class="st">  </span>survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svydesign">svydesign</a></span>(<span class="op">~</span>CLUSTER<span class="op">+</span>DATASET,<span class="dt">data=</span>dat,<span class="dt">weight=</span><span class="op">~</span>hv005)</a>
-<a class="sourceLine" id="cb61-27" data-line-number="27">results &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svyciprop,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb61-28" data-line-number="28">                 survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35denom,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svytotal,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb61-29" data-line-number="29">results &lt;-<span class="st"> </span>results[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(results<span class="op">$</span>DATASET),]</a>
-<a class="sourceLine" id="cb61-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb61-31" data-line-number="31"><span class="co"># grab the same data from the API </span></a>
-<a class="sourceLine" id="cb61-32" data-line-number="32">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>, <span class="dt">surveyYearEnd =</span> <span class="dv">2016</span>)</a>
-<a class="sourceLine" id="cb61-33" data-line-number="33">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(dhs_api_data<span class="op">$</span>Value,dhs_api_data<span class="op">$</span>DenominatorWeighted,dhs_api_data<span class="op">$</span>CharacteristicLabel, dhs_api_data<span class="op">$</span>SurveyId)</a>
-<a class="sourceLine" id="cb61-34" data-line-number="34">api &lt;-<span class="st"> </span>dhs_api_data[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">."</span>,dhs_api_data[,<span class="dv">3</span>]),] <span class="co"># remove subregions included in Tanzania</span></a>
-<a class="sourceLine" id="cb61-35" data-line-number="35">api &lt;-<span class="st"> </span>api[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/apply">apply</a></span>(api[,<span class="dv">4</span><span class="op">:</span><span class="dv">3</span>],<span class="dv">1</span>,paste,<span class="dt">collapse=</span><span class="st">""</span>)),]</a>
-<a class="sourceLine" id="cb61-36" data-line-number="36"></a>
-<a class="sourceLine" id="cb61-37" data-line-number="37"><span class="co"># bind the results and remove duplicate Region Columns</span></a>
-<a class="sourceLine" id="cb61-38" data-line-number="38">comparison &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(results[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)],api[])</a>
-<a class="sourceLine" id="cb61-39" data-line-number="39"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(comparison) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Region"</span>,<span class="st">"Survey_RDT_Prev"</span>,<span class="st">"Survey_RDT_Denom"</span>,<span class="st">"API_RDT_Prev"</span>,<span class="st">"API_RDT_Denom"</span>,<span class="st">"API_Regions"</span>,<span class="st">"SurveyID"</span>)</a>
-<a class="sourceLine" id="cb61-40" data-line-number="40"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(comparison[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)])</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># grab the additional variable hv023 and hv024 which have the strata and weights respectively, and hc1 which is the age</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">questions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/search_variables.html">search_variables</a></span>(datasets<span class="op">$</span>FileName,<span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv005"</span>,<span class="st">"hv021"</span>,<span class="st">"hv022"</span>,<span class="st">"hv023"</span>,<span class="st">"hv024"</span>,</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">                                                              <span class="st">"hv025"</span>,<span class="st">"hv214"</span>,<span class="st">"hml20"</span>, <span class="st">"hc1"</span>,<span class="st">"hml35"</span>))</a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">extraction &lt;-<span class="st"> </span><span class="kw"><a href="../reference/extract_dhs.html">extract_dhs</a></span>(questions,<span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="co"># now concatenate the provinces as before and remove missing responses</span></a>
+<a class="sourceLine" id="cb60-7" data-line-number="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extraction,<span class="dt">labels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,<span class="st">"hv214"</span>=<span class="st">"concatenate"</span>))</a>
+<a class="sourceLine" id="cb60-8" data-line-number="8">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(dat<span class="op">$</span>hml35<span class="op">==</span><span class="dv">9</span>),] <span class="co"># remove missing responses</span></a>
+<a class="sourceLine" id="cb60-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb60-10" data-line-number="10"><span class="co"># and we are going to compare our extract to the API malaria prevalence by RDT, which is for those between 6 and 59 months</span></a>
+<a class="sourceLine" id="cb60-11" data-line-number="11">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="op">!</span>dat<span class="op">$</span>hc1<span class="op">&gt;</span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>dat<span class="op">$</span>hc1<span class="op">&lt;=</span><span class="dv">60</span>),]</a>
+<a class="sourceLine" id="cb60-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb60-13" data-line-number="13"><span class="co"># create a denominator response for hml35</span></a>
+<a class="sourceLine" id="cb60-14" data-line-number="14">dat<span class="op">$</span>hml35denom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(dat<span class="op">$</span>hml35))</a>
+<a class="sourceLine" id="cb60-15" data-line-number="15">dat<span class="op">$</span>bricks &lt;-<span class="st"> </span>dat<span class="op">$</span>hv214 <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>,<span class="dv">18</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb60-16" data-line-number="16">dat<span class="op">$</span>net &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/logical">as.logical</a></span>(dat<span class="op">$</span>hml20)</a>
+<a class="sourceLine" id="cb60-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb60-18" data-line-number="18"><span class="co"># specify the strata and sample weights</span></a>
+<a class="sourceLine" id="cb60-19" data-line-number="19">dat<span class="op">$</span>strata &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(dat<span class="op">$</span>hv023,dat<span class="op">$</span>DATASET)</a>
+<a class="sourceLine" id="cb60-20" data-line-number="20">dat<span class="op">$</span>hv005 &lt;-<span class="st"> </span>dat<span class="op">$</span>hv005<span class="op">/</span><span class="fl">1e6</span></a>
+<a class="sourceLine" id="cb60-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb60-22" data-line-number="22"><span class="co"># construct a survey design using the survey pacakge</span></a>
+<a class="sourceLine" id="cb60-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(survey)</a>
+<a class="sourceLine" id="cb60-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb60-25" data-line-number="25"><span class="co"># construct the sample design and calculate the mean and totals </span></a>
+<a class="sourceLine" id="cb60-26" data-line-number="26">des &lt;-<span class="st">  </span>survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svydesign">svydesign</a></span>(<span class="op">~</span>CLUSTER<span class="op">+</span>DATASET,<span class="dt">data=</span>dat,<span class="dt">weight=</span><span class="op">~</span>hv005)</a>
+<a class="sourceLine" id="cb60-27" data-line-number="27">results &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svyciprop,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb60-28" data-line-number="28">                 survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35denom,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svytotal,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb60-29" data-line-number="29">results &lt;-<span class="st"> </span>results[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(results<span class="op">$</span>DATASET),]</a>
+<a class="sourceLine" id="cb60-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb60-31" data-line-number="31"><span class="co"># grab the same data from the API </span></a>
+<a class="sourceLine" id="cb60-32" data-line-number="32">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>, <span class="dt">surveyYearEnd =</span> <span class="dv">2016</span>)</a>
+<a class="sourceLine" id="cb60-33" data-line-number="33">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(dhs_api_data<span class="op">$</span>Value,dhs_api_data<span class="op">$</span>DenominatorWeighted,dhs_api_data<span class="op">$</span>CharacteristicLabel, dhs_api_data<span class="op">$</span>SurveyId)</a>
+<a class="sourceLine" id="cb60-34" data-line-number="34">api &lt;-<span class="st"> </span>dhs_api_data[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">."</span>,dhs_api_data[,<span class="dv">3</span>]),] <span class="co"># remove subregions included in Tanzania</span></a>
+<a class="sourceLine" id="cb60-35" data-line-number="35">api &lt;-<span class="st"> </span>api[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/apply">apply</a></span>(api[,<span class="dv">4</span><span class="op">:</span><span class="dv">3</span>],<span class="dv">1</span>,paste,<span class="dt">collapse=</span><span class="st">""</span>)),]</a>
+<a class="sourceLine" id="cb60-36" data-line-number="36"></a>
+<a class="sourceLine" id="cb60-37" data-line-number="37"><span class="co"># bind the results and remove duplicate Region Columns</span></a>
+<a class="sourceLine" id="cb60-38" data-line-number="38">comparison &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(results[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)],api[])</a>
+<a class="sourceLine" id="cb60-39" data-line-number="39"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(comparison) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Region"</span>,<span class="st">"Survey_RDT_Prev"</span>,<span class="st">"Survey_RDT_Denom"</span>,<span class="st">"API_RDT_Prev"</span>,<span class="st">"API_RDT_Denom"</span>,<span class="st">"API_Regions"</span>,<span class="st">"SurveyID"</span>)</a>
+<a class="sourceLine" id="cb60-40" data-line-number="40"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(comparison[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)])</a></code></pre></div>
 <pre><code>##                                     Region Survey_RDT_Prev API_RDT_Prev
 ## Bandundu.CDPR61FL                 Bandundu       0.2038607         20.2
 ## Bas-Congo.CDPR61FL               Bas-Congo       0.4761599         47.1
@@ -621,11 +630,11 @@
 ## Katanga.CDPR61FL                  861.2030           844 CD2013DHS</code></pre>
 <p>It’s a little off, with the mean values differing due to maybe the specific cut off they used in terms of which ages were included within between 5 and 69. The variance could also be off due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline for the end user.</p>
 <p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>hv025</code>) and fixed effects for each survey.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyglm">svyglm</a></span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyglm">svyglm</a></span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</a></code></pre></div>
 <pre><code>## 
 ## Call:
-## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, des, 
+## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, design = des, 
 ##     family = "quasibinomial")
 ## 
 ## Survey design:

@@ -244,11 +244,11 @@
 ## 6                                   Read consent statement - hemoglobin</code></pre>
 <p>Variable <code>v042</code> records the household selection for hemoglobin testing. Variable <code>v455</code> reports the outcome of hemoglobin measurement and <code>v456</code> the result of altitude adjusted hemoglobin levels.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">ir &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(datasets<span class="op">$</span>path[<span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/haven/topics/as_factor">as_factor</a></span>(ir<span class="op">$</span>v042))</a></code></pre></div>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v042))</a></code></pre></div>
 <pre><code>## 
 ## not selected     selected 
 ##         3203         3418</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/haven/topics/as_factor">as_factor</a></span>(ir<span class="op">$</span>v455))</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v455))</a></code></pre></div>
 <pre><code>## 
 ##                          measured                       not present 
 ##                              3349                                 2 
@@ -264,7 +264,7 @@
 <pre><code>##   variable        description
 ## 1     v213 Currently pregnant
 ## 2     v454 Currently pregnant</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/haven/topics/as_factor">as_factor</a></span>(ir<span class="op">$</span>v454))</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v454))</a></code></pre></div>
 <pre><code>## 
 ## no/don't know           yes       missing 
 ##          3276           142             0</code></pre>
@@ -315,8 +315,8 @@
 ##       FALSE        TRUE        TRUE        TRUE        TRUE        TRUE 
 ##        v455        v456     DATASET 
 ##        TRUE        TRUE       FALSE</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">dat<span class="op">$</span>v456 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/haven/topics/zap_labels">zap_labels</a></span>(dat<span class="op">$</span>v456)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/haven/topics/as_factor">as_factor</a></span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">dat<span class="op">$</span>v456 &lt;-<span class="st"> </span><span class="kw"><a href="https://haven.tidyverse.org/reference/zap_labels.html">zap_labels</a></span>(dat<span class="op">$</span>v456)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(dat)</a></code></pre></div>
 </div>
 <div id="data-tabulations" class="section level2">
 <h2 class="hasAnchor">

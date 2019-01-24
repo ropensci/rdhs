@@ -147,6 +147,7 @@
 <ul>
 <li>
 <code><a href="../reference/extraction.html">extraction(add_geo=TRUE)</a></code> correction for Kenya 2014 surveys (#67)</li>
+<li>Geospatial covariate data sets now supported correctly (#64)</li>
 </ul>
 </div>
     <div id="rdhs-0-6-0" class="section level2">
@@ -190,7 +191,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3">              <span class="dt">f =</span> <span class="st">"geojson"</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">              </a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># convert to spatial object</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw">as.json</span>(d) <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span>geojson_sp</a></code></pre></div>
+<a class="sourceLine" id="cb2-6" data-line-number="6">sp &lt;-<span class="st"> </span>geojsonio<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/geojsonio/topics/as.json">as.json</a></span>(d) <span class="op">%&gt;%</span><span class="st"> </span>geojsonio<span class="op">::</span>geojson_sp</a></code></pre></div>
 </div>
     <div id="rdhs-0-3-0" class="section level2">
 <h2 class="hasAnchor">
