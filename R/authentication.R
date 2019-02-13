@@ -484,7 +484,7 @@ authenticate_dhs <- function(config) {
         # set the option for the future
         pl <- as.numeric(pl)
         config$project_choice <- nums[oldest][pl]
-        write_rdhs_config_file(config, config$cred_path)
+        update_rdhs_config(project_choice = nums[oldest][pl])
 
       }
       project_lines <- project_lines[oldest[pl]]
