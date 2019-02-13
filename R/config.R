@@ -382,7 +382,7 @@ update_rdhs_config <- function(password = FALSE,
   assert_null_and_func(global, assert_scalar_logical)
   assert_null_and_func(verbose_download, assert_scalar_logical)
   assert_null_and_func(verbose_setup, assert_scalar_logical)
-  assert_null_and_func(project_choice, assert_scalar_logical)
+  assert_null_and_func(project_choice, assert_scalar_numeric)
   assert_scalar_logical(password)
 
   # get current config
