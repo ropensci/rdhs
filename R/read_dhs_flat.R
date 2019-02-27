@@ -78,6 +78,9 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
   values <- Map("names<-", values, labels)
   values <- lapply(values, function(x) x[!is.na(x) & nzchar(names(x))])
 
+  ## remove duplicate values from labels
+  values <- lapply(values, function(x) x[!duplicated(x)])
+
   dcf$labels[hasvs] <- values
 
   ## Expand dictionary for multiple occurences
