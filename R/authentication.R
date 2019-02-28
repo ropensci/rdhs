@@ -163,11 +163,11 @@ available_datasets <- function(config,
 
   # remove any missing matches (shouldn't happen if API up to date)
   if (sum(is.na(fileName_matches)) > 0) {
-    fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
     message("Some of your available datasets are not found in the DHS API.",
             "This is likely due to the DHS API being out of date and as such ",
-            "some of the meta information about your avaialable datasets ",
-            "may not be avaialable.")
+            "some of the meta information about your available datasets ",
+            "may not be available.")
+    fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
   }
 
   s <- seq_len(length(datasets_api_results))
