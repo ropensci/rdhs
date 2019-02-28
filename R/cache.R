@@ -87,11 +87,15 @@ client_cache_date <- function(root) {
       return(-1)
     }
 
-    # Read the client cache and return the chace date
-    client_dhs <- readRDS(file.path(cache_dir, client_file_name()))
-
-    # return client cache date
-    return(client_dhs$get_cache_date())
+    # Read the client cache and return the cache date if it exists
+    file <- file.path(cache_dir, client_file_name())
+    if (file.exists(file)) {
+      # return client cache date
+      client_dhs <- readRDS(file.path(cache_dir, client_file_name()))
+      return(client_dhs$get_cache_date())
+    } else {
+      return(-1)
+    }
   }
 }
 
