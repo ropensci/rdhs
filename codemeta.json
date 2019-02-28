@@ -10,7 +10,7 @@
   "codeRepository": "https://ropensci.github.io/rdhs/",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.6.1.900",
+  "version": "0.6.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -306,7 +306,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "537.042KB",
+  "fileSize": "628.102KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/rdhs",
     "https://codecov.io/github/ropensci/rdhs?branch=master"

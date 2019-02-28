@@ -1,7 +1,7 @@
 Package: rdhs
 Type: Package
 Title: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data
-Version: 0.6.1.900
+Version: 0.6.2
 Authors@R: 
     c(person(given = "OJ",
              family = "Watson",

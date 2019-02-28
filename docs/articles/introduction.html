@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
       </span>
     </div>
 
@@ -228,7 +228,7 @@
 <a class="sourceLine" id="cb10-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">.5</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-16" data-line-number="16"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(resp<span class="op">$</span>Indicator[<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span>CountryName,<span class="dt">ncol =</span> <span class="dv">6</span>) </a></code></pre></div>
-<p><img src="introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
+<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/introduction_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;"></p>
 <p>If we incorrectly entered a filter query (very possible), <code>rdhs</code> will let us know our request was invalid:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Make an api request</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,</a>

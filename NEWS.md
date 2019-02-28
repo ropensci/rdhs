@@ -1,3 +1,7 @@
+## rdhs 0.6.2
+
+* Duplicate labels when parsing flat data files corrected (#79)
+
 ## rdhs 0.6.1
 
 * `extraction(add_geo=TRUE)` correction for Kenya 2014 surveys (#67)
