@@ -92,6 +92,8 @@ test_that("password obscure", {
 test_that("update_rdhs_config", {
 
   # what is the config
+  testthat::skip_on_cran()
+  skip_if_no_auth()
   if (file.exists("rdhs.json")) {
     config <- read_rdhs_config_file("rdhs.json")
     d <- dhs_data_updates()
