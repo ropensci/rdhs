@@ -152,6 +152,7 @@ set_rdhs_config(email = "rdhs.tester@gmail.com",
                 global=FALSE)
 #> Writing your configuration to:
 #>    -> rdhs.json
+#> New version of rdhs detected.Your saved client will be updated.
 ```
 
 The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
@@ -162,17 +163,17 @@ The path to your config is saved between sessions so you only have to set this o
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: seconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 1.810807 1.810807 1.810807 1.810807
+#>  dhs_datasets(surveyYearStart = 1986) 1.704294 1.704294 1.704294 1.704294
 #>        uq      max neval
-#>  1.810807 1.810807     1
+#>  1.704294 1.704294     1
 
 # after caching, results will be available instantly
 microbenchmark::microbenchmark(dhs_datasets(surveyYearStart = 1986),times = 1)
 #> Unit: milliseconds
 #>                                  expr      min       lq     mean   median
-#>  dhs_datasets(surveyYearStart = 1986) 1.582677 1.582677 1.582677 1.582677
+#>  dhs_datasets(surveyYearStart = 1986) 1.299232 1.299232 1.299232 1.299232
 #>        uq      max neval
-#>  1.582677 1.582677     1
+#>  1.299232 1.299232     1
 ```
 
 Now download datasets by providing a list of desired dataset filenames.

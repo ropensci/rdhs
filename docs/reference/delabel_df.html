@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Downloaded Datasets — get_downloaded_datasets • rdhs</title>
+<title>convert labelled data frame to data frame of just characters — delabel_df • rdhs</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get Downloaded Datasets — get_downloaded_datasets" />
+<meta property="og:title" content="convert labelled data frame to data frame of just characters — delabel_df" />
 
-<meta property="og:description" content="Detail the datasets that you have already downloaded" />
+<meta property="og:description" content="convert labelled data frame to data frame of just characters" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -140,53 +140,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Downloaded Datasets</h1>
+    <h1>convert labelled data frame to data frame of just characters</h1>
     
-    <div class="hidden name"><code>get_downloaded_datasets.Rd</code></div>
+    <div class="hidden name"><code>delabel_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Detail the datasets that you have already downloaded</p>
+    <p>convert labelled data frame to data frame of just characters</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_downloaded_datasets</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>delabel_df</span>(<span class='no'>df</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>data frame to convert labelled elements of. Likely this will be
+the output of <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> of downloaded datasets</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Returns a <code>data.frame</code> of the datasets that have been
-  downloaded within this client. This could be useful if you are without
-  an internet connection and wish to know which saved
-  dataset files in your root directory correspond to which dataset</p>
+    <p>A data frame of de-labelled elements</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># get the model datasets included with the package</span>
-<span class='no'>model_datasets</span> <span class='kw'>&lt;-</span> <span class='no'>model_datasets</span>
+    <pre class="examples"><div class='input'><span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+<span class='kw'>area</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"reg 1"</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='st'>"reg 2"</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='st'>"reg 3"</span><span class='kw'>=</span><span class='fl'>3</span>)),
+<span class='kw'>climate</span> <span class='kw'>=</span> <span class='kw pkg'>haven</span><span class='kw ns'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cold"</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='st'>"hot"</span><span class='kw'>=</span><span class='fl'>1</span>))
+)
 
-<span class='co'># download one of them</span>
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span>(<span class='kw'>dataset_filenames</span> <span class='kw'>=</span> <span class='no'>model_datasets</span>$<span class='no'>FileName</span>[<span class='fl'>1</span>])
-
-<span class='co'># these will then be stored so that we know what datasets we have downloaded</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>get_downloaded_datasets</span>()
-
-<span class='co'># which returns a names list of file paths to the datasets</span>
-<span class='no'>d</span>[<span class='fl'>1</span>]
-<span class='co'># }</span></pre>
+<span class='no'>df_char</span> <span class='kw'>&lt;-</span> <span class='fu'>delabel_df</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>df1</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

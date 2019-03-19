@@ -282,3 +282,42 @@ as_factor.labelled <- function(x,
   }
   structure(x, label = label)
 }
+
+
+
+# convert labelled vector to a character vector
+#' @noRd
+labelled_to_character <- function(labelled) {
+
+  # check is labelled
+  assert_null_and_func(labelled, assert_labelled)
+
+  # return as a character
+  return(as.character(haven::as_factor(labelled)))
+
+}
+
+#' convert labelled data frame to data frame of just characters
+#'
+#' @param df data frame to convert labelled elements of. Likely this will be
+#'   the output of \code{\link{extract_dhs}}.
+#'
+#' @return A data frame of de-labelled elements
+#'
+#' @export
+#'
+#' @examples
+#' df1 <- data.frame(
+#' area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+#' climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+#' )
+#'
+#' df_char <- delabel_df(df = df1)
+#'
+delabel_df <- function(df) {
+
+  # apply conversion
+  df[] <- lapply(df, labelled_to_character)
+  return(df)
+
+}

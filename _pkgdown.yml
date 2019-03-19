@@ -47,6 +47,7 @@ reference:
       - rbind_labelled
       - get_variable_labels
       - data_and_labels
+      - delabel_df
 
   - title: "DHS Dataset Parsers"
     desc: "Custom built parsers for handling flat ASCII and stata DHS datasets"

@@ -145,3 +145,25 @@ test_that("model datasets onAttach", {
 
   })
 
+
+test_that("convert labelled df to chars", {
+
+  # correct df
+  df1 <- data.frame(
+    area = haven::labelled(c(1L, 2L, 3L), c("reg 1"=1,"reg 2"=2,"reg 3"=3)),
+    climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+  )
+
+  df_char <- delabel_df(df = df1)
+  expect_identical(df_char$area, c("reg 1", "reg 2", "reg 3"))
+
+  # failing df
+  df_fail <- data.frame(
+    area = c("reg 1","reg 2","reg 3"),
+    climate = haven::labelled(c(0L, 1L, 1L), c("cold"=0,"hot"=1))
+  )
+  expect_error(df_fail <- delabel_df(df = df_fail), regexp = "labelled")
+
+})
+
+

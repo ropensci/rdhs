@@ -201,9 +201,9 @@ add_line <- function(path, line, quiet = FALSE) {
 
 
 #' @noRd
-assert_null_and_func <- function(x, func){
+assert_null_and_func <- function(x, func, name = deparse(substitute(x))){
   if (!is.null(x)) {
-    func(x)
+    func(x, name)
   }
 }
 
@@ -230,6 +230,15 @@ assert_scalar_numeric <- function(x, name = deparse(substitute(x))) {
   }
   invisible(x)
 }
+
+#' @noRd
+assert_labelled <- function(x, name = deparse(substitute(x))) {
+  if (!(haven::is.labelled(x))) {
+    stop(sprintf("'%s' must be laballed", name))
+  }
+  invisible(x)
+}
+
 
 #' @noRd
 is_absolute_path <- function(path) {

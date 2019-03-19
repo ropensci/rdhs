@@ -1,3 +1,8 @@
+## rdhs 0.6.3
+
+* Addresses CRAN fail on windows 
+* New `delabel_df` for converting labelled data frames to characters (#54)
+
 ## rdhs 0.6.2
 
 * Duplicate labels when parsing flat data files corrected (#79)

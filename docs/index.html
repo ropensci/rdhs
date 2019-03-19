@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
       </span>
     </div>
 
@@ -233,17 +233,17 @@
 <a class="sourceLine" id="cb9-2" data-line-number="2">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1986</span>),<span class="dt">times =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;                                  expr      min       lq     mean   median</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;  dhs_datasets(surveyYearStart = 1986) 32.59255 32.59255 32.59255 32.59255</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;  dhs_datasets(surveyYearStart = 1986) 32.17548 32.17548 32.17548 32.17548</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;        uq      max neval</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  32.59255 32.59255     1</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  32.17548 32.17548     1</span></a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co"># after caching, results will be available instantly</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10">microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(<span class="kw"><a href="reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyYearStart =</span> <span class="dv">1986</span>),<span class="dt">times =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;                                  expr      min       lq     mean   median</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  dhs_datasets(surveyYearStart = 1986) 1.208091 1.208091 1.208091 1.208091</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  dhs_datasets(surveyYearStart = 1986) 1.269468 1.269468 1.269468 1.269468</span></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;        uq      max neval</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt;  1.208091 1.208091     1</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt;  1.269468 1.269468     1</span></a></code></pre></div>
 <p>Now download datasets by providing a list of desired dataset filenames.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># download datasets</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">downloads &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a>
