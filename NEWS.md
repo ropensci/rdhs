@@ -1,3 +1,7 @@
+## rdhs 0.6.4
+
+* Add CITATION info.
+
 ## rdhs 0.6.3
 
 * Addresses CRAN fail on windows 

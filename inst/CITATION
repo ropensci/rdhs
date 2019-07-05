@@ -1,0 +1,20 @@
+citHeader("To cite lubridate in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Dates and Times Made Easy with {lubridate}",
+  author       = personList(as.person("Oliver J Watson"),
+                            as.person("Rich FitzJohn"),
+                            as.person("Jeffrey W Eaton")),
+  journal      = "Wellcome Open Research",
+  year         = "2019",
+  volume       = "4",
+  pages        = "103",
+  url          = "http://www.jstatsoft.org/v40/i03/",
+  doi          = "10.12688/wellcomeopenres.15311.1",
+
+  textVersion  =
+    paste("Watson OJ, FitzJohn R and Eaton JW.",
+          "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets.",
+          "Wellcome Open Research 2019, 4:103.",
+          "(https://doi.org/10.12688/wellcomeopenres.15311.1)")
+  )
