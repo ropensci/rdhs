@@ -400,8 +400,8 @@ authenticate_dhs <- function(config) {
 
   # Argument Checking
   if (!is.character(your_email)) stop("your_email is not a string")
-  if (!is.character(your_project)) stop("your_password is not a string")
-  if (!is.character(your_password)) stop("your_project is not a string")
+  if (!is.character(your_project)) stop("your_project is not a string")
+  if (!is.character(your_password)) stop("your_password is not a string")
 
   # authentication page
   terms <- "https://dhsprogram.com/data/dataset_admin/login_main.cfm"
