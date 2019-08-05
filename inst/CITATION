@@ -1,7 +1,7 @@
-citHeader("To cite lubridate in publications use:")
+citHeader("To cite rdhs in publications use:")
 
 citEntry(entry = "Article",
-  title        = "Dates and Times Made Easy with {lubridate}",
+  title        = "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets",
   author       = personList(as.person("Oliver J Watson"),
                             as.person("Rich FitzJohn"),
                             as.person("Jeffrey W Eaton")),
@@ -9,12 +9,12 @@ citEntry(entry = "Article",
   year         = "2019",
   volume       = "4",
   pages        = "103",
-  url          = "http://www.jstatsoft.org/v40/i03/",
+  url          = "https://wellcomeopenresearch.org/articles/4-103/v1",
   doi          = "10.12688/wellcomeopenres.15311.1",
 
   textVersion  =
     paste("Watson OJ, FitzJohn R and Eaton JW.",
-          "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets.",
+          "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets",
           "Wellcome Open Research 2019, 4:103.",
           "(https://doi.org/10.12688/wellcomeopenres.15311.1)")
   )
