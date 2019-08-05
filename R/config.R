@@ -270,8 +270,10 @@ write_rdhs_config_file <- function(dat, path) {
     "Writing your configuration to:\n   -> ", path, "\n"
   )
 
-  # and add this to gitignore if there
-  add_line(".gitignore", path)
+  # and add this to gitignore if it is a non global config file
+  if (!dat$global) {
+    add_line(".gitignore", path)
+  }
 
   writeLines(str, path)
   invisible(read_rdhs_config_file(path))
