@@ -356,7 +356,9 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames,
+                                                   download_option,
+                                                   reformat)
 
       # results storage
       res <- list()
@@ -457,7 +459,7 @@ R6_client_dhs <- R6::R6Class(
       download <- self$get_datasets(dataset_filenames, ...)
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames, ...)
       datasets <- datasets[!is.na(datasets$URLS), ]
 
       # handle the search terms
@@ -575,7 +577,7 @@ R6_client_dhs <- R6::R6Class(
       download <- self$get_datasets(dataset_filenames, ...)
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames, ...)
       datasets <- datasets[!is.na(datasets$URLS), ]
 
       # results storage
@@ -870,7 +872,9 @@ R6_client_dhs <- R6::R6Class(
 
 
     # CHECK_AVAIALABLE_DATASETS
-    check_available_datasets = function(filenames) {
+    check_available_datasets = function(filenames,
+                                        download_option="rds",
+                                        reformat=FALSE) {
 
       # catch of the filenames requested are with or without the zip
       if (any(grepl("zip", filenames, ignore.case = TRUE))) {
@@ -995,6 +999,14 @@ R6_client_dhs <- R6::R6Class(
         if (is.data.frame(fail_names)) {
           fail_names <- filenames[,nm_type]
         }
+
+        # check if they are already downloaded
+        key <- paste0(potential$SurveyId, "_", potential$FileName,
+                      "_", download_option, "_", reformat)
+
+        # first check against cache
+        found <- private$storr$exists(key, "downloaded_datasets")
+        fail_names <- fail_names[!found]
 
         message(
           paste0(
