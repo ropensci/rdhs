@@ -379,11 +379,6 @@ R6_client_dhs <- R6::R6Class(
       # iterate through download requests
       for (i in 1:download_iterations) {
 
-        # if no url then place error message in results list
-        if (is.na(datasets$URLS[i])) {
-          res[[i]] <- "Dataset is not available with your DHS login credentials"
-        } else {
-
           # create key for this
           key <- paste0(datasets[i, ]$SurveyId, "_", datasets[i, ]$FileName,
                         "_", download_option, "_", reformat)
@@ -396,6 +391,11 @@ R6_client_dhs <- R6::R6Class(
           if (!is.null(out)) {
             res[[i]] <- out
           } else {
+
+        # if no url then place error message in results list
+        if (is.na(datasets$URLS[i])) {
+          res[[i]] <- "Dataset is not available with your DHS login credentials"
+        } else {
 
             # Download dataset
             resp <- download_datasets(
