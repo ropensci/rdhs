@@ -198,6 +198,7 @@ set_rdhs_config <- function(email = NULL,
   } else {
     if (!(options("rappdir_permission") == TRUE) && prompt){
       ask_user_permission()
+      asked <- TRUE
     }
     if (!(options("rappdir_permission") == TRUE)){
       config_path <- file.path(tempdir_check(), "rdhs/rdhs.json")
@@ -216,7 +217,7 @@ set_rdhs_config <- function(email = NULL,
 
   # if we have no cache_path then set this to temp
   if (is.null(cache_path)){
-    if (!(options("rappdir_permission") == TRUE) && prompt){
+    if (!(options("rappdir_permission") == TRUE) && prompt && !asked){
       ask_user_permission()
     }
     if (!(options("rappdir_permission") == TRUE)){
