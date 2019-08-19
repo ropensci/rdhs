@@ -201,10 +201,11 @@ set_rdhs_config <- function(email = NULL,
     }
     if (!(options("rappdir_permission") == TRUE)){
       config_path <- file.path(tempdir_check(), "rdhs/rdhs.json")
-      dir.create(file.path(tempdir_check(), "rdhs"), showWarnings = FALSE)
+      dir.create(file.path(tempdir_check(), "rdhs"),
+                 showWarnings = FALSE, recursive = TRUE)
     } else {
       config_path <- file.path(rappdirs_rdhs(), "rdhs.json")
-      dir.create(rappdirs_rdhs(), showWarnings = FALSE)
+      dir.create(rappdirs_rdhs(), showWarnings = FALSE, recursive = TRUE)
     }
   }
 
@@ -220,10 +221,10 @@ set_rdhs_config <- function(email = NULL,
     }
     if (!(options("rappdir_permission") == TRUE)){
       cache_path <- file.path(tempdir_check(), "rdhs")
-      dir.create(cache_path, showWarnings = FALSE)
+      dir.create(cache_path, showWarnings = FALSE, recursive = TRUE)
     } else {
       cache_path <- rappdirs_rdhs()
-      dir.create(cache_path, showWarnings = FALSE)
+      dir.create(cache_path, showWarnings = FALSE, recursive = TRUE)
     }
   }
 
