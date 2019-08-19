@@ -901,6 +901,11 @@ R6_client_dhs <- R6::R6Class(
       # difficiulties where needed
       datasets <- create_new_filenames(datasets)
 
+      # look up logic assumes it will be a data frame so change as needed
+      if (inherits(datasets, "tbl")) {
+        datasets <- as.data.frame(datasets)
+      }
+
       # find all the duplicate filenames and what datasets they belong to
       duplicates <- datasets[duplicated(datasets$FileName), nm_type]
       duplicate_data <- datasets[which(datasets[,nm_type] %in% duplicates), ]
