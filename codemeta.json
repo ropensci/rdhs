@@ -10,14 +10,14 @@
   "codeRepository": "https://ropensci.github.io/rdhs/",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.2",
+    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
+  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
   "author": [
     {
       "@type": "Person",
@@ -126,6 +126,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=microbenchmark"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "sf",
+      "name": "sf",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
     }
   ],
   "softwareRequirements": [
@@ -306,7 +318,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "537.688KB",
+  "fileSize": "542.553KB",
   "contIntegration": [
     "https://travis-ci.org/ropensci/rdhs",
     "https://codecov.io/github/ropensci/rdhs?branch=master"
@@ -318,5 +330,46 @@
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
-  "relatedLink": "https://CRAN.R-project.org/package=rdhs"
+  "relatedLink": "https://CRAN.R-project.org/package=rdhs",
+  "contributor": {},
+  "copyrightHolder": {},
+  "funder": {},
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2019",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": ["Oliver", "J"],
+          "familyName": "Watson"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Rich",
+          "familyName": "FitzJohn"
+        },
+        {
+          "@type": "Person",
+          "givenName": ["Jeffrey", "W"],
+          "familyName": "Eaton"
+        }
+      ],
+      "name": "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets",
+      "identifier": "10.12688/wellcomeopenres.15311.1",
+      "url": "https://wellcomeopenresearch.org/articles/4-103/v1",
+      "paginiation": "103",
+      "@id": "https://doi.org/10.12688/wellcomeopenres.15311.1",
+      "sameAs": "https://doi.org/10.12688/wellcomeopenres.15311.1",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2019",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "4",
+          "name": "Wellcome Open Research"
+        }
+      }
+    }
+  ]
 }
