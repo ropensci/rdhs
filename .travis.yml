@@ -20,6 +20,7 @@ matrix:
           - libgdal-dev
           - libproj-dev
           - gdal-bin
+          - libudunits2-dev
 
   - r: release
 
@@ -37,6 +38,7 @@ matrix:
           - libgdal-dev
           - libproj-dev
           - gdal-bin
+          - libudunits2-dev
 
 before_script:
 - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then R -e "install.packages('rgdal', type = 'source')"; fi
