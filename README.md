@@ -3,7 +3,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Travis-CI Build Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
 [![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
-[![Documentation via pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://ropensci.github.io/rdhs)
+[![Documentation via pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://docs.ropensci.org/rdhs)
 [![CRAN Downloads](https://cranlogs.r-pkg.org/badges/rdhs)](https://cran.r-project.org/package=rdhs)
 [![Downloads from Rstudio mirror](https://cranlogs.r-pkg.org/badges/grand-total/rdhs)](http://www.r-pkg.org/pkg/rdhs)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdhs)](https://cran.r-project.org/package=rdhs)
@@ -57,9 +57,9 @@ To be able to **download survey datasets from the DHS website**, you will need t
 
 * Request dataset access from the DHS website [here](https://dhsprogram.com/data/Access-Instructions.cfm).
 
-* Full functionality is described in the tutorial [here](https://ropensci.github.io/rdhs/articles/introduction.html).
+* Full functionality is described in the tutorial [here](https://docs.ropensci.org/rdhs/articles/introduction.html).
 
-* An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://ropensci.github.io/rdhs/articles/anemia.html).
+* An example workflow using `rdhs` to calculate trends in anemia prevalence is available [here](https://docs.ropensci.org/rdhs/articles/anemia.html).
 
 ## Basic Functionality
 
@@ -141,7 +141,7 @@ We can now go ahead and download our datasets. To be able to download survey dat
 
 Once we have created an account, we need to set up our credentials using the function `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password.
 
-You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ropensci.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
+You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://docs.ropensci.org/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`). 
 
 
 ```r

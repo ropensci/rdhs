@@ -7,7 +7,7 @@
   "identifier": "rdhs",
   "description": "Provides a client for (1) querying the DHS API for survey indicators\n  and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys\n  and datasets for analysis, (3) downloading survey datasets from the DHS website,\n  (4) loading datasets and associate metadata into R, and (5) extracting variables\n  and combining datasets for pooled analysis.",
   "name": "rdhs: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data",
-  "codeRepository": "https://ropensci.github.io/rdhs/",
+  "codeRepository": "https://docs.ropensci.org/rdhs/",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
   "version": "0.6.3",

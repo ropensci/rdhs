@@ -20,7 +20,7 @@ Authors@R:
              family = "Gillespie",
              role = "rev"))
 Maintainer: OJ Watson <oj.watson@hotmail.co.uk>
-URL: https://ropensci.github.io/rdhs/
+URL: https://docs.ropensci.org/rdhs/
 BugReports: https://github.com/ropensci/rdhs/issues
 Description: Provides a client for (1) querying the DHS API for survey indicators
   and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys
