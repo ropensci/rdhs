@@ -22,6 +22,8 @@ rbind_list_base <- function(x) {
 }
 
 #' unzip special that catches for 4GB+
+#' @param zipfile The pathname of the zip file: tilde expansion (see
+#'   \code{\link{path.expand}} will be performed.)
 #' @inheritParams utils::unzip
 #'
 unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,

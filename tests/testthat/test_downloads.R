@@ -156,7 +156,10 @@ test_that("zip file ending test", {
   extension <- strsplit(dat$ETAR61FL, ".", fixed = TRUE) %>%
     lapply(function(x) x[length(x)]) %>%
     unlist()
-  expect_identical(toupper(extension), "ZIP")
+  expect_true(
+    (toupper(extension) == "ZIP") ||
+      (toupper(extension) == "DATASET IS NOT AVAILABLE WITH YOUR DHS LOGIN CREDENTIALS")
+  )
 })
 
 test_that("Hierarchal and sas7bdat dataset test", {

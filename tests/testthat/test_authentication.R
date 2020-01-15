@@ -6,14 +6,14 @@ test_that("authenticate_dhs works", {
 
   config <- read_rdhs_config_file("rdhs.json")
 
-  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "131884")
 
   # catch if your project has a short name that won't be ellipsis cocnerned
   proj <- config$project
   config$project <- paste0(strsplit(config$project, "")[[1]][1:10],
                            collapse = ""
                            )
-  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "111616")
+  expect_equal(rdhs:::authenticate_dhs(config)$proj_id, "131884")
 
   config$project <- "twaddle_for_days"
   expect_error(rdhs:::authenticate_dhs(config))
@@ -35,7 +35,7 @@ test_that("available_surveys works", {
   # check the names
   expect_identical(names(survs), c(
     "FileFormat", "FileSize", "DatasetType", "SurveyNum", "SurveyId",
-    "FileType", "FileDateLastModified", "SurveyYearLabel", "SurveyType",
+    "FileType", "FileDateLastModified", "SurveyType","SurveyYearLabel",
     "SurveyYear", "DHS_CountryCode", "FileName", "CountryName", "URLS"
   ))
 

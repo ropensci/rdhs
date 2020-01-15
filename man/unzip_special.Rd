@@ -16,7 +16,7 @@ unzip_special(
 }
 \arguments{
 \item{zipfile}{The pathname of the zip file: tilde expansion (see
-    \code{\link[utils]{path.expand}}) will be performed.}
+\code{\link{path.expand}} will be performed.)}
 
 \item{files}{A character vector of recorded filepaths to be extracted:
     the default is to extract all files.}

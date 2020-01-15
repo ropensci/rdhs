@@ -48,9 +48,10 @@ download_boundaries <- function(surveyNum=NULL,
   # helper funcs
   build_final_url <- function(jobId) {
 
-    url <- "https://gis.dhsprogram.com/arcgis/rest/directories/arcgisjobs/tools/downloadsubnationaldata_gpserver/"
+    url <- paste0("https://gis.dhsprogram.com/arcgis/rest/directories/",
+                  "arcgisjobs/tools/downloadsubnationaldata_gpserver/")
     date <- as.Date(Sys.time())
-    url <- paste0(url, jobId,"/scratch/sdr_subnational_boundaries_", date,".zip")
+    url <- paste0(url, jobId,"/scratch/sdr_subnational_boundaries_", date, ".zip")
     return(url)
 
   }
@@ -83,7 +84,9 @@ download_boundaries <- function(surveyNum=NULL,
   # ----------------------------------------------------------------------------
 
   # create url from surveyNum
-  sp_url <- "https://spatialdata.dhsprogram.com/boundaries/#view=table&countryId"
+  alt_url <- paste0("https://gis.dhsprogram.com/arcgis/rest/services/Tools/",
+                    "DownloadSubnationalData/GPServer/",
+                    "downloadSubNationalBoundaries/submitJob")
 
   values <- list(
     survey_ids = surveyNum,
@@ -93,7 +96,7 @@ download_boundaries <- function(surveyNum=NULL,
 
   # fetch jobID
   z <- httr::GET(
-    httr::modify_url(alt_url,query = values)
+    httr::modify_url(alt_url, query = values)
   )
 
   tf <- tempfile()

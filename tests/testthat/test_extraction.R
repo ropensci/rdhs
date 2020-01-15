@@ -202,11 +202,11 @@ test_that("add_geo issue for Kenya", {
   cli <- new_rand_client()
 
   dat <- cli$survey_variables(
-    dataset_filenames = "KEBR71FL.ZIP",
+    dataset_filenames = "KEBR72FL.ZIP",
     variables = "v024"
   )
 
   extract <- cli$extract(dat, add_geo = TRUE)
-  expect_true(length(unique(extract$KEBR71FL$DHSREGNA))>1)
+  expect_true(length(unique(extract$KEBR72FL$DHSREGNA))>1)
   unlink(cli$get_root())
 })

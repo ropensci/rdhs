@@ -32,3 +32,27 @@
 #'
 #'
 "model_datasets"
+
+
+#' DHS GPS Data Format
+#'
+#' Data frame to describe the data encoded in DHS GPS files
+#'
+#' @docType data
+#' @usage data(dhs_gps_data_format)
+#'
+#' @format A dataframe of 20 observations of 3 variables:
+#'
+#' \code{dhs_gps_data_format}: A dataframe of GPS data descriptions.
+#' \itemize{
+#'       \item{"Name"}
+#'       \item{"Type"}
+#'       \item{"Description"}
+#'       }
+#'
+#'
+#' @rdname dhs_gps_data_format
+#' @aliases dhs_gps_data_format
+#'
+#'
+"dhs_gps_data_format"
