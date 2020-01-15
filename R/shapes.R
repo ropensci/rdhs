@@ -25,9 +25,8 @@
 #' @return Returns either the spatial file as a "SpatialPolygonsDataFrame" or
 #'   a vector of the file paths of where the boundary was downloaded to.
 #'
-#'  @examples
-#'  \dontrun{
-#'
+#' @examples
+#' \dontrun{
 #'  # using the surveyNum
 #'  res <- download_boundaries(surveyNum = 471, countryId = "AF")
 #'
@@ -36,9 +35,8 @@
 #'
 #'  # using sf
 #'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "sf")
-#'
 #'  }
-#'
+
 
 download_boundaries <- function(surveyNum=NULL,
                                 surveyId = NULL,
@@ -120,8 +118,8 @@ download_boundaries <- function(surveyNum=NULL,
 
     if(method == "rgdal") {
       res <- lapply(file, function(x) {
-        layer <- strsplit(basename(x), ".", fixed = TRUE)
-        rgdal::readOGR(dsn = dirname(x), layer = layer)[[1]][1]
+        layer <- strsplit(basename(x), ".", fixed = TRUE)[[1]][1]
+        rgdal::readOGR(dsn = dirname(x), layer = layer)
       })
       names(res) <- vapply(file, rgdal::ogrListLayers, character(1))
     }

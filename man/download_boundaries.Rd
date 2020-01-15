@@ -36,10 +36,16 @@ To just return the file paths for the files use method = "zip".}
 \value{
 Returns either the spatial file as a "SpatialPolygonsDataFrame" or
   a vector of the file paths of where the boundary was downloaded to.
-
- @examples
- \dontrun{
-
+}
+\description{
+Download Spatial Boundaries
+}
+\details{
+Downloads the spatial boundaries from the DHS spatial repository,
+  which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
+}
+\examples{
+\dontrun{
  # using the surveyNum
  res <- download_boundaries(surveyNum = 471, countryId = "AF")
 
@@ -48,13 +54,5 @@ Returns either the spatial file as a "SpatialPolygonsDataFrame" or
 
  # using sf
  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "sf")
-
  }
-}
-\description{
-Download Spatial Boundaries
-}
-\details{
-Downloads the spatial boundaries from the DHS spatial repository,
-  which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
 }
