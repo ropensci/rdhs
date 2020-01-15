@@ -4,8 +4,12 @@
 \alias{as_factor.labelled}
 \title{Archived dataset capable as_factor}
 \usage{
-as_factor.labelled(x, levels = c("default", "labels", "values", "both"),
-  ordered = FALSE, ...)
+as_factor.labelled(
+  x,
+  levels = c("default", "labels", "values", "both"),
+  ordered = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{Object to coerce to a factor.}

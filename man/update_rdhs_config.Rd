@@ -4,10 +4,19 @@
 \alias{update_rdhs_config}
 \title{Update your current rdhs config}
 \usage{
-update_rdhs_config(password = FALSE, email = NULL, project = NULL,
-  cache_path = NULL, config_path = NULL, global = NULL,
-  verbose_download = NULL, verbose_setup = NULL, timeout = NULL,
-  data_frame = NULL, project_choice = NULL)
+update_rdhs_config(
+  password = FALSE,
+  email = NULL,
+  project = NULL,
+  cache_path = NULL,
+  config_path = NULL,
+  global = NULL,
+  verbose_download = NULL,
+  verbose_setup = NULL,
+  timeout = NULL,
+  data_frame = NULL,
+  project_choice = NULL
+)
 }
 \arguments{
 \item{password}{Logical for updating your password securely. Default = FALSE}

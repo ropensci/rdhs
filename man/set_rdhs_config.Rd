@@ -4,10 +4,19 @@
 \alias{set_rdhs_config}
 \title{Set rdhs config}
 \usage{
-set_rdhs_config(email = NULL, project = NULL, cache_path = NULL,
-  config_path = NULL, global = TRUE, verbose_download = FALSE,
-  verbose_setup = TRUE, data_frame = NULL, timeout = 30,
-  password_prompt = FALSE, prompt = TRUE)
+set_rdhs_config(
+  email = NULL,
+  project = NULL,
+  cache_path = NULL,
+  config_path = NULL,
+  global = TRUE,
+  verbose_download = FALSE,
+  verbose_setup = TRUE,
+  data_frame = NULL,
+  timeout = 30,
+  password_prompt = FALSE,
+  prompt = TRUE
+)
 }
 \arguments{
 \item{email}{Character for email used to login to the DHS website.}
@@ -114,7 +123,7 @@ set_rdhs_config(
 config_path = "rdhs.json", global = FALSE, prompt = FALSE
 )
 
-# you can look at what you have set these to using \\code{get_rdhs_config}
+# you can look at what you have set these to using \code{get_rdhs_config}
 config <- get_rdhs_config()
 }
 

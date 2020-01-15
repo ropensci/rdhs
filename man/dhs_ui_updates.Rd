@@ -4,9 +4,16 @@
 \alias{dhs_ui_updates}
 \title{API request of DHS UI Updates}
 \usage{
-dhs_ui_updates(lastUpdate = NULL, f = NULL, returnFields = NULL,
-  perPage = NULL, page = NULL, client = NULL, force = FALSE,
-  all_results = TRUE)
+dhs_ui_updates(
+  lastUpdate = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{lastUpdate}{Specify a date or Unix time to filter the updates by. Only

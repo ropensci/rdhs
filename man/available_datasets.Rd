@@ -4,8 +4,11 @@
 \alias{available_datasets}
 \title{Create a data frame of datasets that your log in can download}
 \usage{
-available_datasets(config, datasets_api_results = NULL,
-  surveys_api_results = NULL)
+available_datasets(
+  config,
+  datasets_api_results = NULL,
+  surveys_api_results = NULL
+)
 }
 \arguments{
 \item{config}{Object of class `rdhs_config` as produced by `read_rdhs_config`

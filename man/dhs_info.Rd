@@ -4,9 +4,16 @@
 \alias{dhs_info}
 \title{API request of DHS Info}
 \usage{
-dhs_info(infoType = NULL, f = NULL, returnFields = NULL,
-  perPage = NULL, page = NULL, client = NULL, force = FALSE,
-  all_results = TRUE)
+dhs_info(
+  infoType = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{infoType}{Specify a type of info to obtain the information requested.

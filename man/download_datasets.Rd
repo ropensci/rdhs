@@ -4,8 +4,15 @@
 \alias{download_datasets}
 \title{Create a data frame of datasets that your log in can download}
 \usage{
-download_datasets(config, desired_dataset, download_option = "both",
-  reformat = TRUE, all_lower = TRUE, output_dir_root = NULL, ...)
+download_datasets(
+  config,
+  desired_dataset,
+  download_option = "both",
+  reformat = TRUE,
+  all_lower = TRUE,
+  output_dir_root = NULL,
+  ...
+)
 }
 \arguments{
 \item{config}{Object of class `rdhs_config` as produced by `read_rdhs_config`

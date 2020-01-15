@@ -109,7 +109,7 @@ download_boundaries <- function(surveyNum=NULL,
   tf2 <- tempfile()
   file <- download.file(url, tf2)
   unzipped_files <- suppressWarnings(unzip(tf2, exdir = tempfile()))
-  file <- grep("dbf",unzipped_files,value=TRUE)
+  file <- grep("dbf", unzipped_files, value=TRUE)
 
   # how are we reading the dataset in
   methods <- c("rgdal", "sf")
@@ -117,9 +117,8 @@ download_boundaries <- function(surveyNum=NULL,
 
     if(method == "rgdal") {
       res <- lapply(file, function(x) {
-        rgdal::readOGR(dsn = dirname(x),
-                                   layer = strsplit(basename(x),
-                                                    ".", fixed = TRUE)[[1]][1])
+        layer <- strsplit(basename(x), ".", fixed = TRUE)
+        rgdal::readOGR(dsn = dirname(x), layer = layer)[[1]][1]
       })
       names(res) <- vapply(file, rgdal::ogrListLayers, character(1))
     }
@@ -127,44 +126,19 @@ download_boundaries <- function(surveyNum=NULL,
     # here if we want to add more read in options
     if(method == "sf") {
       res <- lapply(file, sf::st_read)
-      names(res) <- vapply(file,function(x) {
-        sf::st_layers(x)$name
-        }, character(1))
+      names(res) <- vapply(file,
+                           function(x) { sf::st_layers(x)$name },
+                           character(1))
     }
 
   } else {
     message("Provided method not found. Options are: \n",
             paste(methods,collapse=" "),
             "\nReturning zip files.")
+
     return(unzipped_files)
   }
 
   return(res)
 
-}
-
-#' @noRD
-match_clean <- function(a,b){
-
-  if (any(!requireNamespace("stringi", quietly = TRUE),
-          !requireNamespace("stringdist", quietly = TRUE))) {
-
-    stop("Package \"stringi\" and \"stringdist\" needed for this
-         function to work. Please install it.")
-
-  } else {
-
-  a <- gsub("[[:punct:][:space:]]","",tolower(stringi::stri_trans_general(a, "latin-ascii")))
-  b <- gsub("[[:punct:][:space:]]","",tolower(stringi::stri_trans_general(b, "latin-ascii")))
-  ret <- match(a,b)
-
-  if(sum(is.na(ret)>0)){
-    dists <- stringdist::seq_distmatrix(lapply(a,utf8ToInt),lapply(b,utf8ToInt))
-    ret[is.na(ret)] <- apply(dists[which(is.na(ret)),,drop=FALSE],1,which.min)
-    print(unique(cbind(a,b[ret])))
-  }
-
-  return(ret)
-
-  }
 }
