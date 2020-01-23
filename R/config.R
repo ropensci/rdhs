@@ -171,7 +171,7 @@ set_rdhs_config <- function(email = NULL,
   assert_scalar_logical(verbose_setup)
   assert_scalar_logical(prompt)
   assert_scalar_numeric(timeout)
-
+  asked <- FALSE
 
   # This is in a hope to be compliant with the CRAN policy about not
   # writing to disk.  We need permission to write to a place that we

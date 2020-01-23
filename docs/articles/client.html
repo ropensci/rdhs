@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>rdhs client object and internal package design • rdhs</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="rdhs client object and internal package design">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -103,6 +104,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -141,7 +143,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># devtools::install_github("ropensci/rdhs")</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdhs)</a></code></pre></div>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rdhs)</a></code></pre></div>
 </div>
 <div id="access-standard-indicator-data-via-the-api" class="section level2">
 <h2 class="hasAnchor">
@@ -170,7 +172,7 @@
 <p>Each call to a DHS endpoint returns a <code>data.frame</code> by default with all the results available by default.</p>
 <p>The DHS has a unique <em>IndicatorId</em> for each of the statistics it calculates. The definition and specific string for each indicator is included within the <em>IndicatorId</em> and <em>Definition</em> variable:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># grab the first 5 alphabetically</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">indicators[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(indicators<span class="op">$</span>IndicatorId),][<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"IndicatorId"</span>, <span class="st">"Definition"</span>)]</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2">indicators[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(indicators<span class="op">$</span>IndicatorId),][<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"IndicatorId"</span>, <span class="st">"Definition"</span>)]</a></code></pre></div>
 <pre><code>##        IndicatorId
 ## 2031 AH_CIGA_M_UNW
 ## 2026 AH_CIGA_W_10P
@@ -188,12 +190,12 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2">tags &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_tags.html">dhs_tags</a></span>()</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># Let's say we want to view the tags that relate to malaria</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">tags[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, tags<span class="op">$</span>TagName), ]</a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5">tags[<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"Malaria"</span>, tags<span class="op">$</span>TagName), ]</a></code></pre></div>
 <pre><code>##    TagType                   TagName TagID TagOrder
 ## 31       0       Malaria Parasitemia    36      540
 ## 43       2 Select Malaria Indicators    79     1000</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># and now let's then grab this data by specifying the countryIds and the survey year starts</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">tagIds =</span> <span class="dv">36</span>,<span class="dt">countryIds =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">breakdown=</span><span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2010</span>)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">data[<span class="dv">1</span>,]</a></code></pre></div>
 <pre><code>##   DataId                           Indicator  SurveyId IsPreferred Value
 ## 1 941297 Malaria prevalence according to RDT CD2013DHS           1  17.1
@@ -214,12 +216,12 @@
 <a class="sourceLine" id="cb10-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds =</span> <span class="st">"ML_FEVT_C_AML"</span>, <span class="dt">surveyYearStart =</span> <span class="dv">2010</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co"># filter it to 12 countries for space</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">countries  &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Angola"</span>,<span class="st">"Ghana"</span>,<span class="st">"Kenya"</span>,<span class="st">"Liberia"</span>,</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">countries  &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Angola"</span>,<span class="st">"Ghana"</span>,<span class="st">"Kenya"</span>,<span class="st">"Liberia"</span>,</a>
 <a class="sourceLine" id="cb10-6" data-line-number="6">                <span class="st">"Madagascar"</span>,<span class="st">"Mali"</span>,<span class="st">"Malawi"</span>,<span class="st">"Nigeria"</span>,</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7">                <span class="st">"Rwanda"</span>,<span class="st">"Sierra Leone"</span>,<span class="st">"Senegal"</span>,<span class="st">"Tanzania"</span>)</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co"># and plot the results</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(resp[resp<span class="op">$</span>CountryName <span class="op">%in%</span><span class="st"> </span>countries,],</a>
 <a class="sourceLine" id="cb10-12" data-line-number="12">       <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>SurveyYear,<span class="dt">y=</span>Value,<span class="dt">colour=</span>CountryName)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
@@ -245,7 +247,7 @@
 <p>To start our extraction we’ll query the <em>surveyCharacteristics</em> endpoint using <code>dhs_surveyCharacteristics()</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co">## make a call with no arguments</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">sc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">sc[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]</a></code></pre></div>
+<a class="sourceLine" id="cb13-3" data-line-number="3">sc[<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"Malaria"</span>, sc<span class="op">$</span>SurveyCharacteristicName), ]</a></code></pre></div>
 <pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
 ## 57                     96            Malaria - DBS
 ## 58                     90     Malaria - Microscopy
@@ -254,17 +256,17 @@
 ## 61                      8 Malaria/bednet questions</code></pre>
 <p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="../reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API endpoints first:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## what are the countryIds</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(ids)</a></code></pre></div>
+<a class="sourceLine" id="cb15-2" data-line-number="2">ids &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>(<span class="dt">returnFields=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span>))</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(ids)</a></code></pre></div>
 <pre><code>## 'data.frame':    91 obs. of  2 variables:
 ##  $ DHS_CountryCode: chr  "AF" "AL" "AO" "AM" ...
 ##  $ CountryName    : chr  "Afghanistan" "Albania" "Angola" "Armenia" ...</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># lets find all the surveys that fit our search criteria</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">survs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">survs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span>(<span class="dt">surveyCharacteristicIds =</span> <span class="dv">89</span>,<span class="dt">countryIds =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>)</a>
 <a class="sourceLine" id="cb17-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co"># and lastly use this to find the datasets we will want to download and let's download the flat files (.dat) datasets (have a look in the dhs_datasets documentation for all argument options, and fileformat abbreviations etc.)</span></a>
 <a class="sourceLine" id="cb17-5" data-line-number="5">datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span>(<span class="dt">surveyIds =</span> survs<span class="op">$</span>SurveyId, <span class="dt">fileFormat =</span> <span class="st">"flat"</span>)</a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(datasets)</a></code></pre></div>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(datasets)</a></code></pre></div>
 <pre><code>## 'data.frame':    19 obs. of  13 variables:
 ##  $ FileFormat          : chr  "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" "Flat ASCII data (.dat)" ...
 ##  $ FileSize            : int  198561 7030083 3226262 8028957 11426382 4794941 1569680 6595349 63022 996906 ...
@@ -337,10 +339,10 @@
 <a href="#load-datasets-and-associated-metadata-into-r-" class="anchor"></a>4. Load datasets and associated metadata into R.</h2>
 <p>We can now examine what it is we have actually downloaded, by reading in one of these datasets:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># read in our dataset</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">cdpr &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(downloads<span class="op">$</span>CDPR61FL)</a></code></pre></div>
+<a class="sourceLine" id="cb22-2" data-line-number="2">cdpr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(downloads<span class="op">$</span>CDPR61FL)</a></code></pre></div>
 <p>The dataset returned here contains all the survey questions within the dataset, and what their survey variables are:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># let's look at the variable_names</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/get_variable_labels.html">get_variable_labels</a></span>(cdpr))</a></code></pre></div>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="../reference/get_variable_labels.html">get_variable_labels</a></span>(cdpr))</a></code></pre></div>
 <pre><code>##   variable                                                  description
 ## 1     hhid                                          Case Identification
 ## 2    hvidx                                                  Line number
@@ -349,7 +351,7 @@
 ## 5    hv002                                             Household number
 ## 6    hv003 Respondent's line number (answering Household questionnaire)</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># and then the dataset</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(cdpr<span class="op">$</span>hv024)</a></code></pre></div>
 <pre><code>## [1] "labelled"</code></pre>
 <p>This is the default behaviour for the client function <code>get_datasets</code> - it will download the datasets for you, and then by default save them in your client’s root directory and then unzip them and read them in for you, and save the resultant data.frame as a .rds object within the client’s root directory. You can control this behaviour using the <code>download_option</code> argument as such:</p>
 <ul>
@@ -364,7 +366,7 @@
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># rapid diagnostic test search</span></a>
 <a class="sourceLine" id="cb27-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_questions</span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</a>
 <a class="sourceLine" id="cb27-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(questions<span class="op">$</span>dataset_filename)</a></code></pre></div>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(questions<span class="op">$</span>dataset_filename)</a></code></pre></div>
 <pre><code>## 
 ## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL 
 ##       24        1       48        1</code></pre>
@@ -379,13 +381,13 @@
 <a class="sourceLine" id="cb29-3" data-line-number="3">downloads &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName)</a>
 <a class="sourceLine" id="cb29-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb29-5" data-line-number="5"><span class="co"># and grab the questions from this again along with also questions detailing the province</span></a>
-<a class="sourceLine" id="cb29-6" data-line-number="6">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_questions</span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"malaria rapid test"</span>))</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_questions</span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"malaria rapid test"</span>))</a>
 <a class="sourceLine" id="cb29-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb29-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
 <a class="sourceLine" id="cb29-9" data-line-number="9">extract &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb29-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co"># what does our extract look like</span></a>
-<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(extract)</a></code></pre></div>
+<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(extract)</a></code></pre></div>
 <pre><code>## List of 2
 ##  $ CDPR61FL:Classes 'dhs_dataset' and 'data.frame':  95949 obs. of  2 variables:
 ##   ..$ hml35   : 'labelled' int [1:95949] NA NA NA NA NA NA NA 1 0 NA ...
@@ -402,13 +404,13 @@
 <p>The resultant extract is a list, with a new element for each different dataset that you have extracted. The responses from the dataset are by default stored as a <em>labelled</em> class from the <a href="https://github.com/tidyverse/haven">haven package</a>. This class preserves the original semantics and can easily be coerced to factors with <code><a href="https://haven.tidyverse.org/reference/as_factor.html">haven::as_factor()</a></code>. Special missing values are also preserved. For more info on the <em>labelled</em> class have a look at their github.</p>
 <p>We can also query our datasets for the survey question variables. In the example above the survey question was <em>Result of malaria rapid test</em> and the variable was <em>hml35</em>. So if you knew the survey variables that you wanted (either by looking at the Recode file or by looking through the <em>variable_names</em> included in the datasets) then we could search against these. So let’s grab the regions using <em>hv024</em> using the client function <code>survey_variables()</code>:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># and grab the questions from this now utilising the survey variables</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hv024"</span>,<span class="st">"hml35"</span>))</a>
 <a class="sourceLine" id="cb31-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co"># and now extract the data</span></a>
 <a class="sourceLine" id="cb31-5" data-line-number="5">extract2 &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">extract</span>(questions, <span class="dt">add_geo =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb31-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb31-7" data-line-number="7"><span class="co"># quick check </span></a>
-<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>CDPR61FL)</a></code></pre></div>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(extract2<span class="op">$</span>CDPR61FL)</a></code></pre></div>
 <pre><code>##   hv024 hml35  SurveyId
 ## 1     4    NA CD2013DHS
 ## 2     4    NA CD2013DHS
@@ -416,10 +418,10 @@
 ## 4     4    NA CD2013DHS
 ## 5     4    NA CD2013DHS
 ## 6     4    NA CD2013DHS</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract2<span class="op">$</span>TZPR7HFL)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(extract2<span class="op">$</span>TZPR7HFL)</a></code></pre></div>
 <pre><code>## NULL</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># and just to prove that hml35 did actually read in okay (there are just lots of NA)</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</a></code></pre></div>
 <pre><code>## 
 ##     0     1     9  &lt;NA&gt; 
 ##  5260  2959     8 87722</code></pre>
@@ -427,7 +429,7 @@
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># first let's bind our first extraction, without the hv024</span></a>
 <a class="sourceLine" id="cb37-2" data-line-number="2">extract_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract)</a>
 <a class="sourceLine" id="cb37-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(extract_bound)</a></code></pre></div>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(extract_bound)</a></code></pre></div>
 <pre><code>##            hml35  SurveyId  DATASET
 ## CDPR61FL.1    NA CD2013DHS CDPR61FL
 ## CDPR61FL.2    NA CD2013DHS CDPR61FL
@@ -442,9 +444,9 @@
 <p>This hasn’t quite done what we might want in the second instance. The <em>hv024</em> variable stores the regions for these 2 countries, which will not be the same and thus the labels will be different between the two of them. Without specifying any additional arguments <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> will simply use the first data.frames labelling as the default, which will mean that some of the Tanzanian provinces will have been encoded as DRC provinces - not good! (This is a similar problem in nature to say trying to add new character strings to a factored data.frame).</p>
 <p>There are a few work arounds. Firstly, we can specify a <em>labels</em> argument to the function which will detail how we should handle different variables. <em>labels</em> is a names list that specifies how to handle each variable. If we simply want to keep all the labels then we us the string “concatenate”:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># lets try concatenating the hv024</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2, <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2, <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>))</a>
 <a class="sourceLine" id="cb41-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hv024)</a></code></pre></div>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(better_bound<span class="op">$</span>hv024)</a></code></pre></div>
 <pre><code>## &lt;Labelled integer&gt;
 ## [1] 6 6 6 6 6 6
 ## 
@@ -491,14 +493,14 @@
 ##     39         sud-kivu
 ##     40           tabora
 ##     41            tanga</code></pre>
-<p>We could also specify new labels for a variable. For example, imagine the two datasets encoded their RDT responses differently, with the first one as <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("No","Yes")</a></code> and the other as <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("Negative","Positive")</a></code>. These would be for our purposes the same response, and so we could either leave it and all our results would use the <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("No","Yes")</a></code> labelling. But we may want to use the latter as it’s more informative/correct, or we may want to be crystal clear and use <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c("NegativeTest","PositiveTest")</a></code>. we can do that like this:</p>
+<p>We could also specify new labels for a variable. For example, imagine the two datasets encoded their RDT responses differently, with the first one as <code><a href="https://rdrr.io/r/base/c.html">c("No","Yes")</a></code> and the other as <code><a href="https://rdrr.io/r/base/c.html">c("Negative","Positive")</a></code>. These would be for our purposes the same response, and so we could either leave it and all our results would use the <code><a href="https://rdrr.io/r/base/c.html">c("No","Yes")</a></code> labelling. But we may want to use the latter as it’s more informative/correct, or we may want to be crystal clear and use <code><a href="https://rdrr.io/r/base/c.html">c("NegativeTest","PositiveTest")</a></code>. we can do that like this:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># lets try concatenating the hv024 and providing new labels</span></a>
 <a class="sourceLine" id="cb43-2" data-line-number="2">better_bound &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract2,</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">                               <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">                                             <span class="st">"hml35"</span>=<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">                               <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">                                             <span class="st">"hml35"</span>=<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"NegativeTest"</span>=<span class="dv">0</span>, <span class="st">"PositiveTest"</span>=<span class="dv">1</span>)))</a>
 <a class="sourceLine" id="cb43-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb43-6" data-line-number="6"><span class="co"># and our new label</span></a>
-<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(better_bound<span class="op">$</span>hml35)</a></code></pre></div>
+<a class="sourceLine" id="cb43-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(better_bound<span class="op">$</span>hml35)</a></code></pre></div>
 <pre><code>## &lt;Labelled integer&gt;
 ## [1] NA NA NA NA NA NA
 ## 
@@ -511,7 +513,7 @@
 <a class="sourceLine" id="cb45-2" data-line-number="2">downloads &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName, <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb45-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb45-4" data-line-number="4"><span class="co"># grab the questions but specifying the reformat argument</span></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName, <span class="dt">variables =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hv024"</span>, <span class="st">"hml35"</span>),</a>
 <a class="sourceLine" id="cb45-6" data-line-number="6">                                     <span class="dt">reformat=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb45-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb45-8" data-line-number="8"><span class="co"># and now extract the data</span></a>
@@ -521,51 +523,51 @@
 <a class="sourceLine" id="cb45-12" data-line-number="12">bound_no_labels &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extract3)</a>
 <a class="sourceLine" id="cb45-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb45-14" data-line-number="14"><span class="co"># what does our hv024 look like now</span></a>
-<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/class">class</a></span>(bound_no_labels<span class="op">$</span>hv024[<span class="dv">1</span>])</a></code></pre></div>
+<a class="sourceLine" id="cb45-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(bound_no_labels<span class="op">$</span>hv024[<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] "character"</code></pre>
 <p>The <em>hv024</em> column is now just characters, which is possibly the best option depending on your downstream analysis/preferences. It’s for this reason that the geographic data that is added is never turned into factors or labels.</p>
 <p>Lastly, we can now use our extract dataset to carry out some regression analysis, to investigate the relationship between malaria prevalence and the quality of wall materials. To do this we will need to first grab the sample weights and stratification from the surveys, along with the extra variables and we will then check the RDT prevalence calculated using the raw data versus the API:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="co"># grab the additional variable hv023 and hv024 which have the strata and weights respectively</span></a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName,<span class="dt">variables =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"hv005"</span>,<span class="st">"hv021"</span>,<span class="st">"hv022"</span>,<span class="st">"hv023"</span>,<span class="st">"hv024"</span>,</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_variables</span>(datasets<span class="op">$</span>FileName,<span class="dt">variables =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hv005"</span>,<span class="st">"hv021"</span>,<span class="st">"hv022"</span>,<span class="st">"hv023"</span>,<span class="st">"hv024"</span>,</a>
 <a class="sourceLine" id="cb47-3" data-line-number="3">                                                              <span class="st">"hv025"</span>,<span class="st">"hv214"</span>,<span class="st">"hml20"</span>, <span class="st">"hc1"</span>,<span class="st">"hml35"</span>))</a>
 <a class="sourceLine" id="cb47-4" data-line-number="4">extraction &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">extract</span>(questions,<span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb47-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb47-6" data-line-number="6"><span class="co"># now concatenate the provinces as before and remove missing responses</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extraction,<span class="dt">labels=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,<span class="st">"hv214"</span>=<span class="st">"concatenate"</span>))</a>
-<a class="sourceLine" id="cb47-8" data-line-number="8">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(dat<span class="op">$</span>hml35<span class="op">==</span><span class="dv">9</span>),] <span class="co"># remove missing responses</span></a>
+<a class="sourceLine" id="cb47-7" data-line-number="7">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(extraction,<span class="dt">labels=</span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="st">"hv024"</span>=<span class="st">"concatenate"</span>,<span class="st">"hv214"</span>=<span class="st">"concatenate"</span>))</a>
+<a class="sourceLine" id="cb47-8" data-line-number="8">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(dat<span class="op">$</span>hml35<span class="op">==</span><span class="dv">9</span>),] <span class="co"># remove missing responses</span></a>
 <a class="sourceLine" id="cb47-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb47-10" data-line-number="10"><span class="co"># and we are going to compare our extract to the API malaria prevalence by RDT, which is for those between 6 and 59 months</span></a>
-<a class="sourceLine" id="cb47-11" data-line-number="11">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="op">!</span>dat<span class="op">$</span>hc1<span class="op">&gt;</span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>dat<span class="op">$</span>hc1<span class="op">&lt;=</span><span class="dv">60</span>),]</a>
+<a class="sourceLine" id="cb47-11" data-line-number="11">dat &lt;-<span class="st"> </span>dat[<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span>dat<span class="op">$</span>hc1<span class="op">&gt;</span><span class="dv">6</span> <span class="op">&amp;</span><span class="st"> </span>dat<span class="op">$</span>hc1<span class="op">&lt;=</span><span class="dv">60</span>),]</a>
 <a class="sourceLine" id="cb47-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb47-13" data-line-number="13"><span class="co"># create a denominator response for hml35</span></a>
-<a class="sourceLine" id="cb47-14" data-line-number="14">dat<span class="op">$</span>hml35denom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(dat<span class="op">$</span>hml35))</a>
-<a class="sourceLine" id="cb47-15" data-line-number="15">dat<span class="op">$</span>bricks &lt;-<span class="st"> </span>dat<span class="op">$</span>hv214 <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>,<span class="dv">18</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb47-16" data-line-number="16">dat<span class="op">$</span>net &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/logical">as.logical</a></span>(dat<span class="op">$</span>hml20)</a>
+<a class="sourceLine" id="cb47-14" data-line-number="14">dat<span class="op">$</span>hml35denom &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(dat<span class="op">$</span>hml35))</a>
+<a class="sourceLine" id="cb47-15" data-line-number="15">dat<span class="op">$</span>bricks &lt;-<span class="st"> </span>dat<span class="op">$</span>hv214 <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>,<span class="dv">18</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb47-16" data-line-number="16">dat<span class="op">$</span>net &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span>(dat<span class="op">$</span>hml20)</a>
 <a class="sourceLine" id="cb47-17" data-line-number="17"></a>
 <a class="sourceLine" id="cb47-18" data-line-number="18"><span class="co"># specify the strata and sample weights</span></a>
-<a class="sourceLine" id="cb47-19" data-line-number="19">dat<span class="op">$</span>strata &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(dat<span class="op">$</span>hv023,dat<span class="op">$</span>DATASET)</a>
+<a class="sourceLine" id="cb47-19" data-line-number="19">dat<span class="op">$</span>strata &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(dat<span class="op">$</span>hv023,dat<span class="op">$</span>DATASET)</a>
 <a class="sourceLine" id="cb47-20" data-line-number="20">dat<span class="op">$</span>hv005 &lt;-<span class="st"> </span>dat<span class="op">$</span>hv005<span class="op">/</span><span class="fl">1e6</span></a>
 <a class="sourceLine" id="cb47-21" data-line-number="21"></a>
 <a class="sourceLine" id="cb47-22" data-line-number="22"><span class="co"># construct a survey design using the survey pacakge</span></a>
-<a class="sourceLine" id="cb47-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(survey)</a>
+<a class="sourceLine" id="cb47-23" data-line-number="23"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(survey)</a>
 <a class="sourceLine" id="cb47-24" data-line-number="24"></a>
 <a class="sourceLine" id="cb47-25" data-line-number="25"><span class="co"># construct the sample design and calculate the mean and totals </span></a>
-<a class="sourceLine" id="cb47-26" data-line-number="26">des &lt;-<span class="st">  </span>survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svydesign">svydesign</a></span>(<span class="op">~</span>CLUSTER<span class="op">+</span>DATASET,<span class="dt">data=</span>dat,<span class="dt">weight=</span><span class="op">~</span>hv005)</a>
-<a class="sourceLine" id="cb47-27" data-line-number="27">results &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svyciprop,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb47-28" data-line-number="28">                 survey<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>hml35denom,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svytotal,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb47-29" data-line-number="29">results &lt;-<span class="st"> </span>results[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(results<span class="op">$</span>DATASET),]</a>
+<a class="sourceLine" id="cb47-26" data-line-number="26">des &lt;-<span class="st">  </span>survey<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(<span class="op">~</span>CLUSTER<span class="op">+</span>DATASET,<span class="dt">data=</span>dat,<span class="dt">weight=</span><span class="op">~</span>hv005)</a>
+<a class="sourceLine" id="cb47-27" data-line-number="27">results &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(survey<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span>(<span class="op">~</span>hml35,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svyciprop,<span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb47-28" data-line-number="28">                 survey<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span>(<span class="op">~</span>hml35denom,<span class="dt">by=</span><span class="op">~</span>DHSREGNA<span class="op">+</span>DATASET, des, survey<span class="op">::</span>svytotal,<span class="dt">na.rm=</span><span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb47-29" data-line-number="29">results &lt;-<span class="st"> </span>results[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(results<span class="op">$</span>DATASET),]</a>
 <a class="sourceLine" id="cb47-30" data-line-number="30"></a>
 <a class="sourceLine" id="cb47-31" data-line-number="31"><span class="co"># grab the same data from the API </span></a>
-<a class="sourceLine" id="cb47-32" data-line-number="32">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>, <span class="dt">surveyYearEnd =</span> <span class="dv">2016</span>)</a>
-<a class="sourceLine" id="cb47-33" data-line-number="33">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(dhs_api_data<span class="op">$</span>Value,dhs_api_data<span class="op">$</span>DenominatorWeighted,dhs_api_data<span class="op">$</span>CharacteristicLabel, dhs_api_data<span class="op">$</span>SurveyId)</a>
-<a class="sourceLine" id="cb47-34" data-line-number="34">api &lt;-<span class="st"> </span>dhs_api_data[<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">."</span>,dhs_api_data[,<span class="dv">3</span>]),] <span class="co"># remove subregions included in Tanzania</span></a>
-<a class="sourceLine" id="cb47-35" data-line-number="35">api &lt;-<span class="st"> </span>api[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/apply">apply</a></span>(api[,<span class="dv">4</span><span class="op">:</span><span class="dv">3</span>],<span class="dv">1</span>,paste,<span class="dt">collapse=</span><span class="st">""</span>)),]</a>
+<a class="sourceLine" id="cb47-32" data-line-number="32">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">countryIds =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"CD"</span>,<span class="st">"TZ"</span>),<span class="dt">indicatorIds =</span> <span class="st">"ML_PMAL_C_RDT"</span>,<span class="dt">breakdown =</span> <span class="st">"subnational"</span>,<span class="dt">surveyYearStart =</span> <span class="dv">2013</span>, <span class="dt">surveyYearEnd =</span> <span class="dv">2016</span>)</a>
+<a class="sourceLine" id="cb47-33" data-line-number="33">dhs_api_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(dhs_api_data<span class="op">$</span>Value,dhs_api_data<span class="op">$</span>DenominatorWeighted,dhs_api_data<span class="op">$</span>CharacteristicLabel, dhs_api_data<span class="op">$</span>SurveyId)</a>
+<a class="sourceLine" id="cb47-34" data-line-number="34">api &lt;-<span class="st"> </span>dhs_api_data[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">."</span>,dhs_api_data[,<span class="dv">3</span>]),] <span class="co"># remove subregions included in Tanzania</span></a>
+<a class="sourceLine" id="cb47-35" data-line-number="35">api &lt;-<span class="st"> </span>api[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(api[,<span class="dv">4</span><span class="op">:</span><span class="dv">3</span>],<span class="dv">1</span>,paste,<span class="dt">collapse=</span><span class="st">""</span>)),]</a>
 <a class="sourceLine" id="cb47-36" data-line-number="36"></a>
 <a class="sourceLine" id="cb47-37" data-line-number="37"><span class="co"># bind the results and remove duplicate Region Columns</span></a>
-<a class="sourceLine" id="cb47-38" data-line-number="38">comparison &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(results[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)],api[])</a>
-<a class="sourceLine" id="cb47-39" data-line-number="39"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(comparison) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Region"</span>,<span class="st">"Survey_RDT_Prev"</span>,<span class="st">"Survey_RDT_Denom"</span>,<span class="st">"API_RDT_Prev"</span>,<span class="st">"API_RDT_Denom"</span>,<span class="st">"API_Regions"</span>,<span class="st">"SurveyID"</span>)</a>
+<a class="sourceLine" id="cb47-38" data-line-number="38">comparison &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(results[,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">7</span>)],api[])</a>
+<a class="sourceLine" id="cb47-39" data-line-number="39"><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(comparison) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Region"</span>,<span class="st">"Survey_RDT_Prev"</span>,<span class="st">"Survey_RDT_Denom"</span>,<span class="st">"API_RDT_Prev"</span>,<span class="st">"API_RDT_Denom"</span>,<span class="st">"API_Regions"</span>,<span class="st">"SurveyID"</span>)</a>
 <a class="sourceLine" id="cb47-40" data-line-number="40"></a>
-<a class="sourceLine" id="cb47-41" data-line-number="41"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(comparison[,<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)])</a></code></pre></div>
+<a class="sourceLine" id="cb47-41" data-line-number="41"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(comparison[,<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)])</a></code></pre></div>
 <pre><code>##                                     Region Survey_RDT_Prev API_RDT_Prev
 ## Bandundu.CDPR61FL                 Bandundu       0.2038607         20.2
 ## Bas-Congo.CDPR61FL               Bas-Congo       0.4761599         47.1
@@ -583,7 +585,7 @@
 <p>It’s a little off, which will be due to the specific stratification the DHS Program will have used, as well as potentially how they have grouped the primary sampling units. We are hoping to get this information from the DHS for each survey so we can make this process more streamline again.</p>
 <p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyglm">svyglm</a></span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a></span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, des, 
@@ -617,6 +619,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -636,17 +639,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by OJ Watson, Jeff Eaton.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

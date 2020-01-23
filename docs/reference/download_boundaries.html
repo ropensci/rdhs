@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Returns what the dataset file ending should be for a given filename — file_dataset_format • rdhs</title>
+<title>DHS Spatial Boundaries — download_boundaries • rdhs</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Returns what the dataset file ending should be for a given filename — file_dataset_format" />
-<meta property="og:description" content="Returns what the dataset file ending should be for a given filename" />
+<meta property="og:title" content="DHS Spatial Boundaries — download_boundaries" />
+<meta property="og:description" content="Download Spatial Boundaries" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -146,41 +146,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Returns what the dataset file ending should be for a given filename</h1>
+    <h1>DHS Spatial Boundaries</h1>
     
-    <div class="hidden name"><code>file_dataset_format.Rd</code></div>
+    <div class="hidden name"><code>download_boundaries.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns what the dataset file ending should be for a given filename</p>
+    <p>Download Spatial Boundaries</p>
     </div>
 
-    <pre class="usage"><span class='fu'>file_dataset_format</span>(<span class='no'>file_format</span>)</pre>
+    <pre class="usage"><span class='fu'>download_boundaries</span>(
+  <span class='kw'>surveyNum</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>surveyId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>countryId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rgdal"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file_format</th>
-      <td><p>FileFormat for a file as taken from the API,
-e.g. <code><a href='dhs_datasets.html'>dhs_datasets(returnFields = "FileFormat")</a></code></p></td>
+      <th>surveyNum</th>
+      <td><p>Numeric for the survey number to be downloaded. Values for
+surveyNum can be found in the datasets or surveys endpoints in the DHS API
+that can be accessed using <code><a href='dhs_datasets.html'>dhs_datasets</a></code> and
+<code><a href='dhs_surveys.html'>dhs_surveys</a></code>. Default is NULL, which will cause the SurveyId
+to be used to find the survey.</p></td>
+    </tr>
+    <tr>
+      <th>surveyId</th>
+      <td><p>Numeric for the survey ID to be downloaded. Values for
+surveyId can be found in the datasets or surveys endpoints in the DHS API
+that can be accessed using <code><a href='dhs_datasets.html'>dhs_datasets</a></code> and
+<code><a href='dhs_surveys.html'>dhs_surveys</a></code>. Default is NULL, which will cause the SurveyNum
+to be used to find the survey.</p></td>
+    </tr>
+    <tr>
+      <th>countryId</th>
+      <td><p>2-letter DHS country code for the country of the survey
+being downloaded. Default = NULL, which will cause the countrycode to be
+looked up from the API.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Character for how the downloaded shape file is read in.
+Default = "rdgal", which reads the file using rgdal::readOGR. At current
+you can also specify sf, which uses <code><a href='https://rdrr.io/pkg/sf/man/st_read.html'>sf::st_read</a></code>.
+To just return the file paths for the files use method = "zip".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>One of "dat","dat","sas7bdat","sav" or "dta"</p>
+    <p>Returns either the spatial file as a "SpatialPolygonsDataFrame" or
+  a vector of the file paths of where the boundary was downloaded to.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Downloads the spatial boundaries from the DHS spatial repository,
+  which can be found at <a href='https://spatialdata.dhsprogram.com/home/'>https://spatialdata.dhsprogram.com/home/</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_format</span> <span class='kw'>&lt;-</span> <span class='st'>"Stata dataset (.dta)"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/pkg/rdhs/man/file_dataset_format.html'>file_dataset_format</a></span>(<span class='no'>file_format</span>),<span class='st'>"dta"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='co'># using the surveyNum</span>
+ <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>download_boundaries</span>(<span class='kw'>surveyNum</span> <span class='kw'>=</span> <span class='fl'>471</span>, <span class='kw'>countryId</span> <span class='kw'>=</span> <span class='st'>"AF"</span>)
+
+ <span class='co'># using the surveyId and no countryID</span>
+ <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>download_boundaries</span>(<span class='kw'>surveyId</span> <span class='kw'>=</span> <span class='st'>"AF2010OTH"</span>)
+
+ <span class='co'># using sf</span>
+ <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>download_boundaries</span>(<span class='kw'>surveyNum</span> <span class='kw'>=</span> <span class='fl'>471</span>, <span class='kw'>countryId</span> <span class='kw'>=</span> <span class='st'>"AF"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"sf"</span>)
+ }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

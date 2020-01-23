@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Returns what the dataset file ending should be for a given filename — file_dataset_format • rdhs</title>
+<title>DHS GPS Data Format — dhs_gps_data_format • rdhs</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Returns what the dataset file ending should be for a given filename — file_dataset_format" />
-<meta property="og:description" content="Returns what the dataset file ending should be for a given filename" />
+<meta property="og:title" content="DHS GPS Data Format — dhs_gps_data_format" />
+<meta property="og:description" content="Data frame to describe the data encoded in DHS GPS files" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -146,42 +146,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Returns what the dataset file ending should be for a given filename</h1>
+    <h1>DHS GPS Data Format</h1>
     
-    <div class="hidden name"><code>file_dataset_format.Rd</code></div>
+    <div class="hidden name"><code>dhs_gps_data_format.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Returns what the dataset file ending should be for a given filename</p>
+    <p>Data frame to describe the data encoded in DHS GPS files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>file_dataset_format</span>(<span class='no'>file_format</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>dhs_gps_data_format</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>file_format</th>
-      <td><p>FileFormat for a file as taken from the API,
-e.g. <code><a href='dhs_datasets.html'>dhs_datasets(returnFields = "FileFormat")</a></code></p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>One of "dat","dat","sas7bdat","sav" or "dta"</p>
+    <p>A dataframe of 20 observations of 3 variables:</p>
+<p><code>dhs_gps_data_format</code>: A dataframe of GPS data descriptions.</p><ul>
+<li><p>"Name"</p></li>
+<li><p>"Type"</p></li>
+<li><p>"Description"</p></li>
+</ul>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_format</span> <span class='kw'>&lt;-</span> <span class='st'>"Stata dataset (.dta)"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw pkg'>rdhs</span><span class='kw ns'>:::</span><span class='fu'><a href='https://rdrr.io/pkg/rdhs/man/file_dataset_format.html'>file_dataset_format</a></span>(<span class='no'>file_format</span>),<span class='st'>"dta"</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
     </ul>
 
   </div>

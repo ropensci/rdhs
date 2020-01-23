@@ -1,6 +1,10 @@
 ---
-output: github_document
+output:
+  rmarkdown::github_document
 ---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -8,7 +12,8 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 ```
-# rdhs
+
+# rdhs <img src="tools/logo.png" align="right" style="padding-left:10px;background-color:white;" />
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Travis-CI Build Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
@@ -19,8 +24,6 @@ knitr::opts_chunk$set(
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rdhs)](https://cran.r-project.org/package=rdhs)
 [![rOpenSci](https://badges.ropensci.org/238_status.svg)](https://github.com/ropensci/software-review/issues/238)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2423635.svg)](https://doi.org/10.5281/zenodo.2423635)
-
-![](https://github.com/ropensci/rdhs/raw/master/tools/logo.png)  
 
 ## Motivation
 
@@ -121,9 +124,9 @@ You can also specify a directory for datasets and API calls to be cached to usin
 ```{r client , R.options = list("rappdir_permission" = TRUE)}
 ## login
 set_rdhs_config(email = "rdhs.tester@gmail.com",
-                project = "Testing Malaria Investigations",
+                project = "rdhs R package development",
                 config_path = "rdhs.json",
-                global=FALSE)
+                global = FALSE)
 ```
 
 The path to your config is saved between sessions so you only have to set this once. With your credentials set, all API requests will be cached within the `cache_path` directory provided so that these can be returned when working remotely or with a poor internet connection.
