@@ -3,24 +3,24 @@ cache: packages
 
 matrix:
   include:
-  - r: oldrel
 
-    r_packages:
-    - covr
-    - sodium
-
-    addons:
-      apt:
-        sources:
-          - sourceline: 'ppa:chris-lea/libsodium'
-          - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
-        packages:
-          - libsodium-dev
-          - libssl-dev
-          - libgdal-dev
-          - libproj-dev
-          - gdal-bin
-          - libudunits2-dev
+#  - r: oldrel
+#    r_packages:
+#    - covr
+#    - sodium
+#
+#    addons:
+#      apt:
+#        sources:
+#          - sourceline: 'ppa:chris-lea/libsodium'
+#          - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
+#        packages:
+#          - libsodium-dev
+#          - libssl-dev
+#          - libgdal-dev
+#          - libproj-dev
+#          - gdal-bin
+#          - libudunits2-dev
 
   - r: release
 
