@@ -102,7 +102,7 @@ datasets[, .(SurveyId, SurveyNum, FileDateLastModified, FileName)]
 
 ## Download datasets
 
-To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://ropensci.github.io/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
+To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using `set_rdhs_config()`. This will require providing as arguments your `email` and `project` for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using `cache_path`. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the `config_path` - "rdhs.json". (See [introduction vignette](https://docs.ropensci.org/rdhs/articles/introduction.html) for specific format for config, or `?set_rdhs_config`).
 
 ```{r , R.options=list("rappdir_permission"=TRUE), message = FALSE }
 

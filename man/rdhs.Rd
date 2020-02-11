@@ -15,7 +15,7 @@ and combining datasets for pooled analysis.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://ropensci.github.io/rdhs/}
+  \item \url{https://docs.ropensci.org/rdhs/}
   \item Report bugs at \url{https://github.com/ropensci/rdhs/issues}
 }
 
