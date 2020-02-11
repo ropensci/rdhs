@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   anemia: anemia.html
+  boundaries: boundaries.html
   client: client.html
   country_codes: country_codes.html
   geojson: geojson.html

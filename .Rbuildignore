@@ -28,3 +28,4 @@ vignettes_src
 ^paper
 ^data-raw$
 project_one
+R/staging\.R

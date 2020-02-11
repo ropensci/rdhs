@@ -40,6 +40,7 @@ reference:
       - get_downloaded_datasets
       - search_variables
       - search_variable_labels
+      - download_boundaries
 
   - title: "Downstream Dataset Helper Functions"
     desc: Tools to help combine extracted datasets, as well as extract and apend dataset variable names and definitions
@@ -78,6 +79,8 @@ navbar:
         href: articles/client.html
       - text: How to use geojson API results
         href: articles/geojson.html
+      - text: How to download shape files
+        href: articles/boundaries.html
       - text: Country Codes
         href: articles/country_codes.html
       - text: -------

@@ -1,0 +1,66 @@
+---
+title: "Downloading Shape Files for DHS Surveys"
+author: "OJ Watson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interacting with geojson API results}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+`rdhs` can be used to download shape files associated with the DHS surveys. For
+example, we can link API responses to their shape files and plot the subnational
+estimates using the spatial pacakge `sp`. To do this, we use the new function
+`download_boundaries` from `rdhs` to download shape files. 
+
+```{r normal, warnings = FALSE, message = FALSE, fig.width=6, fig.height=6}
+
+# load our package
+library(rdhs)
+
+# make request
+d <- dhs_data(countryIds = "SN",
+              indicatorIds = "FE_FRTR_W_A15",
+              surveyYearStart = 2014,
+              breakdown = "subnational")
+
+# get our related spatial data frame object
+sp <- download_boundaries(surveyId = d$SurveyId[1])
+
+# match our values to the regions
+m <- d$Value[match(sp$sdr_subnational_boundaries$REG_ID, d$RegionId)]
+sp$sdr_subnational_boundaries@data$Value <- m
+
+# Use sp to plot
+sp::spplot(sp$sdr_subnational_boundaries, "Value", main = d$Indicator[1])
+
+```
+
+Or we can use `sf` for our plotting, which offers more user-friendly plotting
+options. 
+
+```{r sf, warnings = FALSE, message = FALSE, fig.width=6, fig.height=6}
+
+# make request
+d <- dhs_data(countryIds = "SN",
+              indicatorIds = "FE_FRTR_W_A15",
+              surveyYearStart = 2017,
+              breakdown = "subnational")
+
+# get our related spatial data frame object
+sp <- download_boundaries(surveyId = d$SurveyId[1], method = "sf")
+
+# match our values to the regions
+m <- d$Value[match(sp$sdr_subnational_boundaries$REG_ID, d$RegionId)]
+sp$sdr_subnational_boundaries$Value <- m
+
+# Use ggplot and geom_sf to plot
+library(ggplot2)
+ggplot(sp$sdr_subnational_boundaries) + 
+  geom_sf(aes(fill = Value)) + 
+  ggtitle(d$Indicator[1])
+
+```

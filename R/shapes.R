@@ -24,6 +24,7 @@
 #'
 #' @return Returns either the spatial file as a "SpatialPolygonsDataFrame" or
 #'   a vector of the file paths of where the boundary was downloaded to.
+#' @export
 #'
 #' @examples
 #' \dontrun{
