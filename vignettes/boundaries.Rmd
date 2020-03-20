@@ -1,0 +1,89 @@
+---
+title: "Downloading Shape Files for DHS Surveys"
+author: "OJ Watson"
+date: "2020-02-11"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Downloading shape files for DHS surveys}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+`rdhs` can be used to download shape files associated with the DHS surveys. For
+example, we can link API responses to their shape files and plot the subnational
+estimates using the spatial pacakge `sp`. To do this, we use the new function
+`download_boundaries` from `rdhs` to download shape files. 
+
+
+```r
+# load our package
+library(rdhs)
+
+# make request
+d <- dhs_data(countryIds = "SN",
+              indicatorIds = "FE_FRTR_W_A15",
+              surveyYearStart = 2014,
+              breakdown = "subnational")
+
+# get our related spatial data frame object
+sp <- download_boundaries(surveyId = d$SurveyId[1])
+```
+
+```
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/tmp/RtmpkjqL1S/file115c2d9e2d9d/shps", layer: "sdr_subnational_boundaries"
+## with 4 features
+## It has 27 fields
+```
+
+```r
+# match our values to the regions
+m <- d$Value[match(sp$sdr_subnational_boundaries$REG_ID, d$RegionId)]
+sp$sdr_subnational_boundaries@data$Value <- m
+
+# Use sp to plot
+sp::spplot(sp$sdr_subnational_boundaries, "Value", main = d$Indicator[1])
+```
+
+![](https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png)<!-- -->
+
+Or we can use `sf` for our plotting, which offers more user-friendly plotting
+options. 
+
+
+```r
+# make request
+d <- dhs_data(countryIds = "SN",
+              indicatorIds = "FE_FRTR_W_A15",
+              surveyYearStart = 2017,
+              breakdown = "subnational")
+
+# get our related spatial data frame object
+sp <- download_boundaries(surveyId = d$SurveyId[1], method = "sf")
+```
+
+```
+## Reading layer `sdr_subnational_boundaries' from data source `/tmp/RtmpkjqL1S/file115c5afcf6fd/shps/sdr_subnational_boundaries.dbf' using driver `ESRI Shapefile'
+## Simple feature collection with 14 features and 27 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -17.54548 ymin: 12.30127 xmax: -11.35754 ymax: 16.69266
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+```r
+# match our values to the regions
+m <- d$Value[match(sp$sdr_subnational_boundaries$REG_ID, d$RegionId)]
+sp$sdr_subnational_boundaries$Value <- m
+
+# Use ggplot and geom_sf to plot
+library(ggplot2)
+ggplot(sp$sdr_subnational_boundaries) + 
+  geom_sf(aes(fill = Value)) + 
+  ggtitle(d$Indicator[1])
+```
+
+![](https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/sf-1.png)<!-- -->

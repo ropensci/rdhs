@@ -4,11 +4,24 @@
 \alias{dhs_datasets}
 \title{API request of DHS Datasets}
 \usage{
-dhs_datasets(countryIds = NULL, selectSurveys = NULL,
-  surveyIds = NULL, surveyYear = NULL, surveyYearStart = NULL,
-  surveyYearEnd = NULL, surveyType = NULL, fileFormat = NULL,
-  fileType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL, client = NULL, force = FALSE, all_results = TRUE)
+dhs_datasets(
+  countryIds = NULL,
+  selectSurveys = NULL,
+  surveyIds = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  fileFormat = NULL,
+  fileType = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter

@@ -1,3 +1,13 @@
+## rdhs 0.7.0
+
+* Add CITATION info.
+* New `download_boundaries` for downloading spatial boundaries using (#71)
+* New `dhs_gps_data_format` for DHS GPS Information (#74)
+* Tibbles can be specified correctly as data.frame format (#89)
+* Config creation on Windows 10 fixed (#91)
+* Typos and messaging fixed (#78, #84, #87, #92)
+* `unzip_special` correctly detects 4Gb files (#43)
+
 ## rdhs 0.6.3
 
 * Addresses CRAN fail on windows 

@@ -4,10 +4,21 @@
 \alias{dhs_geometry}
 \title{API request of DHS Geometry}
 \usage{
-dhs_geometry(countryIds = NULL, surveyIds = NULL, surveyYear = NULL,
-  surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
-  client = NULL, force = FALSE, all_results = TRUE)
+dhs_geometry(
+  countryIds = NULL,
+  surveyIds = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter

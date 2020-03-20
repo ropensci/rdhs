@@ -4,12 +4,25 @@
 \alias{dhs_publications}
 \title{API request of DHS Publications}
 \usage{
-dhs_publications(countryIds = NULL, selectSurveys = NULL,
-  indicatorIds = NULL, surveyIds = NULL, surveyYear = NULL,
-  surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
-  surveyCharacteristicIds = NULL, tagIds = NULL, f = NULL,
-  returnFields = NULL, perPage = NULL, page = NULL, client = NULL,
-  force = FALSE, all_results = TRUE)
+dhs_publications(
+  countryIds = NULL,
+  selectSurveys = NULL,
+  indicatorIds = NULL,
+  surveyIds = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  surveyCharacteristicIds = NULL,
+  tagIds = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter

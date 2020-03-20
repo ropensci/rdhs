@@ -4,8 +4,13 @@
 \alias{search_variable_labels}
 \title{Search Survey Variable Definitions}
 \usage{
-search_variable_labels(dataset_filenames, search_terms = NULL,
-  essential_terms = NULL, regex = NULL, ...)
+search_variable_labels(
+  dataset_filenames,
+  search_terms = NULL,
+  essential_terms = NULL,
+  regex = NULL,
+  ...
+)
 }
 \arguments{
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be

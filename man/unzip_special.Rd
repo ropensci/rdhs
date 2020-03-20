@@ -4,19 +4,26 @@
 \alias{unzip_special}
 \title{unzip special that catches for 4GB+}
 \usage{
-unzip_special(zipfile, files = NULL, overwrite = TRUE,
-  junkpaths = FALSE, exdir = ".", unzip = "internal",
-  setTimes = FALSE)
+unzip_special(
+  zipfile,
+  files = NULL,
+  overwrite = TRUE,
+  junkpaths = FALSE,
+  exdir = ".",
+  unzip = "internal",
+  setTimes = FALSE
+)
 }
 \arguments{
 \item{zipfile}{The pathname of the zip file: tilde expansion (see
-    \code{\link{path.expand}}) will be performed.}
+\code{\link{path.expand}} will be performed.)}
 
 \item{files}{A character vector of recorded filepaths to be extracted:
     the default is to extract all files.}
 
-\item{overwrite}{If \code{TRUE}, overwrite existing files, otherwise
-    ignore such files.  The equivalent of \command{unzip -o}.}
+\item{overwrite}{If \code{TRUE}, overwrite existing files (the equivalent
+    of \command{unzip -o}), otherwise ignore such files (the equivalent of
+    \command{unzip -n}).}
 
 \item{junkpaths}{If \code{TRUE}, use only the basename of the stored
     filepath when extracting.  The equivalent of \command{unzip -j}.}

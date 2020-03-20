@@ -1,7 +1,7 @@
 Package: rdhs
 Type: Package
 Title: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data
-Version: 0.6.3
+Version: 0.7.0
 Authors@R: 
     c(person(given = "OJ",
              family = "Watson",
@@ -51,9 +51,10 @@ Suggests:
     ggplot2,
     survey,
     data.table,
-    microbenchmark
+    microbenchmark,
+    sf
 License: MIT + file LICENSE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 VignetteBuilder: knitr
 Language: en-GB
 Encoding: UTF-8

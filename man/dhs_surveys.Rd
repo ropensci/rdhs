@@ -4,12 +4,26 @@
 \alias{dhs_surveys}
 \title{API request of DHS Surveys}
 \usage{
-dhs_surveys(countryIds = NULL, indicatorIds = NULL,
-  selectSurveys = NULL, surveyIds = NULL, surveyYear = NULL,
-  surveyYearStart = NULL, surveyYearEnd = NULL, surveyType = NULL,
-  surveyStatus = NULL, surveyCharacteristicIds = NULL, tagIds = NULL,
-  f = NULL, returnFields = NULL, perPage = NULL, page = NULL,
-  client = NULL, force = FALSE, all_results = TRUE)
+dhs_surveys(
+  countryIds = NULL,
+  indicatorIds = NULL,
+  selectSurveys = NULL,
+  surveyIds = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  surveyStatus = NULL,
+  surveyCharacteristicIds = NULL,
+  tagIds = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to

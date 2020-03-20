@@ -4,10 +4,22 @@
 \alias{dhs_tags}
 \title{API request of DHS Tags}
 \usage{
-dhs_tags(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  surveyYear = NULL, surveyYearStart = NULL, surveyYearEnd = NULL,
-  surveyType = NULL, f = NULL, returnFields = NULL, perPage = NULL,
-  page = NULL, client = NULL, force = FALSE, all_results = TRUE)
+dhs_tags(
+  countryIds = NULL,
+  indicatorIds = NULL,
+  surveyIds = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter

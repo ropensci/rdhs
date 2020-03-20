@@ -5,11 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anemia prevalence: an <code>rdhs</code> example • rdhs</title>
+<title>Anemia prevalence: an `rdhs` example • rdhs</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Anemia prevalence: an &lt;code&gt;rdhs&lt;/code&gt; example">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Anemia prevalence: an `rdhs` example">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -69,6 +70,9 @@
       <a href="../articles/geojson.html">How to use geojson API results</a>
     </li>
     <li>
+      <a href="../articles/boundaries.html">How to download shape files</a>
+    </li>
+    <li>
       <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider">
@@ -103,6 +107,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -124,22 +129,22 @@
 <a href="#setup" class="anchor"></a>Setup</h1>
 <p>Load the <code>rdhs</code> package and other useful packages for analysing data.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">## devtools::install_github("ropensci/rdhs")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdhs)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(data.table)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(survey)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(haven)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rdhs)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(data.table)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(survey)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(haven)</a></code></pre></div>
 </div>
 <div id="using-calculated-indicators-from-statcompiler" class="section level1">
 <h1 class="hasAnchor">
 <a href="#using-calculated-indicators-from-statcompiler" class="anchor"></a>Using calculated indicators from STATcompiler</h1>
 <p>Anemia prevalence among women is reported as a core indicator through the DHS STATcompiler (<a href="https://www.statcompiler.com/" class="uri">https://www.statcompiler.com/</a>). These indicators can be accessed directly from R via the DHS API with the function <code><a href="../reference/dhs_data.html">dhs_data()</a></code>.</p>
 <p>Query the API for a list of all StatCompiler indicators, and then search the indicators for those that have <code>"anemia"</code> in the indicator name. API calls return <code>data.frame</code> objects, so if you prefer to use <code>data.table</code> objects then convert afterwards, or we can set this up within our config using <code>set_rdhs_config</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdhs)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rdhs)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">data_frame =</span> <span class="st">"data.table::as.data.table"</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">indicators &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span>()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(indicators[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"anemia"</span>, Label), .(IndicatorId, ShortName, Label)])</a></code></pre></div>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(indicators[<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"anemia"</span>, Label), .(IndicatorId, ShortName, Label)])</a></code></pre></div>
 <pre><code>##      IndicatorId                 ShortName                       Label
 ## 1: CN_ANMC_C_SEV Severe anemia (&lt;7.0 g/dl) Children with severe anemia
 ## 2: AN_ANEM_W_ANY                      Any        Women with any anemia
@@ -149,7 +154,7 @@
 ## 6: AN_ANEM_M_ANY                Any anemia         Men with any anemia</code></pre>
 <p>The indicator ID <code>"AN_ANEM_W_ANY"</code> reports the percentage of women with any anemia. The function <code><a href="../reference/dhs_data.html">dhs_data()</a></code> will query the indicator dataset for the value of this indicator for our three countries of interest. First, use <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> to query the list of DHS countries to identify the DHS country code for each country.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">countries &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_countries.html">dhs_countries</a></span>()</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">dhscc &lt;-<span class="st"> </span>countries[CountryName <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span>), DHS_CountryCode]</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">dhscc &lt;-<span class="st"> </span>countries[CountryName <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span>), DHS_CountryCode]</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">dhscc</a></code></pre></div>
 <pre><code>## [1] "AM" "KH" "LS"</code></pre>
 <p>Now query the indicators dataset for the women with any anemia indicator for these three countries.</p>
@@ -166,8 +171,8 @@
 ##  8: Women with any anemia     Lesotho       2004  32.9                3008
 ##  9: Women with any anemia     Lesotho       2009  26.3                3839
 ## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(statcomp, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(statcomp, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(SurveyYear, Value, <span class="dt">col=</span>CountryName)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>()</a></code></pre></div>
 <p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
 </div>
 <div id="analyse-dhs-microdata" class="section level1">
@@ -176,9 +181,9 @@
 <div id="identify-surveys-that-include-anemia-testing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-surveys-that-include-anemia-testing" class="anchor"></a>Identify surveys that include anemia testing</h2>
-<p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl()</a></code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
+<p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code><a href="https://rdrr.io/r/base/grep.html">grepl()</a></code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">surveychar &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span>()</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">surveychar[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">grepl</a></span>(<span class="st">"anemia"</span>, SurveyCharacteristicName, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)]</a></code></pre></div>
+<a class="sourceLine" id="cb9-2" data-line-number="2">surveychar[<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"anemia"</span>, SurveyCharacteristicName, <span class="dt">ignore.case=</span><span class="ot">TRUE</span>)]</a></code></pre></div>
 <pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
 ## 1:                     15         Anemia questions
 ## 2:                     41           Anemia testing</code></pre>
@@ -219,7 +224,7 @@
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span>(<span class="dt">email =</span> <span class="st">"jeffrey.eaton@imperial.ac.uk"</span>,</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">                <span class="dt">project =</span> <span class="st">"Joint estimation of HIV epidemic trends and adult mortality"</span>)</a></code></pre></div>
 <p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">datasets<span class="op">$</span>path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>(<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName))</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">datasets<span class="op">$</span>path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="../reference/get_datasets.html">get_datasets</a></span>(datasets<span class="op">$</span>FileName))</a></code></pre></div>
 <pre><code>## Logging into DHS website...</code></pre>
 <pre><code>## Creating Download url list from DHS website...</code></pre>
 </div>
@@ -227,7 +232,7 @@
 <h2 class="hasAnchor">
 <a href="#identify-survey-variables" class="anchor"></a>Identify survey variables</h2>
 <p>Anemia is defined as having a hemoglobin (Hb) &lt;12.0 g/dL for non-pregnant women or Hb &lt;11.0 g/dL for currently pregnant women<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. To calculate anemia prevalence from DHS microdata, we must identify the DHS recode survey variables for hemoglobin measurement and pregnancy status. This could be done by consulting the DHS recode manual or the .MAP files accompanying survey datasets. It is convenient though to do this in R by loading the first individual recode dataset and searching the metadata for the variable names corresponding to the hemoglobin measurement and pregnancy status.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName[<span class="dv">10</span>], <span class="st">"hemoglobin"</span>)[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span>(datasets<span class="op">$</span>FileName[<span class="dv">10</span>], <span class="st">"hemoglobin"</span>)[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a></code></pre></div>
 <pre><code>##   variable
 ## 1     v042
 ## 2    v452c
@@ -243,12 +248,12 @@
 ## 5 Hemoglobin level adjusted for altitude and smoking (g/dl - 1 decimal)
 ## 6                                   Read consent statement - hemoglobin</code></pre>
 <p>Variable <code>v042</code> records the household selection for hemoglobin testing. Variable <code>v455</code> reports the outcome of hemoglobin measurement and <code>v456</code> the result of altitude adjusted hemoglobin levels.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">ir &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(datasets<span class="op">$</span>path[<span class="dv">10</span>])</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v042))</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">ir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(datasets<span class="op">$</span>path[<span class="dv">10</span>])</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v042))</a></code></pre></div>
 <pre><code>## 
 ## not selected     selected 
 ##         3203         3418</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v455))</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v455))</a></code></pre></div>
 <pre><code>## 
 ##                          measured                       not present 
 ##                              3349                                 2 
@@ -256,7 +261,7 @@
 ##                                35                                 8 
 ## no measurement found in household                           missing 
 ##                                 0                                24</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(ir<span class="op">$</span>v456)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(ir<span class="op">$</span>v456)</a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 ##    24.0   118.0   130.0   145.6   141.0   999.0    3203</code></pre>
 <p>Variable <code>v454</code> reports the current pregnancy status used for determining the anemia threshold.</p>
@@ -264,25 +269,25 @@
 <pre><code>##   variable        description
 ## 1     v213 Currently pregnant
 ## 2     v454 Currently pregnant</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v454))</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="kw"><a href="https://haven.tidyverse.org/reference/as_factor.html">as_factor</a></span>(ir<span class="op">$</span>v454))</a></code></pre></div>
 <pre><code>## 
 ## no/don't know           yes       missing 
 ##          3276           142             0</code></pre>
 <p>We also keep a number of other variables related to the survey design and potentially interesting covariates: country code and phase (<code>v000</code>), cluster number (<code>v001</code>), sample weight (<code>v005</code>), age (<code>v012</code>), region (<code>v024</code>), urban/rural residence (<code>v025</code>), and education level (<code>v106</code>).</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">vars &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"SurveyId"</span>, <span class="st">"CountryName"</span>, <span class="st">"SurveyYear"</span>, <span class="st">"v000"</span>, <span class="st">"v001"</span>, <span class="st">"v005"</span>,</a>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">vars &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SurveyId"</span>, <span class="st">"CountryName"</span>, <span class="st">"SurveyYear"</span>, <span class="st">"v000"</span>, <span class="st">"v001"</span>, <span class="st">"v005"</span>,</a>
 <a class="sourceLine" id="cb31-2" data-line-number="2">          <span class="st">"v012"</span>, <span class="st">"v024"</span>, <span class="st">"v025"</span>, <span class="st">"v106"</span>, <span class="st">"v042"</span>, <span class="st">"v454"</span>, <span class="st">"v455"</span>, <span class="st">"v456"</span>)</a></code></pre></div>
 </div>
 <div id="extract-survey-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-survey-data" class="anchor"></a>Extract survey data</h2>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">datlst &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>()</a>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">datlst &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(datasets)){</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(datasets)){</a>
 <a class="sourceLine" id="cb32-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5">  <span class="cf">if</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.exists</a></span>(datasets<span class="op">$</span>path[i])){</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">  <span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/files.html">file.exists</a></span>(datasets<span class="op">$</span>path[i])){</a>
 <a class="sourceLine" id="cb32-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb32-7" data-line-number="7">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(i, datasets<span class="op">$</span>SurveyId[i]))</a>
-<a class="sourceLine" id="cb32-8" data-line-number="8">  ir &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/readRDS">readRDS</a></span>(datasets<span class="op">$</span>path[i])</a>
+<a class="sourceLine" id="cb32-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(i, datasets<span class="op">$</span>SurveyId[i]))</a>
+<a class="sourceLine" id="cb32-8" data-line-number="8">  ir &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(datasets<span class="op">$</span>path[i])</a>
 <a class="sourceLine" id="cb32-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb32-10" data-line-number="10">  ir<span class="op">$</span>SurveyId &lt;-<span class="st"> </span>datasets<span class="op">$</span>SurveyId[i]</a>
 <a class="sourceLine" id="cb32-11" data-line-number="11">  ir<span class="op">$</span>CountryName &lt;-<span class="st"> </span>datasets<span class="op">$</span>CountryName[i]</a>
@@ -303,12 +308,12 @@
 ## [1] "10 LS2014DHS"</code></pre>
 <p>We use <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> to combine datasets with labelled columns. The argument <code>labels</code> describes to combine variable levels for all datasets for <code>v024</code> (region) while providing a consistent set of value labels to be used for <code>v454</code> (currently pregnant) for all datasets.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span>(datlst,</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">                      <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">v024 =</span> <span class="st">"concatenate"</span>,</a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">                                    <span class="dt">v454 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"no/don't know"</span> =<span class="st"> </span>0L,</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">                      <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">v024 =</span> <span class="st">"concatenate"</span>,</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">                                    <span class="dt">v454 =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"no/don't know"</span> =<span class="st"> </span>0L,</a>
 <a class="sourceLine" id="cb34-4" data-line-number="4">                                             <span class="st">"yes"</span> =<span class="st"> </span>1L, <span class="st">"missing"</span> =<span class="st"> </span>9L)))</a></code></pre></div>
 <pre><code>## Warning in rbind_labelled(datlst, labels = list(v024 = "concatenate", v454 = c(`no/don't know` = 0L, : Some variables have non-matching value labels: v106, v455, v456.
 ## Inheriting labels from first data frame with labels.</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(dat, is.labelled)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(dat, is.labelled)</a></code></pre></div>
 <pre><code>##    SurveyId CountryName  SurveyYear        v000        v001        v005 
 ##       FALSE       FALSE       FALSE       FALSE       FALSE       FALSE 
 ##        v012        v024        v025        v106        v042        v454 
@@ -322,7 +327,7 @@
 <h2 class="hasAnchor">
 <a href="#data-tabulations" class="anchor"></a>Data tabulations</h2>
 <p>It is a good idea to check basic tabulations of the data, especially by survey to identify and nuances Exploratory analysis of variables</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(SurveyId, v025, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(SurveyId, v025, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
 <pre><code>##            v025
 ## SurveyId    urban rural
 ##   AM2000DHS  3545  2885
@@ -335,7 +340,7 @@
 ##   LS2004DHS  1945  5150
 ##   LS2009DHS  1977  5647
 ##   LS2014DHS  2202  4419</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(SurveyId, v106, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(SurveyId, v106, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
 <pre><code>##            v106
 ## SurveyId    no education primary secondary higher missing
 ##   AM2000DHS            5      24      5329   1072       0
@@ -348,7 +353,7 @@
 ##   LS2004DHS          169    4309      2520     97       0
 ##   LS2009DHS          114    3865      3277    368       0
 ##   LS2014DHS           81    2665      3354    521       0</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(SurveyId, v454, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(SurveyId, v454, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
 <pre><code>##            v454
 ## SurveyId    no/don't know   yes missing  &lt;NA&gt;
 ##   AM2000DHS          6231   199       0     0
@@ -361,7 +366,7 @@
 ##   LS2004DHS          2857   203       0  4035
 ##   LS2009DHS          3740   173     103  3608
 ##   LS2014DHS          3276   142       0  3203</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(SurveyId, v455, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(SurveyId, v455, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
 <pre><code>##            v455
 ## SurveyId    measured not present refused other no measurement found in hh
 ##   AM2000DHS     6137           5     264    24                          0
@@ -386,7 +391,7 @@
 ##   LS2004DHS      29  3557
 ##   LS2009DHS      36  3608
 ##   LS2014DHS      24  3203</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(v042, v454, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(v042, v454, <span class="dt">useNA=</span><span class="st">"ifany"</span>))</a></code></pre></div>
 <pre><code>##               v454
 ## v042           no/don't know   yes missing  &lt;NA&gt;
 ##   not selected             0     0       0 45778
@@ -397,7 +402,7 @@
 <a href="#calculate-anemia-prevalence" class="anchor"></a>Calculate anemia prevalence</h2>
 <p>Create indicator variable for ‘any anemia’. The threshold depends on pregnancy status.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">dat<span class="op">$</span>v456[dat<span class="op">$</span>v456 <span class="op">==</span><span class="st"> </span><span class="dv">999</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/with">with</a></span>(dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(v455, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(v456)))</a></code></pre></div>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(dat, <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(v455, <span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(v456)))</a></code></pre></div>
 <pre><code>##                             
 ## v455                         FALSE  TRUE
 ##   measured                   60847     0
@@ -406,24 +411,24 @@
 ##   other                          0   101
 ##   no measurement found in hh     0     0
 ##   missing                        0   422</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">dat<span class="op">$</span>anemia &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(dat<span class="op">$</span>v456  <span class="op">&lt;</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ifelse">ifelse</a></span>(dat<span class="op">$</span>v454 <span class="op">==</span><span class="st"> "yes"</span>, <span class="dv">110</span>, <span class="dv">120</span>))</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2">dat<span class="op">$</span>anemia_denom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(dat<span class="op">$</span>anemia))</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">dat<span class="op">$</span>anemia &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(dat<span class="op">$</span>v456  <span class="op">&lt;</span><span class="st"> </span><span class="kw"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html">ifelse</a></span>(dat<span class="op">$</span>v454 <span class="op">==</span><span class="st"> "yes"</span>, <span class="dv">110</span>, <span class="dv">120</span>))</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">dat<span class="op">$</span>anemia_denom &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(dat<span class="op">$</span>anemia))</a></code></pre></div>
 <p>Specify survey design using the <code>survey</code> package.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">dat<span class="op">$</span>w &lt;-<span class="st"> </span>dat<span class="op">$</span>v005<span class="op">/</span><span class="fl">1e6</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">des &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svydesign">svydesign</a></span>(<span class="op">~</span>v001<span class="op">+</span>SurveyId, <span class="dt">data=</span>dat, <span class="dt">weights=</span><span class="op">~</span>w)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2">des &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svydesign.html">svydesign</a></span>(<span class="op">~</span>v001<span class="op">+</span>SurveyId, <span class="dt">data=</span>dat, <span class="dt">weights=</span><span class="op">~</span>w)</a>
 <a class="sourceLine" id="cb52-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4">anemia_prev &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>anemia, <span class="op">~</span>SurveyId, des, svyciprop, <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">vartype=</span><span class="st">"ci"</span>)</a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">anemia_denom &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyby">svyby</a></span>(<span class="op">~</span>anemia_denom, <span class="op">~</span>SurveyId, des, svytotal, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">anemia_prev &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span>(<span class="op">~</span>anemia, <span class="op">~</span>SurveyId, des, svyciprop, <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">vartype=</span><span class="st">"ci"</span>)</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">anemia_denom &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyby.html">svyby</a></span>(<span class="op">~</span>anemia_denom, <span class="op">~</span>SurveyId, des, svytotal, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb52-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7">anemia_prev &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/data.table/topics/merge">merge</a></span>(anemia_prev, anemia_denom[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"SurveyId"</span>, <span class="st">"anemia_denom"</span>)])</a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">anemia_prev &lt;-<span class="st"> </span><span class="kw"><a href="https://Rdatatable.gitlab.io/data.table/reference/merge.html">merge</a></span>(anemia_prev, anemia_denom[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SurveyId"</span>, <span class="st">"anemia_denom"</span>)])</a>
 <a class="sourceLine" id="cb52-8" data-line-number="8">res &lt;-<span class="st"> </span>statcomp[,.(SurveyId, CountryName, SurveyYear, Value, DenominatorUnweighted, DenominatorWeighted)][anemia_prev, on=<span class="st">"SurveyId"</span>]</a>
 <a class="sourceLine" id="cb52-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb52-10" data-line-number="10">res<span class="op">$</span>anemia &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span>res<span class="op">$</span>anemia</a>
 <a class="sourceLine" id="cb52-11" data-line-number="11">res<span class="op">$</span>ci_l &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span>res<span class="op">$</span>ci_l</a>
 <a class="sourceLine" id="cb52-12" data-line-number="12">res<span class="op">$</span>ci_u &lt;-<span class="st"> </span><span class="dv">100</span><span class="op">*</span>res<span class="op">$</span>ci_u</a>
-<a class="sourceLine" id="cb52-13" data-line-number="13">res<span class="op">$</span>anemia_denom0 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(res<span class="op">$</span>anemia_denom)</a></code></pre></div>
+<a class="sourceLine" id="cb52-13" data-line-number="13">res<span class="op">$</span>anemia_denom0 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(res<span class="op">$</span>anemia_denom)</a></code></pre></div>
 <p>The table below compares the prevalence of any anemia calculated from survey microdata with the estimates from DHS StatCompiler and the weighted denominators for each calculation. The estimates are identical for most cases. There are some small differences to be ironed out, which will require looking at the specific countries to check how their stratification was carried out. (We are hoping to bring this feature in once the DHS program has compiled how sample strata were constructed for all of their studies).</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], <span class="dt">digits=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(res[,.(CountryName, SurveyYear, Value, anemia, ci_l, ci_u, DenominatorWeighted, anemia_denom0)], <span class="dt">digits=</span><span class="dv">1</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">CountryName</th>
@@ -538,9 +543,9 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(res, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,</a>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(res, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x=</span>SurveyYear, <span class="dt">y=</span>anemia, <span class="dt">ymin=</span>ci_l, <span class="dt">ymax=</span>ci_u,</a>
 <a class="sourceLine" id="cb54-2" data-line-number="2">                <span class="dt">col=</span>CountryName, <span class="dt">fill=</span>CountryName)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_ribbon">geom_ribbon</a></span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span>(<span class="dt">alpha=</span><span class="fl">0.4</span>, <span class="dt">linetype=</span><span class="st">"blank"</span>) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>()</a></code></pre></div>
 <p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -548,8 +553,8 @@
 <h1 class="hasAnchor">
 <a href="#regression-analysis-relationship-between-education-and-anemia" class="anchor"></a>Regression analysis: relationship between education and anemia</h1>
 <p>A key use of the survey microdata are to conduct secondary analysis of pooled data from several surveys, such as regression analysis. Here we investigate the relationship between anemia prevalence and education level (<code>v106</code>) for women using logistic regression, adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">des &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/data.table/topics/update.dev.pkg">update</a></span>(des, <span class="dt">v106 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/relevel">relevel</a></span>(v106, <span class="st">"primary"</span>))</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/survey/topics/svyglm">svyglm</a></span>(anemia <span class="op">~</span><span class="st"> </span>SurveyId <span class="op">+</span><span class="st"> </span>v025 <span class="op">+</span><span class="st"> </span>v106, des, <span class="dt">family=</span><span class="st">"binomial"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">des &lt;-<span class="st"> </span><span class="kw"><a href="https://Rdatatable.gitlab.io/data.table/reference/update.dev.pkg.html">update</a></span>(des, <span class="dt">v106 =</span> <span class="kw"><a href="https://rdrr.io/r/stats/relevel.html">relevel</a></span>(v106, <span class="st">"primary"</span>))</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a></span>(anemia <span class="op">~</span><span class="st"> </span>SurveyId <span class="op">+</span><span class="st"> </span>v025 <span class="op">+</span><span class="st"> </span>v106, des, <span class="dt">family=</span><span class="st">"binomial"</span>))</a></code></pre></div>
 <pre><code>## Warning in eval(family$initialize): non-integer #successes in a binomial
 ## glm!</code></pre>
 <pre><code>## 
@@ -592,6 +597,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -616,17 +622,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by OJ Watson, Jeff Eaton.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

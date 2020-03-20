@@ -4,14 +4,29 @@
 \alias{dhs_data}
 \title{API request of DHS Indicator Data}
 \usage{
-dhs_data(countryIds = NULL, indicatorIds = NULL, surveyIds = NULL,
-  selectSurveys = NULL, surveyYear = NULL, surveyYearStart = NULL,
-  surveyYearEnd = NULL, surveyType = NULL,
-  surveyCharacteristicIds = NULL, characteristicCategory = NULL,
-  characteristicLabel = NULL, tagIds = NULL, breakdown = NULL,
-  returnGeometry = NULL, f = NULL, returnFields = NULL,
-  perPage = NULL, page = NULL, client = NULL, force = FALSE,
-  all_results = TRUE)
+dhs_data(
+  countryIds = NULL,
+  indicatorIds = NULL,
+  surveyIds = NULL,
+  selectSurveys = NULL,
+  surveyYear = NULL,
+  surveyYearStart = NULL,
+  surveyYearEnd = NULL,
+  surveyType = NULL,
+  surveyCharacteristicIds = NULL,
+  characteristicCategory = NULL,
+  characteristicLabel = NULL,
+  tagIds = NULL,
+  breakdown = NULL,
+  returnGeometry = NULL,
+  f = NULL,
+  returnFields = NULL,
+  perPage = NULL,
+  page = NULL,
+  client = NULL,
+  force = FALSE,
+  all_results = TRUE
+)
 }
 \arguments{
 \item{countryIds}{Specify a comma separated list of country ids to filter

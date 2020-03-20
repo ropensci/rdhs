@@ -356,7 +356,9 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames,
+                                                   download_option,
+                                                   reformat)
 
       # results storage
       res <- list()
@@ -379,11 +381,6 @@ R6_client_dhs <- R6::R6Class(
       # iterate through download requests
       for (i in 1:download_iterations) {
 
-        # if no url then place error message in results list
-        if (is.na(datasets$URLS[i])) {
-          res[[i]] <- "Dataset is not available with your DHS login credentials"
-        } else {
-
           # create key for this
           key <- paste0(datasets[i, ]$SurveyId, "_", datasets[i, ]$FileName,
                         "_", download_option, "_", reformat)
@@ -396,6 +393,11 @@ R6_client_dhs <- R6::R6Class(
           if (!is.null(out)) {
             res[[i]] <- out
           } else {
+
+        # if no url then place error message in results list
+        if (is.na(datasets$URLS[i])) {
+          res[[i]] <- "Dataset is not available with your DHS login credentials"
+        } else {
 
             # Download dataset
             resp <- download_datasets(
@@ -457,7 +459,7 @@ R6_client_dhs <- R6::R6Class(
       download <- self$get_datasets(dataset_filenames, ...)
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames, ...)
       datasets <- datasets[!is.na(datasets$URLS), ]
 
       # handle the search terms
@@ -575,7 +577,7 @@ R6_client_dhs <- R6::R6Class(
       download <- self$get_datasets(dataset_filenames, ...)
 
       # fetch which datasets you can download from your login
-      datasets <- private$check_available_datasets(dataset_filenames)
+      datasets <- private$check_available_datasets(dataset_filenames, ...)
       datasets <- datasets[!is.na(datasets$URLS), ]
 
       # results storage
@@ -870,7 +872,9 @@ R6_client_dhs <- R6::R6Class(
 
 
     # CHECK_AVAIALABLE_DATASETS
-    check_available_datasets = function(filenames) {
+    check_available_datasets = function(filenames,
+                                        download_option="rds",
+                                        reformat=FALSE) {
 
       # catch of the filenames requested are with or without the zip
       if (any(grepl("zip", filenames, ignore.case = TRUE))) {
@@ -900,6 +904,11 @@ R6_client_dhs <- R6::R6Class(
       # create new filename argument that takes into account the india
       # difficiulties where needed
       datasets <- create_new_filenames(datasets)
+
+      # look up logic assumes it will be a data frame so change as needed
+      if (inherits(datasets, "tbl")) {
+        datasets <- as.data.frame(datasets)
+      }
 
       # find all the duplicate filenames and what datasets they belong to
       duplicates <- datasets[duplicated(datasets$FileName), nm_type]
@@ -990,6 +999,14 @@ R6_client_dhs <- R6::R6Class(
         if (is.data.frame(fail_names)) {
           fail_names <- filenames[,nm_type]
         }
+
+        # check if they are already downloaded
+        key <- paste0(potential$SurveyId, "_", potential$FileName,
+                      "_", download_option, "_", reformat)
+
+        # first check against cache
+        found <- private$storr$exists(key, "downloaded_datasets")
+        fail_names <- fail_names[!found]
 
         message(
           paste0(

@@ -1,0 +1,35 @@
+Name,Type,Description
+DHSID,text,The 14 character DHS identification code - DHSCC & DHSYEAR & DHSCLUST (with 8 digits) from survey documentation.
+DHSCC,text,The 2 letter DHS country code (http://www.measuredhs.com/data/File-Types-and-Names.cfm).
+DHSYEAR,number,The 4 digit year of the survey from the survey documentation.
+DHSCLUST,number,The integer cluster identification number. This variable will match v001 in the DHS recode file.
+CCFIPS,text,Federal Information Processing Standards (FIPS) 2 letter country code (http://www.itl.nist.gov/fipspubs/fip10-4.htm).
+ADM1FIPS,text,"Federal Information Processing Standards (FIPS) 2 letter country code plus 2 letter/digit first sub-national administrative division code
+(http://www.itl.nist.gov/fipspubs/fip10-4.htm). If this information is not available, this field will be ""NULL""."
+ADM1FIPSNA,text,"Federal Information Processing Standards (FIPS) first sub-national administrative division name (http://www.itl.nist.gov/fipspubs/fip10-
+4.htm). If this information is not available, this field will be ""NULL""."
+ADM1SALBCO,text,"Second Administrative Level Boundaries (SALB) first sub-national administrative division code (http://www.unsalb.org). The website
+requires free registration for downloads. If this information is not available, this field will be ""NULL""."
+ADM1SALBNA,text,"Second Administrative Level Boundaries (SALB) first sub-national administrative division name (http://www.unsalb.org). The website
+requires free registration for downloads. If this information is not available, this field will be ""NULL""."
+ADM1DHS,number,"First sub-national administrative division code when the DHS sample is representative at the admin 1 level. This variable will usually match
+v024 of the DHS recode file. If the survey is not representative at the admin 1 level, this field will be ""9999""."
+ADM1NAME,text,"First sub-national administrative division name when the DHS sample is representative at the admin 1 level. This variable will usually
+match v024 of the DHS recode file. If survey is not representative at the admin 1 level, this field will be ""NULL""."
+DHSREGCO,number,"The integer region code associated with the DHS region created for sampling. This variable will match either v024 or the country specific
+region variable in the DHS recode file. In previous versions of the dataset, this field was named REPAR1DHS. The REPAR1DHS field is no
+longer used."
+DHSREGNA,text,"The name associated with the DHS region created for sampling. This variable will match either v024 or the country specific region variable
+in the DHS recode file. In previous versions of the dataset, this field was named REPAR1NAME. The REPAR1NAME field is no longer used."
+SOURCE,text,"The source of data used to determine the latitude and longitude coordinates: ""GPS"" for data collected by the survey team with a global
+positioning system receiver; ""CEN"" for preexisting data provided by the census agency/ministry; ""GAZ"" for data extracted from a gazetteer
+of village/place names; ""MAP"" for data extracted from a paper map; ""MIS"" for clusters in which data could not be fully verified. Clusters
+marked as ""MIS"" will have coordinates 0, 0."
+URBAN_RURA,text,The cluster's Urban (U) and Rural (R) DHS sample classification.
+LATNUM,number,"The cluster's latitude coordinate in decimal degrees. Clusters marked as ""MIS"" will have coordinates 0, 0."
+LONGNUM,number,"The cluster's longitude coordinate in decimal degrees. Clusters marked as ""MIS"" will have coordinates 0, 0."
+ALT_GPS,number,"The cluster's elevation/altitude (in meters) recorded from the GPS receiver. If this information is not available, this field will be ""9999""."
+ALT_DEM,number,"The cluster's elevation/altitude (in meters) from the SRTM (Shuttle Radar Topography Mission) DEM (Digital Elevation Model) for the
+specified coordinate location. If coordinates are missing, this field will be ""9999"". Elevations are regularly spaced at 30-arc seconds or
+approximately 1 kilometer (http://dds.cr.usgs.gov/srtm/version1/SRTM30)."
+DATUM,text,"The coordinate reference system and geographic datum. It is always ""WGS84"" for the World Geodetic System (WGS) 1984."

@@ -194,6 +194,9 @@ parse_sps <- function(sps, all_lower=TRUE) {
   valnum <- lapply(valnum, "storage.mode<-", "integer")
   values[!is.na(numericvar) & numericvar] <- valnum
 
+  ## remove duplicate values from labels
+  values <- lapply(values, function(x) x[!duplicated(x)])
+  
   dct$labels <- values[dct$name]
 
   return(dct)
