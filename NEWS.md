@@ -1,3 +1,7 @@
+## rdhs 0.7.1
+
+* Use `"sf"` as default download method for `download_boundaries(..., method = "sf")`.
+
 ## rdhs 0.7.0
 
 * Add CITATION info.

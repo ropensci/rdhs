@@ -15,8 +15,8 @@
 #'   being downloaded. Default = NULL, which will cause the countrycode to be
 #'   looked up from the API.
 #' @param method Character for how the downloaded shape file is read in.
-#'   Default = "rdgal", which reads the file using rgdal::readOGR. At current
-#'   you can also specify sf, which uses \code{sf::st_read}.
+#'   Default = "sf", which uses \code{sf::st_read}. Currenlty, you can also
+#'   specify "rgdal", which reads the file using rgdal::readOGR.
 #'   To just return the file paths for the files use method = "zip".
 #'
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
@@ -34,15 +34,15 @@
 #'  # using the surveyId and no countryID
 #'  res <- download_boundaries(surveyId = "AF2010OTH")
 #'
-#'  # using sf
-#'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "sf")
+#'  # using rgdal
+#'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "rgdal")
 #'  }
 
 
 download_boundaries <- function(surveyNum=NULL,
                                 surveyId = NULL,
                                 countryId = NULL,
-                                method = "rgdal"){
+                                method = "sf"){
 
   # helper funcs
   build_final_url <- function(jobId) {
