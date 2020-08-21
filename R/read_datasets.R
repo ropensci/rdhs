@@ -188,8 +188,6 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
                                            description_table$description)
   }
 
-  class(res) <- c(class(res), "dhs_dataset")
-
   return(list("dataset" = res, "variable_names" = description_table))
 }
 

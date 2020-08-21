@@ -1,3 +1,11 @@
+## rdhs 0.7.1
+
+* Remove class `"dhs_dataset"` from downloaded micro data sets. This class is not 
+  anywhere and it creates an error for dplyr_v1.0. 
+  
+  Cached datasets will need to be re-downloaded after updating to clear the 
+  dhs_dataset clas.
+  
 ## rdhs 0.7.0
 
 * Add CITATION info.
