@@ -27,7 +27,7 @@ test_that("available surveys and download work", {
   )
 
   # check handle for dataset you don't have permission for
-  downloads <- cli$get_datasets("CDGC61FL.ZIP")
+  expect_message(downloads <- cli$get_datasets("CDGC61FL.ZIP"), "not available")
 
   # check dta foreign only
   downloads <- cli$get_datasets(
