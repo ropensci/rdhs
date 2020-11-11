@@ -1,5 +1,11 @@
 ## rdhs 0.7.1
 
+* Remove class `"dhs_dataset"` from downloaded micro data sets. This class is not 
+  anywhere and it creates an error for dplyr_v1.0. 
+  
+  Cached datasets will need to be re-downloaded after updating to clear the 
+  dhs_dataset clas.
+
 * Replace `readLines()` with `brio::read_lines()` to make parsers robust to 
   Windows encoding issues (similar to https://stackoverflow.com/questions/18789330/r-on-windows-character-encoding-hell).
 
