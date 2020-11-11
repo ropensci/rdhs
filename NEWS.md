@@ -1,3 +1,8 @@
+## rdhs 0.7.1
+
+* Replace `readLines()` with `brio::read_lines()` to make parsers robust to 
+  Windows encoding issues (similar to https://stackoverflow.com/questions/18789330/r-on-windows-character-encoding-hell).
+
 ## rdhs 0.7.0
 
 * Add CITATION info.
