@@ -70,7 +70,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     dfs <- dfs[[1]]
   }
 
-  # what kind of dataset is it we are working with
+  # what kind of dataset are working with
   type <- dataset_label_type(dfs[[1]], stop = FALSE)
 
   # if the data has names let's grab that and append it
@@ -81,7 +81,7 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     }
   }
 
-  # if its a foregin or reformatted dataset list then skip over the labelling
+  # if its a foreign or reformatted dataset list then skip over the labelling
   if (type == "labelled") {
 
     ## Ensure same column ordering for all dfs
@@ -170,12 +170,13 @@ rbind_labelled <- function(..., labels=NULL, warn=TRUE) {
     }
 
     ## rbind data frames
-    df <- do.call(rbind, dfs)
+    dfs_raw <- lapply(dfs, haven::zap_labels)
+    df <- do.call(rbind, dfs_raw)
 
     ## Convert concatenated variables back to labelled
     df[catvar] <- lapply(df[catvar], factor)
 
-    # match on haven package version
+    ## match on haven package version
     if (packageVersion("haven") > "1.1.2") {
 
       ## Get the label attribute
