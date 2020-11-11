@@ -54,10 +54,10 @@ test_that("data dictionaries FWF lengths match file width", {
     "Filename=ZZAR61FL.ZIP&Tp=4&Ctry_Code=zz&survey_id=0&doctype=hiv"
   ), arfl_zip, mode = "wb")
 
-  dcf <- rdhs::read_zipdata(arfl_zip, "\\.DCF", readLines)
-  sps <- rdhs::read_zipdata(arfl_zip, "\\.SPS", readLines)
-  do <- rdhs::read_zipdata(arfl_zip, "\\.DO", readLines)
-  dct <- rdhs::read_zipdata(arfl_zip, "\\.DCT", readLines)
+  dcf <- rdhs::read_zipdata(arfl_zip, "\\.DCF", brio::read_lines)
+  sps <- rdhs::read_zipdata(arfl_zip, "\\.SPS", brio::read_lines)
+  do <- rdhs::read_zipdata(arfl_zip, "\\.DO", brio::read_lines)
+  dct <- rdhs::read_zipdata(arfl_zip, "\\.DCT", brio::read_lines)
 
   dat <- rdhs::read_zipdata(arfl_zip, "\\.DAT$", iotools::input.file)
 
@@ -66,7 +66,7 @@ test_that("data dictionaries FWF lengths match file width", {
   expect_equal(sum(parse_do(do, dct)$len), nchar(dat[1]))
 
   # check for incorrect pattern
-  expect_warning(rdhs::read_zipdata(arfl_zip, "\\.notachance", readLines))
+  expect_warning(rdhs::read_zipdata(arfl_zip, "\\.notachance", brio::read_lines))
 })
 
 
