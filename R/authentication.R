@@ -59,7 +59,7 @@ available_datasets <- function(config,
   writeBin(z$content, tf)
 
   # load the text
-  y <- brio::read_lines(tf, warn = FALSE)
+  y <- brio::read_lines(tf)
 
   # Create post request for the download manager
   values <- list(
@@ -74,7 +74,7 @@ available_datasets <- function(config,
   # Grab the content from that and start creation for last post request
   writeBin(z$content, tf)
   # load the text
-  y <- brio::read_lines(tf, warn = FALSE)
+  y <- brio::read_lines(tf)
 
 
   # Donqwload manager post creation
@@ -426,7 +426,7 @@ authenticate_dhs <- function(config) {
   writeBin(z$content, tf)
 
   # load the text
-  y <- brio::read_lines(tf, warn = FALSE)
+  y <- brio::read_lines(tf)
 
   # figure out the project number - only use first 30 chars due to ellipsis
   # formation if it is longer than 30

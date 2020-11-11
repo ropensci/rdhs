@@ -100,7 +100,7 @@ download_boundaries <- function(surveyNum=NULL,
 
   tf <- tempfile()
   y <- writeBin(z$content, con = tf)
-  h <- jsonlite::fromJSON(brio::read_lines(tf, warn = FALSE))
+  h <- jsonlite::fromJSON(brio::read_lines(tf))
   url <- build_final_url(h$jobId)
 
   # pause for a second for the job id created to appear on their server
