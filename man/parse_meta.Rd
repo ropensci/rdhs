@@ -19,11 +19,11 @@ parse_do(do, dct, all_lower = TRUE)
 \item{all_lower}{logical indicating whether to convert variable labels to
 lower case. Defaults to `TRUE`.}
 
-\item{sps}{.SPS file as character vector (e.g. from readLines)}
+\item{sps}{.SPS file as character vector (e.g. from readLines / brio::read_lines)}
 
-\item{do}{.DO file as character vector (e.g. from readLines)}
+\item{do}{.DO file as character vector (e.g. from readLines / brio::read_lines)}
 
-\item{dct}{.DCT file as character vector (e.g. from readLines)}
+\item{dct}{.DCT file as character vector (e.g. from readLines / brio::read_lines)}
 }
 \value{
 data.frame with metadata for parsing fixed-width flat file
