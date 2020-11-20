@@ -26,12 +26,8 @@ Currently hardcoded for 111 char width .MAP files, which covers the
 }
 \examples{
 mrdt_zip <- tempfile()
-download.file(
-paste0(
-"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm",
-"?Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-mrdt_zip, mode="wb"
-)
+download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+              mrdt_zip, mode="wb")
 
 map <- rdhs::read_zipdata(mrdt_zip, "\\\\.MAP", readLines)
 dct <- rdhs:::parse_map(map)

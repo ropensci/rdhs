@@ -33,12 +33,8 @@ Parse dataset metadata
 }
 \examples{
 mrfl_zip <- tempfile()
-download.file(
-paste0(
-"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-"Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-mrfl_zip, mode="wb"
-)
+download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+              mrfl_zip, mode = "wb")
 
 dcf <- rdhs::read_zipdata(mrfl_zip, "\\\\.DCF", readLines)
 dct <- rdhs:::parse_dcf(dcf)
