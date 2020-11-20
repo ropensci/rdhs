@@ -26,12 +26,8 @@ This function reads a DHS recode dataset from the zipped flat file dataset.
 }
 \examples{
 mrfl_zip <- tempfile()
-download.file(
-paste0(
-"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-"Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-mrfl_zip,mode="wb"
-)
+download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+              mrfl_zip,mode="wb")
 
 mr <- rdhs:::read_dhs_flat(mrfl_zip)
 attr(mr$mv213, "label")

@@ -3,12 +3,8 @@ context("Parse datasets")
 test_that("datasets parse", {
   mrfl_zip <- tempfile()
   on.exit(unlink(mrfl_zip))
-  download.file(paste0(
-    "https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-    "Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"
-  ),
-  destfile = mrfl_zip, mode = "wb"
-  )
+  download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+                destfile = mrfl_zip, mode = "wb")
 
   mr_def <- read_dhs_flat(mrfl_zip)
   mr_dcf <- read_dhs_flat(mrfl_zip, meta_source = "dcf")
@@ -49,10 +45,8 @@ test_that("datasets parse", {
 test_that("data dictionaries FWF lengths match file width", {
   arfl_zip <- tempfile()
   on.exit(unlink(arfl_zip))
-  download.file(paste0(
-    "https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-    "Filename=ZZAR61FL.ZIP&Tp=4&Ctry_Code=zz&survey_id=0&doctype=hiv"
-  ), arfl_zip, mode = "wb")
+  download.file("https://dhsprogram.com/data/model_data/hiv/zzar61fl.zip",
+                arfl_zip, mode = "wb")
 
   dcf <- rdhs::read_zipdata(arfl_zip, "\\.DCF", brio::read_lines)
   sps <- rdhs::read_zipdata(arfl_zip, "\\.SPS", brio::read_lines)

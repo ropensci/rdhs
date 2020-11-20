@@ -76,12 +76,8 @@ labels are still available through dataset attributes (see examples).
 }
 \examples{
 mrdt_zip <- tempfile()
-download.file(
-paste0(
-"https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-"Filename=ZZMR61DT.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-mrdt_zip, mode="wb"
-)
+download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+              mrdt_zip, mode="wb")
 
 mr <- rdhs::read_dhs_dta(mrdt_zip,mode="map")
 attr(mr$mv213, "label")
