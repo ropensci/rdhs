@@ -15,9 +15,13 @@
 #'   being downloaded. Default = NULL, which will cause the countrycode to be
 #'   looked up from the API.
 #' @param method Character for how the downloaded shape file is read in.
-#'   Default = "rdgal", which reads the file using rgdal::readOGR. At current
-#'   you can also specify sf, which uses \code{sf::st_read}.
+#'   Default = "sf", which uses \code{sf::st_read}. Currenlty, you can also
+#'   specify "rgdal", which reads the file using rgdal::readOGR.
 #'   To just return the file paths for the files use method = "zip".
+#' @param quiet_parse Whether to download file quietly. Passed to
+#'   [`download_file()`]. Default is `FALSE`.
+#' @param quiet_parse Whether to read boundaries dataset quietly. Applies to
+#'   `method = "sf"`. Default is `TRUE`.
 #'
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
 #'   which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
@@ -34,15 +38,17 @@
 #'  # using the surveyId and no countryID
 #'  res <- download_boundaries(surveyId = "AF2010OTH")
 #'
-#'  # using sf
-#'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "sf")
+#'  # using rgdal
+#'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "rgdal")
 #'  }
 
 
 download_boundaries <- function(surveyNum=NULL,
                                 surveyId = NULL,
                                 countryId = NULL,
-                                method = "rgdal"){
+                                method = "sf",
+                                quiet_download = FALSE,
+                                quiet_parse = TRUE){
 
   # helper funcs
   build_final_url <- function(jobId) {
@@ -109,7 +115,7 @@ download_boundaries <- function(surveyNum=NULL,
 
   # download the shape file and read it in
   tf2 <- tempfile()
-  file <- download.file(url, tf2)
+  file <- download.file(url, tf2, quiet = quiet_download)
   unzipped_files <- suppressWarnings(unzip(tf2, exdir = tempfile()))
   file <- grep("dbf", unzipped_files, value=TRUE)
 
@@ -127,7 +133,7 @@ download_boundaries <- function(surveyNum=NULL,
 
     # here if we want to add more read in options
     if(method == "sf") {
-      res <- lapply(file, sf::st_read)
+      res <- lapply(file, sf::st_read, quiet = quiet_parse)
       names(res) <- vapply(file,
                            function(x) { sf::st_layers(x)$name },
                            character(1))
