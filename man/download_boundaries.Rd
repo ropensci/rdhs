@@ -8,7 +8,9 @@ download_boundaries(
   surveyNum = NULL,
   surveyId = NULL,
   countryId = NULL,
-  method = "sf"
+  method = "sf",
+  quiet_download = FALSE,
+  quiet_parse = TRUE
 )
 }
 \arguments{
@@ -32,6 +34,9 @@ looked up from the API.}
 Default = "sf", which uses \code{sf::st_read}. Currenlty, you can also
 specify "rgdal", which reads the file using rgdal::readOGR.
 To just return the file paths for the files use method = "zip".}
+
+\item{quiet_parse}{Whether to read boundaries dataset quietly. Applies to
+`method = "sf"`. Default is `TRUE`.}
 }
 \value{
 Returns either the spatial file as a "SpatialPolygonsDataFrame" or

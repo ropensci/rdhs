@@ -1,6 +1,10 @@
 ## rdhs 0.7.1
 
 * Use `"sf"` as default download method for `download_boundaries(..., method = "sf")`.
+* Add arguments `quiet_download` and `quiet_parse = TRUE` to 
+  `download_boundaries()`. `quiet_download` (default `FALSE`) controls `download.file()` 
+  messages. `quiet_parse` (default `TRUE`) controls messages from `sf::st_read()` when
+  `method = "sf"`.
 
 ## rdhs 0.7.0
 

@@ -4,7 +4,8 @@
 \name{model_datasets}
 \alias{model_datasets}
 \title{DHS model datasets}
-\format{A dataframe of 36 observations of 14 variables:
+\format{
+A dataframe of 36 observations of 14 variables:
 
 \code{model_datasets}: A dataframe of model datasets
 \itemize{
@@ -22,7 +23,8 @@
       \item{"FileName"}
       \item{"CountryName"}
       \item{"URLS"}
-      }}
+      }
+}
 \usage{
 data(model_datasets)
 }

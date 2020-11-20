@@ -4,14 +4,16 @@
 \name{dhs_gps_data_format}
 \alias{dhs_gps_data_format}
 \title{DHS GPS Data Format}
-\format{A dataframe of 20 observations of 3 variables:
+\format{
+A dataframe of 20 observations of 3 variables:
 
 \code{dhs_gps_data_format}: A dataframe of GPS data descriptions.
 \itemize{
       \item{"Name"}
       \item{"Type"}
       \item{"Description"}
-      }}
+      }
+}
 \usage{
 data(dhs_gps_data_format)
 }
