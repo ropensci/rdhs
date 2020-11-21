@@ -35,6 +35,9 @@ Default = "sf", which uses \code{sf::st_read}. Currenlty, you can also
 specify "rgdal", which reads the file using rgdal::readOGR.
 To just return the file paths for the files use method = "zip".}
 
+\item{quiet_download}{Whether to download file quietly. Passed to
+[`download_file()`]. Default is `FALSE`.}
+
 \item{quiet_parse}{Whether to read boundaries dataset quietly. Applies to
 `method = "sf"`. Default is `TRUE`.}
 }
