@@ -173,8 +173,8 @@ factor_format <- function(res, reformat=FALSE, all_lower=TRUE) {
       pos <- match(names(lab[i]), names(res))
       lab_match <- which(!is.na(match(res[[pos]], lab[[i]])))
       if (length(lab_match) > 0) {
-        res[[pos]][lab_match] <- names(lab[[i]])[match(res[[pos]][lab_match],
-                                                       lab[[i]])]
+        res[[pos]] <- unclass(res[[pos]])
+        res[[pos]][lab_match] <- names(lab[[i]])[match(res[[pos]][lab_match], lab[[i]])]
       }
     }
 
