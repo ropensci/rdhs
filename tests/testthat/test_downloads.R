@@ -134,7 +134,7 @@ test_that("ETAR71FL.ZIP test", {
 
   dat <- cli$get_datasets("ETAR71FL.ZIP")
   r <- readRDS(dat[[1]])
-  expect_identical(class(r), c("data.frame", "dhs_dataset"))
+  expect_identical(class(r), "data.frame"))
 })
 
 test_that("ugir41fl.zip test", {

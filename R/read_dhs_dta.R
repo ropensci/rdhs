@@ -212,7 +212,7 @@ parse_map <- function(map, all_lower=TRUE) {
 #'
 #' @examples
 #' mrdt_zip <- tempfile()
-#' download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+#' download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61dt.zip",
 #'               mrdt_zip, mode="wb")
 #' 
 #' mr <- rdhs::read_dhs_dta(mrdt_zip,mode="map")
