@@ -7,17 +7,16 @@
   "identifier": "rdhs",
   "description": "Provides a client for (1) querying the DHS API for survey indicators\n  and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys\n  and datasets for analysis, (3) downloading survey datasets from the DHS website,\n  (4) loading datasets and associate metadata into R, and (5) extracting variables\n  and combining datasets for pooled analysis.",
   "name": "rdhs: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data",
-  "codeRepository": "https://docs.ropensci.org/rdhs/",
+  "codeRepository": "https://github.com/ropensci/rdhs",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "author": [
     {
       "@type": "Person",
@@ -146,6 +145,18 @@
       "identifier": "R",
       "name": "R",
       "version": ">= 3.3.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "brio",
+      "name": "brio",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=brio"
     },
     {
       "@type": "SoftwareApplication",
@@ -318,11 +329,8 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "1110.522KB",
-  "contIntegration": [
-    "https://travis-ci.org/ropensci/rdhs",
-    "https://codecov.io/github/ropensci/rdhs?branch=master"
-  ],
+  "fileSize": "168968.888KB",
+  "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "provider": {
     "@id": "https://cran.r-project.org",
@@ -330,7 +338,7 @@
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
-  "relatedLink": "https://CRAN.R-project.org/package=rdhs",
+  "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
@@ -358,7 +366,7 @@
       "name": "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets",
       "identifier": "10.12688/wellcomeopenres.15311.1",
       "url": "https://wellcomeopenresearch.org/articles/4-103/v1",
-      "paginiation": "103",
+      "pagination": "103",
       "@id": "https://doi.org/10.12688/wellcomeopenres.15311.1",
       "sameAs": "https://doi.org/10.12688/wellcomeopenres.15311.1",
       "isPartOf": {
@@ -371,5 +379,6 @@
         }
       }
     }
-  ]
+  ],
+  "keywords": ["dataset", "survey-data", "dhs", "extract", "dhs-api", "peer-reviewed", "r", "r-package", "rstats"]
 }
