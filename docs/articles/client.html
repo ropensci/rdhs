@@ -40,7 +40,7 @@
 <li>
   <a href="../index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
@@ -52,7 +52,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -95,7 +95,7 @@
 <li>
   <a href="https://github.com/ropensci/rdhs">
     <span class="fa fa-github"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -106,30 +106,30 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>rdhs client object and internal package design</h1>
                         <h4 class="author">OJ Watson, Jeff Eaton</h4>
-            
+
             <h4 class="date">2018-09-24</h4>
-      
-      
+
+
       <div class="hidden name"><code>client.Rmd</code></div>
 
     </div>
 
-    
-    
+
+
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The following is a similar vignette - “How to use rdhs?”. However, this one achieves the same results using the <code>rdhs</code> client object directly to download datasets etc, rather than using the easier user interfacing functions. This vignette is included to help demonstrate how the pacakge internals are working and adds more information about how the package was designed, which may be useful for anyone adding extra functionality to <code>rdhs</code> in the future.</p>
 <p>If are not bothered by this then please read the main introductory vignette.</p>
 <hr>
-<p><code>rdhs</code> is a package for management and analysis of <a href="www.dhsprogram.com">Demographic and Health Survey (DHS)</a> data. This includes functionality to:</p>
+<p><code>rdhs</code> is a package for management and analysis of <a href="https://www.dhsprogram.com/">Demographic and Health Survey (DHS)</a> data. This includes functionality to:</p>
 <ol style="list-style-type: decimal">
 <li>Access standard indicator data (i.e. <a href="https://www.statcompiler.com/">DHS STATcompiler</a>) in R via the <a href="https://api.dhsprogram.com/">DHS API</a>.</li>
 <li>Identify surveys and datasets relevant to a particular analysis.</li>
@@ -163,13 +163,13 @@
 ##     IndicatorId    Level1 IndicatorTotalId          Level2 Level3
 ## 1 FE_FRTR_W_A10 Fertility                  Fertility rates  Women
 ##        SDRID IndicatorOldId TagIds DenominatorWeightedId
-## 1 FEFRTRWA10                                            
+## 1 FEFRTRWA10
 ##                                Label IndicatorOrder
 ## 1 Age specific fertility rate: 10-14       11763005
 ##                                                                     Denominator
 ## 1 Per thousand women years exposed in the period 1-36 months prior to interview
 ##   QuickStatOrder IndicatorSpecial1Id DenominatorUnweightedId
-## 1                                                           
+## 1
 ##   IndicatorSpecial2Id
 ## 1</code></pre>
 <p>Each call to a DHS endpoint returns a <code>data.frame</code> by default with all the results available by default.</p>
@@ -205,7 +205,7 @@
 ##        SDRID Precision        RegionId SurveyYearLabel SurveyType
 ## 1 MLPMALCRDT         1 CDDHS2013503010         2013-14        DHS
 ##   SurveyYear IndicatorOrder DHS_CountryCode CILow
-## 1       2013      125136010              CD      
+## 1       2013      125136010              CD
 ##                 CountryName IndicatorType CharacteristicId
 ## 1 Congo Democratic Republic             I           503010
 ##   CharacteristicCategory   IndicatorId CharacteristicOrder
@@ -238,8 +238,8 @@
 <a class="sourceLine" id="cb11-2" data-line-number="2">resp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dhs_data.html">dhs_data</a></span>(<span class="dt">indicatorIds=</span><span class="st">"ML_FEVT_C_AMasfafasfL"</span>,</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">                 <span class="dt">surveyYearStart=</span><span class="dv">202231231306</span>,</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">                 <span class="dt">breakdown=</span><span class="st">"subParTyping"</span>)</a></code></pre></div>
-<pre><code>## Error in handle_api_response(resp, TRUE): 
-##    -&gt; DHS API Request Failed [500] 
+<pre><code>## Error in handle_api_response(resp, TRUE):
+##    -&gt; DHS API Request Failed [500]
 ##    -&gt; Error Type: dhs_internal_server_error</code></pre>
 </div>
 <div id="identify-surveys-relevant-for-further-analysis" class="section level2">
@@ -255,7 +255,7 @@
 ## 57                     96            Malaria - DBS
 ## 58                     90     Malaria - Microscopy
 ## 59                     89            Malaria - RDT
-## 60                     57          Malaria module 
+## 60                     57          Malaria module
 ## 61                      8 Malaria/bednet questions</code></pre>
 <p>There are 87 different survey characteristics, with one specific survey characteristic for Malaria RDTs. We’ll use this to then find the surveys that include this characteristic. We can also at this point filter for our desired countries and years. The DHS API allows for countries to be filtered using by their <em>countryIds</em>, which is one of the arguments in <code><a href="../reference/dhs_surveys.html">dhs_surveys()</a></code>. To have a look at what each countries countryId is we can use another of the API endpoints first:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">## what are the countryIds</span></a>
@@ -302,26 +302,26 @@
 <a class="sourceLine" id="cb19-7" data-line-number="7">client</a></code></pre></div>
 <pre><code>## &lt;client_dhs&gt;
 ##   Public:
-##     available_datasets: function (clear_cache_first = FALSE) 
-##     clear_namespace: function (namespace) 
-##     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key, 
-##     extract: function (questions, add_geo = FALSE) 
-##     get_cache_date: function () 
-##     get_config: function () 
-##     get_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE, 
-##     get_downloaded_datasets: function () 
-##     get_root: function () 
-##     get_variable_labels: function (dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE) 
-##     initialize: function (config, api_key = NULL, root = rappdirs_rdhs()) 
-##     save_client: function () 
-##     set_cache_date: function (date) 
-##     survey_questions: function (dataset_filenames, search_terms = NULL, essential_terms = NULL, 
-##     survey_variables: function (dataset_filenames, variables, essential_variables = NULL, 
+##     available_datasets: function (clear_cache_first = FALSE)
+##     clear_namespace: function (namespace)
+##     dhs_api_request: function (api_endpoint, query = list(), api_key = private$api_key,
+##     extract: function (questions, add_geo = FALSE)
+##     get_cache_date: function ()
+##     get_config: function ()
+##     get_datasets: function (dataset_filenames, download_option = "rds", reformat = FALSE,
+##     get_downloaded_datasets: function ()
+##     get_root: function ()
+##     get_variable_labels: function (dataset_filenames = NULL, dataset_paths = NULL, rm_na = FALSE)
+##     initialize: function (config, api_key = NULL, root = rappdirs_rdhs())
+##     save_client: function ()
+##     set_cache_date: function (date)
+##     survey_questions: function (dataset_filenames, search_terms = NULL, essential_terms = NULL,
+##     survey_variables: function (dataset_filenames, variables, essential_variables = NULL,
 ##   Private:
 ##     api_endpoints: data indicators countries surveys surveycharacteristics  ...
 ##     api_key: ********
 ##     cache_date: 2018-09-24 16:36:45
-##     check_available_datasets: function (filenames) 
+##     check_available_datasets: function (filenames)
 ##     config: rdhs_config
 ##     na_s: ^na -|^na-|.*-na$|.* - na$| \{NA\}$|.* NA$|.*NA$
 ##     package_version: package_version, numeric_version
@@ -370,8 +370,8 @@
 <a class="sourceLine" id="cb27-2" data-line-number="2">questions &lt;-<span class="st"> </span>client<span class="op">$</span><span class="kw">survey_questions</span>(datasets<span class="op">$</span>FileName, <span class="dt">search_terms =</span> <span class="st">"malaria rapid test"</span>)</a>
 <a class="sourceLine" id="cb27-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(questions<span class="op">$</span>dataset_filename)</a></code></pre></div>
-<pre><code>## 
-## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL 
+<pre><code>##
+## CDHR61FL CDPR61FL TZHR7AFL TZPR7AFL
 ##       24        1       48        1</code></pre>
 <p>What we see from the questions is that the question “Result of malaria rapid test” appears in a few different datasets. This is because the household member recode datasets (CDPR61SV, TZPR7HSV) stores information about the children in a household, with one row per child, whereas the household recode (CDHR61SV, TZHR7HSV) stores information about the household, and thus flattens the information from each child into different subvariables (hml35$01/02 etc). As such it is easier to extract this information from the household member recodes.</p>
 </div>
@@ -425,8 +425,8 @@
 <pre><code>## NULL</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># and just to prove that hml35 did actually read in okay (there are just lots of NA)</span></a>
 <a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(extract2<span class="op">$</span>CDPR61FL<span class="op">$</span>hml35,<span class="dt">useNA =</span> <span class="st">"always"</span>)</a></code></pre></div>
-<pre><code>## 
-##     0     1     9  &lt;NA&gt; 
+<pre><code>##
+##     0     1     9  &lt;NA&gt;
 ##  5260  2959     8 87722</code></pre>
 <p>We can now combine our two dataframes for further analysis using the <code>rdhs</code> package function <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code>. This function works specifically with our lists of labelled data.frames:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># first let's bind our first extraction, without the hv024</span></a>
@@ -452,7 +452,7 @@
 <a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(better_bound<span class="op">$</span>hv024)</a></code></pre></div>
 <pre><code>## &lt;Labelled integer&gt;
 ## [1] 6 6 6 6 6 6
-## 
+##
 ## Labels:
 ##  value            label
 ##      1           arusha
@@ -506,7 +506,7 @@
 <a class="sourceLine" id="cb43-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(better_bound<span class="op">$</span>hml35)</a></code></pre></div>
 <pre><code>## &lt;Labelled integer&gt;
 ## [1] NA NA NA NA NA NA
-## 
+##
 ## Labels:
 ##  value        label
 ##      0 NegativeTest
@@ -589,26 +589,26 @@
 <p>And lastly we will construct a logistic regression to investigate the relationship between a positive malaria RDT and whether the main walls of an individual’s house were made of bricks or similar, while adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># contsruct our glm using svyglm and specify quasibinomial to handle the na in hml35</span></a>
 <a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survey/man/svyglm.html">svyglm</a></span>(hml35 <span class="op">~</span><span class="st"> </span>DATASET <span class="op">+</span><span class="st"> </span>hv025 <span class="op">+</span><span class="st"> </span>net <span class="op">+</span><span class="st"> </span>bricks, des, <span class="dt">family=</span><span class="st">"quasibinomial"</span>))</a></code></pre></div>
-<pre><code>## 
+<pre><code>##
 ## Call:
-## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, des, 
+## svyglm(formula = hml35 ~ DATASET + hv025 + net + bricks, des,
 ##     family = "quasibinomial")
-## 
+##
 ## Survey design:
 ## survey::svydesign(~CLUSTER + DATASET, data = dat, weight = ~hv005)
-## 
+##
 ## Coefficients:
-##                 Estimate Std. Error t value Pr(&gt;|t|)    
+##                 Estimate Std. Error t value Pr(&gt;|t|)
 ## (Intercept)     -1.65528    0.23267  -7.114 3.20e-12 ***
 ## DATASETTZPR7AFL -0.95553    0.12901  -7.406 4.39e-13 ***
 ## hv025            0.52558    0.13009   4.040 6.03e-05 ***
-## netTRUE          0.06529    0.07163   0.911    0.362    
+## netTRUE          0.06529    0.07163   0.911    0.362
 ## bricksTRUE      -0.72109    0.13517  -5.335 1.36e-07 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## (Dispersion parameter for quasibinomial family taken to be 0.9563804)
-## 
+##
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>What we can see is that a significant negative gradient was associated with walls being made of bricks or similarly good materials in comparison to malaria positivity rates by RDT. What is also interesting is that whether the individual slept under a long lasting insecticidal net (<em>hml20</em> that we converted to net) was not significant.</p>
 <hr>
@@ -654,7 +654,7 @@
       </footer>
 </div>
 
-  
+
 
 
   </body>

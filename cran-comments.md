@@ -11,4 +11,4 @@
 * R CMD check succeeded
 
 ## Downstream dependencies
-There are no downstream dependencies.
+There are 2 downstream dependencies.
