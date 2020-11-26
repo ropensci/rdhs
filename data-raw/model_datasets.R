@@ -66,4 +66,4 @@ usethis::use_data(model_datasets, overwrite=TRUE)
 ## NOTE: I'm not sure why model_datasets is saved both as external and internal dataset...
 
 api_key_internal <- "ICLSPH-527168"
-usethis::use_data(api_key_internal, overwrite = TRUE)
+usethis::use_data(api_key_internal, internal = TRUE,overwrite = TRUE)
