@@ -14,10 +14,10 @@ type_key <- c("fu" = "Model Datasets Full Report Tables and Sampling Errors (Eng
               "br" = "Births Recode",
               "cr" = "Couples' Recode",
               "hr" = "Household Recode",
-              "ir" = "Individual Recode", 
+              "ir" = "Individual Recode",
               "kr" = "Children's Recode",
               "mr"= "Men's Recode",
-              "pr" = "Household Member Recode", 
+              "pr" = "Household Member Recode",
               "ar" = "HIV Test Results Recode")
 stopifnot(file_types %in% type_key)
 
@@ -66,4 +66,4 @@ usethis::use_data(model_datasets, overwrite=TRUE)
 ## NOTE: I'm not sure why model_datasets is saved both as external and internal dataset...
 
 api_key_internal <- "ICLSPH-527168"
-usethis::use_data(api_key_internal, model_datasets, internal = TRUE, overwrite = TRUE)
+usethis::use_data(api_key_internal, overwrite = TRUE)
