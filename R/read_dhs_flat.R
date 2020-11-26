@@ -10,12 +10,8 @@
 #'
 #' @examples
 #' mrfl_zip <- tempfile()
-#' download.file(
-#' paste0(
-#' "https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-#' "Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-#' mrfl_zip, mode="wb"
-#' )
+#' download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+#'               mrfl_zip, mode = "wb")
 #'
 #' dcf <- rdhs::read_zipdata(mrfl_zip, "\\.DCF", readLines)
 #' dct <- rdhs:::parse_dcf(dcf)
@@ -110,7 +106,7 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
 }
 
 #' @rdname parse_meta
-#' @param sps .SPS file as character vector (e.g. from readLines)
+#' @param sps .SPS file as character vector (e.g. from readLines / brio::read_lines)
 parse_sps <- function(sps, all_lower=TRUE) {
 
   sps <- iconv(sps, to = "UTF-8", sub = "") # drop unrecognized multibytes
@@ -203,8 +199,8 @@ parse_sps <- function(sps, all_lower=TRUE) {
 }
 
 #' @rdname parse_meta
-#' @param do .DO file as character vector (e.g. from readLines)
-#' @param dct .DCT file as character vector (e.g. from readLines)
+#' @param do .DO file as character vector (e.g. from readLines / brio::read_lines)
+#' @param dct .DCT file as character vector (e.g. from readLines / brio::read_lines)
 parse_do <- function(do, dct, all_lower=TRUE) {
 
 
@@ -299,12 +295,8 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #'
 #' @examples
 #' mrfl_zip <- tempfile()
-#' download.file(
-#' paste0(
-#' "https://dhsprogram.com/customcf/legacy/data/sample_download_dataset.cfm?",
-#' "Filename=ZZMR61FL.ZIP&Tp=1&Ctry_Code=zz&survey_id=0&doctype=dhs"),
-#' mrfl_zip,mode="wb"
-#' )
+#' download.file("https://dhsprogram.com/data/model_data/dhs/zzmr61fl.zip",
+#'               mrfl_zip,mode="wb")
 #'
 #' mr <- rdhs:::read_dhs_flat(mrfl_zip)
 #' attr(mr$mv213, "label")
@@ -319,23 +311,19 @@ read_dhs_flat <- function(zfile, all_lower=TRUE, meta_source=NULL) {
 
   if ( (null_meta || tolower(meta_source) == "dcf") &&
     any(grepl("\\.DCF$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    dcf <- read_zipdata(zfile, "\\.DCF$", readLines,
-                        encoding = "UTF-8", warn = FALSE)
+    dcf <- read_zipdata(zfile, "\\.DCF$", brio::read_lines)
     dct <- parse_dcf(dcf, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) == "sps") &&
     any(grepl("\\.SPS$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    sps <- read_zipdata(zfile, "\\.SPS$", readLines,
-                        encoding = "UTF-8", warn = FALSE)
+    sps <- read_zipdata(zfile, "\\.SPS$", brio::read_lines)
     dct <- parse_sps(sps, all_lower)
   }
   else if ( (null_meta || tolower(meta_source) %in% c("do", "dct")) &&
     any(grepl("\\.DO$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE)) &&
     any(grepl("\\.DCT$", unzip(zfile, list = TRUE)$Name, ignore.case = TRUE))) {
-    do <- read_zipdata(zfile, "\\.DO$", readLines,
-                       encoding = "UTF-8", warn = FALSE)
-    dct <- read_zipdata(zfile, "\\.DCT$", readLines,
-                        encoding = "UTF-8", warn = FALSE)
+    do <- read_zipdata(zfile, "\\.DO$", brio::read_lines)
+    dct <- read_zipdata(zfile, "\\.DCT$", brio::read_lines)
     dct <- parse_do(do, dct, all_lower)
   }
   else {

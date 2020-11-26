@@ -187,7 +187,7 @@ is_r_tempdir <- function(dir){
 #' @noRd
 add_line <- function(path, line, quiet = FALSE) {
   if (file.exists(path)) {
-    lines <- readLines(path, warn = FALSE)
+    lines <- brio::read_lines(path)
     lines <- lines[lines != ""]
   } else {
     lines <- character()

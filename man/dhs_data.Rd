@@ -49,7 +49,7 @@ To filter your API Indicator Data call to return the latest survey data in
 which a specific set of indicators is present, add
 `selectSurveys="byIndicator"` in conjunction with Indicator IDs, Country
 Code, and/or Survey Type instead
-of using `selectSurveys="latest"`.}
+of using `selectSurveys="latest"`}
 
 \item{surveyYear}{Specify a comma separated list of survey years to
 filter by.}

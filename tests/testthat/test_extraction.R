@@ -38,7 +38,7 @@ test_that("query codes having downloaded surveys", {
     search_terms = c("fever|test")
   )
 
-  # check the essetial temrs option
+  # check the essetial terms option
   quest <- cli$survey_questions(
     dataset_filenames = "AOBR62DT.ZIP",
     search_terms = c("fever|test"),

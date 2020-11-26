@@ -1,7 +1,7 @@
 Package: rdhs
 Type: Package
 Title: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data
-Version: 0.7.0
+Version: 0.7.1
 Authors@R: 
     c(person(given = "OJ",
              family = "Watson",
@@ -29,7 +29,8 @@ Description: Provides a client for (1) querying the DHS API for survey indicator
   and combining datasets for pooled analysis.
 LazyData: TRUE
 Depends: R (>= 3.3.0)
-Imports: 
+Imports:
+    brio,
     R6,
     httr,
     jsonlite,
@@ -54,7 +55,7 @@ Suggests:
     microbenchmark,
     sf
 License: MIT + file LICENSE
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Language: en-GB
 Encoding: UTF-8
