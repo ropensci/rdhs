@@ -16,10 +16,4 @@ There are 2 non-strong downstream dependencies.
 
 ## Notes
 
-There is 1 note on win-builder (below) related to a forwarding link:
-
-Found the following (possibly) invalid URLs:
-  URL: http://www.r-pkg.org/pkg/rdhs (moved to https://www.r-pkg.org:443/pkg/rdhs)
-    From: README.md
-    Status: 200
-    Message: OK
+There are now 0 notes on win-builder. Apologies for the double submission.
