@@ -15,7 +15,7 @@ pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](h
 Downloads](https://cranlogs.r-pkg.org/badges/rdhs)](https://cran.r-project.org/package=rdhs)
 [![Downloads from Rstudio
 mirror](https://cranlogs.r-pkg.org/badges/grand-total/rdhs)](http://www.r-pkg.org/pkg/rdhs)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rdhs)](https://cran.r-project.org/package=rdhs)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/rdhs)](https://cran.r-project.org/package=rdhs)
 [![rOpenSci](https://badges.ropensci.org/238_status.svg)](https://github.com/ropensci/software-review/issues/238)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2423635.svg)](https://doi.org/10.5281/zenodo.2423635)
 
