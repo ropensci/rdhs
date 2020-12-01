@@ -329,7 +329,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "20700.261KB",
+  "fileSize": "20700.575KB",
   "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "provider": {
@@ -338,7 +338,7 @@
     "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
-  "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
+  "relatedLink": "https://docs.ropensci.org/rdhs/",
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
