@@ -1,3 +1,7 @@
+## rdhs 0.7.2
+
+* `available_datasets` patch (#115)
+
 ## rdhs 0.7.1
 
 * Remove class `"dhs_dataset"` from downloaded micro data sets. This class is not 

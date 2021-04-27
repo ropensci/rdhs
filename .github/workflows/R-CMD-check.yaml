@@ -71,6 +71,13 @@ jobs:
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
+      - name: Decrypt config and set ready for travis checks
+        run: |
+          writeBin(sodium::data_decrypt(readRDS("rdhs.json.tar.enc"), sodium::hash(charToRaw(Sys.getenv("KEY")))),"rdhs.json.tar")
+          unzip("rdhs.json.tar")
+          Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+          Sys.setenv("TRAVIS"="true")
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
