@@ -61,6 +61,18 @@ available_datasets <- function(config,
   # load the text
   y <- brio::read_lines(tf)
 
+  # DHS Website has changed and the POST request data requires two steps here
+
+  # Create post request for the download manager
+  values <- list(
+    Proj_ID = project_number,
+    action = "getdatasets"
+  )
+
+  # Head to download page
+  z <- httr::POST("https://dhsprogram.com/data/dataset_admin/index.cfm",
+                  body = values)
+
   # Create post request for the download manager
   values <- list(
     Proj_ID = project_number,
@@ -70,6 +82,7 @@ available_datasets <- function(config,
   # Head to download page
   z <- httr::POST("https://dhsprogram.com/data/dataset_admin/index.cfm",
                   body = values)
+
 
   # Grab the content from that and start creation for last post request
   writeBin(z$content, tf)
