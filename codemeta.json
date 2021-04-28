@@ -10,13 +10,13 @@
   "codeRepository": "https://github.com/ropensci/rdhs",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.0.4 (2021-02-15)",
   "author": [
     {
       "@type": "Person",
@@ -329,7 +329,7 @@
   ],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "168968.888KB",
+  "fileSize": "20201.524KB",
   "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "provider": {
@@ -380,5 +380,20 @@
       }
     }
   ],
-  "keywords": ["dataset", "survey-data", "dhs", "extract", "dhs-api", "peer-reviewed", "r", "r-package", "rstats"]
+  "keywords": [
+    "dataset",
+    "survey-data",
+    "dhs",
+    "extract",
+    "dhs-api",
+    "peer-reviewed",
+    "r",
+    "r-package",
+    "rstats"
+  ],
+  "review": {
+    "@type": "Review",
+    "url": "https://github.com/ropensci/software-review/issues/238",
+    "provider": "https://ropensci.org"
+  }
 }

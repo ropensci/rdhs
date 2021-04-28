@@ -11,4 +11,9 @@
 * R CMD check succeeded
 
 ## Downstream dependencies
-There are no downstream dependencies.
+
+There are 2 non-strong downstream dependencies.
+
+## Notes
+
+There are now 0 notes on win-builder. Apologies for the double submission.
