@@ -83,10 +83,11 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        # here let's have this just be a CRAN run - non
+        # here let's have this be a travis run
         run: |
           Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
-          Sys.setenv("NOT_CRAN"="false")
+          Sys.setenv("NOT_CRAN"="true")
+          Sys.setenv("TRAVIS"="true")
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 

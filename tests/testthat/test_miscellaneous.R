@@ -129,6 +129,7 @@ test_that("model datasets correct", {
 test_that("model datasets onAttach", {
 
   testthat::skip_on_cran()
+  testthat::skip_on_travis()
   skip_if_no_auth()
   if(!exists("model_datasets")) {
     skip("No model datasets found")
