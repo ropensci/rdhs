@@ -208,7 +208,7 @@ get_available_datasets <- function(clear_cache = FALSE) {
 
   client <- check_for_client()
   avs <- client$available_datasets(clear_cache)
-  return(rbind(avs, model_datasets))
+  return(rbind(avs, rdhs::model_datasets))
 }
 
 #' Extract Data

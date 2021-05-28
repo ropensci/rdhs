@@ -694,7 +694,7 @@ R6_client_dhs <- R6::R6Class(
 
       # are the questions relating to the model datasets
       if (all(substr(unique(questions$dataset_filename), 1, 2) == "zz")) {
-        datasets <- model_datasets
+        datasets <- rdhs::model_datasets
       } else {
         datasets <- self$available_datasets()
       }
@@ -749,7 +749,7 @@ R6_client_dhs <- R6::R6Class(
 
       # grab these now
       filenames <- dhs_datasets(client = self)$FileName
-      filenames <- c(filenames, model_datasets$FileName)
+      filenames <- c(filenames, rdhs::model_datasets$FileName)
 
       # get vars from dataset_paths
       if (!is.null(dataset_paths)) {
@@ -884,22 +884,22 @@ R6_client_dhs <- R6::R6Class(
       }
 
       # ammend our model_datasets first
-      model_datasets <- create_new_filenames(model_datasets)
+      model_datasets_ammend <- create_new_filenames(rdhs::model_datasets)
 
       # if they have only asked for model datasets then return those
-      if (all(filenames %in% model_datasets[[nm_type]])){
-        return(model_datasets[match(filenames, model_datasets[[nm_type]]), ])
+      if (all(filenames %in% model_datasets_ammend[[nm_type]])){
+        return(model_datasets_ammend[match(filenames, model_datasets_ammend[[nm_type]]), ])
       }
 
       # fetch which datasets you can download from your login
       avs <- self$available_datasets()
       avs <- create_new_filenames(avs)
-      avs <- rbind(avs, model_datasets)
+      avs <- rbind(avs, model_datasets_ammend)
 
       # fetch all the datasets so we can catch for the India matches by
       # using the country code catch
       datasets <- dhs_datasets(client = self)
-      datasets <-  rbind(datasets, model_datasets[, -c(14:15)])
+      datasets <-  rbind(datasets, model_datasets_ammend[, -c(14:15)])
 
       # create new filename argument that takes into account the india
       # difficiulties where needed
