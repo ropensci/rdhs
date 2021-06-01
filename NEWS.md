@@ -1,3 +1,7 @@
+## rdhs 0.7.3
+
+* Reference internal access to `model_datasets` with `rdhs::model_datasets` to avoid errors if `rdhs` namespace is not loaded.
+
 ## rdhs 0.7.2
 
 * `available_datasets` patch (#115)
