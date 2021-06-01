@@ -58,8 +58,6 @@
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -83,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -172,7 +170,7 @@
     <p>API request of DHS Data Updates</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dhs_data_updates</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>dhs_data_updates</span><span class='op'>(</span>
   lastUpdate <span class='op'>=</span> <span class='cn'>NULL</span>,
   f <span class='op'>=</span> <span class='cn'>NULL</span>,
   returnFields <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -181,7 +179,7 @@
   client <span class='op'>=</span> <span class='cn'>NULL</span>,
   force <span class='op'>=</span> <span class='cn'>FALSE</span>,
   all_results <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -237,26 +235,26 @@ then the specified page only will be returned. Default = TRUE.</p></td>
   <a href='https://api.dhsprogram.com/rest/dhs/dataupdates/fields'>https://api.dhsprogram.com/rest/dhs/dataupdates/fields</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># The API endpoint for the data updates available within the DHS</span>
-<span class='co'># is a very useful endpoint, which is used a lot within `rdhs`. For example,</span>
-<span class='co'># we use it to keep the end user's cache up to date. For example to find all</span>
-<span class='co'># updates that have occurred in 2018:</span>
-
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>lastUpdate<span class='op'>=</span><span class='st'>"20180101"</span><span class='op'>)</span>
-
-<span class='co'># A complete list of examples for how each argument to the data updates</span>
-<span class='co'># API endpoint can be provided is given below, which is a</span>
-<span class='co'># copy of each of the examples listed in the API at:</span>
-
-<span class='co'># https://api.dhsprogram.com/#/api-dataupdates.cfm</span>
-
-
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>lastUpdate<span class='op'>=</span><span class='st'>"20150901"</span>,all_results<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>f<span class='op'>=</span><span class='st'>"html"</span>,all_results<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># The API endpoint for the data updates available within the DHS</span></span>
+<span class='r-in'><span class='co'># is a very useful endpoint, which is used a lot within `rdhs`. For example,</span></span>
+<span class='r-in'><span class='co'># we use it to keep the end user's cache up to date. For example to find all</span></span>
+<span class='r-in'><span class='co'># updates that have occurred in 2018:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>lastUpdate<span class='op'>=</span><span class='st'>"20180101"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># A complete list of examples for how each argument to the data updates</span></span>
+<span class='r-in'><span class='co'># API endpoint can be provided is given below, which is a</span></span>
+<span class='r-in'><span class='co'># copy of each of the examples listed in the API at:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># https://api.dhsprogram.com/#/api-dataupdates.cfm</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>lastUpdate<span class='op'>=</span><span class='st'>"20150901"</span>,all_results<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>dhs_data_updates</span><span class='op'>(</span>f<span class='op'>=</span><span class='st'>"html"</span>,all_results<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

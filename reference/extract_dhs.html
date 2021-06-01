@@ -59,8 +59,6 @@ requested survey variables or survey definitions" />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -84,7 +82,7 @@ requested survey variables or survey definitions" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -174,7 +172,7 @@ requested survey variables or survey definitions" />
 requested survey variables or survey definitions</p>
     </div>
 
-    <pre class="usage"><span class='fu'>extract_dhs</span><span class='op'>(</span><span class='va'>questions</span>, add_geo <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>extract_dhs</span><span class='op'>(</span><span class='va'>questions</span>, add_geo <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,20 +198,20 @@ requested survey variables or survey definitions</p>
   or <code><a href='search_variable_labels.html'>search_variable_labels</a></code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># get the model datasets included with the package</span>
-<span class='va'>model_datasets</span> <span class='op'>&lt;-</span> <span class='va'>model_datasets</span>
-
-<span class='co'># download one of them</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span><span class='op'>(</span>dataset_filenames <span class='op'>=</span> <span class='va'>model_datasets</span><span class='op'>$</span><span class='va'>FileName</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='co'># create some terms of data me may want to extrac</span>
-<span class='va'>st</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_variable_labels.html'>search_variable_labels</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>, <span class='st'>"bed net"</span><span class='op'>)</span>
-
-<span class='co'># and now extract it</span>
-<span class='va'>ex</span> <span class='op'>&lt;-</span> <span class='fu'>extract_dhs</span><span class='op'>(</span><span class='va'>st</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># get the model datasets included with the package</span></span>
+<span class='r-in'><span class='va'>model_datasets</span> <span class='op'>&lt;-</span> <span class='va'>model_datasets</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># download one of them</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span><span class='op'>(</span>dataset_filenames <span class='op'>=</span> <span class='va'>model_datasets</span><span class='op'>$</span><span class='va'>FileName</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create some terms of data me may want to extrac</span></span>
+<span class='r-in'><span class='va'>st</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_variable_labels.html'>search_variable_labels</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>, <span class='st'>"bed net"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># and now extract it</span></span>
+<span class='r-in'><span class='va'>ex</span> <span class='op'>&lt;-</span> <span class='fu'>extract_dhs</span><span class='op'>(</span><span class='va'>st</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

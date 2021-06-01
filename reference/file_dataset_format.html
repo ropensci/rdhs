@@ -58,8 +58,6 @@
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -83,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -172,7 +170,7 @@
     <p>Returns what the dataset file ending should be for a given filename</p>
     </div>
 
-    <pre class="usage"><span class='fu'>file_dataset_format</span><span class='op'>(</span><span class='va'>file_format</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>file_dataset_format</span><span class='op'>(</span><span class='va'>file_format</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,10 +187,11 @@ e.g. <code>dhs_datasets(returnFields = "FileFormat")</code></p></td>
     <p>One of "dat","dat","sas7bdat","sav" or "dta"</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>file_format</span> <span class='op'>&lt;-</span> <span class='st'>"Stata dataset (.dta)"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'>rdhs</span><span class='fu'>:::</span><span class='fu'>file_dataset_format</span><span class='op'>(</span><span class='va'>file_format</span><span class='op'>)</span>,<span class='st'>"dta"</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>file_format</span> <span class='op'>&lt;-</span> <span class='st'>"Stata dataset (.dta)"</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'>rdhs</span><span class='fu'>:::</span><span class='fu'>file_dataset_format</span><span class='op'>(</span><span class='va'>file_format</span><span class='op'>)</span>,<span class='st'>"dta"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

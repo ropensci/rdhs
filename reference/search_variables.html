@@ -61,8 +61,6 @@ for extract_dhs." />
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -86,7 +84,7 @@ for extract_dhs." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -178,7 +176,7 @@ should be used to provide the `questions` argument
 for <code><a href='extract_dhs.html'>extract_dhs</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_variables</span><span class='op'>(</span><span class='va'>dataset_filenames</span>, <span class='va'>variables</span>, essential_variables <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>search_variables</span><span class='op'>(</span><span class='va'>dataset_filenames</span>, <span class='va'>variables</span>, essential_variables <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,27 +214,27 @@ found and then all the resultant codes and descriptions.</p>
   the survey variables that have the required variable.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># get the model datasets included with the package</span>
-<span class='va'>model_datasets</span> <span class='op'>&lt;-</span> <span class='va'>model_datasets</span>
-
-<span class='co'># download two of them</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span><span class='op'>(</span>dataset_filenames <span class='op'>=</span> <span class='va'>model_datasets</span><span class='op'>$</span><span class='va'>FileName</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='co'># and now seearch within these for survey variables</span>
-<span class='fu'>search_variables</span><span class='op'>(</span>
-dataset_filenames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span><span class='op'>)</span>,
-<span class='op'>)</span>
-
-<span class='co'># if we specify an essential variable then that dataset has to have that</span>
-<span class='co'># variable or else no variables will be returned for that datasets</span>
-<span class='fu'>search_variables</span><span class='op'>(</span>
-dataset_filenames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>,
-variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span><span class='op'>)</span>,
-essential_variables <span class='op'>=</span> <span class='st'>"ml13"</span>
-<span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># get the model datasets included with the package</span></span>
+<span class='r-in'><span class='va'>model_datasets</span> <span class='op'>&lt;-</span> <span class='va'>model_datasets</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># download two of them</span></span>
+<span class='r-in'><span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_datasets.html'>get_datasets</a></span><span class='op'>(</span>dataset_filenames <span class='op'>=</span> <span class='va'>model_datasets</span><span class='op'>$</span><span class='va'>FileName</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># and now seearch within these for survey variables</span></span>
+<span class='r-in'><span class='fu'>search_variables</span><span class='op'>(</span></span>
+<span class='r-in'>dataset_filenames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>, variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span><span class='op'>)</span>,</span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># if we specify an essential variable then that dataset has to have that</span></span>
+<span class='r-in'><span class='co'># variable or else no variables will be returned for that datasets</span></span>
+<span class='r-in'><span class='fu'>search_variables</span><span class='op'>(</span></span>
+<span class='r-in'>dataset_filenames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>,</span>
+<span class='r-in'>variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"v002"</span>,<span class='st'>"v102"</span>,<span class='st'>"ml13"</span><span class='op'>)</span>,</span>
+<span class='r-in'>essential_variables <span class='op'>=</span> <span class='st'>"ml13"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

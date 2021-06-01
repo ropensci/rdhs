@@ -1,6 +1,6 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1.9001
-pkgdown_sha: dff8062d297c001dba0dfaf567bfffdc8ad89f5c
+pkgdown_sha: b7b462438bc6252d40e9e5f223b0c56bf938f6d7
 articles:
   anemia: anemia.html
   boundaries: boundaries.html
@@ -10,7 +10,7 @@ articles:
   introduction: introduction.html
   testing: testing.html
   toolkit: toolkit.html
-last_built: 2021-04-28T21:49Z
+last_built: 2021-06-01T21:56Z
 urls:
   reference: https://docs.ropensci.org/rdhs/reference
   article: https://docs.ropensci.org/rdhs/articles

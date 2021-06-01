@@ -58,8 +58,6 @@
 
 
 
-<!-- dependencies from examples -->
-
 
   
 
@@ -83,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
       </span>
     </div>
 
@@ -172,7 +170,7 @@
     <p>Combine data frames with columns of class `labelled`</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>...</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span>, warn <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>...</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span>, warn <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,81 +213,90 @@ data.</p>
 <p>See examples.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-area <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reg 1"</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>"reg 2"</span><span class='op'>=</span><span class='fl'>2</span>,<span class='st'>"reg 3"</span><span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>,
-climate <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>,<span class='st'>"hot"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-<span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-area    <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>2L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reg A"</span><span class='op'>=</span><span class='fl'>1</span>, <span class='st'>"reg B"</span><span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,
-climate <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>0L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>, <span class='st'>"warm"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='co'># Default: all data frames inherit labels from first df. Incorrect if</span>
-<span class='co'># "reg 1" and "reg A" are from different countries, for example.</span>
-<span class='va'>dfA</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>Some variables have non-matching value labels: area, climate.
-#&gt; Inheriting labels from first data frame with labels.</div><div class='input'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfA</span><span class='op'>)</span>
-</div><div class='co'>#&gt;    area climate
-#&gt; 1 reg 1    cold
-#&gt; 2 reg 2     hot
-#&gt; 3 reg 3     hot
-#&gt; 4 reg 1     hot
-#&gt; 5 reg 2    cold</div><div class='input'>
-<span class='co'># Concatenate value labels for "area". Regions are coded separately,</span>
-<span class='co'># and original integer values are lost (by necessity of more levels now).</span>
-<span class='co'># For "climate", codes "1 = hot" and "1 = warm", are coded as the same</span>
-<span class='co'># outcome, inheriting "1 = hot" from df1 by default.</span>
-<span class='va'>dfB</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>Some variables have non-matching value labels: climate.
-#&gt; Inheriting labels from first data frame with labels.</div><div class='input'><span class='va'>dfB</span>
-</div><div class='co'>#&gt;   area climate
-#&gt; 1    1       0
-#&gt; 2    2       1
-#&gt; 3    3       1
-#&gt; 4    4       1
-#&gt; 5    5       0</div><div class='input'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfB</span><span class='op'>)</span>
-</div><div class='co'>#&gt;    area climate
-#&gt; 1 reg 1    cold
-#&gt; 2 reg 2     hot
-#&gt; 3 reg 3     hot
-#&gt; 4 reg A     hot
-#&gt; 5 reg B    cold</div><div class='input'>
-<span class='co'># We can specify to code as "1=warm/hot" rather than inheriting "hot".</span>
-<span class='va'>dfC</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>,
-labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span>, climate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>, <span class='st'>"warm/hot"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>dfC</span><span class='op'>$</span><span class='va'>climate</span>
-</div><div class='co'>#&gt; &lt;labelled&lt;integer&gt;[5]&gt;
-#&gt; [1] 0 1 1 1 0
-#&gt; 
-#&gt; Labels:
-#&gt;  value    label
-#&gt;      0     cold
-#&gt;      1 warm/hot</div><div class='input'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfC</span><span class='op'>)</span>
-</div><div class='co'>#&gt;    area  climate
-#&gt; 1 reg 1     cold
-#&gt; 2 reg 2 warm/hot
-#&gt; 3 reg 3 warm/hot
-#&gt; 4 reg A warm/hot
-#&gt; 5 reg B     cold</div><div class='input'>
-<span class='co'># Or use `climate="concatenate"` to code "warm" and "hot" as different.</span>
-<span class='va'>dfD</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>,
-labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span>, climate<span class='op'>=</span><span class='st'>"concatenate"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>dfD</span>
-</div><div class='co'>#&gt;   area climate
-#&gt; 1    1       1
-#&gt; 2    2       2
-#&gt; 3    3       2
-#&gt; 4    4       3
-#&gt; 5    5       1</div><div class='input'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfD</span><span class='op'>)</span>
-</div><div class='co'>#&gt;    area climate
-#&gt; 1 reg 1    cold
-#&gt; 2 reg 2     hot
-#&gt; 3 reg 3     hot
-#&gt; 4 reg A    warm
-#&gt; 5 reg B    cold</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>area <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reg 1"</span><span class='op'>=</span><span class='fl'>1</span>,<span class='st'>"reg 2"</span><span class='op'>=</span><span class='fl'>2</span>,<span class='st'>"reg 3"</span><span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>climate <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>,<span class='st'>"hot"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span class='r-in'>area    <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>2L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"reg A"</span><span class='op'>=</span><span class='fl'>1</span>, <span class='st'>"reg B"</span><span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>climate <span class='op'>=</span> <span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/labelled.html'>labelled</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1L</span>, <span class='fl'>0L</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>, <span class='st'>"warm"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Default: all data frames inherit labels from first df. Incorrect if</span></span>
+<span class='r-in'><span class='co'># "reg 1" and "reg A" are from different countries, for example.</span></span>
+<span class='r-in'><span class='va'>dfA</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Some variables have non-matching value labels: area, climate.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Inheriting labels from first data frame with labels.</span>
+<span class='r-in'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfA</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    area climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 reg 1    cold</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 reg 2     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 reg 3     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 reg 1     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 reg 2    cold</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Concatenate value labels for "area". Regions are coded separately,</span></span>
+<span class='r-in'><span class='co'># and original integer values are lost (by necessity of more levels now).</span></span>
+<span class='r-in'><span class='co'># For "climate", codes "1 = hot" and "1 = warm", are coded as the same</span></span>
+<span class='r-in'><span class='co'># outcome, inheriting "1 = hot" from df1 by default.</span></span>
+<span class='r-in'><span class='va'>dfB</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Some variables have non-matching value labels: climate.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Inheriting labels from first data frame with labels.</span>
+<span class='r-in'><span class='va'>dfB</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   area climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1       0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    2       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    3       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    4       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    5       0</span>
+<span class='r-in'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfB</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    area climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 reg 1    cold</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 reg 2     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 reg 3     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 reg A     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 reg B    cold</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># We can specify to code as "1=warm/hot" rather than inheriting "hot".</span></span>
+<span class='r-in'><span class='va'>dfC</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>,</span>
+<span class='r-in'>labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span>, climate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cold"</span><span class='op'>=</span><span class='fl'>0</span>, <span class='st'>"warm/hot"</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>dfC</span><span class='op'>$</span><span class='va'>climate</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;labelled&lt;integer&gt;[5]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0 1 1 1 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Labels:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  value    label</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      0     cold</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      1 warm/hot</span>
+<span class='r-in'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfC</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    area  climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 reg 1     cold</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 reg 2 warm/hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 reg 3 warm/hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 reg A warm/hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 reg B     cold</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Or use `climate="concatenate"` to code "warm" and "hot" as different.</span></span>
+<span class='r-in'><span class='va'>dfD</span> <span class='op'>&lt;-</span> <span class='fu'>rbind_labelled</span><span class='op'>(</span><span class='va'>df1</span>, <span class='va'>df2</span>,</span>
+<span class='r-in'>labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"concatenate"</span>, climate<span class='op'>=</span><span class='st'>"concatenate"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>dfD</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   area climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1    1       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2    2       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3    3       2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4    4       3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5    5       1</span>
+<span class='r-in'><span class='fu'>haven</span><span class='fu'>::</span><span class='fu'><a href='https://haven.tidyverse.org/reference/as_factor.html'>as_factor</a></span><span class='op'>(</span><span class='va'>dfD</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    area climate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 reg 1    cold</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 reg 2     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 reg 3     hot</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 reg A    warm</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 reg B    cold</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
