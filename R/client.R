@@ -226,7 +226,7 @@ R6_client_dhs <- R6::R6Class(
 
           # if not then query with either max possible or their requested amount
           if (num_results == "ALL") {
-            query$perPage <- 5000
+            query$perPage <- 30000
           } else {
             query$perPage <- num_results
           }

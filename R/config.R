@@ -64,6 +64,10 @@ handle_config <- function(config_path) {
 #'   For a local configuration, `config_path` must be 'rdhs.json'.
 #'   If left bank, the config file will be stored within
 #'   your user cache directory for your operating system (permission granting).
+#' @param api_key Character for DHS API key. If you use the API and rdhs often,
+#'   please sign up for an API key at:
+#'   https://api.dhsprogram.com/#/api-advancedqueries.cfm
+#'   This will allow users to return API information with rdhs more quickly.
 #' @param global Logical for the config_path to be interpreted as a global
 #'   config path or a local one. Default = TRUE.
 #' @param verbose_setup Logical for rdhs setup and messages to be printed.
@@ -153,6 +157,7 @@ set_rdhs_config <- function(email = NULL,
                             project = NULL,
                             cache_path = NULL,
                             config_path = NULL,
+                            api_key = NULL,
                             global = TRUE,
                             verbose_download = FALSE,
                             verbose_setup = TRUE,
@@ -165,6 +170,7 @@ set_rdhs_config <- function(email = NULL,
   assert_null_and_func(project, assert_scalar_character)
   assert_null_and_func(config_path, assert_scalar_character)
   assert_null_and_func(cache_path, assert_scalar_character)
+  assert_null_and_func(api_key, assert_scalar_character)
   assert_null_and_func(data_frame, assert_scalar_character)
   assert_scalar_logical(global)
   assert_scalar_logical(verbose_download)
@@ -244,6 +250,7 @@ set_rdhs_config <- function(email = NULL,
               password = password,
               cache_path = cache_path,
               config_path = config_path,
+              api_key = api_key,
               global = global,
               verbose_download = verbose_download,
               verbose_setup = verbose_setup,
@@ -251,7 +258,7 @@ set_rdhs_config <- function(email = NULL,
               data_frame = data_frame,
               project_choice = NULL)
 
-  config <- write_rdhs_config_file(dat, config_path)
+  config <- write_rdhs_config_file(dat, config_path, dat$api_key)
 
   # and then create the package internal client if we are meant to
   if (.rdhs$internal_client_update) {
@@ -315,6 +322,7 @@ read_rdhs_config_file <- function(config_path) {
                 "password",
                 "cache_path",
                 "config_path",
+                "api_key",
                 "global",
                 "verbose_download",
                 "verbose_setup",
@@ -367,6 +375,7 @@ update_rdhs_config <- function(password = FALSE,
                                project = NULL,
                                cache_path = NULL,
                                config_path = NULL,
+                               api_key = NULL,
                                global = NULL,
                                verbose_download = NULL,
                                verbose_setup = NULL,
@@ -381,6 +390,7 @@ update_rdhs_config <- function(password = FALSE,
   assert_null_and_func(project, assert_scalar_character)
   assert_null_and_func(config_path, assert_scalar_character)
   assert_null_and_func(cache_path, assert_scalar_character)
+  assert_null_and_func(api_key, assert_scalar_character)
   assert_null_and_func(data_frame, assert_scalar_character)
   assert_null_and_func(timeout, assert_scalar_numeric)
   assert_null_and_func(global, assert_scalar_logical)

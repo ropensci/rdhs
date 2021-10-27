@@ -166,7 +166,7 @@ handle_pagination_json <- function(endpoint, query, all_results, timeout) {
     } else {
 
       # if not then query with either max possible or their requested amount
-      query$perPage <- 5000
+      query$perPage <- 30000
 
       # Create new request and parse this
       url <- httr::modify_url(endpoint, query = query)
@@ -237,7 +237,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results, timeout) {
     if (rr != parsed_resp$features[[1]]$properties$RecordCount) {
 
       # if not then query with either max possible or their requested amount
-      query$perPage <- 5000
+      query$perPage <- 30000
 
       # Create new request and parse this
       url <- httr::modify_url(endpoint, query = query)

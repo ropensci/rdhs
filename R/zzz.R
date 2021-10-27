@@ -40,6 +40,31 @@ rdhs_setup <- function() {
   # just in case clear the package environment
   rdhs_reset()
 
+  packageStartupMessage(
+    paste(
+      strwrap(
+        "Dear rdhs users.
+
+        Please sign up for a DHS API Key to help the team behind the DHS API
+        better manage the traffic coming from rdhs users and prevent the API
+        going down from time to time.
+
+        To do this please follow instructions at:
+
+        https://api.dhsprogram.com/#/api-advancedqueries.cfm
+
+        After emailing api@dhsprogram.com to sign up for an API key, please
+        use your personal API key when setting up your rdhs configuration with
+        set_rdhs_config() and update_rdhs_config()
+
+        Many thanks,
+
+        rdhs team"
+      ),
+      collapse = "\n"
+    )
+  )
+
 }
 
 # ask for user permission to write to Renviron
