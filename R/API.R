@@ -116,6 +116,11 @@ api_request <- function(endpoint, query, all_results, timeout) {
     return(parsed_resp)
   }
 
+  # if there is a key set to maximum
+  if (!is.null(query$apiKey)) {
+    query$perPage <- 30000
+  }
+
   # if not then let's make paginated requests
   if (query$f == "json") {
     parsed_resp <- handle_pagination_json(endpoint, query,
@@ -130,7 +135,6 @@ api_request <- function(endpoint, query, all_results, timeout) {
 
 #' @noRd
 handle_pagination_json <- function(endpoint, query, all_results, timeout) {
-
 
   # make url for request
   url <- httr::modify_url(endpoint, query = query)
@@ -165,16 +169,7 @@ handle_pagination_json <- function(endpoint, query, all_results, timeout) {
       parsed_resp <- rbind_list_base(parsed_resp$Data)
     } else {
 
-      # if not then query with either max possible or their requested amount
-      query$perPage <- 5000
-
-      # Create new request and parse this
-      url <- httr::modify_url(endpoint, query = query)
-      resp <- timeout_safe_request(url, timeout, encode = "json")
-      parsed_resp <- handle_api_response(resp, TRUE)
-
-      # if this larger page query has returned all the results
-      # then return this else we will loop through
+      # if not then loop
       if (parsed_resp$TotalPages == 1) {
         parsed_resp <- rbind_list_base(parsed_resp$Data)
       } else {
@@ -186,6 +181,7 @@ handle_pagination_json <- function(endpoint, query, all_results, timeout) {
         length(parsed_resp) <- temp_parsed_resp$TotalPages
         parsed_resp[[1]] <- temp_parsed_resp
         for (i in 2:length(parsed_resp)) {
+          Sys.sleep(i)
           query$page <- i
           url <- httr::modify_url(endpoint, query = query)
           resp <- timeout_safe_request(url, timeout, encode = "json")
@@ -236,15 +232,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results, timeout) {
     # if the first call has not caught all the results then paginate
     if (rr != parsed_resp$features[[1]]$properties$RecordCount) {
 
-      # if not then query with either max possible or their requested amount
-      query$perPage <- 5000
-
-      # Create new request and parse this
-      url <- httr::modify_url(endpoint, query = query)
-      resp <- timeout_safe_request(url, timeout, encode = "json")
-      parsed_resp <- handle_api_response(resp, TRUE)
-
-      # if this larger page query has not returned all the results
+      # if this  page query has not returned all the results
       # then keep going
       tp <- parsed_resp$features[[1]]$properties$TotalPages
       if (tp > 1) {
@@ -255,6 +243,7 @@ handle_pagination_geojson <- function(endpoint, query, all_results, timeout) {
         length(loop_resp) <- tp
         loop_resp[[1]] <- parsed_resp$features
         for (i in 2:length(loop_resp)) {
+          Sys.sleep(i)
           query$page <- i
           url <- httr::modify_url(endpoint, query = query)
           resp <- timeout_safe_request(url, timeout, encode = "json")

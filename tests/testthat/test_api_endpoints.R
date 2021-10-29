@@ -46,12 +46,12 @@ test_that("format catches and all_results tests", {
   # test for misstyped args
   expect_error(api_timeout_safe_test(dhs_countries(countryIds = "SE"), cli))
 
-  # test for all_results  and smaller than 5000 page
+  # test for all_results  and smaller than 30000 page
   dat <- api_timeout_safe_test(
     dhs_indicators(), cli
   )
 
-  # test for all_results  and larger than 5000 page
+  # test for all_results  and larger than 30000 page
   datasets <- api_timeout_safe_test(
     dhs_datasets(), cli
   )
@@ -259,13 +259,7 @@ test_that("dhs_publications works", {
     ), cli
   )
   expect_true(any(dat$SurveyYear %in% 2015))
-  dat <- api_timeout_safe_test(
-    dhs_publications(
-      surveyYearStart = "2006", surveyYearEnd = "2016",
-      all_results = FALSE
-    ), cli
-  )
-  expect_true(any(dat$PublicationSize %in% 926663))
+
   dat <- api_timeout_safe_test(
     dhs_publications(
       surveyType = "DHS", surveyCharacteristicIds = "32",
