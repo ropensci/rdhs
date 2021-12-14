@@ -1,12 +1,12 @@
-## rdhs 0.7.3
+# rdhs 0.7.3
 
 * Reference internal access to `model_datasets` with `rdhs::model_datasets` to avoid errors if `rdhs` namespace is not loaded.
 
-## rdhs 0.7.2
+# rdhs 0.7.2
 
 * `available_datasets` patch (#115)
 
-## rdhs 0.7.1
+# rdhs 0.7.1
 
 * Remove class `"dhs_dataset"` from downloaded micro data sets. This class is not 
   anywhere and it creates an error for dplyr_v1.0. 
@@ -23,7 +23,7 @@
   messages. `quiet_parse` (default `TRUE`) controls messages from `sf::st_read()` when
   `method = "sf"`.
 
-## rdhs 0.7.0
+# rdhs 0.7.0
 
 * Add CITATION info.
 * New `download_boundaries` for downloading spatial boundaries using (#71)
@@ -33,41 +33,41 @@
 * Typos and messaging fixed (#78, #84, #87, #92)
 * `unzip_special` correctly detects 4Gb files (#43)
 
-## rdhs 0.6.3
+# rdhs 0.6.3
 
 * Addresses CRAN fail on windows 
 * New `delabel_df` for converting labelled data frames to characters (#54)
 
-## rdhs 0.6.2
+# rdhs 0.6.2
 
 * Duplicate labels when parsing flat data files corrected (#79)
 
-## rdhs 0.6.1
+# rdhs 0.6.1
 
 * `extraction(add_geo=TRUE)` correction for Kenya 2014 surveys (#67)
 * Geospatial covariate data sets now supported correctly (#64)
 
-## rdhs 0.6.0
+# rdhs 0.6.0
 
 * New `as_factor.labelled` for backward compatibility with `haven <2.0.0` 
 `labelled` classes.
 
 * `model_datasets` now internal and exported dataset (#60).
 
-## rdhs 0.5.2
+# rdhs 0.5.2
 
 * New vignettes: `country_codes`
 
 * Documentation typos corrected (#55)
 
-## rdhs 0.5.0
+# rdhs 0.5.0
 
 * New `set_rdhs_config` for providing login credentials. This deprecates
 `set_dhs_credentials`. 
 
 * New `get_rdhs_config` shows the credentials currently used by `rdhs`
 
-## rdhs 0.4.0
+# rdhs 0.4.0
 
 * Permissionn from user now required for file saving.
 
@@ -94,20 +94,20 @@ sp <- geojsonio::as.json(d) %>% geojsonio::geojson_sp
 
 ```
 
-## rdhs 0.3.0
+# rdhs 0.3.0
 
 * New `dhs_data()`, `dhs_countries()` and other API functions (`dhs_x()`). 
 
-## rdhs 0.2.1
+# rdhs 0.2.1
 
 * `authenticate_dhs()` now works with short project names.
 
-## rdhs 0.2.0
+# rdhs 0.2.0
 
 * New vignettes: `anemia`
 
 * New `read_dhs_flat()` for reading flat datasets.
 
-## rdhs 0.1.0
+# rdhs 0.1.0
 
 * Initial share on Feb, 24th 2018 to colleagues at UNC.
