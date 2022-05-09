@@ -265,7 +265,7 @@ test_that("dhs_publications works", {
       all_results = FALSE
     ), cli
   )
-  expect_true(any(dat$PublicationSize %in% 926663))
+  expect_true(any(is.numeric(dat$PublicationSize)))
   dat <- api_timeout_safe_test(
     dhs_publications(
       surveyType = "DHS", surveyCharacteristicIds = "32",

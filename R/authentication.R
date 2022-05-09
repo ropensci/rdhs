@@ -93,28 +93,31 @@ available_datasets <- function(config,
   # Donqwload manager post creation
   ctrycodelist_lines <- grep("name=\"ctrycodelist\" value=", y, value = TRUE)
   ctrycodelist <- qdapRegex::rm_between(
-    ctrycodelist_lines, '"', '"', extract = TRUE
-  ) %>% lapply(function(x) x[3])
+    ctrycodelist_lines, 'value=\"', '\"', extract = TRUE
+  )
 
   names(ctrycodelist) <- rep("ctrycodelist", length(ctrycodelist))
+  class(ctrycodelist) <- "list"
 
   filedatatypelist_DHS_line <- grep("name=\"filedatatypelist_", y, value = TRUE)
   filedatatypelist_DHS <- qdapRegex::rm_between(
-    filedatatypelist_DHS_line, '"', '"', extract = TRUE
-  ) %>% lapply(function(x) x[3])
+    filedatatypelist_DHS_line, 'value=\"', '\"', extract = TRUE
+  )
 
   names(filedatatypelist_DHS) <- paste0(
     "filedatatypelist_",
     qdapRegex::rm_between(filedatatypelist_DHS_line,
                           "filedatatypelist_", "\" value", extract = TRUE)
   )
+  class(filedatatypelist_DHS) <- "list"
 
   formatlist <- grep("fformatlist", y, value = TRUE)
   formatlist <- qdapRegex::rm_between(
-    formatlist, '"', '"', extract = TRUE
-  ) %>% lapply(function(x) x[3])
+    formatlist, 'value=\"', '\"', extract = TRUE
+  )
 
   names(formatlist) <- rep("fformatlist", length(formatlist))
+  class(formatlist) <- "list"
 
   values <- list(
     surveymode = "all",
@@ -176,9 +179,9 @@ available_datasets <- function(config,
 
   # remove any missing matches (shouldn't happen if API up to date)
   if (sum(is.na(fileName_matches)) > 0) {
-    message("Some of your available datasets are not found in the DHS API.",
-            "This is likely due to the DHS API being out of date and as such ",
-            "some of the meta information about your available datasets ",
+    message("\nSome of your available datasets are not found in the DHS API. \n",
+            "This is likely due to the DHS API being out of date and as such \n",
+            "some of the meta information about your available datasets \n",
             "may not be available.")
     fileName_matches <- fileName_matches[-which(is.na(fileName_matches))]
   }
