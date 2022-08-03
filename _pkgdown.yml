@@ -58,6 +58,30 @@ reference:
       - parse_do
       - parse_sps
       - read_dhs_dta
+  
+  - title: "internal"
+    desc: "Internal Functions"
+    contents:
+      - as_factor.labelled
+      - authenticate_dhs
+      - available_datasets
+      - client_cache_date
+      - collapse_api_responses
+      - dhs_gps_data_format
+      - download_datasets
+      - extraction
+      - factor_format
+      - file_dataset_format
+      - get_labels_from_dataset
+      - last_api_update
+      - model_datasets, parse_map
+      - rbind_list_base
+      - rdhs
+      - read_dhs_dataset
+      - read_zipdata
+      - response_is_json
+      - response_to_json
+      - unzip_special
 
 navbar:
   type: default
