@@ -6,7 +6,7 @@
 	"devDependencies": {
 		"jshint": "~2.1.3",
 		"mocha": "~1.10.0",
-		"karma": "~0.8.5",
+		"karma": ">=6.3.16",
 		"uglify-js": "~2.6.0",
 		"jake": "~0.5.16",
 		"magic-string": "^0.7.0",
