@@ -58,7 +58,7 @@ reference:
       - parse_do
       - parse_sps
       - read_dhs_dta
-  
+
   - title: "internal"
     desc: "Internal Functions"
     contents:
@@ -74,7 +74,8 @@ reference:
       - file_dataset_format
       - get_labels_from_dataset
       - last_api_update
-      - model_datasets, parse_map
+      - model_datasets
+      - parse_map
       - rbind_list_base
       - rdhs
       - read_dhs_dataset
