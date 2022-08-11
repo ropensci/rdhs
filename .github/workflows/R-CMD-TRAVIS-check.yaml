@@ -27,6 +27,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      KEY: ${{ secrets.KEY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -55,13 +56,6 @@ jobs:
             any::rcmdcheck
             any::sodium
           needs: check
-
-      - name: Create and populate .Renviron file with secrets
-        run: |
-          echo KEY="$MAPPED_KEY" >> ~/.Renviron
-        shell: bash
-        env:
-          MAPPED_KEY: ${{ secrets.KEY}}
 
       - name: Decrypt config and set ready for travis checks
         run: |
