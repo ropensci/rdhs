@@ -23,7 +23,7 @@
 #' @param quiet_parse Whether to read boundaries dataset quietly. Applies to
 #'   `method = "sf"`. Default is `TRUE`.
 #' @param server_sleep Numeric for length of sleep prior to downloading file
-#'   from their survey
+#'   from their survey. Default 5 seconds.
 #'
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
 #'   which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
@@ -51,7 +51,7 @@ download_boundaries <- function(surveyNum=NULL,
                                 method = "sf",
                                 quiet_download = FALSE,
                                 quiet_parse = TRUE,
-                                server_sleep = 1){
+                                server_sleep = 5){
 
   # helper funcs
   build_final_url <- function(jobId) {
