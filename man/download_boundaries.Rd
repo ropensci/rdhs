@@ -10,7 +10,8 @@ download_boundaries(
   countryId = NULL,
   method = "sf",
   quiet_download = FALSE,
-  quiet_parse = TRUE
+  quiet_parse = TRUE,
+  server_sleep = 5
 )
 }
 \arguments{
@@ -40,6 +41,9 @@ To just return the file paths for the files use method = "zip".}
 
 \item{quiet_parse}{Whether to read boundaries dataset quietly. Applies to
 `method = "sf"`. Default is `TRUE`.}
+
+\item{server_sleep}{Numeric for length of sleep prior to downloading file
+from their survey. Default 5 seconds.}
 }
 \value{
 Returns either the spatial file as a "SpatialPolygonsDataFrame" or

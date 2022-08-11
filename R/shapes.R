@@ -22,6 +22,8 @@
 #'   [`download_file()`]. Default is `FALSE`.
 #' @param quiet_parse Whether to read boundaries dataset quietly. Applies to
 #'   `method = "sf"`. Default is `TRUE`.
+#' @param server_sleep Numeric for length of sleep prior to downloading file
+#'   from their survey. Default 5 seconds.
 #'
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
 #'   which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
@@ -48,7 +50,8 @@ download_boundaries <- function(surveyNum=NULL,
                                 countryId = NULL,
                                 method = "sf",
                                 quiet_download = FALSE,
-                                quiet_parse = TRUE){
+                                quiet_parse = TRUE,
+                                server_sleep = 5){
 
   # helper funcs
   build_final_url <- function(jobId) {
@@ -66,6 +69,7 @@ download_boundaries <- function(surveyNum=NULL,
   assert_null_and_func(surveyNum, assert_scalar_numeric)
   assert_null_and_func(surveyId, assert_scalar_character)
   assert_null_and_func(countryId, assert_scalar_character)
+  assert_scalar_numeric(server_sleep)
 
   # handle arguments
   # ----------------------------------------------------------------------------
@@ -111,7 +115,7 @@ download_boundaries <- function(surveyNum=NULL,
 
   # pause for a second for the job id created to appear on their server
   # i.e. the code only works with this...
-  Sys.sleep(1)
+  Sys.sleep(server_sleep)
 
   # download the shape file and read it in
   tf2 <- tempfile()
