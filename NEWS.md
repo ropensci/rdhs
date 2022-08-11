@@ -1,6 +1,6 @@
 ## rdhs 0.7.5
 
-* `download_boundaries` patch (#138) for pause when downloading survey boundaries
+* `download_boundaries` patch (#138) for pause when downloading survey boundaries. Set default sleep to 5 seconds to avoid timeout.
 
 ## rdhs 0.7.4
 
