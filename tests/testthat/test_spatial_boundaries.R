@@ -16,7 +16,7 @@ test_that("Spatial Boundaries Download", {
    res <- download_boundaries(surveyNum = 471, countryId = "AF")
    expect_true(res$sdr_subnational_boundaries$ISO[1] == "AF")
    expect_is(res$sdr_subnational_boundaries, "sf")
-  
+
    # using the surveyId and no countryID
    res <- download_boundaries(surveyId = "AF2010OTH")
    expect_true(length(res) == 2)
@@ -38,6 +38,32 @@ test_that("Spatial Boundaries Download", {
                    "Provided method not found.")
     expect_is(res, "character")
     expect_true(any(grepl("\\.shp$", res)))
+
+})
+
+
+
+
+
+
+test_that("Timout Spatial Boundaries Test", {
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+
+  testthat::skip_on_travis()
+
+  cli <- new_rand_client()
+
+  # check time differences are greater - not best test but simple
+  t1 <- Sys.time()
+  res <- download_boundaries(surveyNum = 471, countryId = "AF", server_sleep = 1)
+  t2 <- Sys.time()
+
+  t3 <- Sys.time()
+  res <- download_boundaries(surveyNum = 471, countryId = "AF", server_sleep = 4)
+  t4 <- Sys.time()
+
+  expect_true(t2-t1 < t4-t3)
 
 })
 

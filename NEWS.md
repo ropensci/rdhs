@@ -1,3 +1,7 @@
+## rdhs 0.7.5
+
+* `download_boundaries` patch (#138) for pause when downloading survey boundaries
+
 ## rdhs 0.7.4
 
 * `available_datasets` patch (#131) for new version of `qdapRegex` on CRAN
