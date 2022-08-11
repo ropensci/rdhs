@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      KEY: ${{ secrets.KEY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,11 +23,34 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          sudo apt-get install libnode-dev
+          sudo apt-get install libsodium-dev
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
+          extra-packages: |
+            any::rcmdcheck
+            any::covr
+            any::sodium
           needs: coverage
 
+      - name: Decrypt config and set ready for travis checks
+        run: |
+          writeBin(sodium::data_decrypt(readRDS("rdhs.json.tar.enc"), sodium::hash(charToRaw(Sys.getenv("KEY")))),"rdhs.json.tar")
+          unzip("rdhs.json.tar")
+        shell: Rscript {0}
+
       - name: Test coverage
-        run: covr::codecov(quiet = FALSE)
+        run: |
+          Sys.setenv("rdhs_RENVIRON_PERMISSION"=1)
+          Sys.setenv("NOT_CRAN"="true")
+          Sys.setenv("TRAVIS"="true")
+          covr::codecov(quiet = FALSE)
         shell: Rscript {0}
