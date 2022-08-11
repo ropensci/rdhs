@@ -56,6 +56,13 @@ jobs:
             any::sodium
           needs: check
 
+      - name: Create and populate .Renviron file with secrets
+        run: |
+          echo KEY="$MAPPED_KEY" >> ~/.Renviron
+        shell: bash
+        env:
+          MAPPED_KEY: ${{ secrets.KEY}}
+
       - name: Decrypt config and set ready for travis checks
         run: |
           writeBin(sodium::data_decrypt(readRDS("rdhs.json.tar.enc"), sodium::hash(charToRaw(Sys.getenv("KEY")))),"rdhs.json.tar")
