@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.5</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -52,7 +52,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -65,7 +65,8 @@
       <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../articles/client.html">How to use the client</a>
     </li>
     <li>
@@ -78,7 +79,8 @@
       <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../CONTRIBUTING.html">Contributing</a>
     </li>
     <li>
@@ -96,7 +98,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/rdhs" class="external-link">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -110,7 +112,7 @@
 
       
 
-      </header><script src="anemia_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Anemia prevalence: an <code>rdhs</code> example</h1>
@@ -118,7 +120,7 @@
             
             <h4 data-toc-skip class="date">2018-09-24</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/master/vignettes/anemia.Rmd" class="external-link"><code>vignettes/anemia.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/HEAD/vignettes/anemia.Rmd" class="external-link"><code>vignettes/anemia.Rmd</code></a></small>
       <div class="hidden name"><code>anemia.Rmd</code></div>
 
     </div>
@@ -126,341 +128,341 @@
     
     
 <p>Anemia is a common cause of fatigue, and women of childbearing age are at particularly high risk for anemia. The package <code>rdhs</code> can be used to compare estimates of the prevalence of any anemia among women from Demographic and Health Surveys (DHS) conducted in Armenia, Cambodia, and Lesotho.</p>
-<div id="setup" class="section level1">
-<h1 class="hasAnchor">
-<a href="#setup" class="anchor" aria-hidden="true"></a>Setup</h1>
+<div class="section level2">
+<h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <p>Load the <code>rdhs</code> package and other useful packages for analysing data.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## devtools::install_github("ropensci/rdhs")</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link">survey</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org" class="external-link">haven</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## devtools::install_github("ropensci/rdhs")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link">survey</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haven.tidyverse.org" class="external-link">haven</a></span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="using-calculated-indicators-from-statcompiler" class="section level1">
-<h1 class="hasAnchor">
-<a href="#using-calculated-indicators-from-statcompiler" class="anchor" aria-hidden="true"></a>Using calculated indicators from STATcompiler</h1>
+<div class="section level2">
+<h2 id="using-calculated-indicators-from-statcompiler">Using calculated indicators from STATcompiler<a class="anchor" aria-label="anchor" href="#using-calculated-indicators-from-statcompiler"></a>
+</h2>
 <p>Anemia prevalence among women is reported as a core indicator through the DHS STATcompiler (<a href="https://www.statcompiler.com/" class="external-link uri">https://www.statcompiler.com/</a>). These indicators can be accessed directly from R via the DHS API with the function <code><a href="../reference/dhs_data.html">dhs_data()</a></code>.</p>
 <p>Query the API for a list of all StatCompiler indicators, and then search the indicators for those that have <code>"anemia"</code> in the indicator name. API calls return <code>data.frame</code> objects, so if you prefer to use <code>data.table</code> objects then convert afterwards, or we can set this up within our config using <code>set_rdhs_config</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>data_frame <span class="op">=</span> <span class="st">"data.table::as.data.table"</span><span class="op">)</span>
-
-<span class="va">indicators</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">indicators</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"anemia"</span>, <span class="va">Label</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">IndicatorId</span>, <span class="va">ShortName</span>, <span class="va">Label</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>##      IndicatorId                 ShortName                       Label
-## 1: CN_ANMC_C_SEV Severe anemia (&lt;7.0 g/dl) Children with severe anemia
-## 2: AN_ANEM_W_ANY                      Any        Women with any anemia
-## 3: AN_ANEM_W_MLD                     Mild       Women with mild anemia
-## 4: AN_ANEM_W_MOD                 Moderate   Women with moderate anemia
-## 5: AN_ANEM_W_SEV                   Severe     Women with severe anemia
-## 6: AN_ANEM_M_ANY                Any anemia         Men with any anemia</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>data_frame <span class="op">=</span> <span class="st">"data.table::as.data.table"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">indicators</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_indicators.html">dhs_indicators</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">indicators</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"anemia"</span>, <span class="va">Label</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">IndicatorId</span>, <span class="va">ShortName</span>, <span class="va">Label</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      IndicatorId                 ShortName                       Label</span></span>
+<span><span class="co">## 1: CN_ANMC_C_SEV Severe anemia (&lt;7.0 g/dl) Children with severe anemia</span></span>
+<span><span class="co">## 2: AN_ANEM_W_ANY                      Any        Women with any anemia</span></span>
+<span><span class="co">## 3: AN_ANEM_W_MLD                     Mild       Women with mild anemia</span></span>
+<span><span class="co">## 4: AN_ANEM_W_MOD                 Moderate   Women with moderate anemia</span></span>
+<span><span class="co">## 5: AN_ANEM_W_SEV                   Severe     Women with severe anemia</span></span>
+<span><span class="co">## 6: AN_ANEM_M_ANY                Any anemia         Men with any anemia</span></span></code></pre>
 <p>The indicator ID <code>"AN_ANEM_W_ANY"</code> reports the percentage of women with any anemia. The function <code><a href="../reference/dhs_data.html">dhs_data()</a></code> will query the indicator dataset for the value of this indicator for our three countries of interest. First, use <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> to query the list of DHS countries to identify the DHS country code for each country.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_countries.html">dhs_countries</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">dhscc</span> <span class="op">&lt;-</span> <span class="va">countries</span><span class="op">[</span><span class="va">CountryName</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span><span class="op">)</span>, <span class="va">DHS_CountryCode</span><span class="op">]</span>
-<span class="va">dhscc</span></code></pre></div>
-<pre><code>## [1] "AM" "KH" "LS"</code></pre>
+<code class="sourceCode R"><span><span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_countries.html">dhs_countries</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">dhscc</span> <span class="op">&lt;-</span> <span class="va">countries</span><span class="op">[</span><span class="va">CountryName</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span><span class="op">)</span>, <span class="va">DHS_CountryCode</span><span class="op">]</span></span>
+<span><span class="va">dhscc</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "AM" "KH" "LS"</span></span></code></pre>
 <p>Now query the indicators dataset for the women with any anemia indicator for these three countries.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">statcomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_data.html">dhs_data</a></span><span class="op">(</span>indicatorIds <span class="op">=</span> <span class="st">"AN_ANEM_W_ANY"</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span>
-<span class="va">statcomp</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">Indicator</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">DenominatorWeighted</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code>##                 Indicator CountryName SurveyYear Value DenominatorWeighted
-##  1: Women with any anemia     Armenia       2000  12.4                6137
-##  2: Women with any anemia     Armenia       2005  24.6                6080
-##  3: Women with any anemia     Armenia       2016  13.4                5769
-##  4: Women with any anemia    Cambodia       2000  58.8                3634
-##  5: Women with any anemia    Cambodia       2005  46.7                8219
-##  6: Women with any anemia    Cambodia       2010  44.4                9229
-##  7: Women with any anemia    Cambodia       2014  45.4               11286
-##  8: Women with any anemia     Lesotho       2004  32.9                3008
-##  9: Women with any anemia     Lesotho       2009  26.3                3839
-## 10: Women with any anemia     Lesotho       2014  27.3                3297</code></pre>
+<code class="sourceCode R"><span><span class="va">statcomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_data.html">dhs_data</a></span><span class="op">(</span>indicatorIds <span class="op">=</span> <span class="st">"AN_ANEM_W_ANY"</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span></span>
+<span><span class="va">statcomp</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">Indicator</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">DenominatorWeighted</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##                 Indicator CountryName SurveyYear Value DenominatorWeighted</span></span>
+<span><span class="co">##  1: Women with any anemia     Armenia       2000  12.4                6137</span></span>
+<span><span class="co">##  2: Women with any anemia     Armenia       2005  24.6                6080</span></span>
+<span><span class="co">##  3: Women with any anemia     Armenia       2016  13.4                5769</span></span>
+<span><span class="co">##  4: Women with any anemia    Cambodia       2000  58.8                3634</span></span>
+<span><span class="co">##  5: Women with any anemia    Cambodia       2005  46.7                8219</span></span>
+<span><span class="co">##  6: Women with any anemia    Cambodia       2010  44.4                9229</span></span>
+<span><span class="co">##  7: Women with any anemia    Cambodia       2014  45.4               11286</span></span>
+<span><span class="co">##  8: Women with any anemia     Lesotho       2004  32.9                3008</span></span>
+<span><span class="co">##  9: Women with any anemia     Lesotho       2009  26.3                3839</span></span>
+<span><span class="co">## 10: Women with any anemia     Lesotho       2014  27.3                3297</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">statcomp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">SurveyYear</span>, <span class="va">Value</span>, col<span class="op">=</span><span class="va">CountryName</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">statcomp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">SurveyYear</span>, <span class="va">Value</span>, col<span class="op">=</span><span class="va">CountryName</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;"></p>
 </div>
-<div id="analyse-dhs-microdata" class="section level1">
-<h1 class="hasAnchor">
-<a href="#analyse-dhs-microdata" class="anchor" aria-hidden="true"></a>Analyse DHS microdata</h1>
-<div id="identify-surveys-that-include-anemia-testing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identify-surveys-that-include-anemia-testing" class="anchor" aria-hidden="true"></a>Identify surveys that include anemia testing</h2>
+<div class="section level2">
+<h2 id="analyse-dhs-microdata">Analyse DHS microdata<a class="anchor" aria-label="anchor" href="#analyse-dhs-microdata"></a>
+</h2>
+<div class="section level3">
+<h3 id="identify-surveys-that-include-anemia-testing">Identify surveys that include anemia testing<a class="anchor" aria-label="anchor" href="#identify-surveys-that-include-anemia-testing"></a>
+</h3>
 <p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl()</a></code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">surveychar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">surveychar</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"anemia"</span>, <span class="va">SurveyCharacteristicName</span>, ignore.case<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code>##    SurveyCharacteristicID SurveyCharacteristicName
-## 1:                     15         Anemia questions
-## 2:                     41           Anemia testing</code></pre>
+<code class="sourceCode R"><span><span class="va">surveychar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">surveychar</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"anemia"</span>, <span class="va">SurveyCharacteristicName</span>, ignore.case<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##    SurveyCharacteristicID SurveyCharacteristicName</span></span>
+<span><span class="co">## 1:                     15         Anemia questions</span></span>
+<span><span class="co">## 2:                     41           Anemia testing</span></span></code></pre>
 <p>The <code>SurveyCharacteristicID = 41</code> indicates that the survey included anemia testing. Next we query the API to identify the surveys that have this characteristic and were conducted in our countries of interest.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span><span class="op">(</span>surveyCharacteristicIds <span class="op">=</span> <span class="fl">41</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span>
-<span class="va">surveys</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">NumberOfWomen</span>, <span class="va">SurveyNum</span>, <span class="va">FieldworkEnd</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code>##      SurveyId CountryName SurveyYear NumberOfWomen SurveyNum FieldworkEnd
-##  1: AM2000DHS     Armenia       2000          6430       203   2000-12-01
-##  2: AM2005DHS     Armenia       2005          6566       262   2005-12-01
-##  3: AM2016DHS     Armenia       2016          6116       492   2016-04-01
-##  4: KH2000DHS    Cambodia       2000         15351       140   2000-07-01
-##  5: KH2005DHS    Cambodia       2005         16823       257   2006-03-01
-##  6: KH2010DHS    Cambodia       2010         18754       310   2011-01-01
-##  7: KH2014DHS    Cambodia       2014         17578       464   2014-12-01
-##  8: LS2004DHS     Lesotho       2004          7095       256   2005-01-01
-##  9: LS2009DHS     Lesotho       2009          7624       317   2010-01-01
-## 10: LS2014DHS     Lesotho       2014          6621       462   2014-12-01</code></pre>
+<code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span><span class="op">(</span>surveyCharacteristicIds <span class="op">=</span> <span class="fl">41</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span></span>
+<span><span class="va">surveys</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">NumberOfWomen</span>, <span class="va">SurveyNum</span>, <span class="va">FieldworkEnd</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##      SurveyId CountryName SurveyYear NumberOfWomen SurveyNum FieldworkEnd</span></span>
+<span><span class="co">##  1: AM2000DHS     Armenia       2000          6430       203   2000-12-01</span></span>
+<span><span class="co">##  2: AM2005DHS     Armenia       2005          6566       262   2005-12-01</span></span>
+<span><span class="co">##  3: AM2016DHS     Armenia       2016          6116       492   2016-04-01</span></span>
+<span><span class="co">##  4: KH2000DHS    Cambodia       2000         15351       140   2000-07-01</span></span>
+<span><span class="co">##  5: KH2005DHS    Cambodia       2005         16823       257   2006-03-01</span></span>
+<span><span class="co">##  6: KH2010DHS    Cambodia       2010         18754       310   2011-01-01</span></span>
+<span><span class="co">##  7: KH2014DHS    Cambodia       2014         17578       464   2014-12-01</span></span>
+<span><span class="co">##  8: LS2004DHS     Lesotho       2004          7095       256   2005-01-01</span></span>
+<span><span class="co">##  9: LS2009DHS     Lesotho       2009          7624       317   2010-01-01</span></span>
+<span><span class="co">## 10: LS2014DHS     Lesotho       2014          6621       462   2014-12-01</span></span></code></pre>
 <p>Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span><span class="op">(</span>surveyIds <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">SurveyId</span>, fileType <span class="op">=</span> <span class="st">"IR"</span>, fileFormat<span class="op">=</span><span class="st">"flat"</span><span class="op">)</span>
-<span class="va">datasets</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">SurveyNum</span>, <span class="va">FileDateLastModified</span>, <span class="va">FileName</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code>##      SurveyId SurveyNum        FileDateLastModified     FileName
-##  1: AM2000DHS       203   October, 05 2006 14:22:40 AMIR42FL.ZIP
-##  2: AM2005DHS       262  February, 02 2010 10:38:12 AMIR54FL.zip
-##  3: AM2016DHS       492 September, 21 2017 16:10:15 AMIR71FL.ZIP
-##  4: KH2000DHS       140   October, 08 2007 12:31:53 KHIR42FL.zip
-##  5: KH2005DHS       257   October, 18 2011 13:53:19 KHIR51FL.zip
-##  6: KH2010DHS       310   October, 26 2011 11:11:07 KHIR61FL.ZIP
-##  7: KH2014DHS       464      July, 28 2017 10:58:10 KHIR73FL.ZIP
-##  8: LS2004DHS       256      July, 31 2007 13:14:31 LSIR41FL.ZIP
-##  9: LS2009DHS       317  November, 10 2015 10:51:05 LSIR61FL.ZIP
-## 10: LS2014DHS       462      June, 14 2016 11:35:19 LSIR71FL.ZIP</code></pre>
+<code class="sourceCode R"><span><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span><span class="op">(</span>surveyIds <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">SurveyId</span>, fileType <span class="op">=</span> <span class="st">"IR"</span>, fileFormat<span class="op">=</span><span class="st">"flat"</span><span class="op">)</span></span>
+<span><span class="va">datasets</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">SurveyNum</span>, <span class="va">FileDateLastModified</span>, <span class="va">FileName</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##      SurveyId SurveyNum        FileDateLastModified     FileName</span></span>
+<span><span class="co">##  1: AM2000DHS       203   October, 05 2006 14:22:40 AMIR42FL.ZIP</span></span>
+<span><span class="co">##  2: AM2005DHS       262  February, 02 2010 10:38:12 AMIR54FL.zip</span></span>
+<span><span class="co">##  3: AM2016DHS       492 September, 21 2017 16:10:15 AMIR71FL.ZIP</span></span>
+<span><span class="co">##  4: KH2000DHS       140   October, 08 2007 12:31:53 KHIR42FL.zip</span></span>
+<span><span class="co">##  5: KH2005DHS       257   October, 18 2011 13:53:19 KHIR51FL.zip</span></span>
+<span><span class="co">##  6: KH2010DHS       310   October, 26 2011 11:11:07 KHIR61FL.ZIP</span></span>
+<span><span class="co">##  7: KH2014DHS       464      July, 28 2017 10:58:10 KHIR73FL.ZIP</span></span>
+<span><span class="co">##  8: LS2004DHS       256      July, 31 2007 13:14:31 LSIR41FL.ZIP</span></span>
+<span><span class="co">##  9: LS2009DHS       317  November, 10 2015 10:51:05 LSIR61FL.ZIP</span></span>
+<span><span class="co">## 10: LS2014DHS       462      June, 14 2016 11:35:19 LSIR71FL.ZIP</span></span></code></pre>
 </div>
-<div id="download-datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#download-datasets" class="anchor" aria-hidden="true"></a>Download datasets</h2>
+<div class="section level3">
+<h3 id="download-datasets">Download datasets<a class="anchor" aria-label="anchor" href="#download-datasets"></a>
+</h3>
 <p>To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using <code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://docs.ropensci.org/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="../reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## set up your credentials</span>
-<span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"jeffrey.eaton@imperial.ac.uk"</span>,
-                project <span class="op">=</span> <span class="st">"Joint estimation of HIV epidemic trends and adult mortality"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## set up your credentials</span></span>
+<span><span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"jeffrey.eaton@imperial.ac.uk"</span>,</span>
+<span>                project <span class="op">=</span> <span class="st">"Joint estimation of HIV epidemic trends and adult mortality"</span><span class="op">)</span></span></code></pre></div>
 <p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">datasets</span><span class="op">$</span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Logging into DHS website...</code></pre>
-<pre><code>## Creating Download url list from DHS website...</code></pre>
+<code class="sourceCode R"><span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Logging into DHS website...</span></span></code></pre>
+<pre><code><span><span class="co">## Creating Download url list from DHS website...</span></span></code></pre>
 </div>
-<div id="identify-survey-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identify-survey-variables" class="anchor" aria-hidden="true"></a>Identify survey variables</h2>
+<div class="section level3">
+<h3 id="identify-survey-variables">Identify survey variables<a class="anchor" aria-label="anchor" href="#identify-survey-variables"></a>
+</h3>
 <p>Anemia is defined as having a hemoglobin (Hb) &lt;12.0 g/dL for non-pregnant women or Hb &lt;11.0 g/dL for currently pregnant women<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. To calculate anemia prevalence from DHS microdata, we must identify the DHS recode survey variables for hemoglobin measurement and pregnancy status. This could be done by consulting the DHS recode manual or the .MAP files accompanying survey datasets. It is convenient though to do this in R by loading the first individual recode dataset and searching the metadata for the variable names corresponding to the hemoglobin measurement and pregnancy status.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span>, <span class="st">"hemoglobin"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>##   variable
-## 1     v042
-## 2    v452c
-## 3     v453
-## 4     v455
-## 5     v456
-## 6   hw52_1
-##                                                             description
-## 1                                     Household selected for hemoglobin
-## 2                                   Read consent statement - hemoglobin
-## 3                                   Hemoglobin level (g/dl - 1 decimal)
-## 4                                    Result of measurement - hemoglobin
-## 5 Hemoglobin level adjusted for altitude and smoking (g/dl - 1 decimal)
-## 6                                   Read consent statement - hemoglobin</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span>, <span class="st">"hemoglobin"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   variable</span></span>
+<span><span class="co">## 1     v042</span></span>
+<span><span class="co">## 2    v452c</span></span>
+<span><span class="co">## 3     v453</span></span>
+<span><span class="co">## 4     v455</span></span>
+<span><span class="co">## 5     v456</span></span>
+<span><span class="co">## 6   hw52_1</span></span>
+<span><span class="co">##                                                             description</span></span>
+<span><span class="co">## 1                                     Household selected for hemoglobin</span></span>
+<span><span class="co">## 2                                   Read consent statement - hemoglobin</span></span>
+<span><span class="co">## 3                                   Hemoglobin level (g/dl - 1 decimal)</span></span>
+<span><span class="co">## 4                                    Result of measurement - hemoglobin</span></span>
+<span><span class="co">## 5 Hemoglobin level adjusted for altitude and smoking (g/dl - 1 decimal)</span></span>
+<span><span class="co">## 6                                   Read consent statement - hemoglobin</span></span></code></pre>
 <p>Variable <code>v042</code> records the household selection for hemoglobin testing. Variable <code>v455</code> reports the outcome of hemoglobin measurement and <code>v456</code> the result of altitude adjusted hemoglobin levels.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v042</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## not selected     selected 
-##         3203         3418</code></pre>
+<code class="sourceCode R"><span><span class="va">ir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v042</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## not selected     selected </span></span>
+<span><span class="co">##         3203         3418</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v455</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-##                          measured                       not present 
-##                              3349                                 2 
-##                           refused                             other 
-##                                35                                 8 
-## no measurement found in household                           missing 
-##                                 0                                24</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v455</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">##                          measured                       not present </span></span>
+<span><span class="co">##                              3349                                 2 </span></span>
+<span><span class="co">##                           refused                             other </span></span>
+<span><span class="co">##                                35                                 8 </span></span>
+<span><span class="co">## no measurement found in household                           missing </span></span>
+<span><span class="co">##                                 0                                24</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v456</span><span class="op">)</span></code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##    24.0   118.0   130.0   145.6   141.0   999.0    3203</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v456</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's </span></span>
+<span><span class="co">##    24.0   118.0   130.0   145.6   141.0   999.0    3203</span></span></code></pre>
 <p>Variable <code>v454</code> reports the current pregnancy status used for determining the anemia threshold.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"currently.*pregnant"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
-<pre><code>##   variable        description
-## 1     v213 Currently pregnant
-## 2     v454 Currently pregnant</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"currently.*pregnant"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##   variable        description</span></span>
+<span><span class="co">## 1     v213 Currently pregnant</span></span>
+<span><span class="co">## 2     v454 Currently pregnant</span></span></code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v454</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## no/don't know           yes       missing 
-##          3276           142             0</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v454</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## no/don't know           yes       missing </span></span>
+<span><span class="co">##          3276           142             0</span></span></code></pre>
 <p>We also keep a number of other variables related to the survey design and potentially interesting covariates: country code and phase (<code>v000</code>), cluster number (<code>v001</code>), sample weight (<code>v005</code>), age (<code>v012</code>), region (<code>v024</code>), urban/rural residence (<code>v025</code>), and education level (<code>v106</code>).</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SurveyId"</span>, <span class="st">"CountryName"</span>, <span class="st">"SurveyYear"</span>, <span class="st">"v000"</span>, <span class="st">"v001"</span>, <span class="st">"v005"</span>,
-          <span class="st">"v012"</span>, <span class="st">"v024"</span>, <span class="st">"v025"</span>, <span class="st">"v106"</span>, <span class="st">"v042"</span>, <span class="st">"v454"</span>, <span class="st">"v455"</span>, <span class="st">"v456"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SurveyId"</span>, <span class="st">"CountryName"</span>, <span class="st">"SurveyYear"</span>, <span class="st">"v000"</span>, <span class="st">"v001"</span>, <span class="st">"v005"</span>,</span>
+<span>          <span class="st">"v012"</span>, <span class="st">"v024"</span>, <span class="st">"v025"</span>, <span class="st">"v106"</span>, <span class="st">"v042"</span>, <span class="st">"v454"</span>, <span class="st">"v455"</span>, <span class="st">"v456"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="extract-survey-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#extract-survey-data" class="anchor" aria-hidden="true"></a>Extract survey data</h2>
+<div class="section level3">
+<h3 id="extract-survey-data">Extract survey data<a class="anchor" aria-label="anchor" href="#extract-survey-data"></a>
+</h3>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">datlst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-
-  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-  
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">ir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
-
-  <span class="va">ir</span><span class="op">$</span><span class="va">SurveyId</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
-  <span class="va">ir</span><span class="op">$</span><span class="va">CountryName</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">CountryName</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
-  <span class="va">ir</span><span class="op">$</span><span class="va">SurveyYear</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyYear</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>
-
-  <span class="va">datlst</span><span class="op">[[</span><span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">ir</span><span class="op">[</span><span class="va">vars</span><span class="op">]</span>
-  <span class="op">}</span>
-<span class="op">}</span></code></pre></div>
-<pre><code>## [1] "1 AM2000DHS"
-## [1] "2 AM2005DHS"
-## [1] "3 AM2016DHS"
-## [1] "4 KH2000DHS"
-## [1] "5 KH2005DHS"
-## [1] "6 KH2010DHS"
-## [1] "7 KH2014DHS"
-## [1] "8 LS2004DHS"
-## [1] "9 LS2009DHS"
-## [1] "10 LS2014DHS"</code></pre>
+<code class="sourceCode R"><span><span class="va">datlst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">ir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">ir</span><span class="op">$</span><span class="va">SurveyId</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span>  <span class="va">ir</span><span class="op">$</span><span class="va">CountryName</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">CountryName</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span>  <span class="va">ir</span><span class="op">$</span><span class="va">SurveyYear</span> <span class="op">&lt;-</span> <span class="va">datasets</span><span class="op">$</span><span class="va">SurveyYear</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="va">datlst</span><span class="op">[[</span><span class="va">datasets</span><span class="op">$</span><span class="va">SurveyId</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">ir</span><span class="op">[</span><span class="va">vars</span><span class="op">]</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "1 AM2000DHS"</span></span>
+<span><span class="co">## [1] "2 AM2005DHS"</span></span>
+<span><span class="co">## [1] "3 AM2016DHS"</span></span>
+<span><span class="co">## [1] "4 KH2000DHS"</span></span>
+<span><span class="co">## [1] "5 KH2005DHS"</span></span>
+<span><span class="co">## [1] "6 KH2010DHS"</span></span>
+<span><span class="co">## [1] "7 KH2014DHS"</span></span>
+<span><span class="co">## [1] "8 LS2004DHS"</span></span>
+<span><span class="co">## [1] "9 LS2009DHS"</span></span>
+<span><span class="co">## [1] "10 LS2014DHS"</span></span></code></pre>
 <p>We use <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> to combine datasets with labelled columns. The argument <code>labels</code> describes to combine variable levels for all datasets for <code>v024</code> (region) while providing a consistent set of value labels to be used for <code>v454</code> (currently pregnant) for all datasets.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span><span class="op">(</span><span class="va">datlst</span>,
-                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>v024 <span class="op">=</span> <span class="st">"concatenate"</span>,
-                                    v454 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no/don't know"</span> <span class="op">=</span> <span class="fl">0L</span>,
-                                             <span class="st">"yes"</span> <span class="op">=</span> <span class="fl">1L</span>, <span class="st">"missing"</span> <span class="op">=</span> <span class="fl">9L</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in rbind_labelled(datlst, labels = list(v024 = "concatenate", v454 = c(`no/don't know` = 0L, : Some variables have non-matching value labels: v106, v455, v456.
-## Inheriting labels from first data frame with labels.</code></pre>
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span><span class="op">(</span><span class="va">datlst</span>,</span>
+<span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>v024 <span class="op">=</span> <span class="st">"concatenate"</span>,</span>
+<span>                                    v454 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"no/don't know"</span> <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>                                             <span class="st">"yes"</span> <span class="op">=</span> <span class="fl">1L</span>, <span class="st">"missing"</span> <span class="op">=</span> <span class="fl">9L</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in rbind_labelled(datlst, labels = list(v024 = "concatenate", v454 = c(`no/don't know` = 0L, : Some variables have non-matching value labels: v106, v455, v456.</span></span>
+<span><span class="co">## Inheriting labels from first data frame with labels.</span></span></code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">is.labelled</span><span class="op">)</span></code></pre></div>
-<pre><code>##    SurveyId CountryName  SurveyYear        v000        v001        v005 
-##       FALSE       FALSE       FALSE       FALSE       FALSE       FALSE 
-##        v012        v024        v025        v106        v042        v454 
-##       FALSE        TRUE        TRUE        TRUE        TRUE        TRUE 
-##        v455        v456     DATASET 
-##        TRUE        TRUE       FALSE</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">is.labelled</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    SurveyId CountryName  SurveyYear        v000        v001        v005 </span></span>
+<span><span class="co">##       FALSE       FALSE       FALSE       FALSE       FALSE       FALSE </span></span>
+<span><span class="co">##        v012        v024        v025        v106        v042        v454 </span></span>
+<span><span class="co">##       FALSE        TRUE        TRUE        TRUE        TRUE        TRUE </span></span>
+<span><span class="co">##        v455        v456     DATASET </span></span>
+<span><span class="co">##        TRUE        TRUE       FALSE</span></span></code></pre>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">v456</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/zap_labels.html" class="external-link">zap_labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span><span class="op">)</span>
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://haven.tidyverse.org/reference/zap_labels.html" class="external-link">zap_labels</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span><span class="op">)</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="data-tabulations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-tabulations" class="anchor" aria-hidden="true"></a>Data tabulations</h2>
+<div class="section level3">
+<h3 id="data-tabulations">Data tabulations<a class="anchor" aria-label="anchor" href="#data-tabulations"></a>
+</h3>
 <p>It is a good idea to check basic tabulations of the data, especially by survey to identify and nuances Exploratory analysis of variables</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v025</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##            v025
-## SurveyId    urban rural
-##   AM2000DHS  3545  2885
-##   AM2005DHS  4592  1974
-##   AM2016DHS  3545  2571
-##   KH2000DHS  2627 12724
-##   KH2005DHS  4152 12671
-##   KH2010DHS  6077 12677
-##   KH2014DHS  5667 11911
-##   LS2004DHS  1945  5150
-##   LS2009DHS  1977  5647
-##   LS2014DHS  2202  4419</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v025</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            v025</span></span>
+<span><span class="co">## SurveyId    urban rural</span></span>
+<span><span class="co">##   AM2000DHS  3545  2885</span></span>
+<span><span class="co">##   AM2005DHS  4592  1974</span></span>
+<span><span class="co">##   AM2016DHS  3545  2571</span></span>
+<span><span class="co">##   KH2000DHS  2627 12724</span></span>
+<span><span class="co">##   KH2005DHS  4152 12671</span></span>
+<span><span class="co">##   KH2010DHS  6077 12677</span></span>
+<span><span class="co">##   KH2014DHS  5667 11911</span></span>
+<span><span class="co">##   LS2004DHS  1945  5150</span></span>
+<span><span class="co">##   LS2009DHS  1977  5647</span></span>
+<span><span class="co">##   LS2014DHS  2202  4419</span></span></code></pre>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v106</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##            v106
-## SurveyId    no education primary secondary higher missing
-##   AM2000DHS            5      24      5329   1072       0
-##   AM2005DHS            7      24      5138   1397       0
-##   AM2016DHS            5     406      2580   3125       0
-##   KH2000DHS         4849    8182      2276     44       0
-##   KH2005DHS         3772    9131      3771    149       0
-##   KH2010DHS         3203    8796      6141    614       0
-##   KH2014DHS         2233    7826      6535    984       0
-##   LS2004DHS          169    4309      2520     97       0
-##   LS2009DHS          114    3865      3277    368       0
-##   LS2014DHS           81    2665      3354    521       0</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v106</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            v106</span></span>
+<span><span class="co">## SurveyId    no education primary secondary higher missing</span></span>
+<span><span class="co">##   AM2000DHS            5      24      5329   1072       0</span></span>
+<span><span class="co">##   AM2005DHS            7      24      5138   1397       0</span></span>
+<span><span class="co">##   AM2016DHS            5     406      2580   3125       0</span></span>
+<span><span class="co">##   KH2000DHS         4849    8182      2276     44       0</span></span>
+<span><span class="co">##   KH2005DHS         3772    9131      3771    149       0</span></span>
+<span><span class="co">##   KH2010DHS         3203    8796      6141    614       0</span></span>
+<span><span class="co">##   KH2014DHS         2233    7826      6535    984       0</span></span>
+<span><span class="co">##   LS2004DHS          169    4309      2520     97       0</span></span>
+<span><span class="co">##   LS2009DHS          114    3865      3277    368       0</span></span>
+<span><span class="co">##   LS2014DHS           81    2665      3354    521       0</span></span></code></pre>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v454</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##            v454
-## SurveyId    no/don't know   yes missing  &lt;NA&gt;
-##   AM2000DHS          6231   199       0     0
-##   AM2005DHS          5967   158     441     0
-##   AM2016DHS          5939   177       0     0
-##   KH2000DHS          3312   296      62 11681
-##   KH2005DHS          7685   501     212  8425
-##   KH2010DHS          8906   475       0  9373
-##   KH2014DHS         10883   663       0  6032
-##   LS2004DHS          2857   203       0  4035
-##   LS2009DHS          3740   173     103  3608
-##   LS2014DHS          3276   142       0  3203</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v454</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            v454</span></span>
+<span><span class="co">## SurveyId    no/don't know   yes missing  &lt;NA&gt;</span></span>
+<span><span class="co">##   AM2000DHS          6231   199       0     0</span></span>
+<span><span class="co">##   AM2005DHS          5967   158     441     0</span></span>
+<span><span class="co">##   AM2016DHS          5939   177       0     0</span></span>
+<span><span class="co">##   KH2000DHS          3312   296      62 11681</span></span>
+<span><span class="co">##   KH2005DHS          7685   501     212  8425</span></span>
+<span><span class="co">##   KH2010DHS          8906   475       0  9373</span></span>
+<span><span class="co">##   KH2014DHS         10883   663       0  6032</span></span>
+<span><span class="co">##   LS2004DHS          2857   203       0  4035</span></span>
+<span><span class="co">##   LS2009DHS          3740   173     103  3608</span></span>
+<span><span class="co">##   LS2014DHS          3276   142       0  3203</span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v455</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##            v455
-## SurveyId    measured not present refused other no measurement found in hh
-##   AM2000DHS     6137           5     264    24                          0
-##   AM2005DHS     6134           8     294     1                          0
-##   AM2016DHS     5807          11     295     0                          0
-##   KH2000DHS     3666           0      68     0                          0
-##   KH2005DHS     8182           2     185     5                          0
-##   KH2010DHS     9225           9     106     0                          0
-##   KH2014DHS    11390           8      13     2                          0
-##   LS2004DHS     3061          15     377    56                          0
-##   LS2009DHS     3896           1      78     5                          0
-##   LS2014DHS     3349           2      35     8                          0
-##            v455
-## SurveyId    missing  &lt;NA&gt;
-##   AM2000DHS       0     0
-##   AM2005DHS     129     0
-##   AM2016DHS       3     0
-##   KH2000DHS       3 11614
-##   KH2005DHS      24  8425
-##   KH2010DHS      41  9373
-##   KH2014DHS     133  6032
-##   LS2004DHS      29  3557
-##   LS2009DHS      36  3608
-##   LS2014DHS      24  3203</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v455</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            v455</span></span>
+<span><span class="co">## SurveyId    measured not present refused other no measurement found in hh</span></span>
+<span><span class="co">##   AM2000DHS     6137           5     264    24                          0</span></span>
+<span><span class="co">##   AM2005DHS     6134           8     294     1                          0</span></span>
+<span><span class="co">##   AM2016DHS     5807          11     295     0                          0</span></span>
+<span><span class="co">##   KH2000DHS     3666           0      68     0                          0</span></span>
+<span><span class="co">##   KH2005DHS     8182           2     185     5                          0</span></span>
+<span><span class="co">##   KH2010DHS     9225           9     106     0                          0</span></span>
+<span><span class="co">##   KH2014DHS    11390           8      13     2                          0</span></span>
+<span><span class="co">##   LS2004DHS     3061          15     377    56                          0</span></span>
+<span><span class="co">##   LS2009DHS     3896           1      78     5                          0</span></span>
+<span><span class="co">##   LS2014DHS     3349           2      35     8                          0</span></span>
+<span><span class="co">##            v455</span></span>
+<span><span class="co">## SurveyId    missing  &lt;NA&gt;</span></span>
+<span><span class="co">##   AM2000DHS       0     0</span></span>
+<span><span class="co">##   AM2005DHS     129     0</span></span>
+<span><span class="co">##   AM2016DHS       3     0</span></span>
+<span><span class="co">##   KH2000DHS       3 11614</span></span>
+<span><span class="co">##   KH2005DHS      24  8425</span></span>
+<span><span class="co">##   KH2010DHS      41  9373</span></span>
+<span><span class="co">##   KH2014DHS     133  6032</span></span>
+<span><span class="co">##   LS2004DHS      29  3557</span></span>
+<span><span class="co">##   LS2009DHS      36  3608</span></span>
+<span><span class="co">##   LS2014DHS      24  3203</span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">v042</span>, <span class="va">v454</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##               v454
-## v042           no/don't know   yes missing  &lt;NA&gt;
-##   not selected             0     0       0 45778
-##   selected             58796  2987     818   579</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">v042</span>, <span class="va">v454</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##               v454</span></span>
+<span><span class="co">## v042           no/don't know   yes missing  &lt;NA&gt;</span></span>
+<span><span class="co">##   not selected             0     0       0 45778</span></span>
+<span><span class="co">##   selected             58796  2987     818   579</span></span></code></pre>
 </div>
-<div id="calculate-anemia-prevalence" class="section level2">
-<h2 class="hasAnchor">
-<a href="#calculate-anemia-prevalence" class="anchor" aria-hidden="true"></a>Calculate anemia prevalence</h2>
+<div class="section level3">
+<h3 id="calculate-anemia-prevalence">Calculate anemia prevalence<a class="anchor" aria-label="anchor" href="#calculate-anemia-prevalence"></a>
+</h3>
 <p>Create indicator variable for ‘any anemia’. The threshold depends on pregnancy status.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">v456</span><span class="op">[</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span> <span class="op">==</span> <span class="fl">999</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
-<span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">v455</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">v456</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>##                             
-## v455                         FALSE  TRUE
-##   measured                   60847     0
-##   not present                    0    61
-##   refused                        0  1715
-##   other                          0   101
-##   no measurement found in hh     0     0
-##   missing                        0   422</code></pre>
+<code class="sourceCode R"><span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span><span class="op">[</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span> <span class="op">==</span> <span class="fl">999</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">v455</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">v456</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##                             </span></span>
+<span><span class="co">## v455                         FALSE  TRUE</span></span>
+<span><span class="co">##   measured                   60847     0</span></span>
+<span><span class="co">##   not present                    0    61</span></span>
+<span><span class="co">##   refused                        0  1715</span></span>
+<span><span class="co">##   other                          0   101</span></span>
+<span><span class="co">##   no measurement found in hh     0     0</span></span>
+<span><span class="co">##   missing                        0   422</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">anemia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span>  <span class="op">&lt;</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v454</span> <span class="op">==</span> <span class="st">"yes"</span>, <span class="fl">110</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span>
-<span class="va">dat</span><span class="op">$</span><span class="va">anemia_denom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">anemia</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span><span class="op">$</span><span class="va">anemia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span>  <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">v454</span> <span class="op">==</span> <span class="st">"yes"</span>, <span class="fl">110</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat</span><span class="op">$</span><span class="va">anemia_denom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">anemia</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Specify survey design using the <code>survey</code> package.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">$</span><span class="va">v005</span><span class="op">/</span><span class="fl">1e6</span>
-<span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html" class="external-link">svydesign</a></span><span class="op">(</span><span class="op">~</span><span class="va">v001</span><span class="op">+</span><span class="va">SurveyId</span>, data<span class="op">=</span><span class="va">dat</span>, weights<span class="op">=</span><span class="op">~</span><span class="va">w</span><span class="op">)</span>
-
-<span class="va">anemia_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html" class="external-link">svyby</a></span><span class="op">(</span><span class="op">~</span><span class="va">anemia</span>, <span class="op">~</span><span class="va">SurveyId</span>, <span class="va">des</span>, <span class="va">svyciprop</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, vartype<span class="op">=</span><span class="st">"ci"</span><span class="op">)</span>
-<span class="va">anemia_denom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html" class="external-link">svyby</a></span><span class="op">(</span><span class="op">~</span><span class="va">anemia_denom</span>, <span class="op">~</span><span class="va">SurveyId</span>, <span class="va">des</span>, <span class="va">svytotal</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">anemia_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">anemia_prev</span>, <span class="va">anemia_denom</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SurveyId"</span>, <span class="st">"anemia_denom"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="va">statcomp</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">DenominatorUnweighted</span>, <span class="va">DenominatorWeighted</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="va">anemia_prev</span>, on<span class="op">=</span><span class="st">"SurveyId"</span><span class="op">]</span>
-
-<span class="va">res</span><span class="op">$</span><span class="va">anemia</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">anemia</span>
-<span class="va">res</span><span class="op">$</span><span class="va">ci_l</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_l</span>
-<span class="va">res</span><span class="op">$</span><span class="va">ci_u</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_u</span>
-<span class="va">res</span><span class="op">$</span><span class="va">anemia_denom0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">anemia_denom</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span><span class="op">$</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">$</span><span class="va">v005</span><span class="op">/</span><span class="fl">1e6</span></span>
+<span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html" class="external-link">svydesign</a></span><span class="op">(</span><span class="op">~</span><span class="va">v001</span><span class="op">+</span><span class="va">SurveyId</span>, data<span class="op">=</span><span class="va">dat</span>, weights<span class="op">=</span><span class="op">~</span><span class="va">w</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">anemia_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html" class="external-link">svyby</a></span><span class="op">(</span><span class="op">~</span><span class="va">anemia</span>, <span class="op">~</span><span class="va">SurveyId</span>, <span class="va">des</span>, <span class="va">svyciprop</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span>, vartype<span class="op">=</span><span class="st">"ci"</span><span class="op">)</span></span>
+<span><span class="va">anemia_denom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyby.html" class="external-link">svyby</a></span><span class="op">(</span><span class="op">~</span><span class="va">anemia_denom</span>, <span class="op">~</span><span class="va">SurveyId</span>, <span class="va">des</span>, <span class="va">svytotal</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">anemia_prev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">anemia_prev</span>, <span class="va">anemia_denom</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SurveyId"</span>, <span class="st">"anemia_denom"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">statcomp</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">DenominatorUnweighted</span>, <span class="va">DenominatorWeighted</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="va">anemia_prev</span>, on<span class="op">=</span><span class="st">"SurveyId"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">anemia</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">anemia</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">ci_l</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_l</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">ci_u</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_u</span></span>
+<span><span class="va">res</span><span class="op">$</span><span class="va">anemia_denom0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">anemia_denom</span><span class="op">)</span></span></code></pre></div>
 <p>The table below compares the prevalence of any anemia calculated from survey microdata with the estimates from DHS StatCompiler and the weighted denominators for each calculation. The estimates are identical for most cases. There are some small differences to be ironed out, which will require looking at the specific countries to check how their stratification was carried out. (We are hoping to bring this feature in once the DHS program has compiled how sample strata were constructed for all of their studies).</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">res</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">anemia</span>, <span class="va">ci_l</span>, <span class="va">ci_u</span>, <span class="va">DenominatorWeighted</span>, <span class="va">anemia_denom0</span><span class="op">)</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">res</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">anemia</span>, <span class="va">ci_l</span>, <span class="va">ci_u</span>, <span class="va">DenominatorWeighted</span>, <span class="va">anemia_denom0</span><span class="op">)</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">CountryName</th>
@@ -576,50 +578,50 @@
 </tbody>
 </table>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">SurveyYear</span>, y<span class="op">=</span><span class="va">anemia</span>, ymin<span class="op">=</span><span class="va">ci_l</span>, ymax<span class="op">=</span><span class="va">ci_u</span>,
-                col<span class="op">=</span><span class="va">CountryName</span>, fill<span class="op">=</span><span class="va">CountryName</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">0.4</span>, linetype<span class="op">=</span><span class="st">"blank"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">SurveyYear</span>, y<span class="op">=</span><span class="va">anemia</span>, ymin<span class="op">=</span><span class="va">ci_l</span>, ymax<span class="op">=</span><span class="va">ci_u</span>,</span>
+<span>                col<span class="op">=</span><span class="va">CountryName</span>, fill<span class="op">=</span><span class="va">CountryName</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span>alpha<span class="op">=</span><span class="fl">0.4</span>, linetype<span class="op">=</span><span class="st">"blank"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="regression-analysis-relationship-between-education-and-anemia" class="section level1">
-<h1 class="hasAnchor">
-<a href="#regression-analysis-relationship-between-education-and-anemia" class="anchor" aria-hidden="true"></a>Regression analysis: relationship between education and anemia</h1>
+<div class="section level2">
+<h2 id="regression-analysis-relationship-between-education-and-anemia">Regression analysis: relationship between education and anemia<a class="anchor" aria-label="anchor" href="#regression-analysis-relationship-between-education-and-anemia"></a>
+</h2>
 <p>A key use of the survey microdata are to conduct secondary analysis of pooled data from several surveys, such as regression analysis. Here we investigate the relationship between anemia prevalence and education level (<code>v106</code>) for women using logistic regression, adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/update.dev.pkg.html" class="external-link">update</a></span><span class="op">(</span><span class="va">des</span>, v106 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">v106</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyglm.html" class="external-link">svyglm</a></span><span class="op">(</span><span class="va">anemia</span> <span class="op">~</span> <span class="va">SurveyId</span> <span class="op">+</span> <span class="va">v025</span> <span class="op">+</span> <span class="va">v106</span>, <span class="va">des</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Warning in eval(family$initialize): non-integer #successes in a binomial
-## glm!</code></pre>
-<pre><code>## 
-## Call:
-## svyglm(formula = anemia ~ SurveyId + v025 + v106, des, family = "binomial")
-## 
-## Survey design:
-## update(des, v106 = relevel(v106, "primary"))
-## 
-## Coefficients:
-##                   Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)       -1.91019    0.06478 -29.489  &lt; 2e-16 ***
-## SurveyIdAM2005DHS  0.82908    0.08086  10.253  &lt; 2e-16 ***
-## SurveyIdAM2016DHS  0.21583    0.09571   2.255 0.024488 *  
-## SurveyIdKH2000DHS  2.14550    0.07503  28.596  &lt; 2e-16 ***
-## SurveyIdKH2005DHS  1.68112    0.07260  23.155  &lt; 2e-16 ***
-## SurveyIdKH2010DHS  1.61671    0.06961  23.224  &lt; 2e-16 ***
-## SurveyIdKH2014DHS  1.66621    0.06406  26.011  &lt; 2e-16 ***
-## SurveyIdLS2004DHS  1.13997    0.07960  14.322  &lt; 2e-16 ***
-## SurveyIdLS2009DHS  0.82962    0.07756  10.696  &lt; 2e-16 ***
-## SurveyIdLS2014DHS  0.93593    0.08164  11.464  &lt; 2e-16 ***
-## v025rural          0.11625    0.03220   3.610 0.000332 ***
-## v106no education   0.15431    0.03845   4.013 6.75e-05 ***
-## v106secondary     -0.11932    0.02787  -4.282 2.16e-05 ***
-## v106higher        -0.33508    0.04985  -6.722 4.19e-11 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 0.99451)
-## 
-## Number of Fisher Scoring iterations: 4</code></pre>
+<code class="sourceCode R"><span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">des</span>, v106 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">v106</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyglm.html" class="external-link">svyglm</a></span><span class="op">(</span><span class="va">anemia</span> <span class="op">~</span> <span class="va">SurveyId</span> <span class="op">+</span> <span class="va">v025</span> <span class="op">+</span> <span class="va">v106</span>, <span class="va">des</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in eval(family$initialize): non-integer #successes in a binomial</span></span>
+<span><span class="co">## glm!</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## svyglm(formula = anemia ~ SurveyId + v025 + v106, des, family = "binomial")</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Survey design:</span></span>
+<span><span class="co">## update(des, v106 = relevel(v106, "primary"))</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##                   Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)       -1.91019    0.06478 -29.489  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdAM2005DHS  0.82908    0.08086  10.253  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdAM2016DHS  0.21583    0.09571   2.255 0.024488 *  </span></span>
+<span><span class="co">## SurveyIdKH2000DHS  2.14550    0.07503  28.596  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdKH2005DHS  1.68112    0.07260  23.155  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdKH2010DHS  1.61671    0.06961  23.224  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdKH2014DHS  1.66621    0.06406  26.011  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdLS2004DHS  1.13997    0.07960  14.322  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdLS2009DHS  0.82962    0.07756  10.696  &lt; 2e-16 ***</span></span>
+<span><span class="co">## SurveyIdLS2014DHS  0.93593    0.08164  11.464  &lt; 2e-16 ***</span></span>
+<span><span class="co">## v025rural          0.11625    0.03220   3.610 0.000332 ***</span></span>
+<span><span class="co">## v106no education   0.15431    0.03845   4.013 6.75e-05 ***</span></span>
+<span><span class="co">## v106secondary     -0.11932    0.02787  -4.282 2.16e-05 ***</span></span>
+<span><span class="co">## v106higher        -0.33508    0.04985  -6.722 4.19e-11 ***</span></span>
+<span><span class="co">## ---</span></span>
+<span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## (Dispersion parameter for binomial family taken to be 0.99451)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Number of Fisher Scoring iterations: 4</span></span></code></pre>
 <p>The results suggest that anemia prevalence is lower among women with higher education.</p>
 </div>
 <div class="footnotes">
@@ -647,7 +649,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

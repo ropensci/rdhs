@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.5</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -52,7 +52,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -65,7 +65,8 @@
       <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../articles/client.html">How to use the client</a>
     </li>
     <li>
@@ -78,7 +79,8 @@
       <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../CONTRIBUTING.html">Contributing</a>
     </li>
     <li>
@@ -96,7 +98,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/rdhs" class="external-link">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -110,7 +112,7 @@
 
       
 
-      </header><script src="toolkit_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Toolkit</h1>
@@ -118,16 +120,16 @@
             
             <h4 data-toc-skip class="date">2018-07-19</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/master/vignettes/toolkit.Rmd" class="external-link"><code>vignettes/toolkit.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/HEAD/vignettes/toolkit.Rmd" class="external-link"><code>vignettes/toolkit.Rmd</code></a></small>
       <div class="hidden name"><code>toolkit.Rmd</code></div>
 
     </div>
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor" aria-hidden="true"></a>Overview</h2>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>The following is no longer needed as the CRAN version of haven is working. This vignette is still here though in case we need a non-CRAN pacakge in the future.</p>
 <hr>
 <p>In order to install <code>rdhs</code> you will require a working development environment. The following guide details how to do this across different operating systems. Please note this is only temporary while we wait for a development version of haven to make it to CRAN. Apologies for the inconvenience</p>
@@ -136,19 +138,19 @@
 <strong>Windows</strong>: Install <strong><a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a></strong>. For help on how to install <strong>Rtools</strong> please see the following <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">guide</a>, paying particular attention to the section about adding Rtools to your system <code>PATH</code>.</li>
 </ol>
 <p>In order to find out which version of <strong>Rtools</strong> you will need to check which version of R you are running. This can be be found out using the <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> function:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">sessionInfo</span>()</span>
-<span id="cb1-2"><a href="#cb1-2"></a>R version <span class="dv">3</span>.<span class="fl">4.4</span> (<span class="dv">2016-06-21</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>Platform<span class="op">:</span><span class="st"> </span>x86_<span class="dv">64</span><span class="op">-</span>w64<span class="op">-</span>mingw32<span class="op">/</span><span class="kw">x64</span> (<span class="dv">64</span><span class="op">-</span>bit)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>Running under<span class="op">:</span><span class="st"> </span>Windows <span class="dv">7</span> <span class="kw">x64</span> (build <span class="dv">7601</span>) Service Pack <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>R version <span class="dv">3</span>.<span class="fl">4.4</span> (<span class="dv">2016-06-21</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Platform<span class="sc">:</span> x86_64<span class="sc">-</span>w64<span class="sc">-</span>mingw32<span class="sc">/</span><span class="fu">x64</span> (<span class="dv">64</span><span class="sc">-</span>bit)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Running under<span class="sc">:</span> Windows <span class="dv">7</span> <span class="fu">x64</span> (build <span class="dv">7601</span>) Service Pack <span class="dv">1</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li><p><strong>Mac</strong>: Install Xcode from the Mac App Store.</p></li>
 <li><p><strong>Linux</strong>: Install a compiler and various development libraries (details vary across different flavors of Linux).</p></li>
 </ol>
 <p>Once a working development environment is ready then the following should work for you:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="co"># devtools::install_github("ropensci/rdhs")</span>
-<span class="co"># library(rdhs)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="co"># devtools::install_github("ropensci/rdhs")</span></span>
+<span><span class="co"># library(rdhs)</span></span></code></pre></div>
 </div>
   </div>
 
@@ -169,7 +171,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

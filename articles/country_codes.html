@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.5</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
@@ -52,7 +52,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -65,7 +65,8 @@
       <a href="../articles/anemia.html">An example use case looking at trends in anemia</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../articles/client.html">How to use the client</a>
     </li>
     <li>
@@ -78,7 +79,8 @@
       <a href="../articles/country_codes.html">Country Codes</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="../CONTRIBUTING.html">Contributing</a>
     </li>
     <li>
@@ -96,7 +98,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/rdhs" class="external-link">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -110,7 +112,7 @@
 
       
 
-      </header><script src="country_codes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Country Names and Codes</h1>
@@ -118,117 +120,117 @@
             
             <h4 data-toc-skip class="date">2018-11-12</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/master/vignettes/country_codes.Rmd" class="external-link"><code>vignettes/country_codes.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/rdhs/blob/HEAD/vignettes/country_codes.Rmd" class="external-link"><code>vignettes/country_codes.Rmd</code></a></small>
       <div class="hidden name"><code>country_codes.Rmd</code></div>
 
     </div>
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor" aria-hidden="true"></a>Overview</h2>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>The following shows how to return a table of the country names and 2 letter codes.</p>
 <p>We can get this information by querying the API using <code>dhs_countries</code>, and specifying the <code>returnFields</code> argument to just return the country name and DHS country code. This is a useful reference table when you want to pass in country IDs to a number of the API functions, e.g. <code>dhs_data(countryIds = "BJ")</code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span>
-
-<span class="co">## what are the countryIds</span>
-<span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_countries.html">dhs_countries</a></span><span class="op">(</span>returnFields<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">ids</span></code></pre></div>
-<pre><code>##     DHS_CountryCode                      CountryName
-##  1:              AF                      Afghanistan
-##  2:              AL                          Albania
-##  3:              AO                           Angola
-##  4:              AM                          Armenia
-##  5:              AZ                       Azerbaijan
-##  6:              BD                       Bangladesh
-##  7:              BJ                            Benin
-##  8:              BO                          Bolivia
-##  9:              BT                         Botswana
-## 10:              BR                           Brazil
-## 11:              BF                     Burkina Faso
-## 12:              BU                          Burundi
-## 13:              KH                         Cambodia
-## 14:              CM                         Cameroon
-## 15:              CV                       Cape Verde
-## 16:              CF         Central African Republic
-## 17:              TD                             Chad
-## 18:              CO                         Colombia
-## 19:              KM                          Comoros
-## 20:              CG                            Congo
-## 21:              CD        Congo Democratic Republic
-## 22:              CI                    Cote d'Ivoire
-## 23:              DR               Dominican Republic
-## 24:              EC                          Ecuador
-## 25:              EG                            Egypt
-## 26:              ES                      El Salvador
-## 27:              EK                Equatorial Guinea
-## 28:              ER                          Eritrea
-## 29:              ET                         Ethiopia
-## 30:              GA                            Gabon
-## 31:              GM                           Gambia
-## 32:              GH                            Ghana
-## 33:              GU                        Guatemala
-## 34:              GN                           Guinea
-## 35:              GY                           Guyana
-## 36:              HT                            Haiti
-## 37:              HN                         Honduras
-## 38:              IA                            India
-## 39:              ID                        Indonesia
-## 40:              JO                           Jordan
-## 41:              KK                       Kazakhstan
-## 42:              KE                            Kenya
-## 43:              KY                  Kyrgyz Republic
-## 44:              LA Lao People's Democratic Republic
-## 45:              LS                          Lesotho
-## 46:              LB                          Liberia
-## 47:              MD                       Madagascar
-## 48:              MW                           Malawi
-## 49:              MV                         Maldives
-## 50:              ML                             Mali
-## 51:              MR                       Mauritania
-## 52:              MX                           Mexico
-## 53:              MB                          Moldova
-## 54:              MA                          Morocco
-## 55:              MZ                       Mozambique
-## 56:              MM                          Myanmar
-## 57:              NM                          Namibia
-## 58:              NP                            Nepal
-## 59:              NC                        Nicaragua
-## 60:              NI                            Niger
-## 61:              NG                          Nigeria
-## 62:              PK                         Pakistan
-## 63:              PG                 Papua New Guinea
-## 64:              PY                         Paraguay
-## 65:              PE                             Peru
-## 66:              PH                      Philippines
-## 67:              RW                           Rwanda
-## 68:              WS                            Samoa
-## 69:              ST            Sao Tome and Principe
-## 70:              SN                          Senegal
-## 71:              SL                     Sierra Leone
-## 72:              ZA                     South Africa
-## 73:              LK                        Sri Lanka
-## 74:              SD                            Sudan
-## 75:              SZ                        Swaziland
-## 76:              TJ                       Tajikistan
-## 77:              TZ                         Tanzania
-## 78:              TH                         Thailand
-## 79:              TL                      Timor-Leste
-## 80:              TG                             Togo
-## 81:              TT              Trinidad and Tobago
-## 82:              TN                          Tunisia
-## 83:              TR                           Turkey
-## 84:              TM                     Turkmenistan
-## 85:              UG                           Uganda
-## 86:              UA                          Ukraine
-## 87:              UZ                       Uzbekistan
-## 88:              VN                          Vietnam
-## 89:              YE                            Yemen
-## 90:              ZM                           Zambia
-## 91:              ZW                         Zimbabwe
-##     DHS_CountryCode                      CountryName</code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## what are the countryIds</span></span>
+<span><span class="va">ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_countries.html">dhs_countries</a></span><span class="op">(</span>returnFields<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CountryName"</span>, <span class="st">"DHS_CountryCode"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ids</span></span></code></pre></div>
+<pre><code><span><span class="co">##     DHS_CountryCode                      CountryName</span></span>
+<span><span class="co">##  1:              AF                      Afghanistan</span></span>
+<span><span class="co">##  2:              AL                          Albania</span></span>
+<span><span class="co">##  3:              AO                           Angola</span></span>
+<span><span class="co">##  4:              AM                          Armenia</span></span>
+<span><span class="co">##  5:              AZ                       Azerbaijan</span></span>
+<span><span class="co">##  6:              BD                       Bangladesh</span></span>
+<span><span class="co">##  7:              BJ                            Benin</span></span>
+<span><span class="co">##  8:              BO                          Bolivia</span></span>
+<span><span class="co">##  9:              BT                         Botswana</span></span>
+<span><span class="co">## 10:              BR                           Brazil</span></span>
+<span><span class="co">## 11:              BF                     Burkina Faso</span></span>
+<span><span class="co">## 12:              BU                          Burundi</span></span>
+<span><span class="co">## 13:              KH                         Cambodia</span></span>
+<span><span class="co">## 14:              CM                         Cameroon</span></span>
+<span><span class="co">## 15:              CV                       Cape Verde</span></span>
+<span><span class="co">## 16:              CF         Central African Republic</span></span>
+<span><span class="co">## 17:              TD                             Chad</span></span>
+<span><span class="co">## 18:              CO                         Colombia</span></span>
+<span><span class="co">## 19:              KM                          Comoros</span></span>
+<span><span class="co">## 20:              CG                            Congo</span></span>
+<span><span class="co">## 21:              CD        Congo Democratic Republic</span></span>
+<span><span class="co">## 22:              CI                    Cote d'Ivoire</span></span>
+<span><span class="co">## 23:              DR               Dominican Republic</span></span>
+<span><span class="co">## 24:              EC                          Ecuador</span></span>
+<span><span class="co">## 25:              EG                            Egypt</span></span>
+<span><span class="co">## 26:              ES                      El Salvador</span></span>
+<span><span class="co">## 27:              EK                Equatorial Guinea</span></span>
+<span><span class="co">## 28:              ER                          Eritrea</span></span>
+<span><span class="co">## 29:              ET                         Ethiopia</span></span>
+<span><span class="co">## 30:              GA                            Gabon</span></span>
+<span><span class="co">## 31:              GM                           Gambia</span></span>
+<span><span class="co">## 32:              GH                            Ghana</span></span>
+<span><span class="co">## 33:              GU                        Guatemala</span></span>
+<span><span class="co">## 34:              GN                           Guinea</span></span>
+<span><span class="co">## 35:              GY                           Guyana</span></span>
+<span><span class="co">## 36:              HT                            Haiti</span></span>
+<span><span class="co">## 37:              HN                         Honduras</span></span>
+<span><span class="co">## 38:              IA                            India</span></span>
+<span><span class="co">## 39:              ID                        Indonesia</span></span>
+<span><span class="co">## 40:              JO                           Jordan</span></span>
+<span><span class="co">## 41:              KK                       Kazakhstan</span></span>
+<span><span class="co">## 42:              KE                            Kenya</span></span>
+<span><span class="co">## 43:              KY                  Kyrgyz Republic</span></span>
+<span><span class="co">## 44:              LA Lao People's Democratic Republic</span></span>
+<span><span class="co">## 45:              LS                          Lesotho</span></span>
+<span><span class="co">## 46:              LB                          Liberia</span></span>
+<span><span class="co">## 47:              MD                       Madagascar</span></span>
+<span><span class="co">## 48:              MW                           Malawi</span></span>
+<span><span class="co">## 49:              MV                         Maldives</span></span>
+<span><span class="co">## 50:              ML                             Mali</span></span>
+<span><span class="co">## 51:              MR                       Mauritania</span></span>
+<span><span class="co">## 52:              MX                           Mexico</span></span>
+<span><span class="co">## 53:              MB                          Moldova</span></span>
+<span><span class="co">## 54:              MA                          Morocco</span></span>
+<span><span class="co">## 55:              MZ                       Mozambique</span></span>
+<span><span class="co">## 56:              MM                          Myanmar</span></span>
+<span><span class="co">## 57:              NM                          Namibia</span></span>
+<span><span class="co">## 58:              NP                            Nepal</span></span>
+<span><span class="co">## 59:              NC                        Nicaragua</span></span>
+<span><span class="co">## 60:              NI                            Niger</span></span>
+<span><span class="co">## 61:              NG                          Nigeria</span></span>
+<span><span class="co">## 62:              PK                         Pakistan</span></span>
+<span><span class="co">## 63:              PG                 Papua New Guinea</span></span>
+<span><span class="co">## 64:              PY                         Paraguay</span></span>
+<span><span class="co">## 65:              PE                             Peru</span></span>
+<span><span class="co">## 66:              PH                      Philippines</span></span>
+<span><span class="co">## 67:              RW                           Rwanda</span></span>
+<span><span class="co">## 68:              WS                            Samoa</span></span>
+<span><span class="co">## 69:              ST            Sao Tome and Principe</span></span>
+<span><span class="co">## 70:              SN                          Senegal</span></span>
+<span><span class="co">## 71:              SL                     Sierra Leone</span></span>
+<span><span class="co">## 72:              ZA                     South Africa</span></span>
+<span><span class="co">## 73:              LK                        Sri Lanka</span></span>
+<span><span class="co">## 74:              SD                            Sudan</span></span>
+<span><span class="co">## 75:              SZ                        Swaziland</span></span>
+<span><span class="co">## 76:              TJ                       Tajikistan</span></span>
+<span><span class="co">## 77:              TZ                         Tanzania</span></span>
+<span><span class="co">## 78:              TH                         Thailand</span></span>
+<span><span class="co">## 79:              TL                      Timor-Leste</span></span>
+<span><span class="co">## 80:              TG                             Togo</span></span>
+<span><span class="co">## 81:              TT              Trinidad and Tobago</span></span>
+<span><span class="co">## 82:              TN                          Tunisia</span></span>
+<span><span class="co">## 83:              TR                           Turkey</span></span>
+<span><span class="co">## 84:              TM                     Turkmenistan</span></span>
+<span><span class="co">## 85:              UG                           Uganda</span></span>
+<span><span class="co">## 86:              UA                          Ukraine</span></span>
+<span><span class="co">## 87:              UZ                       Uzbekistan</span></span>
+<span><span class="co">## 88:              VN                          Vietnam</span></span>
+<span><span class="co">## 89:              YE                            Yemen</span></span>
+<span><span class="co">## 90:              ZM                           Zambia</span></span>
+<span><span class="co">## 91:              ZW                         Zimbabwe</span></span>
+<span><span class="co">##     DHS_CountryCode                      CountryName</span></span></code></pre>
 </div>
   </div>
 
@@ -249,7 +251,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
