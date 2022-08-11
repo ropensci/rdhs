@@ -39,11 +39,6 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
-
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
@@ -54,12 +49,12 @@ jobs:
           sudo apt-get install libnode-dev
           sudo apt-get install libsodium-dev
 
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("sodium")
-        shell: Rscript {0}
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            any::sodium
+          needs: check
 
       - name: Decrypt config and set ready for travis checks
         run: |

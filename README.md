@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rdhs <img src="tools/logo.png" align="right" style="padding-left:10px;background-color:white;" />
+# rdhs <img src="https://raw.githubusercontent.com/ropensci/rdhs/master/tools/logo.png" align="right" style="padding-left:10px;background-color:white;" />
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
