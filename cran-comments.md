@@ -5,9 +5,9 @@
 * ubuntu-20.04 (devel) on Github Actions
 
 ## R CMD check results
-## rdhs 0.7.2
+## rdhs 0.7.5
 
-* Duration: 11m 27.9s
+* Duration: 11m 29.9s
 * 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 * R CMD check succeeded
 

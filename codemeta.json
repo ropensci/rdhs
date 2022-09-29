@@ -1,22 +1,25 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "rdhs",
-  "description": "Provides a client for (1) querying the DHS API for survey indicators\n  and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys\n  and datasets for analysis, (3) downloading survey datasets from the DHS website,\n  (4) loading datasets and associate metadata into R, and (5) extracting variables\n  and combining datasets for pooled analysis.",
+  "description": "Provides a client for (1) querying the DHS API for survey indicators and metadata (<https://api.dhsprogram.com/#/index.html>), (2) identifying surveys and datasets for analysis, (3) downloading survey datasets from the DHS website, (4) loading datasets and associate metadata into R, and (5) extracting variables and combining datasets for pooled analysis.",
   "name": "rdhs: API Client and Dataset Management for the Demographic and Health Survey (DHS) Data",
   "codeRepository": "https://github.com/ropensci/rdhs",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.2",
+  "version": "0.7.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.4 (2021-02-15)",
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -139,14 +142,14 @@
       "sameAs": "https://CRAN.R-project.org/package=sf"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.3.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "brio",
       "name": "brio",
@@ -158,7 +161,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=brio"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "R6",
       "name": "R6",
@@ -170,7 +173,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=R6"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "httr",
       "name": "httr",
@@ -182,7 +185,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -194,7 +197,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "foreign",
       "name": "foreign",
@@ -206,7 +209,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=foreign"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -218,7 +221,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "rappdirs",
       "name": "rappdirs",
@@ -230,7 +233,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rappdirs"
     },
-    {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "digest",
       "name": "digest",
@@ -242,7 +245,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=digest"
     },
-    {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "storr",
       "name": "storr",
@@ -254,7 +257,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=storr"
     },
-    {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "xml2",
       "name": "xml2",
@@ -266,7 +269,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=xml2"
     },
-    {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "qdapRegex",
       "name": "qdapRegex",
@@ -278,7 +281,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=qdapRegex"
     },
-    {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "rgdal",
       "name": "rgdal",
@@ -290,7 +293,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rgdal"
     },
-    {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "getPass",
       "name": "getPass",
@@ -302,7 +305,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=getPass"
     },
-    {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "haven",
       "name": "haven",
@@ -314,7 +317,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=haven"
     },
-    {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "iotools",
       "name": "iotools",
@@ -325,23 +328,10 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=iotools"
-    }
-  ],
-  "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
-  "fileSize": "20201.524KB",
-  "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
+    },
+    "SystemRequirements": null
   },
-  "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
+  "fileSize": "4138.352KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -380,20 +370,15 @@
       }
     }
   ],
-  "keywords": [
-    "dataset",
-    "survey-data",
-    "dhs",
-    "extract",
-    "dhs-api",
-    "peer-reviewed",
-    "r",
-    "r-package",
-    "rstats"
-  ],
+  "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
+  "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
+  "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
+  "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
+  "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
     "@type": "Review",
     "url": "https://github.com/ropensci/software-review/issues/238",
     "provider": "https://ropensci.org"
-  }
+  },
+  "keywords": ["dataset", "survey-data", "dhs", "extract", "dhs-api", "peer-reviewed", "r", "r-package", "rstats"]
 }
