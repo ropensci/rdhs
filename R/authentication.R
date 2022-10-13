@@ -290,15 +290,9 @@ download_datasets <- function(config,
     # if it's not the right size and first time we've tried then log in
     if (file.size(tf) != desired_dataset$FileSize[1] & attempts == 3) {
 
-      # login
-      values <- authenticate_dhs(config)
-      project_number <- values$proj_id
+      # do updated authentication procedure
+      auth_downloads(config)
 
-      # access the download-datasets page
-      z <- httr::POST(
-        "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm",
-        body = list(proj_id = project_number)
-      )
     } else if (file.size(tf) == desired_dataset$FileSize[1]) {
       file_size_check <- FALSE
       attempts <- 0
@@ -530,3 +524,31 @@ authenticate_dhs <- function(config) {
 
   return(res)
 }
+
+#' @noRd
+auth_downloads <- function(config){
+
+  # authenticate
+  values <- authenticate_dhs(config)
+
+  # grab project number here
+  project_number <- values$proj_id
+
+  # Create post request for the download manager
+  values <- list(
+    Proj_ID = project_number,
+    action = "getdatasets"
+  )
+
+  # re-access the download-datasets page
+  z <- httr::POST(
+    "https://dhsprogram.com/data/dataset_admin/download-datasets.cfm",
+    body = list(proj_id = project_number)
+  )
+
+  # Head to download page
+  z <- httr::POST("https://dhsprogram.com/data/dataset_admin/index.cfm",
+                  body = values)
+
+}
+

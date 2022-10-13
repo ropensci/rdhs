@@ -44,3 +44,13 @@ test_that("available_surveys works", {
 
   unlink(cli$get_root())
 })
+
+test_that("auth_downloads works", {
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+
+  config <- read_rdhs_config_file("rdhs.json")
+  z <- auth_downloads(config)
+
+  expect_true(z$request$fields$action == "getdatasets")
+})
