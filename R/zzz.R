@@ -48,7 +48,7 @@ rdhs_setup <- function() {
   or for automated tasks, please register for your own API key by
   emailing api@dhsprogram.com. \n
   More info at {.url https://api.dhsprogram.com/#/introdevelop.html}"
-  cli::cli_text(str)
+  packageStartupMessage(cli::cli_text(str))
 }
 
 # ask for user permission to write to Renviron
