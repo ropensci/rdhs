@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/ropensci/rdhs",
   "issueTracker": "https://github.com/ropensci/rdhs/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -128,18 +128,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=microbenchmark"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "sf",
-      "name": "sf",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=sf"
     }
   ],
   "softwareRequirements": {
@@ -283,18 +271,6 @@
     },
     "13": {
       "@type": "SoftwareApplication",
-      "identifier": "rgdal",
-      "name": "rgdal",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rgdal"
-    },
-    "14": {
-      "@type": "SoftwareApplication",
       "identifier": "getPass",
       "name": "getPass",
       "provider": {
@@ -305,7 +281,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=getPass"
     },
-    "15": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "haven",
       "name": "haven",
@@ -317,7 +293,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=haven"
     },
-    "16": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "iotools",
       "name": "iotools",
@@ -329,9 +305,33 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=iotools"
     },
+    "16": {
+      "@type": "SoftwareApplication",
+      "identifier": "sf",
+      "name": "sf",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
+    },
+    "17": {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "4138.352KB",
+  "fileSize": "4138.871KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -372,7 +372,7 @@
   ],
   "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/rdhs/blob/master/README.md",
+  "readme": "https://github.com/ropensci/rdhs/blob/main/README.md",
   "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
