@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
@@ -135,8 +135,10 @@ looked up from the API.</p></dd>
 
 <dt>method</dt>
 <dd><p>Character for how the downloaded shape file is read in.
-Default = "sf", which uses <code><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">sf::st_read</a></code>. Currenlty, you can also
-specify "rgdal", which reads the file using rgdal::readOGR.
+Default = "sf", which uses <code><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">sf::st_read</a></code>. Currently, this is the only
+option available(`rgdal` used to be available) but for development reasons
+this will be left as a parameter option for possible future alternatives
+to read in spatial files.
 To just return the file paths for the files use method = "zip".</p></dd>
 
 
@@ -159,7 +161,7 @@ from their survey. Default 5 seconds.</p></dd>
     <h2>Value</h2>
     
 
-<p>Returns either the spatial file as a "SpatialPolygonsDataFrame" or
+<p>Returns either the spatial file as a `sf` (see [sf::sf]) object, or
   a vector of the file paths of where the boundary was downloaded to.</p>
     </div>
     <div id="details">
@@ -177,8 +179,6 @@ from their survey. Default 5 seconds.</p></dd>
 <span class="r-in"><span> <span class="co"># using the surveyId and no countryID</span></span></span>
 <span class="r-in"><span> <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">download_boundaries</span><span class="op">(</span>surveyId <span class="op">=</span> <span class="st">"AF2010OTH"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="co"># using rgdal</span></span></span>
-<span class="r-in"><span> <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">download_boundaries</span><span class="op">(</span>surveyNum <span class="op">=</span> <span class="fl">471</span>, countryId <span class="op">=</span> <span class="st">"AF"</span>, method <span class="op">=</span> <span class="st">"rgdal"</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
 </code></pre></div>
     </div>
