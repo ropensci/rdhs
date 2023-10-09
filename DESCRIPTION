@@ -19,7 +19,7 @@ Authors@R:
       person(given = "Duncan",
              family = "Gillespie",
              role = "rev"))
-Maintainer: OJ Watson <oj.watson@hotmail.co.uk>
+Maintainer: OJ Watson <o.watson15@imperial.ac.uk>
 URL: https://docs.ropensci.org/rdhs/
 BugReports: https://github.com/ropensci/rdhs/issues
 Description: Provides a client for (1) querying the DHS API for survey indicators
@@ -43,8 +43,9 @@ Imports:
     qdapRegex,
     getPass,
     haven,
-    iotools, 
-    sf
+    iotools,
+    sf,
+    cli
 Suggests:
     testthat,
     knitr,
