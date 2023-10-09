@@ -130,7 +130,12 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><code>rdhs</code> can be used to download shape files associated with the DHS surveys. For example, we can link API responses to their shape files and plot the subnational estimates using the spatial pacakge <code>sp</code>. To do this, we use the new function <code>download_boundaries</code> from <code>rdhs</code> to download shape files.</p>
+<p><code>rdhs</code> can be used to download shape files associated with
+the DHS surveys. For example, we can link API responses to their shape
+files and plot the subnational estimates using the spatial pacakge
+<code>sp</code>. To do this, we use the new function
+<code>download_boundaries</code> from <code>rdhs</code> to download
+shape files.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load our package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
@@ -155,7 +160,8 @@
 <span><span class="co"># Use sp to plot</span></span>
 <span><span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span>, <span class="st">"Value"</span>, main <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">Indicator</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png"><!-- --></p>
-<p>Or we can use <code>sf</code> for our plotting, which offers more user-friendly plotting options.</p>
+<p>Or we can use <code>sf</code> for our plotting, which offers more
+user-friendly plotting options.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># make request</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_data.html">dhs_data</a></span><span class="op">(</span>countryIds <span class="op">=</span> <span class="st">"SN"</span>,</span>
@@ -203,7 +209,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -115,8 +115,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Anemia prevalence: an <code>rdhs</code> example</h1>
-                        <h4 data-toc-skip class="author">OJ Watson, Jeff Eaton</h4>
+      <h1 data-toc-skip>Anemia prevalence: an <code>rdhs</code>
+example</h1>
+                        <h4 data-toc-skip class="author">OJ Watson, Jeff
+Eaton</h4>
             
             <h4 data-toc-skip class="date">2018-09-24</h4>
       
@@ -127,11 +129,16 @@
 
     
     
-<p>Anemia is a common cause of fatigue, and women of childbearing age are at particularly high risk for anemia. The package <code>rdhs</code> can be used to compare estimates of the prevalence of any anemia among women from Demographic and Health Surveys (DHS) conducted in Armenia, Cambodia, and Lesotho.</p>
+<p>Anemia is a common cause of fatigue, and women of childbearing age
+are at particularly high risk for anemia. The package <code>rdhs</code>
+can be used to compare estimates of the prevalence of any anemia among
+women from Demographic and Health Surveys (DHS) conducted in Armenia,
+Cambodia, and Lesotho.</p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
-<p>Load the <code>rdhs</code> package and other useful packages for analysing data.</p>
+<p>Load the <code>rdhs</code> package and other useful packages for
+analysing data.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## devtools::install_github("ropensci/rdhs")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
@@ -143,8 +150,16 @@
 <div class="section level2">
 <h2 id="using-calculated-indicators-from-statcompiler">Using calculated indicators from STATcompiler<a class="anchor" aria-label="anchor" href="#using-calculated-indicators-from-statcompiler"></a>
 </h2>
-<p>Anemia prevalence among women is reported as a core indicator through the DHS STATcompiler (<a href="https://www.statcompiler.com/" class="external-link uri">https://www.statcompiler.com/</a>). These indicators can be accessed directly from R via the DHS API with the function <code><a href="../reference/dhs_data.html">dhs_data()</a></code>.</p>
-<p>Query the API for a list of all StatCompiler indicators, and then search the indicators for those that have <code>"anemia"</code> in the indicator name. API calls return <code>data.frame</code> objects, so if you prefer to use <code>data.table</code> objects then convert afterwards, or we can set this up within our config using <code>set_rdhs_config</code>.</p>
+<p>Anemia prevalence among women is reported as a core indicator through
+the DHS STATcompiler (<a href="https://www.statcompiler.com/" class="external-link uri">https://www.statcompiler.com/</a>). These indicators can be
+accessed directly from R via the DHS API with the function
+<code><a href="../reference/dhs_data.html">dhs_data()</a></code>.</p>
+<p>Query the API for a list of all StatCompiler indicators, and then
+search the indicators for those that have <code>"anemia"</code> in the
+indicator name. API calls return <code>data.frame</code> objects, so if
+you prefer to use <code>data.table</code> objects then convert
+afterwards, or we can set this up within our config using
+<code>set_rdhs_config</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rdhs/">rdhs</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>data_frame <span class="op">=</span> <span class="st">"data.table::as.data.table"</span><span class="op">)</span></span>
@@ -158,13 +173,19 @@
 <span><span class="co">## 4: AN_ANEM_W_MOD                 Moderate   Women with moderate anemia</span></span>
 <span><span class="co">## 5: AN_ANEM_W_SEV                   Severe     Women with severe anemia</span></span>
 <span><span class="co">## 6: AN_ANEM_M_ANY                Any anemia         Men with any anemia</span></span></code></pre>
-<p>The indicator ID <code>"AN_ANEM_W_ANY"</code> reports the percentage of women with any anemia. The function <code><a href="../reference/dhs_data.html">dhs_data()</a></code> will query the indicator dataset for the value of this indicator for our three countries of interest. First, use <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> to query the list of DHS countries to identify the DHS country code for each country.</p>
+<p>The indicator ID <code>"AN_ANEM_W_ANY"</code> reports the percentage
+of women with any anemia. The function <code><a href="../reference/dhs_data.html">dhs_data()</a></code> will
+query the indicator dataset for the value of this indicator for our
+three countries of interest. First, use <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> to
+query the list of DHS countries to identify the DHS country code for
+each country.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_countries.html">dhs_countries</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">dhscc</span> <span class="op">&lt;-</span> <span class="va">countries</span><span class="op">[</span><span class="va">CountryName</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Armenia"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Lesotho"</span><span class="op">)</span>, <span class="va">DHS_CountryCode</span><span class="op">]</span></span>
 <span><span class="va">dhscc</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "AM" "KH" "LS"</span></span></code></pre>
-<p>Now query the indicators dataset for the women with any anemia indicator for these three countries.</p>
+<p>Now query the indicators dataset for the women with any anemia
+indicator for these three countries.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">statcomp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_data.html">dhs_data</a></span><span class="op">(</span>indicatorIds <span class="op">=</span> <span class="st">"AN_ANEM_W_ANY"</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span></span>
 <span><span class="va">statcomp</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">Indicator</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">DenominatorWeighted</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
@@ -190,14 +211,24 @@
 <div class="section level3">
 <h3 id="identify-surveys-that-include-anemia-testing">Identify surveys that include anemia testing<a class="anchor" aria-label="anchor" href="#identify-surveys-that-include-anemia-testing"></a>
 </h3>
-<p>The DHS API provides the facility to filter surveys according to particular characteristics. We first query the list of survey characteristics and identify the <code>SurveyCharacteristicID</code> that indicates the survey included anemia testing. The first command below queries the API for the full list of survey characteristics, and the second uses <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl()</a></code> to search <code>SurveyCharacteristicName</code>s that include the word ‘anemia’.</p>
+<p>The DHS API provides the facility to filter surveys according to
+particular characteristics. We first query the list of survey
+characteristics and identify the <code>SurveyCharacteristicID</code>
+that indicates the survey included anemia testing. The first command
+below queries the API for the full list of survey characteristics, and
+the second uses <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl()</a></code> to search
+<code>SurveyCharacteristicName</code>s that include the word
+‘anemia’.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">surveychar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_survey_characteristics.html">dhs_survey_characteristics</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">surveychar</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"anemia"</span>, <span class="va">SurveyCharacteristicName</span>, ignore.case<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##    SurveyCharacteristicID SurveyCharacteristicName</span></span>
 <span><span class="co">## 1:                     15         Anemia questions</span></span>
 <span><span class="co">## 2:                     41           Anemia testing</span></span></code></pre>
-<p>The <code>SurveyCharacteristicID = 41</code> indicates that the survey included anemia testing. Next we query the API to identify the surveys that have this characteristic and were conducted in our countries of interest.</p>
+<p>The <code>SurveyCharacteristicID = 41</code> indicates that the
+survey included anemia testing. Next we query the API to identify the
+surveys that have this characteristic and were conducted in our
+countries of interest.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_surveys.html">dhs_surveys</a></span><span class="op">(</span>surveyCharacteristicIds <span class="op">=</span> <span class="fl">41</span>, countryIds <span class="op">=</span> <span class="va">dhscc</span><span class="op">)</span></span>
 <span><span class="va">surveys</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">NumberOfWomen</span>, <span class="va">SurveyNum</span>, <span class="va">FieldworkEnd</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
@@ -212,7 +243,8 @@
 <span><span class="co">##  8: LS2004DHS     Lesotho       2004          7095       256   2005-01-01</span></span>
 <span><span class="co">##  9: LS2009DHS     Lesotho       2009          7624       317   2010-01-01</span></span>
 <span><span class="co">## 10: LS2014DHS     Lesotho       2014          6621       462   2014-12-01</span></span></code></pre>
-<p>Finally, query the API identify the individual recode (IR) survey datasets for each of these surveys</p>
+<p>Finally, query the API identify the individual recode (IR) survey
+datasets for each of these surveys</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dhs_datasets.html">dhs_datasets</a></span><span class="op">(</span>surveyIds <span class="op">=</span> <span class="va">surveys</span><span class="op">$</span><span class="va">SurveyId</span>, fileType <span class="op">=</span> <span class="st">"IR"</span>, fileFormat<span class="op">=</span><span class="st">"flat"</span><span class="op">)</span></span>
 <span><span class="va">datasets</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">SurveyNum</span>, <span class="va">FileDateLastModified</span>, <span class="va">FileName</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
@@ -231,12 +263,28 @@
 <div class="section level3">
 <h3 id="download-datasets">Download datasets<a class="anchor" aria-label="anchor" href="#download-datasets"></a>
 </h3>
-<p>To download datasets we need to first log in to our DHS account, by providing our credentials and setting up our configuration using <code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments your <code>email</code> and <code>project</code> for which you want to download datasets from. You will then be prompted for your password. You can also specify a directory for datasets and API calls to be cached to using <code>cache_path</code>. In order to comply with CRAN, this function will also ask you for your permission to write to files outside your temporary directory, and you must type out the filename for the <code>config_path</code> - “rdhs.json”. (See <a href="https://docs.ropensci.org/rdhs/articles/introduction.html">introduction vignette</a> for specific format for config, or <code><a href="../reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
+<p>To download datasets we need to first log in to our DHS account, by
+providing our credentials and setting up our configuration using
+<code><a href="../reference/set_rdhs_config.html">set_rdhs_config()</a></code>. This will require providing as arguments
+your <code>email</code> and <code>project</code> for which you want to
+download datasets from. You will then be prompted for your password. You
+can also specify a directory for datasets and API calls to be cached to
+using <code>cache_path</code>. In order to comply with CRAN, this
+function will also ask you for your permission to write to files outside
+your temporary directory, and you must type out the filename for the
+<code>config_path</code> - “rdhs.json”. (See <a href="https://docs.ropensci.org/rdhs/articles/introduction.html">introduction
+vignette</a> for specific format for config, or
+<code><a href="../reference/set_rdhs_config.html">?set_rdhs_config</a></code>).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## set up your credentials</span></span>
 <span><span class="fu"><a href="../reference/set_rdhs_config.html">set_rdhs_config</a></span><span class="op">(</span>email <span class="op">=</span> <span class="st">"jeffrey.eaton@imperial.ac.uk"</span>,</span>
 <span>                project <span class="op">=</span> <span class="st">"Joint estimation of HIV epidemic trends and adult mortality"</span><span class="op">)</span></span></code></pre></div>
-<p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of file paths where the desired datasets are saved in the cache. The first time a dataset is accessed, <code>rdhs</code> will download the dataset from the DHS program website using the supplied credentials. Subsequently, datasets will be simply be located in the cached repository.</p>
+<p>After this the function <code><a href="../reference/get_datasets.html">get_datasets()</a></code> returns a list of
+file paths where the desired datasets are saved in the cache. The first
+time a dataset is accessed, <code>rdhs</code> will download the dataset
+from the DHS program website using the supplied credentials.
+Subsequently, datasets will be simply be located in the cached
+repository.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Logging into DHS website...</span></span></code></pre>
@@ -245,7 +293,15 @@
 <div class="section level3">
 <h3 id="identify-survey-variables">Identify survey variables<a class="anchor" aria-label="anchor" href="#identify-survey-variables"></a>
 </h3>
-<p>Anemia is defined as having a hemoglobin (Hb) &lt;12.0 g/dL for non-pregnant women or Hb &lt;11.0 g/dL for currently pregnant women<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. To calculate anemia prevalence from DHS microdata, we must identify the DHS recode survey variables for hemoglobin measurement and pregnancy status. This could be done by consulting the DHS recode manual or the .MAP files accompanying survey datasets. It is convenient though to do this in R by loading the first individual recode dataset and searching the metadata for the variable names corresponding to the hemoglobin measurement and pregnancy status.</p>
+<p>Anemia is defined as having a hemoglobin (Hb) &lt;12.0 g/dL for
+non-pregnant women or Hb &lt;11.0 g/dL for currently pregnant women<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. To
+calculate anemia prevalence from DHS microdata, we must identify the DHS
+recode survey variables for hemoglobin measurement and pregnancy status.
+This could be done by consulting the DHS recode manual or the .MAP files
+accompanying survey datasets. It is convenient though to do this in R by
+loading the first individual recode dataset and searching the metadata
+for the variable names corresponding to the hemoglobin measurement and
+pregnancy status.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span>, <span class="st">"hemoglobin"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   variable</span></span>
@@ -262,7 +318,10 @@
 <span><span class="co">## 4                                    Result of measurement - hemoglobin</span></span>
 <span><span class="co">## 5 Hemoglobin level adjusted for altitude and smoking (g/dl - 1 decimal)</span></span>
 <span><span class="co">## 6                                   Read consent statement - hemoglobin</span></span></code></pre>
-<p>Variable <code>v042</code> records the household selection for hemoglobin testing. Variable <code>v455</code> reports the outcome of hemoglobin measurement and <code>v456</code> the result of altitude adjusted hemoglobin levels.</p>
+<p>Variable <code>v042</code> records the household selection for
+hemoglobin testing. Variable <code>v455</code> reports the outcome of
+hemoglobin measurement and <code>v456</code> the result of altitude
+adjusted hemoglobin levels.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">path</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html" class="external-link">as_factor</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v042</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -282,7 +341,8 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ir</span><span class="op">$</span><span class="va">v456</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's </span></span>
 <span><span class="co">##    24.0   118.0   130.0   145.6   141.0   999.0    3203</span></span></code></pre>
-<p>Variable <code>v454</code> reports the current pregnancy status used for determining the anemia threshold.</p>
+<p>Variable <code>v454</code> reports the current pregnancy status used
+for determining the anemia threshold.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_variable_labels.html">search_variable_labels</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">FileName</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="st">"currently.*pregnant"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##   variable        description</span></span>
@@ -293,7 +353,12 @@
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## no/don't know           yes       missing </span></span>
 <span><span class="co">##          3276           142             0</span></span></code></pre>
-<p>We also keep a number of other variables related to the survey design and potentially interesting covariates: country code and phase (<code>v000</code>), cluster number (<code>v001</code>), sample weight (<code>v005</code>), age (<code>v012</code>), region (<code>v024</code>), urban/rural residence (<code>v025</code>), and education level (<code>v106</code>).</p>
+<p>We also keep a number of other variables related to the survey design
+and potentially interesting covariates: country code and phase
+(<code>v000</code>), cluster number (<code>v001</code>), sample weight
+(<code>v005</code>), age (<code>v012</code>), region
+(<code>v024</code>), urban/rural residence (<code>v025</code>), and
+education level (<code>v106</code>).</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SurveyId"</span>, <span class="st">"CountryName"</span>, <span class="st">"SurveyYear"</span>, <span class="st">"v000"</span>, <span class="st">"v001"</span>, <span class="st">"v005"</span>,</span>
 <span>          <span class="st">"v012"</span>, <span class="st">"v024"</span>, <span class="st">"v025"</span>, <span class="st">"v106"</span>, <span class="st">"v042"</span>, <span class="st">"v454"</span>, <span class="st">"v455"</span>, <span class="st">"v456"</span><span class="op">)</span></span></code></pre></div>
@@ -328,7 +393,11 @@
 <span><span class="co">## [1] "8 LS2004DHS"</span></span>
 <span><span class="co">## [1] "9 LS2009DHS"</span></span>
 <span><span class="co">## [1] "10 LS2014DHS"</span></span></code></pre>
-<p>We use <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> to combine datasets with labelled columns. The argument <code>labels</code> describes to combine variable levels for all datasets for <code>v024</code> (region) while providing a consistent set of value labels to be used for <code>v454</code> (currently pregnant) for all datasets.</p>
+<p>We use <code><a href="../reference/rbind_labelled.html">rbind_labelled()</a></code> to combine datasets with
+labelled columns. The argument <code>labels</code> describes to combine
+variable levels for all datasets for <code>v024</code> (region) while
+providing a consistent set of value labels to be used for
+<code>v454</code> (currently pregnant) for all datasets.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rbind_labelled.html">rbind_labelled</a></span><span class="op">(</span><span class="va">datlst</span>,</span>
 <span>                      labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>v024 <span class="op">=</span> <span class="st">"concatenate"</span>,</span>
@@ -351,7 +420,8 @@
 <div class="section level3">
 <h3 id="data-tabulations">Data tabulations<a class="anchor" aria-label="anchor" href="#data-tabulations"></a>
 </h3>
-<p>It is a good idea to check basic tabulations of the data, especially by survey to identify and nuances Exploratory analysis of variables</p>
+<p>It is a good idea to check basic tabulations of the data, especially
+by survey to identify and nuances Exploratory analysis of variables</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SurveyId</span>, <span class="va">v025</span>, useNA<span class="op">=</span><span class="st">"ifany"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##            v025</span></span>
@@ -430,7 +500,8 @@
 <div class="section level3">
 <h3 id="calculate-anemia-prevalence">Calculate anemia prevalence<a class="anchor" aria-label="anchor" href="#calculate-anemia-prevalence"></a>
 </h3>
-<p>Create indicator variable for ‘any anemia’. The threshold depends on pregnancy status.</p>
+<p>Create indicator variable for ‘any anemia’. The threshold depends on
+pregnancy status.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span><span class="op">[</span><span class="va">dat</span><span class="op">$</span><span class="va">v456</span> <span class="op">==</span> <span class="fl">999</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">v455</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">v456</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -460,7 +531,14 @@
 <span><span class="va">res</span><span class="op">$</span><span class="va">ci_l</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_l</span></span>
 <span><span class="va">res</span><span class="op">$</span><span class="va">ci_u</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">res</span><span class="op">$</span><span class="va">ci_u</span></span>
 <span><span class="va">res</span><span class="op">$</span><span class="va">anemia_denom0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">anemia_denom</span><span class="op">)</span></span></code></pre></div>
-<p>The table below compares the prevalence of any anemia calculated from survey microdata with the estimates from DHS StatCompiler and the weighted denominators for each calculation. The estimates are identical for most cases. There are some small differences to be ironed out, which will require looking at the specific countries to check how their stratification was carried out. (We are hoping to bring this feature in once the DHS program has compiled how sample strata were constructed for all of their studies).</p>
+<p>The table below compares the prevalence of any anemia calculated from
+survey microdata with the estimates from DHS StatCompiler and the
+weighted denominators for each calculation. The estimates are identical
+for most cases. There are some small differences to be ironed out, which
+will require looking at the specific countries to check how their
+stratification was carried out. (We are hoping to bring this feature in
+once the DHS program has compiled how sample strata were constructed for
+all of their studies).</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">res</span><span class="op">[</span>,<span class="fu">.</span><span class="op">(</span><span class="va">CountryName</span>, <span class="va">SurveyYear</span>, <span class="va">Value</span>, <span class="va">anemia</span>, <span class="va">ci_l</span>, <span class="va">ci_u</span>, <span class="va">DenominatorWeighted</span>, <span class="va">anemia_denom0</span><span class="op">)</span><span class="op">]</span>, digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -587,7 +665,12 @@
 <div class="section level2">
 <h2 id="regression-analysis-relationship-between-education-and-anemia">Regression analysis: relationship between education and anemia<a class="anchor" aria-label="anchor" href="#regression-analysis-relationship-between-education-and-anemia"></a>
 </h2>
-<p>A key use of the survey microdata are to conduct secondary analysis of pooled data from several surveys, such as regression analysis. Here we investigate the relationship between anemia prevalence and education level (<code>v106</code>) for women using logistic regression, adjusting for urban/rural (<code>v025</code>) and fixed effects for each survey.</p>
+<p>A key use of the survey microdata are to conduct secondary analysis
+of pooled data from several surveys, such as regression analysis. Here
+we investigate the relationship between anemia prevalence and education
+level (<code>v106</code>) for women using logistic regression, adjusting
+for urban/rural (<code>v025</code>) and fixed effects for each
+survey.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">des</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">des</span>, v106 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/relevel.html" class="external-link">relevel</a></span><span class="op">(</span><span class="va">v106</span>, <span class="st">"primary"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svyglm.html" class="external-link">svyglm</a></span><span class="op">(</span><span class="va">anemia</span> <span class="op">~</span> <span class="va">SurveyId</span> <span class="op">+</span> <span class="va">v025</span> <span class="op">+</span> <span class="va">v106</span>, <span class="va">des</span>, family<span class="op">=</span><span class="st">"binomial"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -622,9 +705,10 @@
 <span><span class="co">## (Dispersion parameter for binomial family taken to be 0.99451)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Number of Fisher Scoring iterations: 4</span></span></code></pre>
-<p>The results suggest that anemia prevalence is lower among women with higher education.</p>
+<p>The results suggest that anemia prevalence is lower among women with
+higher education.</p>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
 <li id="fn1"><p><a href="https://www.measureevaluation.org/prh/rh_indicators/womens-health/womens-nutrition/percent-of-women-of-reproductive-age-with-anemia" class="external-link uri">https://www.measureevaluation.org/prh/rh_indicators/womens-health/womens-nutrition/percent-of-women-of-reproductive-age-with-anemia</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
@@ -649,7 +733,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
