@@ -15,8 +15,10 @@
 #'   being downloaded. Default = NULL, which will cause the countrycode to be
 #'   looked up from the API.
 #' @param method Character for how the downloaded shape file is read in.
-#'   Default = "sf", which uses \code{sf::st_read}. Currenlty, you can also
-#'   specify "rgdal", which reads the file using rgdal::readOGR.
+#'   Default = "sf", which uses \code{sf::st_read}. Currently, this is the only
+#'   option available(`rgdal` used to be available) but for development reasons
+#'   this will be left as a parameter option for possible future alternatives
+#'   to read in spatial files.
 #'   To just return the file paths for the files use method = "zip".
 #' @param quiet_download Whether to download file quietly. Passed to
 #'   [`download_file()`]. Default is `FALSE`.
@@ -28,7 +30,7 @@
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
 #'   which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
 #'
-#' @return Returns either the spatial file as a "SpatialPolygonsDataFrame" or
+#' @return Returns either the spatial file as a `sf` (see [sf::sf]) object, or
 #'   a vector of the file paths of where the boundary was downloaded to.
 #' @export
 #'
@@ -40,8 +42,6 @@
 #'  # using the surveyId and no countryID
 #'  res <- download_boundaries(surveyId = "AF2010OTH")
 #'
-#'  # using rgdal
-#'  res <- download_boundaries(surveyNum = 471, countryId = "AF", method = "rgdal")
 #'  }
 
 
@@ -124,16 +124,8 @@ download_boundaries <- function(surveyNum=NULL,
   file <- grep("dbf", unzipped_files, value=TRUE)
 
   # how are we reading the dataset in
-  methods <- c("rgdal", "sf")
+  methods <- c("sf")
   if (method %in% methods) {
-
-    if(method == "rgdal") {
-      res <- lapply(file, function(x) {
-        layer <- strsplit(basename(x), ".", fixed = TRUE)[[1]][1]
-        rgdal::readOGR(dsn = dirname(x), layer = layer)
-      })
-      names(res) <- vapply(file, rgdal::ogrListLayers, character(1))
-    }
 
     # here if we want to add more read in options
     if(method == "sf") {

@@ -1,3 +1,8 @@
+## rdhs 0.8.0
+
+* Update for deprecation of spatial infrastructure (#145).
+* All geographic datasets are parsed using `sf::read_sf` (previously `rgdal::readOGR`)
+
 ## rdhs 0.7.6
 
 * Authentication patch for downloading datasets (#120) 
