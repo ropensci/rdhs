@@ -201,6 +201,9 @@ test_that("Geo dataset test", {
     download_option = "r"
   )
 
+  d <- readRDS(downloads$AOGE52FL$dataset)
+  expect_is(d, "sf")
+
   unlink(cli$get_root())
 })
 

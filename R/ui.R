@@ -451,11 +451,11 @@ get_variable_labels <- function(dataset, return_all=TRUE) {
     } else {
       res <- client$get_variable_labels(dataset_filenames = dataset)
     }
-  } else if (class(dataset)[1] == "SpatialPointsDataFrame") {
+  } else if (inherits(dataset, "sf")) {
     stop(
       "Not possible to return variable labels for a geographic data set.",
-      "Have a look at the following for help on spatial points objects: ",
-      "https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf "
+      "Have a look at the following for help on simple features objects: ",
+      "https://r-spatial.github.io/sf/"
     )
   }
 
