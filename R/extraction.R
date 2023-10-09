@@ -75,11 +75,11 @@ extraction <- function(questions, available_datasets,
         if (length(geo_surveys_match) == 1) {
           g <- readRDS(geo_surveys[[geo_surveys_match]])
           gecols <- c("ALT_DEM", "LATNUM", "LONGNUM", "ADM1NAME", "DHSREGNA")
-          matched_rows <- match(gecols, names(g@data))
+          matched_rows <- match(gecols, names(g))
           missing <- which(is.na(matched_rows))
           matched_rows[which(is.na(matched_rows))] <- 1
 
-          gedata <- g@data[match(results$CLUSTER, g$DHSCLUST), matched_rows]
+          gedata <- g[match(results$CLUSTER, g$DHSCLUST), matched_rows]
           gedata <- as.data.frame.list(lapply(gedata, as.character),
                                        stringsAsFactors = FALSE)
           gedata <- type_convert_list_to_df(gedata)
