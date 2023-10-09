@@ -2,7 +2,6 @@
 
 * Update for deprecation of spatial infrastructure (#145).
 * All geographic datasets are parsed using `sf::read_sf` (previously `rgdal::readOGR`)
-* 
 
 ## rdhs 0.7.6
 
