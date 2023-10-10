@@ -329,9 +329,21 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=cli"
     },
+    "18": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "4138.871KB",
+  "fileSize": "1660.255KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
@@ -373,7 +385,7 @@
   "relatedLink": ["https://docs.ropensci.org/rdhs/", "https://CRAN.R-project.org/package=rdhs"],
   "releaseNotes": "https://github.com/ropensci/rdhs/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/rdhs/blob/main/README.md",
-  "contIntegration": ["https://travis-ci.org/ropensci/rdhs", "https://codecov.io/github/ropensci/rdhs?branch=master"],
+  "contIntegration": ["https://github.com/ropensci/rdhs/actions", "https://app.codecov.io/github/ropensci/rdhs?branch=main"],
   "developmentStatus": "https://www.repostatus.org/#active",
   "review": {
     "@type": "Review",

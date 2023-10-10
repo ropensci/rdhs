@@ -21,7 +21,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: OJ Watson \email{o.watson15@imperial.ac.uk} (\href{https://orcid.org/0000-0003-2374-0741}{ORCID})
+\strong{Maintainer}: OJ Watson \email{oj.watson@hotmail.co.uk} (\href{https://orcid.org/0000-0003-2374-0741}{ORCID})
 
 Authors:
 \itemize{

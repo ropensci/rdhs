@@ -213,7 +213,3 @@ extract <- rbind_labelled(extract)
 # our hv024 variable is now just character strings, so you can decide when/how to factor/label it later
 str(extract)
 ```
-
----
-
- [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
