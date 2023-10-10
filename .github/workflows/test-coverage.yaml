@@ -23,6 +23,12 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install remotes for linux needs
+        if: runner.os == 'Linux'
+        run: |
+          install.packages("remotes", repos='http://cran.us.r-project.org')
+        shell: Rscript {0}
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |

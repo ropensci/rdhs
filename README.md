@@ -1,15 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rdhs <img src="https://raw.githubusercontent.com/ropensci/rdhs/master/tools/logo.png" align="right" style="padding-left:10px;background-color:white;" />
+# rdhs <img src="https://raw.githubusercontent.com/ropensci/rdhs/main/tools/logo.png" align="right" style="padding-left:10px;background-color:white;" />
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/ropensci/rdhs/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/rdhs/actions)
-[![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
+[![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=main)](https://codecov.io/github/ropensci/rdhs?branch=main)
 [![Documentation via
-pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://docs.ropensci.org/rdhs/)
+pkgdown](https://github.com/ropensci/rdhs/raw/main/tools/pkgdownshield.png)](https://docs.ropensci.org/rdhs/)
 [![CRAN
 Downloads](https://cranlogs.r-pkg.org/badges/rdhs)](https://cran.r-project.org/package=rdhs)
 [![Downloads from Rstudio
