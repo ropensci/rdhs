@@ -45,7 +45,8 @@ Imports:
     haven,
     iotools,
     sf,
-    cli
+    cli, 
+    rlang
 Suggests:
     testthat,
     knitr,

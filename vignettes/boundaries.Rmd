@@ -47,7 +47,7 @@ sp$sdr_subnational_boundaries@data$Value <- m
 sp::spplot(sp$sdr_subnational_boundaries, "Value", main = d$Indicator[1])
 ```
 
-![](https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png)<!-- -->
+![](https://github.com/ropensci/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png)<!-- -->
 
 Or we can use `sf` for our plotting, which offers more user-friendly plotting
 options. 
@@ -86,4 +86,4 @@ ggplot(sp$sdr_subnational_boundaries) +
   ggtitle(d$Indicator[1])
 ```
 
-![](https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/sf-1.png)<!-- -->
+![](https://github.com/ropensci/rdhs/raw/development/vignettes/boundaries_files/figure-html/sf-1.png)<!-- -->

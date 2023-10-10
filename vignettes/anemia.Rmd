@@ -103,7 +103,7 @@ ggplot(statcomp, aes(SurveyYear, Value, col=CountryName)) +
   geom_point() + geom_line()
 ```
 
-<img src="https://github.com/ropensci/rdhs/raw/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="https://raw.githubusercontent.com/ropensci/rdhs/development/vignettes/anemia_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 # Analyse DHS microdata
 

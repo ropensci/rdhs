@@ -1,8 +1,8 @@
 citHeader("To cite rdhs in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "rdhs: an R package to interact with The Demographic and Health Surveys (DHS) Program datasets",
-  author       = personList(as.person("Oliver J Watson"),
+  author       = c(as.person("Oliver J Watson"),
                             as.person("Rich FitzJohn"),
                             as.person("Jeffrey W Eaton")),
   journal      = "Wellcome Open Research",
