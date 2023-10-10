@@ -6,8 +6,7 @@
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Travis-CI Build
-Status](https://travis-ci.org/ropensci/rdhs.png?branch=master)](https://travis-ci.org/ropensci/rdhs)
+[![R-CMD-check](https://github.com/ropensci/rdhs/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/rdhs/actions)
 [![codecov.io](https://codecov.io/github/ropensci/rdhs/coverage.svg?branch=master)](https://codecov.io/github/ropensci/rdhs?branch=master)
 [![Documentation via
 pkgdown](https://github.com/ropensci/rdhs/raw/master/tools/pkgdownshield.png)](https://docs.ropensci.org/rdhs/)
