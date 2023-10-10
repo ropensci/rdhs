@@ -30,3 +30,5 @@ vignettes_src
 project_one
 R/staging\.R
 ^CRAN-SUBMISSION$
+^revdep$
+^codecov\.yml$
