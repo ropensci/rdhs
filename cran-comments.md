@@ -9,11 +9,8 @@
 ## rdhs 0.8.0
 
 * Duration: 14m 12.4s
-* 0 errors ✔ | 0 warnings ✔ | 1 notes ✔
+* 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 * R CMD check succeeded
-
-The note is due to a chance in maintainer email. I am moving to my 
-permanent academic email from now on.
 
 ## Downstream dependencies
 
