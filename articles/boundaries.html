@@ -159,7 +159,7 @@ shape files.</p>
 <span></span>
 <span><span class="co"># Use sp to plot</span></span>
 <span><span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span>, <span class="st">"Value"</span>, main <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">Indicator</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png"><!-- --></p>
+<p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png"><!-- --></p>
 <p>Or we can use <code>sf</code> for our plotting, which offers more
 user-friendly plotting options.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -188,7 +188,7 @@ user-friendly plotting options.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">Indicator</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/OJWatson/rdhs/raw/development/vignettes/boundaries_files/figure-html/sf-1.png"><!-- --></p>
+<p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/boundaries_files/figure-html/sf-1.png"><!-- --></p>
 </div>
   </div>
 
