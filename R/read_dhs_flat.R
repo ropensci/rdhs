@@ -34,6 +34,8 @@ parse_dcf <- function(dcf, all_lower=TRUE) {
   item.idx <- Map("+", item.start - 1L, lapply(item.len, seq_len))
 
   items <- lapply(item.idx, function(idx) paste(dcf[idx], collapse = "\n"))
+  is_utf8 <- vapply(items, validUTF8, logical(1))
+  items[!is_utf8] <- lapply(items[!is_utf8], iconv, from = "latin2", to = "UTF-8")
 
   dcf <- data.frame(
     name = tolower(sub(".*?\nName=([^\n]*)\n.*", "\\1", items)),
