@@ -222,3 +222,17 @@ test_that("Geospatial coviarates", {
 
 })
 
+test_that("UTF-8 Reading Correctly", {
+  testthat::skip_on_cran()
+  skip_if_no_auth()
+
+  cli <- new_rand_client()
+
+  # check gc file
+  downloads <- cli$get_datasets("AOPR51FL.zip")
+  d <- readRDS(downloads$AOPR51FL)
+
+  expect_true(grepl("é", names(attr(d$hv024,"labels")[1])))
+
+})
+
