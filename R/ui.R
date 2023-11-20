@@ -67,7 +67,7 @@ get_rdhs_config <- function() {
 #' @param dataset_filenames The desired filenames to be downloaded. These can be
 #'   found as one of the returned fields from \code{\link{dhs_datasets}}.
 #'   Alternatively you can also pass the desired rows from
-#'   code{\link{dhs_datasets}}.
+#'   \code{\link{dhs_datasets}}.
 #' @param download_option Character specifying whether the dataset should be
 #'   just downloaded ("zip"), imported and saved as an .rds object ("rds"), or
 #'   both extract and rds ("both"). Conveniently you can just specify any letter
