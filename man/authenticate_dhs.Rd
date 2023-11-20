@@ -13,9 +13,9 @@ that must contain a valid `email`, `project` and `password`.}
 \value{
 Returns list of length 3:
   \itemize{
-      \item{"user_name"}{ your email usually }
-      \item{"user_pass"}{ your password you provided }
-      \item{"proj_id"}{ your project number }
+      \item user_name: your email usually
+      \item user_pass: your password you provided
+      \item proj_id: your project number
       }
 }
 \description{

@@ -6,9 +6,9 @@
 * ubuntu-22.04.3 (oldrel-1) on Github Actions
 
 ## R CMD check results
-## rdhs 0.8.0
+## rdhs 0.8.1
 
-* Duration: 14m 12.4s
+* Duration: 16m 45.4s
 * 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 * R CMD check succeeded
 

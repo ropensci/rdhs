@@ -86,12 +86,12 @@ get_rdhs_config <- function() {
 #' @rdname get_datasets
 #'
 #' @details Gets datasets from your cache or downloads from the DHS website.
-#'   By providing the filenames, as specified in one of the returned fields from
-#'   \code{\link{dhs_datasets}}, the client will log in for you and download all
-#'   the files you have requested. If any of the requested files are unavailable
-#'   for your log in, these will be flagged up first as a message so you can
-#'   make a note and request them through the DHS website. You also have the
-#'   option to control whether the downloaded zip file is then extracted and
+#'   By providing the filenames, as specified in one of the returned fields
+#'   from \code{\link{dhs_datasets}}, the client will log in for you and download
+#'   all the files you have requested. If any of the requested files are
+#'   unavailable for your log in, these will be flagged up first as a message so
+#'   you can make a note and request them through the DHS website. You also have
+#'   the option to control whether the downloaded zip file is then extracted and
 #'   converted into a more convenient R \code{data.frame}. This converted object
 #'   will then be subsequently saved as a ".rds" object within the client root
 #'   directory datasets folder, which can then be more quickly loaded when

@@ -288,7 +288,7 @@ parse_do <- function(do, dct, all_lower=TRUE) {
 #'   lower case. Default to `TRUE`.
 #' @param meta_source character string indicating metadata source file for data
 #'   dictionary. Default \code{NULL} first tried to use \code{.DCF} and then
-#'   {.SPS} if not found.
+#'   \code{.SPS} if not found.
 #' @return A data frame. Value labels for each variable are stored as the
 #'   `labelled` class from `haven`.
 #'

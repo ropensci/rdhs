@@ -395,9 +395,9 @@ download_datasets <- function(config,
 #'
 #' @return Returns list of length 3:
 #'   \itemize{
-#'       \item{"user_name"}{ your email usually }
-#'       \item{"user_pass"}{ your password you provided }
-#'       \item{"proj_id"}{ your project number }
+#'       \item user_name: your email usually
+#'       \item user_pass: your password you provided
+#'       \item proj_id: your project number
 #'       }
 #'
 #'

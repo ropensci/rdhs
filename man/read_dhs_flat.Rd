@@ -15,7 +15,7 @@ lower case. Default to `TRUE`.}
 
 \item{meta_source}{character string indicating metadata source file for data
 dictionary. Default \code{NULL} first tried to use \code{.DCF} and then
-{.SPS} if not found.}
+\code{.SPS} if not found.}
 }
 \value{
 A data frame. Value labels for each variable are stored as the
