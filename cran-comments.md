@@ -8,7 +8,7 @@
 ## R CMD check results
 ## rdhs 0.8.1
 
-* Duration: 16m 45.4s
+* Duration: 15m 59.5s
 * 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 * R CMD check succeeded
 
