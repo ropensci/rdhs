@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ shape files.</p>
 <span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span><span class="op">@</span><span class="va">data</span><span class="op">$</span><span class="va">Value</span> <span class="op">&lt;-</span> <span class="va">m</span></span>
 <span></span>
 <span><span class="co"># Use sp to plot</span></span>
-<span><span class="fu">sp</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span>, <span class="st">"Value"</span>, main <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">Indicator</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sp</span><span class="fu">::</span><span class="fu">spplot</span><span class="op">(</span><span class="va">sp</span><span class="op">$</span><span class="va">sdr_subnational_boundaries</span>, <span class="st">"Value"</span>, main <span class="op">=</span> <span class="va">d</span><span class="op">$</span><span class="va">Indicator</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/ropensci/rdhs/raw/development/vignettes/boundaries_files/figure-html/normal-1.png"><!-- --></p>
 <p>Or we can use <code>sf</code> for our plotting, which offers more
 user-friendly plotting options.</p>
