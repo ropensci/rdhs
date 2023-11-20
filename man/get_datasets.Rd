@@ -18,7 +18,7 @@ get_datasets(
 \item{dataset_filenames}{The desired filenames to be downloaded. These can be
 found as one of the returned fields from \code{\link{dhs_datasets}}.
 Alternatively you can also pass the desired rows from
-code{\link{dhs_datasets}}.}
+\code{\link{dhs_datasets}}.}
 
 \item{download_option}{Character specifying whether the dataset should be
 just downloaded ("zip"), imported and saved as an .rds object ("rds"), or
