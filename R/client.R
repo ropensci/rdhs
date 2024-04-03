@@ -84,6 +84,26 @@ client_dhs <- function(config=NULL,
             private$storr$del(key, "downloaded_datasets_variable_names")
           }
         }
+
+        # Now do the same for spatial boundaries
+        dats <- client$dhs_api_request(api_endpoint = "dataupdates")
+        downloaded_spatial_keys <- private$storr$list("spatial_boundaries")
+        downloaded_surveyNums <- strsplit(downloaded_spatial_keys, "_") %>%
+          lapply(function(x) x[1]) %>%
+          unlist()
+
+        # which of the updates have occured since our last client was created
+        chge <- dats$SurveyNum[mdy_hms(dats$FileDateLastModified) > client$get_cache_date()]
+        datasets_to_clear <- which(downloaded_spatial_keys %in% chge)
+
+        # do any of them match those that have been updated since the
+        # last cache_date
+        if (length(datasets_to_clear) > 0) {
+          for (key in downloaded_spatial_keys[datasets_to_clear]) {
+            private$storr$del(key, "spatial_boundaries")
+          }
+        }
+
       }
     }
 

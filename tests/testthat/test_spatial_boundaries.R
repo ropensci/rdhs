@@ -65,3 +65,18 @@ test_that("Timout Spatial Boundaries Test", {
 })
 
 
+test_that("caching works", {
+  testthat::skip_on_cran()
+  skip_if_slow_API()
+
+  cli <- new_rand_client()
+  dat <- api_timeout_safe_test(
+    download_boundaries(surveyNum = 471, countryId = "AF", client = cli), cli
+  )
+  expect_identical(cli$.__enclos_env__$private$storr$list("spatial_boundaries"), "471_sf")
+
+  # check that no message is sent second time
+  expect_no_message(dat <- api_timeout_safe_test(
+    download_boundaries(surveyNum = 471, countryId = "AF", client = cli), cli
+  ))
+})

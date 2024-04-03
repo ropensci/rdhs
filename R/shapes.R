@@ -26,6 +26,9 @@
 #'   `method = "sf"`. Default is `TRUE`.
 #' @param server_sleep Numeric for length of sleep prior to downloading file
 #'   from their survey. Default 5 seconds.
+#' @param client If the request should be cached, then provide a client
+#'   object created by \code{\link{client_dhs}}. Default = `NULL`, which will
+#'   search for a client to use
 #'
 #' @details Downloads the spatial boundaries from the DHS spatial repository,
 #'   which can be found at \url{https://spatialdata.dhsprogram.com/home/}.
@@ -51,7 +54,8 @@ download_boundaries <- function(surveyNum=NULL,
                                 method = "sf",
                                 quiet_download = FALSE,
                                 quiet_parse = TRUE,
-                                server_sleep = 5){
+                                server_sleep = 5,
+                                client = NULL){
 
   # helper funcs
   build_final_url <- function(jobId) {
@@ -89,60 +93,86 @@ download_boundaries <- function(surveyNum=NULL,
     countryId <- dats$DHS_CountryCode[match(surveyNum, dats$SurveyNum)]
   }
 
-  # build our url
-  # ----------------------------------------------------------------------------
-
-  # create url from surveyNum
-  alt_url <- paste0("https://gis.dhsprogram.com/arcgis/rest/services/Tools/",
-                    "DownloadSubnationalData/GPServer/",
-                    "downloadSubNationalBoundaries/submitJob")
-
-  values <- list(
-    survey_ids = surveyNum,
-    spatial_format = "shp",
-    f = "json"
-  )
-
-  # fetch jobID
-  z <- httr::GET(
-    httr::modify_url(alt_url, query = values)
-  )
-
-  tf <- tempfile()
-  y <- writeBin(z$content, con = tf)
-  h <- jsonlite::fromJSON(brio::read_lines(tf))
-  url <- build_final_url(h$jobId)
-
-  # pause for a second for the job id created to appear on their server
-  # i.e. the code only works with this...
-  Sys.sleep(server_sleep)
-
-  # download the shape file and read it in
-  tf2 <- tempfile()
-  file <- download.file(url, tf2, quiet = quiet_download)
-  unzipped_files <- suppressWarnings(unzip(tf2, exdir = tempfile()))
-  file <- grep("dbf", unzipped_files, value=TRUE)
-
-  # how are we reading the dataset in
-  methods <- c("sf")
-  if (method %in% methods) {
-
-    # here if we want to add more read in options
-    if(method == "sf") {
-      res <- lapply(file, sf::st_read, quiet = quiet_parse)
-      names(res) <- vapply(file,
-                           function(x) { sf::st_layers(x)$name },
-                           character(1))
-    }
-
-  } else {
-    message("Provided method not found. Options are: \n",
-            paste(methods,collapse=" "),
-            "\nReturning zip files.")
-
-    return(unzipped_files)
+  # if no client was provided we'll look for
+  # the package environment client by default
+  if (is.null(client)) {
+    client <-  check_for_client()
   }
 
-  return(res)
+  # create db key
+  key <- paste0(surveyNum, "_", method)
+
+  # first check against cache
+  out <- tryCatch(
+    client$.__enclos_env__$private$storr$get(key, "spatial_boundaries"),
+    KeyError = function(e) {
+      NULL
+    }
+  )
+
+  # check out agianst cache, if fine then return just that
+  if (!is.null(out)) {
+    return(out)
+  } else {
+
+    # build our url
+    # ----------------------------------------------------------------------------
+
+    # create url from surveyNum
+    alt_url <- paste0("https://gis.dhsprogram.com/arcgis/rest/services/Tools/",
+                      "DownloadSubnationalData/GPServer/",
+                      "downloadSubNationalBoundaries/submitJob")
+
+    values <- list(
+      survey_ids = surveyNum,
+      spatial_format = "shp",
+      f = "json"
+    )
+
+    # fetch jobID
+    z <- httr::GET(
+      httr::modify_url(alt_url, query = values)
+    )
+
+    tf <- tempfile()
+    y <- writeBin(z$content, con = tf)
+    h <- jsonlite::fromJSON(brio::read_lines(tf))
+    url <- build_final_url(h$jobId)
+
+    # pause for a second for the job id created to appear on their server
+    # i.e. the code only works with this...
+    Sys.sleep(server_sleep)
+
+    # download the shape file and read it in
+    tf2 <- tempfile()
+    file <- download.file(url, tf2, quiet = quiet_download)
+    unzipped_files <- suppressWarnings(unzip(tf2, exdir = tempfile()))
+    file <- grep("dbf", unzipped_files, value=TRUE)
+
+    # how are we reading the dataset in
+    methods <- c("sf")
+    if (method %in% methods) {
+
+      # here if we want to add more read in options
+      if(method == "sf") {
+        res <- lapply(file, sf::st_read, quiet = quiet_parse)
+        names(res) <- vapply(file,
+                             function(x) { sf::st_layers(x)$name },
+                             character(1))
+      }
+
+    } else {
+      message("Provided method not found. Options are: \n",
+              paste(methods,collapse=" "),
+              "\nReturning zip files.")
+      res <- unzipped_files
+    }
+
+    ## then cache the resp and return the parsed resp
+    client$.__enclos_env__$private$storr$set(key, res, "spatial_boundaries")
+
+    return(res)
+
+  }
 
 }
