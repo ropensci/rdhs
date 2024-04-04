@@ -2,7 +2,7 @@
 
 ## rdhs 0.8.2
 
-* Spatial boundaries will be cached using the DHS client 
+* Spatial boundaries will be cached using the DHS client  (#122)
 
 ## rdhs 0.8.1
 
