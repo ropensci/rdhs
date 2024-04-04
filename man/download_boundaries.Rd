@@ -11,7 +11,8 @@ download_boundaries(
   method = "sf",
   quiet_download = FALSE,
   quiet_parse = TRUE,
-  server_sleep = 5
+  server_sleep = 5,
+  client = NULL
 )
 }
 \arguments{
@@ -46,6 +47,10 @@ To just return the file paths for the files use method = "zip".}
 
 \item{server_sleep}{Numeric for length of sleep prior to downloading file
 from their survey. Default 5 seconds.}
+
+\item{client}{If the request should be cached, then provide a client
+object created by \code{\link{client_dhs}}. Default = `NULL`, which will
+search for a client to use}
 }
 \value{
 Returns either the spatial file as a `sf` (see [sf::sf]) object, or

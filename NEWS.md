@@ -1,5 +1,9 @@
 # rdhs (development version)
 
+## rdhs 0.8.2
+
+* Spatial boundaries will be cached using the DHS client  (#122)
+
 ## rdhs 0.8.1
 
 * Convert DHS dataset flat file data dictionaries to UTF-8. This addresses parsing 
