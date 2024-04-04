@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
       </span>
     </div>
 
@@ -105,7 +105,8 @@
 <span>  method <span class="op">=</span> <span class="st">"sf"</span>,</span>
 <span>  quiet_download <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quiet_parse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  server_sleep <span class="op">=</span> <span class="fl">5</span></span>
+<span>  server_sleep <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  client <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -155,6 +156,12 @@ To just return the file paths for the files use method = "zip".</p></dd>
 <dt>server_sleep</dt>
 <dd><p>Numeric for length of sleep prior to downloading file
 from their survey. Default 5 seconds.</p></dd>
+
+
+<dt>client</dt>
+<dd><p>If the request should be cached, then provide a client
+object created by <code><a href="client_dhs.html">client_dhs</a></code>. Default = `NULL`, which will
+search for a client to use</p></dd>
 
 </dl></div>
     <div id="value">
