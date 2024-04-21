@@ -28,7 +28,7 @@ rbind_list_base <- function(x) {
 #'
 unzip_special <- function(zipfile, files = NULL, overwrite = TRUE,
                           junkpaths = FALSE, exdir = ".", unzip = "internal",
-                          setTimes = FALSE){
+                          setTimes = FALSE) {
 
   if (max(unzip(zipfile, list = TRUE)$Length) > 4e9) {
     unzip_file <- Sys.which("unzip")

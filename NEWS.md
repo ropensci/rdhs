@@ -1,8 +1,15 @@
 # rdhs (development version)
 
+## rdhs 0.8.3
+
+* Internal change to `read_dhs_flat()` to reduce memory usage (`for` loop instead of `Map()`). 
+  Reduces risk of `Error: vector memory exhausted` when parsing large dataset.
+* Replace iotools::input.file() with vroom::vroom_fwf().
+
 ## rdhs 0.8.2
 
 * Spatial boundaries will be cached using the DHS client  (#122)
+
 
 ## rdhs 0.8.1
 
