@@ -958,16 +958,15 @@ R6_client_dhs <- R6::R6Class(
           # let the user know there are duplicate matches and suggest that
           # they clarify using dhs_datasets()
           message(paste0(
-            "The following requested dataset file names are used
-            by more than one dataset:\n---\n",
+            "The following requested dataset file names are used by more than one dataset:\n---\n",
             paste0(duplicates[which(!is.na(duplicates_fnd))], collapse = "\n"),
-            "\n---\nBy default the above datasets will be downloaded according",
-            "to the country code indicated by the first 2 letters of these",
-            "datasets. If you wished for the the above datatasets to be",
-            "downloaded not based on just their first 2 letters then please",
-            "provide the desired rows from the output of dhs_datasets() for",
-            "the datasets argument.",
-            "See introductory vignette for more info about this issue.",
+            "\n---\nBy default the above datasets will be downloaded according ",
+            "to the country code indicated by the first 2 letters of these ",
+            "datasets. If you wished for the the above datatasets to be ",
+            "downloaded not based on just their first 2 letters then please ",
+            "provide the desired rows from the output of dhs_datasets() for ",
+            "the datasets argument. ",
+            "See introductory vignette for more info about this issue. ",
             collapse = "\n"
           ))
 
@@ -1034,7 +1033,7 @@ R6_client_dhs <- R6::R6Class(
             "DHS login credentials:\n---\n",
             paste0(fail_names, collapse = ", "),
             "\n---\nPlease request permission for these datasets from ",
-            "the DHS website to be able to download them"
+            "the DHS website to be able to download them."
           ))
       }
 
