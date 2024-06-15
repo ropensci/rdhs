@@ -1032,7 +1032,7 @@ R6_client_dhs <- R6::R6Class(
           paste0(
             "These requested datasets are not available from your ",
             "DHS login credentials:\n---\n",
-            paste0(fail_names[which(is.na(found_datasets))], collapse = ", "),
+            paste0(fail_names, collapse = ", "),
             "\n---\nPlease request permission for these datasets from ",
             "the DHS website to be able to download them"
           ))
