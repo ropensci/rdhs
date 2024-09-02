@@ -1,216 +1,72 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/404.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/anemia.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/boundaries.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/client.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/country_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/geojson.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/testing.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/articles/toolkit.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/index.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/issue_template.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/as_factor.labelled.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/authenticate_dhs.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/available_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/client_cache_date.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/client_dhs.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/collapse_api_responses.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/data_and_labels.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/delabel_df.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_countries.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_data.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_data_updates.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_geometry.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_gps_data_format.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_indicators.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_info.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_publications.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_survey_characteristics.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_surveys.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_tags.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/dhs_ui_updates.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/download_boundaries.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/download_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/extract_dhs.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/extraction.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/factor_format.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/file_dataset_format.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_available_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_downloaded_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_labels_from_dataset.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_rdhs_config.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/get_variable_labels.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/last_api_update.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/model_datasets.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/parse_map.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/parse_meta.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/rbind_labelled.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/rbind_list_base.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/rdhs.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/read_dhs_dataset.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/read_dhs_dta.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/read_dhs_flat.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/read_zipdata.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/response_is_json.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/response_to_json.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/search_variable_labels.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/search_variables.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/set_rdhs_config.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/unzip_special.html</loc>
-  </url>
-  <url>
-    <loc>https://docs.ropensci.org/rdhs/reference/update_rdhs_config.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://docs.ropensci.org/rdhs/404.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/CONDUCT.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/CONTRIBUTING.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/LICENSE-text.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/anemia.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/boundaries.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/client.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/country_codes.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/geojson.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/index.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/introduction.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/testing.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/articles/toolkit.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/authors.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/index.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/news/index.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/as_factor.labelled.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/authenticate_dhs.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/available_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/client_cache_date.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/client_dhs.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/collapse_api_responses.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/data_and_labels.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/delabel_df.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_countries.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_data.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_data_updates.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_geometry.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_gps_data_format.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_indicators.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_info.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_publications.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_survey_characteristics.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_surveys.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_tags.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/dhs_ui_updates.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/download_boundaries.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/download_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/extract_dhs.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/extraction.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/factor_format.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/file_dataset_format.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_available_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_downloaded_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_labels_from_dataset.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_rdhs_config.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/get_variable_labels.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/index.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/last_api_update.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/model_datasets.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/parse_map.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/parse_meta.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/pipe.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/rbind_labelled.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/rbind_list_base.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/rdhs.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/read_dhs_dataset.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/read_dhs_dta.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/read_dhs_flat.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/read_zipdata.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/response_is_json.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/response_to_json.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/search_variable_labels.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/search_variables.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/set_rdhs_config.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/unzip_special.html</loc></url>
+<url><loc>https://docs.ropensci.org/rdhs/reference/update_rdhs_config.html</loc></url>
 </urlset>
+
