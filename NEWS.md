@@ -1,5 +1,10 @@
 # rdhs (development version)
 
+## rdhs 0.8.3
+
+* Revise credential authentication error message to prompt user to check
+  all three of email, password, and *project name*. (#157)
+  
 ## rdhs 0.8.2
 
 * Spatial boundaries will be cached using the DHS client  (#122)
