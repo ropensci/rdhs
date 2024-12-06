@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rdhs</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.2</span>
       </span>
     </div>
 
@@ -81,50 +81,46 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="rdhs-development-version">rdhs (development version)<a class="anchor" aria-label="anchor" href="#rdhs-development-version"></a></h2>
 <div class="section level3">
-<h3 id="rdhs-development-version-1">rdhs 0.8.7<a class="anchor" aria-label="anchor" href="#rdhs-development-version-1"></a></h3>
-<ul><li>Revise credential authentication error message to prompt user to check all three of email, password, and <em>project name</em>. (<a href="https://github.com/ropensci/rdhs/issues/157" class="external-link">#157</a>)</li>
-</ul></div>
-<div class="section level3">
-<h3 id="rdhs-development-version-2">rdhs 0.8.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-2"></a></h3>
+<h3 id="rdhs-development-version-1">rdhs 0.8.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-1"></a></h3>
 <ul><li>Spatial boundaries will be cached using the DHS client (<a href="https://github.com/ropensci/rdhs/issues/122" class="external-link">#122</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-3">rdhs 0.8.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-3"></a></h3>
+<h3 id="rdhs-development-version-2">rdhs 0.8.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-2"></a></h3>
 <ul><li>
 <p>Convert DHS dataset flat file data dictionaries to UTF-8. This addresses parsing parsing issue that arose following R 4.3.0 (<a href="https://github.com/ropensci/rdhs/issues/146" class="external-link">#146</a>).</p>
 <p>In doing so, it addresses issue of accents in variable and value labels not being parsed correctly.</p>
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-4">rdhs 0.8.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-4"></a></h3>
+<h3 id="rdhs-development-version-3">rdhs 0.8.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-3"></a></h3>
 <ul><li>Update for deprecation of spatial infrastructure (<a href="https://github.com/ropensci/rdhs/issues/145" class="external-link">#145</a>).</li>
 <li>All geographic datasets are parsed using <code><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">sf::read_sf</a></code> (previously <code>rgdal::readOGR</code>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-5">rdhs 0.7.6<a class="anchor" aria-label="anchor" href="#rdhs-development-version-5"></a></h3>
+<h3 id="rdhs-development-version-4">rdhs 0.7.6<a class="anchor" aria-label="anchor" href="#rdhs-development-version-4"></a></h3>
 <ul><li>Authentication patch for downloading datasets (<a href="https://github.com/ropensci/rdhs/issues/120" class="external-link">#120</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-6">rdhs 0.7.5<a class="anchor" aria-label="anchor" href="#rdhs-development-version-6"></a></h3>
+<h3 id="rdhs-development-version-5">rdhs 0.7.5<a class="anchor" aria-label="anchor" href="#rdhs-development-version-5"></a></h3>
 <ul><li>
 <code>download_boundaries</code> patch (<a href="https://github.com/ropensci/rdhs/issues/138" class="external-link">#138</a>) for pause when downloading survey boundaries. Set default sleep to 5 seconds to avoid timeout.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-7">rdhs 0.7.4<a class="anchor" aria-label="anchor" href="#rdhs-development-version-7"></a></h3>
+<h3 id="rdhs-development-version-6">rdhs 0.7.4<a class="anchor" aria-label="anchor" href="#rdhs-development-version-6"></a></h3>
 <ul><li>
 <code>available_datasets</code> patch (<a href="https://github.com/ropensci/rdhs/issues/131" class="external-link">#131</a>) for new version of <code>qdapRegex</code> on CRAN</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-8">rdhs 0.7.3<a class="anchor" aria-label="anchor" href="#rdhs-development-version-8"></a></h3>
+<h3 id="rdhs-development-version-7">rdhs 0.7.3<a class="anchor" aria-label="anchor" href="#rdhs-development-version-7"></a></h3>
 <ul><li>Reference internal access to <code>model_datasets</code> with <code><a href="../reference/model_datasets.html">rdhs::model_datasets</a></code> to avoid errors if <code>rdhs</code> namespace is not loaded.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-9">rdhs 0.7.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-9"></a></h3>
+<h3 id="rdhs-development-version-8">rdhs 0.7.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-8"></a></h3>
 <ul><li>
 <code>available_datasets</code> patch (<a href="https://github.com/ropensci/rdhs/issues/115" class="external-link">#115</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-10">rdhs 0.7.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-10"></a></h3>
+<h3 id="rdhs-development-version-9">rdhs 0.7.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-9"></a></h3>
 <ul><li>
 <p>Remove class <code>"dhs_dataset"</code> from downloaded micro data sets. This class is not anywhere and it creates an error for dplyr_v1.0.</p>
 <p>Cached datasets will need to be re-downloaded after updating to clear the dhs_dataset clas.</p>
@@ -133,7 +129,7 @@
 <li><p>Use <code>"sf"</code> as default download method for <code>download_boundaries(..., method = "sf")</code>. Add arguments <code>quiet_download</code> and <code>quiet_parse = TRUE</code> to <code><a href="../reference/download_boundaries.html">download_boundaries()</a></code>. <code>quiet_download</code> (default <code>FALSE</code>) controls <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file()</a></code> messages. <code>quiet_parse</code> (default <code>TRUE</code>) controls messages from <code><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">sf::st_read()</a></code> when <code>method = "sf"</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-11">rdhs 0.7.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-11"></a></h3>
+<h3 id="rdhs-development-version-10">rdhs 0.7.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-10"></a></h3>
 <ul><li>Add CITATION info.</li>
 <li>New <code>download_boundaries</code> for downloading spatial boundaries using (<a href="https://github.com/ropensci/rdhs/issues/71" class="external-link">#71</a>)</li>
 <li>New <code>dhs_gps_data_format</code> for DHS GPS Information (<a href="https://github.com/ropensci/rdhs/issues/74" class="external-link">#74</a>)</li>
@@ -144,37 +140,37 @@
 <code>unzip_special</code> correctly detects 4Gb files (<a href="https://github.com/ropensci/rdhs/issues/43" class="external-link">#43</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-12">rdhs 0.6.3<a class="anchor" aria-label="anchor" href="#rdhs-development-version-12"></a></h3>
+<h3 id="rdhs-development-version-11">rdhs 0.6.3<a class="anchor" aria-label="anchor" href="#rdhs-development-version-11"></a></h3>
 <ul><li>Addresses CRAN fail on windows</li>
 <li>New <code>delabel_df</code> for converting labelled data frames to characters (<a href="https://github.com/ropensci/rdhs/issues/54" class="external-link">#54</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-13">rdhs 0.6.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-13"></a></h3>
+<h3 id="rdhs-development-version-12">rdhs 0.6.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-12"></a></h3>
 <ul><li>Duplicate labels when parsing flat data files corrected (<a href="https://github.com/ropensci/rdhs/issues/79" class="external-link">#79</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-14">rdhs 0.6.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-14"></a></h3>
+<h3 id="rdhs-development-version-13">rdhs 0.6.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-13"></a></h3>
 <ul><li>
 <code>extraction(add_geo=TRUE)</code> correction for Kenya 2014 surveys (<a href="https://github.com/ropensci/rdhs/issues/67" class="external-link">#67</a>)</li>
 <li>Geospatial covariate data sets now supported correctly (<a href="https://github.com/ropensci/rdhs/issues/64" class="external-link">#64</a>)</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-15">rdhs 0.6.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-15"></a></h3>
+<h3 id="rdhs-development-version-14">rdhs 0.6.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-14"></a></h3>
 <ul><li><p>New <code>as_factor.labelled</code> for backward compatibility with <code>haven &lt;2.0.0</code> <code>labelled</code> classes.</p></li>
 <li><p><code>model_datasets</code> now internal and exported dataset (<a href="https://github.com/ropensci/rdhs/issues/60" class="external-link">#60</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-16">rdhs 0.5.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-16"></a></h3>
+<h3 id="rdhs-development-version-15">rdhs 0.5.2<a class="anchor" aria-label="anchor" href="#rdhs-development-version-15"></a></h3>
 <ul><li><p>New vignettes: <code>country_codes</code></p></li>
 <li><p>Documentation typos corrected (<a href="https://github.com/ropensci/rdhs/issues/55" class="external-link">#55</a>)</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-17">rdhs 0.5.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-17"></a></h3>
+<h3 id="rdhs-development-version-16">rdhs 0.5.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-16"></a></h3>
 <ul><li><p>New <code>set_rdhs_config</code> for providing login credentials. This deprecates <code>set_dhs_credentials</code>.</p></li>
 <li><p>New <code>get_rdhs_config</code> shows the credentials currently used by <code>rdhs</code></p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-18">rdhs 0.4.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-18"></a></h3>
+<h3 id="rdhs-development-version-17">rdhs 0.4.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-17"></a></h3>
 <ul><li><p>Permissionn from user now required for file saving.</p></li>
 <li><p>API requests can now ignore any cached responses (<code>force = TRUE</code>) argument (<a href="https://github.com/ropensci/rdhs/issues/23" class="external-link">#23</a>):</p></li>
 </ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -190,21 +186,21 @@
 <span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu">geojsonio</span><span class="fu">::</span><span class="fu">as.json</span><span class="op">(</span><span class="va">d</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">geojsonio</span><span class="fu">::</span><span class="va">geojson_sp</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="rdhs-development-version-19">rdhs 0.3.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-19"></a></h3>
+<h3 id="rdhs-development-version-18">rdhs 0.3.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-18"></a></h3>
 <ul><li>New <code><a href="../reference/dhs_data.html">dhs_data()</a></code>, <code><a href="../reference/dhs_countries.html">dhs_countries()</a></code> and other API functions (<code>dhs_x()</code>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-20">rdhs 0.2.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-20"></a></h3>
+<h3 id="rdhs-development-version-19">rdhs 0.2.1<a class="anchor" aria-label="anchor" href="#rdhs-development-version-19"></a></h3>
 <ul><li>
 <code><a href="../reference/authenticate_dhs.html">authenticate_dhs()</a></code> now works with short project names.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-21">rdhs 0.2.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-21"></a></h3>
+<h3 id="rdhs-development-version-20">rdhs 0.2.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-20"></a></h3>
 <ul><li><p>New vignettes: <code>anemia</code></p></li>
 <li><p>New <code><a href="../reference/read_dhs_flat.html">read_dhs_flat()</a></code> for reading flat datasets.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="rdhs-development-version-22">rdhs 0.1.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-22"></a></h3>
+<h3 id="rdhs-development-version-21">rdhs 0.1.0<a class="anchor" aria-label="anchor" href="#rdhs-development-version-21"></a></h3>
 <ul><li>Initial share on Feb, 24th 2018 to colleagues at UNC.</li>
 </ul></div>
 </div>
