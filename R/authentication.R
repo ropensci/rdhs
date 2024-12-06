@@ -502,7 +502,7 @@ authenticate_dhs <- function(config) {
     } else {
       stop(
         "Your log in credentials were not recognised by the DHS website.\n",
-        "Please check your email, password, and project name are right (?get_rdhs_config),\n",
+        "Please check your credentials are right (?get_rdhs_config), ",
         "and your internet connection for possible error."
       )
     }
