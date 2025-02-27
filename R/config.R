@@ -261,6 +261,10 @@ set_rdhs_config <- function(email = NULL,
   invisible(config)
 }
 
+#' @noRd
+set_rdhs_client <- function(client) {
+  .rdhs$client <- client
+}
 
 #' @noRd
 write_rdhs_config_file <- function(dat, path) {

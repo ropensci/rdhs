@@ -2,8 +2,8 @@
 % Please edit documentation in R/rdhs.R
 \docType{package}
 \name{rdhs}
-\alias{rdhs}
 \alias{rdhs-package}
+\alias{rdhs}
 \title{\pkg{rdhs} DHS database through R}
 \description{
 Provides a client for (1) querying the DHS API for survey indicators

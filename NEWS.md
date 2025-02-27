@@ -1,5 +1,13 @@
 # rdhs (development version)
 
+## rdhs 0.8.4
+
+* New function `set_rdhs_client` to manually set internal client 
+
+## rdhs 0.8.3
+
+* Fix to `check_available_datasets` in client for missing file name warning.
+
 ## rdhs 0.8.2
 
 * Spatial boundaries will be cached using the DHS client  (#122)
